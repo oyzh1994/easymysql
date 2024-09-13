@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true, fluent = true)
-public class DBDatabase {
+public class MysqlDatabase {
 
     /**
      * 名称

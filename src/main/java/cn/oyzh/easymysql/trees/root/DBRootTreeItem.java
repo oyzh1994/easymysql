@@ -8,7 +8,7 @@ import cn.oyzh.easymysql.controller.info.MysqlInfoAddController;
 import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.domain.MysqlGroup;
 import cn.oyzh.easymysql.domain.MysqlInfo;
-import cn.oyzh.easymysql.dto.DBInfoExport;
+import cn.oyzh.easymysql.dto.MysqlInfoExport;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.store.DBGroupStore;
 import cn.oyzh.easymysql.store.DBInfoStore;
@@ -112,7 +112,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
             MessageBox.warn(I18nHelper.connectionIsEmpty());
             return;
         }
-        DBInfoExport export = DBInfoExport.fromConnects(infos);
+        MysqlInfoExport export = MysqlInfoExport.fromConnects(infos);
         FileExtensionFilter extensionFilter = FileChooserHelper.jsonExtensionFilter();
         File file = FileChooserHelper.save(I18nHelper.saveConnection(), I18nResourceBundle.i18nString("base.database", "base.connect", "base._json"), extensionFilter);
         if (file != null) {
@@ -180,7 +180,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
         }
         try {
             String text = FileUtil.readUtf8String(file);
-            DBInfoExport export = DBInfoExport.fromJSON(text);
+            MysqlInfoExport export = MysqlInfoExport.fromJSON(text);
             List<MysqlInfo> infos = export.getConnects();
             if (CollUtil.isNotEmpty(infos)) {
                 for (MysqlInfo info : infos) {

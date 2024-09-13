@@ -9,7 +9,7 @@ import lombok.Data;
  * @since 2023/8/10
  */
 @Data
-public class DBConnect {
+public class MysqlConnect {
 
     /**
      * 地址

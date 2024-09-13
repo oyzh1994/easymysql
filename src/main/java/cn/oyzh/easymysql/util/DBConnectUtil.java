@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.util;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.domain.MysqlInfo;
-import cn.oyzh.easymysql.dto.DBConnect;
+import cn.oyzh.easymysql.dto.MysqlConnect;
 import cn.oyzh.fx.common.thread.ThreadUtil;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.StageAdapter;
@@ -80,13 +80,13 @@ public class DBConnectUtil {
      * @param input 输入内容
      * @return 连接
      */
-    public static DBConnect parse(String input) {
+    public static MysqlConnect parse(String input) {
         if (input == null) {
             return null;
         }
         try {
             String[] words = input.split(" ");
-            DBConnect connect = new DBConnect();
+            MysqlConnect connect = new MysqlConnect();
             int type = -1;
             for (String word : words) {
                 if (type == 0) {

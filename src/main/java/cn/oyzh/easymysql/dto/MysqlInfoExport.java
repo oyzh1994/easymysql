@@ -18,7 +18,7 @@ import java.util.List;
  * @author oyzh
  * @since 2023/06/22
  */
-public class DBInfoExport {
+public class MysqlInfoExport {
 
     /**
      * 导出程序版本号
@@ -44,8 +44,8 @@ public class DBInfoExport {
      * @param dbInfos 连接列表
      * @return DBInfoExport
      */
-    public static DBInfoExport fromConnects(@NonNull List<MysqlInfo> dbInfos) {
-        DBInfoExport export = new DBInfoExport();
+    public static MysqlInfoExport fromConnects(@NonNull List<MysqlInfo> dbInfos) {
+        MysqlInfoExport export = new MysqlInfoExport();
         Project project = SpringUtil.getBean(Project.class);
         export.version = project.getVersion();
         export.connects = dbInfos;
@@ -59,10 +59,10 @@ public class DBInfoExport {
      * @param json json字符串
      * @return RedisInfoExport
      */
-    public static DBInfoExport fromJSON(@NonNull String json) {
+    public static MysqlInfoExport fromJSON(@NonNull String json) {
         StaticLog.info("json: {}", json);
         JSONObject object = JSONUtil.parseObj(json);
-        DBInfoExport export = new DBInfoExport();
+        MysqlInfoExport export = new MysqlInfoExport();
         export.connects = new ArrayList<>();
         export.version = object.getStr("version");
         export.connects = object.getBeanList("connects", MysqlInfo.class);
