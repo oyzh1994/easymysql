@@ -2354,26 +2354,244 @@ public class MysqlDBClient extends DBClient {
 
     @Override
     public List<MysqlRecord> selectTableRecords(MysqlSelectRecordParam param) {
-        throw new UnsupportedOperationException();
+        try {
+            Connection connection = this.connection(param.dbName(), param.schema());
+            StringBuilder builder = new StringBuilder("SELECT *, 0 AS _NAV_ORDER_F_ FROM ");
+            builder.append(DBUtil.wrap(param.schema(), param.tableName(), this.dialect()));
+            String filterCondition = MysqlConditionUtil.buildCondition(param.filters());
+            if (StrUtil.isNotBlank(filterCondition)) {
+                builder.append(" WHERE ").append(filterCondition);
+            }
+            if (param.hasPageControl()) {
+                builder.append(" ORDER BY _NAV_ORDER_F_ OFFSET ")
+                        .append(param.start())
+                        .append(" ROWS FETCH NEXT ")
+                        .append(param.limit())
+                        .append(" ROWS ONLY");
+            }
+            String sql = builder.toString();
+            DBUtil.printSql(sql);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            DBUtil.printMetaData(resultSet);
+            List<MysqlRecord> records = new ArrayList<>();
+            List<MysqlColumn> columns;
+            if (param.columns() != null) {
+                columns = param.columns();
+            } else {
+                columns = DBHelper.parseColumns(resultSet, List.of("_NAV_ORDER_F_"));
+            }
+            while (resultSet.next()) {
+                MysqlRecord record = new MysqlRecord(param.readonly());
+                for (MysqlColumn column : columns) {
+                    Object data = resultSet.getObject(column.getName());
+                    // 获取几何值
+                    if (column.supportGeometry()) {
+                        data = DBHelper.getGeometryString(connection, data);
+                    }
+                    record.putValue(column, data);
+                }
+                records.add(record);
+            }
+            DBUtil.close(resultSet);
+            DBUtil.close(statement);
+            return records;
+        } catch (Exception ex) {
+            throw new DBException(ex);
+        }
     }
 
     @Override
     public long selectTableCount(MysqlSelectRecordParam param) {
-        throw new UnsupportedOperationException();
+        long count = 0;
+        try {
+            Connection connection = this.connection(param.dbName(), param.schema());
+            StringBuilder builder = new StringBuilder("SELECT COUNT(*) FROM");
+            builder.append(DBUtil.wrap(param.schema(), param.tableName(), this.dialect()));
+            String filterCondition = MysqlConditionUtil.buildCondition(param.filters());
+            if (StrUtil.isNotBlank(filterCondition)) {
+                builder.append(" WHERE ").append(filterCondition);
+            }
+            String sql = builder.toString();
+            DBUtil.printSql(sql);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                count = resultSet.getLong(1);
+            }
+            DBUtil.close(resultSet);
+            DBUtil.close(statement);
+        } catch (Exception ex) {
+            throw new DBException(ex);
+        }
+        return count;
     }
 
     @Override
     public int insertRecord(MysqlInsertRecordParam param) {
-        throw new UnsupportedOperationException();
+        if (param == null || param.record() == null) {
+            return 0;
+        }
+        try {
+            StringBuilder builder = new StringBuilder();
+            builder.append("INSERT INTO ")
+                    .append(DBUtil.wrap(param.schema(), param.tableName(), this.dialect()))
+                    .append("(");
+            for (String column : param.record().columns()) {
+                builder.append(DBUtil.wrap(column, this.dialect())).append(",");
+            }
+            builder.append(")");
+            builder.append(" VALUES(");
+            for (String column : param.record().columns()) {
+                if (param.record().isTypeGeometry(column)) {
+                    builder.append("ST_GeomFromText(?),");
+                } else {
+                    builder.append("?,");
+                }
+            }
+            builder.append(")");
+            String sql = builder.toString();
+            sql = sql.replaceAll(",\\)", ")");
+            DBUtil.printSql(sql);
+            Connection connection = this.connection(param.dbName(), param.schema());
+            PreparedStatement statement = connection.prepareStatement(sql);
+            int index = 1;
+            for (String colName : param.record().columns()) {
+                DBUtil.setVal(statement, param.record().value(colName), index++);
+            }
+            int count = statement.executeUpdate();
+            MysqlRecordPrimaryKey primaryKey = param.primaryKey();
+            // 处理自动递增值
+            if (primaryKey != null && primaryKey.shouldReturnData()) {
+                primaryKey.setReturnData(DBHelper.lastInsertId(connection));
+            }
+            DBUtil.close(statement);
+            return count;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
     }
 
     @Override
     public int deleteRecord(MysqlDeleteRecordParam param) {
-        return 0;
+        try {
+            int updateCount;
+            String dbName = param.dbName();
+            String schema = param.schema();
+            String tableName = param.tableName();
+            Connection connection = this.connection(dbName, schema);
+            StringBuilder builder = new StringBuilder();
+            builder.append("DELETE FROM ")
+                    .append(DBUtil.wrap(schema, tableName, this.dialect()))
+                    .append(" WHERE ");
+            if (param.primaryKey() == null) {
+                MysqlRecordData recordData = param.record();
+                boolean first = true;
+                for (String colName : recordData.columns()) {
+                    if (first) {
+                        first = false;
+                    } else {
+                        builder.append(" AND ");
+                    }
+                    builder.append(DBUtil.wrap(colName, this.dialect()))
+                            .append(" = ?");
+                }
+                String sql = builder.toString();
+                DBUtil.printSql(sql);
+                PreparedStatement statement = connection.prepareStatement(sql);
+                int index = 1;
+                // 设置参数
+                for (String colName : param.record().columns()) {
+                    DBUtil.setVal(statement, param.record().value(colName), index++);
+                }
+                updateCount = DBUtil.executeUpdate(statement);
+            } else {
+                MysqlRecordPrimaryKey primaryKey = param.primaryKey();
+                builder.append(DBUtil.wrap(primaryKey.getColumnName(), this.dialect()))
+                        .append(" = ?");
+                String sql = builder.toString();
+                DBUtil.printSql(sql);
+                PreparedStatement statement = connection.prepareStatement(sql);
+                DBUtil.setVal(statement, primaryKey.originalData(), 1);
+                updateCount = DBUtil.executeUpdate(statement);
+                DBUtil.close(statement);
+            }
+            return updateCount;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
     }
 
     @Override
     public int updateRecord(MysqlUpdateRecordParam param) {
-        return 0;
+        try {
+            int updateCount;
+            String dbName = param.dbName();
+            String schema = param.schema();
+            String tableName = param.tableName();
+            MysqlRecordData recordData = param.updateRecord();
+            StringBuilder builder = new StringBuilder();
+            builder.append("UPDATE ")
+                    .append(DBUtil.wrap(schema, tableName, this.dialect()))
+                    .append(" SET ");
+            for (String column : recordData.columns()) {
+                if (recordData.isTypeGeometry(column)) {
+                    builder.append(DBUtil.wrap(column, this.dialect())).append(" = ST_GeomFromText(?),");
+                } else {
+                    builder.append(DBUtil.wrap(column, this.dialect())).append(" = ?,");
+                }
+            }
+            builder.deleteCharAt(builder.length() - 1);
+            builder.append(" WHERE ");
+            Connection connection = this.connection(dbName, schema);
+            if (param.primaryKey() == null) {
+                MysqlRecordData originalRecordData = param.record();
+                // 参数
+                boolean first = true;
+                for (String column : originalRecordData.columns()) {
+                    if (first) {
+                        first = false;
+                    } else {
+                        builder.append(" AND ");
+                    }
+                    builder.append(DBUtil.wrap(column, this.dialect())).append(" = ?");
+                }
+                int index = 1;
+                String sql = builder.toString();
+                DBUtil.printSql(sql);
+                PreparedStatement statement = connection.prepareStatement(sql);
+                // 设置值
+                for (String colName : recordData.columns()) {
+                    DBUtil.setVal(statement, recordData.value(colName), index++);
+                }
+                // 设置参数
+                for (String colName : originalRecordData.columns()) {
+                    DBUtil.setVal(statement, originalRecordData.value(colName), index++);
+                }
+                updateCount = DBUtil.executeUpdate(statement);
+                DBUtil.close(statement);
+            } else {
+                MysqlRecordPrimaryKey primaryKey = param.primaryKey();
+                builder.append(" WHERE ").append(DBUtil.wrap(primaryKey.getColumnName(), this.dialect())).append(" = ?");
+                String sql = builder.toString();
+                DBUtil.printInfo(sql, recordData);
+                PreparedStatement statement = connection.prepareStatement(sql);
+                int index = 1;
+                // 设置值
+                for (String colName : recordData.columns()) {
+                    DBUtil.setVal(statement, recordData.value(colName), index++);
+                }
+                // 设置参数
+                DBUtil.setVal(statement, primaryKey.originalData(), index);
+                updateCount = DBUtil.executeUpdate(statement);
+                DBUtil.close(statement);
+            }
+            return updateCount;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
     }
 }
