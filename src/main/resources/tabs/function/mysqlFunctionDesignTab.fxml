@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.easydb.fx.DBCharsetComboBox?>
-<?import cn.oyzh.easydb.fx.DBSqlTextArea?>
-<?import cn.oyzh.easydb.fx.table.DBEnumTextFiled?>
-<?import cn.oyzh.easydb.fx.table.DBFiledTypeComboBox?>
+<?import cn.oyzh.easymysql.fx.DBCharsetComboBox?>
+<?import cn.oyzh.easymysql.fx.DBSqlTextArea?>
+<?import cn.oyzh.easymysql.fx.table.DBEnumTextFiled?>
+<?import cn.oyzh.easymysql.fx.table.DBFiledTypeComboBox?>
 <?import cn.oyzh.fx.plus.controls.area.FlexTextArea?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
@@ -20,11 +20,11 @@
 <?import cn.oyzh.fx.plus.controls.textfield.NumberTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
-<?import cn.oyzh.easydb.fx.routine.DBCharacteristicCombobox?>
-<?import cn.oyzh.easydb.fx.DBSecurityTypeComboBox?>
+<?import cn.oyzh.easymysql.fx.routine.DBCharacteristicCombobox?>
+<?import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox?>
 <FlexVBox xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="cn.oyzh.easydb.module.mysql.tabs.MysqlFunctionDesignTabController" flexWidth="100%" flexHeight="100%">
+          fx:controller="cn.oyzh.easymysql.module.mysql.tabs.MysqlFunctionDesignTabController" flexWidth="100%" flexHeight="100%">
     <FlexHBox realHeight="25" flexWidth="100%">
         <SaveSVGGlyph onMousePrimaryClicked="#save" size="14">
             <HBox.margin>

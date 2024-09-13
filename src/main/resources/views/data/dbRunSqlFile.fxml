@@ -13,7 +13,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easydb.controller.data.DBRunSqlFileController" realWidth="700" realHeight="550">
+          fx:controller="cn.oyzh.easymysql.controller.data.DBRunSqlFileController" realWidth="700" realHeight="550">
     <FlexHBox flexWidth="100%" realHeight="50">
         <AccentLabel text="%base.connect" realHeight="30" realWidth="80">
             <HBox.margin>

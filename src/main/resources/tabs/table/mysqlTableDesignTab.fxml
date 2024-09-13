@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.easydb.fx.DBCharsetComboBox?>
-<?import cn.oyzh.easydb.fx.DBCollationComboBox?>
-<?import cn.oyzh.easydb.fx.DBStatusColumn?>
-<?import cn.oyzh.easydb.fx.DBStatusTableView?>
-<?import cn.oyzh.easydb.fx.table.DBEngineComboBox?>
-<?import cn.oyzh.easydb.fx.table.DBRowFormatComboBox?>
+<?import cn.oyzh.easymysql.fx.DBCharsetComboBox?>
+<?import cn.oyzh.easymysql.fx.DBCollationComboBox?>
+<?import cn.oyzh.easymysql.fx.DBStatusColumn?>
+<?import cn.oyzh.easymysql.fx.DBStatusTableView?>
+<?import cn.oyzh.easymysql.fx.table.DBEngineComboBox?>
+<?import cn.oyzh.easymysql.fx.table.DBRowFormatComboBox?>
 <?import cn.oyzh.fx.plus.controls.area.FlexTextArea?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
@@ -21,7 +21,7 @@
 <?import cn.oyzh.fx.plus.controls.svg.MoveUpSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.svg.MoveDownSVGGlyph?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easydb.module.mysql.tabs.MysqlTableDesignTabController" flexWidth="100%" flexHeight="100%">
+          fx:controller="cn.oyzh.easymysql.module.mysql.tabs.MysqlTableDesignTabController" flexWidth="100%" flexHeight="100%">
     <FlexHBox realHeight="25" flexWidth="100%">
         <SaveSVGGlyph fx:id="save" onMousePrimaryClicked="#save" size="14">
             <HBox.margin>

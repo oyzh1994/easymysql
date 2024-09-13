@@ -4,6 +4,7 @@ import cn.oyzh.easymysql.controller.data.DBDataDumpController;
 import cn.oyzh.easymysql.controller.data.DBRunSqlFileController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
+import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.event.DBEvent;
 import cn.oyzh.easymysql.db.query.DBExecuteResult;
 import cn.oyzh.easymysql.db.query.DBExplainResult;
@@ -491,6 +492,10 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItem.Mysq
 
     public boolean isSupportCheckFeature() {
         return this.client().isSupportCheckFeature();
+    }
+
+    public DBDialect dialect() {
+        return this.client().dialect();
     }
 
     /**

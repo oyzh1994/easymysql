@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.easydb.fx.DBCharsetComboBox?>
-<?import cn.oyzh.easydb.fx.DBCollationComboBox?>
+<?import cn.oyzh.easymysql.fx.DBCharsetComboBox?>
+<?import cn.oyzh.easymysql.fx.DBCollationComboBox?>
 <?import cn.oyzh.fx.plus.controls.button.CancelButton?>
 <?import cn.oyzh.fx.plus.controls.button.SubmitButton?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
@@ -10,7 +10,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easydb.module.mysql.controller.MysqlDatabaseUpdateController" realWidth="750"
+          fx:controller="cn.oyzh.easymysql.module.mysql.controller.MysqlDatabaseUpdateController" realWidth="750"
           realHeight="300">
     <FlexHBox flexWidth="100%" realHeight="50">
         <FXLabel realHeight="30" realWidth="65" text="数据库名" styleClass="accent">

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <FlexVBox styleClass="root" fx:id="searchMain" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="cn.oyzh.easydb.controller.SearchController">
+          fx:controller="cn.oyzh.easymysql.controller.SearchController">
     <FlexHBox realHeight="30" flexWidth="100%">
         <SearchTextField onSearch="#searchNext" fx:id="searchKW" realHeight="24" realWidth="225" maxLen="30"
                          promptText="%base.searchTip4" tipText="%base.searchTip3">

@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easydb.controller.SettingController" realWidth="500" realHeight="350">
+          fx:controller="cn.oyzh.easymysql.controller.SettingController" realWidth="500" realHeight="350">
     <FlexTabPane flexWidth="100%" flexHeight="100% - 60">
         <FXTab text="%base.window">
             <FlexVBox flexWidth="100%" flexHeight="100%">

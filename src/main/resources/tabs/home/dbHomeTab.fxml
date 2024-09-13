@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <FlexPane styleClass="root" flexHeight="100%" flexWidth="100%" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="cn.oyzh.easydb.tabs.home.DBHomeTabController">
+          fx:controller="cn.oyzh.easymysql.tabs.home.DBHomeTabController">
     <ImageView fitWidth="240" fitHeight="240" layoutX="35" layoutY="95">
         <Image url="/image/db_clip.png"/>
     </ImageView>

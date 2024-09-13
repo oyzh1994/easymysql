@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.easydb.fx.data.DataDateTextFiled?>
-<?import cn.oyzh.easydb.fx.data.DataFieldSeparatorComboBox?>
-<?import cn.oyzh.easydb.fx.data.DataImportFileTableView?>
-<?import cn.oyzh.easydb.fx.data.DataImportTableComboBox?>
-<?import cn.oyzh.easydb.fx.data.DataRecordLabelComboBox?>
-<?import cn.oyzh.easydb.fx.data.DataRecordSeparatorComboBox?>
-<?import cn.oyzh.easydb.fx.data.DataTxtIdentifierComboBox?>
-<?import cn.oyzh.easydb.fx.table.DBTableComboBox?>
+<?import cn.oyzh.easymysql.fx.data.DataDateTextFiled?>
+<?import cn.oyzh.easymysql.fx.data.DataFieldSeparatorComboBox?>
+<?import cn.oyzh.easymysql.fx.data.DataImportFileTableView?>
+<?import cn.oyzh.easymysql.fx.data.DataImportTableComboBox?>
+<?import cn.oyzh.easymysql.fx.data.DataRecordLabelComboBox?>
+<?import cn.oyzh.easymysql.fx.data.DataRecordSeparatorComboBox?>
+<?import cn.oyzh.easymysql.fx.data.DataTxtIdentifierComboBox?>
+<?import cn.oyzh.easymysql.fx.table.DBTableComboBox?>
 <?import cn.oyzh.fx.plus.controls.area.MsgTextArea?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
@@ -27,7 +27,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easydb.controller.data.DBDataImportController" realWidth="700" realHeight="650">
+          fx:controller="cn.oyzh.easymysql.controller.data.DBDataImportController" realWidth="700" realHeight="650">
     <FlexVBox fx:id="step1" flexHeight="100%" flexWidth="100%">
         <FlexLabel text="%db.import.tip1" realHeight="30" fontSize="16">
             <VBox.margin>

@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.query;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.query.DBQueryPromptPopup;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.fx.common.thread.TaskManager;
 import cn.oyzh.fx.common.util.NumUtil;
@@ -34,6 +33,13 @@ public class DBQueryTextArea extends FlexRichTextArea {
      * 提示词组件
      */
     private final DBQueryPromptPopup promptPopup = new DBQueryPromptPopup();
+
+    /**
+     * 方言
+     */
+    @Setter
+    @Getter
+    private DBDialect dialect;
 
     {
         this.showLineNum();

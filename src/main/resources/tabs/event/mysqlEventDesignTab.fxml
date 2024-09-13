@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.easydb.fx.DBSqlTextArea?>
-<?import cn.oyzh.easydb.fx.event.DBEventIntervalTypeCombobox?>
-<?import cn.oyzh.easydb.fx.event.DBEventOnCompletionCombobox?>
-<?import cn.oyzh.easydb.fx.event.DBEventStatusCombobox?>
+<?import cn.oyzh.easymysql.fx.DBSqlTextArea?>
+<?import cn.oyzh.easymysql.fx.event.DBEventIntervalTypeCombobox?>
+<?import cn.oyzh.easymysql.fx.event.DBEventOnCompletionCombobox?>
+<?import cn.oyzh.easymysql.fx.event.DBEventStatusCombobox?>
 <?import cn.oyzh.fx.plus.controls.area.FlexTextArea?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <FlexVBox xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="cn.oyzh.easydb.module.mysql.tabs.MysqlEventDesignTabController" flexWidth="100%" flexHeight="100%">
+          fx:controller="cn.oyzh.easymysql.module.mysql.tabs.MysqlEventDesignTabController" flexWidth="100%" flexHeight="100%">
     <FlexHBox realHeight="25" flexWidth="100%">
         <SaveSVGGlyph onMousePrimaryClicked="#save" size="14">
             <HBox.margin>
