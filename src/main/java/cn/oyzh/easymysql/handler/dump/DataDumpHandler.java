@@ -4,8 +4,6 @@ import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.handler.DataHandler;
-import cn.oyzh.easymysql.handler.dump.MariaDataDumpHandler;
-import cn.oyzh.easymysql.handler.dump.MysqlDataDumpHandler;
 import cn.oyzh.fx.common.util.DateHelper;
 import cn.oyzh.fx.common.util.FastFileWriter;
 import lombok.Getter;
@@ -185,7 +183,6 @@ public abstract class DataDumpHandler extends DataHandler {
     public static DataDumpHandler newHandler(DBClient dbClient, String dbName) {
         DataDumpHandler handler = switch (dbClient.dialect()) {
             case MYSQL -> new MysqlDataDumpHandler(dbClient, dbName);
-            case MARIADB -> new MariaDataDumpHandler(dbClient, dbName);
             default -> null;
         };
         if (handler != null) {

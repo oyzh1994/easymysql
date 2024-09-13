@@ -30,19 +30,9 @@ public class DBConnectTreeItemValue extends DBTreeItemValue {
     public void flushGraphic() {
         SVGGlyph glyph = (SVGGlyph) this.graphic();
         if (glyph == null) {
-            if (this.item.isMysqlType()) {
-                glyph = new SVGGlyph("/font/mysql.svg", "12");
-            } else if (this.item.isOracleType()) {
-                glyph = new SVGGlyph("/font/oracle.svg", "12");
-            } else if (this.item.isMariaDBType()) {
-                glyph = new SVGGlyph("/font/mariadb.svg", "12");
-            } else if (this.item.isMssqlType()) {
-                glyph = new SVGGlyph("/font/sqlserver.svg", "12");
-            }
-            if (glyph != null) {
-                glyph.disableTheme();
-                this.graphic(glyph);
-            }
+            glyph = new SVGGlyph("/font/mysql.svg", "12");
+            glyph.disableTheme();
+            this.graphic(glyph);
         }
     }
 

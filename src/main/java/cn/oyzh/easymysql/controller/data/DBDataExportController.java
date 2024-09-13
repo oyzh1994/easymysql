@@ -13,7 +13,7 @@ import cn.oyzh.easymysql.fx.data.DataExportTableTableView;
 import cn.oyzh.easymysql.fx.data.DataFieldSeparatorComboBox;
 import cn.oyzh.easymysql.fx.data.DataRecordSeparatorComboBox;
 import cn.oyzh.easymysql.fx.data.DataTxtIdentifierComboBox;
-import cn.oyzh.easymysql.handler.DataExportHandler;
+import cn.oyzh.easymysql.handler.export.DataExportHandler;
 import cn.oyzh.fx.common.thread.ThreadUtil;
 import cn.oyzh.fx.common.util.SystemUtil;
 import cn.oyzh.fx.plus.FXConst;

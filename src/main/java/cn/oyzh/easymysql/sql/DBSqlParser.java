@@ -46,10 +46,6 @@ public abstract class DBSqlParser {
         return getParser(sql, dialect).parseSql();
     }
 
-    // public static DBSqlNodes parseNode(String sql, DBDialect dialect) throws Exception {
-    //     return getParser(sql, dialect).parseNode();
-    // }
-
     public static DBSqlParser getParser(String sql, DBDialect dialect) throws Exception {
         return new DruidSqlParser(sql, dialect);
     }

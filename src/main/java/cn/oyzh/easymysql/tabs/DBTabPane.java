@@ -31,8 +31,6 @@ public class DBTabPane extends DynamicTabPane implements EventListener {
             }
         });
         new MysqlTabEventListener(this);
-        new MariadbTabEventListener(this);
-        new MssqlTabEventListener(this);
     }
 
 

@@ -10,8 +10,6 @@ import cn.oyzh.easymysql.fx.data.DataTransportTable;
 import cn.oyzh.easymysql.fx.data.DataTransportTrigger;
 import cn.oyzh.easymysql.fx.data.DataTransportView;
 import cn.oyzh.easymysql.handler.DataHandler;
-import cn.oyzh.easymysql.handler.transport.MariaDataTransportHandler;
-import cn.oyzh.easymysql.handler.transport.MysqlDataTransportHandler;
 import cn.oyzh.fx.common.thread.ThreadUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -206,7 +204,6 @@ public abstract class DataTransportHandler extends DataHandler {
     public static DataTransportHandler newHandler(DBDialect dialect) {
         DataTransportHandler handler = switch (dialect) {
             case MYSQL -> new MysqlDataTransportHandler();
-            case MARIADB -> new MariaDataTransportHandler();
             default -> null;
         };
         if (handler != null) {

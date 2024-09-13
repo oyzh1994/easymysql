@@ -271,7 +271,6 @@ public class MysqlProcedureDesignTabController extends DynamicTabController {
         this.comment.setText(this.procedure.getComment());
         this.definition.setText(this.procedure.getDefinition());
         this.definition.forgetHistory();
-        this.definition.setDialect(this.dbItem.dialect());
         this.paramTable.setItem(this.procedure.getParams());
         this.securityType.select(this.procedure.getSecurityType());
         this.characteristic.select(this.procedure.getCharacteristic());

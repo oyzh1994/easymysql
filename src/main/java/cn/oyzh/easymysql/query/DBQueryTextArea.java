@@ -127,12 +127,6 @@ public class DBQueryTextArea extends FlexRichTextArea {
         }
     }
 
-    /**
-     * 方言
-     */
-    @Setter
-    @Getter
-    private DBDialect dialect;
 
     /**
      * 美化sql
