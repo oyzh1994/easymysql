@@ -787,15 +787,9 @@ public abstract class DBClient {
         return this.isSupportFeature(DBFeature.CHECK);
     }
 
-    public boolean isSupportSchemaFeature() {
-        return this.isSupportFeature(DBFeature.SCHEMA);
-    }
-
     public boolean isSupportEventFeature() {
-        return this.isSupportFeature(DBFeature.SCHEMA);
+        return this.isSupportFeature(DBFeature.EVENT);
     }
-
-    public abstract void dropSchema(String dbName, String schema);
 
     public static final String[] TABLE_TYPES = new String[]{"TABLE", "SYSTEM TABLE", "GLOBAL TEMPORARY", "LOCAL TEMPORARY", "ALIAS", "SYNONYM"};
 

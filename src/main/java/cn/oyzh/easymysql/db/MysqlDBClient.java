@@ -2333,9 +2333,6 @@ public class MysqlDBClient extends DBClient {
     @Override
     public boolean isSupportFeature(DBFeature feature) {
         try {
-            if (feature == DBFeature.SCHEMA) {
-                return false;
-            }
             if (feature == DBFeature.EVENT) {
                 return true;
             }
@@ -2353,11 +2350,6 @@ public class MysqlDBClient extends DBClient {
             ex.printStackTrace();
         }
         return false;
-    }
-
-    @Override
-    public void dropSchema(String dbName, String schema) {
-        throw new UnsupportedOperationException();
     }
 
     @Override

@@ -7,6 +7,5 @@ package cn.oyzh.easymysql.db;
 public enum DBFeature {
 
     CHECK,
-    SCHEMA,
     EVENT,
 }
