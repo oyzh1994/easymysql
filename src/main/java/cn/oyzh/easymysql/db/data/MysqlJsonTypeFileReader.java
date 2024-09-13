@@ -14,7 +14,7 @@ import java.util.Map;
  * @author oyzh
  * @since 2024-09-03
  */
-public class MysqlJsonMysqlTypeFileReader extends MysqlTypeFileReader {
+public class MysqlJsonTypeFileReader extends MysqlTypeFileReader {
 
     /**
      * json读取器
@@ -26,7 +26,7 @@ public class MysqlJsonMysqlTypeFileReader extends MysqlTypeFileReader {
      */
     private MysqlDataImportConfig config;
 
-    public MysqlJsonMysqlTypeFileReader(@NonNull File file, MysqlDataImportConfig config) {
+    public MysqlJsonTypeFileReader(@NonNull File file, MysqlDataImportConfig config) {
         this.config = config;
         this.reader = new JSONReader(FileUtil.getReader(file, Charset.forName(config.charset())));
         this.init();

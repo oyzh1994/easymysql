@@ -11,7 +11,7 @@ import java.util.Map;
  * @author oyzh
  * @since 2024-09-04
  */
-public class MysqlJsonMysqlTypeFileWriter extends MysqlTypeFileWriter {
+public class MysqlJsonTypeFileWriter extends MysqlTypeFileWriter {
 
     /**
      * 字段列表
@@ -33,7 +33,7 @@ public class MysqlJsonMysqlTypeFileWriter extends MysqlTypeFileWriter {
      */
     private boolean firstWrite = true;
 
-    public MysqlJsonMysqlTypeFileWriter(String filePath, MysqlDataExportConfig config, DBColumns columns) {
+    public MysqlJsonTypeFileWriter(String filePath, MysqlDataExportConfig config, DBColumns columns) {
         this.columns = columns;
         this.config = config;
         this.writer = LineFileWriter.create(filePath, config.charset());

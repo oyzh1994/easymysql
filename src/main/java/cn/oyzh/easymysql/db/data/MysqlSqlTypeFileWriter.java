@@ -19,7 +19,7 @@ import java.util.Map;
  * @author oyzh
  * @since 2024-09-04
  */
-public class MysqlSqlMysqlTypeFileWriter extends MysqlTypeFileWriter {
+public class MysqlSqlTypeFileWriter extends MysqlTypeFileWriter {
 
     /**
      * 字段列表
@@ -36,7 +36,7 @@ public class MysqlSqlMysqlTypeFileWriter extends MysqlTypeFileWriter {
      */
     private final LineFileWriter writer;
 
-    public MysqlSqlMysqlTypeFileWriter(String filePath, MysqlDataExportConfig config, DBColumns columns) {
+    public MysqlSqlTypeFileWriter(String filePath, MysqlDataExportConfig config, DBColumns columns) {
         this.columns = columns;
         this.config = config;
         this.writer = LineFileWriter.create(filePath, config.charset());

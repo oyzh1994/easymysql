@@ -3,11 +3,11 @@ package cn.oyzh.easymysql.handler.imports;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.data.MysqlCsvMysqlTypeFileReader;
+import cn.oyzh.easymysql.db.data.MysqlCsvTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlDataImportConfig;
 import cn.oyzh.easymysql.db.data.MysqlDataImportHelper;
 import cn.oyzh.easymysql.db.data.MysqlExcelTypeFileReader;
-import cn.oyzh.easymysql.db.data.MysqlJsonMysqlTypeFileReader;
+import cn.oyzh.easymysql.db.data.MysqlJsonTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlTxtTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlXmlTypeFileReader;
@@ -207,10 +207,10 @@ public class DataImportHandler extends DataHandler {
 
     private MysqlTypeFileReader initReader(File file) throws Exception {
         if (this.isCsvType()) {
-            return new MysqlCsvMysqlTypeFileReader(file, this.config);
+            return new MysqlCsvTypeFileReader(file, this.config);
         }
         if (this.isJsonType()) {
-            return new MysqlJsonMysqlTypeFileReader(file, this.config);
+            return new MysqlJsonTypeFileReader(file, this.config);
         }
         if (this.isXmlType()) {
             return new MysqlXmlTypeFileReader(file, this.config);

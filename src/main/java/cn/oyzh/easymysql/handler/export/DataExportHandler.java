@@ -3,15 +3,15 @@ package cn.oyzh.easymysql.handler.export;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.data.MysqlCsvMysqlTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlCsvTypeFileWriter;
 import cn.oyzh.easymysql.db.data.MysqlDataExportConfig;
 import cn.oyzh.easymysql.db.data.MysqlExcelTypeFileWriter;
-import cn.oyzh.easymysql.db.data.MysqlHtmlMysqlTypeFileWriter;
-import cn.oyzh.easymysql.db.data.MysqlJsonMysqlTypeFileWriter;
-import cn.oyzh.easymysql.db.data.MysqlSqlMysqlTypeFileWriter;
-import cn.oyzh.easymysql.db.data.MysqlTxtMysqlTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlHtmlTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlJsonTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlSqlTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlTxtTypeFileWriter;
 import cn.oyzh.easymysql.db.data.MysqlTypeFileWriter;
-import cn.oyzh.easymysql.db.data.MysqlXmlMysqlTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlXmlTypeFileWriter;
 import cn.oyzh.easymysql.db.record.DBRecord;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.easymysql.fx.data.DataExportTable;
@@ -198,25 +198,25 @@ public class DataExportHandler extends DataHandler {
 
     private MysqlTypeFileWriter initWriter(String filePath, DBColumns columns) throws IOException {
         if (this.isSqlType()) {
-            return new MysqlSqlMysqlTypeFileWriter(filePath, this.config, columns);
+            return new MysqlSqlTypeFileWriter(filePath, this.config, columns);
         }
         if (this.isExcelType()) {
             return new MysqlExcelTypeFileWriter(filePath, this.config, columns);
         }
         if (this.isHtmlType()) {
-            return new MysqlHtmlMysqlTypeFileWriter(filePath, this.config, columns);
+            return new MysqlHtmlTypeFileWriter(filePath, this.config, columns);
         }
         if (this.isJsonType()) {
-            return new MysqlJsonMysqlTypeFileWriter(filePath, this.config, columns);
+            return new MysqlJsonTypeFileWriter(filePath, this.config, columns);
         }
         if (this.isXmlType()) {
-            return new MysqlXmlMysqlTypeFileWriter(filePath, this.config, columns);
+            return new MysqlXmlTypeFileWriter(filePath, this.config, columns);
         }
         if (this.isCsvType()) {
-            return new MysqlCsvMysqlTypeFileWriter(filePath, this.config, columns);
+            return new MysqlCsvTypeFileWriter(filePath, this.config, columns);
         }
         if (this.isTxtType()) {
-            return new MysqlTxtMysqlTypeFileWriter(filePath, this.config, columns);
+            return new MysqlTxtTypeFileWriter(filePath, this.config, columns);
         }
         return null;
     }

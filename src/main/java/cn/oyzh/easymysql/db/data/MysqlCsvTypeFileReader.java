@@ -15,7 +15,7 @@ import java.util.Map;
  * @author oyzh
  * @since 2024-09-03
  */
-public class MysqlCsvMysqlTypeFileReader extends MysqlTypeFileReader {
+public class MysqlCsvTypeFileReader extends MysqlTypeFileReader {
 
     /**
      * 字段列表
@@ -32,7 +32,7 @@ public class MysqlCsvMysqlTypeFileReader extends MysqlTypeFileReader {
      */
     private SkipAbleFileReader reader;
 
-    public MysqlCsvMysqlTypeFileReader(@NonNull File file, MysqlDataImportConfig config) throws IOException {
+    public MysqlCsvTypeFileReader(@NonNull File file, MysqlDataImportConfig config) throws IOException {
         this.config = config;
         this.reader = new SkipAbleFileReader(file, Charset.forName(config.charset()));
         this.init();
