@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.easydb.fx.table.DBColumnListView?>
+<?import cn.oyzh.easymysql.fx.table.DBColumnListView?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
 <?import cn.oyzh.fx.plus.controls.svg.CancelSVGGlyph?>
@@ -9,7 +9,7 @@
 <?import cn.oyzh.fx.plus.controls.svg.MoveUpSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.svg.MoveDownSVGGlyph?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easydb.popups.DBColumnFieldPopupController" realWidth="320"
+          fx:controller="cn.oyzh.easymysql.popups.DBColumnFieldPopupController" realWidth="320"
           realHeight="200">
     <DBColumnListView flexWidth="100%" flexHeight="100% - 25" fx:id="listView">
     </DBColumnListView>

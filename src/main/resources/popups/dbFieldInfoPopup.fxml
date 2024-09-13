@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import cn.oyzh.fx.plus.controls.textfield.NumberTextField?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easydb.popups.DBFieldInfoPopupController" realWidth="360"
+          fx:controller="cn.oyzh.easymysql.popups.DBFieldInfoPopupController" realWidth="360"
           realHeight="240">
     <FlexHBox realHeight="30">
         <FlexLabel text="%base.name" realWidth="85">
