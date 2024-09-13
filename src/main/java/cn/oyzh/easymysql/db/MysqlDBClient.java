@@ -128,12 +128,9 @@ public class MysqlDBClient extends DBClient {
     @Override
     public List<DBDatabase> databases() {
         try {
-            // 创建Statement对象
             Statement statement = this.connection().createStatement();
-            // 执行SQL查询并获取结果集
             ResultSet resultSet = statement.executeQuery("SHOW DATABASES");
             List<DBDatabase> list = new ArrayList<>();
-            // 遍历结果集并输出数据库名称
             while (resultSet.next()) {
                 DBDatabase databases = new DBDatabase();
                 String dbName = resultSet.getString(1);
@@ -141,7 +138,6 @@ public class MysqlDBClient extends DBClient {
                 databases.setCharsetAndCollation(this.databaseCollation(dbName));
                 list.add(databases);
             }
-            // 关闭连接和释放资源
             DBUtil.close(resultSet);
             DBUtil.close(statement);
             return list;
@@ -150,28 +146,6 @@ public class MysqlDBClient extends DBClient {
             throw new DBException(ex);
         }
     }
-
-    // @Override
-    // public int tableSize(String dbName) {
-    //     try {
-    //         int size = 0;
-    //         // 创建Statement对象
-    //         DatabaseMetaData metaData = this.schemaConnection(dbName).getMetaData();
-    //         // 执行SQL查询并获取结果集
-    //         ResultSet resultSet = metaData.getTables(null, dbName, "%", new String[]{"TABLE"});
-    //         // 遍历结果集并输出数据库名称
-    //         // 打印元数据
-    //         DBUtil.printMetaData(resultSet);
-    //         while (resultSet.next()) {
-    //             size++;
-    //         }
-    //         // 关闭连接和释放资源
-    //         DBUtil.close(resultSet);
-    //         return size;
-    //     } catch (Exception ex) {
-    //         throw new DBException(ex);
-    //     }
-    // }
 
     @Override
     public List<MysqlTable> tables(String dbName, String schema, boolean full) {
