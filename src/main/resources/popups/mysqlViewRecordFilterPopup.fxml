@@ -10,7 +10,7 @@
 <?import cn.oyzh.fx.plus.controls.svg.CloseSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.svg.DeleteSVGGlyph?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.module.mysql.popups.MysqlViewRecordFilterPopupController" realWidth="800" realHeight="350">
+          fx:controller="cn.oyzh.easymysql.popups.MysqlViewRecordFilterPopupController" realWidth="800" realHeight="350">
     <FlexTableView fx:id="filterTable" flexHeight="100% - 30" flexWidth="100%">
         <columns>
             <FlexTableColumn realWidth="35" fx:id="enabled"/>
