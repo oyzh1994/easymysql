@@ -23,10 +23,6 @@ public class DBTypeComboBox extends FlexComboBox<DBDialect> {
         return this.getSelectedItem() == DBDialect.MYSQL;
     }
 
-    public boolean isOracle() {
-        return this.getSelectedItem() == DBDialect.ORACLE;
-    }
-
     public void selectType(String type) {
         if (type != null) {
             for (DBDialect item : this.getItems()) {
@@ -36,7 +32,5 @@ public class DBTypeComboBox extends FlexComboBox<DBDialect> {
                 }
             }
         }
-
     }
-
 }

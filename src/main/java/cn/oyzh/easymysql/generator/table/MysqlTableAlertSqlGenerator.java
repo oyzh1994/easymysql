@@ -25,7 +25,7 @@ import java.util.List;
 public class MysqlTableAlertSqlGenerator extends TableAlertSqlGenerator {
 
     public MysqlTableAlertSqlGenerator() {
-        super(DBDialect.MSSQL);
+        super(DBDialect.MYSQL);
     }
 
     protected MysqlTableAlertSqlGenerator(DBDialect dialect) {

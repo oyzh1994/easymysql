@@ -105,12 +105,6 @@ public class MysqlInfoAddController extends StageController {
     private NumberTextField connectTimeOut;
 
     /**
-     * 服务组件
-     */
-    @FXML
-    private FlexHBox serviceBox;
-
-    /**
      * 分组
      */
     private MysqlGroup group;
@@ -192,20 +186,6 @@ public class MysqlInfoAddController extends StageController {
             dbInfo.setPassword(this.password.getText());
             dbInfo.setGroupId(this.group == null ? null : this.group.getGid());
             dbInfo.setConnectTimeOut(connectTimeOut == null ? 5 : connectTimeOut.intValue());
-
-            // 服务名
-            if (this.serviceBox.isVisible()) {
-                if (this.serviceType.getSelectedIndex() == 0) {
-                    dbInfo.setSid(null);
-                    dbInfo.setServiceName(this.serviceName.getTextTrim());
-                } else if (this.serviceType.getSelectedIndex() == 1) {// sid
-                    dbInfo.setSid(this.serviceName.getTextTrim());
-                    dbInfo.setServiceName(null);
-                }
-            } else {
-                dbInfo.setSid(null);
-                dbInfo.setServiceName(null);
-            }
             // 保存数据
             boolean result = this.infoStore.add(dbInfo);
             if (result) {
@@ -221,28 +201,10 @@ public class MysqlInfoAddController extends StageController {
     }
 
     @Override
-    protected void bindListeners() {
-        super.bindListeners();
-        this.type.selectedItemChanged((observableValue, dbDialect, t1) -> {
-            if (this.type.isOracle()) {
-                this.serviceBox.display();
-            } else {
-                this.serviceBox.disappear();
-            }
-        });
-    }
-
-    @Override
     public void onStageShown(WindowEvent event) {
         super.onStageShown(event);
         this.group = this.getWindowProp("group");
         this.stage.switchOnTab();
         this.stage.hideOnEscape();
-    }
-
-    @Override
-    public void onStageInitialize(StageAdapter stage) {
-        super.onStageInitialize(stage);
-        this.serviceBox.managedBindVisible();
     }
 }

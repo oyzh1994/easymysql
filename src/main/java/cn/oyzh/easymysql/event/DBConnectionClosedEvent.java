@@ -24,8 +24,4 @@ public class DBConnectionClosedEvent extends Event<DBClient> implements EventFor
     public boolean isMysqlType() {
         return this.data().dialect() == DBDialect.MYSQL;
     }
-
-    public boolean isMariadbType() {
-        return this.data().dialect() == DBDialect.MARIADB;
-    }
 }

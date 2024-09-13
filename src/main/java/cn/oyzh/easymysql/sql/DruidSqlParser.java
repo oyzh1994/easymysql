@@ -29,14 +29,6 @@ public class DruidSqlParser extends DBSqlParser {
         this.dbType = switch (dialect) {
             case MYSQL:
                 yield DbType.mysql;
-            case ORACLE:
-                yield DbType.oracle;
-            case DB2:
-                yield DbType.db2;
-            case MSSQL:
-                yield DbType.sqlserver;
-            case MARIADB:
-                yield DbType.mariadb;
             default:
                 yield null;
         };

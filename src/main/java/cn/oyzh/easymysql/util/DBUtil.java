@@ -203,7 +203,6 @@ public class DBUtil {
         printData(data);
     }
 
-    @Deprecated
     public static String wrap(String name) {
         StringBuilder builder = new StringBuilder();
         if (!name.startsWith("`")) {
@@ -216,41 +215,8 @@ public class DBUtil {
         return builder.toString();
     }
 
-    public static String wrap(String name, DBDialect dialect) {
-        StringBuilder builder = new StringBuilder();
-        if (dialect == DBDialect.MYSQL || dialect == DBDialect.MARIADB) {
-            if (!name.startsWith("`")) {
-                builder.append("`");
-            }
-            builder.append(name);
-            if (!name.endsWith("`")) {
-                builder.append("`");
-            }
-        } else if (dialect == DBDialect.MSSQL) {
-            if (!name.startsWith("[")) {
-                builder.append("[");
-            }
-            builder.append(name);
-            if (!name.endsWith("]")) {
-                builder.append("]");
-            }
-        }
-        return builder.toString();
-    }
-
-    @Deprecated
     public static String wrap(String dbName, String tableName) {
         return wrap(dbName) + "." + wrap(tableName);
-    }
-
-    public static String wrap(String dbName, String tableName, DBDialect dialect) {
-        if (dialect == DBDialect.MYSQL || dialect == DBDialect.MARIADB) {
-            return wrap(dbName) + "." + wrap(tableName);
-        }
-        if (dialect == DBDialect.MSSQL) {
-            return wrap(dbName, dialect) + "." + wrap(tableName, dialect);
-        }
-        return null;
     }
 
     public static Object wrapData(Object val) {

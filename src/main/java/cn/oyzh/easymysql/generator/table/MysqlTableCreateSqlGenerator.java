@@ -21,7 +21,7 @@ import java.util.List;
 public class MysqlTableCreateSqlGenerator extends TableCreateSqlGenerator {
 
     public MysqlTableCreateSqlGenerator() {
-        super(DBDialect.MSSQL);
+        super(DBDialect.MYSQL);
     }
 
     protected MysqlTableCreateSqlGenerator(DBDialect dialect) {

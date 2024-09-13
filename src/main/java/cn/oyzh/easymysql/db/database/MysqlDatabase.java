@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.dto;
+package cn.oyzh.easymysql.db.database;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

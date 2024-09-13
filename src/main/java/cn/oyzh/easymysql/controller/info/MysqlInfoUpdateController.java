@@ -81,18 +81,6 @@ public class MysqlInfoUpdateController extends StageController {
     private PortTextField hostPort;
 
     /**
-     * 服务名称
-     */
-    @FXML
-    private ClearableTextField serviceName;
-
-    /**
-     * 服务类型
-     */
-    @FXML
-    private ServiceTypeCombobox serviceType;
-
-    /**
      * 备注
      */
     @FXML
@@ -103,12 +91,6 @@ public class MysqlInfoUpdateController extends StageController {
      */
     @FXML
     private NumberTextField connectTimeOut;
-
-    /**
-     * 服务组件
-     */
-    @FXML
-    private FlexHBox serviceBox;
 
     /**
      * db连接储存对象
@@ -150,14 +132,6 @@ public class MysqlInfoUpdateController extends StageController {
             dbInfo.setUser(this.user.getText());
             dbInfo.setType(this.type.getType());
             dbInfo.setPassword(this.password.getText());
-            // 服务名
-            if (this.serviceType.getSelectedIndex() == 0) {
-                dbInfo.setSid(null);
-                dbInfo.setServiceName(this.serviceName.getTextTrim());
-            } else if (this.serviceType.getSelectedIndex() == 1) {// sid
-                dbInfo.setSid(this.serviceName.getTextTrim());
-                dbInfo.setServiceName(null);
-            }
             DBConnectUtil.testConnect(this.stage, dbInfo);
         }
     }
@@ -185,21 +159,6 @@ public class MysqlInfoUpdateController extends StageController {
         this.dbInfo.setRemark(this.remark.getTextTrim());
         this.dbInfo.setPassword(this.password.getText());
         this.dbInfo.setConnectTimeOut(connectTimeOut == null ? 5 : connectTimeOut.intValue());
-
-        // 服务名
-        if (this.serviceBox.isVisible()) {
-            if (this.serviceType.getSelectedIndex() == 0) {
-                this.dbInfo.setSid(null);
-                this.dbInfo.setServiceName(this.serviceName.getTextTrim());
-            } else if (this.serviceType.getSelectedIndex() == 1) {// sid
-                this.dbInfo.setSid(this.serviceName.getTextTrim());
-                this.dbInfo.setServiceName(null);
-            }
-        } else {
-            this.dbInfo.setSid(null);
-            this.dbInfo.setServiceName(null);
-        }
-
         // 保存数据
         if (this.infoStore.update(this.dbInfo)) {
             DBEventUtil.infoUpdated(this.dbInfo);
@@ -208,18 +167,6 @@ public class MysqlInfoUpdateController extends StageController {
         } else {
             MessageBox.warn("修改db信息失败！");
         }
-    }
-
-    @Override
-    protected void bindListeners() {
-        super.bindListeners();
-        this.type.selectedItemChanged((observableValue, dbDialect, t1) -> {
-            if (this.type.isOracle()) {
-                this.serviceBox.display();
-            } else {
-                this.serviceBox.disappear();
-            }
-        });
     }
 
     @Override
@@ -233,16 +180,8 @@ public class MysqlInfoUpdateController extends StageController {
         this.remark.setText(this.dbInfo.getRemark());
         this.hostPort.setValue(this.dbInfo.hostPort());
         this.password.setText(this.dbInfo.getPassword());
-        this.serviceName.setText(this.dbInfo.serviceName());
-        this.serviceType.init(this.dbInfo.checkServiceType());
         this.connectTimeOut.setValue(this.dbInfo.getConnectTimeOut());
         this.stage.switchOnTab();
         this.stage.hideOnEscape();
-    }
-
-    @Override
-    public void onStageInitialize(StageAdapter stage) {
-        super.onStageInitialize(stage);
-        this.serviceBox.managedBindVisible();
     }
 }

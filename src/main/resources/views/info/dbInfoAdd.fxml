@@ -89,25 +89,6 @@
                         </HBox.margin>
                     </ClearableTextField>
                 </FlexHBox>
-                <FlexHBox flexWidth="100%" realHeight="50" fx:id="serviceBox" managed="false" visible="false">
-                    <AccentLabel realHeight="30" realWidth="100" text="%base.serviceName">
-                        <HBox.margin>
-                            <Insets left="20" top="10"/>
-                        </HBox.margin>
-                    </AccentLabel>
-                    <ClearableTextField fx:id="serviceName" tipText="%base.serviceName"
-                                        realHeight="30"
-                                        flexWidth="100% -265" maxLen="1024">
-                        <HBox.margin>
-                            <Insets left="10" top="10"/>
-                        </HBox.margin>
-                    </ClearableTextField>
-                    <ServiceTypeCombobox fx:id="serviceType" realWidth="120" initIndex="0" realHeight="30">
-                        <HBox.margin>
-                            <Insets left="5" top="10"/>
-                        </HBox.margin>
-                    </ServiceTypeCombobox>
-                </FlexHBox>
             </FlexVBox>
         </FXTab>
         <FXTab text="%base.advanced">
