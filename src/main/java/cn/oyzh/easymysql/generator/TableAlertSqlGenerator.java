@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.generator;
 
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.table.DBTable;
+import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
 import cn.oyzh.easymysql.module.mariadb.generator.MariadbTableAlertSqlGenerator;
 import lombok.Getter;
 

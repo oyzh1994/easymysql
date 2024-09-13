@@ -2,9 +2,9 @@ package cn.oyzh.easymysql.controller.database;
 
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.DBDatabase;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
-import cn.oyzh.easymysql.module.mysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;

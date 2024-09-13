@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.generator;
+package cn.oyzh.easymysql.generator.table;
 
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.table.DBCheck;
@@ -10,6 +10,7 @@ import cn.oyzh.easymysql.db.table.DBIndex;
 import cn.oyzh.easymysql.db.table.DBIndexes;
 import cn.oyzh.easymysql.db.table.DBTable;
 import cn.oyzh.easymysql.db.table.DBTrigger;
+import cn.oyzh.easymysql.generator.TableCreateSqlGenerator;
 import cn.oyzh.easymysql.util.DBUtil;
 
 import java.util.List;

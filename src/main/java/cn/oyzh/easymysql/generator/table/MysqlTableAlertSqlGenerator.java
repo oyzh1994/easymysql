@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.generator;
+package cn.oyzh.easymysql.generator.table;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBDialect;
@@ -14,6 +14,7 @@ import cn.oyzh.easymysql.db.table.DBIndexes;
 import cn.oyzh.easymysql.db.table.DBTable;
 import cn.oyzh.easymysql.db.table.DBTrigger;
 import cn.oyzh.easymysql.db.table.DBTriggers;
+import cn.oyzh.easymysql.generator.TableAlertSqlGenerator;
 import cn.oyzh.easymysql.util.DBUtil;
 
 import java.util.List;
