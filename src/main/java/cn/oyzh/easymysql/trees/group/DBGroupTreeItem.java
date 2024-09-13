@@ -12,7 +12,6 @@ import cn.oyzh.easymysql.store.DBInfoStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.DBTreeView;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
-import cn.oyzh.easymysql.trees.group.DBGroupTreeItemValue;
 import cn.oyzh.easymysql.trees.root.DBRootTreeItem;
 import cn.oyzh.fx.plus.drag.DragNodeItem;
 import cn.oyzh.fx.plus.i18n.I18nHelper;

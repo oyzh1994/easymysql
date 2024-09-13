@@ -9,7 +9,6 @@ import cn.oyzh.easymysql.event.DBInfoUpdatedEvent;
 import cn.oyzh.easymysql.event.DBSearchFinishEvent;
 import cn.oyzh.easymysql.event.DBSearchStartEvent;
 import cn.oyzh.easymysql.event.TreeChildFilterEvent;
-import cn.oyzh.easymysql.trees.DBTreeItemFilter;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.group.DBGroupTreeItem;
 import cn.oyzh.easymysql.trees.root.DBRootTreeItem;

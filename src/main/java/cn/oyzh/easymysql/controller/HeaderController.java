@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql.controller;
 
-import cn.oyzh.easymysql.controller.SettingController;
 import cn.oyzh.easymysql.controller.data.DBDataTransportController;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.fx.common.dto.Project;
