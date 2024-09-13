@@ -1,7 +1,5 @@
 package cn.oyzh.easymysql.tabs;
 
-import cn.oyzh.easymysql.module.mariadb.tabs.MariadbTabEventListener;
-import cn.oyzh.easymysql.module.mssql.tabs.MssqlTabEventListener;
 import cn.oyzh.easymysql.tabs.home.DBHomeTab;
 import cn.oyzh.fx.common.thread.TaskManager;
 import cn.oyzh.fx.plus.event.EventListener;

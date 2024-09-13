@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.generator;
+package cn.oyzh.easymysql.generator.event;
 
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.event.DBEvent;

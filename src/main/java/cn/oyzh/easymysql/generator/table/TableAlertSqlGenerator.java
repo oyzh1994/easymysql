@@ -1,8 +1,7 @@
-package cn.oyzh.easymysql.generator;
+package cn.oyzh.easymysql.generator.table;
 
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.table.DBTable;
-import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
 import cn.oyzh.easymysql.module.mariadb.generator.MariadbTableAlertSqlGenerator;
 import lombok.Getter;
 
@@ -25,7 +24,6 @@ public abstract class TableAlertSqlGenerator {
     public static String generate(DBDialect dialect, DBTable table) {
         return switch (dialect) {
             case MYSQL -> new MysqlTableAlertSqlGenerator().generate(table);
-            case MARIADB -> new MariadbTableAlertSqlGenerator().generate(table);
             default -> null;
         };
     }

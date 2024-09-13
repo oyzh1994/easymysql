@@ -1,8 +1,7 @@
-package cn.oyzh.easymysql.generator;
+package cn.oyzh.easymysql.generator.event;
 
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.event.DBEvent;
-import cn.oyzh.easymysql.module.mariadb.generator.MariadbEventAlertSqlGenerator;
 import lombok.Getter;
 
 /**
@@ -23,7 +22,6 @@ public abstract class EventAlertSqlGenerator {
     public static String generate(DBDialect dialect, DBEvent event) {
         return switch (dialect) {
             case MYSQL -> new MysqlEventAlertSqlGenerator().generate(event);
-            case MARIADB -> new MariadbEventAlertSqlGenerator().generate(event);
             default -> null;
         };
     }

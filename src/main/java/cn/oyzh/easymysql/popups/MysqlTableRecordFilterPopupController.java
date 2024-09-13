@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.popups;
 import cn.oyzh.easymysql.db.record.DBRecordFilter;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
-import cn.oyzh.easymysql.module.mysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.MysqlTableTreeItem;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;

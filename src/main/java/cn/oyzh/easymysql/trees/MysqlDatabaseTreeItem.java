@@ -15,7 +15,7 @@ import cn.oyzh.easymysql.db.view.DBView;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseInfoController;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseUpdateController;
-import cn.oyzh.easymysql.module.mysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.text.FXText;

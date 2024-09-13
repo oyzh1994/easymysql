@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.trees;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.event.DBEvent;
 import cn.oyzh.easymysql.domain.DBInfo;
-import cn.oyzh.easymysql.module.mysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.common.thread.Task;
 import cn.oyzh.fx.common.thread.TaskBuilder;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;

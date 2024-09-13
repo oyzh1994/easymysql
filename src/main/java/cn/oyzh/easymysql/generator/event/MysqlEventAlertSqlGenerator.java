@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.generator;
+package cn.oyzh.easymysql.generator.event;
 
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.event.DBEvent;
@@ -8,20 +8,20 @@ import cn.oyzh.easymysql.util.DBUtil;
  * @author oyzh
  * @since 2024-09-10
  */
-public class MysqlEventCreateSqlGenerator extends EventCreateSqlGenerator {
+public class MysqlEventAlertSqlGenerator extends EventAlertSqlGenerator {
 
-    public MysqlEventCreateSqlGenerator() {
+    public MysqlEventAlertSqlGenerator() {
         super(DBDialect.MYSQL);
     }
 
-    protected MysqlEventCreateSqlGenerator(DBDialect dialect) {
+    protected MysqlEventAlertSqlGenerator(DBDialect dialect) {
         super(dialect);
     }
 
     @Override
     public String generate(DBEvent event) {
         // 起始
-        String sql = "CREATE ";
+        String sql = "ALTER ";
         // 定义者
         if (event.getDefiner() != null) {
             sql += " DEFINER = " + event.getDefiner();

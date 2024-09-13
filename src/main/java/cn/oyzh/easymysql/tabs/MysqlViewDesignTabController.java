@@ -7,7 +7,7 @@ import cn.oyzh.easymysql.fx.view.DBViewAlgorithmComboBox;
 import cn.oyzh.easymysql.fx.view.DBViewCheckOptionComboBox;
 import cn.oyzh.easymysql.listener.DBListener;
 import cn.oyzh.easymysql.listener.DBListenerManager;
-import cn.oyzh.easymysql.module.mysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.common.spring.ScopeType;
 import cn.oyzh.fx.plus.controls.textfield.FlexTextField;

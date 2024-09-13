@@ -21,7 +21,7 @@ import cn.oyzh.easymysql.fx.table.DBEngineComboBox;
 import cn.oyzh.easymysql.fx.table.DBRowFormatComboBox;
 import cn.oyzh.easymysql.listener.DBListener;
 import cn.oyzh.easymysql.listener.DBListenerManager;
-import cn.oyzh.easymysql.module.mysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.common.util.CacheHelper;
 import cn.oyzh.fx.plus.controls.area.FlexTextArea;
