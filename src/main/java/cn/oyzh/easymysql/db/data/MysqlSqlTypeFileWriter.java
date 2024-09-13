@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.db.data;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.HexUtil;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.common.file.LineFileWriter;
@@ -24,7 +24,7 @@ public class MysqlSqlTypeFileWriter extends MysqlTypeFileWriter {
     /**
      * 字段列表
      */
-    private DBColumns columns;
+    private MysqlColumns columns;
 
     /**
      * 导出配置
@@ -36,7 +36,7 @@ public class MysqlSqlTypeFileWriter extends MysqlTypeFileWriter {
      */
     private final LineFileWriter writer;
 
-    public MysqlSqlTypeFileWriter(String filePath, MysqlDataExportConfig config, DBColumns columns) {
+    public MysqlSqlTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) {
         this.columns = columns;
         this.config = config;
         this.writer = LineFileWriter.create(filePath, config.charset());
@@ -45,12 +45,12 @@ public class MysqlSqlTypeFileWriter extends MysqlTypeFileWriter {
     @Override
     public void writeObject(Map<String, Object> object) throws Exception {
         String tableName = this.columns.getTableName();
-        List<DBColumn> columnList = this.columns.sortOfPosition();
+        List<MysqlColumn> columnList = this.columns.sortOfPosition();
         final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName);
         StringBuilder sql = new StringBuilder(sqlBase);
         if (this.config.includeFields()) {
             sql.append("(");
-            for (DBColumn dbColumn : columnList) {
+            for (MysqlColumn dbColumn : columnList) {
                 sql.append(DBUtil.wrap(dbColumn.getName())).append(", ");
             }
             if (sql.toString().endsWith(", ")) {
@@ -59,7 +59,7 @@ public class MysqlSqlTypeFileWriter extends MysqlTypeFileWriter {
             sql.append(")");
         }
         sql.append(" VALUES (");
-        for (DBColumn dbColumn : columnList) {
+        for (MysqlColumn dbColumn : columnList) {
             Object val = object.get(dbColumn.getName());
             val = this.parameterized(dbColumn, val, this.config);
             sql.append(val).append(", ");
@@ -79,7 +79,7 @@ public class MysqlSqlTypeFileWriter extends MysqlTypeFileWriter {
     }
 
     @Override
-    public Object parameterized(DBColumn column, Object value, MysqlDataExportConfig config) {
+    public Object parameterized(MysqlColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return "NULL";
         }

@@ -14,7 +14,7 @@ import lombok.Setter;
  * @since 2024/09/11
  */
 @EqualsAndHashCode(callSuper = true)
-public class DBCheck extends DBObjectStatus implements ObjectCopier<DBCheck> {
+public class MysqlCheck extends DBObjectStatus implements ObjectCopier<MysqlCheck> {
 
     /**
      * 库名称
@@ -42,11 +42,11 @@ public class DBCheck extends DBObjectStatus implements ObjectCopier<DBCheck> {
     @Getter
     private String clause;
 
-    public DBCheck() {
+    public MysqlCheck() {
 
     }
 
-    public DBCheck(String name) {
+    public MysqlCheck(String name) {
         this.name = name;
     }
 
@@ -73,7 +73,7 @@ public class DBCheck extends DBObjectStatus implements ObjectCopier<DBCheck> {
     }
 
     @Override
-    public void copy(DBCheck check) {
+    public void copy(MysqlCheck check) {
         if (check != null) {
             this.name = check.name;
             this.dbName = check.dbName;

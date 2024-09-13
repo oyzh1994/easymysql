@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db.query;
 
 import cn.oyzh.easymysql.db.DBHelper;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -41,7 +41,7 @@ public class MysqlExecuteResult extends MysqlQueryResult {
         while (resultSet.next()) {
             MysqlRecord record = new MysqlRecord(readonly);
             int colIndex = 1;
-            for (DBColumn dbColumn : this.columns) {
+            for (MysqlColumn dbColumn : this.columns) {
                 Object data = resultSet.getObject(colIndex++);
                 // 获取几何值
                 if (dbColumn.supportGeometry()) {

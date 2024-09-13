@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.record;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.exception.DBException;
 import cn.oyzh.easymysql.listener.DBListener;
@@ -34,7 +34,7 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
      * 表字段
      */
     @Getter
-    private DBColumn column;
+    private MysqlColumn column;
 
     /**
      * 原始数据
@@ -52,11 +52,11 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
      */
     private final boolean readonly;
 
-    public MysqlRecordProperty(DBColumn column, Object value) {
+    public MysqlRecordProperty(MysqlColumn column, Object value) {
         this(column, value, false);
     }
 
-    public MysqlRecordProperty(DBColumn column, Object value, boolean readonly) {
+    public MysqlRecordProperty(MysqlColumn column, Object value, boolean readonly) {
         super(value);
         this.column = column;
         if (!readonly) {

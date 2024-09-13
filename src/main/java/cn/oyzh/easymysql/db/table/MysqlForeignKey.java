@@ -25,7 +25,7 @@ import java.util.List;
  * @since 2024/01/25
  */
 @EqualsAndHashCode(callSuper = true)
-public class DBForeignKey extends DBObjectStatus {
+public class MysqlForeignKey extends DBObjectStatus {
 
     /**
      * 外键名称
@@ -124,7 +124,7 @@ public class DBForeignKey extends DBObjectStatus {
 
     public DBFieldTextFiled getColumnControl() {
         try {
-            List<DBColumn> columnList = CacheHelper.get("columnList");
+            List<MysqlColumn> columnList = CacheHelper.get("columnList");
             if (columnList == null) {
                 columnList = new ArrayList<>();
             }
@@ -232,7 +232,7 @@ public class DBForeignKey extends DBObjectStatus {
                 String dbName = this.getPrimaryKeyDatabase();
                 String tableName = this.getPrimaryKeyTable();
                 DBClient client = CacheHelper.get("dbClient");
-                List<DBColumn> columns = client.tableColumns(dbName, null, tableName);
+                List<MysqlColumn> columns = client.tableColumns(dbName, null, tableName);
                 textField.setColumns(columns);
                 textField.setSelectedColumns(this.primaryKeyColumns);
             };

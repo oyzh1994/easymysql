@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.event;
 
-import cn.oyzh.easymysql.db.table.DBTable;
+import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.event.Event;
 import lombok.Data;
@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(fluent = true)
 @EqualsAndHashCode(callSuper = true)
-public class MysqlTableDesignEvent extends Event<DBTable> {
+public class MysqlTableDesignEvent extends Event<MysqlTable> {
 
     private MysqlDatabaseTreeItem dbItem;
 
@@ -22,7 +22,7 @@ public class MysqlTableDesignEvent extends Event<DBTable> {
         return this.data().getName();
     }
 
-    public DBTable table() {
+    public MysqlTable table() {
         return this.data();
     }
 

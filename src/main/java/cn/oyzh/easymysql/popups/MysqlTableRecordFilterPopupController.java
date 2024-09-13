@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.popups;
 
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.MysqlTableTreeItem;
@@ -83,7 +83,7 @@ public class MysqlTableRecordFilterPopupController extends PopupController {
     /**
      * 字段列表
      */
-    private List<DBColumn> columnList;
+    private List<MysqlColumn> columnList;
 
     /**
      * 应用

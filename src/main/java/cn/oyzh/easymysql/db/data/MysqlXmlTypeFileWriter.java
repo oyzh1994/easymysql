@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.db.data;
 
 import cn.hutool.core.io.IoUtil;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.fx.common.file.LineFileWriter;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class MysqlXmlTypeFileWriter extends MysqlTypeFileWriter {
     /**
      * 字段列表
      */
-    private DBColumns columns;
+    private MysqlColumns columns;
 
     /**
      * 导出配置
@@ -29,7 +29,7 @@ public class MysqlXmlTypeFileWriter extends MysqlTypeFileWriter {
      */
     private LineFileWriter writer;
 
-    public MysqlXmlTypeFileWriter(String filePath, MysqlDataExportConfig config, DBColumns columns) {
+    public MysqlXmlTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) {
         this.columns = columns;
         this.config = config;
         this.writer = LineFileWriter.create(filePath, config.charset());
@@ -53,7 +53,7 @@ public class MysqlXmlTypeFileWriter extends MysqlTypeFileWriter {
             builder = new StringBuilder("  <RECORD ");
             for (Map.Entry<String, Object> entry : object.entrySet()) {
                 // 值处理
-                DBColumn column = this.columns.column(entry.getKey());
+                MysqlColumn column = this.columns.column(entry.getKey());
                 Object val = this.parameterized(column, entry.getValue(), this.config);
                 if (val != null) {
                     builder.append(entry.getKey())
@@ -69,7 +69,7 @@ public class MysqlXmlTypeFileWriter extends MysqlTypeFileWriter {
                 // 名称
                 builder.append("   <").append(entry.getKey());
                 // 值处理
-                DBColumn column = this.columns.column(entry.getKey());
+                MysqlColumn column = this.columns.column(entry.getKey());
                 Object val = this.parameterized(column, entry.getValue(), this.config);
                 if (val != null) {
                     builder.append(">");
@@ -94,7 +94,7 @@ public class MysqlXmlTypeFileWriter extends MysqlTypeFileWriter {
     }
 
     @Override
-    public Object parameterized(DBColumn column, Object value, MysqlDataExportConfig config) {
+    public Object parameterized(MysqlColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return null;
         }

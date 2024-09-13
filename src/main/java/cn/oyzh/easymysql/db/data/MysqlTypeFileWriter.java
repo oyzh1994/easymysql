@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.db.data;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.HexUtil;
 import cn.hutool.json.JSONUtil;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.fx.common.util.TextUtil;
 
@@ -31,7 +31,7 @@ public abstract class MysqlTypeFileWriter implements Closeable {
      * @param config 导出配置
      * @return 参数化后的值
      */
-    public Object parameterized(DBColumn column, Object value, MysqlDataExportConfig config) {
+    public Object parameterized(MysqlColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return "";
         }

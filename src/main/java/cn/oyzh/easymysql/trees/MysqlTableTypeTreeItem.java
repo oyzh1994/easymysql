@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.trees;
 import cn.oyzh.easymysql.controller.data.MysqlDataExportController;
 import cn.oyzh.easymysql.controller.data.MysqlDataImportController;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.table.DBTable;
+import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.common.thread.Task;
@@ -111,9 +111,9 @@ public class MysqlTableTypeTreeItem extends DBTreeItem<MysqlTableTypeTreeItem.My
     }
 
     private void addTable() {
-        DBTable dbTable = new DBTable();
-        dbTable.setDbName(this.dbName());
-        MysqlEventUtil.designTable(dbTable, this.dbItem());
+        MysqlTable mysqlTable = new MysqlTable();
+        mysqlTable.setDbName(this.dbName());
+        MysqlEventUtil.designTable(mysqlTable, this.dbItem());
     }
 
     @Override
@@ -144,11 +144,11 @@ public class MysqlTableTypeTreeItem extends DBTreeItem<MysqlTableTypeTreeItem.My
     private void _loadChild() {
         Task task = TaskBuilder.newBuilder()
                 .onStart(() -> {
-                    List<DBTable> tables = this.client().tables(this.dbName());
+                    List<MysqlTable> tables = this.client().tables(this.dbName());
                     // 无数据直接更新列表
                     if (this.isChildEmpty()) {
                         List<TreeItem<?>> list = new ArrayList<>();
-                        for (DBTable table : tables) {
+                        for (MysqlTable table : tables) {
                             list.add(new MysqlTableTreeItem(table, this));
                         }
                         this.setChild(list);
@@ -164,7 +164,7 @@ public class MysqlTableTypeTreeItem extends DBTreeItem<MysqlTableTypeTreeItem.My
                             }
                         }
                         // 新增
-                        for (DBTable table : tables) {
+                        for (MysqlTable table : tables) {
                             if (list.parallelStream().noneMatch(item -> table.compare(item.value()))) {
                                 addList.add(new MysqlTableTreeItem(table, this));
                             }

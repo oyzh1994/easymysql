@@ -5,18 +5,18 @@ import cn.oyzh.easymysql.db.DBObjectList;
 import java.util.List;
 
 /**
- * db表索引
+ * db外键列表
  *
  * @author oyzh
- * @since 2024/01/24
+ * @since 2024/07/10
  */
-public class DBIndexes extends DBObjectList<DBIndex> {
+public class MysqlChecks extends DBObjectList<MysqlCheck> {
 
-    public DBIndexes() {
+    public MysqlChecks() {
 
     }
 
-    public DBIndexes(List<DBIndex> list) {
+    public MysqlChecks(List<MysqlCheck> list) {
         super.addAll(list);
     }
 }

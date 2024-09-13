@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db.record;
 
 
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -48,7 +48,7 @@ public class MysqlRecord extends DBObjectStatus {
     public MysqlRecordProperty putValue(String column, Object value) {
         MysqlRecordProperty property = this.getProperty(column);
         if (property == null) {
-            property = putValue(new DBColumn(column), value);
+            property = putValue(new MysqlColumn(column), value);
         } else {
             property.setValue(value);
         }
@@ -62,7 +62,7 @@ public class MysqlRecord extends DBObjectStatus {
      * @param value  值
      * @return 数据属性
      */
-    public MysqlRecordProperty putValue(DBColumn column, Object value) {
+    public MysqlRecordProperty putValue(MysqlColumn column, Object value) {
         MysqlRecordProperty property = this.getProperty(column.getName());
         if (property == null) {
             property = new MysqlRecordProperty(column, value, this.readonly);

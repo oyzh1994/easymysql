@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.tabs;
 
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;
@@ -92,12 +92,12 @@ public class MysqlQueryExplainTabController extends DynamicTabController {
      *
      * @param columns 列数据
      */
-    private void initColumns(List<DBColumn> columns) {
+    private void initColumns(List<MysqlColumn> columns) {
         // 数据列集合
         List<FlexTableColumn<MysqlRecord, Object>> columnList = new ArrayList<>();
         DBStatusColumn<MysqlRecord> statusColumn = new DBStatusColumn<>();
         columnList.add(statusColumn);
-        for (DBColumn column : columns) {
+        for (MysqlColumn column : columns) {
             DBRecordColumn tableColumn = new DBRecordColumn(column);
             tableColumn.setRealWidth(DBRecordUtil.suitableColumnWidth(column.getType()));
             columnList.add(tableColumn);

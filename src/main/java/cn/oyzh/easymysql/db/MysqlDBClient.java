@@ -19,17 +19,17 @@ import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.db.schema.DBSchema;
-import cn.oyzh.easymysql.db.table.DBCheck;
-import cn.oyzh.easymysql.db.table.DBChecks;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
-import cn.oyzh.easymysql.db.table.DBForeignKey;
-import cn.oyzh.easymysql.db.table.DBForeignKeys;
-import cn.oyzh.easymysql.db.table.DBIndex;
-import cn.oyzh.easymysql.db.table.DBIndexes;
-import cn.oyzh.easymysql.db.table.DBTable;
-import cn.oyzh.easymysql.db.table.DBTrigger;
-import cn.oyzh.easymysql.db.table.DBTriggers;
+import cn.oyzh.easymysql.db.table.MysqlCheck;
+import cn.oyzh.easymysql.db.table.MysqlChecks;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
+import cn.oyzh.easymysql.db.table.MysqlForeignKey;
+import cn.oyzh.easymysql.db.table.MysqlForeignKeys;
+import cn.oyzh.easymysql.db.table.MysqlIndex;
+import cn.oyzh.easymysql.db.table.MysqlIndexes;
+import cn.oyzh.easymysql.db.table.MysqlTable;
+import cn.oyzh.easymysql.db.table.MysqlTrigger;
+import cn.oyzh.easymysql.db.table.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.DBView;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.exception.DBException;
@@ -175,9 +175,9 @@ public class MysqlDBClient extends DBClient {
     // }
 
     @Override
-    public List<DBTable> tables(String dbName, String schema, boolean full) {
+    public List<MysqlTable> tables(String dbName, String schema, boolean full) {
         try {
-            List<DBTable> list = new ArrayList<>();
+            List<MysqlTable> list = new ArrayList<>();
             String sql = "SELECT `AUTO_INCREMENT`, `ROW_FORMAT`, `TABLE_COLLATION`, `TABLE_NAME`, `TABLE_COMMENT`, `ENGINE` FROM information_schema.TABLES WHERE `TABLE_SCHEMA` = ? AND `TABLE_TYPE` != 'VIEW'";
             DBUtil.printSql(sql);
             PreparedStatement statement = this.connection().prepareStatement(sql);
@@ -188,7 +188,7 @@ public class MysqlDBClient extends DBClient {
             DBUtil.printMetaData(resultSet);
             // 遍历结果集
             while (resultSet.next()) {
-                DBTable table = new DBTable();
+                MysqlTable table = new MysqlTable();
                 String tableEngine = resultSet.getString("ENGINE");
                 String tableName = resultSet.getString("TABLE_NAME");
                 String rowFormat = resultSet.getString("ROW_FORMAT");
@@ -207,9 +207,9 @@ public class MysqlDBClient extends DBClient {
                 if (full) {
                     table.setChecks(this.checks(dbName, tableName));
                     table.setColumns(this.tableColumns(dbName, null, tableName));
-                    table.setIndexes(new DBIndexes(this.indexes(dbName, tableName)));
-                    table.setTriggers(new DBTriggers(this.triggers(dbName, tableName)));
-                    table.setForeignKeys(new DBForeignKeys(this.foreignKeys(dbName, tableName)));
+                    table.setIndexes(new MysqlIndexes(this.indexes(dbName, tableName)));
+                    table.setTriggers(new MysqlTriggers(this.triggers(dbName, tableName)));
+                    table.setForeignKeys(new MysqlForeignKeys(this.foreignKeys(dbName, tableName)));
                 }
                 list.add(table);
             }
@@ -223,7 +223,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public DBTable table(String dbName, String tableName, boolean full) {
+    public MysqlTable table(String dbName, String tableName, boolean full) {
         try {
             String sql = "SELECT `AUTO_INCREMENT`, `ROW_FORMAT`, `TABLE_COLLATION`, `TABLE_COMMENT`, `ENGINE` FROM information_schema.TABLES WHERE `TABLE_SCHEMA` = ? AND `TABLE_NAME` = ?  AND `TABLE_TYPE` = 'BASE TABLE'";
             DBUtil.printSql(sql);
@@ -234,7 +234,7 @@ public class MysqlDBClient extends DBClient {
             ResultSet resultSet = statement.executeQuery();
             // 打印元数据
             DBUtil.printMetaData(resultSet);
-            DBTable table = new DBTable();
+            MysqlTable table = new MysqlTable();
             table.setName(tableName);
             table.setDbName(dbName);
             String showCreateTable = this.showCreateTable(dbName, tableName);
@@ -254,9 +254,9 @@ public class MysqlDBClient extends DBClient {
                 if (full) {
                     table.setChecks(this.checks(dbName, tableName));
                     table.setColumns(this.tableColumns(dbName, null, tableName));
-                    table.setIndexes(new DBIndexes(this.indexes(dbName, tableName)));
-                    table.setTriggers(new DBTriggers(this.triggers(dbName, tableName)));
-                    table.setForeignKeys(new DBForeignKeys(this.foreignKeys(dbName, tableName)));
+                    table.setIndexes(new MysqlIndexes(this.indexes(dbName, tableName)));
+                    table.setTriggers(new MysqlTriggers(this.triggers(dbName, tableName)));
+                    table.setForeignKeys(new MysqlForeignKeys(this.foreignKeys(dbName, tableName)));
                 }
             }
             DBUtil.close(resultSet);
@@ -497,7 +497,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public List<DBIndex> indexes(String dbName, String tableName) {
+    public List<MysqlIndex> indexes(String dbName, String tableName) {
         try {
             Connection connection = this.connection();
             Statement statement = connection.createStatement();
@@ -506,21 +506,21 @@ public class MysqlDBClient extends DBClient {
             ResultSet resultSet = statement.executeQuery(sql);
             // 打印元数据
             DBUtil.printMetaData(resultSet);
-            Map<String, DBIndex> indexMap = new HashMap<>();
+            Map<String, MysqlIndex> indexMap = new HashMap<>();
             while (resultSet.next()) {
                 String keyName = resultSet.getString("Key_name");
                 // 主键类型的跳过
                 if ("Primary".equalsIgnoreCase(keyName)) {
                     continue;
                 }
-                DBIndex tableIndex = indexMap.get(keyName);
+                MysqlIndex tableIndex = indexMap.get(keyName);
                 String columnName = resultSet.getString("Column_name");
                 if (tableIndex == null) {
                     int noneUnique = resultSet.getInt("Non_unique");
                     int seqInIndex = resultSet.getInt("Seq_in_index");
                     String indexType = resultSet.getString("Index_type");
                     String indexComment = resultSet.getString("Index_comment");
-                    tableIndex = new DBIndex();
+                    tableIndex = new MysqlIndex();
                     tableIndex.setName(keyName);
                     tableIndex.setSeqIndex(seqInIndex);
                     tableIndex.setComment(indexComment);
@@ -539,7 +539,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public DBChecks checks(String dbName, String tableName) {
+    public MysqlChecks checks(String dbName, String tableName) {
         if (!this.isSupportCheckFeature()) {
             return null;
         }
@@ -562,9 +562,9 @@ public class MysqlDBClient extends DBClient {
             statement.setString(2, tableName);
             ResultSet resultSet = statement.executeQuery();
             DBUtil.printMetaData(resultSet);
-            DBChecks checks = new DBChecks();
+            MysqlChecks checks = new MysqlChecks();
             while (resultSet.next()) {
-                DBCheck check = new DBCheck();
+                MysqlCheck check = new MysqlCheck();
                 String name = resultSet.getString("NAME");
                 String clause = resultSet.getString("CLAUSE");
                 check.setName(name);
@@ -582,7 +582,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public List<DBForeignKey> foreignKeys(String dbName, String tableName) {
+    public List<MysqlForeignKey> foreignKeys(String dbName, String tableName) {
         try {
             // 查询外键
             String sql = """
@@ -612,18 +612,18 @@ public class MysqlDBClient extends DBClient {
             statement.setString(2, tableName);
             ResultSet resultSet = statement.executeQuery();
             DBUtil.printMetaData(resultSet);
-            Map<String, DBForeignKey> foreignKeyMap = new HashMap<>();
+            Map<String, MysqlForeignKey> foreignKeyMap = new HashMap<>();
             while (resultSet.next()) {
                 String fkName = resultSet.getString("FK_NAME");
                 String fkColumnName = resultSet.getString("FKCOLUMN_NAME");
                 String pkColumnName = resultSet.getString("PKCOLUMN_NAME");
-                DBForeignKey foreignKey = foreignKeyMap.get(fkName);
+                MysqlForeignKey foreignKey = foreignKeyMap.get(fkName);
                 if (foreignKey == null) {
                     String pkTableName = resultSet.getString("PKTABLE_NAME");
                     String pkTableCat = resultSet.getString("PKTABLE_CAT");
                     String updateRule = resultSet.getString("UPDATE_RULE");
                     String deleteRule = resultSet.getString("DELETE_RULE");
-                    foreignKey = new DBForeignKey();
+                    foreignKey = new MysqlForeignKey();
                     foreignKey.setName(fkName);
                     foreignKey.setUpdatePolicy(updateRule == null ? null : updateRule.toUpperCase());
                     foreignKey.setDeletePolicy(deleteRule == null ? null : deleteRule.toUpperCase());
@@ -643,7 +643,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public DBColumns tableColumns(String dbName, String schema, String tableName) {
+    public MysqlColumns tableColumns(String dbName, String schema, String tableName) {
         if (StrUtil.isBlank(tableName)) {
             return null;
         }
@@ -673,7 +673,7 @@ public class MysqlDBClient extends DBClient {
             ResultSet resultSet = statement.executeQuery();
             // 打印元数据
             DBUtil.printMetaData(resultSet);
-            Map<String, DBColumn> columns = new HashMap<>();
+            Map<String, MysqlColumn> columns = new HashMap<>();
             while (resultSet.next()) {
                 Object def = resultSet.getObject("COLUMN_DEF");
                 String remarks = resultSet.getString("REMARKS");
@@ -685,7 +685,7 @@ public class MysqlDBClient extends DBClient {
                 String charsetName = resultSet.getString("CHARSET_NAME");
                 String columnExtra = resultSet.getString("COLUMN_EXTRA");
                 String collationName = resultSet.getString("COLLATION_NAME");
-                DBColumn column = new DBColumn();
+                MysqlColumn column = new MysqlColumn();
                 column.initColumn(columnType, columnExtra);
                 column.setDbName(dbName);
                 column.setName(columnName);
@@ -702,11 +702,11 @@ public class MysqlDBClient extends DBClient {
             DBUtil.close(resultSet);
             DBUtil.close(statement);
             // 初始化状态
-            for (DBColumn value : columns.values()) {
+            for (MysqlColumn value : columns.values()) {
                 value.initStatus();
             }
             // 返回排序后的数据
-            return new DBColumns(CollUtil.sort(columns.values(), Comparator.comparingInt(DBColumn::getPosition)));
+            return new MysqlColumns(CollUtil.sort(columns.values(), Comparator.comparingInt(MysqlColumn::getPosition)));
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new DBException(ex);
@@ -714,7 +714,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, DBColumns dbColumns, List<MysqlRecordFilter> filters, boolean readonly) {
+    public List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, MysqlColumns dbColumns, List<MysqlRecordFilter> filters, boolean readonly) {
         try {
             Connection connection = this.connection(dbName);
             StringBuilder builder = new StringBuilder("SELECT * FROM ");
@@ -732,7 +732,7 @@ public class MysqlDBClient extends DBClient {
             ResultSet resultSet = statement.executeQuery(sql);
             DBUtil.printMetaData(resultSet);
             List<MysqlRecord> records = new ArrayList<>();
-            DBColumns columns;
+            MysqlColumns columns;
             if (dbColumns != null && !dbColumns.isEmpty()) {
                 columns = dbColumns;
             } else {
@@ -740,7 +740,7 @@ public class MysqlDBClient extends DBClient {
             }
             while (resultSet.next()) {
                 MysqlRecord record = new MysqlRecord(readonly);
-                for (DBColumn column : columns) {
+                for (MysqlColumn column : columns) {
                     Object data = resultSet.getObject(column.getName());
                     // 获取几何值
                     if (column.supportGeometry()) {
@@ -759,7 +759,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public List<DBColumn> viewColumns(String dbName, String viewName) {
+    public List<MysqlColumn> viewColumns(String dbName, String viewName) {
         try {
             if (StrUtil.isBlank(viewName)) {
                 return Collections.emptyList();
@@ -789,7 +789,7 @@ public class MysqlDBClient extends DBClient {
             ResultSet resultSet = statement.executeQuery();
             // 打印元数据
             DBUtil.printMetaData(resultSet);
-            Map<String, DBColumn> columns = new HashMap<>();
+            Map<String, MysqlColumn> columns = new HashMap<>();
             while (resultSet.next()) {
                 Object def = resultSet.getObject("COLUMN_DEF");
                 String remarks = resultSet.getString("REMARKS");
@@ -801,7 +801,7 @@ public class MysqlDBClient extends DBClient {
                 String charsetName = resultSet.getString("CHARSET_NAME");
                 String columnExtra = resultSet.getString("COLUMN_EXTRA");
                 String collationName = resultSet.getString("COLLATION_NAME");
-                DBColumn column = new DBColumn();
+                MysqlColumn column = new MysqlColumn();
                 column.initColumn(columnType, columnExtra);
                 column.setDbName(dbName);
                 column.setName(columnName);
@@ -821,13 +821,13 @@ public class MysqlDBClient extends DBClient {
             sql = "SELECT * FROM " + DBUtil.wrap(dbName, viewName) + " LIMIT 1";
             PreparedStatement statement1 = this.connection().prepareStatement(sql);
             ResultSet resultSet1 = statement1.executeQuery();
-            DBColumns dbColumns = DBHelper.parseColumns(resultSet1);
+            MysqlColumns dbColumns = DBHelper.parseColumns(resultSet1);
             DBUtil.close(resultSet1);
             DBUtil.close(statement1);
 
             // 初始化状态
-            for (DBColumn value : columns.values()) {
-                DBColumn dbColumn = dbColumns.column(value.getName());
+            for (MysqlColumn value : columns.values()) {
+                MysqlColumn dbColumn = dbColumns.column(value.getName());
                 if (dbColumn != null) {
                     value.setNullable(dbColumn.isNullable());
                     value.setAutoIncrement(dbColumn.isAutoIncrement());
@@ -835,7 +835,7 @@ public class MysqlDBClient extends DBClient {
                 value.initStatus();
             }
             // 返回排序后的数据
-            return CollUtil.sort(columns.values(), Comparator.comparingInt(DBColumn::getPosition));
+            return CollUtil.sort(columns.values(), Comparator.comparingInt(MysqlColumn::getPosition));
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new DBException(ex);
@@ -862,10 +862,10 @@ public class MysqlDBClient extends DBClient {
             DBUtil.printMetaData(resultSet);
             List<MysqlRecord> records = new ArrayList<>();
             boolean updatable = DBHelper.isViewUpdatable(connection, dbName, viewName);
-            DBColumns columns = DBHelper.parseColumns(resultSet);
+            MysqlColumns columns = DBHelper.parseColumns(resultSet);
             while (resultSet.next()) {
                 MysqlRecord record = new MysqlRecord(!updatable);
-                for (DBColumn column : columns) {
+                for (MysqlColumn column : columns) {
                     Object data = resultSet.getObject(column.getName());
                     // 获取几何值
                     if (column.supportGeometry()) {
@@ -1224,7 +1224,7 @@ public class MysqlDBClient extends DBClient {
     // }
 
     @Override
-    public void createTable(String dbName, DBTable table) {
+    public void createTable(String dbName, MysqlTable table) {
         Connection connection = null;
         try {
             connection = this.connection(dbName);
@@ -1246,7 +1246,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public void alterTable(String dbName, DBTable table) {
+    public void alterTable(String dbName, MysqlTable table) {
         Connection connection = null;
         try {
             connection = this.connection(dbName);
@@ -2023,7 +2023,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public List<DBTrigger> triggers(String dbName) {
+    public List<MysqlTrigger> triggers(String dbName) {
         try {
             String sql = """
                         SELECT 
@@ -2037,9 +2037,9 @@ public class MysqlDBClient extends DBClient {
             PreparedStatement statement = this.connection().prepareStatement(sql);
             statement.setString(1, dbName);
             ResultSet resultSet = statement.executeQuery();
-            List<DBTrigger> list = new ArrayList<>();
+            List<MysqlTrigger> list = new ArrayList<>();
             while (resultSet.next()) {
-                DBTrigger trigger = new DBTrigger();
+                MysqlTrigger trigger = new MysqlTrigger();
                 String name = resultSet.getString("TRIGGER_NAME");
                 String timing = resultSet.getString("ACTION_TIMING");
                 String tableName = resultSet.getString("EVENT_OBJECT_TABLE");
@@ -2059,7 +2059,7 @@ public class MysqlDBClient extends DBClient {
         }
     }
 
-    public List<DBTrigger> triggers(String dbName, String tableName) {
+    public List<MysqlTrigger> triggers(String dbName, String tableName) {
         try {
             String sql = """
                         SELECT 
@@ -2076,9 +2076,9 @@ public class MysqlDBClient extends DBClient {
             statement.setString(1, dbName);
             statement.setString(2, tableName);
             ResultSet resultSet = statement.executeQuery();
-            List<DBTrigger> list = new ArrayList<>();
+            List<MysqlTrigger> list = new ArrayList<>();
             while (resultSet.next()) {
-                DBTrigger trigger = new DBTrigger();
+                MysqlTrigger trigger = new MysqlTrigger();
                 String name = resultSet.getString("TRIGGER_NAME");
                 String timing = resultSet.getString("ACTION_TIMING");
                 String manipulation = resultSet.getString("EVENT_MANIPULATION");
@@ -2108,9 +2108,9 @@ public class MysqlDBClient extends DBClient {
             ResultSet resultSet = statement.executeQuery();
             DBUtil.printMetaData(resultSet);
             MysqlRecord record = new MysqlRecord();
-            DBColumns columns = DBHelper.parseColumns(resultSet);
+            MysqlColumns columns = DBHelper.parseColumns(resultSet);
             while (resultSet.next()) {
-                for (DBColumn column : columns) {
+                for (MysqlColumn column : columns) {
                     Object data = resultSet.getObject(column.getName());
                     // 获取几何值
                     if (column.supportGeometry()) {

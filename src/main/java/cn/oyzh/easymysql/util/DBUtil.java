@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.exception.DBException;
 import lombok.experimental.UtilityClass;
 
@@ -185,7 +185,7 @@ public class DBUtil {
      */
     public static void printData(MysqlRecordData data) {
         if (data != null) {
-            for (Map.Entry<DBColumn, Object> entry : data.entries()) {
+            for (Map.Entry<MysqlColumn, Object> entry : data.entries()) {
                 StaticLog.info(entry.getKey().getName() + "=" + entry.getValue());
             }
             StaticLog.info("printData======================>");

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.table;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.table.DBTable;
+import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
 
 import java.util.List;
@@ -19,8 +19,8 @@ public class DBTableComboBox extends FlexComboBox<String> {
     }
 
     public void init(String dbName, String tableName, DBClient client) {
-        List<DBTable> list = client.tables(dbName);
-        this.setItem(list.parallelStream().map(DBTable::getName).toList());
+        List<MysqlTable> list = client.tables(dbName);
+        this.setItem(list.parallelStream().map(MysqlTable::getName).toList());
         if (tableName != null) {
             this.select(tableName);
         }

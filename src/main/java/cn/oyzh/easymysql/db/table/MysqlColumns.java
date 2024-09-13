@@ -14,24 +14,24 @@ import java.util.stream.Collectors;
  * @author oyzh
  * @since 2024/07/10
  */
-public class DBColumns extends DBObjectList<DBColumn> {
+public class MysqlColumns extends DBObjectList<MysqlColumn> {
 
-    public DBColumns() {
+    public MysqlColumns() {
 
     }
 
-    public DBColumns(List<DBColumn> list) {
+    public MysqlColumns(List<MysqlColumn> list) {
         super.addAll(list);
     }
 
-    public List<DBColumn> primaryKeys() {
-        List<DBColumn> list1 = new ArrayList<>();
-        for (DBColumn column : this) {
+    public List<MysqlColumn> primaryKeys() {
+        List<MysqlColumn> list1 = new ArrayList<>();
+        for (MysqlColumn column : this) {
             if (column.isPrimaryKey() && !DBObjectList.isDeleted(column)) {
                 list1.add(column);
             }
         }
-        return list1.parallelStream().filter(DBColumn::isPrimaryKey).sorted((o1, o2) -> {
+        return list1.parallelStream().filter(MysqlColumn::isPrimaryKey).sorted((o1, o2) -> {
             if (o1.isAutoIncrement() && !o2.isAutoIncrement()) {
                 return -1;
             }
@@ -43,7 +43,7 @@ public class DBColumns extends DBObjectList<DBColumn> {
     }
 
     public boolean primaryKeyChanged() {
-        for (DBColumn column : this) {
+        for (MysqlColumn column : this) {
             if (column.isPrimaryKeyChanged()) {
                 return true;
             }
@@ -51,9 +51,9 @@ public class DBColumns extends DBObjectList<DBColumn> {
         return false;
     }
 
-    public DBColumn column(String name) {
+    public MysqlColumn column(String name) {
         if (!this.isEmpty()) {
-            for (DBColumn dbColumn : this) {
+            for (MysqlColumn dbColumn : this) {
                 if (StrUtil.equalsAnyIgnoreCase(dbColumn.getName(), name)) {
                     return dbColumn;
                 }
@@ -64,7 +64,7 @@ public class DBColumns extends DBObjectList<DBColumn> {
 
     public int index(String name) {
         int index = 0;
-        for (DBColumn dbColumn : this) {
+        for (MysqlColumn dbColumn : this) {
             if (dbColumn.getName().equals(name)) {
                 break;
             }
@@ -73,14 +73,14 @@ public class DBColumns extends DBObjectList<DBColumn> {
         return index;
     }
 
-    public List<DBColumn> sortOfPosition() {
+    public List<MysqlColumn> sortOfPosition() {
         return this.parallelStream()
-                .sorted(Comparator.comparing(DBColumn::getPosition))
+                .sorted(Comparator.comparing(MysqlColumn::getPosition))
                 .collect(Collectors.toList());
     }
 
     public String getTableName() {
-        for (DBColumn dbColumn : this) {
+        for (MysqlColumn dbColumn : this) {
             return dbColumn.getTableName();
         }
         return null;
@@ -88,7 +88,7 @@ public class DBColumns extends DBObjectList<DBColumn> {
 
     public List<String> columnNames() {
         List<String> list = new ArrayList<>();
-        for (DBColumn dbColumn : this) {
+        for (MysqlColumn dbColumn : this) {
             list.add(dbColumn.getName());
         }
         return list;

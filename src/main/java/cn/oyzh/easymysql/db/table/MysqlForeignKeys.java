@@ -5,18 +5,21 @@ import cn.oyzh.easymysql.db.DBObjectList;
 import java.util.List;
 
 /**
- * db表触发器列表
+ * db外键列表
  *
  * @author oyzh
  * @since 2024/07/10
  */
-public class DBTriggers extends DBObjectList<DBTrigger> {
+public class MysqlForeignKeys extends DBObjectList<MysqlForeignKey> {
 
-    public DBTriggers() {
+    public MysqlForeignKeys() {
 
     }
 
-    public DBTriggers(List<DBTrigger> list) {
+    public MysqlForeignKeys(List<MysqlForeignKey> list) {
         super.addAll(list);
     }
 }
+
+
+

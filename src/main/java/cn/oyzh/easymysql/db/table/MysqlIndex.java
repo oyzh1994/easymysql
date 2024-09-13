@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.db.table;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.fx.table.DBIndexFieldTextFiled;
 import cn.oyzh.easymysql.fx.table.DBIndexMethodComboBox;
 import cn.oyzh.easymysql.fx.table.DBIndexTypeComboBox;
@@ -27,7 +26,7 @@ import java.util.List;
  * @since 2024/01/24
  */
 @EqualsAndHashCode(callSuper = true)
-public class DBIndex extends DBObjectStatus {
+public class MysqlIndex extends DBObjectStatus {
 
     /**
      * 索引顺序
@@ -124,7 +123,7 @@ public class DBIndex extends DBObjectStatus {
     }
 
     public DBIndexFieldTextFiled getColumnControl() {
-        List<DBColumn> columnList = CacheHelper.get("columnList");
+        List<MysqlColumn> columnList = CacheHelper.get("columnList");
         DBIndexFieldTextFiled textField = new DBIndexFieldTextFiled(this, columnList, this.columns);
         textField.addTextChangeListener((observable, oldValue, newValue) -> this.setColumns(textField.getColumns()));
         textField.setFlexWidth("100% - 12");

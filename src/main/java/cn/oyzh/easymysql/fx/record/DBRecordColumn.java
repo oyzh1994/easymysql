@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.fx.record;
 
 import atlantafx.base.controls.Popover;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.popups.DBFieldInfoPopupController;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
@@ -20,7 +20,7 @@ import javafx.stage.PopupWindow;
  */
 public class DBRecordColumn extends FlexTableColumn<MysqlRecord, Object> {
 
-    public DBRecordColumn(DBColumn column) {
+    public DBRecordColumn(MysqlColumn column) {
         this.setText(column.getName());
         this.setCellValueFactory(p -> p.getValue().getProperty(column.getName()));
         SVGGlyph info = new SVGGlyph("/font/tableField.svg", "12");
@@ -33,7 +33,7 @@ public class DBRecordColumn extends FlexTableColumn<MysqlRecord, Object> {
         this.setContextMenu(new FXContextMenu(fieldInfo));
     }
 
-    private void showColumnInfo(DBColumn column) {
+    private void showColumnInfo(MysqlColumn column) {
         PopupAdapter popup = PopupManager.parsePopup(DBFieldInfoPopupController.class, Popover.ArrowLocation.TOP_LEFT, PopupWindow.AnchorLocation.CONTENT_TOP_LEFT);
         popup.setProp("column", column);
         popup.showPopup(this.getGraphic(), MouseUtil.getMouseX(), MouseUtil.getMouseY());

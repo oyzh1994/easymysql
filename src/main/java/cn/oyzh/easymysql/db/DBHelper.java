@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.db;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.easymysql.util.DBUtil;
 import lombok.experimental.UtilityClass;
 
@@ -344,14 +344,14 @@ public class DBHelper {
         return colType;
     }
 
-    public static DBColumns parseColumns(ResultSet resultSet) throws SQLException {
+    public static MysqlColumns parseColumns(ResultSet resultSet) throws SQLException {
         return parseColumns(resultSet, Collections.emptyList());
     }
 
-    public static DBColumns parseColumns(ResultSet resultSet, List<String> excludes) throws SQLException {
+    public static MysqlColumns parseColumns(ResultSet resultSet, List<String> excludes) throws SQLException {
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         int columnCount = resultSetMetaData.getColumnCount();
-        DBColumns columns = new DBColumns();
+        MysqlColumns columns = new MysqlColumns();
         // 遍历结果集并输出列名
         for (int i = 1; i <= columnCount; i++) {
             // 获取列名
@@ -401,7 +401,7 @@ public class DBHelper {
             System.out.println("columnClassName=" + columnClassName);
             System.out.println("---------------");
 
-            DBColumn dbColumn = new DBColumn();
+            MysqlColumn dbColumn = new MysqlColumn();
             dbColumn.setDigits(scale);
             dbColumn.setName(columnName);
             dbColumn.setSize(displaySize);

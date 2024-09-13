@@ -12,7 +12,7 @@ import cn.oyzh.easymysql.db.data.MysqlTxtTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlXmlTypeFileReader;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.easymysql.fx.data.DataImportFile;
 import cn.oyzh.easymysql.handler.DataHandler;
 import cn.oyzh.fx.common.thread.ThreadUtil;
@@ -179,7 +179,7 @@ public class DataImportHandler extends DataHandler {
         }
         try (MysqlTypeFileReader reader = this.initReader(file.getFile())) {
             // 获取数据库表字段
-            DBColumns dbColumns = new DBColumns(this.dbClient.tableColumns(this.dbName,null, tableName));
+            MysqlColumns dbColumns = new MysqlColumns(this.dbClient.tableColumns(this.dbName,null, tableName));
             if (!dbColumns.isEmpty()) {
                 while (true) {
                     this.checkInterrupt();
@@ -243,7 +243,7 @@ public class DataImportHandler extends DataHandler {
      * @param columns 字段列表
      * @param records 记录列表
      */
-    private void writeRecord(DBColumns columns, List<MysqlRecord> records) throws Exception {
+    private void writeRecord(MysqlColumns columns, List<MysqlRecord> records) throws Exception {
         List<String> sqlList = MysqlDataImportHelper.toInsertSql(columns, records, this.config);
         this.addInsertSql(sqlList);
     }

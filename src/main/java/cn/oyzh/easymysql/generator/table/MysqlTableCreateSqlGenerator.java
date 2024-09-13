@@ -1,15 +1,15 @@
 package cn.oyzh.easymysql.generator.table;
 
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.db.table.DBCheck;
-import cn.oyzh.easymysql.db.table.DBChecks;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBForeignKey;
-import cn.oyzh.easymysql.db.table.DBForeignKeys;
-import cn.oyzh.easymysql.db.table.DBIndex;
-import cn.oyzh.easymysql.db.table.DBIndexes;
-import cn.oyzh.easymysql.db.table.DBTable;
-import cn.oyzh.easymysql.db.table.DBTrigger;
+import cn.oyzh.easymysql.db.table.MysqlCheck;
+import cn.oyzh.easymysql.db.table.MysqlChecks;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlForeignKey;
+import cn.oyzh.easymysql.db.table.MysqlForeignKeys;
+import cn.oyzh.easymysql.db.table.MysqlIndex;
+import cn.oyzh.easymysql.db.table.MysqlIndexes;
+import cn.oyzh.easymysql.db.table.MysqlTable;
+import cn.oyzh.easymysql.db.table.MysqlTrigger;
 import cn.oyzh.easymysql.util.DBUtil;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class MysqlTableCreateSqlGenerator extends TableCreateSqlGenerator {
     }
 
     @Override
-    public String generate(DBTable table) {
+    public String generate(MysqlTable table) {
         String dbName = table.getDbName();
         StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE ").append(DBUtil.wrap(dbName, table.getName())).append(" ( ");
@@ -88,8 +88,8 @@ public class MysqlTableCreateSqlGenerator extends TableCreateSqlGenerator {
         return sql;
     }
 
-    protected void triggerHandle(StringBuilder builder, DBTable table) {
-        for (DBTrigger trigger : table.getTriggers()) {
+    protected void triggerHandle(StringBuilder builder, MysqlTable table) {
+        for (MysqlTrigger trigger : table.getTriggers()) {
             builder.append("CREATE TRIGGER ")
                     .append(DBUtil.wrap(trigger.getName()))
                     .append(" ")
@@ -102,8 +102,8 @@ public class MysqlTableCreateSqlGenerator extends TableCreateSqlGenerator {
         }
     }
 
-    protected void columnHandle(StringBuilder builder, DBTable table) {
-        for (DBColumn column : table.columns()) {
+    protected void columnHandle(StringBuilder builder, MysqlTable table) {
+        for (MysqlColumn column : table.columns()) {
             builder.append(DBUtil.wrap(column.getName()));
             // 字段类型
             builder.append(" ").append(column.getType());
@@ -170,20 +170,20 @@ public class MysqlTableCreateSqlGenerator extends TableCreateSqlGenerator {
         }
     }
 
-    protected void primaryKeyHandle(StringBuilder builder, DBTable table) {
-        List<DBColumn> keyList = table.primaryKeys();
+    protected void primaryKeyHandle(StringBuilder builder, MysqlTable table) {
+        List<MysqlColumn> keyList = table.primaryKeys();
         if (!keyList.isEmpty()) {
             builder.append(" PRIMARY KEY (");
-            for (DBColumn column : keyList) {
+            for (MysqlColumn column : keyList) {
                 builder.append(DBUtil.wrap(column.getName())).append(",");
             }
             builder.append("),");
         }
     }
 
-    protected void indexHandle(StringBuilder builder, DBTable table) {
-        DBIndexes indexes = table.indexes();
-        for (DBIndex index : indexes) {
+    protected void indexHandle(StringBuilder builder, MysqlTable table) {
+        MysqlIndexes indexes = table.indexes();
+        for (MysqlIndex index : indexes) {
             // 新增索引
             builder.append(" ADD");
             if (index.isUnique()) {
@@ -191,7 +191,7 @@ public class MysqlTableCreateSqlGenerator extends TableCreateSqlGenerator {
             }
             builder.append(" INDEX ").append(DBUtil.wrap(index.getName()));
             builder.append(" (");
-            for (DBIndex.IndexColumn column : index.getColumns()) {
+            for (MysqlIndex.IndexColumn column : index.getColumns()) {
                 builder.append(DBUtil.wrap(column.getColumnName()));
                 if (column.getSubPart() > 0) {
                     builder.append("(").append(column.getSubPart()).append(")");
@@ -208,9 +208,9 @@ public class MysqlTableCreateSqlGenerator extends TableCreateSqlGenerator {
         }
     }
 
-    protected void foreignKeyHandle(StringBuilder builder, DBTable table) {
-        DBForeignKeys foreignKeys = table.foreignKeys();
-        for (DBForeignKey foreignKey : foreignKeys) {
+    protected void foreignKeyHandle(StringBuilder builder, MysqlTable table) {
+        MysqlForeignKeys foreignKeys = table.foreignKeys();
+        for (MysqlForeignKey foreignKey : foreignKeys) {
             // 新增外键
             builder.append(" ADD CONSTRAINT ").append(DBUtil.wrap(foreignKey.originalName()));
             builder.append(" FOREIGN KEY (");
@@ -231,9 +231,9 @@ public class MysqlTableCreateSqlGenerator extends TableCreateSqlGenerator {
         }
     }
 
-    protected void checkHandle(StringBuilder builder, DBTable table) {
-        DBChecks checks = table.checks();
-        for (DBCheck check : checks) {
+    protected void checkHandle(StringBuilder builder, MysqlTable table) {
+        MysqlChecks checks = table.checks();
+        for (MysqlCheck check : checks) {
             builder.append(" ADD CONSTRAINT ")
                     .append(DBUtil.wrap(check.getName()))
                     .append(" CHECK (")

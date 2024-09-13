@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.db.query;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -54,7 +54,7 @@ public abstract class MysqlQueryResult {
     /**
      * 字段列表
      */
-    protected DBColumns columns;
+    protected MysqlColumns columns;
 
     /**
      * 行列表
@@ -76,7 +76,7 @@ public abstract class MysqlQueryResult {
 
     public String dbName() {
         if (this.columns != null) {
-            for (DBColumn column : this.columns) {
+            for (MysqlColumn column : this.columns) {
                 return column.getDbName();
             }
         }
@@ -85,16 +85,16 @@ public abstract class MysqlQueryResult {
 
     public String tableName() {
         if (this.columns != null) {
-            for (DBColumn column : this.columns) {
+            for (MysqlColumn column : this.columns) {
                 return column.getTableName();
             }
         }
         return null;
     }
 
-    public DBColumn getPrimaryKey() {
+    public MysqlColumn getPrimaryKey() {
         if (this.columns != null) {
-            for (DBColumn column : this.columns) {
+            for (MysqlColumn column : this.columns) {
                 if (column.isAutoIncrement()) {
                     return column;
                 }
@@ -105,7 +105,7 @@ public abstract class MysqlQueryResult {
 
     public boolean isUpdatable() {
         if (this.columns != null) {
-            for (DBColumn column : this.columns) {
+            for (MysqlColumn column : this.columns) {
                 if (column.isAutoIncrement()) {
                     return true;
                 }
@@ -122,7 +122,7 @@ public abstract class MysqlQueryResult {
         return this.used / 1_000_000L;
     }
 
-    public List<DBColumn> columnList() {
+    public List<MysqlColumn> columnList() {
         if (this.columns == null) {
             return Collections.emptyList();
         }

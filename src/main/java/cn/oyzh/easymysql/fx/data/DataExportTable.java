@@ -1,8 +1,7 @@
 package cn.oyzh.easymysql.fx.data;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.fx.data.DataExportColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
 import cn.oyzh.fx.plus.controls.textfield.SaveFileTextField;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
@@ -153,21 +152,21 @@ public class DataExportTable {
         return "";
     }
 
-    public void columns(List<? extends DBColumn> columns) {
+    public void columns(List<? extends MysqlColumn> columns) {
         this.columns = new ArrayList<>();
-        for (DBColumn column : columns) {
+        for (MysqlColumn column : columns) {
             DataExportColumn exportColumn = new DataExportColumn();
             exportColumn.copy(column);
             this.columns.add(exportColumn);
         }
     }
 
-    public List<DBColumn> columns() {
+    public List<MysqlColumn> columns() {
         return new ArrayList<>(this.columns);
     }
 
-    public List<DBColumn> selectedColumns() {
-        List<DBColumn> selectedColumns = new ArrayList<>();
+    public List<MysqlColumn> selectedColumns() {
+        List<MysqlColumn> selectedColumns = new ArrayList<>();
         for (DataExportColumn column : this.columns) {
             if (column.isSelected()) {
                 selectedColumns.add(column);
@@ -178,7 +177,7 @@ public class DataExportTable {
 
     public List<String> selectedColumnNames() {
         List<String> selectedColumns = new ArrayList<>();
-        for (DBColumn column : this.selectedColumns()) {
+        for (MysqlColumn column : this.selectedColumns()) {
             selectedColumns.add(column.getName());
         }
         return selectedColumns;

@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.table;
 
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.fx.plus.controls.select.SelectTextFiled;
 
 /**
@@ -14,7 +14,7 @@ public class DBDefaultValueTextFiled extends SelectTextFiled {
         this.selectIndexChanged((observable, oldValue, newValue) -> this.setEditable(newValue.intValue() == 0));
     }
 
-    public void init(DBColumn column) {
+    public void init(MysqlColumn column) {
         if (column.supportString() || column.supportBit()) {
             this.addData("EMPTY STRING");
             this.addData("NULL");

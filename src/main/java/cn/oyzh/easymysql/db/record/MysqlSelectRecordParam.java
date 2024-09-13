@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db.record;
 
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -26,7 +26,7 @@ public class MysqlSelectRecordParam {
 
     private boolean readonly;
 
-    private List<DBColumn> columns;
+    private List<MysqlColumn> columns;
 
     private List<MysqlRecordFilter> filters;
 

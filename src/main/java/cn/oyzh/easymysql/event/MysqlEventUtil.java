@@ -5,7 +5,7 @@ import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
-import cn.oyzh.easymysql.db.table.DBTable;
+import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.view.DBView;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.domain.DBQuery;
@@ -238,7 +238,7 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-    public static void designTable(DBTable table, MysqlDatabaseTreeItem dbItem) {
+    public static void designTable(MysqlTable table, MysqlDatabaseTreeItem dbItem) {
         MysqlTableDesignEvent event = new MysqlTableDesignEvent();
         event.data(table);
         event.dbItem(dbItem);

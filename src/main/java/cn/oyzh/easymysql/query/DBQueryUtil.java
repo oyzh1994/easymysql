@@ -5,8 +5,8 @@ import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBTable;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.view.DBView;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.common.thread.ThreadUtil;
@@ -46,7 +46,7 @@ public class DBQueryUtil {
     /**
      * 表
      */
-    private static final List<DBTable> DB_TABLES = new ArrayList<>();
+    private static final List<MysqlTable> DB_TABLES = new ArrayList<>();
 
     /**
      * 视图
@@ -66,7 +66,7 @@ public class DBQueryUtil {
     /**
      * 字段
      */
-    private static final List<DBColumn> DB_COLUMNS = new ArrayList<>();
+    private static final List<MysqlColumn> DB_COLUMNS = new ArrayList<>();
 
     static {
         // dml
@@ -151,7 +151,7 @@ public class DBQueryUtil {
         return DB_DATABASES;
     }
 
-    public static List<DBTable> getTables() {
+    public static List<MysqlTable> getTables() {
         return DB_TABLES;
     }
 
@@ -167,7 +167,7 @@ public class DBQueryUtil {
         return DB_PROCEDURES;
     }
 
-    public static List<DBColumn> getColumns() {
+    public static List<MysqlColumn> getColumns() {
         return DB_COLUMNS;
     }
 
@@ -192,7 +192,7 @@ public class DBQueryUtil {
                     // 更新表索引
                     for (DBDatabase database : DB_DATABASES) {
                         if (!DBUtil.isInternalDatabase(database.getName())) {
-                            List<DBTable> tables = client.tables(database.getName());
+                            List<MysqlTable> tables = client.tables(database.getName());
                             DB_TABLES.addAll(tables);
                         }
                     }
@@ -218,9 +218,9 @@ public class DBQueryUtil {
                         }
                     }
                     // 更新字段索引
-                    for (DBTable dbTable : DB_TABLES) {
+                    for (MysqlTable dbTable : DB_TABLES) {
                         if (!DBUtil.isInternalDatabase(dbTable.getDbName())) {
-                            List<DBColumn> columns = client.tableColumns(dbTable.getDbName(),null, dbTable.getName());
+                            List<MysqlColumn> columns = client.tableColumns(dbTable.getDbName(),null, dbTable.getName());
                             DB_COLUMNS.addAll(columns);
                         }
                     }

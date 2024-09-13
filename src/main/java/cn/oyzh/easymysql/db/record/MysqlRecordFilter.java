@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db.record;
 
 import cn.oyzh.easymysql.condition.MysqlCondition;
 import cn.oyzh.easymysql.condition.MysqlConditionUtil;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.fx.table.DBColumnComboBox;
 import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
 import cn.oyzh.easymysql.fx.table.DBJoinSymbolComboBox;
@@ -59,13 +59,13 @@ public class MysqlRecordFilter {
      */
     @Getter
     @Setter
-    private DBColumn column;
+    private MysqlColumn column;
 
     /**
      * 字段列表
      */
     @Setter
-    private List<DBColumn> columns;
+    private List<MysqlColumn> columns;
 
     /**
      * 值组件

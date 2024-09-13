@@ -3,8 +3,8 @@ package cn.oyzh.easymysql.db.view;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.fx.common.util.ObjectComparator;
 import cn.oyzh.fx.common.util.ObjectCopier;
 import javafx.beans.property.SimpleStringProperty;
@@ -113,7 +113,7 @@ public class DBView extends DBObjectStatus implements ObjectCopier<DBView>, Obje
      */
     @Setter
     @Getter
-    protected DBColumns columns;
+    protected MysqlColumns columns;
 
     /**
      * 表名称
@@ -161,7 +161,7 @@ public class DBView extends DBObjectStatus implements ObjectCopier<DBView>, Obje
             if (b1) {
                 return true;
             }
-            for (DBColumn column : this.columns.createdList()) {
+            for (MysqlColumn column : this.columns.createdList()) {
                 if (column.isPrimaryKey()) {
                     return true;
                 }
@@ -170,7 +170,7 @@ public class DBView extends DBObjectStatus implements ObjectCopier<DBView>, Obje
         return false;
     }
 
-    public List<DBColumn> primaryKeys() {
+    public List<MysqlColumn> primaryKeys() {
         if (this.hasColumns()) {
             return this.columns.primaryKeys();
         }
@@ -189,9 +189,9 @@ public class DBView extends DBObjectStatus implements ObjectCopier<DBView>, Obje
         return this.getComment() != null;
     }
 
-    public DBColumns columns() {
+    public MysqlColumns columns() {
         if (this.columns == null) {
-            this.columns = new DBColumns();
+            this.columns = new MysqlColumns();
         }
         return this.columns;
     }
@@ -210,7 +210,7 @@ public class DBView extends DBObjectStatus implements ObjectCopier<DBView>, Obje
         return StrUtil.equals(this.getDbName(), view.getDbName());
     }
 
-    public void removeColumn(DBColumn column) {
+    public void removeColumn(MysqlColumn column) {
         if (column != null && this.columns != null) {
             this.columns().remove(column);
         }

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.data;
 
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.fx.common.file.LineFileWriter;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class MysqlHtmlTypeFileWriter extends MysqlTypeFileWriter {
     /**
      * 字段列表
      */
-    private DBColumns columns;
+    private MysqlColumns columns;
 
     /**
      * 导出配置
@@ -29,7 +29,7 @@ public class MysqlHtmlTypeFileWriter extends MysqlTypeFileWriter {
      */
     private LineFileWriter writer;
 
-    public MysqlHtmlTypeFileWriter(String filePath, MysqlDataExportConfig config, DBColumns columns) {
+    public MysqlHtmlTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) {
         this.columns = columns;
         this.config = config;
         this.writer = LineFileWriter.create(filePath, config.charset());
@@ -63,10 +63,10 @@ public class MysqlHtmlTypeFileWriter extends MysqlTypeFileWriter {
                 <body>
                 <table>
                 """;
-        List<DBColumn> columnList = columns.sortOfPosition();
+        List<MysqlColumn> columnList = columns.sortOfPosition();
         StringBuilder builder = new StringBuilder(head);
         builder.append("\n<tr>");
-        for (DBColumn dbColumn : columnList) {
+        for (MysqlColumn dbColumn : columnList) {
             builder.append("<th>").append(dbColumn.getName()).append("</th>");
         }
         builder.append("</tr>");
@@ -89,7 +89,7 @@ public class MysqlHtmlTypeFileWriter extends MysqlTypeFileWriter {
         Object[] values = new Object[object.size()];
         for (Map.Entry<String, Object> entry : object.entrySet()) {
             int index = this.columns.index(entry.getKey());
-            DBColumn column = this.columns.column(entry.getKey());
+            MysqlColumn column = this.columns.column(entry.getKey());
             Object val = this.parameterized(column, entry.getValue(), this.config);
             values[index] = val;
         }

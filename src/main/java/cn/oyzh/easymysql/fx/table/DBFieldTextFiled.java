@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.table;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.popups.DBColumnFieldPopupController;
 import cn.oyzh.fx.plus.controls.textfield.ChooseTextField;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
@@ -26,11 +26,11 @@ public class DBFieldTextFiled extends ChooseTextField {
     public DBFieldTextFiled() {
     }
 
-    private List<DBColumn> columns;
+    private List<MysqlColumn> columns;
 
     private List<String> selectedColumns;
 
-    public DBFieldTextFiled(List<DBColumn> columns, List<String> selectedColumns) {
+    public DBFieldTextFiled(List<MysqlColumn> columns, List<String> selectedColumns) {
         this.columns = columns;
         this.setSelectedColumns(selectedColumns);
     }
@@ -51,7 +51,7 @@ public class DBFieldTextFiled extends ChooseTextField {
         this.popup.showPopup(this);
     }
 
-    public void setColumns(List<DBColumn> columns) {
+    public void setColumns(List<MysqlColumn> columns) {
         this.columns = columns;
         DBColumnListView listView = this.listView();
         if (listView != null) {

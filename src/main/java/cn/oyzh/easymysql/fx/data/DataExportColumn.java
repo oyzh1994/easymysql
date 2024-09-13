@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.data;
 
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class DataExportColumn extends DBColumn {
+public class DataExportColumn extends MysqlColumn {
 
     /**
      * 是否选中

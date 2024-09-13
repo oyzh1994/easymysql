@@ -13,7 +13,7 @@ import cn.oyzh.easymysql.db.data.MysqlTxtTypeFileWriter;
 import cn.oyzh.easymysql.db.data.MysqlTypeFileWriter;
 import cn.oyzh.easymysql.db.data.MysqlXmlTypeFileWriter;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.easymysql.fx.data.DataExportTable;
 import cn.oyzh.easymysql.handler.DataHandler;
 import lombok.Getter;
@@ -196,7 +196,7 @@ public class DataExportHandler extends DataHandler {
         this.message("Export Finished");
     }
 
-    private MysqlTypeFileWriter initWriter(String filePath, DBColumns columns) throws IOException {
+    private MysqlTypeFileWriter initWriter(String filePath, MysqlColumns columns) throws IOException {
         if (this.isSqlType()) {
             return new MysqlSqlTypeFileWriter(filePath, this.config, columns);
         }
@@ -232,7 +232,7 @@ public class DataExportHandler extends DataHandler {
         this.message("Exporting Table " + table.getName());
         this.message("Exporting Records of Table " + table.getName());
         long start = 0;
-        DBColumns columns = new DBColumns(table.selectedColumns());
+        MysqlColumns columns = new MysqlColumns(table.selectedColumns());
         try (MysqlTypeFileWriter writer = this.initWriter(table.getFilePath(), columns)) {
             this.writeHeader(writer, table, columns);
             if (!columns.isEmpty()) {
@@ -266,7 +266,7 @@ public class DataExportHandler extends DataHandler {
      * @param columns 字段列表
      * @throws IOException 异常
      */
-    private void writeHeader(MysqlTypeFileWriter writer, DataExportTable table, DBColumns columns) throws Exception {
+    private void writeHeader(MysqlTypeFileWriter writer, DataExportTable table, MysqlColumns columns) throws Exception {
         // if (this.isJsonType()) {
         //     this.writer = new FastFileWriter(table.getFilePath());
         //     this.writer.appendLine("{");
@@ -353,7 +353,7 @@ public class DataExportHandler extends DataHandler {
      * @param records 记录列表
      * @throws IOException 异常
      */
-    private void writeRecord(MysqlTypeFileWriter writer, DataExportTable table, DBColumns columns, List<MysqlRecord> records) throws Exception {
+    private void writeRecord(MysqlTypeFileWriter writer, DataExportTable table, MysqlColumns columns, List<MysqlRecord> records) throws Exception {
         // if (this.isJsonType()) {
         //     this.writeJsonRecord(this.writer, columns, records);
         // }

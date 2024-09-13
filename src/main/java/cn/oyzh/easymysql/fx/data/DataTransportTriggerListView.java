@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.data;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.oyzh.easymysql.db.table.DBTrigger;
+import cn.oyzh.easymysql.db.table.MysqlTrigger;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.view.FlexListView;
 import cn.oyzh.fx.plus.util.ListViewUtil;
@@ -19,9 +19,9 @@ public class DataTransportTriggerListView extends FlexListView<FXCheckBox> {
     @Setter
     private Runnable selectedChanged;
 
-    public void of(List<DBTrigger> triggers) {
+    public void of(List<MysqlTrigger> triggers) {
         List<DataTransportTrigger> list = CollUtil.newArrayList();
-        for (DBTrigger trigger : triggers) {
+        for (MysqlTrigger trigger : triggers) {
             DataTransportTrigger obj = new DataTransportTrigger();
             obj.setName(trigger.getName());
             list.add(obj);

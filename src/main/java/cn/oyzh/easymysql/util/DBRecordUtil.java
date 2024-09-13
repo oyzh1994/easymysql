@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.util;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.record.MysqlRecordProperty;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.fx.record.DBBinaryTextFiled;
 import cn.oyzh.easymysql.fx.record.DBJsonTextFiled;
 import cn.oyzh.fx.plus.controls.select.SelectTextFiled;
@@ -33,7 +33,7 @@ import java.util.List;
 @UtilityClass
 public class DBRecordUtil {
 
-    public static Node getNode(MysqlRecordProperty property, Object object, DBColumn column) {
+    public static Node getNode(MysqlRecordProperty property, Object object, MysqlColumn column) {
         Node node;
         String columnType = column.getType();
         if (column.supportJson()) {
@@ -102,7 +102,7 @@ public class DBRecordUtil {
         return node;
     }
 
-    public static String formatValue(Object object, DBColumn column) {
+    public static String formatValue(Object object, MysqlColumn column) {
         String val = null;
         String columnType = column.getType();
         if (StrUtil.isBlank(columnType)) {

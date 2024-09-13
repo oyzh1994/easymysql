@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.fx.table;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBIndex;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlIndex;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
 import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
 import cn.oyzh.fx.plus.controls.textfield.NumberTextField;
@@ -33,17 +33,17 @@ public class DBIndexColumnListView extends FlexListView<FlexHBox> {
 
     }
 
-    public void init(DBIndex dbIndex, List<DBColumn> columnList) {
+    public void init(MysqlIndex dbIndex, List<MysqlColumn> columnList) {
         this.clearItems();
-        this.columnNames = columnList.parallelStream().map(DBColumn::getName).collect(Collectors.toList());
+        this.columnNames = columnList.parallelStream().map(MysqlColumn::getName).collect(Collectors.toList());
         if (CollUtil.isNotEmpty(dbIndex.getColumns())) {
-            for (DBIndex.IndexColumn column : dbIndex.getColumns()) {
+            for (MysqlIndex.IndexColumn column : dbIndex.getColumns()) {
                 this.addColumn(column);
             }
         }
     }
 
-    public void addColumn(DBIndex.IndexColumn column) {
+    public void addColumn(MysqlIndex.IndexColumn column) {
         FlexComboBox<String> comboBox = new FlexComboBox<>();
         comboBox.setRealWidth(150);
         comboBox.setRealHeight(25);
@@ -70,12 +70,12 @@ public class DBIndexColumnListView extends FlexListView<FlexHBox> {
         this.addItem(hBox);
     }
 
-    public List<DBIndex.IndexColumn> getColumns() {
-        List<DBIndex.IndexColumn> list = new ArrayList<>();
+    public List<MysqlIndex.IndexColumn> getColumns() {
+        List<MysqlIndex.IndexColumn> list = new ArrayList<>();
         for (FlexHBox item : this.getItems()) {
             FlexComboBox<String> comboBox = (FlexComboBox) item.getChild(0);
             NumberTextField textField = (NumberTextField) item.getChild(1);
-            DBIndex.IndexColumn indexColumn = new DBIndex.IndexColumn(comboBox.getValue(), textField.getIntValue());
+            MysqlIndex.IndexColumn indexColumn = new MysqlIndex.IndexColumn(comboBox.getValue(), textField.getIntValue());
             list.add(indexColumn);
         }
         return list;

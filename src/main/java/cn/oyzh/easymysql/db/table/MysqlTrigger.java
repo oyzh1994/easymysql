@@ -17,7 +17,7 @@ import lombok.Getter;
  */
 @Getter
 @EqualsAndHashCode(callSuper = true)
-public class DBTrigger extends DBObjectStatus {
+public class MysqlTrigger extends DBObjectStatus {
 
     /**
      * 名称

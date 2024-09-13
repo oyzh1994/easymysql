@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.controller.table;
 
 import cn.oyzh.easymysql.MysqlConst;
-import cn.oyzh.easymysql.db.table.DBTable;
+import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.trees.MysqlTableTreeItem;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
@@ -92,7 +92,7 @@ public class MysqlTableInfoController extends StageController {
     @Override
     public void onStageShown(WindowEvent event) {
         MysqlTableTreeItem tableItem = this.getWindowProp("tableItem");
-        DBTable table = tableItem.value();
+        MysqlTable table = tableItem.value();
         this.tableName.setText(table.getName());
         this.tableEngine.setText(table.getEngine());
         this.tableComment.setText(table.getComment());

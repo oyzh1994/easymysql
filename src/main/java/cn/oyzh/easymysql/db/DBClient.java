@@ -16,13 +16,13 @@ import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.schema.DBSchema;
-import cn.oyzh.easymysql.db.table.DBChecks;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
-import cn.oyzh.easymysql.db.table.DBForeignKey;
-import cn.oyzh.easymysql.db.table.DBIndex;
-import cn.oyzh.easymysql.db.table.DBTable;
-import cn.oyzh.easymysql.db.table.DBTrigger;
+import cn.oyzh.easymysql.db.table.MysqlChecks;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
+import cn.oyzh.easymysql.db.table.MysqlForeignKey;
+import cn.oyzh.easymysql.db.table.MysqlIndex;
+import cn.oyzh.easymysql.db.table.MysqlTable;
+import cn.oyzh.easymysql.db.table.MysqlTrigger;
 import cn.oyzh.easymysql.db.view.DBView;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.event.DBEventUtil;
@@ -390,25 +390,25 @@ public abstract class DBClient {
         }
     }
 
-    public List<DBTable> tables(String dbName) {
+    public List<MysqlTable> tables(String dbName) {
         return this.tables(dbName, null, false);
     }
 
-    public List<DBTable> tables(String dbName, boolean full) {
+    public List<MysqlTable> tables(String dbName, boolean full) {
         return this.tables(dbName, null, full);
     }
 
-    public List<DBTable> tables(String dbName, String schema) {
+    public List<MysqlTable> tables(String dbName, String schema) {
         return this.tables(dbName, schema, false);
     }
 
-    public abstract List<DBTable> tables(String dbName, String schema, boolean full);
+    public abstract List<MysqlTable> tables(String dbName, String schema, boolean full);
 
-    public DBTable table(String dbName, String tableName) {
+    public MysqlTable table(String dbName, String tableName) {
         return this.table(dbName, tableName, false);
     }
 
-    public abstract DBTable table(String dbName, String tableName, boolean full);
+    public abstract MysqlTable table(String dbName, String tableName, boolean full);
 
     /**
      * 获取视图数量
@@ -456,13 +456,13 @@ public abstract class DBClient {
 
     public abstract long tableCount(String dbName, String tableName, List<MysqlRecordFilter> filters);
 
-    public abstract List<DBIndex> indexes(String dbName, String tableName);
+    public abstract List<MysqlIndex> indexes(String dbName, String tableName);
 
-    public abstract DBChecks checks(String dbName, String tableName);
+    public abstract MysqlChecks checks(String dbName, String tableName);
 
-    public abstract List<DBForeignKey> foreignKeys(String dbName, String tableName);
+    public abstract List<MysqlForeignKey> foreignKeys(String dbName, String tableName);
 
-    public abstract DBColumns tableColumns(String dbName, String schema, String tableName);
+    public abstract MysqlColumns tableColumns(String dbName, String schema, String tableName);
 
     public List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit) {
         return this.selectTableRecords(dbName, tableName, start, limit, null, null, false);
@@ -472,9 +472,9 @@ public abstract class DBClient {
         return this.selectTableRecords(dbName, tableName, start, limit, null, filters, false);
     }
 
-    public abstract List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, DBColumns columns, List<MysqlRecordFilter> filters, boolean readonly);
+    public abstract List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, MysqlColumns columns, List<MysqlRecordFilter> filters, boolean readonly);
 
-    public abstract List<DBColumn> viewColumns(String dbName, String viewName);
+    public abstract List<MysqlColumn> viewColumns(String dbName, String viewName);
 
     public abstract List<MysqlRecord> viewRecords(String dbName, String viewName, Long start, Long limit, List<MysqlRecordFilter> filters);
 
@@ -492,9 +492,9 @@ public abstract class DBClient {
 
     public abstract int updateRecord(String dbName, String tableName, MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey);
 
-    public abstract void createTable(String dbName, DBTable table);
+    public abstract void createTable(String dbName, MysqlTable table);
 
-    public abstract void alterTable(String dbName, DBTable table);
+    public abstract void alterTable(String dbName, MysqlTable table);
 
     public abstract boolean existTable(String dbName, String tableName);
 
@@ -645,9 +645,9 @@ public abstract class DBClient {
 
     public abstract void alertFunction(String dbName, MysqlFunction function);
 
-    public abstract List<DBTrigger> triggers(String dbName);
+    public abstract List<MysqlTrigger> triggers(String dbName);
 
-    public abstract List<DBTrigger> triggers(String dbName, String tableName);
+    public abstract List<MysqlTrigger> triggers(String dbName, String tableName);
 
     public abstract MysqlRecord selectRecord(String dbName, String tableName, MysqlRecordPrimaryKey primaryKey);
 
@@ -804,15 +804,15 @@ public abstract class DBClient {
 
     public static final String[] VIEW_TYPES = new String[]{"VIEW"};
 
-    public List<DBTable> selectTables(String dbName, String schema) {
+    public List<MysqlTable> selectTables(String dbName, String schema) {
         try {
             Connection connection = this.connection(dbName, schema);
             DatabaseMetaData metaData = connection.getMetaData();
             ResultSet resultSet = metaData.getTables(dbName, schema, "%", TABLE_TYPES);
-            List<DBTable> tables = new ArrayList<>();
+            List<MysqlTable> tables = new ArrayList<>();
             while (resultSet.next()) {
                 if (DBUtil.checkTableType(resultSet, dbName)) {
-                    DBTable table = new DBTable();
+                    MysqlTable table = new MysqlTable();
                     table.setDbName(dbName);
                     table.setSchema(schema);
                     String tableName = resultSet.getString("TABLE_NAME");
@@ -830,14 +830,14 @@ public abstract class DBClient {
         }
     }
 
-    public List<DBColumn> selectColumns(String dbName, String schema, String tableName) {
+    public List<MysqlColumn> selectColumns(String dbName, String schema, String tableName) {
         try {
             Connection connection = this.connection(dbName, schema);
             DatabaseMetaData metaData = connection.getMetaData();
             ResultSet resultSet = metaData.getColumns(dbName, schema, tableName, null);
             // 打印元数据
             DBUtil.printMetaData(resultSet);
-            List<DBColumn> columns = new ArrayList<>();
+            List<MysqlColumn> columns = new ArrayList<>();
             while (resultSet.next()) {
                 String remarks = resultSet.getString("REMARKS");
                 String typeName = resultSet.getString("TYPE_NAME");
@@ -848,7 +848,7 @@ public abstract class DBClient {
                 Integer decimalDigits = resultSet.getInt("DECIMAL_DIGITS");
                 Integer ordinalPosition = resultSet.getInt("ORDINAL_POSITION");
                 String isAutoincrement = resultSet.getString("IS_AUTOINCREMENT");
-                DBColumn column = new DBColumn();
+                MysqlColumn column = new MysqlColumn();
                 column.setDbName(dbName);
                 column.setSchema(schema);
                 column.setType(typeName);

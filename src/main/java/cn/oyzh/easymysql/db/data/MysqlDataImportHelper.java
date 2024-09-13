@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.db.data;
 
 import cn.hutool.core.date.DateUtil;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBUtil;
 import lombok.experimental.UtilityClass;
@@ -28,7 +28,7 @@ public class MysqlDataImportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterized(DBColumn column, Object value, MysqlDataImportConfig config) throws ParseException {
+    public static Object parameterized(MysqlColumn column, Object value, MysqlDataImportConfig config) throws ParseException {
         if (value == null) {
             return null;
         }
@@ -64,18 +64,18 @@ public class MysqlDataImportHelper {
      * @param config  配置
      * @return 插入sql
      */
-    public static List<String> toInsertSql(DBColumns columns, List<MysqlRecord> records, MysqlDataImportConfig config) throws Exception {
+    public static List<String> toInsertSql(MysqlColumns columns, List<MysqlRecord> records, MysqlDataImportConfig config) throws Exception {
         List<String> insertSql = new ArrayList<>();
         for (MysqlRecord record : records) {
             StringBuilder sql = new StringBuilder("INSERT INTO ");
             sql.append(DBUtil.wrap(columns.getTableName()));
             sql.append("(");
-            for (DBColumn column : columns) {
+            for (MysqlColumn column : columns) {
                 sql.append(DBUtil.wrap(column.getName())).append(", ");
             }
             sql.deleteCharAt(sql.length() - 2);
             sql.append(") VALUES (");
-            for (DBColumn column : columns) {
+            for (MysqlColumn column : columns) {
                 Object val = record.getValue(column.getName());
                 val = DBUtil.unwrapData(val);
                 val = parameterized(column, val, config);

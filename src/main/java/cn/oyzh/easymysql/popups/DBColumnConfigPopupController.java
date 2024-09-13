@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.popups;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
 import cn.oyzh.easymysql.fx.table.DBDefaultValueTextFiled;
@@ -139,7 +139,7 @@ public class DBColumnConfigPopupController extends PopupController {
     /**
      * db字段
      */
-    private DBColumn dbColumn;
+    private MysqlColumn dbColumn;
 
     /**
      * db客户端

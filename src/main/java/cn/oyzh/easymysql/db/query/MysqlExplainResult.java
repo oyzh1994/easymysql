@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db.query;
 
 import cn.oyzh.easymysql.db.DBHelper;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
@@ -26,7 +26,7 @@ public class MysqlExplainResult extends MysqlQueryResult {
         while (resultSet.next()) {
             int colIndex = 1;
             MysqlRecord record = new MysqlRecord(readonly);
-            for (DBColumn dbColumn : this.columns) {
+            for (MysqlColumn dbColumn : this.columns) {
                 Object data = resultSet.getObject(colIndex++);
                 record.putValue(dbColumn, data);
             }

@@ -5,7 +5,7 @@ import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;
@@ -118,7 +118,7 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
     /**
      * 字段列表
      */
-    private List<DBColumn> columns;
+    private List<MysqlColumn> columns;
 
     /**
      * 执行初始化
@@ -172,14 +172,14 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
      *
      * @param columns 列数据
      */
-    private void initColumns(List<DBColumn> columns) {
+    private void initColumns(List<MysqlColumn> columns) {
         // 设置字段列表
         this.columns = columns;
         // 数据列集合
         List<FlexTableColumn<MysqlRecord, Object>> columnList = new ArrayList<>();
         DBStatusColumn<MysqlRecord> statusColumn = new DBStatusColumn<>();
         columnList.add(statusColumn);
-        for (DBColumn column : columns) {
+        for (MysqlColumn column : columns) {
             DBRecordColumn tableColumn = new DBRecordColumn(column);
             tableColumn.setRealWidth(DBRecordUtil.suitableColumnWidth(column.getType()));
             columnList.add(tableColumn);
@@ -203,7 +203,7 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
     private void addRecord() {
         MysqlRecord record = new MysqlRecord();
         record.setCreated(true);
-        for (DBColumn column : this.columns) {
+        for (MysqlColumn column : this.columns) {
             Object val = null;
             if (column.supportDefaultValue()) {
                 val = column.getDefaultValue();
@@ -268,7 +268,7 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
      * @return 主键
      */
     private MysqlRecordPrimaryKey initPrimaryKey(MysqlRecord record) {
-        DBColumn primaryKeyColumn = this.result.getPrimaryKey();
+        MysqlColumn primaryKeyColumn = this.result.getPrimaryKey();
         if (primaryKeyColumn != null) {
             MysqlRecordPrimaryKey primaryKey = new MysqlRecordPrimaryKey();
             primaryKey.init(primaryKeyColumn, record);

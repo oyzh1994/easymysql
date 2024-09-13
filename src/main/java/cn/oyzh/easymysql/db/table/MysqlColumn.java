@@ -31,7 +31,7 @@ import java.util.List;
  * @since 2023/12/20
  */
 @EqualsAndHashCode(callSuper = true)
-public class DBColumn extends DBObjectStatus implements ObjectCopier<DBColumn> {
+public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlColumn> {
 
     /**
      * 库名称
@@ -156,11 +156,11 @@ public class DBColumn extends DBObjectStatus implements ObjectCopier<DBColumn> {
     @Getter
     private String collation;
 
-    public DBColumn() {
+    public MysqlColumn() {
 
     }
 
-    public DBColumn(String name) {
+    public MysqlColumn(String name) {
         this.name = name;
     }
 
@@ -717,7 +717,7 @@ public class DBColumn extends DBObjectStatus implements ObjectCopier<DBColumn> {
     }
 
     @Override
-    public void copy(DBColumn column) {
+    public void copy(MysqlColumn column) {
         if (column != null) {
             this.size = column.size;
             this.name = column.name;

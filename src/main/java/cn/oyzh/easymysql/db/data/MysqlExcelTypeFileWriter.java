@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.db.data;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.fx.common.xls.WorkbookHelper;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -26,7 +26,7 @@ public class MysqlExcelTypeFileWriter extends MysqlTypeFileWriter {
     /**
      * 字段列表
      */
-    private DBColumns columns;
+    private MysqlColumns columns;
 
     /**
      * 导出配置
@@ -45,7 +45,7 @@ public class MysqlExcelTypeFileWriter extends MysqlTypeFileWriter {
 
     private String filePath;
 
-    public MysqlExcelTypeFileWriter(String filePath, MysqlDataExportConfig config, DBColumns columns) throws IOException {
+    public MysqlExcelTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) throws IOException {
         this.columns = columns;
         this.config = config;
         this.filePath = filePath;
@@ -62,7 +62,7 @@ public class MysqlExcelTypeFileWriter extends MysqlTypeFileWriter {
         // 创建列名行
         Row headerRow = sheet.createRow(0);
         // 写入列名
-        List<DBColumn> columnList = columns.sortOfPosition();
+        List<MysqlColumn> columnList = columns.sortOfPosition();
         for (int i = 0; i < columnList.size(); i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(columnList.get(i).getName());
@@ -76,7 +76,7 @@ public class MysqlExcelTypeFileWriter extends MysqlTypeFileWriter {
         Object[] values = new Object[object.size()];
         for (Map.Entry<String, Object> entry : object.entrySet()) {
             int index = this.columns.index(entry.getKey());
-            DBColumn column = this.columns.column(entry.getKey());
+            MysqlColumn column = this.columns.column(entry.getKey());
             Object val = this.parameterized(column, entry.getValue(), this.config);
             values[index] = val;
         }
@@ -132,7 +132,7 @@ public class MysqlExcelTypeFileWriter extends MysqlTypeFileWriter {
     }
 
     @Override
-    public Object parameterized(DBColumn column, Object value, MysqlDataExportConfig config) {
+    public Object parameterized(MysqlColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return null;
         }

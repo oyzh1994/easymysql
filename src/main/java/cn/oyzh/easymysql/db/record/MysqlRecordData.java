@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db.record;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -17,18 +17,18 @@ import java.util.stream.Collectors;
  */
 public class MysqlRecordData {
 
-    private Map<DBColumn, Object> dataList;
+    private Map<MysqlColumn, Object> dataList;
 
     public Set<String> columns() {
         if (this.dataList == null) {
             return Collections.emptySet();
         }
-        return this.dataList.keySet().stream().map(DBColumn::getName).collect(Collectors.toSet());
+        return this.dataList.keySet().stream().map(MysqlColumn::getName).collect(Collectors.toSet());
     }
 
-    public DBColumn column(String column) {
+    public MysqlColumn column(String column) {
         if (this.dataList != null) {
-            for (DBColumn dbColumn : dataList.keySet()) {
+            for (MysqlColumn dbColumn : dataList.keySet()) {
                 if (StrUtil.equalsAnyIgnoreCase(column, dbColumn.getName())) {
                     return dbColumn;
                 }
@@ -39,7 +39,7 @@ public class MysqlRecordData {
 
     public Object value(String column) {
         if (this.dataList != null) {
-            for (Map.Entry<DBColumn, Object> entry : dataList.entrySet()) {
+            for (Map.Entry<MysqlColumn, Object> entry : dataList.entrySet()) {
                 if (StrUtil.equalsAnyIgnoreCase(column, entry.getKey().getName())) {
                     return entry.getValue();
                 }
@@ -48,7 +48,7 @@ public class MysqlRecordData {
         return null;
     }
 
-    public void put(DBColumn column, Object value) {
+    public void put(MysqlColumn column, Object value) {
         if (this.dataList == null) {
             this.dataList = new HashMap<>();
         }
@@ -63,7 +63,7 @@ public class MysqlRecordData {
         if (CollUtil.isEmpty(this.dataList)) {
             return false;
         }
-        DBColumn dbColumn = this.column(column);
+        MysqlColumn dbColumn = this.column(column);
         if (dbColumn == null) {
             return false;
         }
@@ -72,14 +72,14 @@ public class MysqlRecordData {
 
     public void remove(String column) {
         if (this.dataList != null) {
-            DBColumn dbColumn = this.column(column);
+            MysqlColumn dbColumn = this.column(column);
             if (dbColumn != null) {
                 this.dataList.remove(dbColumn);
             }
         }
     }
 
-    public Set<Map.Entry<DBColumn, Object>> entries() {
+    public Set<Map.Entry<MysqlColumn, Object>> entries() {
         if (this.dataList == null) {
             return Collections.emptySet();
         }

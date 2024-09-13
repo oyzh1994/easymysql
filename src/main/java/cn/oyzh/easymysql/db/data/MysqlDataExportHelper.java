@@ -3,8 +3,8 @@ package cn.oyzh.easymysql.db.data;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.HexUtil;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.common.util.TextUtil;
@@ -31,7 +31,7 @@ public class MysqlDataExportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterizedForJson(DBColumn column, Object value, MysqlDataExportConfig config) {
+    public static Object parameterizedForJson(MysqlColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return null;
         }
@@ -82,7 +82,7 @@ public class MysqlDataExportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterizedForXml(DBColumn column, Object value, MysqlDataExportConfig config) {
+    public static Object parameterizedForXml(MysqlColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return null;
         }
@@ -133,7 +133,7 @@ public class MysqlDataExportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterizedForCsv(DBColumn column, Object value, MysqlDataExportConfig config) {
+    public static Object parameterizedForCsv(MysqlColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return "";
         }
@@ -175,7 +175,7 @@ public class MysqlDataExportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterizedForSql(DBColumn column, Object value, MysqlDataExportConfig config) {
+    public static Object parameterizedForSql(MysqlColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return "NULL";
         }
@@ -224,7 +224,7 @@ public class MysqlDataExportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterizedForHtml(DBColumn column, Object value, MysqlDataExportConfig config) {
+    public static Object parameterizedForHtml(MysqlColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return "";
         }
@@ -275,7 +275,7 @@ public class MysqlDataExportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterizedForXls(DBColumn column, Object value, MysqlDataExportConfig config) {
+    public static Object parameterizedForXls(MysqlColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return null;
         }
@@ -324,16 +324,16 @@ public class MysqlDataExportHelper {
      * @param config  配置
      * @return 插入sql
      */
-    public static List<String> toExportSql(DBColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
+    public static List<String> toExportSql(MysqlColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
         List<String> list = new ArrayList<>();
         String tableName = columns.getTableName();
-        List<DBColumn> columnList = columns.sortOfPosition();
+        List<MysqlColumn> columnList = columns.sortOfPosition();
         final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName);
         for (MysqlRecord record : records) {
             StringBuilder sql = new StringBuilder(sqlBase);
             if (config.includeFields()) {
                 sql.append("(");
-                for (DBColumn dbColumn : columnList) {
+                for (MysqlColumn dbColumn : columnList) {
                     sql.append(DBUtil.wrap(dbColumn.getName())).append(", ");
                 }
                 if (sql.toString().endsWith(", ")) {
@@ -342,7 +342,7 @@ public class MysqlDataExportHelper {
                 sql.append(")");
             }
             sql.append(" VALUES (");
-            for (DBColumn dbColumn : columnList) {
+            for (MysqlColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
                 value = parameterizedForSql(dbColumn, value, config);
                 sql.append(value).append(", ");
@@ -363,12 +363,12 @@ public class MysqlDataExportHelper {
      * @param records 记录
      * @return 插入json
      */
-    public static List<Map<String, Object>> toExportJson(DBColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
+    public static List<Map<String, Object>> toExportJson(MysqlColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
         List<Map<String, Object>> list = new ArrayList<>();
-        List<DBColumn> columnList = columns.sortOfPosition();
+        List<MysqlColumn> columnList = columns.sortOfPosition();
         for (MysqlRecord record : records) {
             Map<String, Object> object = new HashMap<>();
-            for (DBColumn dbColumn : columnList) {
+            for (MysqlColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
                 value = parameterizedForJson(dbColumn, value, config);
                 object.put(dbColumn.getName(), value);
@@ -385,12 +385,12 @@ public class MysqlDataExportHelper {
      * @param records 记录
      * @return 插入xml
      */
-    public static List<Map<String, Object>> toExportXml(DBColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
+    public static List<Map<String, Object>> toExportXml(MysqlColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
         List<Map<String, Object>> list = new ArrayList<>();
-        List<DBColumn> columnList = columns.sortOfPosition();
+        List<MysqlColumn> columnList = columns.sortOfPosition();
         for (MysqlRecord record : records) {
             Map<String, Object> object = new HashMap<>();
-            for (DBColumn dbColumn : columnList) {
+            for (MysqlColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
                 value = parameterizedForXml(dbColumn, value, config);
                 object.put(dbColumn.getName(), value);
@@ -407,12 +407,12 @@ public class MysqlDataExportHelper {
      * @param records 记录
      * @return 插入csv
      */
-    public static List<List<Object>> toExportCsv(DBColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
+    public static List<List<Object>> toExportCsv(MysqlColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
         List<List<Object>> list = new ArrayList<>();
-        List<DBColumn> columnList = columns.sortOfPosition();
+        List<MysqlColumn> columnList = columns.sortOfPosition();
         for (MysqlRecord record : records) {
             List<Object> object = new ArrayList<>();
-            for (DBColumn dbColumn : columnList) {
+            for (MysqlColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
                 value = parameterizedForCsv(dbColumn, value, config);
                 object.add(value);
@@ -429,12 +429,12 @@ public class MysqlDataExportHelper {
      * @param records 记录
      * @return 插入html
      */
-    public static List<List<Object>> toExportHtml(DBColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
+    public static List<List<Object>> toExportHtml(MysqlColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
         List<List<Object>> list = new ArrayList<>();
-        List<DBColumn> columnList = columns.sortOfPosition();
+        List<MysqlColumn> columnList = columns.sortOfPosition();
         for (MysqlRecord record : records) {
             List<Object> object = new ArrayList<>();
-            for (DBColumn dbColumn : columnList) {
+            for (MysqlColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
                 value = parameterizedForHtml(dbColumn, value, config);
                 object.add(value);
@@ -451,12 +451,12 @@ public class MysqlDataExportHelper {
      * @param records 记录
      * @return 插入xls
      */
-    public static List<List<Object>> toExportXls(DBColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
+    public static List<List<Object>> toExportXls(MysqlColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
         List<List<Object>> list = new ArrayList<>();
-        List<DBColumn> columnList = columns.sortOfPosition();
+        List<MysqlColumn> columnList = columns.sortOfPosition();
         for (MysqlRecord record : records) {
             List<Object> object = new ArrayList<>();
-            for (DBColumn dbColumn : columnList) {
+            for (MysqlColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
                 value = parameterizedForXls(dbColumn, value, config);
                 object.add(value);

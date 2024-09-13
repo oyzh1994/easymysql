@@ -11,7 +11,7 @@ import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
-import cn.oyzh.easymysql.db.table.DBTable;
+import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.view.DBView;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseInfoController;
@@ -357,19 +357,19 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItem.Mysq
         }
     }
 
-    public void createTable(DBTable table) {
+    public void createTable(MysqlTable table) {
         this.client().createTable(this.dbName(), table);
     }
 
-    public void alterTable(DBTable table) {
+    public void alterTable(MysqlTable table) {
         this.client().alterTable(this.dbName(), table);
     }
 
-    public DBTable selectTable(String tableName) {
+    public MysqlTable selectTable(String tableName) {
         return this.selectTable(tableName, true);
     }
 
-    public DBTable selectTable(String tableName, boolean full) {
+    public MysqlTable selectTable(String tableName, boolean full) {
         return this.client().table(this.dbName(), tableName, full);
     }
 

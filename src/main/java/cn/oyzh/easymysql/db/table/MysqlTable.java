@@ -3,14 +3,6 @@ package cn.oyzh.easymysql.db.table;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.db.table.DBChecks;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
-import cn.oyzh.easymysql.db.table.DBForeignKey;
-import cn.oyzh.easymysql.db.table.DBForeignKeys;
-import cn.oyzh.easymysql.db.table.DBIndexes;
-import cn.oyzh.easymysql.db.table.DBTrigger;
-import cn.oyzh.easymysql.db.table.DBTriggers;
 import cn.oyzh.fx.common.util.ObjectComparator;
 import cn.oyzh.fx.common.util.ObjectCopier;
 import javafx.beans.property.SimpleStringProperty;
@@ -28,7 +20,7 @@ import java.util.List;
  * @since 2024/01/16
  */
 @EqualsAndHashCode(callSuper = true)
-public class DBTable extends DBObjectStatus implements ObjectCopier<DBTable>, ObjectComparator<DBTable> {
+public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTable>, ObjectComparator<MysqlTable> {
 
     @Getter
     @Setter
@@ -58,21 +50,21 @@ public class DBTable extends DBObjectStatus implements ObjectCopier<DBTable>, Ob
      */
     @Getter
     @Setter
-    private DBIndexes indexes;
+    private MysqlIndexes indexes;
 
     /**
      * 触发器
      */
     @Getter
     @Setter
-    private DBTriggers triggers;
+    private MysqlTriggers triggers;
 
     /**
      * 外键
      */
     @Getter
     @Setter
-    private DBForeignKeys foreignKeys;
+    private MysqlForeignKeys foreignKeys;
 
     /**
      * 引擎
@@ -97,7 +89,7 @@ public class DBTable extends DBObjectStatus implements ObjectCopier<DBTable>, Ob
      */
     @Getter
     @Setter
-    private DBChecks checks;
+    private MysqlChecks checks;
 
     public void setEngine(String engine) {
         this.engine = engine;
@@ -181,30 +173,30 @@ public class DBTable extends DBObjectStatus implements ObjectCopier<DBTable>, Ob
         return this.triggers != null && !this.triggers.isEmpty();
     }
 
-    public DBIndexes indexes() {
+    public MysqlIndexes indexes() {
         if (this.indexes == null) {
-            this.indexes = new DBIndexes();
+            this.indexes = new MysqlIndexes();
         }
         return this.indexes;
     }
 
-    public DBTriggers triggers() {
+    public MysqlTriggers triggers() {
         if (this.triggers == null) {
-            this.triggers = new DBTriggers();
+            this.triggers = new MysqlTriggers();
         }
         return this.triggers;
     }
 
-    public DBForeignKeys foreignKeys() {
+    public MysqlForeignKeys foreignKeys() {
         if (this.foreignKeys == null) {
-            this.foreignKeys = new DBForeignKeys();
+            this.foreignKeys = new MysqlForeignKeys();
         }
         return this.foreignKeys;
     }
 
-    public DBChecks checks() {
+    public MysqlChecks checks() {
         if (this.checks == null) {
-            this.checks = new DBChecks();
+            this.checks = new MysqlChecks();
         }
         return this.checks;
     }
@@ -215,7 +207,7 @@ public class DBTable extends DBObjectStatus implements ObjectCopier<DBTable>, Ob
     }
 
     @Override
-    public void copy(DBTable table) {
+    public void copy(MysqlTable table) {
         if (table != null) {
             this.setEngine(table.getEngine());
             this.setChecks(table.getChecks());
@@ -241,25 +233,25 @@ public class DBTable extends DBObjectStatus implements ObjectCopier<DBTable>, Ob
         return StrUtil.isNotBlank(this.getRowFormat());
     }
 
-    public void removeIndex(DBIndex index) {
+    public void removeIndex(MysqlIndex index) {
         if (index != null && this.indexes != null) {
             this.indexes().remove(index);
         }
     }
 
-    public void removeTrigger(DBTrigger trigger) {
+    public void removeTrigger(MysqlTrigger trigger) {
         if (trigger != null && this.triggers != null) {
             this.triggers().remove(trigger);
         }
     }
 
-    public void removeForeignKey(DBForeignKey foreignKey) {
+    public void removeForeignKey(MysqlForeignKey foreignKey) {
         if (foreignKey != null && this.foreignKeys != null) {
             this.foreignKeys().remove(foreignKey);
         }
     }
 
-    public void removeCheck(DBCheck check) {
+    public void removeCheck(MysqlCheck check) {
         if (check != null && this.checks != null) {
             this.checks().remove(check);
         }
@@ -284,7 +276,7 @@ public class DBTable extends DBObjectStatus implements ObjectCopier<DBTable>, Ob
      */
     @Setter
     @Getter
-    protected DBColumns columns;
+    protected MysqlColumns columns;
 
     /**
      * 表名称
@@ -332,7 +324,7 @@ public class DBTable extends DBObjectStatus implements ObjectCopier<DBTable>, Ob
             if (b1) {
                 return true;
             }
-            for (DBColumn column : this.columns.createdList()) {
+            for (MysqlColumn column : this.columns.createdList()) {
                 if (column.isPrimaryKey()) {
                     return true;
                 }
@@ -341,7 +333,7 @@ public class DBTable extends DBObjectStatus implements ObjectCopier<DBTable>, Ob
         return false;
     }
 
-    public List<DBColumn> primaryKeys() {
+    public List<MysqlColumn> primaryKeys() {
         if (this.hasColumns()) {
             return this.columns.primaryKeys();
         }
@@ -360,15 +352,15 @@ public class DBTable extends DBObjectStatus implements ObjectCopier<DBTable>, Ob
         return this.getComment() != null;
     }
 
-    public DBColumns columns() {
+    public MysqlColumns columns() {
         if (this.columns == null) {
-            this.columns = new DBColumns();
+            this.columns = new MysqlColumns();
         }
         return this.columns;
     }
 
     @Override
-    public boolean compare(DBTable table) {
+    public boolean compare(MysqlTable table) {
         if (table == null) {
             return false;
         }
@@ -381,7 +373,7 @@ public class DBTable extends DBObjectStatus implements ObjectCopier<DBTable>, Ob
         return StrUtil.equals(this.getDbName(), table.getDbName());
     }
 
-    public void removeColumn(DBColumn column) {
+    public void removeColumn(MysqlColumn column) {
         if (column != null && this.columns != null) {
             this.columns().remove(column);
         }

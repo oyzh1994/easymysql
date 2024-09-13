@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.popups;
 
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.fx.table.DBColumnListView;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
@@ -77,7 +77,7 @@ public class DBColumnFieldPopupController extends PopupController {
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
         this.onSubmit = this.getWindowProp("onSubmit");
-        List<DBColumn> columns = this.getWindowProp("columns");
+        List<MysqlColumn> columns = this.getWindowProp("columns");
         List<String> selectedColumns = this.getWindowProp("selectedColumns");
         this.listView.init(columns);
         this.listView.select(selectedColumns);

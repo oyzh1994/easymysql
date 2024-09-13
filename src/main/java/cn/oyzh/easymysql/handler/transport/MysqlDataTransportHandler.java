@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.handler.transport;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.easymysql.fx.data.DataTransportEvent;
 import cn.oyzh.easymysql.fx.data.DataTransportFunction;
 import cn.oyzh.easymysql.fx.data.DataTransportProcedure;
@@ -88,8 +88,8 @@ public class MysqlDataTransportHandler extends DataTransportHandler {
 
         // 传输表
         this.message("Transport Table " + tableName + " Starting");
-        List<DBColumn> columns = this.sourceClient.tableColumns(this.sourceDatabase, null, tableName);
-        DBColumns dbColumns = new DBColumns(columns);
+        List<MysqlColumn> columns = this.sourceClient.tableColumns(this.sourceDatabase, null, tableName);
+        MysqlColumns dbColumns = new MysqlColumns(columns);
         long start = 0;
         while (true) {
             this.checkInterrupt();

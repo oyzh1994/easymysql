@@ -6,9 +6,9 @@ import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
-import cn.oyzh.easymysql.db.table.DBColumns;
-import cn.oyzh.easymysql.db.table.DBTable;
-import cn.oyzh.easymysql.db.table.DBTrigger;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
+import cn.oyzh.easymysql.db.table.MysqlTable;
+import cn.oyzh.easymysql.db.table.MysqlTrigger;
 import cn.oyzh.easymysql.db.view.DBView;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBUtil;
@@ -43,7 +43,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
             this.dumpTrigger();
             this.dumpEvent();
         } else if (this.dumpType == 2) {
-            DBTable table = this.dbClient.table(this.dbName, this.tableName);
+            MysqlTable table = this.dbClient.table(this.dbName, this.tableName);
             this.dumpTable(table);
         }
         this.writeTail();
@@ -53,9 +53,9 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
     }
 
     protected void dumpTable() throws InterruptedException, IOException {
-        List<DBTable> tables = this.dbClient.tables(this.dbName);
+        List<MysqlTable> tables = this.dbClient.tables(this.dbName);
         if (CollUtil.isNotEmpty(tables)) {
-            for (DBTable table : tables) {
+            for (MysqlTable table : tables) {
                 this.checkInterrupt();
                 this.dumpTable(table);
             }
@@ -63,7 +63,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
         }
     }
 
-    protected void dumpTable(DBTable table) throws InterruptedException, IOException {
+    protected void dumpTable(MysqlTable table) throws InterruptedException, IOException {
         String line0 = "";
         String line1 = "-- ----------------------------";
         String line2 = "-- Table structure for " + table.getName();
@@ -88,7 +88,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
         String line2 = "-- Records of " + tableName;
         String line3 = "-- ----------------------------";
         this.fileWriter.appendLines(List.of(line0, line1, line2, line3));
-        DBColumns columns = new DBColumns(this.dbClient.tableColumns(this.dbName, null, tableName));
+        MysqlColumns columns = new MysqlColumns(this.dbClient.tableColumns(this.dbName, null, tableName));
         while (true) {
             this.checkInterrupt();
             long start1 = System.currentTimeMillis();
@@ -170,9 +170,9 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
     }
 
     protected void dumpTrigger() throws Exception {
-        List<DBTrigger> triggers = this.dbClient.triggers(this.dbName);
+        List<MysqlTrigger> triggers = this.dbClient.triggers(this.dbName);
         if (CollUtil.isNotEmpty(triggers)) {
-            for (DBTrigger trigger : triggers) {
+            for (MysqlTrigger trigger : triggers) {
                 this.message("Dumping Trigger " + trigger.getName());
                 String line0 = "";
                 String line1 = "-- ----------------------------";

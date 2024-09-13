@@ -5,8 +5,8 @@ import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.easymysql.db.view.DBView;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.controller.view.MysqlViewInfoController;
@@ -79,8 +79,8 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItem.MysqlViewTre
         return this.parent.info();
     }
 
-    public DBColumns viewColumns() {
-        this.value.setColumns(new DBColumns(this.columns()));
+    public MysqlColumns viewColumns() {
+        this.value.setColumns(new MysqlColumns(this.columns()));
         return this.value.getColumns();
     }
 
@@ -137,7 +137,7 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItem.MysqlViewTre
         return parent.infoName();
     }
 
-    public List<DBColumn> columns() {
+    public List<MysqlColumn> columns() {
         return this.client().viewColumns(this.dbName(), this.viewName());
     }
 
@@ -151,13 +151,13 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItem.MysqlViewTre
      *
      * @return 主键列
      */
-    public DBColumn getPrimaryKey() {
+    public MysqlColumn getPrimaryKey() {
         if (this.value.getColumns() == null) {
             this.viewColumns();
         }
-        DBColumn dbColumn = null;
+        MysqlColumn dbColumn = null;
         if (this.value.columns() != null) {
-            for (DBColumn column : this.value.columns()) {
+            for (MysqlColumn column : this.value.columns()) {
                 if (column.isAutoIncrement()) {
                     dbColumn = column;
                     break;

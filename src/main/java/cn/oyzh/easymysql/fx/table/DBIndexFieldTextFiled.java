@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.fx.table;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBIndex;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlIndex;
 import cn.oyzh.easymysql.popups.DBIndexFieldPopupController;
 import cn.oyzh.fx.plus.controls.textfield.ChooseTextField;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
@@ -26,14 +26,14 @@ public class DBIndexFieldTextFiled extends ChooseTextField {
     public DBIndexFieldTextFiled() {
     }
 
-    private DBIndex dbIndex;
+    private MysqlIndex dbIndex;
 
-    private List<DBColumn> columnList;
+    private List<MysqlColumn> columnList;
 
     @Getter
-    private List<DBIndex.IndexColumn> columns;
+    private List<MysqlIndex.IndexColumn> columns;
 
-    public DBIndexFieldTextFiled(DBIndex dbIndex, List<DBColumn> columnList, List<DBIndex.IndexColumn> columns) {
+    public DBIndexFieldTextFiled(MysqlIndex dbIndex, List<MysqlColumn> columnList, List<MysqlIndex.IndexColumn> columns) {
         this.dbIndex = dbIndex;
         this.columnList = columnList;
         this.setColumns(columns);
@@ -63,7 +63,7 @@ public class DBIndexFieldTextFiled extends ChooseTextField {
         this.popup.showPopup(this);
     }
 
-    public void setColumns(List<DBIndex.IndexColumn> columns) {
+    public void setColumns(List<MysqlIndex.IndexColumn> columns) {
         this.columns = columns;
         this.initText();
     }
@@ -72,7 +72,7 @@ public class DBIndexFieldTextFiled extends ChooseTextField {
         String text;
         StringBuilder builder = new StringBuilder();
         if (CollUtil.isNotEmpty(this.columns)) {
-            for (DBIndex.IndexColumn column : this.columns) {
+            for (MysqlIndex.IndexColumn column : this.columns) {
                 builder.append(",");
                 builder.append(column.getColumnName());
                 if (column.getSubPart() > 0) {

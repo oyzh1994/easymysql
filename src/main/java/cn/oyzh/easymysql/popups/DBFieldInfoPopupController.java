@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.popups;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.MysqlStyle;
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.util.DBNodeUtil;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
@@ -103,7 +103,7 @@ public class DBFieldInfoPopupController extends PopupController {
     @Override
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
-        DBColumn column = this.getWindowProp("column");
+        MysqlColumn column = this.getWindowProp("column");
         if (column.supportSize()) {
             if (column.getSize() != null) {
                 this.size.setValue(column.getSize());

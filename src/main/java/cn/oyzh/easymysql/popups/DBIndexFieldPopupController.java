@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.popups;
 
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBIndex;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlIndex;
 import cn.oyzh.easymysql.fx.table.DBIndexColumnListView;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
@@ -63,7 +63,7 @@ public class DBIndexFieldPopupController extends PopupController {
      */
     @FXML
     private void addRow() {
-        this.listView.addColumn(new DBIndex.IndexColumn());
+        this.listView.addColumn(new MysqlIndex.IndexColumn());
         this.listView.selectLast();
     }
 
@@ -95,8 +95,8 @@ public class DBIndexFieldPopupController extends PopupController {
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
         this.onSubmit = this.getWindowProp("onSubmit");
-        DBIndex dbIndex = this.getWindowProp("dbIndex");
-        List<DBColumn> columnList = this.getWindowProp("columnList");
+        MysqlIndex dbIndex = this.getWindowProp("dbIndex");
+        List<MysqlColumn> columnList = this.getWindowProp("columnList");
         this.listView.init(dbIndex, columnList);
     }
 }

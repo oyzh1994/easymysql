@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.data;
 
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.fx.common.file.LineFileWriter;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class MysqlJsonTypeFileWriter extends MysqlTypeFileWriter {
     /**
      * 字段列表
      */
-    private DBColumns columns;
+    private MysqlColumns columns;
 
     /**
      * 导出配置
@@ -33,7 +33,7 @@ public class MysqlJsonTypeFileWriter extends MysqlTypeFileWriter {
      */
     private boolean firstWrite = true;
 
-    public MysqlJsonTypeFileWriter(String filePath, MysqlDataExportConfig config, DBColumns columns) {
+    public MysqlJsonTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) {
         this.columns = columns;
         this.config = config;
         this.writer = LineFileWriter.create(filePath, config.charset());
@@ -69,7 +69,7 @@ public class MysqlJsonTypeFileWriter extends MysqlTypeFileWriter {
             // 名称
             builder.append("   \"").append(entry.getKey()).append("\" : ");
             // 值处理
-            DBColumn column = this.columns.column(entry.getKey());
+            MysqlColumn column = this.columns.column(entry.getKey());
             Object val = this.parameterized(column, entry.getValue(), this.config);
             if (val != null) {
                 // 数字
@@ -101,7 +101,7 @@ public class MysqlJsonTypeFileWriter extends MysqlTypeFileWriter {
     }
 
     @Override
-    public Object parameterized(DBColumn column, Object value, MysqlDataExportConfig config) {
+    public Object parameterized(MysqlColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return null;
         }

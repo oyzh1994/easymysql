@@ -3,17 +3,17 @@ package cn.oyzh.easymysql.generator.table;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.DBObjectList;
-import cn.oyzh.easymysql.db.table.DBCheck;
-import cn.oyzh.easymysql.db.table.DBChecks;
-import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
-import cn.oyzh.easymysql.db.table.DBForeignKey;
-import cn.oyzh.easymysql.db.table.DBForeignKeys;
-import cn.oyzh.easymysql.db.table.DBIndex;
-import cn.oyzh.easymysql.db.table.DBIndexes;
-import cn.oyzh.easymysql.db.table.DBTable;
-import cn.oyzh.easymysql.db.table.DBTrigger;
-import cn.oyzh.easymysql.db.table.DBTriggers;
+import cn.oyzh.easymysql.db.table.MysqlCheck;
+import cn.oyzh.easymysql.db.table.MysqlChecks;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumns;
+import cn.oyzh.easymysql.db.table.MysqlForeignKey;
+import cn.oyzh.easymysql.db.table.MysqlForeignKeys;
+import cn.oyzh.easymysql.db.table.MysqlIndex;
+import cn.oyzh.easymysql.db.table.MysqlIndexes;
+import cn.oyzh.easymysql.db.table.MysqlTable;
+import cn.oyzh.easymysql.db.table.MysqlTrigger;
+import cn.oyzh.easymysql.db.table.MysqlTriggers;
 import cn.oyzh.easymysql.util.DBUtil;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class MysqlTableAlertSqlGenerator extends TableAlertSqlGenerator {
     }
 
     @Override
-    public String generate(DBTable table) {
+    public String generate(MysqlTable table) {
         String dbName = table.getDbName();
         StringBuilder builder = new StringBuilder();
         if (table.hasForeignKey()) {
@@ -95,13 +95,13 @@ public class MysqlTableAlertSqlGenerator extends TableAlertSqlGenerator {
         return sql;
     }
 
-    protected void triggerHandle(StringBuilder builder, DBTable table) {
-        DBTriggers triggers = table.getTriggers();
-        for (DBTrigger trigger : triggers) {
-            if (DBTriggers.isDeleted(trigger) || DBTriggers.isChanged(trigger)) {
+    protected void triggerHandle(StringBuilder builder, MysqlTable table) {
+        MysqlTriggers triggers = table.getTriggers();
+        for (MysqlTrigger trigger : triggers) {
+            if (MysqlTriggers.isDeleted(trigger) || MysqlTriggers.isChanged(trigger)) {
                 builder.append("DROP TRIGGER ").append(DBUtil.wrap(trigger.originalName())).append(";");
             }
-            if (DBTriggers.isChanged(trigger) || DBTriggers.isCreated(trigger)) {
+            if (MysqlTriggers.isChanged(trigger) || MysqlTriggers.isCreated(trigger)) {
                 builder.append("CREATE TRIGGER ")
                         .append(DBUtil.wrap(trigger.getName()))
                         .append(" ")
@@ -115,9 +115,9 @@ public class MysqlTableAlertSqlGenerator extends TableAlertSqlGenerator {
         }
     }
 
-    protected void columnHandle(StringBuilder builder, DBTable table) {
-        for (DBColumn column : table.columns()) {
-            if (DBColumns.isChanged(column) || DBColumns.isCreated(column)) {
+    protected void columnHandle(StringBuilder builder, MysqlTable table) {
+        for (MysqlColumn column : table.columns()) {
+            if (MysqlColumns.isChanged(column) || MysqlColumns.isCreated(column)) {
                 if (column.isCreated()) {
                     builder.append(" ADD COLUMN ").append(DBUtil.wrap(column.getName()));
                 } else if (column.isNameChanged()) {
@@ -187,20 +187,20 @@ public class MysqlTableAlertSqlGenerator extends TableAlertSqlGenerator {
                     builder.append(" COMMENT ").append("'").append(column.getComment()).append("'");
                 }
                 builder.append(",");
-            } else if (DBColumns.isDeleted(column)) {
+            } else if (MysqlColumns.isDeleted(column)) {
                 builder.append(" DROP COLUMN ").append(DBUtil.wrap(column.getName())).append(",");
             }
         }
     }
 
-    protected void primaryKeyHandle(StringBuilder builder, DBTable table) {
+    protected void primaryKeyHandle(StringBuilder builder, MysqlTable table) {
         if (table.isHasPrimaryKey()) {
             builder.append(" DROP PRIMARY KEY,");
         }
-        List<DBColumn> keyList = table.primaryKeys();
+        List<MysqlColumn> keyList = table.primaryKeys();
         if (!keyList.isEmpty()) {
             builder.append(" ADD PRIMARY KEY (");
-            for (DBColumn column : keyList) {
+            for (MysqlColumn column : keyList) {
                 builder.append(DBUtil.wrap(column.getName()));
                 if (column.supportKeySize()) {
                     if (column.getPrimaryKeySize() != null) {
@@ -217,15 +217,15 @@ public class MysqlTableAlertSqlGenerator extends TableAlertSqlGenerator {
         }
     }
 
-    protected void indexHandle(StringBuilder builder, DBTable table) {
-        DBIndexes indexes = table.indexes();
-        for (DBIndex index : indexes) {
+    protected void indexHandle(StringBuilder builder, MysqlTable table) {
+        MysqlIndexes indexes = table.indexes();
+        for (MysqlIndex index : indexes) {
             // 索引删除、变更
-            if (DBIndexes.isDeleted(index) || DBIndexes.isChanged(index)) {
+            if (MysqlIndexes.isDeleted(index) || MysqlIndexes.isChanged(index)) {
                 builder.append("DROP INDEX ").append(DBUtil.wrap(index.originalName())).append(",");
             }
             // 索引新增、变更
-            if (DBIndexes.isCreated(index) || DBIndexes.isChanged(index)) {
+            if (MysqlIndexes.isCreated(index) || MysqlIndexes.isChanged(index)) {
                 // 新增索引
                 builder.append(" ADD");
                 // 类型名称
@@ -234,7 +234,7 @@ public class MysqlTableAlertSqlGenerator extends TableAlertSqlGenerator {
                 }
                 builder.append(" INDEX ").append(DBUtil.wrap(index.getName()));
                 builder.append(" (");
-                for (DBIndex.IndexColumn column : index.getColumns()) {
+                for (MysqlIndex.IndexColumn column : index.getColumns()) {
                     builder.append(DBUtil.wrap(column.getColumnName()));
                     if (column.getSubPart() > 0) {
                         builder.append("(").append(column.getSubPart()).append(")");
@@ -255,12 +255,12 @@ public class MysqlTableAlertSqlGenerator extends TableAlertSqlGenerator {
         }
     }
 
-    protected void foreignKeyHandle1(StringBuilder builder, DBTable table) {
-        DBForeignKeys foreignKeys = table.foreignKeys();
+    protected void foreignKeyHandle1(StringBuilder builder, MysqlTable table) {
+        MysqlForeignKeys foreignKeys = table.foreignKeys();
         if (!foreignKeys.hasCreated() && !foreignKeys.hasChanged()) {
             return;
         }
-        for (DBForeignKey foreignKey : foreignKeys.filterList(DBObjectList.TYPE_CHANGED, DBObjectList.TYPE_CREATED)) {
+        for (MysqlForeignKey foreignKey : foreignKeys.filterList(DBObjectList.TYPE_CHANGED, DBObjectList.TYPE_CREATED)) {
             // 新增外键
             builder.append(" ADD CONSTRAINT ").append(DBUtil.wrap(foreignKey.getName()));
             builder.append(" FOREIGN KEY (");
@@ -281,8 +281,8 @@ public class MysqlTableAlertSqlGenerator extends TableAlertSqlGenerator {
         }
     }
 
-    protected void foreignKeyHandle2(StringBuilder builder, DBTable table) {
-        DBForeignKeys foreignKeys = table.getForeignKeys();
+    protected void foreignKeyHandle2(StringBuilder builder, MysqlTable table) {
+        MysqlForeignKeys foreignKeys = table.getForeignKeys();
         if (foreignKeys == null || foreignKeys.isEmpty()) {
             return;
         }
@@ -290,7 +290,7 @@ public class MysqlTableAlertSqlGenerator extends TableAlertSqlGenerator {
             return;
         }
         builder.append("ALTER TABLE ").append(DBUtil.wrap(table.getDbName(), table.getName())).append(" ");
-        for (DBForeignKey foreignKey : foreignKeys.filterList(DBObjectList.TYPE_DELETED, DBObjectList.TYPE_CHANGED)) {
+        for (MysqlForeignKey foreignKey : foreignKeys.filterList(DBObjectList.TYPE_DELETED, DBObjectList.TYPE_CHANGED)) {
             String fkName = foreignKey.originalName();
             // 名称为null是临时数据
             if (StrUtil.isNotBlank(fkName)) {
@@ -300,15 +300,15 @@ public class MysqlTableAlertSqlGenerator extends TableAlertSqlGenerator {
         builder.append(";");
     }
 
-    protected void checkHandle(StringBuilder builder, DBTable table) {
-        DBChecks checks = table.checks();
-        for (DBCheck check : checks) {
+    protected void checkHandle(StringBuilder builder, MysqlTable table) {
+        MysqlChecks checks = table.checks();
+        for (MysqlCheck check : checks) {
             // 检查删除、变更
-            if (DBChecks.isDeleted(check) || DBChecks.isChanged(check)) {
+            if (MysqlChecks.isDeleted(check) || MysqlChecks.isChanged(check)) {
                 builder.append("DROP CONSTRAINT ").append(DBUtil.wrap(check.originalName())).append(",");
             }
             // 检查新增、变更
-            if (DBChecks.isCreated(check) || DBChecks.isChanged(check)) {
+            if (MysqlChecks.isCreated(check) || MysqlChecks.isChanged(check)) {
                 builder.append(" ADD CONSTRAINT ")
                         .append(DBUtil.wrap(check.getName()))
                         .append(" CHECK (")

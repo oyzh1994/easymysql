@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.util;
 
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.fx.plus.controls.text.FXLabel;
 import cn.oyzh.fx.plus.controls.textfield.BitTextField;
 import cn.oyzh.fx.plus.controls.textfield.ChooseFileTextField;
@@ -101,11 +101,11 @@ public class DBNodeUtil {
         }
     }
 
-    public static Node generateNode(DBColumn column) {
+    public static Node generateNode(MysqlColumn column) {
         return generateNode(column, true);
     }
 
-    public static Node generateNode(DBColumn column, boolean handlerDefaultValue) {
+    public static Node generateNode(MysqlColumn column, boolean handlerDefaultValue) {
         Node node;
         if (column == null) {
             node = new FlexTextField();
@@ -159,7 +159,7 @@ public class DBNodeUtil {
         return node;
     }
 
-    public static List<FXLabel> generateTags(DBColumn column) {
+    public static List<FXLabel> generateTags(MysqlColumn column) {
         List<FXLabel> labels = new ArrayList<>();
         if (column.isNullable()) {
             FXLabel label = new FXLabel(I18nHelper.nullable());

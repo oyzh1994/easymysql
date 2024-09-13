@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db.record;
 
-import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.MysqlColumn;
 import lombok.Data;
 
 import java.util.Objects;
@@ -37,7 +37,7 @@ public class MysqlRecordPrimaryKey {
      */
     private boolean autoIncrement;
 
-    public void init(DBColumn column, MysqlRecord record) {
+    public void init(MysqlColumn column, MysqlRecord record) {
         this.columnName = column.getName();
         this.autoIncrement = column.isAutoIncrement();
         this.data = record.getValue(this.columnName);
