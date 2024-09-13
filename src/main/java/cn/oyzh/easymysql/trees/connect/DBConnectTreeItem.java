@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees.connect;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.controller.info.DBInfoUpdateController;
+import cn.oyzh.easymysql.controller.info.MysqlInfoUpdateController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.db.DBConnectManager;
@@ -235,7 +235,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
             }
             this.closeConnect();
         }
-        StageAdapter fxView = StageManager.parseStage(DBInfoUpdateController.class, this.window());
+        StageAdapter fxView = StageManager.parseStage(MysqlInfoUpdateController.class, this.window());
         fxView.setProp("info", this.value());
         fxView.display();
     }

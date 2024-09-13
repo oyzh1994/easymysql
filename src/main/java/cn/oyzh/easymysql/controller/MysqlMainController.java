@@ -47,7 +47,7 @@ import java.util.List;
  */
 @Lazy
 @Component
-public class DBMainController extends ParentStageController {
+public class MysqlMainController extends ParentStageController {
 
     /**
      * 配置对象

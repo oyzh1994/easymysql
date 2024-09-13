@@ -58,7 +58,7 @@ public class MainController extends ParentStageController {
      * db主页业务
      */
     @FXML
-    private DBMainController dbMainController;
+    private MysqlMainController mysqlMainController;
 
     /**
      * 页面信息
@@ -145,7 +145,7 @@ public class MainController extends ParentStageController {
 
     @Override
     public List<? extends StageController> getSubControllers() {
-        return Arrays.asList(this.dbMainController, this.headerController);
+        return Arrays.asList(this.mysqlMainController, this.headerController);
     }
 
     @Override

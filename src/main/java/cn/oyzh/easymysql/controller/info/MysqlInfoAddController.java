@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.controller.info;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.MysqlConst;
+import cn.oyzh.easymysql.domain.DBGroup;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.fx.DBTypeComboBox;
@@ -22,27 +23,26 @@ import cn.oyzh.fx.plus.window.StageAttribute;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
-import lombok.NonNull;
 
 /**
- * db信息修改业务
+ * 添加db信息业务
  *
  * @author oyzh
  * @since 2023/12/22
  */
-@StageAttribute(title = "DB连接修改", modality = Modality.WINDOW_MODAL, iconUrls = MysqlConst.ICON_PATH, value = FXConst.VIEW_PATH + "info/dbInfoUpdate.fxml")
-public class DBInfoUpdateController extends StageController {
+@StageAttribute(
+        title = "DB连接新增",
+        modality = Modality.WINDOW_MODAL,
+        iconUrls = MysqlConst.ICON_PATH,
+        value = FXConst.VIEW_PATH + "info/dbInfoAdd.fxml"
+)
+public class MysqlInfoAddController extends StageController {
 
     /**
      * tab组件
      */
     @FXML
     private FlexTabPane tabPane;
-
-    /**
-     * db信息
-     */
-    private DBInfo dbInfo;
 
     /**
      * 名称
@@ -69,18 +69,6 @@ public class DBInfoUpdateController extends StageController {
     private ClearableTextField password;
 
     /**
-     * 连接ip
-     */
-    @FXML
-    private ClearableTextField hostIp;
-
-    /**
-     * 连接端口
-     */
-    @FXML
-    private PortTextField hostPort;
-
-    /**
      * 服务名称
      */
     @FXML
@@ -99,6 +87,18 @@ public class DBInfoUpdateController extends StageController {
     private FlexTextArea remark;
 
     /**
+     * 连接ip
+     */
+    @FXML
+    private ClearableTextField hostIp;
+
+    /**
+     * 连接端口
+     */
+    @FXML
+    private PortTextField hostPort;
+
+    /**
      * 连接超时
      */
     @FXML
@@ -109,6 +109,11 @@ public class DBInfoUpdateController extends StageController {
      */
     @FXML
     private FlexHBox serviceBox;
+
+    /**
+     * 分组
+     */
+    private DBGroup group;
 
     /**
      * db连接储存对象
@@ -163,10 +168,10 @@ public class DBInfoUpdateController extends StageController {
     }
 
     /**
-     * 修改db信息
+     * 添加db信息
      */
     @FXML
-    private void update() {
+    private void add() {
         String host = this.getHost();
         if (host == null) {
             return;
@@ -175,38 +180,43 @@ public class DBInfoUpdateController extends StageController {
         if (StrUtil.isBlank(this.name.getTextTrim())) {
             this.name.setText(host.replace(":", "_"));
         }
-        String name = this.name.getTextTrim();
-        this.dbInfo.setName(name);
-        Number connectTimeOut = this.connectTimeOut.getValue();
+        try {
+            String name = this.name.getTextTrim();
+            DBInfo dbInfo = new DBInfo();
+            dbInfo.setName(name);
+            Number connectTimeOut = this.connectTimeOut.getValue();
+            dbInfo.setHost(host);
+            dbInfo.setUser(this.user.getText());
+            dbInfo.setType(this.type.getType());
+            dbInfo.setRemark(this.remark.getTextTrim());
+            dbInfo.setPassword(this.password.getText());
+            dbInfo.setGroupId(this.group == null ? null : this.group.getGid());
+            dbInfo.setConnectTimeOut(connectTimeOut == null ? 5 : connectTimeOut.intValue());
 
-        this.dbInfo.setHost(host.trim());
-        this.dbInfo.setUser(this.user.getText());
-        this.dbInfo.setType(this.type.getType());
-        this.dbInfo.setRemark(this.remark.getTextTrim());
-        this.dbInfo.setPassword(this.password.getText());
-        this.dbInfo.setConnectTimeOut(connectTimeOut == null ? 5 : connectTimeOut.intValue());
-
-        // 服务名
-        if (this.serviceBox.isVisible()) {
-            if (this.serviceType.getSelectedIndex() == 0) {
-                this.dbInfo.setSid(null);
-                this.dbInfo.setServiceName(this.serviceName.getTextTrim());
-            } else if (this.serviceType.getSelectedIndex() == 1) {// sid
-                this.dbInfo.setSid(this.serviceName.getTextTrim());
-                this.dbInfo.setServiceName(null);
+            // 服务名
+            if (this.serviceBox.isVisible()) {
+                if (this.serviceType.getSelectedIndex() == 0) {
+                    dbInfo.setSid(null);
+                    dbInfo.setServiceName(this.serviceName.getTextTrim());
+                } else if (this.serviceType.getSelectedIndex() == 1) {// sid
+                    dbInfo.setSid(this.serviceName.getTextTrim());
+                    dbInfo.setServiceName(null);
+                }
+            } else {
+                dbInfo.setSid(null);
+                dbInfo.setServiceName(null);
             }
-        } else {
-            this.dbInfo.setSid(null);
-            this.dbInfo.setServiceName(null);
-        }
-
-        // 保存数据
-        if (this.infoStore.update(this.dbInfo)) {
-            DBEventUtil.infoUpdated(this.dbInfo);
-            MessageBox.okToast("修改db信息成功!");
-            this.closeWindow();
-        } else {
-            MessageBox.warn("修改db信息失败！");
+            // 保存数据
+            boolean result = this.infoStore.add(dbInfo);
+            if (result) {
+                DBEventUtil.infoAdded(dbInfo);
+                MessageBox.okToast("新增db信息成功!");
+                this.closeWindow();
+            } else {
+                MessageBox.warn("新增db信息失败！");
+            }
+        } catch (Exception ex) {
+            MessageBox.exception(ex);
         }
     }
 
@@ -223,19 +233,9 @@ public class DBInfoUpdateController extends StageController {
     }
 
     @Override
-    public void onStageShown(@NonNull WindowEvent event) {
+    public void onStageShown(WindowEvent event) {
         super.onStageShown(event);
-        this.dbInfo = this.getWindowProp("info");
-        this.name.setText(this.dbInfo.getName());
-        this.user.setText(this.dbInfo.getUser());
-        this.hostIp.setText(this.dbInfo.hostIp());
-        this.type.selectType(this.dbInfo.getType());
-        this.remark.setText(this.dbInfo.getRemark());
-        this.hostPort.setValue(this.dbInfo.hostPort());
-        this.password.setText(this.dbInfo.getPassword());
-        this.serviceName.setText(this.dbInfo.serviceName());
-        this.serviceType.init(this.dbInfo.checkServiceType());
-        this.connectTimeOut.setValue(this.dbInfo.getConnectTimeOut());
+        this.group = this.getWindowProp("group");
         this.stage.switchOnTab();
         this.stage.hideOnEscape();
     }

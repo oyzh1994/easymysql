@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees;
 
 import cn.hutool.extra.spring.SpringUtil;
-import cn.oyzh.easymysql.controller.info.DBInfoAddController;
+import cn.oyzh.easymysql.controller.info.MysqlInfoAddController;
 import cn.oyzh.easymysql.event.DBAddConnectEvent;
 import cn.oyzh.easymysql.event.DBAddGroupEvent;
 import cn.oyzh.easymysql.event.DBInfoAddedEvent;
@@ -135,7 +135,7 @@ public class DBTreeView extends RichTreeView implements EventListener {
      */
     @Subscribe
     private void addConnect(DBAddConnectEvent event) {
-        StageManager.showStage(DBInfoAddController.class, this.window());
+        StageManager.showStage(MysqlInfoAddController.class, this.window());
     }
 
     /**

@@ -11,7 +11,7 @@ import java.util.Map;
  * @author oyzh
  * @since 2024-09-03
  */
-public abstract class TypeFileReader implements Closeable {
+public abstract class MysqlTypeFileReader implements Closeable {
 
     // public TypeFileReader(@NonNull String filePath) {
     //     this(new File(filePath), StandardCharsets.UTF_8);

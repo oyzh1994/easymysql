@@ -17,7 +17,7 @@ import java.util.Map;
  * @author oyzh
  * @since 2024-09-03
  */
-public class XmlTypeFileReader extends TypeFileReader {
+public class MysqlXmlTypeFileReader extends MysqlTypeFileReader {
 
     /**
      * xml读取器
@@ -27,9 +27,9 @@ public class XmlTypeFileReader extends TypeFileReader {
     /**
      * 导入配置
      */
-    private DataImportConfig config;
+    private MysqlDataImportConfig config;
 
-    public XmlTypeFileReader(@NonNull File file, DataImportConfig config) throws Exception {
+    public MysqlXmlTypeFileReader(@NonNull File file, MysqlDataImportConfig config) throws Exception {
         this.config = config;
         this.reader = XMLInputFactory.newInstance().createXMLEventReader(new FileInputStream(file), config.charset());
         this.init();

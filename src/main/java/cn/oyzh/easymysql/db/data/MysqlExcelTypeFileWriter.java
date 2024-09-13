@@ -21,7 +21,7 @@ import java.util.Map;
  * @author oyzh
  * @since 2024-09-04
  */
-public class ExcelTypeFileWriter extends TypeFileWriter {
+public class MysqlExcelTypeFileWriter extends MysqlTypeFileWriter {
 
     /**
      * 字段列表
@@ -31,7 +31,7 @@ public class ExcelTypeFileWriter extends TypeFileWriter {
     /**
      * 导出配置
      */
-    private DataExportConfig config;
+    private MysqlDataExportConfig config;
 
     /**
      * xls工作薄
@@ -45,7 +45,7 @@ public class ExcelTypeFileWriter extends TypeFileWriter {
 
     private String filePath;
 
-    public ExcelTypeFileWriter(String filePath, DataExportConfig config, DBColumns columns) throws IOException {
+    public MysqlExcelTypeFileWriter(String filePath, MysqlDataExportConfig config, DBColumns columns) throws IOException {
         this.columns = columns;
         this.config = config;
         this.filePath = filePath;
@@ -132,7 +132,7 @@ public class ExcelTypeFileWriter extends TypeFileWriter {
     }
 
     @Override
-    public Object parameterized(DBColumn column, Object value, DataExportConfig config) {
+    public Object parameterized(DBColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return null;
         }

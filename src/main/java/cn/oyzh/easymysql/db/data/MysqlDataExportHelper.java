@@ -22,7 +22,7 @@ import java.util.Map;
  * @since 2024/09/02
  */
 @UtilityClass
-public class DataExportHelper {
+public class MysqlDataExportHelper {
 
     /**
      * 参数化，json
@@ -31,7 +31,7 @@ public class DataExportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterizedForJson(DBColumn column, Object value, DataExportConfig config) {
+    public static Object parameterizedForJson(DBColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return null;
         }
@@ -82,7 +82,7 @@ public class DataExportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterizedForXml(DBColumn column, Object value, DataExportConfig config) {
+    public static Object parameterizedForXml(DBColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return null;
         }
@@ -133,7 +133,7 @@ public class DataExportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterizedForCsv(DBColumn column, Object value, DataExportConfig config) {
+    public static Object parameterizedForCsv(DBColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return "";
         }
@@ -175,7 +175,7 @@ public class DataExportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterizedForSql(DBColumn column, Object value, DataExportConfig config) {
+    public static Object parameterizedForSql(DBColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return "NULL";
         }
@@ -224,7 +224,7 @@ public class DataExportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterizedForHtml(DBColumn column, Object value, DataExportConfig config) {
+    public static Object parameterizedForHtml(DBColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return "";
         }
@@ -275,7 +275,7 @@ public class DataExportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterizedForXls(DBColumn column, Object value, DataExportConfig config) {
+    public static Object parameterizedForXls(DBColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return null;
         }
@@ -324,7 +324,7 @@ public class DataExportHelper {
      * @param config  配置
      * @return 插入sql
      */
-    public static List<String> toExportSql(DBColumns columns, List<DBRecord> records, DataExportConfig config) {
+    public static List<String> toExportSql(DBColumns columns, List<DBRecord> records, MysqlDataExportConfig config) {
         List<String> list = new ArrayList<>();
         String tableName = columns.getTableName();
         List<DBColumn> columnList = columns.sortOfPosition();
@@ -363,7 +363,7 @@ public class DataExportHelper {
      * @param records 记录
      * @return 插入json
      */
-    public static List<Map<String, Object>> toExportJson(DBColumns columns, List<DBRecord> records, DataExportConfig config) {
+    public static List<Map<String, Object>> toExportJson(DBColumns columns, List<DBRecord> records, MysqlDataExportConfig config) {
         List<Map<String, Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
         for (DBRecord record : records) {
@@ -385,7 +385,7 @@ public class DataExportHelper {
      * @param records 记录
      * @return 插入xml
      */
-    public static List<Map<String, Object>> toExportXml(DBColumns columns, List<DBRecord> records, DataExportConfig config) {
+    public static List<Map<String, Object>> toExportXml(DBColumns columns, List<DBRecord> records, MysqlDataExportConfig config) {
         List<Map<String, Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
         for (DBRecord record : records) {
@@ -407,7 +407,7 @@ public class DataExportHelper {
      * @param records 记录
      * @return 插入csv
      */
-    public static List<List<Object>> toExportCsv(DBColumns columns, List<DBRecord> records, DataExportConfig config) {
+    public static List<List<Object>> toExportCsv(DBColumns columns, List<DBRecord> records, MysqlDataExportConfig config) {
         List<List<Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
         for (DBRecord record : records) {
@@ -429,7 +429,7 @@ public class DataExportHelper {
      * @param records 记录
      * @return 插入html
      */
-    public static List<List<Object>> toExportHtml(DBColumns columns, List<DBRecord> records, DataExportConfig config) {
+    public static List<List<Object>> toExportHtml(DBColumns columns, List<DBRecord> records, MysqlDataExportConfig config) {
         List<List<Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
         for (DBRecord record : records) {
@@ -451,7 +451,7 @@ public class DataExportHelper {
      * @param records 记录
      * @return 插入xls
      */
-    public static List<List<Object>> toExportXls(DBColumns columns, List<DBRecord> records, DataExportConfig config) {
+    public static List<List<Object>> toExportXls(DBColumns columns, List<DBRecord> records, MysqlDataExportConfig config) {
         List<List<Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
         for (DBRecord record : records) {

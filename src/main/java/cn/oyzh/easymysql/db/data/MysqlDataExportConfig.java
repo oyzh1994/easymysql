@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
  */
 @Data
 @Accessors(chain = true, fluent = true)
-public class DataExportConfig {
+public class MysqlDataExportConfig {
 
     /**
      * 日期格式

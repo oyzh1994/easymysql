@@ -20,7 +20,7 @@ import java.util.Map;
  * @author oyzh
  * @since 2024-09-03
  */
-public class ExcelTypeFileReader extends TypeFileReader {
+public class MysqlExcelTypeFileReader extends MysqlTypeFileReader {
 
     /**
      * xml读取器
@@ -35,14 +35,14 @@ public class ExcelTypeFileReader extends TypeFileReader {
     /**
      * 导入配置
      */
-    private DataImportConfig config;
+    private MysqlDataImportConfig config;
 
     /**
      * 当前行索引
      */
     private Integer currentRowIndex;
 
-    public ExcelTypeFileReader(@NonNull File file, DataImportConfig config) throws Exception {
+    public MysqlExcelTypeFileReader(@NonNull File file, MysqlDataImportConfig config) throws Exception {
         this.config = config;
         boolean isXlsx = StrUtil.endWithIgnoreCase(file.getName(), ".xlsx");
         this.workbook = WorkbookHelper.create(isXlsx, file);

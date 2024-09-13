@@ -308,7 +308,7 @@ public class SearchController extends SubStageController {
     }
 
     @Override
-    public DBMainController parent() {
-        return (DBMainController) super.parent();
+    public MysqlMainController parent() {
+        return (MysqlMainController) super.parent();
     }
 }

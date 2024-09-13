@@ -3,14 +3,14 @@ package cn.oyzh.easymysql.handler.imports;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.data.CsvTypeFileReader;
-import cn.oyzh.easymysql.db.data.DataImportConfig;
-import cn.oyzh.easymysql.db.data.DataImportHelper;
-import cn.oyzh.easymysql.db.data.ExcelTypeFileReader;
-import cn.oyzh.easymysql.db.data.JsonTypeFileReader;
-import cn.oyzh.easymysql.db.data.TxtTypeFileReader;
-import cn.oyzh.easymysql.db.data.TypeFileReader;
-import cn.oyzh.easymysql.db.data.XmlTypeFileReader;
+import cn.oyzh.easymysql.db.data.MysqlCsvMysqlTypeFileReader;
+import cn.oyzh.easymysql.db.data.MysqlDataImportConfig;
+import cn.oyzh.easymysql.db.data.MysqlDataImportHelper;
+import cn.oyzh.easymysql.db.data.MysqlExcelTypeFileReader;
+import cn.oyzh.easymysql.db.data.MysqlJsonMysqlTypeFileReader;
+import cn.oyzh.easymysql.db.data.MysqlTxtTypeFileReader;
+import cn.oyzh.easymysql.db.data.MysqlTypeFileReader;
+import cn.oyzh.easymysql.db.data.MysqlXmlTypeFileReader;
 import cn.oyzh.easymysql.db.record.DBRecord;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.easymysql.fx.data.DataImportFile;
@@ -85,12 +85,12 @@ public class DataImportHandler extends DataHandler {
     /**
      * 导入配置
      */
-    private final DataImportConfig config;
+    private final MysqlDataImportConfig config;
 
     public DataImportHandler(DBClient dbClient, String dbName) {
         this.dbClient = dbClient;
         this.dbName = dbName;
-        this.config = new DataImportConfig();
+        this.config = new MysqlDataImportConfig();
     }
 
     /**
@@ -177,7 +177,7 @@ public class DataImportHandler extends DataHandler {
         if (this.config.isCopyMode()) {
             this.dbClient.clearTable(this.dbName, tableName);
         }
-        try (TypeFileReader reader = this.initReader(file.getFile())) {
+        try (MysqlTypeFileReader reader = this.initReader(file.getFile())) {
             // 获取数据库表字段
             DBColumns dbColumns = new DBColumns(this.dbClient.tableColumns(this.dbName,null, tableName));
             if (!dbColumns.isEmpty()) {
@@ -205,26 +205,26 @@ public class DataImportHandler extends DataHandler {
         }
     }
 
-    private TypeFileReader initReader(File file) throws Exception {
+    private MysqlTypeFileReader initReader(File file) throws Exception {
         if (this.isCsvType()) {
-            return new CsvTypeFileReader(file, this.config);
+            return new MysqlCsvMysqlTypeFileReader(file, this.config);
         }
         if (this.isJsonType()) {
-            return new JsonTypeFileReader(file, this.config);
+            return new MysqlJsonMysqlTypeFileReader(file, this.config);
         }
         if (this.isXmlType()) {
-            return new XmlTypeFileReader(file, this.config);
+            return new MysqlXmlTypeFileReader(file, this.config);
         }
         if (this.isExcelType()) {
-            return new ExcelTypeFileReader(file, this.config);
+            return new MysqlExcelTypeFileReader(file, this.config);
         }
         if (this.isTxtType()) {
-            return new TxtTypeFileReader(file, this.config);
+            return new MysqlTxtTypeFileReader(file, this.config);
         }
         return null;
     }
 
-    private List<DBRecord> readRecords(TypeFileReader reader, int count) throws Exception {
+    private List<DBRecord> readRecords(MysqlTypeFileReader reader, int count) throws Exception {
         List<DBRecord> records = new ArrayList<>();
         List<Map<String, Object>> list = reader.readObjects(count);
         for (Map<String, Object> objectMap : list) {
@@ -244,7 +244,7 @@ public class DataImportHandler extends DataHandler {
      * @param records 记录列表
      */
     private void writeRecord(DBColumns columns, List<DBRecord> records) throws Exception {
-        List<String> sqlList = DataImportHelper.toInsertSql(columns, records, this.config);
+        List<String> sqlList = MysqlDataImportHelper.toInsertSql(columns, records, this.config);
         this.addInsertSql(sqlList);
     }
 

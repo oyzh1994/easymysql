@@ -19,7 +19,7 @@
 <?import cn.oyzh.easymysql.fx.DBMsgTextArea?>
 <?import cn.oyzh.easymysql.tabs.DBTabPane?>
 <FlexPane styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.controller.DBMainController" flexWidth="100%" flexHeight="100% - 30">
+          fx:controller="cn.oyzh.easymysql.controller.MysqlMainController" flexWidth="100%" flexHeight="100% - 30">
     <FlexTabPane flexHeight="100%" realWidth="440" rotateGraphic="true" side="LEFT" fx:id="tabPaneLeft">
         <FXTab text="%base.connection">
             <graphic>

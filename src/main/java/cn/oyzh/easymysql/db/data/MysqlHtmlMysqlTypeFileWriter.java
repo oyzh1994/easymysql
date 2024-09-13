@@ -12,7 +12,7 @@ import java.util.Map;
  * @author oyzh
  * @since 2024-09-04
  */
-public class HtmlTypeFileWriter extends TypeFileWriter {
+public class MysqlHtmlMysqlTypeFileWriter extends MysqlTypeFileWriter {
 
     /**
      * 字段列表
@@ -22,14 +22,14 @@ public class HtmlTypeFileWriter extends TypeFileWriter {
     /**
      * 导出配置
      */
-    private DataExportConfig config;
+    private MysqlDataExportConfig config;
 
     /**
      * 文件写入器
      */
     private LineFileWriter writer;
 
-    public HtmlTypeFileWriter(String filePath, DataExportConfig config, DBColumns columns) {
+    public MysqlHtmlMysqlTypeFileWriter(String filePath, MysqlDataExportConfig config, DBColumns columns) {
         this.columns = columns;
         this.config = config;
         this.writer = LineFileWriter.create(filePath, config.charset());

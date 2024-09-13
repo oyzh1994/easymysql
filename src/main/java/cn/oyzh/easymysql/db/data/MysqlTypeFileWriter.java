@@ -3,7 +3,6 @@ package cn.oyzh.easymysql.db.data;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.HexUtil;
 import cn.hutool.json.JSONUtil;
-import cn.oyzh.easymysql.db.data.DataExportConfig;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.fx.common.util.TextUtil;
@@ -18,7 +17,7 @@ import java.util.Map;
  * @author oyzh
  * @since 2024-09-04
  */
-public abstract class TypeFileWriter implements Closeable {
+public abstract class MysqlTypeFileWriter implements Closeable {
 
     protected void init() throws Exception {
 
@@ -32,7 +31,7 @@ public abstract class TypeFileWriter implements Closeable {
      * @param config 导出配置
      * @return 参数化后的值
      */
-    public Object parameterized(DBColumn column, Object value, DataExportConfig config) {
+    public Object parameterized(DBColumn column, Object value, MysqlDataExportConfig config) {
         if (value == null) {
             return "";
         }

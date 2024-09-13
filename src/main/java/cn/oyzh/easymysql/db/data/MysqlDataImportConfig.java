@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
  */
 @Data
 @Accessors(chain = true, fluent = true)
-public class DataImportConfig {
+public class MysqlDataImportConfig {
 
     /**
      * 日期格式

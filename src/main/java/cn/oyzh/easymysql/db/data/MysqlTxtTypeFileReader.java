@@ -16,7 +16,7 @@ import java.util.Objects;
  * @author oyzh
  * @since 2024-09-04
  */
-public class TxtTypeFileReader extends TypeFileReader {
+public class MysqlTxtTypeFileReader extends MysqlTypeFileReader {
 
     /**
      * 字段列表
@@ -26,14 +26,14 @@ public class TxtTypeFileReader extends TypeFileReader {
     /**
      * 导入配置
      */
-    private DataImportConfig config;
+    private MysqlDataImportConfig config;
 
     /**
      * 文件读取器
      */
     private SkipAbleFileReader reader;
 
-    public TxtTypeFileReader(@NonNull File file, DataImportConfig config) throws IOException {
+    public MysqlTxtTypeFileReader(@NonNull File file, MysqlDataImportConfig config) throws IOException {
         // super(file, null);
         this.config = config;
         this.reader = new SkipAbleFileReader(file, Charset.forName(config.charset()));

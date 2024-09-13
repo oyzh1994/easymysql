@@ -3,15 +3,15 @@ package cn.oyzh.easymysql.handler.export;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.data.CsvTypeFileWriter;
-import cn.oyzh.easymysql.db.data.DataExportConfig;
-import cn.oyzh.easymysql.db.data.ExcelTypeFileWriter;
-import cn.oyzh.easymysql.db.data.HtmlTypeFileWriter;
-import cn.oyzh.easymysql.db.data.JsonTypeFileWriter;
-import cn.oyzh.easymysql.db.data.SqlTypeFileWriter;
-import cn.oyzh.easymysql.db.data.TxtTypeFileWriter;
-import cn.oyzh.easymysql.db.data.TypeFileWriter;
-import cn.oyzh.easymysql.db.data.XmlTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlCsvMysqlTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlDataExportConfig;
+import cn.oyzh.easymysql.db.data.MysqlExcelTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlHtmlMysqlTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlJsonMysqlTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlSqlMysqlTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlTxtMysqlTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlTypeFileWriter;
+import cn.oyzh.easymysql.db.data.MysqlXmlMysqlTypeFileWriter;
 import cn.oyzh.easymysql.db.record.DBRecord;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.easymysql.fx.data.DataExportTable;
@@ -90,12 +90,12 @@ public class DataExportHandler extends DataHandler {
     /**
      * 导出配置
      */
-    private final DataExportConfig config;
+    private final MysqlDataExportConfig config;
 
     public DataExportHandler(DBClient dbClient, String dbName) {
         this.dbClient = dbClient;
         this.dbName = dbName;
-        this.config = new DataExportConfig();
+        this.config = new MysqlDataExportConfig();
     }
 
     /**
@@ -196,27 +196,27 @@ public class DataExportHandler extends DataHandler {
         this.message("Export Finished");
     }
 
-    private TypeFileWriter initWriter(String filePath, DBColumns columns) throws IOException {
+    private MysqlTypeFileWriter initWriter(String filePath, DBColumns columns) throws IOException {
         if (this.isSqlType()) {
-            return new SqlTypeFileWriter(filePath, this.config, columns);
+            return new MysqlSqlMysqlTypeFileWriter(filePath, this.config, columns);
         }
         if (this.isExcelType()) {
-            return new ExcelTypeFileWriter(filePath, this.config, columns);
+            return new MysqlExcelTypeFileWriter(filePath, this.config, columns);
         }
         if (this.isHtmlType()) {
-            return new HtmlTypeFileWriter(filePath, this.config, columns);
+            return new MysqlHtmlMysqlTypeFileWriter(filePath, this.config, columns);
         }
         if (this.isJsonType()) {
-            return new JsonTypeFileWriter(filePath, this.config, columns);
+            return new MysqlJsonMysqlTypeFileWriter(filePath, this.config, columns);
         }
         if (this.isXmlType()) {
-            return new XmlTypeFileWriter(filePath, this.config, columns);
+            return new MysqlXmlMysqlTypeFileWriter(filePath, this.config, columns);
         }
         if (this.isCsvType()) {
-            return new CsvTypeFileWriter(filePath, this.config, columns);
+            return new MysqlCsvMysqlTypeFileWriter(filePath, this.config, columns);
         }
         if (this.isTxtType()) {
-            return new TxtTypeFileWriter(filePath, this.config, columns);
+            return new MysqlTxtMysqlTypeFileWriter(filePath, this.config, columns);
         }
         return null;
     }
@@ -233,7 +233,7 @@ public class DataExportHandler extends DataHandler {
         this.message("Exporting Records of Table " + table.getName());
         long start = 0;
         DBColumns columns = new DBColumns(table.selectedColumns());
-        try (TypeFileWriter writer = this.initWriter(table.getFilePath(), columns)) {
+        try (MysqlTypeFileWriter writer = this.initWriter(table.getFilePath(), columns)) {
             this.writeHeader(writer, table, columns);
             if (!columns.isEmpty()) {
                 while (true) {
@@ -266,7 +266,7 @@ public class DataExportHandler extends DataHandler {
      * @param columns 字段列表
      * @throws IOException 异常
      */
-    private void writeHeader(TypeFileWriter writer, DataExportTable table, DBColumns columns) throws Exception {
+    private void writeHeader(MysqlTypeFileWriter writer, DataExportTable table, DBColumns columns) throws Exception {
         // if (this.isJsonType()) {
         //     this.writer = new FastFileWriter(table.getFilePath());
         //     this.writer.appendLine("{");
@@ -353,7 +353,7 @@ public class DataExportHandler extends DataHandler {
      * @param records 记录列表
      * @throws IOException 异常
      */
-    private void writeRecord(TypeFileWriter writer, DataExportTable table, DBColumns columns, List<DBRecord> records) throws Exception {
+    private void writeRecord(MysqlTypeFileWriter writer, DataExportTable table, DBColumns columns, List<DBRecord> records) throws Exception {
         // if (this.isJsonType()) {
         //     this.writeJsonRecord(this.writer, columns, records);
         // }
@@ -382,7 +382,7 @@ public class DataExportHandler extends DataHandler {
      *
      * @throws IOException 异常
      */
-    private void writeTail(TypeFileWriter writer) throws Exception {
+    private void writeTail(MysqlTypeFileWriter writer) throws Exception {
         writer.writeTrial();
         writer.close();
     }

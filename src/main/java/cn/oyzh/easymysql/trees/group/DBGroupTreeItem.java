@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.trees.group;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.controller.info.DBInfoAddController;
+import cn.oyzh.easymysql.controller.info.MysqlInfoAddController;
 import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.domain.DBGroup;
 import cn.oyzh.easymysql.domain.DBInfo;
@@ -147,7 +147,7 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
      * 添加连接
      */
     private void addConnect() {
-        StageAdapter fxView = StageManager.parseStage(DBInfoAddController.class, this.window());
+        StageAdapter fxView = StageManager.parseStage(MysqlInfoAddController.class, this.window());
         fxView.setProp("group", this.value);
         fxView.display();
     }

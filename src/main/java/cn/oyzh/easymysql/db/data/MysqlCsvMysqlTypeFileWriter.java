@@ -11,7 +11,7 @@ import java.util.Map;
  * @author oyzh
  * @since 2024-09-04
  */
-public class TxtTypeFileWriter extends TypeFileWriter {
+public class MysqlCsvMysqlTypeFileWriter extends MysqlTypeFileWriter {
 
     /**
      * 字段列表
@@ -21,14 +21,14 @@ public class TxtTypeFileWriter extends TypeFileWriter {
     /**
      * 导出配置
      */
-    private DataExportConfig config;
+    private MysqlDataExportConfig config;
 
     /**
-     * 文件写入器
+     * 文件读取器
      */
-    private LineFileWriter writer;
+    private final LineFileWriter writer;
 
-    public TxtTypeFileWriter(String filePath, DataExportConfig config, DBColumns columns) {
+    public MysqlCsvMysqlTypeFileWriter(String filePath, MysqlDataExportConfig config, DBColumns columns) {
         this.columns = columns;
         this.config = config;
         this.writer = LineFileWriter.create(filePath, config.charset());
@@ -36,7 +36,7 @@ public class TxtTypeFileWriter extends TypeFileWriter {
 
     @Override
     public void writeHeader() throws Exception {
-        this.writer.write(this.formatLine(this.columns.columnNames(), this.config.fieldSeparator(), this.config.txtIdentifier(), this.config.recordSeparator()));
+        this.writer.write(this.formatLine(this.columns.columnNames(), ",", this.config.txtIdentifier(), this.config.recordSeparator()));
     }
 
     @Override
@@ -48,13 +48,12 @@ public class TxtTypeFileWriter extends TypeFileWriter {
             Object val = this.parameterized(column, entry.getValue(), this.config);
             values[index] = val;
         }
-        this.writer.write(this.formatLine(values, this.config.fieldSeparator(), this.config.txtIdentifier(), this.config.recordSeparator()));
+        this.writer.write(this.formatLine(values, ",", this.config.txtIdentifier(), this.config.recordSeparator()));
     }
 
     @Override
     public void close() throws IOException {
         this.writer.close();
-        this.writer = null;
         this.config = null;
         this.columns = null;
     }

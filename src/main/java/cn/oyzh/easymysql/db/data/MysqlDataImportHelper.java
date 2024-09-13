@@ -19,7 +19,7 @@ import java.util.List;
  * @since 2024/09/02
  */
 @UtilityClass
-public class DataImportHelper {
+public class MysqlDataImportHelper {
 
     /**
      * 参数化
@@ -28,7 +28,7 @@ public class DataImportHelper {
      * @param value  值
      * @return 参数化后的值
      */
-    public static Object parameterized(DBColumn column, Object value, DataImportConfig config) throws ParseException {
+    public static Object parameterized(DBColumn column, Object value, MysqlDataImportConfig config) throws ParseException {
         if (value == null) {
             return null;
         }
@@ -64,7 +64,7 @@ public class DataImportHelper {
      * @param config  配置
      * @return 插入sql
      */
-    public static List<String> toInsertSql(DBColumns columns, List<DBRecord> records, DataImportConfig config) throws Exception {
+    public static List<String> toInsertSql(DBColumns columns, List<DBRecord> records, MysqlDataImportConfig config) throws Exception {
         List<String> insertSql = new ArrayList<>();
         for (DBRecord record : records) {
             StringBuilder sql = new StringBuilder("INSERT INTO ");
