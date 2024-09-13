@@ -3,17 +3,17 @@ package cn.oyzh.easymysql.condition;
 import cn.oyzh.easymysql.util.DBUtil;
 
 /**
- * 在列表条件
+ * 不在列表条件
  *
  * @author oyzh
  * @since 2024/6/28
  */
-public class DBInListCondition extends DBCondition {
+public class MysqlNotInListCondition extends MysqlCondition {
 
-    public final static DBInListCondition INSTANCE = new DBInListCondition();
+    public final static MysqlNotInListCondition INSTANCE = new MysqlNotInListCondition();
 
-    public DBInListCondition() {
-        super("在列表", "IN");
+    public MysqlNotInListCondition() {
+        super("不在列表", "NOT IN");
     }
 
     @Override

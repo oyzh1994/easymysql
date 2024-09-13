@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.record;
 
-import cn.oyzh.easymysql.condition.DBCondition;
-import cn.oyzh.easymysql.condition.DBConditionUtil;
+import cn.oyzh.easymysql.condition.MysqlCondition;
+import cn.oyzh.easymysql.condition.MysqlConditionUtil;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.fx.table.DBColumnComboBox;
 import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
@@ -52,7 +52,7 @@ public class DBRecordFilter {
      */
     @Getter
     @Setter
-    private DBCondition condition;
+    private MysqlCondition condition;
 
     /**
      * 字段
@@ -81,7 +81,7 @@ public class DBRecordFilter {
         if (this.valueBox == null || this.valueBox.isChildEmpty()) {
             return this.value;
         }
-        return this.value = DBConditionUtil.getNodeVal(this.valueBox.getChildren());
+        return this.value = MysqlConditionUtil.getNodeVal(this.valueBox.getChildren());
     }
 
     /**
@@ -102,8 +102,8 @@ public class DBRecordFilter {
             this.valueBox = new FlexHBox();
             FlexUtil.flexWidth(this.valueBox, "100%");
         }
-        List<Node> nodes = DBConditionUtil.generateNode(this.column, this.condition);
-        DBConditionUtil.setNodeVal(nodes, this.value);
+        List<Node> nodes = MysqlConditionUtil.generateNode(this.column, this.condition);
+        MysqlConditionUtil.setNodeVal(nodes, this.value);
         if (nodes.size() == 1) {
             FlexUtil.flexWidth(nodes.getFirst(), "100% - 10");
             FlexUtil.flexHeight(nodes.getFirst(), "100%");

@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 2024/06/26
  */
 @Data
-public abstract class DBCondition {
+public abstract class MysqlCondition {
 
     /**
      * 名称
@@ -27,16 +27,16 @@ public abstract class DBCondition {
      */
     private boolean requireCondition = true;
 
-    public DBCondition() {
+    public MysqlCondition() {
 
     }
 
-    public DBCondition(String name, String value) {
+    public MysqlCondition(String name, String value) {
         this.name = name;
         this.value = value;
     }
 
-    public DBCondition(String name, String value, boolean requireCondition) {
+    public MysqlCondition(String name, String value, boolean requireCondition) {
         this.name = name;
         this.value = value;
         this.requireCondition = requireCondition;

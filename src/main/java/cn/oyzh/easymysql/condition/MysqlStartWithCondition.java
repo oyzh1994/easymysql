@@ -6,11 +6,11 @@ package cn.oyzh.easymysql.condition;
  * @author oyzh
  * @since 2024/6/27
  */
-public class DBStartWithCondition extends DBCondition {
+public class MysqlStartWithCondition extends MysqlCondition {
 
-    public final static DBStartWithCondition INSTANCE = new DBStartWithCondition();
+    public final static MysqlStartWithCondition INSTANCE = new MysqlStartWithCondition();
 
-    public DBStartWithCondition() {
+    public MysqlStartWithCondition() {
         super("开始以", "LIKE");
     }
 

@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.condition.DBConditionUtil;
+import cn.oyzh.easymysql.condition.MysqlConditionUtil;
 import cn.oyzh.easymysql.db.event.DBEvent;
 import cn.oyzh.easymysql.db.query.DBExecuteResult;
 import cn.oyzh.easymysql.db.query.DBExplainResult;
@@ -477,7 +477,7 @@ public class MysqlDBClient extends DBClient {
             Connection connection = this.connection(dbName);
             StringBuilder builder = new StringBuilder("SELECT COUNT(*) FROM");
             builder.append(DBUtil.wrap(dbName, tableName));
-            String filterCondition = DBConditionUtil.buildCondition(filters);
+            String filterCondition = MysqlConditionUtil.buildCondition(filters);
             if (StrUtil.isNotBlank(filterCondition)) {
                 builder.append(" WHERE ").append(filterCondition);
             }
@@ -719,7 +719,7 @@ public class MysqlDBClient extends DBClient {
             Connection connection = this.connection(dbName);
             StringBuilder builder = new StringBuilder("SELECT * FROM ");
             builder.append(DBUtil.wrap(dbName, tableName));
-            String filterCondition = DBConditionUtil.buildCondition(filters);
+            String filterCondition = MysqlConditionUtil.buildCondition(filters);
             if (StrUtil.isNotBlank(filterCondition)) {
                 builder.append(" WHERE ").append(filterCondition);
             }
@@ -848,7 +848,7 @@ public class MysqlDBClient extends DBClient {
             Connection connection = this.connection(dbName);
             StringBuilder builder = new StringBuilder("SELECT * FROM ");
             builder.append(DBUtil.wrap(dbName, viewName));
-            String filterCondition = DBConditionUtil.buildCondition(filters);
+            String filterCondition = MysqlConditionUtil.buildCondition(filters);
             if (StrUtil.isNotBlank(filterCondition)) {
                 builder.append(" WHERE ").append(filterCondition);
             }

@@ -6,11 +6,11 @@ package cn.oyzh.easymysql.condition;
  * @author oyzh
  * @since 2024/6/27
  */
-public class DBNotEndWithCondition extends DBCondition {
+public class MysqlNotEndWithCondition extends MysqlCondition {
 
-    public final static DBNotEndWithCondition INSTANCE = new DBNotEndWithCondition();
+    public final static MysqlNotEndWithCondition INSTANCE = new MysqlNotEndWithCondition();
 
-    public DBNotEndWithCondition() {
+    public MysqlNotEndWithCondition() {
         super("不是结束以", "NOT LIKE");
     }
 

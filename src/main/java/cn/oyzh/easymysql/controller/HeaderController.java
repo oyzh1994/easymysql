@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.controller;
 
-import cn.oyzh.easymysql.controller.data.DBDataTransportController;
+import cn.oyzh.easymysql.controller.data.MysqlDataTransportController;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.fx.common.dto.Project;
 import cn.oyzh.fx.plus.controller.SubStageController;
@@ -55,11 +55,11 @@ public class HeaderController extends SubStageController {
      */
     @FXML
     private void transport() {
-        StageAdapter wrapper = StageManager.getStage(DBDataTransportController.class);
+        StageAdapter wrapper = StageManager.getStage(MysqlDataTransportController.class);
         if (wrapper != null) {
             wrapper.toFront();
         } else {
-            StageManager.showStage(DBDataTransportController.class);
+            StageManager.showStage(MysqlDataTransportController.class);
         }
     }
 

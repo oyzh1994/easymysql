@@ -6,11 +6,11 @@ package cn.oyzh.easymysql.condition;
  * @author oyzh
  * @since 2024/6/27
  */
-public class DBContainsCondition extends DBCondition {
+public class MysqlContainsCondition extends MysqlCondition {
 
-    public final static DBContainsCondition INSTANCE = new DBContainsCondition();
+    public final static MysqlContainsCondition INSTANCE = new MysqlContainsCondition();
 
-    public DBContainsCondition() {
+    public MysqlContainsCondition() {
         super("包含", "LIKE");
     }
 

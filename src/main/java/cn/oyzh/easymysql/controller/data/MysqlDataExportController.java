@@ -56,7 +56,7 @@ import java.util.List;
         modality = Modality.WINDOW_MODAL,
         value = FXConst.VIEW_PATH + "data/dbDataExport.fxml"
 )
-public class DBDataExportController extends StageController {
+public class MysqlDataExportController extends StageController {
 
     /**
      * 第一步

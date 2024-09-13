@@ -27,7 +27,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.controller.data.DBDataImportController" realWidth="700" realHeight="650">
+          fx:controller="cn.oyzh.easymysql.controller.data.MysqlDataImportController" realWidth="700" realHeight="650">
     <FlexVBox fx:id="step1" flexHeight="100%" flexWidth="100%">
         <FlexLabel text="%db.import.tip1" realHeight="30" fontSize="16">
             <VBox.margin>

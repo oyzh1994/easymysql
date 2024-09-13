@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.trees;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.controller.data.DBDataDumpController;
-import cn.oyzh.easymysql.controller.data.DBDataExportController;
+import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
+import cn.oyzh.easymysql.controller.data.MysqlDataExportController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.record.DBRecord;
 import cn.oyzh.easymysql.db.record.DBRecordData;
@@ -149,7 +149,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItem.MysqlTable
      * 转储
      */
     private void dump() {
-        StageAdapter fxView = StageManager.parseStage(DBDataDumpController.class, this.window());
+        StageAdapter fxView = StageManager.parseStage(MysqlDataDumpController.class, this.window());
         fxView.setProp("dumpType", 2);
         fxView.setProp("dbInfo", this.info());
         fxView.setProp("dbName", this.dbName());
@@ -162,7 +162,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItem.MysqlTable
      * 导出
      */
     private void export() {
-        StageAdapter fxView = StageManager.parseStage(DBDataExportController.class, this.window());
+        StageAdapter fxView = StageManager.parseStage(MysqlDataExportController.class, this.window());
         fxView.setProp("dumpType", 2);
         fxView.setProp("dbInfo", this.info());
         fxView.setProp("dbName", this.dbName());

@@ -1,22 +1,20 @@
 package cn.oyzh.easymysql.controller.data;
 
-import cn.hutool.core.io.FileUtil;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.domain.DBInfo;
-import cn.oyzh.easymysql.fx.data.DBDumpDataTypeComboBox;
-import cn.oyzh.easymysql.handler.dump.DataDumpHandler;
+import cn.oyzh.easymysql.handler.runfile.DataRunSqlFileHandler;
 import cn.oyzh.fx.common.thread.ThreadUtil;
 import cn.oyzh.fx.common.util.SystemUtil;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.area.MsgTextArea;
-import cn.oyzh.fx.plus.controls.box.FlexHBox;
 import cn.oyzh.fx.plus.controls.button.FlexButton;
+import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
 import cn.oyzh.fx.plus.controls.text.FXLabel;
+import cn.oyzh.fx.plus.controls.textfield.ChooseFileTextField;
 import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
-import cn.oyzh.fx.plus.file.FileExtensionFilter;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -31,21 +29,20 @@ import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 
 /**
- * db数据转储业务
+ * db运行sql业务
  *
  * @author oyzh
- * @since 2024/08/22
+ * @since 2024/08/29
  */
 @StageAttribute(
         iconUrls = MysqlConst.ICON_PATH,
         modality = Modality.WINDOW_MODAL,
-        value = FXConst.VIEW_PATH + "data/dbDataDump.fxml"
+        value = FXConst.VIEW_PATH + "data/dbRunSqlFile.fxml"
 )
-public class DBDataDumpController extends StageController {
+public class MysqlRunSqlFileController extends StageController {
 
     /**
      * 连接信息
@@ -58,28 +55,22 @@ public class DBDataDumpController extends StageController {
     private DBClient dbClient;
 
     /**
-     * 1 库
-     * 2 表
-     */
-    private int dumpType;
-
-    /**
-     * 结束转储按钮
+     * 结束运行sql按钮
      */
     @FXML
-    private FlexButton stopDumpBtn;
+    private FlexButton stopSqlFileBtn;
 
     /**
-     * 转储状态
+     * 执行状态
      */
     @FXML
-    private FXLabel dumpStatus;
+    private FXLabel execStatus;
 
     /**
-     * 转储消息
+     * 执行消息
      */
     @FXML
-    private MsgTextArea dumpMsg;
+    private MsgTextArea execMsg;
 
     /**
      * 连接
@@ -94,25 +85,19 @@ public class DBDataDumpController extends StageController {
     private ReadOnlyTextField database;
 
     /**
-     * 表组件
+     * 遇到错误时继续
      */
     @FXML
-    private FlexHBox tableBox;
+    private FlexCheckBox continueWithErrors;
 
     /**
-     * 表
+     * 文件
      */
     @FXML
-    private ReadOnlyTextField table;
+    private ChooseFileTextField file;
 
     /**
-     * 数据类型
-     */
-    @FXML
-    private DBDumpDataTypeComboBox dataType;
-
-    /**
-     * 转储操作任务
+     * sql操作任务
      */
     private Thread execTask;
 
@@ -122,91 +107,69 @@ public class DBDataDumpController extends StageController {
     private final Counter counter = new Counter();
 
     /**
-     * 转储文件
+     * sql处理器
      */
-    private File dumpFile;
+    private DataRunSqlFileHandler sqlFileHandler;
 
     /**
-     * 转储处理器
-     */
-    private DataDumpHandler dumpHandler;
-
-    /**
-     * 检查转储文件
+     * 检查sql文件
      *
      * @return 结果
      */
-    private boolean checkDumpFile() {
-        if (this.dumpFile == null || !this.dumpFile.exists()) {
-            String name = "";
-            if (this.dumpType == 1) {
-                name = this.database.getText();
-            } else if (this.dumpType == 2) {
-                name = this.table.getText();
-            }
-            if (this.dataType.isFull()) {
-                name += ".full";
-            } else {
-                name += ".structure";
-            }
-            name += ".sql";
-            FileExtensionFilter filter = FileChooserHelper.sqlExtensionFilter();
-            this.dumpFile = FileChooserHelper.save(I18nHelper.saveFile(), name, List.of(filter), this.stage.stage());
-            if (this.dumpFile != null) {
-                FileUtil.touch(this.dumpFile);
-            }
+    private boolean checkSqlFile() {
+        File sqlFile = this.file.getFile();
+        if (sqlFile == null) {
+            MessageBox.warn(I18nHelper.pleaseSelectFile());
+            return false;
         }
-        return this.dumpFile != null;
+        return true;
     }
 
     /**
-     * 执行转储
+     * 执行sql
      */
     @FXML
-    private void doDump() throws IOException {
-        // 检查转储文件
-        if (!this.checkDumpFile()) {
+    private void runSqlFile() throws IOException {
+        // 检查sql文件
+        if (!this.checkSqlFile()) {
             return;
         }
         // 重置参数
         this.counter.reset();
-        this.dumpMsg.clear();
+        this.execMsg.clear();
         // 开始处理
-        this.dumpMsg.clear();
-        // 生成转储处理器
-        if (this.dumpHandler == null) {
-            this.dumpHandler = DataDumpHandler.newHandler(this.dbClient, this.database.getText());
-            this.dumpHandler.dbInfo(this.dbInfo)
-                    .queryLimit(10_000)
-                    .messageHandler(str -> this.dumpMsg.appendLine(str))
+        this.execMsg.clear();
+        // 生成sql处理器
+        if (this.sqlFileHandler == null) {
+            this.sqlFileHandler = DataRunSqlFileHandler.newHandler(this.dbClient, this.database.getText());
+            this.sqlFileHandler.dbInfo(this.dbInfo)
+                    .messageHandler(str -> this.execMsg.appendLine(str))
                     .processedHandler(count -> {
                         if (count > 0) {
                             this.counter.incrSuccess(count);
                         } else {
                             this.counter.incrFail(Math.abs(count));
                         }
-                        this.updateStatus(I18nHelper.dumpInProgress());
+                        this.updateStatus(I18nHelper.execInProgress());
                     });
         } else {
-            this.dumpHandler.interrupt(false);
+            this.sqlFileHandler.interrupt(false);
         }
         // 设置参数
-        this.dumpHandler.dumpFile(this.dumpFile)
-                .tableName(this.table.getText())
-                .dumpType((byte) this.dumpType)
-                .dataType((byte) this.dataType.getSelectedIndex());
+        this.sqlFileHandler.sqlFile(this.file.getFile())
+                .continueWithErrors(this.continueWithErrors.isSelected());
         NodeGroupUtil.disable(this.stage, "exec");
-        this.stage.appendTitle("===" + I18nHelper.dumpProcessing() + "===");
-        // 执行转储
+        this.stage.appendTitle("===" + I18nHelper.execProcessing() + "===");
+        // 执行sql
         this.execTask = ThreadUtil.start(() -> {
             try {
-                this.stopDumpBtn.enable();
+                this.stopSqlFileBtn.enable();
                 // 更新状态
-                this.updateStatus(I18nHelper.dumpStarting());
-                // 执行转储
-                this.dumpHandler.doDump();
+                this.updateStatus(I18nHelper.execStarting());
+                // 执行sql
+                this.sqlFileHandler.runSqlFile();
                 // 更新状态
-                this.updateStatus(I18nHelper.dumpFinished());
+                this.updateStatus(I18nHelper.execFinished());
             } catch (Exception e) {
                 if (e.getClass().isAssignableFrom(InterruptedException.class)) {
                     this.updateStatus(I18nHelper.operationCancel());
@@ -219,7 +182,7 @@ public class DBDataDumpController extends StageController {
             } finally {
                 // 结束处理
                 NodeGroupUtil.enable(this.stage, "exec");
-                this.stopDumpBtn.disable();
+                this.stopSqlFileBtn.disable();
                 this.stage.restoreTitle();
                 SystemUtil.gcLater();
             }
@@ -227,14 +190,14 @@ public class DBDataDumpController extends StageController {
     }
 
     /**
-     * 结束转储
+     * 结束sql
      */
     @FXML
-    private void stopDump() {
+    private void stopSqlFile() {
         ThreadUtil.interrupt(this.execTask);
         this.execTask = null;
-        if (this.dumpHandler != null) {
-            this.dumpHandler.interrupt();
+        if (this.sqlFileHandler != null) {
+            this.sqlFileHandler.interrupt();
         }
     }
 
@@ -243,22 +206,16 @@ public class DBDataDumpController extends StageController {
         super.onStageShown(event);
         this.dbInfo = this.getWindowProp("dbInfo");
         this.dbClient = this.getWindowProp("dbClient");
-        this.dumpType = this.getWindowProp("dumpType");
         String dbName = this.getWindowProp("dbName");
-        String tableName = this.getWindowProp("tableName");
         this.database.setText(dbName);
         this.connect.setText(this.dbInfo.getName());
-        if (this.dumpType == 2) {
-            this.table.setText(tableName);
-            this.tableBox.display();
-        }
         this.stage.hideOnEscape();
     }
 
     @Override
     public void onWindowHidden(WindowEvent event) {
         super.onWindowHidden(event);
-        this.stopDump();
+        this.stopSqlFile();
     }
 
     /**
@@ -270,17 +227,17 @@ public class DBDataDumpController extends StageController {
         if (extraMsg != null) {
             this.counter.setExtraMsg(extraMsg);
         }
-        FXUtil.runLater(() -> this.dumpStatus.setText(this.counter.unknownFormat()));
+        FXUtil.runLater(() -> this.execStatus.setText(this.counter.unknownFormat()));
     }
 
     @Override
     public String getViewTitle() {
-        return I18nResourceBundle.i18nString("base.title.dump");
+        return I18nResourceBundle.i18nString("base.runSqlFile");
     }
 
     @Override
     public void onStageInitialize(StageAdapter stage) {
         super.onStageInitialize(stage);
-        this.tableBox.managedBindVisible();
+        this.file.setFilter(FileChooserHelper.sqlExtensionFilter());
     }
 }

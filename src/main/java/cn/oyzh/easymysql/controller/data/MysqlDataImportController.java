@@ -58,7 +58,7 @@ import java.util.Date;
         modality = Modality.WINDOW_MODAL,
         value = FXConst.VIEW_PATH + "data/dbDataImport.fxml"
 )
-public class DBDataImportController extends StageController {
+public class MysqlDataImportController extends StageController {
 
     /**
      * 第一步

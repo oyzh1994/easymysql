@@ -6,11 +6,11 @@ package cn.oyzh.easymysql.condition;
  * @author oyzh
  * @since 2024/6/27
  */
-public class DBNotContainsCondition extends DBCondition {
+public class MysqlNotContainsCondition extends MysqlCondition {
 
-    public final static DBNotContainsCondition INSTANCE = new DBNotContainsCondition();
+    public final static MysqlNotContainsCondition INSTANCE = new MysqlNotContainsCondition();
 
-    public DBNotContainsCondition() {
+    public MysqlNotContainsCondition() {
         super("不包含", "NOT LIKE");
     }
 

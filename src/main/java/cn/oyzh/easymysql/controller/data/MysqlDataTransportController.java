@@ -51,7 +51,7 @@ import java.util.List;
         modality = Modality.WINDOW_MODAL,
         value = FXConst.VIEW_PATH + "data/dbDataTransport.fxml"
 )
-public class DBDataTransportController extends StageController {
+public class MysqlDataTransportController extends StageController {
 
     /**
      * 第一步

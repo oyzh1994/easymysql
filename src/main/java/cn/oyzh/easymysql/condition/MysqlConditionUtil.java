@@ -19,35 +19,35 @@ import java.util.List;
  * @since 2024/6/26
  */
 @UtilityClass
-public class DBConditionUtil {
+public class MysqlConditionUtil {
 
     /**
      * 获取条件
      *
      * @return 条件列表
      */
-    public static List<DBCondition> conditions() {
-        List<DBCondition> conditions = new ArrayList<>();
-        conditions.add(DBContainsCondition.INSTANCE);
-        conditions.add(DBNotContainsCondition.INSTANCE);
-        conditions.add(DBEqCondition.INSTANCE);
-        conditions.add(DBGtCondition.INSTANCE);
-        conditions.add(DBLtCondition.INSTANCE);
-        conditions.add(DBNotEqCondition.INSTANCE);
-        conditions.add(DBNullCondition.INSTANCE);
-        conditions.add(DBNotNullCondition.INSTANCE);
-        conditions.add(DBEmptyCondition.INSTANCE);
-        conditions.add(DBNotEmptyCondition.INSTANCE);
-        conditions.add(DBLtEqCondition.INSTANCE);
-        conditions.add(DBGtEqCondition.INSTANCE);
-        conditions.add(DBInListCondition.INSTANCE);
-        conditions.add(DBNotInListCondition.INSTANCE);
-        conditions.add(DBBetweenCondition.INSTANCE);
-        conditions.add(DBNotBetweenCondition.INSTANCE);
-        conditions.add(DBStartWithCondition.INSTANCE);
-        conditions.add(DBEndWithCondition.INSTANCE);
-        conditions.add(DBNotStartWithCondition.INSTANCE);
-        conditions.add(DBNotEndWithCondition.INSTANCE);
+    public static List<MysqlCondition> conditions() {
+        List<MysqlCondition> conditions = new ArrayList<>();
+        conditions.add(MysqlContainsCondition.INSTANCE);
+        conditions.add(MysqlNotContainsCondition.INSTANCE);
+        conditions.add(MysqlEqCondition.INSTANCE);
+        conditions.add(MysqlGtCondition.INSTANCE);
+        conditions.add(MysqlLtCondition.INSTANCE);
+        conditions.add(MysqlNotEqCondition.INSTANCE);
+        conditions.add(MysqlNullCondition.INSTANCE);
+        conditions.add(MysqlNotNullCondition.INSTANCE);
+        conditions.add(MysqlEmptyCondition.INSTANCE);
+        conditions.add(MysqlNotEmptyCondition.INSTANCE);
+        conditions.add(MysqlLtEqCondition.INSTANCE);
+        conditions.add(MysqlGtEqCondition.INSTANCE);
+        conditions.add(MysqlInListCondition.INSTANCE);
+        conditions.add(MysqlNotInListCondition.INSTANCE);
+        conditions.add(MysqlBetweenCondition.INSTANCE);
+        conditions.add(MysqlNotBetweenCondition.INSTANCE);
+        conditions.add(MysqlStartWithCondition.INSTANCE);
+        conditions.add(MysqlEndWithCondition.INSTANCE);
+        conditions.add(MysqlNotStartWithCondition.INSTANCE);
+        conditions.add(MysqlNotEndWithCondition.INSTANCE);
         return conditions;
     }
 
@@ -81,8 +81,8 @@ public class DBConditionUtil {
      * @param condition 条件
      * @return 结果
      */
-    public static boolean isInCondition(DBCondition condition) {
-        return condition == DBInListCondition.INSTANCE || condition == DBNotInListCondition.INSTANCE;
+    public static boolean isInCondition(MysqlCondition condition) {
+        return condition == MysqlInListCondition.INSTANCE || condition == MysqlNotInListCondition.INSTANCE;
     }
 
     /**
@@ -91,8 +91,8 @@ public class DBConditionUtil {
      * @param condition 条件
      * @return 结果
      */
-    public static boolean isBetweenCondition(DBCondition condition) {
-        return condition == DBBetweenCondition.INSTANCE || condition == DBNotBetweenCondition.INSTANCE;
+    public static boolean isBetweenCondition(MysqlCondition condition) {
+        return condition == MysqlBetweenCondition.INSTANCE || condition == MysqlNotBetweenCondition.INSTANCE;
     }
 
     /**
@@ -102,7 +102,7 @@ public class DBConditionUtil {
      * @param condition 条件
      * @return 节点
      */
-    public static List<Node> generateNode(DBColumn column, DBCondition condition) {
+    public static List<Node> generateNode(DBColumn column, MysqlCondition condition) {
         condition = condition == null ? conditions().getFirst() : condition;
         List<Node> list = new ArrayList<>();
         if (isInCondition(condition)) {

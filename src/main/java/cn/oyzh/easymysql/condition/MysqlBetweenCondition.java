@@ -11,11 +11,11 @@ import java.util.Collection;
  * @author oyzh
  * @since 2024/6/28
  */
-public class DBBetweenCondition extends DBCondition {
+public class MysqlBetweenCondition extends MysqlCondition {
 
-    public final static DBBetweenCondition INSTANCE = new DBBetweenCondition();
+    public final static MysqlBetweenCondition INSTANCE = new MysqlBetweenCondition();
 
-    public DBBetweenCondition() {
+    public MysqlBetweenCondition() {
         super("介于", "BETWEEN");
     }
 
