@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.query.DBQueryTextArea?>
-<?import cn.oyzh.easymysql.tabs.MysqlQueryInfoTab?>
+<?import cn.oyzh.easymysql.tabs.query.MysqlQueryInfoTab?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
 <?import cn.oyzh.fx.plus.controls.svg.PrettySVGGlyph?>
@@ -12,7 +12,7 @@
 <?import cn.oyzh.fx.plus.controls.svg.database.ExplainSVGGlyph?>
 <FlexVBox xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="cn.oyzh.easymysql.tabs.MysqlQueryMainTabController" flexWidth="100%" flexHeight="100%"
+          fx:controller="cn.oyzh.easymysql.tabs.query.MysqlQueryMainTabController" flexWidth="100%" flexHeight="100%"
           fx:id="root">
     <FlexHBox realHeight="35" flexWidth="100%">
         <SaveSVGGlyph onMousePrimaryClicked="#save" size="14">

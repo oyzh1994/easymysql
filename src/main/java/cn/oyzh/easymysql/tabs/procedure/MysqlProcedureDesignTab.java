@@ -1,7 +1,8 @@
-package cn.oyzh.easymysql.tabs;
+package cn.oyzh.easymysql.tabs.procedure;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
+import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.ProcedureSVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;

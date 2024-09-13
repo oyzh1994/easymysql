@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.tabs;
+package cn.oyzh.easymysql.tabs.query;
 
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.record.MysqlRecord;

@@ -69,18 +69,6 @@ public class MysqlInfoAddController extends StageController {
     private ClearableTextField password;
 
     /**
-     * 服务名称
-     */
-    @FXML
-    private ClearableTextField serviceName;
-
-    /**
-     * 服务类型
-     */
-    @FXML
-    private ServiceTypeCombobox serviceType;
-
-    /**
      * 备注
      */
     @FXML
@@ -149,14 +137,6 @@ public class MysqlInfoAddController extends StageController {
             dbInfo.setUser(this.user.getText());
             dbInfo.setType(this.type.getType());
             dbInfo.setPassword(this.password.getText());
-            // 服务名
-            if (this.serviceType.getSelectedIndex() == 0) {
-                dbInfo.setSid(null);
-                dbInfo.setServiceName(this.serviceName.getTextTrim());
-            } else if (this.serviceType.getSelectedIndex() == 1) {// sid
-                dbInfo.setSid(this.serviceName.getTextTrim());
-                dbInfo.setServiceName(null);
-            }
             DBConnectUtil.testConnect(this.stage, dbInfo);
         }
     }

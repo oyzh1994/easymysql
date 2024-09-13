@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <FlexVBox xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="cn.oyzh.easymysql.tabs.MysqlViewRecordTabController" flexWidth="100%" flexHeight="100%"
+          fx:controller="cn.oyzh.easymysql.tabs.view.MysqlViewRecordTabController" flexWidth="100%" flexHeight="100%"
           fx:id="root">
     <DBRecordTableView fx:id="recordTable" flexHeight="100% - 40" flexWidth="100%" tableMenuButtonVisible="true">
     </DBRecordTableView>

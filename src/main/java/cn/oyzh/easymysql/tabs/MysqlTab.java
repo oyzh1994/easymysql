@@ -9,7 +9,7 @@ import cn.oyzh.fx.plus.tabs.DynamicTab;
  */
 public abstract class MysqlTab extends DynamicTab {
 
-    public static final String BASE_PATH = "/module/mysql/tabs/";
+    public static final String BASE_PATH = "/tabs/";
 
     protected String getBasePath() {
         return BASE_PATH;

@@ -1,7 +1,8 @@
-package cn.oyzh.easymysql.tabs;
+package cn.oyzh.easymysql.tabs.table;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.db.table.MysqlTable;
+import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
@@ -10,10 +11,12 @@ import javafx.event.Event;
 import javafx.scene.Cursor;
 
 /**
+ * db表设计tab
+ *
  * @author oyzh
- * @since 2024/09/09
+ * @since 2024/08/07
  */
-public class MysqlEventDesignTab extends MysqlTab {
+public class MysqlTableDesignTab extends MysqlTab {
 
     {
         this.setClosable(true);
@@ -21,14 +24,14 @@ public class MysqlEventDesignTab extends MysqlTab {
 
     @Override
     protected String url() {
-        return super.getBasePath() + "mysqlEventDesignTab.fxml";
+        return super.getBasePath() + "table/mysqlTableDesignTab.fxml";
     }
 
     @Override
     public void flushGraphic() {
         SVGGlyph graphic = (SVGGlyph) this.getGraphic();
         if (graphic == null) {
-            graphic = new SVGGlyph("/font/event.svg", "12");
+            graphic = new SVGGlyph("/font/table.svg", "13");
             graphic.setCursor(Cursor.DEFAULT);
             this.setGraphic(graphic);
         }
@@ -36,46 +39,41 @@ public class MysqlEventDesignTab extends MysqlTab {
 
     @Override
     public void flushTitle() {
-        String name = this.eventName();
+        String name = this.tableName();
         if (StrUtil.isBlank(name)) {
-            name = I18nHelper.unnamedEvent();
+            name = I18nHelper.unnamedTable();
         }
         // 设置提示文本
         if (this.isUnsaved()) {
-            this.setText("* " + this.dbItem().dbName() + "-" + name);
+            this.setText("* " + this.dbName() + "-" + name);
         } else {
-            this.setText(this.dbItem().dbName() + "-" + name);
+            this.setText(this.dbName() + "-" + name);
         }
     }
 
-    public MysqlEvent event() {
-        return this.controller().event();
+    public String tableName() {
+        return this.controller().tableName();
     }
 
-    public String eventName() {
-        return this.event().getName();
-    }
-
-    @Override
-    public MysqlDatabaseTreeItem dbItem() {
-        return this.controller().dbItem();
+    public String dbName() {
+        return this.controller().dbName();
     }
 
     /**
      * 初始化
      *
-     * @param event 事件对象
-     * @param item  db库树节点
+     * @param table  db表
+     * @param dbItem db数据库树节点
      */
-    public void init(MysqlEvent event, MysqlDatabaseTreeItem item) {
-        this.controller().init(event, item);
+    public void init(MysqlTable table, MysqlDatabaseTreeItem dbItem) {
+        this.controller().init(table, dbItem);
         // 刷新tab
         this.flush();
     }
 
     @Override
-    public MysqlEventDesignTabController controller() {
-        return (MysqlEventDesignTabController) super.controller();
+    public MysqlTableDesignTabController controller() {
+        return (MysqlTableDesignTabController) super.controller();
     }
 
     public boolean isUnsaved() {
@@ -89,5 +87,10 @@ public class MysqlEventDesignTab extends MysqlTab {
         } else {
             this.closeTab();
         }
+    }
+
+    @Override
+    public MysqlDatabaseTreeItem dbItem() {
+        return this.controller().dbItem();
     }
 }

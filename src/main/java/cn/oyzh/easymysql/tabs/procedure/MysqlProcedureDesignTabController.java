@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.tabs;
+package cn.oyzh.easymysql.tabs.procedure;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;

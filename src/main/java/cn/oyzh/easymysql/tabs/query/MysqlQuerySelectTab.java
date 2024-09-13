@@ -1,6 +1,7 @@
-package cn.oyzh.easymysql.tabs;
+package cn.oyzh.easymysql.tabs.query;
 
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
+import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.tabs.DynamicTab;
 
@@ -18,7 +19,7 @@ public class MysqlQuerySelectTab extends DynamicTab {
 
     @Override
     protected String url() {
-        return MysqlTab.BASE_PATH + "mysqlQuerySelectTab.fxml";
+        return MysqlTab.BASE_PATH + "query/mysqlQuerySelectTab.fxml";
     }
 
     public void init(String title, MysqlExecuteResult result, MysqlDatabaseTreeItem dbItem) {

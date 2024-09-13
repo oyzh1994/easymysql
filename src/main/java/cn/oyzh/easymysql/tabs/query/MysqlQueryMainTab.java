@@ -1,6 +1,7 @@
-package cn.oyzh.easymysql.tabs;
+package cn.oyzh.easymysql.tabs.query;
 
 import cn.oyzh.easymysql.domain.MysqlQuery;
+import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import javafx.scene.Cursor;
@@ -31,7 +32,7 @@ public class MysqlQueryMainTab extends MysqlTab {
 
     @Override
     protected String url() {
-        return super.getBasePath() + "mysqlQueryMainTab.fxml";
+        return super.getBasePath() + "query/mysqlQueryMainTab.fxml";
     }
 
     @Override

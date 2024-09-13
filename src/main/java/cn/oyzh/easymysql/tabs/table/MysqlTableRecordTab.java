@@ -1,7 +1,8 @@
-package cn.oyzh.easymysql.tabs;
+package cn.oyzh.easymysql.tabs.table;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.MysqlTableTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
@@ -35,7 +36,7 @@ public class MysqlTableRecordTab extends MysqlTab {
 
     @Override
     protected String url() {
-        return super.getBasePath() + "mysqlTableRecordTab.fxml";
+        return super.getBasePath() + "table/mysqlTableRecordTab.fxml";
     }
 
     @Override

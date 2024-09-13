@@ -1,6 +1,7 @@
-package cn.oyzh.easymysql.tabs;
+package cn.oyzh.easymysql.tabs.query;
 
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
+import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.fx.plus.tabs.DynamicTab;
 
 /**
@@ -17,7 +18,7 @@ public class MysqlQueryInfoTab extends DynamicTab {
 
     @Override
     protected String url() {
-        return MysqlTab.BASE_PATH + "mysqlQueryInfoTab.fxml";
+        return MysqlTab.BASE_PATH + "query/mysqlQueryInfoTab.fxml";
     }
 
     public void init(MysqlQueryResults<?> results) {

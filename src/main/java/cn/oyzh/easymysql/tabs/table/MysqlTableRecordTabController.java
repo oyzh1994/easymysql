@@ -1,33 +1,45 @@
-package cn.oyzh.easymysql.tabs;
+package cn.oyzh.easymysql.tabs.table;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.DBObjectList;
-import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
+import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.domain.MysqlSetting;
+import cn.oyzh.easymysql.event.RecordDeleteEvent;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;
 import cn.oyzh.easymysql.listener.DBListener;
 import cn.oyzh.easymysql.listener.DBListenerManager;
-import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.popups.MysqlTableRecordFilterPopupController;
+import cn.oyzh.easymysql.trees.MysqlTableTreeItem;
+import cn.oyzh.easymysql.popups.DBPageSettingPopupController;
+import cn.oyzh.easymysql.store.DBSettingStore;
 import cn.oyzh.easymysql.util.DBRecordUtil;
+import cn.oyzh.fx.common.dto.Paging;
 import cn.oyzh.fx.common.spring.ScopeType;
 import cn.oyzh.fx.plus.controls.box.FlexVBox;
+import cn.oyzh.fx.plus.controls.page.PageBox;
+import cn.oyzh.fx.plus.controls.page.PageEvent;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
-import cn.oyzh.fx.plus.controls.text.FlexText;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.tabs.DynamicTab;
 import cn.oyzh.fx.plus.tabs.DynamicTabController;
 import cn.oyzh.fx.plus.util.NodeUtil;
+import cn.oyzh.fx.plus.window.PopupAdapter;
+import cn.oyzh.fx.plus.window.PopupManager;
+import com.google.common.eventbus.Subscribe;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import lombok.Setter;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -38,13 +50,15 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
+ * db表tab内容组件
+ *
  * @author oyzh
- * @since 2024/08/12
+ * @since 2023/12/24
  */
 @Lazy
 @Component
 @Scope(ScopeType.PROTOTYPE)
-public class MysqlQuerySelectTabController extends DynamicTabController {
+public class MysqlTableRecordTabController extends DynamicTabController {
 
     /**
      * 根节点
@@ -53,22 +67,32 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
     private FlexVBox root;
 
     /**
-     * sql组件
+     * db树表节点
      */
-    @FXML
-    private FlexText sql;
+    private MysqlTableTreeItem item;
 
     /**
-     * 耗时组件
+     * 分页数据
      */
-    @FXML
-    private FlexText used;
+    private Paging<MysqlRecord> pageData;
 
     /**
-     * 计数组件
+     * 记录过滤按钮
      */
     @FXML
-    private FlexText count;
+    private SVGGlyph filter;
+
+    /**
+     * 缺少主键警告
+     */
+    @FXML
+    private SVGGlyph missPrimaryKey;
+
+    /**
+     * 数据分页组件
+     */
+    @FXML
+    private PageBox<MysqlRecord> pageBox;
 
     /**
      * 数据表单组件
@@ -77,26 +101,10 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
     private DBRecordTableView recordTable;
 
     /**
-     * 数据库树节点
+     * 过滤列表
      */
-    private MysqlDatabaseTreeItem dbItem;
-
-    /**
-     * 执行结果
-     */
-    private MysqlExecuteResult result;
-
-    /**
-     * 新增
-     */
-    @FXML
-    private SVGGlyph add;
-
-    /**
-     * 删除
-     */
-    @FXML
-    private SVGGlyph delete;
+    @Setter
+    private List<MysqlRecordFilter> filters;
 
     /**
      * 应用
@@ -121,50 +129,53 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
     private List<MysqlColumn> columns;
 
     /**
+     * 设置
+     */
+    private final MysqlSetting setting = DBSettingStore.SETTING;
+
+    /**
      * 执行初始化
      *
-     * @param result 执行结果
-     * @param dbItem db树表节点
+     * @param item db树表节点
      */
-    public void init(MysqlExecuteResult result, MysqlDatabaseTreeItem dbItem) {
-        this.result = result;
-        this.dbItem = dbItem;
-        this.initDataList();
-        if (result.isUpdatable()) {
-            if (this.changeListener == null) {
-                this.changeListener = new DBListener(this.result.dbName() + ":" + this.result.tableName()) {
-                    @Override
-                    public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
-                        apply.enable();
-                    }
-                };
-            }
-            // 部分按钮显示处理
-            if (result.fullColumn()) {
-                this.add.display();
-            }
-            this.apply.display();
-            this.delete.display();
-            this.discard.display();
+    public void init(MysqlTableTreeItem item) {
+        this.item = item;
+        this.reload();
+        if (this.changeListener == null) {
+            this.changeListener = new DBListener(this.item.dbName() + ":" + this.item.tableName()) {
+                @Override
+                public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
+                    apply.enable();
+                }
+            };
         }
     }
 
     /**
      * 初始化数据列表
+     *
+     * @param pageNo 数据页码
      */
-    private void initDataList() {
+    private void initDataList(long pageNo) {
         try {
-            // 初始化字段
-            this.initColumns(this.result.columnList());
-            // 初始化数据
-            this.initRecords(this.result.records());
-            // 初始化sql信息
-            this.sql.setText(this.result.sql());
-            this.used.setText(I18nHelper.time() + ": " + this.result.getUsedMs() + "ms");
-            this.count.setText(I18nHelper.totalData() + ": " + this.result.getCount());
+            this.pageData = this.item.recordPage(pageNo, this.setting.getRecordPageLimit(), this.enabledFilters());
+            this.pageBox.setPaging(this.pageData);
+            this.initRecords(this.pageData.dataList());
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
+    }
+
+    /**
+     * 获取已启用的表过滤条件
+     *
+     * @return 已启用的表过滤条件
+     */
+    private List<MysqlRecordFilter> enabledFilters() {
+        if (CollUtil.isNotEmpty(this.filters)) {
+            return this.filters.stream().filter(MysqlRecordFilter::isEnabled).toList();
+        }
+        return null;
     }
 
     /**
@@ -223,11 +234,11 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
         MysqlRecordData recordData = record.getRecordData();
         MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
         if (primaryKey != null) {
-            this.dbItem.client().insertRecord(this.result.dbName(), this.result.tableName(), recordData, primaryKey);
+            this.item.insertRecord(recordData, primaryKey);
             // 处理回显
-            record.copy(this.dbItem.client().selectRecord(this.result.dbName(), this.result.tableName(), primaryKey));
+            record.copy(this.item.selectRecord(primaryKey));
         } else {
-            this.dbItem.client().insertRecord(this.result.dbName(), this.result.tableName(), record.getRecordData());
+            this.item.insertRecord(recordData);
         }
     }
 
@@ -248,16 +259,16 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
                 recordData.remove(primaryKey.getColumnName());
             }
             // 更新行
-            this.dbItem.client().updateRecord(this.result.dbName(), this.result.tableName(), recordData, primaryKey);
+            this.item.updateRecord(recordData, primaryKey);
             // 处理回显
-            record.copy(this.dbItem.client().selectRecord(this.result.dbName(), this.result.tableName(), primaryKey));
+            record.copy(this.item.selectRecord(primaryKey));
         } else {// 主键不存在，则根据所有字段更新
             // 变更数据
             MysqlRecordData changedRecordData = record.getChangedRecordData();
             // 原始数据
             MysqlRecordData originalRecordData = record.getOriginalRecordData();
             // 更新行
-            this.dbItem.client().updateRecord(this.result.dbName(), this.result.tableName(), changedRecordData, originalRecordData);
+            this.item.updateRecord(changedRecordData, originalRecordData);
         }
     }
 
@@ -268,7 +279,7 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
      * @return 主键
      */
     private MysqlRecordPrimaryKey initPrimaryKey(MysqlRecord record) {
-        MysqlColumn primaryKeyColumn = this.result.getPrimaryKey();
+        MysqlColumn primaryKeyColumn = this.item.getPrimaryKey();
         if (primaryKeyColumn != null) {
             MysqlRecordPrimaryKey primaryKey = new MysqlRecordPrimaryKey();
             primaryKey.init(primaryKeyColumn, record);
@@ -332,15 +343,97 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
             if (this.apply.isEnable() && !MessageBox.confirm(I18nHelper.unsavedAndContinue())) {
                 return;
             }
-            // 执行查询
-            this.result = this.dbItem.executeSingleSql(this.result.sql());
+            // 初始化字段
+            this.initColumns(this.item.tableColumns());
             // 初始化数据
-            this.initDataList();
+            this.initDataList(0);
+            // 判断是否缺少主键列
+            this.missPrimaryKey.setVisible(!this.item.hasPrimaryKey());
+            // 设置过滤激活
+            this.filter.setActive(CollUtil.isNotEmpty(this.enabledFilters()));
             // 禁用组件
             this.apply.disable();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
+    }
+
+    /**
+     * 过滤记录
+     */
+    @FXML
+    private void filter() {
+        try {
+            PopupAdapter popup = PopupManager.parsePopup(MysqlTableRecordFilterPopupController.class);
+            popup.setProp("item", this.item);
+            popup.setProp("filters", this.filters);
+            popup.showPopup(this.filter);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * 下一页
+     */
+    @FXML
+    private void nextPage() {
+        this.initDataList(this.pageData.nextPage());
+    }
+
+    /**
+     * 上一页
+     */
+    @FXML
+    private void prevPage() {
+        this.initDataList(this.pageData.prevPage());
+    }
+
+    /**
+     * 尾页
+     */
+    @FXML
+    private void lastPage() {
+        this.initDataList(this.pageData.lastPage());
+    }
+
+    /**
+     * 首页
+     */
+    @FXML
+    private void firstPage() {
+        this.initDataList(0);
+    }
+
+    /**
+     * 跳页
+     */
+    @FXML
+    private void pageJump(PageEvent.PageJumpEvent event) {
+        this.initDataList(event.getPage());
+    }
+
+    /**
+     * 页码设置
+     */
+    @FXML
+    private void pageSetting() {
+        PopupAdapter popup = PopupManager.parsePopup(DBPageSettingPopupController.class);
+        popup.showPopup(this.pageBox.getSettingBtn());
+        int limit = this.setting.getRecordPageLimit();
+        popup.setSubmitHandler(o -> {
+            if (o instanceof Integer l && l != limit) {
+                this.firstPage();
+            }
+        });
+    }
+
+    /**
+     * 删除记录
+     */
+    @Subscribe
+    private void deleteRecord(RecordDeleteEvent event) {
+        this.deleteRecord();
     }
 
     /**
@@ -365,12 +458,12 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
                 MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
                 // 主键存在，则根据主键删除
                 if (primaryKey != null) {
-                    success = this.dbItem.client().deleteRecord(this.result.dbName(), this.result.tableName(), primaryKey) == 1;
+                    success = this.item.deleteRecord(primaryKey) == 1;
                 } else {// 主键不存在，则根据所有字段更新
                     // 所有字段数据
                     MysqlRecordData recordData = record.getOriginalRecordData();
                     // 删除行
-                    success = this.dbItem.client().deleteRecord(this.result.dbName(), this.result.tableName(), recordData) == 1;
+                    success = this.item.deleteRecord(recordData) == 1;
                 }
             }
             // 操作成功
@@ -394,8 +487,8 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             super.initialize(url, resourceBundle);
-            this.add.managedBindVisible();
-            this.delete.managedBindVisible();
+            this.missPrimaryKey.managedBindVisible();
+            this.missPrimaryKey.disableTheme();
             this.discard.disableProperty().bind(this.apply.disableProperty());
             this.apply.disabledProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue) {

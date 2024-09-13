@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.tabs;
+package cn.oyzh.easymysql.tabs.view;
 
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;

@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.tabs;
+package cn.oyzh.easymysql.tabs.view;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.DBObjectList;

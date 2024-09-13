@@ -1,7 +1,8 @@
-package cn.oyzh.easymysql.tabs;
+package cn.oyzh.easymysql.tabs.view;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.MysqlViewTreeItem;
 import cn.oyzh.fx.plus.controls.svg.ViewSVGGlyph;

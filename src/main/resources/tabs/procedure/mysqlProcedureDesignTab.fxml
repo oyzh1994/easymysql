@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.HBox?>
 <FlexVBox xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="cn.oyzh.easymysql.tabs.MysqlProcedureDesignTabController" flexWidth="100%"
+          fx:controller="cn.oyzh.easymysql.tabs.procedure.MysqlProcedureDesignTabController" flexWidth="100%"
           flexHeight="100%">
     <FlexHBox realHeight="25" flexWidth="100%">
         <SaveSVGGlyph onMousePrimaryClicked="#save" size="14">
