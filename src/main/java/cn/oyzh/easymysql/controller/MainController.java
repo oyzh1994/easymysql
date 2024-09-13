@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.controller;
 
 import cn.hutool.log.StaticLog;
 import cn.oyzh.easymysql.MysqlConst;
-import cn.oyzh.easymysql.domain.DBPageInfo;
-import cn.oyzh.easymysql.domain.DBSetting;
+import cn.oyzh.easymysql.domain.MysqlPageInfo;
+import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.store.DBPageInfoStore;
 import cn.oyzh.easymysql.store.DBSettingStore;
 import cn.oyzh.fx.common.dto.Project;
@@ -63,12 +63,12 @@ public class MainController extends ParentStageController {
     /**
      * 页面信息
      */
-    private final DBPageInfo pageInfo = DBPageInfoStore.PAGE_INFO;
+    private final MysqlPageInfo pageInfo = DBPageInfoStore.PAGE_INFO;
 
     /**
      * db相关配置
      */
-    private final DBSetting setting = DBSettingStore.SETTING;
+    private final MysqlSetting setting = DBSettingStore.SETTING;
 
     /**
      * 页面信息储存

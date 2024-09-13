@@ -12,8 +12,8 @@ import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.db.view.DBView;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseInfoController;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseUpdateController;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
@@ -333,7 +333,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItem.Mysq
      *
      * @return db信息
      */
-    public DBInfo info() {
+    public MysqlInfo info() {
         return this.parent.value();
     }
 
@@ -437,19 +437,19 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItem.Mysq
         this.client().alertFunction(this.dbName(), function);
     }
 
-    public DBView selectView(String viewName) {
+    public MysqlView selectView(String viewName) {
         return this.client().view(this.dbName(), viewName);
     }
 
-    public void createView(DBView view) {
+    public void createView(MysqlView view) {
         this.client().createView(this.dbName(), view);
     }
 
-    public void alertView(DBView view) {
+    public void alertView(MysqlView view) {
         this.client().alertView(this.dbName(), view);
     }
 
-    public void dropView(DBView view) {
+    public void dropView(MysqlView view) {
         this.client().dropView(this.dbName(), view);
     }
 

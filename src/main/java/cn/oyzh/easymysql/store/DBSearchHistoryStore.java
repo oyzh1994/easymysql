@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.log.StaticLog;
 import cn.oyzh.easymysql.MysqlConst;
-import cn.oyzh.easymysql.domain.DBSearchHistory;
+import cn.oyzh.easymysql.domain.MysqlSearchHistory;
 import cn.oyzh.fx.common.dto.Paging;
 import cn.oyzh.fx.common.store.ArrayFileStore;
 import lombok.NonNull;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * @since 2022/12/16
  */
 //@Slf4j
-public class DBSearchHistoryStore extends ArrayFileStore<DBSearchHistory> {
+public class DBSearchHistoryStore extends ArrayFileStore<MysqlSearchHistory> {
 
     /**
      * 最大历史数量
@@ -42,7 +42,7 @@ public class DBSearchHistoryStore extends ArrayFileStore<DBSearchHistory> {
     }
 
     @Override
-    public synchronized List<DBSearchHistory> load() {
+    public synchronized List<MysqlSearchHistory> load() {
         // 从文件中读取字符串内容
         String text = FileUtil.readString(this.storeFile(), this.charset());
         // 如果字符串为空，则返回空列表
@@ -50,7 +50,7 @@ public class DBSearchHistoryStore extends ArrayFileStore<DBSearchHistory> {
             return new ArrayList<>();
         }
         // 将字符串解析为搜索历史记录列表
-        return JSONUtil.toList(text, DBSearchHistory.class);
+        return JSONUtil.toList(text, MysqlSearchHistory.class);
     }
 
     /**
@@ -59,16 +59,16 @@ public class DBSearchHistoryStore extends ArrayFileStore<DBSearchHistory> {
      * @return 词汇列表
      */
     public synchronized List<String> getKw(int type) {
-        return this.load().parallelStream().filter(h -> Objects.equals(h.getType(), type)).map(DBSearchHistory::getKw).collect(Collectors.toList());
+        return this.load().parallelStream().filter(h -> Objects.equals(h.getType(), type)).map(MysqlSearchHistory::getKw).collect(Collectors.toList());
     }
 
     @Override
-    public synchronized boolean add(@NonNull DBSearchHistory history) {
+    public synchronized boolean add(@NonNull MysqlSearchHistory history) {
         try {
             // 历史列表
-            List<DBSearchHistory> histories = this.load();
+            List<MysqlSearchHistory> histories = this.load();
             // 过滤出当前类型
-            List<DBSearchHistory> hisList = histories.parallelStream().filter(h -> Objects.equals(h.getType(), history.getType())).collect(Collectors.toList());
+            List<MysqlSearchHistory> hisList = histories.parallelStream().filter(h -> Objects.equals(h.getType(), history.getType())).collect(Collectors.toList());
             // 最新的数据是当前数据，则无需添加
             if (history.compare(CollUtil.getLast(hisList))) {
                 return true;
@@ -80,7 +80,7 @@ public class DBSearchHistoryStore extends ArrayFileStore<DBSearchHistory> {
             // 对超出限制的数据，进行删除
             int limit = hisList.size() - His_Max_Size + 1;
             if (limit > 0) {
-                List<DBSearchHistory> delList = hisList.parallelStream().limit(limit).toList();
+                List<MysqlSearchHistory> delList = hisList.parallelStream().limit(limit).toList();
                 histories.removeAll(delList);
             }
             // 保存数据
@@ -98,7 +98,7 @@ public class DBSearchHistoryStore extends ArrayFileStore<DBSearchHistory> {
      * @return 结果
      */
     public synchronized boolean addSearchHistory(@NonNull String kw) {
-        return this.add(new DBSearchHistory(kw, 1));
+        return this.add(new MysqlSearchHistory(kw, 1));
     }
 
     /**
@@ -108,11 +108,11 @@ public class DBSearchHistoryStore extends ArrayFileStore<DBSearchHistory> {
      * @return 结果
      */
     public synchronized boolean addReplaceHistory(@NonNull String kw) {
-        return this.add(new DBSearchHistory(kw, 2));
+        return this.add(new MysqlSearchHistory(kw, 2));
     }
 
     @Override
-    public Paging<DBSearchHistory> getPage(int limit, Map<String, Object> params) {
+    public Paging<MysqlSearchHistory> getPage(int limit, Map<String, Object> params) {
         return super.getPage(limit, params);
     }
 
@@ -122,7 +122,7 @@ public class DBSearchHistoryStore extends ArrayFileStore<DBSearchHistory> {
      * @return 搜索词列表
      */
     public synchronized List<String> getSearchKw() {
-        return this.load().parallelStream().filter(h -> Objects.equals(h.getType(), 1)).map(DBSearchHistory::getKw).collect(Collectors.toList());
+        return this.load().parallelStream().filter(h -> Objects.equals(h.getType(), 1)).map(MysqlSearchHistory::getKw).collect(Collectors.toList());
     }
 
     /**
@@ -131,6 +131,6 @@ public class DBSearchHistoryStore extends ArrayFileStore<DBSearchHistory> {
      * @return 替换词列表
      */
     public synchronized List<String> getReplaceKw() {
-        return this.load().parallelStream().filter(h -> Objects.equals(h.getType(), 2)).map(DBSearchHistory::getKw).collect(Collectors.toList());
+        return this.load().parallelStream().filter(h -> Objects.equals(h.getType(), 2)).map(MysqlSearchHistory::getKw).collect(Collectors.toList());
     }
 }

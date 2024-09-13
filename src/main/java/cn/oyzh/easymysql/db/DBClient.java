@@ -23,8 +23,8 @@ import cn.oyzh.easymysql.db.table.MysqlForeignKey;
 import cn.oyzh.easymysql.db.table.MysqlIndex;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTrigger;
-import cn.oyzh.easymysql.db.view.DBView;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.exception.DBException;
 import cn.oyzh.easymysql.exception.ReadonlyOperationException;
@@ -63,7 +63,7 @@ public abstract class DBClient {
      * db信息
      */
     @Getter
-    protected final DBInfo dbInfo;
+    protected final MysqlInfo dbInfo;
 
     /**
      * ssh端口转发器
@@ -199,7 +199,7 @@ public abstract class DBClient {
         return this.state.getReadOnlyProperty();
     }
 
-    public DBClient(@NonNull DBInfo dbInfo) {
+    public DBClient(@NonNull MysqlInfo dbInfo) {
         this.dbInfo = dbInfo;
         if (dbInfo.isSSHForward()) {
             this.sshForwarder = new SSHForwarder(dbInfo.getSshInfo());
@@ -436,17 +436,17 @@ public abstract class DBClient {
         }
     }
 
-    public abstract DBView view(String dbName, String viewName);
+    public abstract MysqlView view(String dbName, String viewName);
 
-    public abstract List<DBView> views(String dbName);
+    public abstract List<MysqlView> views(String dbName);
 
-    public abstract void dropView(String dbName, DBView view);
+    public abstract void dropView(String dbName, MysqlView view);
 
     public abstract boolean existView(String dbName, String viewName);
 
-    public abstract void createView(String dbName, DBView view);
+    public abstract void createView(String dbName, MysqlView view);
 
-    public abstract void alertView(String dbName, DBView view);
+    public abstract void alertView(String dbName, MysqlView view);
 
     public abstract Long tableAutoIncrement(String dbName, String tableName);
 

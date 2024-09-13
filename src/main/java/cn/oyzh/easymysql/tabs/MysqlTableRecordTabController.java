@@ -7,7 +7,7 @@ import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.table.MysqlColumn;
-import cn.oyzh.easymysql.domain.DBSetting;
+import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.event.RecordDeleteEvent;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;
@@ -131,7 +131,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
     /**
      * 设置
      */
-    private final DBSetting setting = DBSettingStore.SETTING;
+    private final MysqlSetting setting = DBSettingStore.SETTING;
 
     /**
      * 执行初始化

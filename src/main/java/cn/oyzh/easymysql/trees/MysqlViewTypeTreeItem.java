@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.view.DBView;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.common.thread.Task;
 import cn.oyzh.fx.common.thread.TaskBuilder;
@@ -82,7 +82,7 @@ public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItem.Mysq
         //     MessageBox.warn(viewName + " " + I18nHelper.alreadyExists());
         //     return;
         // }
-        DBView dbView = new DBView();
+        MysqlView dbView = new MysqlView();
         // view.setName(viewName);
         dbView.setDbName(this.dbName());
         MysqlEventUtil.designView(dbView, this.dbItem);
@@ -112,11 +112,11 @@ public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItem.Mysq
         this.loading = true;
         Task task = TaskBuilder.newBuilder()
                 .onStart(() -> {
-                    List<DBView> views = this.client().views(this.dbName());
+                    List<MysqlView> views = this.client().views(this.dbName());
                     // 无数据直接更新列表
                     if (this.isChildEmpty()) {
                         List<TreeItem<?>> list = new ArrayList<>();
-                        for (DBView view : views) {
+                        for (MysqlView view : views) {
                             list.add(new MysqlViewTreeItem(view, this));
                         }
                         this.setChild(list);
@@ -132,7 +132,7 @@ public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItem.Mysq
                             }
                         }
                         // 新增
-                        for (DBView f : views) {
+                        for (MysqlView f : views) {
                             if (list.parallelStream().noneMatch(item -> f.compare(item.value()))) {
                                 addList.add(new MysqlViewTreeItem(f, this));
                             }
@@ -181,7 +181,7 @@ public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItem.Mysq
         return this.dbItem.viewSize();
     }
 
-    public DBInfo info() {
+    public MysqlInfo info() {
         return this.dbItem.info();
     }
 

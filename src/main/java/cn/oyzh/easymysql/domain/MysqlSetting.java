@@ -13,7 +13,7 @@ import lombok.Getter;
  */
 @Getter
 @EqualsAndHashCode(callSuper = true)
-public class DBSetting extends Setting {
+public class MysqlSetting extends Setting {
 
     /**
      * 记录每页限制

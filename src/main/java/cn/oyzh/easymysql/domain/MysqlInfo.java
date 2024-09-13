@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2020/3/6
  */
 @ToString
-public class DBInfo implements Comparable<DBInfo>, ObjectComparator<DBInfo> {
+public class MysqlInfo implements Comparable<MysqlInfo>, ObjectComparator<MysqlInfo> {
 
     /**
      * 数据id
@@ -126,7 +126,7 @@ public class DBInfo implements Comparable<DBInfo>, ObjectComparator<DBInfo> {
      * @param info db信息
      * @return 当前对象
      */
-    public DBInfo copy(@NonNull DBInfo info) {
+    public MysqlInfo copy(@NonNull MysqlInfo info) {
         this.name = info.name;
         this.host = info.host;
         this.user = info.user;
@@ -216,7 +216,7 @@ public class DBInfo implements Comparable<DBInfo>, ObjectComparator<DBInfo> {
     }
 
     @Override
-    public int compareTo(DBInfo o) {
+    public int compareTo(MysqlInfo o) {
         if (o == null) {
             return 1;
         }
@@ -252,7 +252,7 @@ public class DBInfo implements Comparable<DBInfo>, ObjectComparator<DBInfo> {
     }
 
     @Override
-    public boolean compare(DBInfo t1) {
+    public boolean compare(MysqlInfo t1) {
         if (t1 == null) {
             return false;
         }

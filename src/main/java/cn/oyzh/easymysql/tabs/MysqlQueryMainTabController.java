@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
-import cn.oyzh.easymysql.domain.DBQuery;
+import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.query.DBQueryTextArea;
@@ -48,7 +48,7 @@ public class MysqlQueryMainTabController extends DynamicTabController {
      */
     @Getter
     @Accessors(fluent = true, chain = true)
-    private DBQuery query;
+    private MysqlQuery query;
 
     /**
      * db数据库树节点
@@ -92,7 +92,7 @@ public class MysqlQueryMainTabController extends DynamicTabController {
      * @param query  查询对象
      * @param dbItem db库树节点
      */
-    public void init(MysqlQueryMainTab tab, DBQuery query, MysqlDatabaseTreeItem dbItem) {
+    public void init(MysqlQueryMainTab tab, MysqlQuery query, MysqlDatabaseTreeItem dbItem) {
         this.tab = tab;
         this.query = query;
         this.dbItem = dbItem;

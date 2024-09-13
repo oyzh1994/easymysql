@@ -1,25 +1,7 @@
 package cn.oyzh.easymysql.event;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.domain.DBInfo;
-import cn.oyzh.easymysql.event.DBAddConnectEvent;
-import cn.oyzh.easymysql.event.DBAddGroupEvent;
-import cn.oyzh.easymysql.event.DBConnectionClosedEvent;
-import cn.oyzh.easymysql.event.DBConnectionConnectedEvent;
-import cn.oyzh.easymysql.event.DBFilterMainEvent;
-import cn.oyzh.easymysql.event.DBInfoAddedEvent;
-import cn.oyzh.easymysql.event.DBInfoDeletedEvent;
-import cn.oyzh.easymysql.event.DBInfoUpdatedEvent;
-import cn.oyzh.easymysql.event.DBLeftCollapseEvent;
-import cn.oyzh.easymysql.event.DBLeftExtendEvent;
-import cn.oyzh.easymysql.event.DBSearchFinishEvent;
-import cn.oyzh.easymysql.event.DBSearchFireEvent;
-import cn.oyzh.easymysql.event.DBSearchStartEvent;
-import cn.oyzh.easymysql.event.DBTerminalCloseEvent;
-import cn.oyzh.easymysql.event.DBTerminalOpenEvent;
-import cn.oyzh.easymysql.event.RecordDeleteEvent;
-import cn.oyzh.easymysql.event.TreeChildChangedEvent;
-import cn.oyzh.easymysql.event.TreeChildFilterEvent;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.search.DBSearchParam;
 import cn.oyzh.fx.plus.changelog.ChangelogEvent;
 import cn.oyzh.fx.plus.event.EventUtil;
@@ -68,7 +50,7 @@ public class DBEventUtil {
      *
      * @param info redis信息
      */
-    public static void terminalOpen(DBInfo info) {
+    public static void terminalOpen(MysqlInfo info) {
         DBTerminalOpenEvent event = new DBTerminalOpenEvent();
         event.data(info);
         EventUtil.post(event);
@@ -79,7 +61,7 @@ public class DBEventUtil {
      *
      * @param info redis信息
      */
-    public static void terminalClose(DBInfo info) {
+    public static void terminalClose(MysqlInfo info) {
         DBTerminalCloseEvent event = new DBTerminalCloseEvent();
         event.data(info);
         EventUtil.post(event);
@@ -307,7 +289,7 @@ public class DBEventUtil {
      *
      * @param info DB信息
      */
-    public static void infoUpdated(DBInfo info) {
+    public static void infoUpdated(MysqlInfo info) {
         DBInfoUpdatedEvent event = new DBInfoUpdatedEvent();
         event.data(info);
         EventUtil.post(event);
@@ -359,7 +341,7 @@ public class DBEventUtil {
         EventUtil.post(new DBLeftExtendEvent());
     }
 
-    public static void infoAdded(DBInfo dbInfo) {
+    public static void infoAdded(MysqlInfo dbInfo) {
         DBInfoAddedEvent event = new DBInfoAddedEvent();
         event.data(dbInfo);
         EventUtil.post(event);
@@ -450,7 +432,7 @@ public class DBEventUtil {
     //     EventUtil.post(event);
     // }
 
-    public static void infoDeleted(DBInfo info) {
+    public static void infoDeleted(MysqlInfo info) {
         DBInfoDeletedEvent event = new DBInfoDeletedEvent();
         event.data(info);
         EventUtil.post(event);

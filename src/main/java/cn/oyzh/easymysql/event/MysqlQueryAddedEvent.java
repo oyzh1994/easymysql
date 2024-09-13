@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.event;
 
-import cn.oyzh.easymysql.domain.DBQuery;
+import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.event.Event;
 import lombok.Data;
@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(fluent = true)
-public class MysqlQueryAddedEvent extends Event<DBQuery> {
+public class MysqlQueryAddedEvent extends Event<MysqlQuery> {
 
     private MysqlDatabaseTreeItem item;
 }

@@ -7,7 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.log.StaticLog;
 import cn.oyzh.easymysql.MysqlConst;
-import cn.oyzh.easymysql.domain.DBGroup;
+import cn.oyzh.easymysql.domain.MysqlGroup;
 import cn.oyzh.fx.common.store.ArrayFileStore;
 import lombok.NonNull;
 
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * @author oyzh
  * @since 2023/5/12
  */
-public class DBGroupStore extends ArrayFileStore<DBGroup> {
+public class DBGroupStore extends ArrayFileStore<MysqlGroup> {
 
     /**
      * 当前实例
@@ -32,7 +32,7 @@ public class DBGroupStore extends ArrayFileStore<DBGroup> {
     /**
      * 已加载的db节点
      */
-    private final List<DBGroup> groups;
+    private final List<MysqlGroup> groups;
 
     {
         this.filePath(MysqlConst.STORE_PATH + "db_group.json");
@@ -41,7 +41,7 @@ public class DBGroupStore extends ArrayFileStore<DBGroup> {
     }
 
     @Override
-    public synchronized List<DBGroup> load() {
+    public synchronized List<MysqlGroup> load() {
         if (this.groups == null) {
             // 读取存储文件中的文本
             String text = FileUtil.readString(this.storeFile(), this.charset());
@@ -49,7 +49,7 @@ public class DBGroupStore extends ArrayFileStore<DBGroup> {
                 return new ArrayList<>();
             }
             // 将文本转换为DBGroup列表
-            List<DBGroup> DBGroups = JSONUtil.toList(text, DBGroup.class);
+            List<MysqlGroup> DBGroups = JSONUtil.toList(text, MysqlGroup.class);
             if (CollUtil.isNotEmpty(DBGroups)) {
                 // 对DBGroup列表进行排序
                 DBGroups = DBGroups.parallelStream().sorted().collect(Collectors.toList());
@@ -65,8 +65,8 @@ public class DBGroupStore extends ArrayFileStore<DBGroup> {
      * @param groupName 分组名称
      * @return 结果
      */
-    public synchronized DBGroup add(@NonNull String groupName) {
-        DBGroup group = new DBGroup(UUID.fastUUID().toString(true), groupName, false);
+    public synchronized MysqlGroup add(@NonNull String groupName) {
+        MysqlGroup group = new MysqlGroup(UUID.fastUUID().toString(true), groupName, false);
         if (this.add(group)) {
             return group;
         }
@@ -74,7 +74,7 @@ public class DBGroupStore extends ArrayFileStore<DBGroup> {
     }
 
     @Override
-    public synchronized boolean add(@NonNull DBGroup DBGroup) {
+    public synchronized boolean add(@NonNull MysqlGroup DBGroup) {
         try {
             if (!this.groups.contains(DBGroup)) {
                 // 添加到集合
@@ -89,7 +89,7 @@ public class DBGroupStore extends ArrayFileStore<DBGroup> {
     }
 
     @Override
-    public synchronized boolean update(@NonNull DBGroup DBGroup) {
+    public synchronized boolean update(@NonNull MysqlGroup DBGroup) {
         try {
             // 更新数据
             if (this.groups.contains(DBGroup)) {
@@ -102,7 +102,7 @@ public class DBGroupStore extends ArrayFileStore<DBGroup> {
     }
 
     @Override
-    public synchronized boolean delete(@NonNull DBGroup DBGroup) {
+    public synchronized boolean delete(@NonNull MysqlGroup DBGroup) {
         try {
             // 删除数据
             if (this.groups.remove(DBGroup)) {
@@ -121,13 +121,13 @@ public class DBGroupStore extends ArrayFileStore<DBGroup> {
      * @param DBGroup 分组信息
      * @return 结果
      */
-    public synchronized boolean exist(DBGroup DBGroup) {
+    public synchronized boolean exist(MysqlGroup DBGroup) {
         // 如果传入的分组信息为空，则直接返回false
         if (DBGroup == null) {
             return false;
         }
         // 遍历this.DBGroups列表，检查是否存在与传入的分组信息相同的分组
-        for (DBGroup group : this.groups) {
+        for (MysqlGroup group : this.groups) {
             if (Objects.equals(group.getName(), DBGroup.getName()) && group != DBGroup) {  // 如果分组名称相同且不是同一个对象，则说明存在相同的分组信息，返回true
                 return true;
             }

@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.controller.info;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.MysqlConst;
-import cn.oyzh.easymysql.domain.DBGroup;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.domain.MysqlGroup;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.fx.DBTypeComboBox;
 import cn.oyzh.easymysql.fx.info.ServiceTypeCombobox;
@@ -113,7 +113,7 @@ public class MysqlInfoAddController extends StageController {
     /**
      * 分组
      */
-    private DBGroup group;
+    private MysqlGroup group;
 
     /**
      * db连接储存对象
@@ -149,7 +149,7 @@ public class MysqlInfoAddController extends StageController {
         // 检查连接地址
         String host = this.getHost();
         if (StrUtil.isNotBlank(host)) {
-            DBInfo dbInfo = new DBInfo();
+            MysqlInfo dbInfo = new MysqlInfo();
             dbInfo.setHost(host);
             dbInfo.setConnectTimeOut(5);
             dbInfo.setUser(this.user.getText());
@@ -182,7 +182,7 @@ public class MysqlInfoAddController extends StageController {
         }
         try {
             String name = this.name.getTextTrim();
-            DBInfo dbInfo = new DBInfo();
+            MysqlInfo dbInfo = new MysqlInfo();
             dbInfo.setName(name);
             Number connectTimeOut = this.connectTimeOut.getValue();
             dbInfo.setHost(host);

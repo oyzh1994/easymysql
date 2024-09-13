@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.controller;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.MysqlConst;
-import cn.oyzh.easymysql.domain.DBSetting;
+import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.store.DBSettingStore;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
@@ -182,7 +182,7 @@ public class SettingController extends StageController {
     /**
      * 配置对象
      */
-    private final DBSetting setting = DBSettingStore.SETTING;
+    private final MysqlSetting setting = DBSettingStore.SETTING;
 
     /**
      * 配置持久化对象

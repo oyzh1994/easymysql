@@ -7,7 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.log.StaticLog;
 import cn.oyzh.easymysql.MysqlConst;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.fx.common.dto.Paging;
 import cn.oyzh.fx.common.store.ArrayFileStore;
 import lombok.NonNull;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @author oyzh
  * @since 2020/5/23
  */
-public class DBInfoStore extends ArrayFileStore<DBInfo> {
+public class DBInfoStore extends ArrayFileStore<MysqlInfo> {
 
     /**
      * 当前实例
@@ -33,13 +33,13 @@ public class DBInfoStore extends ArrayFileStore<DBInfo> {
     /**
      * 已加载的db节点
      */
-    private final List<DBInfo> infos;
+    private final List<MysqlInfo> infos;
 
     {
         this.filePath(MysqlConst.STORE_PATH + "db_info.json");
         StaticLog.info("DBInfoStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
         this.infos = this.load();
-        for (DBInfo dbInfo : this.infos) {
+        for (MysqlInfo dbInfo : this.infos) {
             if (StrUtil.isBlank(dbInfo.getId())) {
                 dbInfo.setId(UUID.fastUUID().toString(true));
                 this.update(dbInfo);
@@ -48,7 +48,7 @@ public class DBInfoStore extends ArrayFileStore<DBInfo> {
     }
 
     @Override
-    public synchronized List<DBInfo> load() {
+    public synchronized List<MysqlInfo> load() {
         // 如果infos为空
         if (this.infos == null) {
             // 读取storeFile文件的内容
@@ -59,7 +59,7 @@ public class DBInfoStore extends ArrayFileStore<DBInfo> {
                 return new ArrayList<>();
             }
             // 将文件内容解析为dbInfo列表
-            List<DBInfo> infos = JSONUtil.toList(text, DBInfo.class);
+            List<MysqlInfo> infos = JSONUtil.toList(text, MysqlInfo.class);
             // 如果dbInfo列表非空
             if (CollUtil.isNotEmpty(infos)) {
                 // 对dbInfo列表进行排序
@@ -73,7 +73,7 @@ public class DBInfoStore extends ArrayFileStore<DBInfo> {
     }
 
     @Override
-    public synchronized boolean add(@NonNull DBInfo dbInfo) {
+    public synchronized boolean add(@NonNull MysqlInfo dbInfo) {
         try {
             if (!this.infos.contains(dbInfo)) {
                 if (StrUtil.isBlank(dbInfo.getId())) {
@@ -91,7 +91,7 @@ public class DBInfoStore extends ArrayFileStore<DBInfo> {
     }
 
     @Override
-    public synchronized boolean update(@NonNull DBInfo dbInfo) {
+    public synchronized boolean update(@NonNull MysqlInfo dbInfo) {
         try {
             // 更新数据
             if (this.infos.contains(dbInfo)) {
@@ -104,7 +104,7 @@ public class DBInfoStore extends ArrayFileStore<DBInfo> {
     }
 
     @Override
-    public synchronized boolean delete(@NonNull DBInfo dbInfo) {
+    public synchronized boolean delete(@NonNull MysqlInfo dbInfo) {
         try {
             // 删除数据
             if (this.infos.remove(dbInfo)) {
@@ -118,11 +118,11 @@ public class DBInfoStore extends ArrayFileStore<DBInfo> {
     }
 
     @Override
-    public synchronized Paging<DBInfo> getPage(int limit, Map<String, Object> params) {
+    public synchronized Paging<MysqlInfo> getPage(int limit, Map<String, Object> params) {
         // 加载数据
-        List<DBInfo> infos = this.load();
+        List<MysqlInfo> infos = this.load();
         // 分页对象
-        Paging<DBInfo> paging = new Paging<>(infos, limit);
+        Paging<MysqlInfo> paging = new Paging<>(infos, limit);
         // 数据为空
         if (CollUtil.isNotEmpty(infos)) {
             String searchKeyWord = params == null ? null : (String) params.get("searchKeyWord");

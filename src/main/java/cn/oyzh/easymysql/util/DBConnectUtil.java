@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.util;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.dto.DBConnect;
 import cn.oyzh.fx.common.thread.ThreadUtil;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -26,7 +26,7 @@ public class DBConnectUtil {
      * @param view   页面
      * @param dbInfo db信息
      */
-    public static void testConnect(StageAdapter view, DBInfo dbInfo) {
+    public static void testConnect(StageAdapter view, MysqlInfo dbInfo) {
         ThreadUtil.startVirtual(() -> {
             try {
                 view.disable();

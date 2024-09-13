@@ -4,7 +4,7 @@ import cn.oyzh.easymysql.controller.data.MysqlDataExportController;
 import cn.oyzh.easymysql.controller.data.MysqlDataImportController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.common.thread.Task;
 import cn.oyzh.fx.common.thread.TaskBuilder;
@@ -210,7 +210,7 @@ public class MysqlTableTypeTreeItem extends DBTreeItem<MysqlTableTypeTreeItem.My
         return this.dbItem.tableSize();
     }
 
-    public DBInfo info() {
+    public MysqlInfo info() {
         return this.dbItem.info();
     }
 

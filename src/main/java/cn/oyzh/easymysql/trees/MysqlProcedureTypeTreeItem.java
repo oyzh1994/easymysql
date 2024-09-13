@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.common.thread.Task;
 import cn.oyzh.fx.common.thread.TaskBuilder;
@@ -168,7 +168,7 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
         this.getValue().flushNum();
     }
 
-    public DBInfo info() {
+    public MysqlInfo info() {
         return dbItem.info();
     }
 

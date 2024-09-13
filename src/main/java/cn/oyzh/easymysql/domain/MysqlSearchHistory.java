@@ -16,7 +16,7 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DBSearchHistory implements ObjectComparator<DBSearchHistory> {
+public class MysqlSearchHistory implements ObjectComparator<MysqlSearchHistory> {
 
     /**
      * 词汇
@@ -30,7 +30,7 @@ public class DBSearchHistory implements ObjectComparator<DBSearchHistory> {
     private Integer type;
 
     @Override
-    public boolean compare(DBSearchHistory t1) {
+    public boolean compare(MysqlSearchHistory t1) {
         if (t1 == null) {
             return false;
         }

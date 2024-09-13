@@ -12,7 +12,7 @@ import lombok.NonNull;
  * @since 2024/02/18
  */
 @Data
-public class DBQuery implements Comparable<DBQuery>, ObjectComparator<DBQuery> {
+public class MysqlQuery implements Comparable<MysqlQuery>, ObjectComparator<MysqlQuery> {
 
     /**
      * 数据id
@@ -45,7 +45,7 @@ public class DBQuery implements Comparable<DBQuery>, ObjectComparator<DBQuery> {
      * @param query db信息
      * @return 当前对象
      */
-    public DBQuery copy(@NonNull DBQuery query) {
+    public MysqlQuery copy(@NonNull MysqlQuery query) {
         this.iid = query.iid;
         this.name = query.name;
         this.dbName = query.dbName;
@@ -54,7 +54,7 @@ public class DBQuery implements Comparable<DBQuery>, ObjectComparator<DBQuery> {
     }
 
     @Override
-    public int compareTo(DBQuery t1) {
+    public int compareTo(MysqlQuery t1) {
         if (t1 == null) {
             return 1;
         }
@@ -62,7 +62,7 @@ public class DBQuery implements Comparable<DBQuery>, ObjectComparator<DBQuery> {
     }
 
     @Override
-    public boolean compare(DBQuery t1) {
+    public boolean compare(MysqlQuery t1) {
         if (t1 == null) {
             return false;
         }

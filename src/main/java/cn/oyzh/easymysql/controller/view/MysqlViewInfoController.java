@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.controller.view;
 
 import cn.oyzh.easymysql.MysqlConst;
-import cn.oyzh.easymysql.db.view.DBView;
+import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.trees.MysqlViewTreeItem;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
@@ -43,7 +43,7 @@ public class MysqlViewInfoController extends StageController {
         super.onStageShown(event);
         this.stage.hideOnEscape();
         MysqlViewTreeItem item = this.getWindowProp("item");
-        DBView view = item.value();
+        MysqlView view = item.value();
         this.viewName.setText(view.getName());
         this.viewComment.setText(view.getComment());
     }

@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.routine.MysqlFunction;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.plus.controls.svg.FunctionSVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
@@ -64,7 +64,7 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItem.Mysq
      *
      * @return redis信息
      */
-    public DBInfo info() {
+    public MysqlInfo info() {
         return this.parent.info();
     }
 

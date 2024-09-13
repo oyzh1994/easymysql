@@ -9,18 +9,18 @@ import cn.oyzh.fx.plus.domain.TreeGroup;
  * @author oyzh
  * @since 2023/12/15
  */
-public class DBGroup extends TreeGroup implements ObjectComparator<DBGroup> {
+public class MysqlGroup extends TreeGroup implements ObjectComparator<MysqlGroup> {
 
-    public DBGroup() {
+    public MysqlGroup() {
         super();
     }
 
-    public DBGroup(String name, String groupId, boolean expand) {
+    public MysqlGroup(String name, String groupId, boolean expand) {
         super(name, groupId, expand);
     }
 
     @Override
-    public boolean compare(DBGroup t1) {
+    public boolean compare(MysqlGroup t1) {
         if (t1 == null) {
             return false;
         }

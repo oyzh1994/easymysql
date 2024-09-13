@@ -30,8 +30,8 @@ import cn.oyzh.easymysql.db.table.MysqlIndexes;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTrigger;
 import cn.oyzh.easymysql.db.table.MysqlTriggers;
-import cn.oyzh.easymysql.db.view.DBView;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.exception.DBException;
 import cn.oyzh.easymysql.generator.event.EventAlertSqlGenerator;
 import cn.oyzh.easymysql.generator.event.EventCreateSqlGenerator;
@@ -72,7 +72,7 @@ import java.util.Map;
  */
 public class MysqlDBClient extends DBClient {
 
-    public MysqlDBClient(@NonNull DBInfo dbInfo) {
+    public MysqlDBClient(@NonNull MysqlInfo dbInfo) {
         super(dbInfo);
     }
 
@@ -291,7 +291,7 @@ public class MysqlDBClient extends DBClient {
     // }
 
     @Override
-    public DBView view(String dbName, String viewName) {
+    public MysqlView view(String dbName, String viewName) {
         try {
             String sql = "SELECT `TABLE_NAME`, `TABLE_COMMENT` FROM information_schema.`TABLES` WHERE `TABLE_SCHEMA` = ? AND `TABLE_NAME` = ? AND `TABLE_TYPE` = 'VIEW'";
             DBUtil.printSql(sql);
@@ -304,7 +304,7 @@ public class MysqlDBClient extends DBClient {
             // 打印元数据
             DBUtil.printMetaData(resultSet);
             // 遍历结果集
-            DBView view = new DBView();
+            MysqlView view = new MysqlView();
             while (resultSet.next()) {
                 String tableName = resultSet.getString("TABLE_NAME");
                 String tableComment = resultSet.getString("TABLE_COMMENT");
@@ -330,9 +330,9 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public List<DBView> views(String dbName) {
+    public List<MysqlView> views(String dbName) {
         try {
-            List<DBView> list = new ArrayList<>();
+            List<MysqlView> list = new ArrayList<>();
             String sql = "SELECT `TABLE_NAME`, `TABLE_COMMENT` FROM information_schema.`TABLES` WHERE `TABLE_SCHEMA` = ? AND `TABLE_TYPE` = 'VIEW'";
             DBUtil.printSql(sql);
             Connection connection = this.connection();
@@ -344,7 +344,7 @@ public class MysqlDBClient extends DBClient {
             DBUtil.printMetaData(resultSet);
             // 遍历结果集
             while (resultSet.next()) {
-                DBView view = new DBView();
+                MysqlView view = new MysqlView();
                 String tableName = resultSet.getString("TABLE_NAME");
                 String tableComment = resultSet.getString("TABLE_COMMENT");
                 Map<String, String> info = DBHelper.getViewInfo(connection, dbName, tableName);
@@ -370,7 +370,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public void dropView(String dbName, DBView view) {
+    public void dropView(String dbName, MysqlView view) {
         try {
             String sql = "DROP VIEW IF EXISTS " + DBUtil.wrap(view.getDbName(), view.getName());
             Statement statement = this.connection(dbName).createStatement();
@@ -398,7 +398,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public void createView(String dbName, DBView view) {
+    public void createView(String dbName, MysqlView view) {
         try {
             Statement statement = this.connection(dbName).createStatement();
             String sql = "CREATE ";
@@ -424,7 +424,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public void alertView(String dbName, DBView view) {
+    public void alertView(String dbName, MysqlView view) {
         try {
             Statement statement = this.connection(dbName).createStatement();
             String sql = "CREATE OR REPLACE ";

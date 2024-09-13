@@ -6,8 +6,8 @@ import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.controller.info.MysqlInfoAddController;
 import cn.oyzh.easymysql.db.DBConnectManager;
-import cn.oyzh.easymysql.domain.DBGroup;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.domain.MysqlGroup;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.dto.DBInfoExport;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.store.DBGroupStore;
@@ -71,16 +71,16 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      */
     private void initChildes() {
         // 初始化分组
-        List<DBGroup> groups = this.groupStore.load();
+        List<MysqlGroup> groups = this.groupStore.load();
         if (CollUtil.isNotEmpty(groups)) {
             List<TreeItem<?>> list = new ArrayList<>();
-            for (DBGroup group : groups) {
+            for (MysqlGroup group : groups) {
                 list.add(new DBGroupTreeItem(group, this.getTreeView()));
             }
             this.addChild(list);
         }
         // 初始化连接
-        List<DBInfo> infos = this.infoStore.load();
+        List<MysqlInfo> infos = this.infoStore.load();
         if (CollUtil.isNotEmpty(infos)) {
             this.addConnects(infos);
         }
@@ -107,7 +107,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      * 导出连接
      */
     private void exportConnect() {
-        List<DBInfo> infos = this.infoStore.load();
+        List<MysqlInfo> infos = this.infoStore.load();
         if (infos.isEmpty()) {
             MessageBox.warn(I18nHelper.connectionIsEmpty());
             return;
@@ -181,9 +181,9 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
         try {
             String text = FileUtil.readUtf8String(file);
             DBInfoExport export = DBInfoExport.fromJSON(text);
-            List<DBInfo> infos = export.getConnects();
+            List<MysqlInfo> infos = export.getConnects();
             if (CollUtil.isNotEmpty(infos)) {
-                for (DBInfo info : infos) {
+                for (MysqlInfo info : infos) {
                     if (this.infoStore.add(info)) {
                         this.addConnect(info);
                     } else {
@@ -222,7 +222,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
             return;
         }
 
-        DBGroup group = new DBGroup();
+        MysqlGroup group = new MysqlGroup();
         group.setName(groupName);
         if (this.groupStore.exist(group)) {
             MessageBox.warn(I18nHelper.contentAlreadyExists());
@@ -270,7 +270,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      *
      * @param info 连接
      */
-    public void infoAdd(DBInfo info) {
+    public void infoAdd(MysqlInfo info) {
         this.addConnect(info);
     }
 
@@ -279,7 +279,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      *
      * @param info 连接
      */
-    public void infoUpdate(DBInfo info) {
+    public void infoUpdate(MysqlInfo info) {
         f1:
         for (TreeItem<?> item : this.getRealChildren()) {
             if (item instanceof DBConnectTreeItem connectTreeItem) {
@@ -299,7 +299,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     }
 
     @Override
-    public void addConnect(@NonNull DBInfo info) {
+    public void addConnect(@NonNull MysqlInfo info) {
         DBGroupTreeItem groupItem = this.getGroupItem(info.getGroupId());
         if (groupItem == null) {
             super.addChild(new DBConnectTreeItem(info, this.getTreeView()));

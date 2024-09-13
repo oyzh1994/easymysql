@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.domain.DBInfo;
-import cn.oyzh.easymysql.domain.DBQuery;
+import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.store.DBQueryStore;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
@@ -102,7 +102,7 @@ public class MysqlQueryTypeTreeItem extends DBTreeItem<MysqlQueryTypeTreeItem.My
         this._loadChild();
     }
 
-    public void addChild(@NonNull DBQuery query) {
+    public void addChild(@NonNull MysqlQuery query) {
         this.addChild(new MysqlQueryTreeItem(query, this));
     }
 
@@ -110,9 +110,9 @@ public class MysqlQueryTypeTreeItem extends DBTreeItem<MysqlQueryTypeTreeItem.My
      * 加载子节点实际业务
      */
     private void _loadChild() {
-        List<DBQuery> dbQueries = DBQueryStore.INSTANCE.list(this.dbItem.info().getId(), this.dbItem.dbName());
+        List<MysqlQuery> dbQueries = DBQueryStore.INSTANCE.list(this.dbItem.info().getId(), this.dbItem.dbName());
         List<TreeItem<?>> list = new ArrayList<>();
-        for (DBQuery query : dbQueries) {
+        for (MysqlQuery query : dbQueries) {
             list.add(new MysqlQueryTreeItem(query, this));
         }
         this.setChild(list);
@@ -134,7 +134,7 @@ public class MysqlQueryTypeTreeItem extends DBTreeItem<MysqlQueryTypeTreeItem.My
         this.getValue().flushNum();
     }
 
-    public DBInfo info() {
+    public MysqlInfo info() {
         return dbItem.info();
     }
 
@@ -150,7 +150,7 @@ public class MysqlQueryTypeTreeItem extends DBTreeItem<MysqlQueryTypeTreeItem.My
     }
 
     public Integer querySize() {
-        List<DBQuery> dbQueries = DBQueryStore.INSTANCE.list(this.dbItem.info().getId(), this.dbItem.dbName());
+        List<MysqlQuery> dbQueries = DBQueryStore.INSTANCE.list(this.dbItem.info().getId(), this.dbItem.dbName());
         return dbQueries == null ? 0 : dbQueries.size();
     }
 

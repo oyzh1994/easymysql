@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.domain.DBQuery;
+import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.DBConnectionClosedEvent;
 import cn.oyzh.easymysql.event.MysqlDatabaseClosedEvent;
 import cn.oyzh.easymysql.event.MysqlEventDesignEvent;
@@ -296,7 +296,7 @@ public class MysqlTabEventListener implements EventListener {
             MysqlQueryMainTab tab = new MysqlQueryMainTab();
             this.addTab(tab);
             this.select(tab);
-            DBQuery query = new DBQuery();
+            MysqlQuery query = new MysqlQuery();
             tab.init(query, event.data());
         } catch (Exception ex) {
             ex.printStackTrace();

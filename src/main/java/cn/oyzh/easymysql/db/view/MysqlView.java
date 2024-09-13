@@ -20,7 +20,7 @@ import java.util.List;
  * @author oyzh
  * @since 2024/06/28
  */
-public class DBView extends DBObjectStatus implements ObjectCopier<DBView>, ObjectComparator<DBView> {
+public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>, ObjectComparator<MysqlView> {
 
     /**
      * 定义者
@@ -78,7 +78,7 @@ public class DBView extends DBObjectStatus implements ObjectCopier<DBView>, Obje
     }
 
     @Override
-    public void copy(DBView f) {
+    public void copy(MysqlView f) {
         if (f != null) {
             this.setComment(f.getComment());
             this.setColumns(f.getColumns());
@@ -197,7 +197,7 @@ public class DBView extends DBObjectStatus implements ObjectCopier<DBView>, Obje
     }
 
     @Override
-    public boolean compare(DBView view) {
+    public boolean compare(MysqlView view) {
         if (view == null) {
             return false;
         }

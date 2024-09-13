@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.view.DBView;
+import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.ViewSVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
@@ -68,7 +68,7 @@ public class MysqlViewDesignTab extends MysqlTab {
      *
      * @param item 树键
      */
-    public void init(DBView view, MysqlDatabaseTreeItem item) {
+    public void init(MysqlView view, MysqlDatabaseTreeItem item) {
         this.controller().init(view, item);
         // 刷新tab
         this.flush();

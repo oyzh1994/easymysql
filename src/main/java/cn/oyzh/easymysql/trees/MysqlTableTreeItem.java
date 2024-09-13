@@ -17,7 +17,7 @@ import cn.oyzh.easymysql.db.table.MysqlIndexes;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTrigger;
 import cn.oyzh.easymysql.db.table.MysqlTriggers;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.controller.table.MysqlTableInfoController;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.util.DBI18nHelper;
@@ -89,7 +89,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItem.MysqlTable
      *
      * @return redis信息
      */
-    public DBInfo info() {
+    public MysqlInfo info() {
         return this.parent.info();
     }
 

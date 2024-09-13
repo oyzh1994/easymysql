@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.event;
 
-import cn.oyzh.easymysql.db.view.DBView;
+import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.event.Event;
 import lombok.Data;
@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(fluent = true)
 @EqualsAndHashCode(callSuper = true)
-public class MysqlViewDesignEvent extends Event<DBView> {
+public class MysqlViewDesignEvent extends Event<MysqlView> {
 
     private MysqlDatabaseTreeItem dbItem;
 

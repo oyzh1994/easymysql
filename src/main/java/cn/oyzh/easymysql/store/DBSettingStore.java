@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.log.StaticLog;
 import cn.oyzh.easymysql.MysqlConst;
-import cn.oyzh.easymysql.domain.DBSetting;
+import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.fx.common.store.ObjectFileStore;
 import lombok.NonNull;
 
@@ -16,7 +16,7 @@ import lombok.NonNull;
  * @author oyzh
  * @since 2022/8/26
  */
-public class DBSettingStore extends ObjectFileStore<DBSetting> {
+public class DBSettingStore extends ObjectFileStore<MysqlSetting> {
 
     /**
      * 当前实例
@@ -26,7 +26,7 @@ public class DBSettingStore extends ObjectFileStore<DBSetting> {
     /**
      * 当前设置
      */
-    public static final DBSetting SETTING = INSTANCE.load();
+    public static final MysqlSetting SETTING = INSTANCE.load();
 
     {
         this.filePath(MysqlConst.STORE_PATH + "db_setting.json");
@@ -34,27 +34,27 @@ public class DBSettingStore extends ObjectFileStore<DBSetting> {
     }
 
     @Override
-    public synchronized DBSetting load() {
-        DBSetting setting = null;
+    public synchronized MysqlSetting load() {
+        MysqlSetting setting = null;
         try {
             // 读取配置文件内容
             String text = FileUtil.readString(this.storeFile(), this.charset());
             if (StrUtil.isNotBlank(text)) {
                 // 将配置文件内容解析为dbSetting对象
-                setting = JSONUtil.toBean(text, DBSetting.class);
+                setting = JSONUtil.toBean(text, MysqlSetting.class);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         // 如果解析失败，则返回一个新的dbSetting对象
         if (setting == null) {
-            setting = new DBSetting();
+            setting = new MysqlSetting();
         }
         return setting;
     }
 
     @Override
-    public boolean update(@NonNull DBSetting setting) {
+    public boolean update(@NonNull MysqlSetting setting) {
         return this.saveData(setting);
     }
 }

@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.tabs;
 
-import cn.oyzh.easymysql.db.view.DBView;
+import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
 import cn.oyzh.easymysql.fx.DBSqlTextArea;
 import cn.oyzh.easymysql.fx.view.DBViewAlgorithmComboBox;
@@ -43,7 +43,7 @@ public class MysqlViewDesignTabController extends DynamicTabController {
      */
     @Getter
     @Accessors(fluent = true, chain = true)
-    private DBView dbView;
+    private MysqlView dbView;
 
     /**
      * db数据库树节点
@@ -141,7 +141,7 @@ public class MysqlViewDesignTabController extends DynamicTabController {
      * @param view   视图
      * @param dbItem db库树节点
      */
-    public void init(DBView view, MysqlDatabaseTreeItem dbItem) {
+    public void init(MysqlView view, MysqlDatabaseTreeItem dbItem) {
         this.dbView = view;
         this.dbItem = dbItem;
 
@@ -189,7 +189,7 @@ public class MysqlViewDesignTabController extends DynamicTabController {
     private void save() {
         try {
             // 创建临时对象
-            DBView tempView = new DBView();
+            MysqlView tempView = new MysqlView();
 
             String viewName;
             // 视图名称

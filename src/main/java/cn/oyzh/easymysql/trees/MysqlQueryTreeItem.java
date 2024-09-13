@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.trees;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.domain.DBInfo;
-import cn.oyzh.easymysql.domain.DBQuery;
+import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.store.DBQueryStore;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
@@ -34,7 +34,7 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItem.MysqlQuery
      */
     @Getter
     @Accessors(chain = true, fluent = true)
-    private final DBQuery value;
+    private final MysqlQuery value;
 
     /**
      * 连接树节点
@@ -43,7 +43,7 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItem.MysqlQuery
     @Accessors(chain = true, fluent = true)
     protected MysqlQueryTypeTreeItem parent;
 
-    public MysqlQueryTreeItem(DBQuery query, MysqlQueryTypeTreeItem parent) {
+    public MysqlQueryTreeItem(MysqlQuery query, MysqlQueryTypeTreeItem parent) {
         super(parent.getTreeView());
         super.setFilterable(true);
         this.parent = parent;
@@ -69,7 +69,7 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItem.MysqlQuery
      *
      * @return redis信息
      */
-    public DBInfo info() {
+    public MysqlInfo info() {
         return this.parent.info();
     }
 

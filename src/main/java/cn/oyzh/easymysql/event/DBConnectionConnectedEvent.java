@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.event;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.fx.plus.event.Event;
 import cn.oyzh.fx.plus.event.EventFormatter;
 
@@ -16,7 +16,7 @@ public class DBConnectionConnectedEvent extends Event<DBClient> implements  Even
         return String.format("[%s] 客户端已连接", this.data().infoName());
     }
 
-    public DBInfo info() {
+    public MysqlInfo info() {
         return this.data().dbInfo();
     }
 }

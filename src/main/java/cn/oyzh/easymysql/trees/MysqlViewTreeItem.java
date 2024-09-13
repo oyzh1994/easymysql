@@ -7,8 +7,8 @@ import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.db.table.MysqlColumns;
-import cn.oyzh.easymysql.db.view.DBView;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.controller.view.MysqlViewInfoController;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.common.dto.Paging;
@@ -41,7 +41,7 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItem.MysqlViewTre
      */
     @Getter
     @Accessors(chain = true, fluent = true)
-    private final DBView value;
+    private final MysqlView value;
 
     /**
      * 连接树节点
@@ -50,7 +50,7 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItem.MysqlViewTre
     @Accessors(chain = true, fluent = true)
     protected MysqlViewTypeTreeItem parent;
 
-    public MysqlViewTreeItem(DBView view, MysqlViewTypeTreeItem parent) {
+    public MysqlViewTreeItem(MysqlView view, MysqlViewTypeTreeItem parent) {
         super(parent.getTreeView());
         super.setFilterable(true);
         this.parent = parent;
@@ -75,7 +75,7 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItem.MysqlViewTre
      *
      * @return redis信息
      */
-    public DBInfo info() {
+    public MysqlInfo info() {
         return this.parent.info();
     }
 

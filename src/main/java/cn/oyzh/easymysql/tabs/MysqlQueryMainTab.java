@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.tabs;
 
-import cn.oyzh.easymysql.domain.DBQuery;
+import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import javafx.scene.Cursor;
@@ -58,7 +58,7 @@ public class MysqlQueryMainTab extends MysqlTab {
         }
     }
 
-    public DBQuery query() {
+    public MysqlQuery query() {
         return this.controller().query();
     }
 
@@ -77,7 +77,7 @@ public class MysqlQueryMainTab extends MysqlTab {
      * @param query 查询对象
      * @param item  db库树节点
      */
-    public boolean init(DBQuery query, MysqlDatabaseTreeItem item) {
+    public boolean init(MysqlQuery query, MysqlDatabaseTreeItem item) {
         this.controller().init(this, query, item);
         this.flush();
         return true;

@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.controller;
 
 import cn.hutool.log.StaticLog;
-import cn.oyzh.easymysql.domain.DBInfo;
-import cn.oyzh.easymysql.domain.DBPageInfo;
-import cn.oyzh.easymysql.domain.DBSetting;
+import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlPageInfo;
+import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.event.DBInfoUpdatedEvent;
 import cn.oyzh.easymysql.event.DBLeftCollapseEvent;
 import cn.oyzh.easymysql.event.DBLeftExtendEvent;
@@ -52,12 +52,12 @@ public class MysqlMainController extends ParentStageController {
     /**
      * 配置对象
      */
-    private final DBSetting setting = DBSettingStore.SETTING;
+    private final MysqlSetting setting = DBSettingStore.SETTING;
 
     /**
      * 当前激活的db信息
      */
-    private DBInfo info;
+    private MysqlInfo info;
 
     /**
      * 左侧db树
@@ -108,7 +108,7 @@ public class MysqlMainController extends ParentStageController {
     /**
      * 页面信息
      */
-    private final DBPageInfo pageInfo = DBPageInfoStore.PAGE_INFO;
+    private final MysqlPageInfo pageInfo = DBPageInfoStore.PAGE_INFO;
 
     /**
      * 页面信息储存
@@ -164,7 +164,7 @@ public class MysqlMainController extends ParentStageController {
      *
      * @param info db信息
      */
-    private void flushViewTitle(DBInfo info) {
+    private void flushViewTitle(MysqlInfo info) {
         if (info != null) {
             this.stage.appendTitle(" (" + info.getName() + ")");
         } else {

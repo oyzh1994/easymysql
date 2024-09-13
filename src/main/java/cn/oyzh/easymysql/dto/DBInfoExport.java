@@ -4,7 +4,7 @@ import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.log.StaticLog;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.fx.common.dto.Project;
 import lombok.Getter;
 import lombok.NonNull;
@@ -36,7 +36,7 @@ public class DBInfoExport {
      * 导出连接数据
      */
     @Getter
-    private List<DBInfo> connects;
+    private List<MysqlInfo> connects;
 
     /**
      * 从db连接数据生成
@@ -44,7 +44,7 @@ public class DBInfoExport {
      * @param dbInfos 连接列表
      * @return DBInfoExport
      */
-    public static DBInfoExport fromConnects(@NonNull List<DBInfo> dbInfos) {
+    public static DBInfoExport fromConnects(@NonNull List<MysqlInfo> dbInfos) {
         DBInfoExport export = new DBInfoExport();
         Project project = SpringUtil.getBean(Project.class);
         export.version = project.getVersion();
@@ -65,7 +65,7 @@ public class DBInfoExport {
         DBInfoExport export = new DBInfoExport();
         export.connects = new ArrayList<>();
         export.version = object.getStr("version");
-        export.connects = object.getBeanList("connects", DBInfo.class);
+        export.connects = object.getBeanList("connects", MysqlInfo.class);
         return export;
     }
 

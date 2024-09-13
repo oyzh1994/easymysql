@@ -4,8 +4,8 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.controller.info.MysqlInfoAddController;
 import cn.oyzh.easymysql.db.DBConnectManager;
-import cn.oyzh.easymysql.domain.DBGroup;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.domain.MysqlGroup;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.store.DBGroupStore;
 import cn.oyzh.easymysql.store.DBInfoStore;
@@ -44,7 +44,7 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
      */
     @Getter
     @Accessors(chain = true, fluent = true)
-    private final DBGroup value;
+    private final MysqlGroup value;
 
     /**
      * DB信息储存
@@ -56,7 +56,7 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
      */
     private final DBGroupStore groupStore = DBGroupStore.INSTANCE;
 
-    public DBGroupTreeItem(@NonNull DBGroup group, @NonNull DBTreeView treeView) {
+    public DBGroupTreeItem(@NonNull MysqlGroup group, @NonNull DBTreeView treeView) {
         super(treeView);
         this.value = group;
         this.setValue(new DBGroupTreeItemValue(this));
@@ -163,7 +163,7 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
     }
 
     @Override
-    public void addConnect(@NonNull DBInfo DBInfo) {
+    public void addConnect(@NonNull MysqlInfo DBInfo) {
         this.addConnectItem(new DBConnectTreeItem(DBInfo, this.getTreeView()));
     }
 

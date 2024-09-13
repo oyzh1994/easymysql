@@ -6,9 +6,9 @@ import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.db.view.DBView;
-import cn.oyzh.easymysql.domain.DBInfo;
-import cn.oyzh.easymysql.domain.DBQuery;
+import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.MysqlQueryTreeItem;
 import cn.oyzh.easymysql.trees.MysqlTableTreeItem;
@@ -165,7 +165,7 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-    public static void queryAdded(DBQuery query, MysqlDatabaseTreeItem item) {
+    public static void queryAdded(MysqlQuery query, MysqlDatabaseTreeItem item) {
         MysqlQueryAddedEvent event = new MysqlQueryAddedEvent();
         event.data(query);
         event.item(item);
@@ -178,7 +178,7 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-    public static void queryOpen(DBQuery query, MysqlDatabaseTreeItem item) {
+    public static void queryOpen(MysqlQuery query, MysqlDatabaseTreeItem item) {
         MysqlQueryOpenEvent event = new MysqlQueryOpenEvent();
         event.data(query);
         event.item(item);
@@ -219,7 +219,7 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-    public static void designView(DBView dbView, MysqlDatabaseTreeItem dbItem) {
+    public static void designView(MysqlView dbView, MysqlDatabaseTreeItem dbItem) {
         MysqlViewDesignEvent event = new MysqlViewDesignEvent();
         event.data(dbView);
         event.dbItem(dbItem);
@@ -232,7 +232,7 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-    public static void infoDeleted(DBInfo info) {
+    public static void infoDeleted(MysqlInfo info) {
         DBInfoDeletedEvent event = new DBInfoDeletedEvent();
         event.data(info);
         EventUtil.post(event);

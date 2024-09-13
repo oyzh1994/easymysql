@@ -9,7 +9,7 @@ import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.MysqlColumns;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTrigger;
-import cn.oyzh.easymysql.db.view.DBView;
+import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -109,9 +109,9 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
     }
 
     protected void dumpView() throws Exception {
-        List<DBView> views = this.dbClient.views(this.dbName);
+        List<MysqlView> views = this.dbClient.views(this.dbName);
         if (CollUtil.isNotEmpty(views)) {
-            for (DBView view : views) {
+            for (MysqlView view : views) {
                 this.checkInterrupt();
                 this.message("Dumping View " + view.getName());
                 String line0 = "";

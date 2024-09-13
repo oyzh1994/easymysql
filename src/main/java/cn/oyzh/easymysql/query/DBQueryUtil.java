@@ -7,7 +7,7 @@ import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.db.view.DBView;
+import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.common.thread.ThreadUtil;
 import lombok.experimental.UtilityClass;
@@ -51,7 +51,7 @@ public class DBQueryUtil {
     /**
      * 视图
      */
-    private static final List<DBView> DB_VIEWS = new ArrayList<>();
+    private static final List<MysqlView> DB_VIEWS = new ArrayList<>();
 
     /**
      * 函数
@@ -155,7 +155,7 @@ public class DBQueryUtil {
         return DB_TABLES;
     }
 
-    public static List<DBView> getViews() {
+    public static List<MysqlView> getViews() {
         return DB_VIEWS;
     }
 
@@ -199,7 +199,7 @@ public class DBQueryUtil {
                     // 更新视图索引
                     for (DBDatabase database : DB_DATABASES) {
                         if (!DBUtil.isInternalDatabase(database.getName())) {
-                            List<DBView> views = client.views(database.getName());
+                            List<MysqlView> views = client.views(database.getName());
                             DB_VIEWS.addAll(views);
                         }
                     }

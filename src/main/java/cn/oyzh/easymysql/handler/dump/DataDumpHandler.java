@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.handler.dump;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.domain.DBInfo;
+import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.handler.DataHandler;
 import cn.oyzh.fx.common.util.DateHelper;
 import cn.oyzh.fx.common.util.FastFileWriter;
@@ -78,7 +78,7 @@ public abstract class DataDumpHandler extends DataHandler {
     @Getter
     @Setter
     @Accessors(fluent = true, chain = true)
-    protected DBInfo dbInfo;
+    protected MysqlInfo dbInfo;
 
     /**
      * 查询限制
