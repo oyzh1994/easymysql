@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.tabs.table;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.tabs.MysqlTab;
-import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;

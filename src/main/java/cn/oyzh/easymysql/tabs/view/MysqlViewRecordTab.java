@@ -3,8 +3,8 @@ package cn.oyzh.easymysql.tabs.view;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.tabs.MysqlTab;
-import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
-import cn.oyzh.easymysql.trees.MysqlViewTreeItem;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.fx.plus.controls.svg.ViewSVGGlyph;
 import javafx.scene.Cursor;
 import lombok.Getter;
@@ -31,7 +31,7 @@ public class MysqlViewRecordTab extends MysqlTab {
 
     @Override
     protected String url() {
-        return super.getBasePath() + "mysqlViewRecordTab.fxml";
+        return super.getBasePath() + "view/mysqlViewRecordTab.fxml";
     }
 
     @Override

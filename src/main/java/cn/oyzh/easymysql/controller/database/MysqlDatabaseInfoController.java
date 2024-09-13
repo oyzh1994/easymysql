@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.controller.database;
 
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.DBDatabase;
-import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField;

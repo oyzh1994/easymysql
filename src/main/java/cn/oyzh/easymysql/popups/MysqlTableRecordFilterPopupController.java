@@ -4,7 +4,7 @@ import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
-import cn.oyzh.easymysql.trees.MysqlTableTreeItem;
+import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
 import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
@@ -33,7 +33,7 @@ import static javafx.stage.PopupWindow.AnchorLocation.CONTENT_TOP_LEFT;
  */
 @Lazy
 @PopupAttribute(
-        value = FXConst.MODULE_PATH + "mysql/popups/mysqlTableRecordFilterPopup.fxml",
+        value = FXConst.POPUP_PATH + "mysqlTableRecordFilterPopup.fxml",
         arrowLocation = BOTTOM_LEFT,
         anchorLocation = CONTENT_TOP_LEFT
 )

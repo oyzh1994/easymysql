@@ -6,7 +6,7 @@ import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
-import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.query.DBQueryTextArea;
 import cn.oyzh.easymysql.query.DBQueryUtil;
 import cn.oyzh.easymysql.store.DBQueryStore;

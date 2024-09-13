@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.event;
 
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
-import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
-import cn.oyzh.easymysql.trees.MysqlViewTreeItem;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.fx.plus.event.Event;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

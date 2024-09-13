@@ -1,10 +1,10 @@
 package cn.oyzh.easymysql.search;
 
-import cn.oyzh.easymysql.trees.MysqlFunctionTreeItem;
-import cn.oyzh.easymysql.trees.MysqlProcedureTreeItem;
-import cn.oyzh.easymysql.trees.MysqlQueryTreeItem;
-import cn.oyzh.easymysql.trees.MysqlTableTreeItem;
-import cn.oyzh.easymysql.trees.MysqlViewTreeItem;
+import cn.oyzh.easymysql.trees.function.MysqlFunctionTreeItem;
+import cn.oyzh.easymysql.trees.procedure.MysqlProcedureTreeItem;
+import cn.oyzh.easymysql.trees.query.MysqlQueryTreeItem;
+import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
+import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.trees.DBTreeView;
 import cn.oyzh.fx.common.util.TextUtil;
 import cn.oyzh.fx.plus.controls.search.SearchHandler;

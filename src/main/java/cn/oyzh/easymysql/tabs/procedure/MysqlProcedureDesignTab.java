@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.tabs.procedure;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.tabs.MysqlTab;
-import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.ProcedureSVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -24,7 +24,7 @@ public class MysqlProcedureDesignTab extends MysqlTab {
 
     @Override
     protected String url() {
-        return super.getBasePath() + "mysqlProcedureDesignTab.fxml";
+        return super.getBasePath() + "procedure/mysqlProcedureDesignTab.fxml";
     }
 
     @Override

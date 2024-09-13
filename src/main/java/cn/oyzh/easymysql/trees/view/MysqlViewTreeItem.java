@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.trees;
+package cn.oyzh.easymysql.trees.view;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
@@ -11,6 +11,9 @@ import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.controller.view.MysqlViewInfoController;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.trees.DBTreeItem;
+import cn.oyzh.easymysql.trees.DBTreeItemValue;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.common.dto.Paging;
 import cn.oyzh.fx.plus.controls.svg.ViewSVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;

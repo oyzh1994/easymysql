@@ -1,13 +1,16 @@
-package cn.oyzh.easymysql.trees;
+package cn.oyzh.easymysql.trees.view;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.routine.MysqlProcedure;
+import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.trees.DBTreeItem;
+import cn.oyzh.easymysql.trees.DBTreeItemValue;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.common.thread.Task;
 import cn.oyzh.fx.common.thread.TaskBuilder;
-import cn.oyzh.fx.plus.controls.svg.ProcedureSVGGlyph;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
+import cn.oyzh.fx.plus.controls.svg.ViewSVGGlyph;
 import cn.oyzh.fx.plus.controls.text.FXText;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -29,12 +32,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * db树过程类型节点
+ * db树表类型节点
  *
  * @author oyzh
- * @since 2024/06/29
+ * @since 2023/12/08
  */
-public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTreeItem.MysqlProcedureTypeTreeItemValue> {
+public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItem.MysqlViewTypeTreeItemValue> {
 
     /**
      * 值
@@ -50,12 +53,12 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
     @Accessors(chain = true, fluent = true)
     private final MysqlDatabaseTreeItem dbItem;
 
-    public MysqlProcedureTypeTreeItem(MysqlDatabaseTreeItem dbItem) {
+    public MysqlViewTypeTreeItem(MysqlDatabaseTreeItem dbItem) {
         super(dbItem.getTreeView());
         super.setFilterable(true);
         this.dbItem = dbItem;
-        this.value = I18nHelper.procedure();
-        this.setValue(new MysqlProcedureTypeTreeItemValue(this));
+        this.value = I18nHelper.view();
+        this.setValue(new MysqlViewTypeTreeItemValue(this));
         // 监听展开
         super.addEventHandler(branchExpandedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
             this.loadChild();
@@ -66,7 +69,7 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        FXMenuItem add = MenuItemHelper.addProcedure("12", this::add);
+        FXMenuItem add = MenuItemHelper.addView("12", this::add);
         FXMenuItem reload = MenuItemHelper.refreshData("12", this::reloadChild);
         items.add(reload);
         items.add(add);
@@ -74,9 +77,18 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
     }
 
     private void add() {
-        MysqlProcedure procedure = new MysqlProcedure();
-        procedure.setDbName(this.dbName());
-        MysqlEventUtil.designProcedure(procedure, this.dbItem);
+        // String viewName = MessageBox.prompt(I18nHelper.pleaseInputViewName());
+        // if (StrUtil.isBlank(viewName)) {
+        //     return;
+        // }
+        // if (this.dbItem.existView(viewName)) {
+        //     MessageBox.warn(viewName + " " + I18nHelper.alreadyExists());
+        //     return;
+        // }
+        MysqlView dbView = new MysqlView();
+        // view.setName(viewName);
+        dbView.setDbName(this.dbName());
+        MysqlEventUtil.designView(dbView, this.dbItem);
     }
 
     @Override
@@ -103,35 +115,35 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
         this.loading = true;
         Task task = TaskBuilder.newBuilder()
                 .onStart(() -> {
-                    List<MysqlProcedure> procedures = this.client().procedures(this.dbName());
+                    List<MysqlView> views = this.client().views(this.dbName());
                     // 无数据直接更新列表
                     if (this.isChildEmpty()) {
                         List<TreeItem<?>> list = new ArrayList<>();
-                        for (MysqlProcedure procedure : procedures) {
-                            list.add(new MysqlProcedureTreeItem(procedure, this));
+                        for (MysqlView view : views) {
+                            list.add(new MysqlViewTreeItem(view, this));
                         }
                         this.setChild(list);
                     } else {// 有数据则执行删除、新增、更新操作
                         ObservableList children = this.getRichChildren();
-                        ObservableList<MysqlProcedureTreeItem> list = children;
-                        List<MysqlProcedureTreeItem> delList = new ArrayList<>();
-                        List<MysqlProcedureTreeItem> addList = new ArrayList<>();
+                        ObservableList<MysqlViewTreeItem> list = children;
+                        List<MysqlViewTreeItem> delList = new ArrayList<>();
+                        List<MysqlViewTreeItem> addList = new ArrayList<>();
                         // 删除
-                        for (MysqlProcedureTreeItem item : list) {
-                            if (procedures.parallelStream().noneMatch(f -> f.compare(item.value()))) {
+                        for (MysqlViewTreeItem item : list) {
+                            if (views.parallelStream().noneMatch(f -> f.compare(item.value()))) {
                                 delList.add(item);
                             }
                         }
                         // 新增
-                        for (MysqlProcedure f : procedures) {
+                        for (MysqlView f : views) {
                             if (list.parallelStream().noneMatch(item -> f.compare(item.value()))) {
-                                addList.add(new MysqlProcedureTreeItem(f, this));
+                                addList.add(new MysqlViewTreeItem(f, this));
                             }
                         }
                         // 更新
-                        for (MysqlProcedureTreeItem item : list) {
+                        for (MysqlViewTreeItem item : list) {
                             if (!addList.contains(item) && !delList.contains(item)) {
-                                procedures.parallelStream().filter(f -> f.compare(item.value())).findFirst().ifPresent(f -> item.value().copy(f));
+                                views.parallelStream().filter(f -> f.compare(item.value())).findFirst().ifPresent(f -> item.value().copy(f));
                             }
                         }
                         list.removeAll(delList);
@@ -168,12 +180,16 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
         this.getValue().flushNum();
     }
 
+    public Integer viewSize() {
+        return this.dbItem.viewSize();
+    }
+
     public MysqlInfo info() {
-        return dbItem.info();
+        return this.dbItem.info();
     }
 
     public String infoName() {
-        return dbItem.infoName();
+        return this.dbItem.infoName();
     }
 
     @Override
@@ -187,21 +203,17 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
         this.flushValue();
     }
 
-    public Integer procedureSize() {
-        return this.client().procedureSize(this.dbName(), null);
-    }
-
     /**
      * db树视图类型值
      *
      * @author oyzh
      * @since 2024/06/28
      */
-    public static class MysqlProcedureTypeTreeItemValue extends DBTreeItemValue {
+    public static class MysqlViewTypeTreeItemValue extends DBTreeItemValue {
 
-        private final MysqlProcedureTypeTreeItem item;
+        private final MysqlViewTypeTreeItem item;
 
-        public MysqlProcedureTypeTreeItemValue(MysqlProcedureTypeTreeItem item) {
+        public MysqlViewTypeTreeItemValue(MysqlViewTypeTreeItem item) {
             this.item = item;
             this.flushGraphic();
             this.name(item.value());
@@ -210,7 +222,7 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
         @Override
         public void flushGraphic() {
             if (this.graphic() == null) {
-                ProcedureSVGGlyph glyph = new ProcedureSVGGlyph("12");
+                ViewSVGGlyph glyph = new ViewSVGGlyph("12");
                 glyph.disableTheme();
                 this.graphic(glyph);
             }
@@ -231,7 +243,7 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
          */
         public void flushNum() {
             try {
-                Integer size = this.item.procedureSize();
+                Integer size = this.item.viewSize();
                 // 寻找组件
                 FXText text = (FXText) this.lookup("#num");
                 if (size == null) {

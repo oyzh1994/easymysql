@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.tabs.query;
 
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.tabs.MysqlTab;
-import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import javafx.scene.Cursor;
 import lombok.Getter;

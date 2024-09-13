@@ -1,10 +1,13 @@
-package cn.oyzh.easymysql.trees;
+package cn.oyzh.easymysql.trees.function;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.routine.MysqlProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
-import cn.oyzh.fx.plus.controls.svg.ProcedureSVGGlyph;
+import cn.oyzh.easymysql.trees.DBTreeItem;
+import cn.oyzh.easymysql.trees.DBTreeItemValue;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
+import cn.oyzh.fx.plus.controls.svg.FunctionSVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
@@ -19,37 +22,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * db树视图节点
+ * db树函数节点
  *
  * @author oyzh
- * @since 2024/12/27
+ * @since 2024/06/29
  */
-public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItem.MysqlProcedureTreeItemValue> {
+public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItem.MysqlFunctionTreeItemValue> {
 
     /**
      * 当前值
      */
     @Getter
     @Accessors(chain = true, fluent = true)
-    private final MysqlProcedure value;
+    private final MysqlFunction value;
 
     /**
      * 连接树节点
      */
     @Getter
     @Accessors(chain = true, fluent = true)
-    protected MysqlProcedureTypeTreeItem parent;
+    protected MysqlFunctionTypeTreeItem parent;
 
-    public MysqlProcedureTreeItem(MysqlProcedure procedure, MysqlProcedureTypeTreeItem parent) {
+    public MysqlFunctionTreeItem(MysqlFunction function, MysqlFunctionTypeTreeItem parent) {
         super(parent.getTreeView());
         super.setFilterable(true);
         this.parent = parent;
-        this.value = procedure;
-        this.setValue(new MysqlProcedureTreeItemValue(this));
+        this.value = function;
+        this.setValue(new MysqlFunctionTreeItemValue(this));
         // 监听展开
-        super.addEventHandler(branchExpandedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
-            this.flushLocal();
-        });
+        super.addEventHandler(branchExpandedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> this.flushLocal());
     }
 
     /**
@@ -73,25 +74,25 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItem.My
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        FXMenuItem design = MenuItemHelper.designProcedure("12", this::onPrimaryDoubleClick);
-        FXMenuItem delete = MenuItemHelper.deleteProcedure("12", this::delete);
-        FXMenuItem info = MenuItemHelper.procedureInfo("12", this::procedureInfo);
+        FXMenuItem design = MenuItemHelper.designFunction("12", this::onPrimaryDoubleClick);
+        FXMenuItem delete = MenuItemHelper.deleteFunction("12", this::delete);
+        FXMenuItem info = MenuItemHelper.functionInfo("12", this::functionInfo);
         items.add(design);
         items.add(delete);
         items.add(info);
         return items;
     }
 
-    private void procedureInfo() {
+    private void functionInfo() {
     }
 
     @Override
     public void delete() {
-        if (!MessageBox.confirm(I18nHelper.deleteProcedure() + " " + this.value.getName() + "?")) {
+        if (!MessageBox.confirm(I18nHelper.deleteFunction() + " " + this.value.getName() + "?")) {
             return;
         }
         try {
-            this.dbItem().dropProcedure(this.value);
+            this.dbItem().dropFunction(this.value);
             super.remove();
         } catch (Exception ex) {
             MessageBox.exception(ex);
@@ -112,16 +113,28 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItem.My
 
     @Override
     public void onPrimaryDoubleClick() {
-        MysqlEventUtil.designProcedure(this.value, this.dbItem());
+        MysqlEventUtil.designFunction(this.value, this.dbItem());
     }
 
-    public String procedureName() {
+    public String functionName() {
         return this.value.getName();
     }
 
     @Override
     public boolean supportFilter() {
         return true;
+    }
+
+    @Override
+    public void reloadChild() {
+        try {
+            MysqlFunction function = this.client().selectFunction(this.dbName(), this.functionName());
+            if (function != null) {
+                this.value.copy(function);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -131,14 +144,14 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItem.My
      * @since 2023/12/22
      */
     @Accessors(chain = true, fluent = true)
-    public static class MysqlProcedureTreeItemValue extends DBTreeItemValue {
+    public static class MysqlFunctionTreeItemValue extends DBTreeItemValue {
 
         /**
          * db树表节点
          */
-        private final MysqlProcedureTreeItem item;
+        private final MysqlFunctionTreeItem item;
 
-        public MysqlProcedureTreeItemValue(MysqlProcedureTreeItem item) {
+        public MysqlFunctionTreeItemValue(MysqlFunctionTreeItem item) {
             this.item = item;
             this.flushGraphic();
             this.flushGraphicColor();
@@ -147,16 +160,16 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItem.My
 
         @Override
         public void flushGraphic() {
-            ProcedureSVGGlyph glyph = (ProcedureSVGGlyph) this.graphic();
+            FunctionSVGGlyph glyph = (FunctionSVGGlyph) this.graphic();
             if (glyph == null) {
-                glyph = new ProcedureSVGGlyph("12");
+                glyph = new FunctionSVGGlyph("12");
                 this.graphic(glyph);
             }
         }
 
         @Override
         public String name() {
-            return this.item.procedureName();
+            return this.item.functionName();
         }
     }
 }

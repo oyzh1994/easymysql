@@ -29,7 +29,7 @@ import cn.oyzh.easymysql.tabs.table.MysqlTableDesignTab;
 import cn.oyzh.easymysql.tabs.table.MysqlTableRecordTab;
 import cn.oyzh.easymysql.tabs.view.MysqlViewDesignTab;
 import cn.oyzh.easymysql.tabs.view.MysqlViewRecordTab;
-import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.event.EventListener;
 import cn.oyzh.fx.plus.information.MessageBox;
 import com.google.common.eventbus.Subscribe;

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.event;
 
 import cn.oyzh.easymysql.db.view.MysqlView;
-import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.event.Event;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

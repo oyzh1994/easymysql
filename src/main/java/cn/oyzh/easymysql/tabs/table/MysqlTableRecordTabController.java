@@ -15,7 +15,7 @@ import cn.oyzh.easymysql.fx.record.DBRecordTableView;
 import cn.oyzh.easymysql.listener.DBListener;
 import cn.oyzh.easymysql.listener.DBListenerManager;
 import cn.oyzh.easymysql.popups.MysqlTableRecordFilterPopupController;
-import cn.oyzh.easymysql.trees.MysqlTableTreeItem;
+import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.easymysql.popups.DBPageSettingPopupController;
 import cn.oyzh.easymysql.store.DBSettingStore;
 import cn.oyzh.easymysql.util.DBRecordUtil;

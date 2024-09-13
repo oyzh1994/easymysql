@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.tabs.view;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.tabs.MysqlTab;
-import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.ViewSVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -24,7 +24,7 @@ public class MysqlViewDesignTab extends MysqlTab {
 
     @Override
     protected String url() {
-        return super.getBasePath() + "mysqlViewDesignTab.fxml";
+        return super.getBasePath() + "view/mysqlViewDesignTab.fxml";
     }
 
     @Override
