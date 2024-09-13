@@ -29,7 +29,7 @@ import java.util.List;
  * @since 2024/7/1
  */
 @EqualsAndHashCode(callSuper = true)
-public class DBRoutineParam extends DBObjectStatus {
+public class MysqlRoutineParam extends DBObjectStatus {
 
     /**
      * 名称

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.routine.DBProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.common.thread.Task;
@@ -74,7 +74,7 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
     }
 
     private void add() {
-        DBProcedure procedure = new DBProcedure();
+        MysqlProcedure procedure = new MysqlProcedure();
         procedure.setDbName(this.dbName());
         MysqlEventUtil.designProcedure(procedure, this.dbItem);
     }
@@ -103,11 +103,11 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
         this.loading = true;
         Task task = TaskBuilder.newBuilder()
                 .onStart(() -> {
-                    List<DBProcedure> procedures = this.client().procedures(this.dbName());
+                    List<MysqlProcedure> procedures = this.client().procedures(this.dbName());
                     // 无数据直接更新列表
                     if (this.isChildEmpty()) {
                         List<TreeItem<?>> list = new ArrayList<>();
-                        for (DBProcedure procedure : procedures) {
+                        for (MysqlProcedure procedure : procedures) {
                             list.add(new MysqlProcedureTreeItem(procedure, this));
                         }
                         this.setChild(list);
@@ -123,7 +123,7 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
                             }
                         }
                         // 新增
-                        for (DBProcedure f : procedures) {
+                        for (MysqlProcedure f : procedures) {
                             if (list.parallelStream().noneMatch(item -> f.compare(item.value()))) {
                                 addList.add(new MysqlProcedureTreeItem(f, this));
                             }

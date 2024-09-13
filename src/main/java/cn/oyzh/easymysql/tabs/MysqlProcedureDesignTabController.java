@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.tabs;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.db.routine.DBProcedure;
-import cn.oyzh.easymysql.db.routine.DBRoutineParam;
+import cn.oyzh.easymysql.db.routine.MysqlProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
 import cn.oyzh.easymysql.fx.DBSqlTextArea;
 import cn.oyzh.easymysql.fx.routine.DBCharacteristicCombobox;
@@ -57,7 +57,7 @@ public class MysqlProcedureDesignTabController extends DynamicTabController {
      */
     @Getter
     @Accessors(fluent = true, chain = true)
-    private DBProcedure procedure;
+    private MysqlProcedure procedure;
 
     /**
      * db数据库树节点
@@ -112,55 +112,55 @@ public class MysqlProcedureDesignTabController extends DynamicTabController {
      * 参数表单
      */
     @FXML
-    private FlexTableView<DBRoutineParam> paramTable;
+    private FlexTableView<MysqlRoutineParam> paramTable;
 
     /**
      * 参数类型
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramType;
+    private FlexTableColumn<MysqlRoutineParam, String> paramType;
 
     /**
      * 参数长度
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramSize;
+    private FlexTableColumn<MysqlRoutineParam, String> paramSize;
 
     /**
      * 参数值
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramValue;
+    private FlexTableColumn<MysqlRoutineParam, String> paramValue;
 
     /**
      * 参数小数
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramDigits;
+    private FlexTableColumn<MysqlRoutineParam, String> paramDigits;
 
     /**
      * 参数字符集
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramCharset;
+    private FlexTableColumn<MysqlRoutineParam, String> paramCharset;
 
     /**
      * 参数排序
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramCollation;
+    private FlexTableColumn<MysqlRoutineParam, String> paramCollation;
 
     /**
      * 参数名称
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramName;
+    private FlexTableColumn<MysqlRoutineParam, String> paramName;
 
     /**
      * 参数模式
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramMode;
+    private FlexTableColumn<MysqlRoutineParam, String> paramMode;
 
     /**
      * 数据监听器
@@ -213,7 +213,7 @@ public class MysqlProcedureDesignTabController extends DynamicTabController {
      * @param procedure 查询对象
      * @param dbItem    db库树节点
      */
-    public void init(DBProcedure procedure, MysqlDatabaseTreeItem dbItem) {
+    public void init(MysqlProcedure procedure, MysqlDatabaseTreeItem dbItem) {
         this.procedure = procedure;
         this.dbItem = dbItem;
 
@@ -299,7 +299,7 @@ public class MysqlProcedureDesignTabController extends DynamicTabController {
     private void save() {
         try {
             // 创建临时对象
-            DBProcedure tempProcedure = this.tempData();
+            MysqlProcedure tempProcedure = this.tempData();
 
             // 过程名称
             String procedureName;
@@ -343,9 +343,9 @@ public class MysqlProcedureDesignTabController extends DynamicTabController {
      *
      * @return 临时数据
      */
-    private DBProcedure tempData() {
+    private MysqlProcedure tempData() {
         // 创建临时对象
-        DBProcedure tempFunction = new DBProcedure();
+        MysqlProcedure tempFunction = new MysqlProcedure();
         tempFunction.setName(this.procedure.getName());
 
         // 基本信息处理
@@ -386,7 +386,7 @@ public class MysqlProcedureDesignTabController extends DynamicTabController {
                 NodeGroupUtil.disappear(this.getTab(), "param");
             }
             if (newValue.intValue() == 3) {
-                DBProcedure temp = this.tempData();
+                MysqlProcedure temp = this.tempData();
                 if (StrUtil.isBlank(temp.getName())) {
                     temp.setName("Unnamed_Procedure");
                 }
@@ -401,7 +401,7 @@ public class MysqlProcedureDesignTabController extends DynamicTabController {
      */
     @FXML
     private void addParam() {
-        DBRoutineParam param = new DBRoutineParam();
+        MysqlRoutineParam param = new MysqlRoutineParam();
         param.setCreated(true);
         this.paramTable.addItem(param);
         this.paramTable.selectLast();
@@ -413,7 +413,7 @@ public class MysqlProcedureDesignTabController extends DynamicTabController {
     @FXML
     private void deleteParam() {
         try {
-            DBRoutineParam param = this.paramTable.getSelectedItem();
+            MysqlRoutineParam param = this.paramTable.getSelectedItem();
             if (param != null) {
                 // 非新增的数据进行提示
                 if (!param.isCreated() && !MessageBox.confirm(I18nHelper.delete() + " " + param.getName())) {

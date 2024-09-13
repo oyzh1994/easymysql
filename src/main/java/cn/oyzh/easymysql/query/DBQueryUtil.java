@@ -3,13 +3,11 @@ package cn.oyzh.easymysql.query;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
-import cn.oyzh.easymysql.db.routine.DBFunction;
-import cn.oyzh.easymysql.db.routine.DBProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlFunction;
+import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.db.table.DBTable;
 import cn.oyzh.easymysql.db.view.DBView;
-import cn.oyzh.easymysql.query.DBQueryPromptItem;
-import cn.oyzh.easymysql.query.DBQueryToken;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.common.thread.ThreadUtil;
 import lombok.experimental.UtilityClass;
@@ -58,12 +56,12 @@ public class DBQueryUtil {
     /**
      * 函数
      */
-    private static final List<DBFunction> DB_FUNCTIONS = new ArrayList<>();
+    private static final List<MysqlFunction> DB_FUNCTIONS = new ArrayList<>();
 
     /**
      * 过程
      */
-    private static final List<DBProcedure> DB_PROCEDURES = new ArrayList<>();
+    private static final List<MysqlProcedure> DB_PROCEDURES = new ArrayList<>();
 
     /**
      * 字段
@@ -161,11 +159,11 @@ public class DBQueryUtil {
         return DB_VIEWS;
     }
 
-    public static List<DBFunction> getFunctions() {
+    public static List<MysqlFunction> getFunctions() {
         return DB_FUNCTIONS;
     }
 
-    public static List<DBProcedure> getProcedures() {
+    public static List<MysqlProcedure> getProcedures() {
         return DB_PROCEDURES;
     }
 
@@ -208,14 +206,14 @@ public class DBQueryUtil {
                     // 更新函数索引
                     for (DBDatabase database : DB_DATABASES) {
                         if (!DBUtil.isInternalDatabase(database.getName())) {
-                            List<DBFunction> functions = client.functions(database.getName());
+                            List<MysqlFunction> functions = client.functions(database.getName());
                             DB_FUNCTIONS.addAll(functions);
                         }
                     }
                     // 更新过程索引
                     for (DBDatabase database : DB_DATABASES) {
                         if (!DBUtil.isInternalDatabase(database.getName())) {
-                            List<DBProcedure> procedures = client.procedures(database.getName());
+                            List<MysqlProcedure> procedures = client.procedures(database.getName());
                             DB_PROCEDURES.addAll(procedures);
                         }
                     }

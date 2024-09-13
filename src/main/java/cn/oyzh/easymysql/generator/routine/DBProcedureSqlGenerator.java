@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.generator.routine;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.routine.DBProcedure;
-import cn.oyzh.easymysql.db.routine.DBRoutineParam;
+import cn.oyzh.easymysql.db.routine.MysqlProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.util.DBUtil;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class DBProcedureSqlGenerator {
 
     public static final DBProcedureSqlGenerator INSTANCE = new DBProcedureSqlGenerator();
 
-    public String generate(DBProcedure procedure) {
+    public String generate(MysqlProcedure procedure) {
         String sql = "CREATE ";
         // 定义者
         if (StrUtil.isNotBlank(procedure.getDefiner())) {
@@ -27,9 +27,9 @@ public class DBProcedureSqlGenerator {
         sql += " PROCEDURE " + DBUtil.wrap(procedure.getName());
         // 参数
         sql += " (";
-        List<DBRoutineParam> params = procedure.getParams();
+        List<MysqlRoutineParam> params = procedure.getParams();
         if (CollUtil.isNotEmpty(params)) {
-            for (DBRoutineParam param : params) {
+            for (MysqlRoutineParam param : params) {
                 sql = sql + "\n" + param.getDefinition() + ",";
             }
         }

@@ -15,9 +15,9 @@ import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
-import cn.oyzh.easymysql.db.routine.DBFunction;
-import cn.oyzh.easymysql.db.routine.DBProcedure;
-import cn.oyzh.easymysql.db.routine.DBRoutineParam;
+import cn.oyzh.easymysql.db.routine.MysqlFunction;
+import cn.oyzh.easymysql.db.routine.MysqlProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.db.schema.DBSchema;
 import cn.oyzh.easymysql.db.table.DBCheck;
 import cn.oyzh.easymysql.db.table.DBChecks;
@@ -1672,9 +1672,9 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public List<DBFunction> functions(String dbName) {
+    public List<MysqlFunction> functions(String dbName) {
         try {
-            List<DBFunction> list = new ArrayList<>();
+            List<MysqlFunction> list = new ArrayList<>();
             String sql = """
                     SELECT
                         `ROUTINE_NAME`,
@@ -1697,9 +1697,9 @@ public class MysqlDBClient extends DBClient {
             DBUtil.printMetaData(resultSet);
             // 遍历结果集
             while (resultSet.next()) {
-                DBFunction function = new DBFunction();
+                MysqlFunction function = new MysqlFunction();
                 String name = resultSet.getString("ROUTINE_NAME");
-                List<DBRoutineParam> params = DBHelper.listFunctionParam(this.connection(), dbName, name);
+                List<MysqlRoutineParam> params = DBHelper.listFunctionParam(this.connection(), dbName, name);
                 String securityType = resultSet.getString("SECURITY_TYPE");
                 String definition = resultSet.getString("ROUTINE_DEFINITION");
                 String sqlDataAccess = resultSet.getString("SQL_DATA_ACCESS");
@@ -1748,9 +1748,9 @@ public class MysqlDBClient extends DBClient {
     // }
 
     @Override
-    public List<DBProcedure> procedures(String dbName) {
+    public List<MysqlProcedure> procedures(String dbName) {
         try {
-            List<DBProcedure> list = new ArrayList<>();
+            List<MysqlProcedure> list = new ArrayList<>();
             String sql = """
                     SELECT
                         `ROUTINE_NAME`,
@@ -1773,10 +1773,10 @@ public class MysqlDBClient extends DBClient {
             DBUtil.printMetaData(resultSet);
             // 遍历结果集
             while (resultSet.next()) {
-                DBProcedure procedure = new DBProcedure();
+                MysqlProcedure procedure = new MysqlProcedure();
                 String name = resultSet.getString("ROUTINE_NAME");
                 String createDefinition = this.showCreateProcedure(dbName, name);
-                List<DBRoutineParam> params = DBHelper.listProcedureParam(this.connection(), dbName, name);
+                List<MysqlRoutineParam> params = DBHelper.listProcedureParam(this.connection(), dbName, name);
                 String securityType = resultSet.getString("SECURITY_TYPE");
                 String definition = resultSet.getString("ROUTINE_DEFINITION");
                 String sqlDataAccess = resultSet.getString("SQL_DATA_ACCESS");
@@ -1799,7 +1799,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public DBProcedure selectProcedure(String dbName, String produceName) {
+    public MysqlProcedure selectProcedure(String dbName, String produceName) {
         try {
             String sql = """
                     SELECT
@@ -1823,13 +1823,13 @@ public class MysqlDBClient extends DBClient {
             ResultSet resultSet = statement.executeQuery();
             // 打印元数据
             DBUtil.printMetaData(resultSet);
-            DBProcedure procedure = new DBProcedure();
+            MysqlProcedure procedure = new MysqlProcedure();
             procedure.setDbName(dbName);
             procedure.setName(produceName);
             // 遍历结果集
             while (resultSet.next()) {
                 String createDefinition = this.showCreateProcedure(dbName, produceName);
-                List<DBRoutineParam> params = DBHelper.listProcedureParam(this.connection(), dbName, produceName);
+                List<MysqlRoutineParam> params = DBHelper.listProcedureParam(this.connection(), dbName, produceName);
                 String securityType = resultSet.getString("SECURITY_TYPE");
                 String definition = resultSet.getString("ROUTINE_DEFINITION");
                 String sqlDataAccess = resultSet.getString("SQL_DATA_ACCESS");
@@ -1877,7 +1877,7 @@ public class MysqlDBClient extends DBClient {
     // }
 
     @Override
-    public void dropProcedure(String dbName, DBProcedure routine) {
+    public void dropProcedure(String dbName, MysqlProcedure routine) {
         try {
             String sql = "DROP PROCEDURE IF EXISTS " + DBUtil.wrap(dbName, routine.getName());
             DBUtil.printSql(sql);
@@ -1891,7 +1891,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public void createProcedure(String dbName, DBProcedure procedure) {
+    public void createProcedure(String dbName, MysqlProcedure procedure) {
         try {
             String sql = DBProcedureSqlGenerator.INSTANCE.generate(procedure);
             DBUtil.printSql(sql);
@@ -1905,7 +1905,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public void alertProcedure(String dbName, DBProcedure procedure) {
+    public void alertProcedure(String dbName, MysqlProcedure procedure) {
         try {
             String sql = "DROP PROCEDURE IF EXISTS " + DBUtil.wrap(dbName, procedure.getName());
             DBUtil.printSql(sql);
@@ -1924,7 +1924,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public void dropFunction(String dbName, DBFunction function) {
+    public void dropFunction(String dbName, MysqlFunction function) {
         try {
             String sql = "DROP function IF EXISTS " + DBUtil.wrap(dbName, function.getName());
             DBUtil.printSql(sql);
@@ -1938,7 +1938,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public DBFunction selectFunction(String dbName, String functionName) {
+    public MysqlFunction selectFunction(String dbName, String functionName) {
         try {
             String sql = """
                     SELECT
@@ -1962,7 +1962,7 @@ public class MysqlDBClient extends DBClient {
             ResultSet resultSet = statement.executeQuery();
             // 打印元数据
             DBUtil.printMetaData(resultSet);
-            DBFunction function = new DBFunction();
+            MysqlFunction function = new MysqlFunction();
             function.setDbName(dbName);
             function.setName(functionName);
             // 遍历结果集
@@ -1970,7 +1970,7 @@ public class MysqlDBClient extends DBClient {
                 String securityType = resultSet.getString("SECURITY_TYPE");
                 String definition = resultSet.getString("ROUTINE_DEFINITION");
                 String sqlDataAccess = resultSet.getString("SQL_DATA_ACCESS");
-                List<DBRoutineParam> params = DBHelper.listFunctionParam(this.connection(), dbName, functionName);
+                List<MysqlRoutineParam> params = DBHelper.listFunctionParam(this.connection(), dbName, functionName);
                 String createDefinition = this.showCreateFunction(dbName, functionName);
                 function.setDbName(dbName);
                 function.setParams(params);
@@ -1990,7 +1990,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public void createFunction(String dbName, DBFunction function) {
+    public void createFunction(String dbName, MysqlFunction function) {
         try {
             String sql = DBFunctionSqlGenerator.INSTANCE.generate(function);
             DBUtil.printSql(sql);
@@ -2004,7 +2004,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public void alertFunction(String dbName, DBFunction function) {
+    public void alertFunction(String dbName, MysqlFunction function) {
         try {
             String sql = "DROP FUNCTION IF EXISTS " + DBUtil.wrap(dbName, function.getName());
             DBUtil.printSql(sql);

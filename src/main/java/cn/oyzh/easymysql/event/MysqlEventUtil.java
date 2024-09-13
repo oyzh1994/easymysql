@@ -3,8 +3,8 @@ package cn.oyzh.easymysql.event;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
-import cn.oyzh.easymysql.db.routine.DBFunction;
-import cn.oyzh.easymysql.db.routine.DBProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlFunction;
+import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.DBTable;
 import cn.oyzh.easymysql.db.view.DBView;
 import cn.oyzh.easymysql.domain.DBInfo;
@@ -191,14 +191,14 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-    public static void designFunction(DBFunction function, MysqlDatabaseTreeItem dbItem) {
+    public static void designFunction(MysqlFunction function, MysqlDatabaseTreeItem dbItem) {
         MysqlFunctionDesignEvent event = new MysqlFunctionDesignEvent();
         event.data(function);
         event.dbItem(dbItem);
         EventUtil.post(event);
     }
 
-    public static void designProcedure(DBProcedure procedure, MysqlDatabaseTreeItem dbItem) {
+    public static void designProcedure(MysqlProcedure procedure, MysqlDatabaseTreeItem dbItem) {
         MysqlProcedureDesignEvent event = new MysqlProcedureDesignEvent();
         event.data(procedure);
         event.dbItem(dbItem);

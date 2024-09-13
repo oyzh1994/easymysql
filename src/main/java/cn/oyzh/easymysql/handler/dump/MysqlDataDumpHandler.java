@@ -4,8 +4,8 @@ import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.routine.DBFunction;
-import cn.oyzh.easymysql.db.routine.DBProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlFunction;
+import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.easymysql.db.table.DBTable;
 import cn.oyzh.easymysql.db.table.DBTrigger;
@@ -130,9 +130,9 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
     }
 
     protected void dumpFunction() throws Exception {
-        List<DBFunction> functions = this.dbClient.functions(this.dbName);
+        List<MysqlFunction> functions = this.dbClient.functions(this.dbName);
         if (CollUtil.isNotEmpty(functions)) {
-            for (DBFunction function : functions) {
+            for (MysqlFunction function : functions) {
                 this.checkInterrupt();
                 this.message("Dumping Function " + function.getName());
                 String line0 = "";
@@ -150,9 +150,9 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
     }
 
     protected void dumpProcedure() throws Exception {
-        List<DBProcedure> procedures = this.dbClient.procedures(this.dbName);
+        List<MysqlProcedure> procedures = this.dbClient.procedures(this.dbName);
         if (CollUtil.isNotEmpty(procedures)) {
-            for (DBProcedure procedure : procedures) {
+            for (MysqlProcedure procedure : procedures) {
                 this.checkInterrupt();
                 this.message("Dumping Procedure " + procedure.getName());
                 String line0 = "";

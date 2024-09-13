@@ -1,7 +1,5 @@
 package cn.oyzh.easymysql.db.routine;
 
-import cn.oyzh.easymysql.db.routine.DBRoutineParam;
-import cn.oyzh.easymysql.db.routine.DBRoutineSchema;
 import cn.oyzh.fx.common.util.ObjectCopier;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,17 +13,17 @@ import java.util.List;
  */
 @Setter
 @Getter
-public class DBFunction extends DBRoutineSchema implements ObjectCopier<DBFunction> {
+public class MysqlFunction extends MysqlRoutineSchema implements ObjectCopier<MysqlFunction> {
 
     /**
      * 返回参数
      */
-    private DBRoutineParam returnParam;
+    private MysqlRoutineParam returnParam;
 
     @Override
-    public void setParams(List<DBRoutineParam> params) {
-        List<DBRoutineParam> paramsList = new ArrayList<>();
-        for (DBRoutineParam param : params) {
+    public void setParams(List<MysqlRoutineParam> params) {
+        List<MysqlRoutineParam> paramsList = new ArrayList<>();
+        for (MysqlRoutineParam param : params) {
             if (param.isReturnParam()) {
                 this.returnParam = param;
             } else {
@@ -40,7 +38,7 @@ public class DBFunction extends DBRoutineSchema implements ObjectCopier<DBFuncti
     }
 
     @Override
-    public void copy(DBFunction function) {
+    public void copy(MysqlFunction function) {
         this.setParams(function.getParams());
         this.setComment(function.getComment());
         this.setDefiner(function.getDefiner());

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.routine.DBFunction;
+import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.plus.controls.svg.FunctionSVGGlyph;
@@ -31,7 +31,7 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItem.Mysq
      */
     @Getter
     @Accessors(chain = true, fluent = true)
-    private final DBFunction value;
+    private final MysqlFunction value;
 
     /**
      * 连接树节点
@@ -40,7 +40,7 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItem.Mysq
     @Accessors(chain = true, fluent = true)
     protected MysqlFunctionTypeTreeItem parent;
 
-    public MysqlFunctionTreeItem(DBFunction function, MysqlFunctionTypeTreeItem parent) {
+    public MysqlFunctionTreeItem(MysqlFunction function, MysqlFunctionTypeTreeItem parent) {
         super(parent.getTreeView());
         super.setFilterable(true);
         this.parent = parent;
@@ -125,7 +125,7 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItem.Mysq
     @Override
     public void reloadChild() {
         try {
-            DBFunction function = this.client().selectFunction(this.dbName(), this.functionName());
+            MysqlFunction function = this.client().selectFunction(this.dbName(), this.functionName());
             if (function != null) {
                 this.value.copy(function);
             }

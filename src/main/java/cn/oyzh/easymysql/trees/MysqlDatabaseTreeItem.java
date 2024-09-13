@@ -9,8 +9,8 @@ import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
-import cn.oyzh.easymysql.db.routine.DBFunction;
-import cn.oyzh.easymysql.db.routine.DBProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlFunction;
+import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.DBTable;
 import cn.oyzh.easymysql.db.view.DBView;
 import cn.oyzh.easymysql.domain.DBInfo;
@@ -405,35 +405,35 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItem.Mysq
         return this.client().explainSql(this.dbName(), sql);
     }
 
-    public void createFunction(DBFunction function) {
+    public void createFunction(MysqlFunction function) {
         this.client().createFunction(this.dbName(), function);
     }
 
-    public void dropFunction(DBFunction function) {
+    public void dropFunction(MysqlFunction function) {
         this.client().dropFunction(this.dbName(), function);
     }
 
-    public DBProcedure selectProcedure(String procedureName) {
+    public MysqlProcedure selectProcedure(String procedureName) {
         return this.client().selectProcedure(this.dbName(), procedureName);
     }
 
-    public void alertProcedure(DBProcedure procedure) {
+    public void alertProcedure(MysqlProcedure procedure) {
         this.client().alertProcedure(this.dbName(), procedure);
     }
 
-    public void createProcedure(DBProcedure procedure) {
+    public void createProcedure(MysqlProcedure procedure) {
         this.client().createProcedure(this.dbName(), procedure);
     }
 
-    public void dropProcedure(DBProcedure procedure) {
+    public void dropProcedure(MysqlProcedure procedure) {
         this.client().dropProcedure(this.dbName(), procedure);
     }
 
-    public DBFunction selectFunction(String functionName) {
+    public MysqlFunction selectFunction(String functionName) {
         return this.client().selectFunction(this.dbName(), functionName);
     }
 
-    public void alertFunction(DBFunction function) {
+    public void alertFunction(MysqlFunction function) {
         this.client().alertFunction(this.dbName(), function);
     }
 

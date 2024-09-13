@@ -13,8 +13,8 @@ import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
-import cn.oyzh.easymysql.db.routine.DBFunction;
-import cn.oyzh.easymysql.db.routine.DBProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlFunction;
+import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.schema.DBSchema;
 import cn.oyzh.easymysql.db.table.DBChecks;
 import cn.oyzh.easymysql.db.table.DBColumn;
@@ -585,9 +585,9 @@ public abstract class DBClient {
 
     public abstract DBDialect dialect();
 
-    public abstract List<DBProcedure> procedures(String dbName);
+    public abstract List<MysqlProcedure> procedures(String dbName);
 
-    public abstract DBProcedure selectProcedure(String dbName, String produceName);
+    public abstract MysqlProcedure selectProcedure(String dbName, String produceName);
 
     public int procedureSize(String dbName, String schema) {
         int size = 0;
@@ -609,17 +609,17 @@ public abstract class DBClient {
         return size;
     }
 
-    public abstract void dropProcedure(String dbName, DBProcedure procedure);
+    public abstract void dropProcedure(String dbName, MysqlProcedure procedure);
 
-    public abstract void createProcedure(String dbName, DBProcedure procedure);
+    public abstract void createProcedure(String dbName, MysqlProcedure procedure);
 
-    public abstract void alertProcedure(String dbName, DBProcedure procedure);
+    public abstract void alertProcedure(String dbName, MysqlProcedure procedure);
 
-    public abstract void createFunction(String dbName, DBFunction function);
+    public abstract void createFunction(String dbName, MysqlFunction function);
 
-    public abstract void dropFunction(String dbName, DBFunction function);
+    public abstract void dropFunction(String dbName, MysqlFunction function);
 
-    public abstract List<DBFunction> functions(String dbName);
+    public abstract List<MysqlFunction> functions(String dbName);
 
     public int functionSize(String dbName, String schema) {
         int size = 0;
@@ -641,9 +641,9 @@ public abstract class DBClient {
         return size;
     }
 
-    public abstract DBFunction selectFunction(String dbName, String functionName);
+    public abstract MysqlFunction selectFunction(String dbName, String functionName);
 
-    public abstract void alertFunction(String dbName, DBFunction function);
+    public abstract void alertFunction(String dbName, MysqlFunction function);
 
     public abstract List<DBTrigger> triggers(String dbName);
 

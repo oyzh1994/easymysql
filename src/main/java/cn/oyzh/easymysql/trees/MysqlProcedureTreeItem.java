@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.routine.DBProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.plus.controls.svg.ProcedureSVGGlyph;
@@ -31,7 +31,7 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItem.My
      */
     @Getter
     @Accessors(chain = true, fluent = true)
-    private final DBProcedure value;
+    private final MysqlProcedure value;
 
     /**
      * 连接树节点
@@ -40,7 +40,7 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItem.My
     @Accessors(chain = true, fluent = true)
     protected MysqlProcedureTypeTreeItem parent;
 
-    public MysqlProcedureTreeItem(DBProcedure procedure, MysqlProcedureTypeTreeItem parent) {
+    public MysqlProcedureTreeItem(MysqlProcedure procedure, MysqlProcedureTypeTreeItem parent) {
         super(parent.getTreeView());
         super.setFilterable(true);
         this.parent = parent;

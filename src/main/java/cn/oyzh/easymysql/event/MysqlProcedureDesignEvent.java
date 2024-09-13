@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.event;
 
-import cn.oyzh.easymysql.db.routine.DBProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.event.Event;
 import lombok.Data;
@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(fluent = true)
 @EqualsAndHashCode(callSuper = true)
-public class MysqlProcedureDesignEvent extends Event<DBProcedure> {
+public class MysqlProcedureDesignEvent extends Event<MysqlProcedure> {
 
     private MysqlDatabaseTreeItem dbItem;
 

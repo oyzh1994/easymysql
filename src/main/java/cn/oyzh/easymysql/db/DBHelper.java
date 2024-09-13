@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.routine.DBRoutineParam;
+import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.easymysql.util.DBUtil;
@@ -96,7 +96,7 @@ public class DBHelper {
         return createDefinition;
     }
 
-    public static List<DBRoutineParam> listRoutineParam(Connection connection, String dbName, String routineName, String routineType) throws Exception {
+    public static List<MysqlRoutineParam> listRoutineParam(Connection connection, String dbName, String routineName, String routineType) throws Exception {
         String sql = """
                 SELECT
                 	`DATA_TYPE`,
@@ -114,7 +114,7 @@ public class DBHelper {
                 AND 
                     SPECIFIC_NAME = ?
                 """;
-        List<DBRoutineParam> params = new ArrayList<>();
+        List<MysqlRoutineParam> params = new ArrayList<>();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, routineType);
         statement.setString(2, dbName);
@@ -122,7 +122,7 @@ public class DBHelper {
         // 执行SQL查询并获取结果集
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            DBRoutineParam param = new DBRoutineParam();
+            MysqlRoutineParam param = new MysqlRoutineParam();
             // param.setType(resultSet.getString("DATA_TYPE"));
             param.setName(resultSet.getString("PARAMETER_NAME"));
             param.setMode(resultSet.getString("PARAMETER_MODE"));
@@ -136,11 +136,11 @@ public class DBHelper {
         return params;
     }
 
-    public static List<DBRoutineParam> listFunctionParam(Connection connection, String dbName, String functionName) throws Exception {
+    public static List<MysqlRoutineParam> listFunctionParam(Connection connection, String dbName, String functionName) throws Exception {
         return listRoutineParam(connection, dbName, functionName, "FUNCTION");
     }
 
-    public static List<DBRoutineParam> listProcedureParam(Connection connection, String dbName, String procedureName) throws Exception {
+    public static List<MysqlRoutineParam> listProcedureParam(Connection connection, String dbName, String procedureName) throws Exception {
         return listRoutineParam(connection, dbName, procedureName, "PROCEDURE");
     }
 

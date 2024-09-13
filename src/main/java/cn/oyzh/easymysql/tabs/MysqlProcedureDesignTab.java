@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.routine.DBProcedure;
+import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.ProcedureSVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
@@ -50,7 +50,7 @@ public class MysqlProcedureDesignTab extends MysqlTab {
         }
     }
 
-    public DBProcedure procedure() {
+    public MysqlProcedure procedure() {
         return this.controller().procedure();
     }
 
@@ -69,7 +69,7 @@ public class MysqlProcedureDesignTab extends MysqlTab {
      * @param procedure 查询对象
      * @param item      db库树节点
      */
-    public void init(DBProcedure procedure, MysqlDatabaseTreeItem item) {
+    public void init(MysqlProcedure procedure, MysqlDatabaseTreeItem item) {
         this.controller().init(procedure, item);
         // 刷新tab
         this.flush();

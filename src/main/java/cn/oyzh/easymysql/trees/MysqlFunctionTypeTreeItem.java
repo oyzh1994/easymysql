@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.routine.DBFunction;
+import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.common.thread.Task;
@@ -78,7 +78,7 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
         // StageAdapter wrapper = StageManager.parseStage(DBFunctionGuideController.class, this.window());
         // wrapper.setProp("dbItem", this.dbItem);
         // wrapper.display();
-        DBFunction function = new DBFunction();
+        MysqlFunction function = new MysqlFunction();
         function.setDbName(this.dbName());
         MysqlEventUtil.designFunction(function, this.dbItem);
     }
@@ -107,11 +107,11 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
         this.loading = true;
         Task task = TaskBuilder.newBuilder()
                 .onStart(() -> {
-                    List<DBFunction> functions = this.client().functions(this.dbName());
+                    List<MysqlFunction> functions = this.client().functions(this.dbName());
                     // 无数据直接更新列表
                     if (this.isChildEmpty()) {
                         List<TreeItem<?>> list = new ArrayList<>();
-                        for (DBFunction function : functions) {
+                        for (MysqlFunction function : functions) {
                             list.add(new MysqlFunctionTreeItem(function, this));
                         }
                         this.setChild(list);
@@ -127,7 +127,7 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
                             }
                         }
                         // 新增
-                        for (DBFunction f : functions) {
+                        for (MysqlFunction f : functions) {
                             if (list.parallelStream().noneMatch(item -> f.compare(item.value()))) {
                                 addList.add(new MysqlFunctionTreeItem(f, this));
                             }

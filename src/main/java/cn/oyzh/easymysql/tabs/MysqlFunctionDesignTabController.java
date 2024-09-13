@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.tabs;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.db.routine.DBFunction;
-import cn.oyzh.easymysql.db.routine.DBRoutineParam;
+import cn.oyzh.easymysql.db.routine.MysqlFunction;
+import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
 import cn.oyzh.easymysql.fx.DBSqlTextArea;
@@ -60,7 +60,7 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
      */
     @Getter
     @Accessors(fluent = true, chain = true)
-    private DBFunction function;
+    private MysqlFunction function;
 
     /**
      * db数据库树节点
@@ -115,49 +115,49 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
      * 参数表单
      */
     @FXML
-    private FlexTableView<DBRoutineParam> paramTable;
+    private FlexTableView<MysqlRoutineParam> paramTable;
 
     /**
      * 参数类型
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramType;
+    private FlexTableColumn<MysqlRoutineParam, String> paramType;
 
     /**
      * 参数长度
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramSize;
+    private FlexTableColumn<MysqlRoutineParam, String> paramSize;
 
     /**
      * 参数值
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramValue;
+    private FlexTableColumn<MysqlRoutineParam, String> paramValue;
 
     /**
      * 参数小数
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramDigits;
+    private FlexTableColumn<MysqlRoutineParam, String> paramDigits;
 
     /**
      * 参数字符集
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramCharset;
+    private FlexTableColumn<MysqlRoutineParam, String> paramCharset;
 
     /**
      * 参数排序
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramCollation;
+    private FlexTableColumn<MysqlRoutineParam, String> paramCollation;
 
     /**
      * 参数名称
      */
     @FXML
-    private FlexTableColumn<DBRoutineParam, String> paramName;
+    private FlexTableColumn<MysqlRoutineParam, String> paramName;
 
     /**
      * 返回值类型
@@ -240,7 +240,7 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
      * @param function 查询对象
      * @param dbItem   db库树节点
      */
-    public void init(DBFunction function, MysqlDatabaseTreeItem dbItem) {
+    public void init(MysqlFunction function, MysqlDatabaseTreeItem dbItem) {
         this.function = function;
         this.dbItem = dbItem;
 
@@ -312,7 +312,7 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
         this.characteristic.select(this.function.getCharacteristic());
 
         // 返回值处理
-        DBRoutineParam returnParam = this.function.getReturnParam();
+        MysqlRoutineParam returnParam = this.function.getReturnParam();
         if (returnParam != null) {
             this.returnType.select(returnParam.getType());
             if (returnParam.getSize() != null) {
@@ -354,7 +354,7 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
     private void save() {
         try {
             // 创建临时对象
-            DBFunction tempFunction = this.tempData();
+            MysqlFunction tempFunction = this.tempData();
 
             // 函数名称
             String functionName;
@@ -398,9 +398,9 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
      *
      * @return 临时数据
      */
-    private DBFunction tempData() {
+    private MysqlFunction tempData() {
         // 创建临时对象
-        DBFunction tempFunction = new DBFunction();
+        MysqlFunction tempFunction = new MysqlFunction();
         tempFunction.setName(this.function.getName());
 
         // 基本信息处理
@@ -413,7 +413,7 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
         tempFunction.setCharacteristic(this.characteristic.getSelectedItem());
 
         // 返回值处理
-        DBRoutineParam returnParam = new DBRoutineParam();
+        MysqlRoutineParam returnParam = new MysqlRoutineParam();
         returnParam.setType(this.returnType.getValue());
         if (this.returnSize.isEnable()) {
             returnParam.setSize(this.returnSize.getIntValue());
@@ -488,7 +488,7 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
                 NodeGroupUtil.disappear(this.getTab(), "param");
             }
             if (newValue.intValue() == 4) {
-                DBFunction temp = this.tempData();
+                MysqlFunction temp = this.tempData();
                 if (StrUtil.isBlank(temp.getName())) {
                     temp.setName("Unnamed_Function");
                 }
@@ -503,7 +503,7 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
      */
     @FXML
     private void addParam() {
-        DBRoutineParam param = new DBRoutineParam();
+        MysqlRoutineParam param = new MysqlRoutineParam();
         param.setCreated(true);
         this.paramTable.addItem(param);
         this.paramTable.selectLast();
@@ -515,7 +515,7 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
     @FXML
     private void deleteParam() {
         try {
-            DBRoutineParam param = this.paramTable.getSelectedItem();
+            MysqlRoutineParam param = this.paramTable.getSelectedItem();
             if (param != null) {
                 // 非新增的数据进行提示
                 if (!param.isCreated() && !MessageBox.confirm(I18nHelper.delete() + " " + param.getName())) {

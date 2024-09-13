@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.routine.DBFunction;
+import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.FunctionSVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
@@ -65,7 +65,7 @@ public class MysqlFunctionDesignTab extends MysqlTab {
      * @param function 查询对象
      * @param item     db库树节点
      */
-    public void init(DBFunction function, MysqlDatabaseTreeItem item) {
+    public void init(MysqlFunction function, MysqlDatabaseTreeItem item) {
         this.controller().init(function, item);
         // 刷新tab
         this.flush();

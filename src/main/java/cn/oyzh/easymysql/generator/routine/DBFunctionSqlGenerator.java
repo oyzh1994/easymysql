@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.generator.routine;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.routine.DBFunction;
-import cn.oyzh.easymysql.db.routine.DBRoutineParam;
+import cn.oyzh.easymysql.db.routine.MysqlFunction;
+import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.util.DBUtil;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class DBFunctionSqlGenerator {
 
     public static final DBFunctionSqlGenerator INSTANCE = new DBFunctionSqlGenerator();
 
-    public String generate(DBFunction function) {
+    public String generate(MysqlFunction function) {
         String sql = "CREATE ";
         // 定义者
         if (StrUtil.isNotBlank(function.getDefiner())) {
@@ -27,16 +27,16 @@ public class DBFunctionSqlGenerator {
         sql += " FUNCTION " + DBUtil.wrap(function.getName());
         // 参数
         sql += " (";
-        List<DBRoutineParam> params = function.getParams();
+        List<MysqlRoutineParam> params = function.getParams();
         if (CollUtil.isNotEmpty(params)) {
-            for (DBRoutineParam param : params) {
+            for (MysqlRoutineParam param : params) {
                 sql = sql + "\n" + param.getDefinition() + ",";
             }
         }
         sql = StrUtil.replaceLast(sql, ",", "");
         sql += ") ";
         // 返回值
-        DBRoutineParam returnParam = function.getReturnParam();
+        MysqlRoutineParam returnParam = function.getReturnParam();
         if (returnParam != null) {
             sql += " \nRETURNS " + returnParam.getDefinition();
         }

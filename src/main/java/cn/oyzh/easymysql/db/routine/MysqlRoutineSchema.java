@@ -14,14 +14,14 @@ import java.util.List;
  * @author oyzh
  * @since 2024/06/28
  */
-public class DBRoutineSchema implements ObjectComparator<DBRoutineSchema> {
+public class MysqlRoutineSchema implements ObjectComparator<MysqlRoutineSchema> {
 
     /**
      * 参数列表
      */
     @Setter
     @Getter
-    private List<DBRoutineParam> params;
+    private List<MysqlRoutineParam> params;
 
     /**
      * 库名称
@@ -136,7 +136,7 @@ public class DBRoutineSchema implements ObjectComparator<DBRoutineSchema> {
     }
 
     @Override
-    public boolean compare(DBRoutineSchema routine) {
+    public boolean compare(MysqlRoutineSchema routine) {
         if (routine == null) {
             return false;
         }
