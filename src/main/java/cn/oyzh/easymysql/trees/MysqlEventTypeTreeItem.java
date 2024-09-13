@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.event.DBEvent;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.common.thread.Task;
@@ -71,7 +71,7 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItem.My
     }
 
     private void add() {
-        DBEvent event = new DBEvent();
+        MysqlEvent event = new MysqlEvent();
         event.setDbName(this.dbName());
         MysqlEventUtil.designEvent(event, this.dbItem);
     }
@@ -100,11 +100,11 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItem.My
         this.loading = true;
         Task task = TaskBuilder.newBuilder()
                 .onStart(() -> {
-                    List<DBEvent> events = this.client().events(this.dbName());
+                    List<MysqlEvent> events = this.client().events(this.dbName());
                     // 无数据直接更新列表
                     if (this.isChildEmpty()) {
                         List<TreeItem<?>> list = new ArrayList<>();
-                        for (DBEvent event : events) {
+                        for (MysqlEvent event : events) {
                             list.add(new MysqlEventTreeItem(event, this));
                         }
                         this.setChild(list);
@@ -120,7 +120,7 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItem.My
                             }
                         }
                         // 新增
-                        for (DBEvent f : events) {
+                        for (MysqlEvent f : events) {
                             if (list.parallelStream().noneMatch(item -> f.compare(item.value()))) {
                                 addList.add(new MysqlEventTreeItem(f, this));
                             }

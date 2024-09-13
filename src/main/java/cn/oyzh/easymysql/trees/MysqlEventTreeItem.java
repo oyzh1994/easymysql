@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.event.DBEvent;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.domain.DBInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
@@ -31,7 +31,7 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItem.MysqlEvent
      */
     @Getter
     @Accessors(chain = true, fluent = true)
-    private final DBEvent value;
+    private final MysqlEvent value;
 
     /**
      * 连接树节点
@@ -40,7 +40,7 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItem.MysqlEvent
     @Accessors(chain = true, fluent = true)
     protected MysqlEventTypeTreeItem parent;
 
-    public MysqlEventTreeItem(DBEvent event, MysqlEventTypeTreeItem parent) {
+    public MysqlEventTreeItem(MysqlEvent event, MysqlEventTypeTreeItem parent) {
         super(parent.getTreeView());
         super.setFilterable(true);
         this.parent = parent;

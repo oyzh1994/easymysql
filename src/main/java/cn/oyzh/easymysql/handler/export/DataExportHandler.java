@@ -12,7 +12,7 @@ import cn.oyzh.easymysql.db.data.MysqlSqlTypeFileWriter;
 import cn.oyzh.easymysql.db.data.MysqlTxtTypeFileWriter;
 import cn.oyzh.easymysql.db.data.MysqlTypeFileWriter;
 import cn.oyzh.easymysql.db.data.MysqlXmlTypeFileWriter;
-import cn.oyzh.easymysql.db.record.DBRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.easymysql.fx.data.DataExportTable;
 import cn.oyzh.easymysql.handler.DataHandler;
@@ -239,7 +239,7 @@ public class DataExportHandler extends DataHandler {
                 while (true) {
                     this.checkInterrupt();
                     long start1 = System.currentTimeMillis();
-                    List<DBRecord> records = this.dbClient.selectTableRecords(this.dbName, tableName, start, (long) this.queryLimit, columns, null, true);
+                    List<MysqlRecord> records = this.dbClient.selectTableRecords(this.dbName, tableName, start, (long) this.queryLimit, columns, null, true);
                     if (CollUtil.isEmpty(records)) {
                         break;
                     }
@@ -353,7 +353,7 @@ public class DataExportHandler extends DataHandler {
      * @param records 记录列表
      * @throws IOException 异常
      */
-    private void writeRecord(MysqlTypeFileWriter writer, DataExportTable table, DBColumns columns, List<DBRecord> records) throws Exception {
+    private void writeRecord(MysqlTypeFileWriter writer, DataExportTable table, DBColumns columns, List<MysqlRecord> records) throws Exception {
         // if (this.isJsonType()) {
         //     this.writeJsonRecord(this.writer, columns, records);
         // }
@@ -370,7 +370,7 @@ public class DataExportHandler extends DataHandler {
         //     this.writeExcelRecord(table, columns, records);
         // } else {
             List<Map<String, Object>> objects = new ArrayList<>();
-            for (DBRecord object : records) {
+            for (MysqlRecord object : records) {
                 objects.add(object.toMap());
             }
             writer.writeObjects(objects);

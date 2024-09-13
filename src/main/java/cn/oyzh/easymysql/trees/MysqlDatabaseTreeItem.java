@@ -5,10 +5,10 @@ import cn.oyzh.easymysql.controller.data.MysqlRunSqlFileController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.db.event.DBEvent;
-import cn.oyzh.easymysql.db.query.DBExecuteResult;
-import cn.oyzh.easymysql.db.query.DBExplainResult;
-import cn.oyzh.easymysql.db.query.DBQueryResults;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
+import cn.oyzh.easymysql.db.query.MysqlExplainResult;
+import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.easymysql.db.routine.DBFunction;
 import cn.oyzh.easymysql.db.routine.DBProcedure;
 import cn.oyzh.easymysql.db.table.DBTable;
@@ -393,15 +393,15 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItem.Mysq
         return this.client().dropTable(this.dbName(), tableName);
     }
 
-    public DBQueryResults<DBExecuteResult> executeSql(String sql) {
+    public MysqlQueryResults<MysqlExecuteResult> executeSql(String sql) {
         return this.client().executeSql(this.dbName(), sql);
     }
 
-    public DBExecuteResult executeSingleSql(String sql) {
+    public MysqlExecuteResult executeSingleSql(String sql) {
         return this.client().executeSingleSql(this.dbName(), sql);
     }
 
-    public DBQueryResults<DBExplainResult> explainSql(String sql) {
+    public MysqlQueryResults<MysqlExplainResult> explainSql(String sql) {
         return this.client().explainSql(this.dbName(), sql);
     }
 
@@ -474,19 +474,19 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItem.Mysq
     private void flushValue() {
     }
 
-    public DBEvent selectEvent(String eventName) {
+    public MysqlEvent selectEvent(String eventName) {
         return this.client().selectEvent(this.dbName(), eventName);
     }
 
-    public void alertEvent(DBEvent event) {
+    public void alertEvent(MysqlEvent event) {
         this.client().alertEvent(this.dbName(), event);
     }
 
-    public void createEvent(DBEvent event) {
+    public void createEvent(MysqlEvent event) {
         this.client().createEvent(this.dbName(), event);
     }
 
-    public void dropEvent(DBEvent event) {
+    public void dropEvent(MysqlEvent event) {
         this.client().dropEvent(this.dbName(), event);
     }
 

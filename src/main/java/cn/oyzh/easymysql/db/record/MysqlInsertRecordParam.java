@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(fluent = true, chain = true)
-public class DBUpdateRecordParam {
+public class MysqlInsertRecordParam {
 
     private String dbName;
 
@@ -17,10 +17,8 @@ public class DBUpdateRecordParam {
 
     private String tableName;
 
-    private DBRecordData record;
+    private MysqlRecordData record;
 
-    private DBRecordData updateRecord;
-
-    private DBRecordPrimaryKey primaryKey;
+    private MysqlRecordPrimaryKey primaryKey;
 
 }

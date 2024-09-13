@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.tabs;
 
-import cn.oyzh.easymysql.db.query.DBExecuteResult;
+import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.tabs.DynamicTab;
 
@@ -21,7 +21,7 @@ public class MysqlQuerySelectTab extends DynamicTab {
         return MysqlTab.BASE_PATH + "mysqlQuerySelectTab.fxml";
     }
 
-    public void init(String title, DBExecuteResult result, MysqlDatabaseTreeItem dbItem) {
+    public void init(String title, MysqlExecuteResult result, MysqlDatabaseTreeItem dbItem) {
         this.setTitle(title);
         this.controller().init(result, dbItem);
     }

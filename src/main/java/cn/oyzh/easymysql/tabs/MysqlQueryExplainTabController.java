@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs;
 
-import cn.oyzh.easymysql.db.query.DBExplainResult;
-import cn.oyzh.easymysql.db.record.DBRecord;
+import cn.oyzh.easymysql.db.query.MysqlExplainResult;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;
@@ -57,14 +57,14 @@ public class MysqlQueryExplainTabController extends DynamicTabController {
     /**
      * 执行结果
      */
-    private DBExplainResult result;
+    private MysqlExplainResult result;
 
     /**
      * 执行初始化
      *
      * @param result 执行结果
      */
-    public void init(DBExplainResult result ) {
+    public void init(MysqlExplainResult result ) {
         this.result = result;
         this.initDataList();
     }
@@ -94,8 +94,8 @@ public class MysqlQueryExplainTabController extends DynamicTabController {
      */
     private void initColumns(List<DBColumn> columns) {
         // 数据列集合
-        List<FlexTableColumn<DBRecord, Object>> columnList = new ArrayList<>();
-        DBStatusColumn<DBRecord> statusColumn = new DBStatusColumn<>();
+        List<FlexTableColumn<MysqlRecord, Object>> columnList = new ArrayList<>();
+        DBStatusColumn<MysqlRecord> statusColumn = new DBStatusColumn<>();
         columnList.add(statusColumn);
         for (DBColumn column : columns) {
             DBRecordColumn tableColumn = new DBRecordColumn(column);
@@ -110,7 +110,7 @@ public class MysqlQueryExplainTabController extends DynamicTabController {
      *
      * @param records 数据
      */
-    private void initRecords(List<DBRecord> records) {
+    private void initRecords(List<MysqlRecord> records) {
         this.recordTable.setItem(records);
     }
 }

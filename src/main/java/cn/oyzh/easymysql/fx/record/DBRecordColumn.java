@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.record;
 
 import atlantafx.base.controls.Popover;
-import cn.oyzh.easymysql.db.record.DBRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.popups.DBFieldInfoPopupController;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
@@ -18,7 +18,7 @@ import javafx.stage.PopupWindow;
  * @author oyzh
  * @since 2024/7/17
  */
-public class DBRecordColumn extends FlexTableColumn<DBRecord, Object> {
+public class DBRecordColumn extends FlexTableColumn<MysqlRecord, Object> {
 
     public DBRecordColumn(DBColumn column) {
         this.setText(column.getName());

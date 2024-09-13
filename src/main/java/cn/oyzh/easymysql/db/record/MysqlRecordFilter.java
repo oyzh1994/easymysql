@@ -24,7 +24,7 @@ import java.util.List;
  * @author oyzh
  * @since 2024/06/26
  */
-public class DBRecordFilter {
+public class MysqlRecordFilter {
 
     /**
      * 值

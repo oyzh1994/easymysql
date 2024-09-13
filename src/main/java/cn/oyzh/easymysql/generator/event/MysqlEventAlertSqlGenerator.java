@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.generator.event;
 
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.db.event.DBEvent;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.util.DBUtil;
 
 /**
@@ -19,7 +19,7 @@ public class MysqlEventAlertSqlGenerator extends EventAlertSqlGenerator {
     }
 
     @Override
-    public String generate(DBEvent event) {
+    public String generate(MysqlEvent event) {
         // 起始
         String sql = "ALTER ";
         // 定义者

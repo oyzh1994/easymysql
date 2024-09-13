@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.data;
 
 import cn.hutool.core.date.DateUtil;
-import cn.oyzh.easymysql.db.record.DBRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.easymysql.util.DBDataUtil;
@@ -64,9 +64,9 @@ public class MysqlDataImportHelper {
      * @param config  配置
      * @return 插入sql
      */
-    public static List<String> toInsertSql(DBColumns columns, List<DBRecord> records, MysqlDataImportConfig config) throws Exception {
+    public static List<String> toInsertSql(DBColumns columns, List<MysqlRecord> records, MysqlDataImportConfig config) throws Exception {
         List<String> insertSql = new ArrayList<>();
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             StringBuilder sql = new StringBuilder("INSERT INTO ");
             sql.append(DBUtil.wrap(columns.getTableName()));
             sql.append("(");

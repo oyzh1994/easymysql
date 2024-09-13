@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.event.DBEvent;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
@@ -48,7 +48,7 @@ public class MysqlEventDesignTab extends MysqlTab {
         }
     }
 
-    public DBEvent event() {
+    public MysqlEvent event() {
         return this.controller().event();
     }
 
@@ -67,7 +67,7 @@ public class MysqlEventDesignTab extends MysqlTab {
      * @param event 事件对象
      * @param item  db库树节点
      */
-    public void init(DBEvent event, MysqlDatabaseTreeItem item) {
+    public void init(MysqlEvent event, MysqlDatabaseTreeItem item) {
         this.controller().init(event, item);
         // 刷新tab
         this.flush();

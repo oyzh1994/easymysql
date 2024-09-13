@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.query;
 
 import cn.oyzh.easymysql.db.DBHelper;
-import cn.oyzh.easymysql.db.record.DBRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 @Getter
 @Accessors(chain = true, fluent = true)
-public class DBExecuteResult extends DBQueryResult {
+public class MysqlExecuteResult extends MysqlQueryResult {
 
     /**
      * 是否全字段
@@ -39,7 +39,7 @@ public class DBExecuteResult extends DBQueryResult {
         this.records = new ArrayList<>();
         this.columns = DBHelper.parseColumns(resultSet);
         while (resultSet.next()) {
-            DBRecord record = new DBRecord(readonly);
+            MysqlRecord record = new MysqlRecord(readonly);
             int colIndex = 1;
             for (DBColumn dbColumn : this.columns) {
                 Object data = resultSet.getObject(colIndex++);

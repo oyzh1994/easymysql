@@ -12,7 +12,7 @@ import java.util.List;
  * @since 2024/02/19
  */
 @Data
-public class DBQueryResults<R extends DBQueryResult> {
+public class MysqlQueryResults<R extends MysqlQueryResult> {
 
     private String errMsg;
 

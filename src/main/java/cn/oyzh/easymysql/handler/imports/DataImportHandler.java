@@ -11,7 +11,7 @@ import cn.oyzh.easymysql.db.data.MysqlJsonTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlTxtTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlXmlTypeFileReader;
-import cn.oyzh.easymysql.db.record.DBRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.easymysql.fx.data.DataImportFile;
 import cn.oyzh.easymysql.handler.DataHandler;
@@ -184,7 +184,7 @@ public class DataImportHandler extends DataHandler {
                 while (true) {
                     this.checkInterrupt();
                     long start1 = System.currentTimeMillis();
-                    List<DBRecord> records = this.readRecords(reader, this.readLimit);
+                    List<MysqlRecord> records = this.readRecords(reader, this.readLimit);
                     if (CollUtil.isEmpty(records)) {
                         break;
                     }
@@ -224,11 +224,11 @@ public class DataImportHandler extends DataHandler {
         return null;
     }
 
-    private List<DBRecord> readRecords(MysqlTypeFileReader reader, int count) throws Exception {
-        List<DBRecord> records = new ArrayList<>();
+    private List<MysqlRecord> readRecords(MysqlTypeFileReader reader, int count) throws Exception {
+        List<MysqlRecord> records = new ArrayList<>();
         List<Map<String, Object>> list = reader.readObjects(count);
         for (Map<String, Object> objectMap : list) {
-            DBRecord record = new DBRecord();
+            MysqlRecord record = new MysqlRecord();
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 record.putValue(entry.getKey(), entry.getValue());
             }
@@ -243,7 +243,7 @@ public class DataImportHandler extends DataHandler {
      * @param columns 字段列表
      * @param records 记录列表
      */
-    private void writeRecord(DBColumns columns, List<DBRecord> records) throws Exception {
+    private void writeRecord(DBColumns columns, List<MysqlRecord> records) throws Exception {
         List<String> sqlList = MysqlDataImportHelper.toInsertSql(columns, records, this.config);
         this.addInsertSql(sqlList);
     }

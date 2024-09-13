@@ -1,18 +1,18 @@
 package cn.oyzh.easymysql.db;
 
 import cn.hutool.log.StaticLog;
-import cn.oyzh.easymysql.db.event.DBEvent;
-import cn.oyzh.easymysql.db.query.DBExecuteResult;
-import cn.oyzh.easymysql.db.query.DBExplainResult;
-import cn.oyzh.easymysql.db.query.DBQueryResults;
-import cn.oyzh.easymysql.db.record.DBDeleteRecordParam;
-import cn.oyzh.easymysql.db.record.DBInsertRecordParam;
-import cn.oyzh.easymysql.db.record.DBRecord;
-import cn.oyzh.easymysql.db.record.DBRecordData;
-import cn.oyzh.easymysql.db.record.DBRecordFilter;
-import cn.oyzh.easymysql.db.record.DBRecordPrimaryKey;
-import cn.oyzh.easymysql.db.record.DBSelectRecordParam;
-import cn.oyzh.easymysql.db.record.DBUpdateRecordParam;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
+import cn.oyzh.easymysql.db.query.MysqlExplainResult;
+import cn.oyzh.easymysql.db.query.MysqlQueryResults;
+import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
+import cn.oyzh.easymysql.db.record.MysqlInsertRecordParam;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecordData;
+import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
+import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
+import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.db.routine.DBFunction;
 import cn.oyzh.easymysql.db.routine.DBProcedure;
 import cn.oyzh.easymysql.db.schema.DBSchema;
@@ -454,7 +454,7 @@ public abstract class DBClient {
         return this.tableCount(dbName, tableName, null);
     }
 
-    public abstract long tableCount(String dbName, String tableName, List<DBRecordFilter> filters);
+    public abstract long tableCount(String dbName, String tableName, List<MysqlRecordFilter> filters);
 
     public abstract List<DBIndex> indexes(String dbName, String tableName);
 
@@ -464,33 +464,33 @@ public abstract class DBClient {
 
     public abstract DBColumns tableColumns(String dbName, String schema, String tableName);
 
-    public List<DBRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit) {
+    public List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit) {
         return this.selectTableRecords(dbName, tableName, start, limit, null, null, false);
     }
 
-    public List<DBRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, List<DBRecordFilter> filters) {
+    public List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, List<MysqlRecordFilter> filters) {
         return this.selectTableRecords(dbName, tableName, start, limit, null, filters, false);
     }
 
-    public abstract List<DBRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, DBColumns columns, List<DBRecordFilter> filters, boolean readonly);
+    public abstract List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, DBColumns columns, List<MysqlRecordFilter> filters, boolean readonly);
 
     public abstract List<DBColumn> viewColumns(String dbName, String viewName);
 
-    public abstract List<DBRecord> viewRecords(String dbName, String viewName, Long start, Long limit, List<DBRecordFilter> filters);
+    public abstract List<MysqlRecord> viewRecords(String dbName, String viewName, Long start, Long limit, List<MysqlRecordFilter> filters);
 
-    public int insertRecord(String dbName, String tableName, DBRecordData recordData) {
+    public int insertRecord(String dbName, String tableName, MysqlRecordData recordData) {
         return this.insertRecord(dbName, tableName, recordData, null);
     }
 
-    public abstract int insertRecord(String dbName, String tableName, DBRecordData recordData, DBRecordPrimaryKey primaryKey);
+    public abstract int insertRecord(String dbName, String tableName, MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey);
 
-    public abstract int deleteRecord(String dbName, String tableName, DBRecordData recordData);
+    public abstract int deleteRecord(String dbName, String tableName, MysqlRecordData recordData);
 
-    public abstract int deleteRecord(String dbName, String tableName, DBRecordPrimaryKey primaryKey);
+    public abstract int deleteRecord(String dbName, String tableName, MysqlRecordPrimaryKey primaryKey);
 
-    public abstract int updateRecord(String dbName, String tableName, DBRecordData recordData, DBRecordData originalRecordData);
+    public abstract int updateRecord(String dbName, String tableName, MysqlRecordData recordData, MysqlRecordData originalRecordData);
 
-    public abstract int updateRecord(String dbName, String tableName, DBRecordData recordData, DBRecordPrimaryKey primaryKey);
+    public abstract int updateRecord(String dbName, String tableName, MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey);
 
     public abstract void createTable(String dbName, DBTable table);
 
@@ -524,8 +524,8 @@ public abstract class DBClient {
 
     public abstract boolean isUpdateOnCurrentTimestamp(String dbName, String tableName, String colName);
 
-    public DBQueryResults<DBExecuteResult> executeSql(String dbName, String sql) {
-        DBQueryResults<DBExecuteResult> results = new DBQueryResults<>();
+    public MysqlQueryResults<MysqlExecuteResult> executeSql(String dbName, String sql) {
+        MysqlQueryResults<MysqlExecuteResult> results = new MysqlQueryResults<>();
         Connection connection = null;
         try {
             DBUtil.printSql(sql);
@@ -535,7 +535,7 @@ public abstract class DBClient {
             connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
             for (String execSql : list) {
-                DBExecuteResult result = new DBExecuteResult();
+                MysqlExecuteResult result = new MysqlExecuteResult();
                 result.sql(execSql);
                 try {
                     long startTime = System.nanoTime();
@@ -571,9 +571,9 @@ public abstract class DBClient {
         return results;
     }
 
-    public abstract DBQueryResults<DBExplainResult> explainSql(String dbName, String sql);
+    public abstract MysqlQueryResults<MysqlExplainResult> explainSql(String dbName, String sql);
 
-    public abstract DBExecuteResult executeSingleSql(String dbName, String sql);
+    public abstract MysqlExecuteResult executeSingleSql(String dbName, String sql);
 
     public abstract void executeSqlSimple(String dbName, String sql);
 
@@ -649,7 +649,7 @@ public abstract class DBClient {
 
     public abstract List<DBTrigger> triggers(String dbName, String tableName);
 
-    public abstract DBRecord selectRecord(String dbName, String tableName, DBRecordPrimaryKey primaryKey);
+    public abstract MysqlRecord selectRecord(String dbName, String tableName, MysqlRecordPrimaryKey primaryKey);
 
     public abstract String selectVersion();
 
@@ -770,17 +770,17 @@ public abstract class DBClient {
         }
     }
 
-    public abstract void dropEvent(String dbName, DBEvent event);
+    public abstract void dropEvent(String dbName, MysqlEvent event);
 
-    public abstract void createEvent(String dbName, DBEvent event);
+    public abstract void createEvent(String dbName, MysqlEvent event);
 
-    public abstract void alertEvent(String dbName, DBEvent event);
+    public abstract void alertEvent(String dbName, MysqlEvent event);
 
-    public abstract DBEvent selectEvent(String dbName, String eventName);
+    public abstract MysqlEvent selectEvent(String dbName, String eventName);
 
     public abstract Integer eventSize(String dbName);
 
-    public abstract List<DBEvent> events(String dbName);
+    public abstract List<MysqlEvent> events(String dbName);
 
     public abstract boolean isSupportFeature(DBFeature feature);
 
@@ -871,14 +871,14 @@ public abstract class DBClient {
         }
     }
 
-    public abstract List<DBRecord> selectTableRecords(DBSelectRecordParam param);
+    public abstract List<MysqlRecord> selectTableRecords(MysqlSelectRecordParam param);
 
-    public abstract long selectTableCount(DBSelectRecordParam param);
+    public abstract long selectTableCount(MysqlSelectRecordParam param);
 
-    public abstract int insertRecord(DBInsertRecordParam param);
+    public abstract int insertRecord(MysqlInsertRecordParam param);
 
-    public abstract int deleteRecord(DBDeleteRecordParam param);
+    public abstract int deleteRecord(MysqlDeleteRecordParam param);
 
-    public abstract int updateRecord(DBUpdateRecordParam param);
+    public abstract int updateRecord(MysqlUpdateRecordParam param);
 
 }

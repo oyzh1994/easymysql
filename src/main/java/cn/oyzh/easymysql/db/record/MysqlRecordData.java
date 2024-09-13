@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * @author oyzh
  * @since 2024/7/5
  */
-public class DBRecordData {
+public class MysqlRecordData {
 
     private Map<DBColumn, Object> dataList;
 

@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.util;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.db.record.DBRecordData;
+import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.exception.DBException;
 import lombok.experimental.UtilityClass;
@@ -183,7 +183,7 @@ public class DBUtil {
      *
      * @param data 数据
      */
-    public static void printData(DBRecordData data) {
+    public static void printData(MysqlRecordData data) {
         if (data != null) {
             for (Map.Entry<DBColumn, Object> entry : data.entries()) {
                 StaticLog.info(entry.getKey().getName() + "=" + entry.getValue());
@@ -198,7 +198,7 @@ public class DBUtil {
      * @param sql  sql
      * @param data 数据
      */
-    public static void printInfo(String sql, DBRecordData data) {
+    public static void printInfo(String sql, MysqlRecordData data) {
         printSql(sql);
         printData(data);
     }

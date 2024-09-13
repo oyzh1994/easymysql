@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.query;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.oyzh.easymysql.db.record.DBRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Getter
 @Accessors(chain = true, fluent = true)
-public abstract class DBQueryResult {
+public abstract class MysqlQueryResult {
 
     /**
      * sql
@@ -59,7 +59,7 @@ public abstract class DBQueryResult {
     /**
      * 行列表
      */
-    protected List<DBRecord> records;
+    protected List<MysqlRecord> records;
 
     public boolean hasResult() {
         if (CollUtil.isNotEmpty(this.records)) {

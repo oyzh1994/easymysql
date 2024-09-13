@@ -10,7 +10,7 @@ import java.util.Objects;
  * @since 2023/12/29
  */
 @Data
-public class DBRecordPrimaryKey {
+public class MysqlRecordPrimaryKey {
 
     /**
      * 当前数据
@@ -37,7 +37,7 @@ public class DBRecordPrimaryKey {
      */
     private boolean autoIncrement;
 
-    public void init(DBColumn column, DBRecord record) {
+    public void init(DBColumn column, MysqlRecord record) {
         this.columnName = column.getName();
         this.autoIncrement = column.isAutoIncrement();
         this.data = record.getValue(this.columnName);

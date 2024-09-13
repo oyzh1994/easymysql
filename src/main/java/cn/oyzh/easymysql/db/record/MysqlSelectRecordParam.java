@@ -1,7 +1,6 @@
 package cn.oyzh.easymysql.db.record;
 
 import cn.oyzh.easymysql.db.table.DBColumn;
-import cn.oyzh.easymysql.db.table.DBColumns;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,7 +12,7 @@ import java.util.List;
  */
 @Data
 @Accessors(fluent = true, chain = true)
-public class DBSelectRecordParam {
+public class MysqlSelectRecordParam {
 
     private Long start;
 
@@ -29,7 +28,7 @@ public class DBSelectRecordParam {
 
     private List<DBColumn> columns;
 
-    private List<DBRecordFilter> filters;
+    private List<MysqlRecordFilter> filters;
 
     public boolean hasPageControl() {
         return this.start != null && this.limit != null;

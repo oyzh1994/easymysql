@@ -3,18 +3,18 @@ package cn.oyzh.easymysql.db;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.condition.MysqlConditionUtil;
-import cn.oyzh.easymysql.db.event.DBEvent;
-import cn.oyzh.easymysql.db.query.DBExecuteResult;
-import cn.oyzh.easymysql.db.query.DBExplainResult;
-import cn.oyzh.easymysql.db.query.DBQueryResults;
-import cn.oyzh.easymysql.db.record.DBDeleteRecordParam;
-import cn.oyzh.easymysql.db.record.DBInsertRecordParam;
-import cn.oyzh.easymysql.db.record.DBRecord;
-import cn.oyzh.easymysql.db.record.DBRecordData;
-import cn.oyzh.easymysql.db.record.DBRecordFilter;
-import cn.oyzh.easymysql.db.record.DBSelectRecordParam;
-import cn.oyzh.easymysql.db.record.DBRecordPrimaryKey;
-import cn.oyzh.easymysql.db.record.DBUpdateRecordParam;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
+import cn.oyzh.easymysql.db.query.MysqlExplainResult;
+import cn.oyzh.easymysql.db.query.MysqlQueryResults;
+import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
+import cn.oyzh.easymysql.db.record.MysqlInsertRecordParam;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecordData;
+import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
+import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
+import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.db.routine.DBFunction;
 import cn.oyzh.easymysql.db.routine.DBProcedure;
 import cn.oyzh.easymysql.db.routine.DBRoutineParam;
@@ -471,7 +471,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public long tableCount(String dbName, String tableName, List<DBRecordFilter> filters) {
+    public long tableCount(String dbName, String tableName, List<MysqlRecordFilter> filters) {
         long count = 0;
         try {
             Connection connection = this.connection(dbName);
@@ -714,7 +714,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public List<DBRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, DBColumns dbColumns, List<DBRecordFilter> filters, boolean readonly) {
+    public List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, DBColumns dbColumns, List<MysqlRecordFilter> filters, boolean readonly) {
         try {
             Connection connection = this.connection(dbName);
             StringBuilder builder = new StringBuilder("SELECT * FROM ");
@@ -731,7 +731,7 @@ public class MysqlDBClient extends DBClient {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             DBUtil.printMetaData(resultSet);
-            List<DBRecord> records = new ArrayList<>();
+            List<MysqlRecord> records = new ArrayList<>();
             DBColumns columns;
             if (dbColumns != null && !dbColumns.isEmpty()) {
                 columns = dbColumns;
@@ -739,7 +739,7 @@ public class MysqlDBClient extends DBClient {
                 columns = DBHelper.parseColumns(resultSet);
             }
             while (resultSet.next()) {
-                DBRecord record = new DBRecord(readonly);
+                MysqlRecord record = new MysqlRecord(readonly);
                 for (DBColumn column : columns) {
                     Object data = resultSet.getObject(column.getName());
                     // 获取几何值
@@ -843,7 +843,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public List<DBRecord> viewRecords(String dbName, String viewName, Long start, Long limit, List<DBRecordFilter> filters) {
+    public List<MysqlRecord> viewRecords(String dbName, String viewName, Long start, Long limit, List<MysqlRecordFilter> filters) {
         try {
             Connection connection = this.connection(dbName);
             StringBuilder builder = new StringBuilder("SELECT * FROM ");
@@ -860,11 +860,11 @@ public class MysqlDBClient extends DBClient {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             DBUtil.printMetaData(resultSet);
-            List<DBRecord> records = new ArrayList<>();
+            List<MysqlRecord> records = new ArrayList<>();
             boolean updatable = DBHelper.isViewUpdatable(connection, dbName, viewName);
             DBColumns columns = DBHelper.parseColumns(resultSet);
             while (resultSet.next()) {
-                DBRecord record = new DBRecord(!updatable);
+                MysqlRecord record = new MysqlRecord(!updatable);
                 for (DBColumn column : columns) {
                     Object data = resultSet.getObject(column.getName());
                     // 获取几何值
@@ -884,7 +884,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public int insertRecord(String dbName, String tableName, DBRecordData recordData, DBRecordPrimaryKey primaryKey) {
+    public int insertRecord(String dbName, String tableName, MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
         if (recordData == null || recordData.isEmpty()) {
             return 0;
         }
@@ -970,7 +970,7 @@ public class MysqlDBClient extends DBClient {
     // }
 
     @Override
-    public int deleteRecord(String dbName, String tableName, DBRecordData recordData) {
+    public int deleteRecord(String dbName, String tableName, MysqlRecordData recordData) {
         try {
             StringBuilder builder = new StringBuilder();
             builder.append("DELETE FROM ").append(DBUtil.wrap(dbName, tableName));
@@ -1037,7 +1037,7 @@ public class MysqlDBClient extends DBClient {
     // }
 
     @Override
-    public int deleteRecord(String dbName, String tableName, DBRecordPrimaryKey primaryKey) {
+    public int deleteRecord(String dbName, String tableName, MysqlRecordPrimaryKey primaryKey) {
         try {
             String sql = "DELETE FROM " + DBUtil.wrap(dbName, tableName) + " WHERE " + DBUtil.wrap(primaryKey.getColumnName()) + " = ?";
             // String sql = "DELETE FROM " + DBUtil.wrap(dbName, tableName) + " WHERE " + DBUtil.wrap(primaryKey.getColumnName()) + " = ? LIMIT 1";
@@ -1066,7 +1066,7 @@ public class MysqlDBClient extends DBClient {
     // }
 
     @Override
-    public int updateRecord(String dbName, String tableName, DBRecordData recordData, DBRecordData originalRecordData) {
+    public int updateRecord(String dbName, String tableName, MysqlRecordData recordData, MysqlRecordData originalRecordData) {
         try {
             StringBuilder builder = new StringBuilder();
             builder.append("UPDATE ").append(DBUtil.wrap(dbName, tableName)).append(" SET ");
@@ -1111,7 +1111,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public int updateRecord(String dbName, String tableName, DBRecordData recordData, DBRecordPrimaryKey primaryKey) {
+    public int updateRecord(String dbName, String tableName, MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
         try {
             StringBuilder builder = new StringBuilder();
             builder.append("UPDATE ").append(DBUtil.wrap(dbName, tableName)).append(" SET ");
@@ -1540,8 +1540,8 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public DBQueryResults<DBExplainResult> explainSql(String dbName, String sql) {
-        DBQueryResults<DBExplainResult> results = new DBQueryResults<>();
+    public MysqlQueryResults<MysqlExplainResult> explainSql(String dbName, String sql) {
+        MysqlQueryResults<MysqlExplainResult> results = new MysqlQueryResults<>();
         Connection connection = null;
         try {
             DBUtil.printSql(sql);
@@ -1551,7 +1551,7 @@ public class MysqlDBClient extends DBClient {
             connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
             for (String execSql : list) {
-                DBExplainResult result = new DBExplainResult();
+                MysqlExplainResult result = new MysqlExplainResult();
                 try {
                     execSql = "EXPLAIN " + execSql.stripLeading();
                     result.sql(execSql);
@@ -1576,9 +1576,9 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public DBExecuteResult executeSingleSql(String dbName, String sql) {
+    public MysqlExecuteResult executeSingleSql(String dbName, String sql) {
         Connection connection = null;
-        DBExecuteResult result = new DBExecuteResult();
+        MysqlExecuteResult result = new MysqlExecuteResult();
         result.sql(sql);
         try {
             DBUtil.printSql(sql);
@@ -2097,7 +2097,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public DBRecord selectRecord(String dbName, String tableName, DBRecordPrimaryKey primaryKey) {
+    public MysqlRecord selectRecord(String dbName, String tableName, MysqlRecordPrimaryKey primaryKey) {
         try {
             Connection connection = this.connection(dbName);
             String sql = "SELECT * FROM " + DBUtil.wrap(dbName, tableName) + " WHERE " + DBUtil.wrap(primaryKey.getColumnName()) + " = ?";
@@ -2107,7 +2107,7 @@ public class MysqlDBClient extends DBClient {
             statement.setObject(1, primaryKey.data());
             ResultSet resultSet = statement.executeQuery();
             DBUtil.printMetaData(resultSet);
-            DBRecord record = new DBRecord();
+            MysqlRecord record = new MysqlRecord();
             DBColumns columns = DBHelper.parseColumns(resultSet);
             while (resultSet.next()) {
                 for (DBColumn column : columns) {
@@ -2172,7 +2172,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public void dropEvent(String dbName, DBEvent event) {
+    public void dropEvent(String dbName, MysqlEvent event) {
         try {
             String sql = "DROP EVENT " + DBUtil.wrap(event.getDbName(), event.getName());
             DBUtil.printSql(sql);
@@ -2186,7 +2186,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public void createEvent(String dbName, DBEvent event) {
+    public void createEvent(String dbName, MysqlEvent event) {
         try {
             String sql = EventCreateSqlGenerator.generate(this.dialect(), event);
             DBUtil.printSql(sql);
@@ -2200,7 +2200,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public void alertEvent(String dbName, DBEvent event) {
+    public void alertEvent(String dbName, MysqlEvent event) {
         try {
             String sql = EventAlertSqlGenerator.generate(this.dialect(), event);
             DBUtil.printSql(sql);
@@ -2214,8 +2214,8 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public DBEvent selectEvent(String dbName, String eventName) {
-        DBEvent event = new DBEvent();
+    public MysqlEvent selectEvent(String dbName, String eventName) {
+        MysqlEvent event = new MysqlEvent();
         try {
             String sql = "SELECT * FROM `INFORMATION_SCHEMA`.`EVENTS` WHERE `EVENT_SCHEMA` = ? AND `EVENT_NAME` = ?";
             DBUtil.printSql(sql);
@@ -2283,8 +2283,8 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public List<DBEvent> events(String dbName) {
-        List<DBEvent> list = new ArrayList<>();
+    public List<MysqlEvent> events(String dbName) {
+        List<MysqlEvent> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM `INFORMATION_SCHEMA`.`EVENTS` WHERE `EVENT_SCHEMA` = ?";
             DBUtil.printSql(sql);
@@ -2293,7 +2293,7 @@ public class MysqlDBClient extends DBClient {
             ResultSet resultSet = statement.executeQuery();
             DBUtil.printMetaData(resultSet);
             while (resultSet.next()) {
-                DBEvent event = new DBEvent();
+                MysqlEvent event = new MysqlEvent();
                 Date ends = resultSet.getDate("ENDS");
                 Date starts = resultSet.getDate("STARTS");
                 String status = resultSet.getString("STATUS");
@@ -2367,27 +2367,27 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public List<DBRecord> selectTableRecords(DBSelectRecordParam param) {
+    public List<MysqlRecord> selectTableRecords(MysqlSelectRecordParam param) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public long selectTableCount(DBSelectRecordParam param) {
+    public long selectTableCount(MysqlSelectRecordParam param) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public int insertRecord(DBInsertRecordParam param) {
+    public int insertRecord(MysqlInsertRecordParam param) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public int deleteRecord(DBDeleteRecordParam param) {
+    public int deleteRecord(MysqlDeleteRecordParam param) {
         return 0;
     }
 
     @Override
-    public int updateRecord(DBUpdateRecordParam param) {
+    public int updateRecord(MysqlUpdateRecordParam param) {
         return 0;
     }
 }

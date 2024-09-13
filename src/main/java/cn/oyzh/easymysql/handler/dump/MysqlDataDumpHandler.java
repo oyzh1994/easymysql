@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.handler.dump;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.event.DBEvent;
-import cn.oyzh.easymysql.db.record.DBRecord;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.routine.DBFunction;
 import cn.oyzh.easymysql.db.routine.DBProcedure;
 import cn.oyzh.easymysql.db.table.DBColumns;
@@ -92,7 +92,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
         while (true) {
             this.checkInterrupt();
             long start1 = System.currentTimeMillis();
-            List<DBRecord> records = this.dbClient.selectTableRecords(this.dbName, tableName, start, (long) this.queryLimit, columns, null, true);
+            List<MysqlRecord> records = this.dbClient.selectTableRecords(this.dbName, tableName, start, (long) this.queryLimit, columns, null, true);
             if (CollUtil.isEmpty(records)) {
                 break;
             }
@@ -189,9 +189,9 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
     }
 
     protected void dumpEvent() throws Exception {
-        List<DBEvent> events = this.dbClient.events(this.dbName);
+        List<MysqlEvent> events = this.dbClient.events(this.dbName);
         if (CollUtil.isNotEmpty(events)) {
-            for (DBEvent event : events) {
+            for (MysqlEvent event : events) {
                 this.message("Dumping Event " + event.getName());
                 String line0 = "";
                 String line1 = "-- ----------------------------";

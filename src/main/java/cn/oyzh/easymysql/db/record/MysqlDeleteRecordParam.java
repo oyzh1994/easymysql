@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(fluent = true, chain = true)
-public class DBDeleteRecordParam {
+public class MysqlDeleteRecordParam {
 
     private String dbName;
 
@@ -17,8 +17,8 @@ public class DBDeleteRecordParam {
 
     private String tableName;
 
-    private DBRecordData record;
+    private MysqlRecordData record;
 
-    private DBRecordPrimaryKey primaryKey;
+    private MysqlRecordPrimaryKey primaryKey;
 
 }

@@ -23,7 +23,7 @@ import lombok.Getter;
  * @author oyzh
  * @since 2024/01/31
  */
-public class DBRecordProperty extends SimpleObjectProperty<Object> {
+public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
 
     /**
      * 是否变更
@@ -52,11 +52,11 @@ public class DBRecordProperty extends SimpleObjectProperty<Object> {
      */
     private final boolean readonly;
 
-    public DBRecordProperty(DBColumn column, Object value) {
+    public MysqlRecordProperty(DBColumn column, Object value) {
         this(column, value, false);
     }
 
-    public DBRecordProperty(DBColumn column, Object value, boolean readonly) {
+    public MysqlRecordProperty(DBColumn column, Object value, boolean readonly) {
         super(value);
         this.column = column;
         if (!readonly) {

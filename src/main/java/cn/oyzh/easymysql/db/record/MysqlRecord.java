@@ -2,8 +2,6 @@ package cn.oyzh.easymysql.db.record;
 
 
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.db.record.DBRecordData;
-import cn.oyzh.easymysql.db.record.DBRecordProperty;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,7 +17,7 @@ import java.util.Set;
  * @since 2023/12/20
  */
 @EqualsAndHashCode(callSuper = true)
-public class DBRecord extends DBObjectStatus {
+public class MysqlRecord extends DBObjectStatus {
 
     /**
      * 是否只读
@@ -27,18 +25,18 @@ public class DBRecord extends DBObjectStatus {
     @Getter
     private boolean readonly;
 
-    public DBRecord() {
+    public MysqlRecord() {
 
     }
 
-    public DBRecord(boolean readonly) {
+    public MysqlRecord(boolean readonly) {
         this.readonly = readonly;
     }
 
     /**
      * 数据
      */
-    private final HashMap<String, DBRecordProperty> properties = new HashMap<>();
+    private final HashMap<String, MysqlRecordProperty> properties = new HashMap<>();
 
     /**
      * 添加数据
@@ -47,8 +45,8 @@ public class DBRecord extends DBObjectStatus {
      * @param value  值
      * @return 数据属性
      */
-    public DBRecordProperty putValue(String column, Object value) {
-        DBRecordProperty property = this.getProperty(column);
+    public MysqlRecordProperty putValue(String column, Object value) {
+        MysqlRecordProperty property = this.getProperty(column);
         if (property == null) {
             property = putValue(new DBColumn(column), value);
         } else {
@@ -64,10 +62,10 @@ public class DBRecord extends DBObjectStatus {
      * @param value  值
      * @return 数据属性
      */
-    public DBRecordProperty putValue(DBColumn column, Object value) {
-        DBRecordProperty property = this.getProperty(column.getName());
+    public MysqlRecordProperty putValue(DBColumn column, Object value) {
+        MysqlRecordProperty property = this.getProperty(column.getName());
         if (property == null) {
-            property = new DBRecordProperty(column, value, this.readonly);
+            property = new MysqlRecordProperty(column, value, this.readonly);
             property.changedProperty().addListener((observable, oldValue, newValue) -> this.updateStatus());
             this.properties.put(column.getName(), property);
         } else {
@@ -83,7 +81,7 @@ public class DBRecord extends DBObjectStatus {
      * @return 数据
      */
     public Object getValue(String column) {
-        DBRecordProperty property = this.getProperty(column);
+        MysqlRecordProperty property = this.getProperty(column);
         return property == null ? null : property.get();
     }
 
@@ -94,7 +92,7 @@ public class DBRecord extends DBObjectStatus {
      * @return 原始数据
      */
     public Object getOriginal(String column) {
-        DBRecordProperty property = this.getProperty(column);
+        MysqlRecordProperty property = this.getProperty(column);
         return property == null ? null : property.getOriginal();
     }
 
@@ -113,7 +111,7 @@ public class DBRecord extends DBObjectStatus {
      * @param key 键
      * @return 属性
      */
-    public DBRecordProperty getProperty(String key) {
+    public MysqlRecordProperty getProperty(String key) {
         return this.properties.get(key);
     }
 
@@ -142,7 +140,7 @@ public class DBRecord extends DBObjectStatus {
         if (super.isChanged()) {
             return true;
         }
-        for (DBRecordProperty property : this.properties.values()) {
+        for (MysqlRecordProperty property : this.properties.values()) {
             if (property.isChanged()) {
                 return true;
             }
@@ -152,7 +150,7 @@ public class DBRecord extends DBObjectStatus {
 
     @Override
     public void clearStatus() throws Exception {
-        for (DBRecordProperty property : this.properties.values()) {
+        for (MysqlRecordProperty property : this.properties.values()) {
             property.setChanged(false);
             property.updateOriginal();
         }
@@ -163,13 +161,13 @@ public class DBRecord extends DBObjectStatus {
      * 抛弃变更
      */
     public void discard() throws Exception {
-        for (DBRecordProperty property : this.properties.values()) {
+        for (MysqlRecordProperty property : this.properties.values()) {
             property.discard();
         }
         super.clearStatus();
     }
 
-    public void copy(DBRecord record) {
+    public void copy(MysqlRecord record) {
         if (record != null) {
             for (String column : record.columns()) {
                 Object value = record.getValue(column);
@@ -180,10 +178,10 @@ public class DBRecord extends DBObjectStatus {
         }
     }
 
-    public DBRecordData getRecordData() {
-        DBRecordData recordData = new DBRecordData();
+    public MysqlRecordData getRecordData() {
+        MysqlRecordData recordData = new MysqlRecordData();
         for (String column : this.columns()) {
-            DBRecordProperty property = this.getProperty(column);
+            MysqlRecordProperty property = this.getProperty(column);
             if (property != null) {
                 Object value = property.get();
                 if (value != null) {
@@ -194,10 +192,10 @@ public class DBRecord extends DBObjectStatus {
         return recordData;
     }
 
-    public DBRecordData getChangedRecordData() {
-        DBRecordData recordData = new DBRecordData();
+    public MysqlRecordData getChangedRecordData() {
+        MysqlRecordData recordData = new MysqlRecordData();
         for (String column : this.columns()) {
-            DBRecordProperty property = this.getProperty(column);
+            MysqlRecordProperty property = this.getProperty(column);
             if (property != null && property.isChanged()) {
                 recordData.put(property.getColumn(), property.get());
             }
@@ -205,10 +203,10 @@ public class DBRecord extends DBObjectStatus {
         return recordData;
     }
 
-    public DBRecordData getOriginalRecordData() {
-        DBRecordData recordData = new DBRecordData();
+    public MysqlRecordData getOriginalRecordData() {
+        MysqlRecordData recordData = new MysqlRecordData();
         for (String column : this.columns()) {
-            DBRecordProperty property = this.getProperty(column);
+            MysqlRecordProperty property = this.getProperty(column);
             if (property != null) {
                 Object val = property.getOriginal();
                 if (val != null) {
@@ -225,7 +223,7 @@ public class DBRecord extends DBObjectStatus {
 
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
-        for (Map.Entry<String, DBRecordProperty> value : this.properties.entrySet()) {
+        for (Map.Entry<String, MysqlRecordProperty> value : this.properties.entrySet()) {
             map.put(value.getKey(), value.getValue().get());
         }
         return map;

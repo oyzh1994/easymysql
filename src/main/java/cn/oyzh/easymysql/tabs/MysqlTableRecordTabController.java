@@ -2,10 +2,10 @@ package cn.oyzh.easymysql.tabs;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.DBObjectList;
-import cn.oyzh.easymysql.db.record.DBRecord;
-import cn.oyzh.easymysql.db.record.DBRecordData;
-import cn.oyzh.easymysql.db.record.DBRecordFilter;
-import cn.oyzh.easymysql.db.record.DBRecordPrimaryKey;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecordData;
+import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.domain.DBSetting;
 import cn.oyzh.easymysql.event.RecordDeleteEvent;
@@ -74,7 +74,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
     /**
      * 分页数据
      */
-    private Paging<DBRecord> pageData;
+    private Paging<MysqlRecord> pageData;
 
     /**
      * 记录过滤按钮
@@ -92,7 +92,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
      * 数据分页组件
      */
     @FXML
-    private PageBox<DBRecord> pageBox;
+    private PageBox<MysqlRecord> pageBox;
 
     /**
      * 数据表单组件
@@ -104,7 +104,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
      * 过滤列表
      */
     @Setter
-    private List<DBRecordFilter> filters;
+    private List<MysqlRecordFilter> filters;
 
     /**
      * 应用
@@ -171,9 +171,9 @@ public class MysqlTableRecordTabController extends DynamicTabController {
      *
      * @return 已启用的表过滤条件
      */
-    private List<DBRecordFilter> enabledFilters() {
+    private List<MysqlRecordFilter> enabledFilters() {
         if (CollUtil.isNotEmpty(this.filters)) {
-            return this.filters.stream().filter(DBRecordFilter::isEnabled).toList();
+            return this.filters.stream().filter(MysqlRecordFilter::isEnabled).toList();
         }
         return null;
     }
@@ -187,8 +187,8 @@ public class MysqlTableRecordTabController extends DynamicTabController {
         // 设置字段列表
         this.columns = columns;
         // 数据列集合
-        List<FlexTableColumn<DBRecord, Object>> columnList = new ArrayList<>();
-        DBStatusColumn<DBRecord> statusColumn = new DBStatusColumn<>();
+        List<FlexTableColumn<MysqlRecord, Object>> columnList = new ArrayList<>();
+        DBStatusColumn<MysqlRecord> statusColumn = new DBStatusColumn<>();
         columnList.add(statusColumn);
         for (DBColumn column : columns) {
             DBRecordColumn tableColumn = new DBRecordColumn(column);
@@ -203,7 +203,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
      *
      * @param records 数据
      */
-    private void initRecords(List<DBRecord> records) {
+    private void initRecords(List<MysqlRecord> records) {
         this.recordTable.setItem(records);
     }
 
@@ -212,7 +212,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
      */
     @FXML
     private void addRecord() {
-        DBRecord record = new DBRecord();
+        MysqlRecord record = new MysqlRecord();
         record.setCreated(true);
         for (DBColumn column : this.columns) {
             Object val = null;
@@ -230,9 +230,9 @@ public class MysqlTableRecordTabController extends DynamicTabController {
      *
      * @param record 记录
      */
-    private void insertRecord(DBRecord record) {
-        DBRecordData recordData = record.getRecordData();
-        DBRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
+    private void insertRecord(MysqlRecord record) {
+        MysqlRecordData recordData = record.getRecordData();
+        MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
         if (primaryKey != null) {
             this.item.insertRecord(recordData, primaryKey);
             // 处理回显
@@ -247,13 +247,13 @@ public class MysqlTableRecordTabController extends DynamicTabController {
      *
      * @param record 记录
      */
-    private void updateRecord(DBRecord record) {
+    private void updateRecord(MysqlRecord record) {
         // 获取主键
-        DBRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
+        MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
         // 主键存在，则根据主键更新
         if (primaryKey != null) {
             // 记录数据
-            DBRecordData recordData = record.getChangedRecordData();
+            MysqlRecordData recordData = record.getChangedRecordData();
             // 如果主键未变更，则移除主键数据
             if (!record.isColumnChanged(primaryKey.getColumnName())) {
                 recordData.remove(primaryKey.getColumnName());
@@ -264,9 +264,9 @@ public class MysqlTableRecordTabController extends DynamicTabController {
             record.copy(this.item.selectRecord(primaryKey));
         } else {// 主键不存在，则根据所有字段更新
             // 变更数据
-            DBRecordData changedRecordData = record.getChangedRecordData();
+            MysqlRecordData changedRecordData = record.getChangedRecordData();
             // 原始数据
-            DBRecordData originalRecordData = record.getOriginalRecordData();
+            MysqlRecordData originalRecordData = record.getOriginalRecordData();
             // 更新行
             this.item.updateRecord(changedRecordData, originalRecordData);
         }
@@ -278,10 +278,10 @@ public class MysqlTableRecordTabController extends DynamicTabController {
      * @param record 记录
      * @return 主键
      */
-    private DBRecordPrimaryKey initPrimaryKey(DBRecord record) {
+    private MysqlRecordPrimaryKey initPrimaryKey(MysqlRecord record) {
         DBColumn primaryKeyColumn = this.item.getPrimaryKey();
         if (primaryKeyColumn != null) {
-            DBRecordPrimaryKey primaryKey = new DBRecordPrimaryKey();
+            MysqlRecordPrimaryKey primaryKey = new MysqlRecordPrimaryKey();
             primaryKey.init(primaryKeyColumn, record);
             return primaryKey;
         }
@@ -295,8 +295,8 @@ public class MysqlTableRecordTabController extends DynamicTabController {
     private void apply() {
         if (this.apply.isEnable()) {
             try {
-                List<DBRecord> records = this.recordTable.getItems();
-                for (DBRecord record : records) {
+                List<MysqlRecord> records = this.recordTable.getItems();
+                for (MysqlRecord record : records) {
                     if (DBObjectList.isCreated(record)) {
                         this.insertRecord(record);
                         record.clearStatus();
@@ -318,8 +318,8 @@ public class MysqlTableRecordTabController extends DynamicTabController {
     @FXML
     private void discard() {
         try {
-            DBRecord discardRecord = null;
-            for (DBRecord record : this.recordTable.getItems()) {
+            MysqlRecord discardRecord = null;
+            for (MysqlRecord record : this.recordTable.getItems()) {
                 if (record.isCreated()) {
                     discardRecord = record;
                 } else if (record.isChanged()) {
@@ -442,7 +442,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
     @FXML
     private void deleteRecord() {
         try {
-            DBRecord record = this.recordTable.getSelectedItem();
+            MysqlRecord record = this.recordTable.getSelectedItem();
             if (record == null) {
                 return;
             }
@@ -455,13 +455,13 @@ public class MysqlTableRecordTabController extends DynamicTabController {
                 success = true;
             } else {
                 // 获取主键
-                DBRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
+                MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
                 // 主键存在，则根据主键删除
                 if (primaryKey != null) {
                     success = this.item.deleteRecord(primaryKey) == 1;
                 } else {// 主键不存在，则根据所有字段更新
                     // 所有字段数据
-                    DBRecordData recordData = record.getOriginalRecordData();
+                    MysqlRecordData recordData = record.getOriginalRecordData();
                     // 删除行
                     success = this.item.deleteRecord(recordData) == 1;
                 }
@@ -497,10 +497,10 @@ public class MysqlTableRecordTabController extends DynamicTabController {
                     NodeGroupUtil.disable(this.root, "action2");
                 }
             });
-            this.recordTable.getItems().addListener((ListChangeListener<DBRecord>) c -> {
+            this.recordTable.getItems().addListener((ListChangeListener<MysqlRecord>) c -> {
                 if (c.next() && c.wasAdded()) {
-                    List<? extends DBRecord> rows = c.getAddedSubList();
-                    for (DBRecord row : rows) {
+                    List<? extends MysqlRecord> rows = c.getAddedSubList();
+                    for (MysqlRecord row : rows) {
                         if (DBObjectList.isCreated(row)) {
                             this.apply.enable();
                             break;

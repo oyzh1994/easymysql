@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.util;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.record.DBRecordProperty;
+import cn.oyzh.easymysql.db.record.MysqlRecordProperty;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.fx.record.DBBinaryTextFiled;
 import cn.oyzh.easymysql.fx.record.DBJsonTextFiled;
@@ -33,7 +33,7 @@ import java.util.List;
 @UtilityClass
 public class DBRecordUtil {
 
-    public static Node getNode(DBRecordProperty property, Object object, DBColumn column) {
+    public static Node getNode(MysqlRecordProperty property, Object object, DBColumn column) {
         Node node;
         String columnType = column.getType();
         if (column.supportJson()) {
@@ -194,13 +194,13 @@ public class DBRecordUtil {
         return 100;
     }
 
-    public static ContextMenu getColumnContextMenu(DBRecordProperty property) {
+    public static ContextMenu getColumnContextMenu(MysqlRecordProperty property) {
         ContextMenu contextMenu = new ContextMenu();
         contextMenu.getItems().setAll(getColumnMenuItem(property));
         return contextMenu;
     }
 
-    public static List<FXMenuItem> getColumnMenuItem(DBRecordProperty property) {
+    public static List<FXMenuItem> getColumnMenuItem(MysqlRecordProperty property) {
         List<FXMenuItem> menuItems = new ArrayList<>();
         FXMenuItem copy = MenuItemHelper.copy(property::vCopy);
         FXMenuItem paste = MenuItemHelper.paste(property::vPaste);

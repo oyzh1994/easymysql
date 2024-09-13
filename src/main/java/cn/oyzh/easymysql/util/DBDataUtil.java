@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.util;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.HexUtil;
-import cn.oyzh.easymysql.db.record.DBRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.fx.common.util.DateHelper;
@@ -375,7 +375,7 @@ public class DBDataUtil {
      * @param records 记录
      * @return 插入sql
      */
-    public static List<String> toInsertSql(DBColumns columns, List<DBRecord> records) {
+    public static List<String> toInsertSql(DBColumns columns, List<MysqlRecord> records) {
         return toInsertSql(columns, records, false);
     }
 
@@ -387,12 +387,12 @@ public class DBDataUtil {
      * @param includeFields 包含字段
      * @return 插入sql
      */
-    public static List<String> toInsertSql(DBColumns columns, List<DBRecord> records, boolean includeFields) {
+    public static List<String> toInsertSql(DBColumns columns, List<MysqlRecord> records, boolean includeFields) {
         List<String> list = new ArrayList<>();
         String tableName = columns.getTableName();
         List<DBColumn> columnList = columns.sortOfPosition();
         final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName);
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             StringBuilder sql = new StringBuilder(sqlBase);
             if (includeFields) {
                 sql.append("(");
@@ -426,10 +426,10 @@ public class DBDataUtil {
      * @param records 记录
      * @return 插入json
      */
-    public static List<Map<String, Object>> toInsertJson(DBColumns columns, List<DBRecord> records) {
+    public static List<Map<String, Object>> toInsertJson(DBColumns columns, List<MysqlRecord> records) {
         List<Map<String, Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             Map<String, Object> object = new HashMap<>();
             for (DBColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
@@ -448,10 +448,10 @@ public class DBDataUtil {
      * @param records 记录
      * @return 插入xml
      */
-    public static List<Map<String, Object>> toInsertXml(DBColumns columns, List<DBRecord> records) {
+    public static List<Map<String, Object>> toInsertXml(DBColumns columns, List<MysqlRecord> records) {
         List<Map<String, Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             Map<String, Object> object = new HashMap<>();
             for (DBColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
@@ -470,10 +470,10 @@ public class DBDataUtil {
      * @param records 记录
      * @return 插入csv
      */
-    public static List<List<Object>> toInsertCsv(DBColumns columns, List<DBRecord> records) {
+    public static List<List<Object>> toInsertCsv(DBColumns columns, List<MysqlRecord> records) {
         List<List<Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             List<Object> object = new ArrayList<>();
             for (DBColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
@@ -492,10 +492,10 @@ public class DBDataUtil {
      * @param records 记录
      * @return 插入html
      */
-    public static List<List<Object>> toInsertHtml(DBColumns columns, List<DBRecord> records) {
+    public static List<List<Object>> toInsertHtml(DBColumns columns, List<MysqlRecord> records) {
         List<List<Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             List<Object> object = new ArrayList<>();
             for (DBColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
@@ -514,10 +514,10 @@ public class DBDataUtil {
      * @param records 记录
      * @return 插入xls
      */
-    public static List<List<Object>> toInsertXls(DBColumns columns, List<DBRecord> records) {
+    public static List<List<Object>> toInsertXls(DBColumns columns, List<MysqlRecord> records) {
         List<List<Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             List<Object> object = new ArrayList<>();
             for (DBColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.handler.transport;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.oyzh.easymysql.db.record.DBRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.easymysql.fx.data.DataTransportEvent;
@@ -93,7 +93,7 @@ public class MysqlDataTransportHandler extends DataTransportHandler {
         long start = 0;
         while (true) {
             this.checkInterrupt();
-            List<DBRecord> records = this.sourceClient.selectTableRecords(this.sourceDatabase, tableName, start, (long) this.selectLimit, null, null, true);
+            List<MysqlRecord> records = this.sourceClient.selectTableRecords(this.sourceDatabase, tableName, start, (long) this.selectLimit, null, null, true);
             if (CollUtil.isEmpty(records)) {
                 break;
             }

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs;
 
-import cn.oyzh.easymysql.db.query.DBQueryResult;
-import cn.oyzh.easymysql.db.query.DBQueryResults;
+import cn.oyzh.easymysql.db.query.MysqlQueryResult;
+import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.fx.plus.controls.area.FlexTextArea;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.tabs.DynamicTabController;
@@ -19,10 +19,10 @@ public class MysqlQueryInfoTabController extends DynamicTabController {
     @FXML
     private FlexTextArea infoArea;
 
-    public void init(DBQueryResults<?> results) {
+    public void init(MysqlQueryResults<?> results) {
         this.infoArea.clear();
         if (results.isSuccess()) {
-            for (DBQueryResult result : results.getResults()) {
+            for (MysqlQueryResult result : results.getResults()) {
                 this.infoArea.appendLine(result.sql());
                 if (result.success()) {
                     if (result.updateCount() > 0) {

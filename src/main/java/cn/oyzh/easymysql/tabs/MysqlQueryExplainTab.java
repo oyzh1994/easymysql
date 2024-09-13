@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.tabs;
 
-import cn.oyzh.easymysql.db.query.DBExplainResult;
+import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.fx.plus.tabs.DynamicTab;
 
 /**
@@ -20,7 +20,7 @@ public class MysqlQueryExplainTab extends DynamicTab {
         return MysqlTab.BASE_PATH + "dbQueryExplainTab.fxml";
     }
 
-    public void init(String title, DBExplainResult result) {
+    public void init(String title, MysqlExplainResult result) {
         this.setTitle(title);
         this.controller().init(result);
     }

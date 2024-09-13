@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.record.DBRecordFilter;
+import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.MysqlViewTreeItem;
 import cn.oyzh.fx.plus.controls.svg.ViewSVGGlyph;
@@ -86,7 +86,7 @@ public class MysqlViewRecordTab extends MysqlTab {
         return this.item().dbItem();
     }
 
-    public void setFilters(List<DBRecordFilter> filters) {
+    public void setFilters(List<MysqlRecordFilter> filters) {
         this.controller().setFilters(filters);
     }
 }

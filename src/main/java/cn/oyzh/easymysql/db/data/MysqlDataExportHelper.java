@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db.data;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.HexUtil;
-import cn.oyzh.easymysql.db.record.DBRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.easymysql.util.DBDataUtil;
@@ -324,12 +324,12 @@ public class MysqlDataExportHelper {
      * @param config  配置
      * @return 插入sql
      */
-    public static List<String> toExportSql(DBColumns columns, List<DBRecord> records, MysqlDataExportConfig config) {
+    public static List<String> toExportSql(DBColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
         List<String> list = new ArrayList<>();
         String tableName = columns.getTableName();
         List<DBColumn> columnList = columns.sortOfPosition();
         final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName);
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             StringBuilder sql = new StringBuilder(sqlBase);
             if (config.includeFields()) {
                 sql.append("(");
@@ -363,10 +363,10 @@ public class MysqlDataExportHelper {
      * @param records 记录
      * @return 插入json
      */
-    public static List<Map<String, Object>> toExportJson(DBColumns columns, List<DBRecord> records, MysqlDataExportConfig config) {
+    public static List<Map<String, Object>> toExportJson(DBColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
         List<Map<String, Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             Map<String, Object> object = new HashMap<>();
             for (DBColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
@@ -385,10 +385,10 @@ public class MysqlDataExportHelper {
      * @param records 记录
      * @return 插入xml
      */
-    public static List<Map<String, Object>> toExportXml(DBColumns columns, List<DBRecord> records, MysqlDataExportConfig config) {
+    public static List<Map<String, Object>> toExportXml(DBColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
         List<Map<String, Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             Map<String, Object> object = new HashMap<>();
             for (DBColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
@@ -407,10 +407,10 @@ public class MysqlDataExportHelper {
      * @param records 记录
      * @return 插入csv
      */
-    public static List<List<Object>> toExportCsv(DBColumns columns, List<DBRecord> records, MysqlDataExportConfig config) {
+    public static List<List<Object>> toExportCsv(DBColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
         List<List<Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             List<Object> object = new ArrayList<>();
             for (DBColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
@@ -429,10 +429,10 @@ public class MysqlDataExportHelper {
      * @param records 记录
      * @return 插入html
      */
-    public static List<List<Object>> toExportHtml(DBColumns columns, List<DBRecord> records, MysqlDataExportConfig config) {
+    public static List<List<Object>> toExportHtml(DBColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
         List<List<Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             List<Object> object = new ArrayList<>();
             for (DBColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());
@@ -451,10 +451,10 @@ public class MysqlDataExportHelper {
      * @param records 记录
      * @return 插入xls
      */
-    public static List<List<Object>> toExportXls(DBColumns columns, List<DBRecord> records, MysqlDataExportConfig config) {
+    public static List<List<Object>> toExportXls(DBColumns columns, List<MysqlRecord> records, MysqlDataExportConfig config) {
         List<List<Object>> list = new ArrayList<>();
         List<DBColumn> columnList = columns.sortOfPosition();
-        for (DBRecord record : records) {
+        for (MysqlRecord record : records) {
             List<Object> object = new ArrayList<>();
             for (DBColumn dbColumn : columnList) {
                 Object value = record.getValue(dbColumn.getName());

@@ -4,10 +4,10 @@ import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
 import cn.oyzh.easymysql.controller.data.MysqlDataExportController;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.record.DBRecord;
-import cn.oyzh.easymysql.db.record.DBRecordData;
-import cn.oyzh.easymysql.db.record.DBRecordFilter;
-import cn.oyzh.easymysql.db.record.DBRecordPrimaryKey;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecordData;
+import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.easymysql.db.table.DBForeignKey;
@@ -254,10 +254,10 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItem.MysqlTable
         return this.parent.dbItem();
     }
 
-    public Paging<DBRecord> recordPage(long pageNo, long limit, List<DBRecordFilter> filters) {
-        List<DBRecord> rows = this.client().selectTableRecords(this.dbName(), this.tableName(), pageNo * limit, limit, filters);
+    public Paging<MysqlRecord> recordPage(long pageNo, long limit, List<MysqlRecordFilter> filters) {
+        List<MysqlRecord> rows = this.client().selectTableRecords(this.dbName(), this.tableName(), pageNo * limit, limit, filters);
         long count = this.client().tableCount(dbName(), this.tableName(), filters);
-        Paging<DBRecord> paging = new Paging<>(rows, limit, count);
+        Paging<MysqlRecord> paging = new Paging<>(rows, limit, count);
         paging.currentPage(pageNo);
         return paging;
     }
@@ -333,31 +333,31 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItem.MysqlTable
         return true;
     }
 
-    public int insertRecord(DBRecordData recordData) {
+    public int insertRecord(MysqlRecordData recordData) {
         return this.insertRecord(recordData, null);
     }
 
-    public int insertRecord(DBRecordData recordData, DBRecordPrimaryKey primaryKey) {
+    public int insertRecord(MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
         return this.client().insertRecord(this.dbName(), this.tableName(), recordData, primaryKey);
     }
 
-    public int deleteRecord(DBRecordData recordData) {
+    public int deleteRecord(MysqlRecordData recordData) {
         return this.client().deleteRecord(this.dbName(), this.tableName(), recordData);
     }
 
-    public int deleteRecord(DBRecordPrimaryKey primaryKey) {
+    public int deleteRecord(MysqlRecordPrimaryKey primaryKey) {
         return this.client().deleteRecord(this.dbName(), this.tableName(), primaryKey);
     }
 
-    public DBRecord selectRecord(DBRecordPrimaryKey primaryKey) {
+    public MysqlRecord selectRecord(MysqlRecordPrimaryKey primaryKey) {
         return this.client().selectRecord(this.dbName(), this.tableName(), primaryKey);
     }
 
-    public int updateRecord(DBRecordData recordData, DBRecordPrimaryKey primaryKey) {
+    public int updateRecord(MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
         return this.client().updateRecord(this.dbName(), this.tableName(), recordData, primaryKey);
     }
 
-    public int updateRecord(DBRecordData recordData, DBRecordData originalRecordData) {
+    public int updateRecord(MysqlRecordData recordData, MysqlRecordData originalRecordData) {
         return this.client().updateRecord(this.dbName(), this.tableName(), recordData, originalRecordData);
     }
 

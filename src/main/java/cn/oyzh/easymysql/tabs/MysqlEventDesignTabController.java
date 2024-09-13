@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.event.DBEvent;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.fx.DBSqlTextArea;
 import cn.oyzh.easymysql.fx.event.DBEventIntervalTypeCombobox;
 import cn.oyzh.easymysql.fx.event.DBEventOnCompletionCombobox;
@@ -53,7 +53,7 @@ public class MysqlEventDesignTabController extends DynamicTabController {
      */
     @Getter
     @Accessors(fluent = true, chain = true)
-    private DBEvent event;
+    private MysqlEvent event;
 
     /**
      * db数据库树节点
@@ -245,7 +245,7 @@ public class MysqlEventDesignTabController extends DynamicTabController {
      * @param event  事件对象
      * @param dbItem db库树节点
      */
-    public void init(DBEvent event, MysqlDatabaseTreeItem dbItem) {
+    public void init(MysqlEvent event, MysqlDatabaseTreeItem dbItem) {
         this.event = event;
         this.dbItem = dbItem;
 
@@ -381,7 +381,7 @@ public class MysqlEventDesignTabController extends DynamicTabController {
     private void save() {
         try {
             // 创建临时对象
-            DBEvent temp = this.tempData();
+            MysqlEvent temp = this.tempData();
 
             // 事件名称
             String eventName;
@@ -426,9 +426,9 @@ public class MysqlEventDesignTabController extends DynamicTabController {
      *
      * @return 临时数据
      */
-    private DBEvent tempData() {
+    private MysqlEvent tempData() {
         // 创建临时对象
-        DBEvent temp = new DBEvent();
+        MysqlEvent temp = new MysqlEvent();
 
         // 基本信息处理
         temp.setName(this.event.getName());
@@ -618,7 +618,7 @@ public class MysqlEventDesignTabController extends DynamicTabController {
         this.tabPane.selectedIndexChanged((observable, oldValue, newValue) -> {
             if (newValue.intValue() == 3) {
                 String sql;
-                DBEvent temp = this.tempData();
+                MysqlEvent temp = this.tempData();
                 if (this.newData) {
                     if (StrUtil.isBlank(temp.getName())) {
                         temp.setName("Unnamed_Event");

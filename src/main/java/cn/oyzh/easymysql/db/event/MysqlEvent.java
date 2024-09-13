@@ -14,7 +14,7 @@ import java.util.Date;
  * @author oyzh
  * @since 2024/09/09
  */
-public class DBEvent implements ObjectCopier<DBEvent>, ObjectComparator<DBEvent> {
+public class MysqlEvent implements ObjectCopier<MysqlEvent>, ObjectComparator<MysqlEvent> {
 
     /**
      * 名称
@@ -144,7 +144,7 @@ public class DBEvent implements ObjectCopier<DBEvent>, ObjectComparator<DBEvent>
     private String createDefinition;
 
     @Override
-    public void copy(DBEvent obj) {
+    public void copy(MysqlEvent obj) {
         this.setEnds(obj.getEnds());
         this.setType(obj.getType());
         this.setStarts(obj.getStarts());
@@ -164,7 +164,7 @@ public class DBEvent implements ObjectCopier<DBEvent>, ObjectComparator<DBEvent>
     }
 
     @Override
-    public boolean compare(DBEvent value) {
+    public boolean compare(MysqlEvent value) {
         if (value == null) {
             return false;
         }

@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.tabs;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.query.DBExecuteResult;
-import cn.oyzh.easymysql.db.query.DBExplainResult;
-import cn.oyzh.easymysql.db.query.DBQueryResults;
+import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
+import cn.oyzh.easymysql.db.query.MysqlExplainResult;
+import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.easymysql.domain.DBQuery;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
@@ -152,14 +152,14 @@ public class MysqlQueryMainTabController extends DynamicTabController {
         try {
             String sql = this.queryArea.getTextTrim();
             this.resultTabPane.disable();
-            DBQueryResults<DBExecuteResult> results = this.dbItem.executeSql(sql);
+            MysqlQueryResults<MysqlExecuteResult> results = this.dbItem.executeSql(sql);
             this.clearTabs();
             int showType = 1;
             this.initInfoTab(results);
             if (!results.isEmpty()) {
                 int index = 1;
                 this.initInfoTab(results);
-                for (DBExecuteResult result : results.getResults()) {
+                for (MysqlExecuteResult result : results.getResults()) {
                     if (result.success()) {
                         FXTab fxTab = this.initSelectTab(result, I18nHelper.result() + index++);
                         showType = 2;
@@ -188,14 +188,14 @@ public class MysqlQueryMainTabController extends DynamicTabController {
         try {
             String sql = this.queryArea.getTextTrim();
             this.resultTabPane.disable();
-            DBQueryResults<DBExplainResult> results = this.dbItem.explainSql(sql);
+            MysqlQueryResults<MysqlExplainResult> results = this.dbItem.explainSql(sql);
             this.clearTabs();
             int showType = 1;
             this.initInfoTab(results);
             if (!results.isEmpty()) {
                 int index = 1;
                 this.initInfoTab(results);
-                for (DBExplainResult result : results.getResults()) {
+                for (MysqlExplainResult result : results.getResults()) {
                     if (result.success()) {
                         FXTab fxTab = this.initExplainTab(result, I18nHelper.explain() + index++);
                         showType = 2;
@@ -221,7 +221,7 @@ public class MysqlQueryMainTabController extends DynamicTabController {
      *
      * @param results 结果
      */
-    private void initInfoTab(DBQueryResults<?> results) {
+    private void initInfoTab(MysqlQueryResults<?> results) {
         this.infoTab.init(results);
     }
 
@@ -232,7 +232,7 @@ public class MysqlQueryMainTabController extends DynamicTabController {
      * @param title  标题
      * @return tab组件
      */
-    private MysqlQuerySelectTab initSelectTab(DBExecuteResult result, String title) {
+    private MysqlQuerySelectTab initSelectTab(MysqlExecuteResult result, String title) {
         MysqlQuerySelectTab selectTab = new MysqlQuerySelectTab();
         selectTab.init(title, result, this.dbItem);
         selectTab.setId("resultTab");
@@ -247,7 +247,7 @@ public class MysqlQueryMainTabController extends DynamicTabController {
      * @param title  标题
      * @return tab组件
      */
-    private MysqlQueryExplainTab initExplainTab(DBExplainResult result, String title) {
+    private MysqlQueryExplainTab initExplainTab(MysqlExplainResult result, String title) {
         MysqlQueryExplainTab selectTab = new MysqlQueryExplainTab();
         selectTab.init(title, result);
         selectTab.setId("explainTab");

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.generator.event;
 
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.db.event.DBEvent;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
 import lombok.Getter;
 
 /**
@@ -17,9 +17,9 @@ public abstract class EventCreateSqlGenerator {
         this.dialect = dialect;
     }
 
-    public abstract String generate(DBEvent event);
+    public abstract String generate(MysqlEvent event);
 
-    public static String generate(DBDialect dialect, DBEvent event) {
+    public static String generate(DBDialect dialect, MysqlEvent event) {
         return switch (dialect) {
             case MYSQL -> new MysqlEventCreateSqlGenerator().generate(event);
             default -> null;

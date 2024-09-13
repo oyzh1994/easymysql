@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.event;
 
-import cn.oyzh.easymysql.db.record.DBRecordFilter;
+import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.MysqlTableTreeItem;
 import cn.oyzh.fx.plus.event.Event;
@@ -19,7 +19,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class MysqlTableFilteredEvent extends Event<MysqlTableTreeItem> {
 
-    private List<DBRecordFilter> filters;
+    private List<MysqlRecordFilter> filters;
 
     private MysqlDatabaseTreeItem dbItem;
 

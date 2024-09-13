@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.event;
 
 import cn.oyzh.easymysql.db.DBDatabase;
-import cn.oyzh.easymysql.db.event.DBEvent;
-import cn.oyzh.easymysql.db.record.DBRecordFilter;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.routine.DBFunction;
 import cn.oyzh.easymysql.db.routine.DBProcedure;
 import cn.oyzh.easymysql.db.table.DBTable;
@@ -105,14 +105,14 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-    public static void tableFiltered(MysqlTableTreeItem item, List<DBRecordFilter> filters) {
+    public static void tableFiltered(MysqlTableTreeItem item, List<MysqlRecordFilter> filters) {
         MysqlTableFilteredEvent event = new MysqlTableFilteredEvent();
         event.data(item);
         event.filters(filters);
         EventUtil.post(event);
     }
 
-    public static void viewFiltered(MysqlViewTreeItem item, List<DBRecordFilter> filters) {
+    public static void viewFiltered(MysqlViewTreeItem item, List<MysqlRecordFilter> filters) {
         MysqlViewFilteredEvent event = new MysqlViewFilteredEvent();
         event.data(item);
         event.filters(filters);
@@ -205,7 +205,7 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-    public static void designEvent(DBEvent event, MysqlDatabaseTreeItem dbItem) {
+    public static void designEvent(MysqlEvent event, MysqlDatabaseTreeItem dbItem) {
         MysqlEventDesignEvent event1 = new MysqlEventDesignEvent();
         event1.data(event);
         event1.dbItem(dbItem);

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.data;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.oyzh.easymysql.db.event.DBEvent;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.view.FlexListView;
 import cn.oyzh.fx.plus.util.ListViewUtil;
@@ -19,9 +19,9 @@ public class DataTransportEventListView extends FlexListView<FXCheckBox> {
     @Setter
     private Runnable selectedChanged;
 
-    public void of(List<DBEvent> events) {
+    public void of(List<MysqlEvent> events) {
         List<DataTransportEvent> list = CollUtil.newArrayList();
-        for (DBEvent event : events) {
+        for (MysqlEvent event : events) {
             DataTransportEvent obj = new DataTransportEvent();
             obj.setName(event.getName());
             list.add(obj);

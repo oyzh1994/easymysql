@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.popups;
 
-import cn.oyzh.easymysql.db.record.DBRecordFilter;
+import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
@@ -43,37 +43,37 @@ public class MysqlTableRecordFilterPopupController extends PopupController {
      * 表过滤条件表单
      */
     @FXML
-    private FlexTableView<DBRecordFilter> filterTable;
+    private FlexTableView<MysqlRecordFilter> filterTable;
 
     /**
      * 字段列
      */
     @FXML
-    private FlexTableColumn<DBRecordFilter, DBConditionComboBox> column;
+    private FlexTableColumn<MysqlRecordFilter, DBConditionComboBox> column;
 
     /**
      * 条件列
      */
     @FXML
-    private FlexTableColumn<DBRecordFilter, DBConditionComboBox> condition;
+    private FlexTableColumn<MysqlRecordFilter, DBConditionComboBox> condition;
 
     /**
      * 值列
      */
     @FXML
-    private FlexTableColumn<DBRecordFilter, Node> value;
+    private FlexTableColumn<MysqlRecordFilter, Node> value;
 
     /**
      * 启用列
      */
     @FXML
-    private FlexTableColumn<DBRecordFilter, CheckBox> enabled;
+    private FlexTableColumn<MysqlRecordFilter, CheckBox> enabled;
 
     /**
      * 连接符列
      */
     @FXML
-    private FlexTableColumn<DBRecordFilter, ComboBox<String>> joinSymbol;
+    private FlexTableColumn<MysqlRecordFilter, ComboBox<String>> joinSymbol;
 
     /**
      * db表节点
@@ -115,7 +115,7 @@ public class MysqlTableRecordFilterPopupController extends PopupController {
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
         this.treeItem = this.getWindowProp("item");
-        List<DBRecordFilter> filters = this.getWindowProp("filters");
+        List<MysqlRecordFilter> filters = this.getWindowProp("filters");
         this.filterTable.setItem(filters);
     }
 
@@ -148,7 +148,7 @@ public class MysqlTableRecordFilterPopupController extends PopupController {
      */
     @FXML
     private void addFilter() {
-        DBRecordFilter filter = new DBRecordFilter();
+        MysqlRecordFilter filter = new MysqlRecordFilter();
         if (this.columnList == null) {
             this.columnList = this.treeItem.columns();
         }
@@ -162,7 +162,7 @@ public class MysqlTableRecordFilterPopupController extends PopupController {
     @FXML
     private void deleteFilter() {
         try {
-            DBRecordFilter filter = this.filterTable.getSelectedItem();
+            MysqlRecordFilter filter = this.filterTable.getSelectedItem();
             if (filter != null) {
                 this.filterTable.getItems().remove(filter);
             }
