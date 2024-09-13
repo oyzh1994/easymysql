@@ -2,6 +2,8 @@ package cn.oyzh.easymysql.trees.database;
 
 import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
 import cn.oyzh.easymysql.controller.data.MysqlRunSqlFileController;
+import cn.oyzh.easymysql.controller.database.MysqlDatabaseInfoController;
+import cn.oyzh.easymysql.controller.database.MysqlDatabaseUpdateController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
@@ -14,11 +16,9 @@ import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlInfo;
-import cn.oyzh.easymysql.controller.database.MysqlDatabaseInfoController;
-import cn.oyzh.easymysql.controller.database.MysqlDatabaseUpdateController;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
-import cn.oyzh.easymysql.trees.DBTreeItemValue;
+import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.event.MysqlEventTreeItem;
 import cn.oyzh.easymysql.trees.event.MysqlEventTypeTreeItem;
 import cn.oyzh.easymysql.trees.function.MysqlFunctionTreeItem;
@@ -30,22 +30,15 @@ import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTypeTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTypeTreeItem;
-import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
-import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import cn.oyzh.fx.plus.controls.text.FXText;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.fx.plus.menu.MenuItemHelper;
-import cn.oyzh.fx.plus.theme.ThemeManager;
 import cn.oyzh.fx.plus.trees.RichTreeItem;
 import cn.oyzh.fx.plus.trees.RichTreeItemFilter;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
-import javafx.geometry.Insets;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
@@ -58,7 +51,7 @@ import java.util.List;
  * @author oyzh
  * @since 2023/12/12
  */
-public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItem.MysqlDatabaseTreeItemValue> {
+public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue> {
 
     /**
      * 当前值
@@ -511,73 +504,4 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItem.Mysq
         return this.client().dialect();
     }
 
-    /**
-     * database值
-     *
-     * @author oyzh
-     * @since 2023/12/20
-     */
-    public static class MysqlDatabaseTreeItemValue extends DBTreeItemValue {
-
-        /**
-         * db树database节点
-         */
-        private final MysqlDatabaseTreeItem item;
-
-        public MysqlDatabaseTreeItemValue(MysqlDatabaseTreeItem item) {
-            this.item = item;
-            this.flushGraphic();
-            this.flushGraphicColor();
-            this.name(item.dbName());
-        }
-
-        @Override
-        public void flushGraphic() {
-            SVGGlyph glyph = (SVGGlyph) this.graphic();
-            if (glyph == null) {
-                glyph = new SVGGlyph("/font/database2.svg", "12");
-                glyph.disableTheme();
-                this.graphic(glyph);
-            }
-        }
-
-        @Override
-        public void flushGraphicColor() {
-            SVGGlyph glyph = (SVGGlyph) this.graphic();
-            if (this.item.isChildEmpty()) {
-                if (ThemeManager.isDarkMode()) {
-                    glyph.setColor(Color.WHITE);
-                } else {
-                    glyph.setColor(Color.BLACK);
-                }
-            } else {
-                glyph.setColor(Color.GREEN);
-            }
-        }
-
-        /**
-         * 刷新节点数量
-         */
-        public void flushNum() {
-            try {
-                Integer tableSize = this.item.tableSize();
-                // 寻找组件
-                FXText text = (FXText) this.lookup("#num");
-                if (tableSize == null) {
-                    this.removeChild(text);
-                } else {
-                    if (text == null) {
-                        text = new FXText();
-                        this.addChild(text);
-                        text.setId("num");
-                        text.setFill(Color.valueOf("#228B22"));
-                        HBox.setMargin(text, new Insets(0, 0, 0, 3));
-                    }
-                    text.setText("(" + tableSize + ")");
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
 }

@@ -38,7 +38,7 @@ import java.util.List;
  * @author oyzh
  * @since 2024/06/29
  */
-public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeItem.MysqlFunctionTypeTreeItemValue> {
+public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeItemValue> {
 
     /**
      * 值
@@ -78,9 +78,6 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
     }
 
     private void add() {
-        // StageAdapter wrapper = StageManager.parseStage(DBFunctionGuideController.class, this.window());
-        // wrapper.setProp("dbItem", this.dbItem);
-        // wrapper.display();
         MysqlFunction function = new MysqlFunction();
         function.setDbName(this.dbName());
         MysqlEventUtil.designFunction(function, this.dbItem);
@@ -200,64 +197,5 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
         return this.client().functionSize(this.dbName(), null);
     }
 
-    /**
-     * db树视图类型值
-     *
-     * @author oyzh
-     * @since 2024/06/28
-     */
-    public static class MysqlFunctionTypeTreeItemValue extends DBTreeItemValue {
 
-        private final MysqlFunctionTypeTreeItem item;
-
-        public MysqlFunctionTypeTreeItemValue(MysqlFunctionTypeTreeItem item) {
-            this.item = item;
-            this.flushGraphic();
-            this.name(item.value());
-        }
-
-        @Override
-        public void flushGraphic() {
-            if (this.graphic() == null) {
-                FunctionSVGGlyph glyph = new FunctionSVGGlyph("12");
-                glyph.disableTheme();
-                this.graphic(glyph);
-            }
-        }
-
-        @Override
-        public void flushGraphicColor() {
-            SVGGlyph glyph = (SVGGlyph) this.graphic();
-            if (this.item.isChildEmpty()) {
-                glyph.setColor((Paint) null);
-            } else {
-                glyph.setColor(Color.GREEN);
-            }
-        }
-
-        /**
-         * 刷新节点数量
-         */
-        public void flushNum() {
-            try {
-                Integer size = this.item.functionSize();
-                // 寻找组件
-                FXText text = (FXText) this.lookup("#num");
-                if (size == null) {
-                    this.removeChild(text);
-                } else {
-                    if (text == null) {
-                        text = new FXText();
-                        this.addChild(text);
-                        text.setId("num");
-                        text.setFill(Color.valueOf("#228B22"));
-                        HBox.setMargin(text, new Insets(0, 0, 0, 3));
-                    }
-                    text.setTextExt("(" + size + ")");
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
 }
