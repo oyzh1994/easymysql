@@ -18,7 +18,7 @@ import cn.oyzh.easymysql.db.table.DBTable;
 import cn.oyzh.easymysql.db.table.DBTrigger;
 import cn.oyzh.easymysql.db.table.DBTriggers;
 import cn.oyzh.easymysql.domain.DBInfo;
-import cn.oyzh.easymysql.controller.MysqlTableInfoController;
+import cn.oyzh.easymysql.controller.table.MysqlTableInfoController;
 import cn.oyzh.easymysql.module.mysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.util.DBI18nHelper;
 import cn.oyzh.fx.common.dto.Paging;

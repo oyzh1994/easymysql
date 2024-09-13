@@ -9,7 +9,7 @@ import cn.oyzh.easymysql.db.table.DBColumn;
 import cn.oyzh.easymysql.db.table.DBColumns;
 import cn.oyzh.easymysql.db.view.DBView;
 import cn.oyzh.easymysql.domain.DBInfo;
-import cn.oyzh.easymysql.controller.MysqlViewInfoController;
+import cn.oyzh.easymysql.controller.view.MysqlViewInfoController;
 import cn.oyzh.easymysql.module.mysql.event.MysqlEventUtil;
 import cn.oyzh.fx.common.dto.Paging;
 import cn.oyzh.fx.plus.controls.svg.ViewSVGGlyph;

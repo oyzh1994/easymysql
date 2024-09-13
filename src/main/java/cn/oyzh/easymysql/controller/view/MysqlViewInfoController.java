@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.controller;
+package cn.oyzh.easymysql.controller.view;
 
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.view.DBView;

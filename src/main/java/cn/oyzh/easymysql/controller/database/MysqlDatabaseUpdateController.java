@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.controller;
+package cn.oyzh.easymysql.controller.database;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.MysqlConst;
