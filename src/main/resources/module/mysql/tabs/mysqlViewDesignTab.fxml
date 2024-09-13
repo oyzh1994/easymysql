@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.easydb.fx.DBSqlTextArea?>
+<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.svg.SaveSVGGlyph?>
+<?import cn.oyzh.fx.plus.controls.tab.FlexTabPane?>
+<?import cn.oyzh.fx.plus.controls.tab.FXTab?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import cn.oyzh.fx.plus.controls.text.AccentLabel?>
+<?import cn.oyzh.easydb.fx.view.DBViewAlgorithmComboBox?>
+<?import cn.oyzh.easydb.fx.DBSecurityTypeComboBox?>
+<?import cn.oyzh.easydb.fx.view.DBViewCheckOptionComboBox?>
+<?import cn.oyzh.fx.plus.controls.textfield.FlexTextField?>
+<FlexVBox xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="cn.oyzh.easydb.module.mysql.tabs.MysqlViewDesignTabController" flexWidth="100%" flexHeight="100%">
+    <FlexHBox realHeight="25" flexWidth="100%">
+        <SaveSVGGlyph fx:id="save" onMousePrimaryClicked="#save" size="14">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </SaveSVGGlyph>
+    </FlexHBox>
+    <FlexTabPane flexWidth="100%" flexHeight="100% - 25">
+        <FXTab text="%base.definition">
+            <DBSqlTextArea showLine="true" fontSize="12" fx:id="definition" flexHeight="100%" flexWidth="100%"/>
+        </FXTab>
+        <FXTab text="%base.advanced">
+            <FlexVBox flexHeight="100%" flexWidth="100%">
+                <FlexHBox realHeight="50" flexWidth="100%">
+                    <AccentLabel text="%base.algorithm" realWidth="85" realHeight="25">
+                        <HBox.margin>
+                            <Insets left="20" top="12"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <DBViewAlgorithmComboBox fx:id="algorithm" flexWidth="100% - 140" realHeight="30">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </DBViewAlgorithmComboBox>
+                </FlexHBox>
+                <FlexHBox realHeight="50" flexWidth="100%">
+                    <AccentLabel realWidth="85" text="%base.definer" realHeight="25">
+                        <HBox.margin>
+                            <Insets left="20" top="12"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <FlexTextField fx:id="definer" flexWidth="100% - 140" realHeight="30">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </FlexTextField>
+                </FlexHBox>
+                <FlexHBox realHeight="50" flexWidth="100%" >
+                    <AccentLabel realWidth="85" text="%base.securityType" realHeight="25">
+                        <HBox.margin>
+                            <Insets left="20" top="12"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <DBSecurityTypeComboBox fx:id="securityType" flexWidth="100% - 140" realHeight="30">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </DBSecurityTypeComboBox>
+                </FlexHBox>
+                <FlexHBox realHeight="50" flexWidth="100%">
+                    <AccentLabel realWidth="85" text="%base.checkOption" realHeight="25">
+                        <HBox.margin>
+                            <Insets left="20" top="12"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <DBViewCheckOptionComboBox fx:id="checkOption" flexWidth="100% - 140" realHeight="30">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </DBViewCheckOptionComboBox>
+                </FlexHBox>
+            </FlexVBox>
+        </FXTab>
+    </FlexTabPane>
+</FlexVBox>
+

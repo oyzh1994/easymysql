@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.easydb.fx.data.DataDateTextFiled?>
+<?import cn.oyzh.easydb.fx.data.DataFieldSeparatorComboBox?>
+<?import cn.oyzh.easydb.fx.data.DataImportFileTableView?>
+<?import cn.oyzh.easydb.fx.data.DataImportTableComboBox?>
+<?import cn.oyzh.easydb.fx.data.DataRecordLabelComboBox?>
+<?import cn.oyzh.easydb.fx.data.DataRecordSeparatorComboBox?>
+<?import cn.oyzh.easydb.fx.data.DataTxtIdentifierComboBox?>
+<?import cn.oyzh.easydb.fx.table.DBTableComboBox?>
+<?import cn.oyzh.fx.plus.controls.area.MsgTextArea?>
+<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.button.CancelButton?>
+<?import cn.oyzh.fx.plus.controls.button.FlexButton?>
+<?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
+<?import cn.oyzh.fx.plus.controls.button.FXRadioButton?>
+<?import cn.oyzh.fx.plus.controls.button.ImportButton?>
+<?import cn.oyzh.fx.plus.controls.button.NextStepButton?>
+<?import cn.oyzh.fx.plus.controls.button.PrevStepButton?>
+<?import cn.oyzh.fx.plus.controls.button.StopButton?>
+<?import cn.oyzh.fx.plus.controls.table.FlexTableColumn?>
+<?import cn.oyzh.fx.plus.controls.text.FlexLabel?>
+<?import cn.oyzh.fx.plus.controls.text.FXLabel?>
+<?import cn.oyzh.fx.plus.controls.textfield.NumberTextField?>
+<?import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="cn.oyzh.easydb.controller.data.DBDataImportController" realWidth="700" realHeight="650">
+    <FlexVBox fx:id="step1" flexHeight="100%" flexWidth="100%">
+        <FlexLabel text="%db.import.tip1" realHeight="30" fontSize="16">
+            <VBox.margin>
+                <Insets left="30" top="10"/>
+            </VBox.margin>
+        </FlexLabel>
+        <FlexVBox flexHeight="100% - 100" flexWidth="100%">
+            <fx:define>
+                <FXToggleGroup fx:id="fileType"/>
+            </fx:define>
+            <FXRadioButton toggleGroup="$fileType" text="%base.jsonType" userData="json">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FXRadioButton>
+            <FXRadioButton toggleGroup="$fileType" text="%base.xmlType" userData="xml">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FXRadioButton>
+            <FXRadioButton toggleGroup="$fileType" text="%base.csvType" userData="csv">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FXRadioButton>
+            <FXRadioButton toggleGroup="$fileType" text="%base.excelType" userData="excel">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FXRadioButton>
+            <FXRadioButton toggleGroup="$fileType" text="%base.txtType" userData="txt">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FXRadioButton>
+        </FlexVBox>
+        <FlexHBox flexWidth="100%" realHeight="50">
+            <NextStepButton onAction="#showStep2" realHeight="30" iconSizePercent="0.75">
+                <HBox.margin>
+                    <Insets left="30" top="10"/>
+                </HBox.margin>
+            </NextStepButton>
+            <CancelButton iconSizePercent="0.6" realHeight="30">
+                <HBox.margin>
+                    <Insets left="15" top="10"/>
+                </HBox.margin>
+            </CancelButton>
+        </FlexHBox>
+    </FlexVBox>
+    <FlexVBox fx:id="step2" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
+        <FlexLabel text="%db.import.tip2" realHeight="30" fontSize="16">
+            <VBox.margin>
+                <Insets left="30" top="10"/>
+            </VBox.margin>
+        </FlexLabel>
+        <FlexVBox flexHeight="100% - 100" flexWidth="100%">
+            <DataImportFileTableView fx:id="importFileTableView" flexHeight="100% - 60" flexWidth="100% - 40">
+                <columns>
+                    <FlexTableColumn flexWidth="100% -10" fx:id="importFilePath" text="%base.filePath"
+                                     resizable="false"/>
+                </columns>
+                <VBox.margin>
+                    <Insets left="30" top="10"/>
+                </VBox.margin>
+            </DataImportFileTableView>
+            <FlexHBox flexWidth="100%" realHeight="50">
+                <FlexButton text="%base.add" onAction="#addFile" realHeight="30">
+                    <HBox.margin>
+                        <Insets left="30" top="10"/>
+                    </HBox.margin>
+                </FlexButton>
+                <FlexButton text="%base.delete" onAction="#deleteFile" realHeight="30">
+                    <HBox.margin>
+                        <Insets left="15" top="10"/>
+                    </HBox.margin>
+                </FlexButton>
+            </FlexHBox>
+        </FlexVBox>
+        <FlexHBox flexWidth="100%" realHeight="50">
+            <PrevStepButton onAction="#showStep1" realHeight="30" iconSizePercent="0.75">
+                <HBox.margin>
+                    <Insets left="30" top="10"/>
+                </HBox.margin>
+            </PrevStepButton>
+            <NextStepButton onAction="#showStep3" realHeight="30" iconSizePercent="0.75">
+                <HBox.margin>
+                    <Insets left="15" top="10"/>
+                </HBox.margin>
+            </NextStepButton>
+            <CancelButton iconSizePercent="0.6" realHeight="30">
+                <HBox.margin>
+                    <Insets left="15" top="10"/>
+                </HBox.margin>
+            </CancelButton>
+        </FlexHBox>
+    </FlexVBox>
+    <FlexVBox fx:id="step3" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
+        <FlexLabel text="%db.import.tip3" realHeight="30" fontSize="16">
+            <VBox.margin>
+                <Insets left="30" top="10"/>
+            </VBox.margin>
+        </FlexLabel>
+        <FlexVBox flexHeight="100% - 100" flexWidth="100%">
+            <FXCheckBox fx:id="attrToColumn" text="%db.import.tip7" managed="false" visible="false"
+                        groupId="attrToColumn">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FXCheckBox>
+            <FlexLabel text="%db.import.tip10" realHeight="30" fontWeight="BOLD" managed="false" visible="false"
+                       groupId="recordLabel">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FlexLabel>
+            <DataRecordLabelComboBox flexWidth="100% - 140" realHeight="30" initIndex="1" fx:id="recordLabel" managed="false" visible="false"
+                                     groupId="recordLabel">
+                <VBox.margin>
+                    <Insets left="30" top="5"/>
+                </VBox.margin>
+            </DataRecordLabelComboBox>
+            <FlexLabel text="%db.import.tip8" fontWeight="BOLD" realHeight="30" managed="false" visible="false"
+                       groupId="columnIndex">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FlexLabel>
+            <NumberTextField flexWidth="100% - 140" realHeight="30" min="1" value="1" managed="false" visible="false"
+                             fx:id="columnIndex"
+                             groupId="columnIndex">
+                <VBox.margin>
+                    <Insets left="30" top="5"/>
+                </VBox.margin>
+            </NumberTextField>
+            <FlexLabel text="%db.import.tip9" realHeight="30" fontWeight="BOLD" managed="false"
+                       visible="false" groupId="dataStartIndex">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FlexLabel>
+            <NumberTextField flexWidth="100% - 140" realHeight="30" min="1" value="2" fx:id="dataStartIndex"
+                             managed="false" visible="false"
+                             groupId="dataStartIndex">
+                <VBox.margin>
+                    <Insets left="30" top="5"/>
+                </VBox.margin>
+            </NumberTextField>
+            <FlexLabel text="%base.recordSeparator" realHeight="30" fontWeight="BOLD" managed="false" visible="false"
+                       groupId="recordSeparator">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FlexLabel>
+            <DataRecordSeparatorComboBox flexWidth="100% - 140" realHeight="30" fx:id="recordSeparator" managed="false"
+                                         visible="false"
+                                         groupId="recordSeparator">
+                <VBox.margin>
+                    <Insets left="30" top="5"/>
+                </VBox.margin>
+            </DataRecordSeparatorComboBox>
+            <FlexLabel text="%base.fieldSeparator" realHeight="30" fontWeight="BOLD" managed="false" visible="false"
+                       groupId="fieldSeparator">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FlexLabel>
+            <DataFieldSeparatorComboBox initIndex="0" flexWidth="100% - 140" realHeight="30" managed="false" visible="false"
+                                        fx:id="fieldSeparator"
+                                        groupId="fieldSeparator">
+                <VBox.margin>
+                    <Insets left="30" top="5"/>
+                </VBox.margin>
+            </DataFieldSeparatorComboBox>
+            <FlexLabel text="%base.txtIdentifier" realHeight="30" fontWeight="BOLD" managed="false" visible="false"
+                       groupId="txtIdentifier">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FlexLabel>
+            <DataTxtIdentifierComboBox initIndex="0" flexWidth="100% - 140" realHeight="30" managed="false" visible="false"
+                                       fx:id="txtIdentifier"
+                                       groupId="txtIdentifier">
+                <VBox.margin>
+                    <Insets left="30" top="5"/>
+                </VBox.margin>
+            </DataTxtIdentifierComboBox>
+            <FlexLabel text="%base.dateFormat" realHeight="30" fontWeight="BOLD">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FlexLabel>
+            <FlexHBox realHeight="30" flexWidth="100%">
+                <DataDateTextFiled flexWidth="100% - 320" realHeight="30" promptText="%db.export.tip9"
+                                   text="yyyy-MM-dd HH:mm:ss" fx:id="dateFormat">
+                    <HBox.margin>
+                        <Insets left="30" top="5"/>
+                    </HBox.margin>
+                </DataDateTextFiled>
+                <FlexLabel fx:id="datePreview">
+                    <HBox.margin>
+                        <Insets left="10" top="10"/>
+                    </HBox.margin>
+                </FlexLabel>
+            </FlexHBox>
+        </FlexVBox>
+        <FlexHBox flexWidth="100%" realHeight="50">
+            <PrevStepButton onAction="#showStep2" realHeight="30" iconSizePercent="0.75">
+                <HBox.margin>
+                    <Insets left="30" top="10"/>
+                </HBox.margin>
+            </PrevStepButton>
+            <NextStepButton onAction="#showStep4" realHeight="30" iconSizePercent="0.75">
+                <HBox.margin>
+                    <Insets left="15" top="10"/>
+                </HBox.margin>
+            </NextStepButton>
+            <CancelButton iconSizePercent="0.6" realHeight="30">
+                <HBox.margin>
+                    <Insets left="15" top="10"/>
+                </HBox.margin>
+            </CancelButton>
+        </FlexHBox>
+    </FlexVBox>
+    <FlexVBox fx:id="step4" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
+        <FlexLabel text="%db.import.tip4" realHeight="30" fontSize="16">
+            <VBox.margin>
+                <Insets left="30" top="10"/>
+            </VBox.margin>
+        </FlexLabel>
+        <FlexVBox flexHeight="100% - 100" flexWidth="100%">
+            <FlexHBox>
+                <FlexLabel text="%base.source" realHeight="30">
+                    <HBox.margin>
+                        <Insets left="30" top="10"/>
+                    </HBox.margin>
+                </FlexLabel>
+                <DataImportTableComboBox realHeight="30" flexWidth="100% - 140" fx:id="sourceTableCombobox">
+                    <HBox.margin>
+                        <Insets left="15" top="10"/>
+                    </HBox.margin>
+                </DataImportTableComboBox>
+            </FlexHBox>
+            <FlexHBox>
+                <FlexLabel text="%base.target" realHeight="30">
+                    <HBox.margin>
+                        <Insets left="30" top="10"/>
+                    </HBox.margin>
+                </FlexLabel>
+                <DBTableComboBox realHeight="30" flexWidth="100% - 140" fx:id="targetTableCombobox">
+                    <HBox.margin>
+                        <Insets left="15" top="10"/>
+                    </HBox.margin>
+                </DBTableComboBox>
+            </FlexHBox>
+        </FlexVBox>
+        <FlexHBox flexWidth="100%" realHeight="40">
+            <PrevStepButton onAction="#showStep3" realHeight="30" iconSizePercent="0.75">
+                <HBox.margin>
+                    <Insets left="30" top="10"/>
+                </HBox.margin>
+            </PrevStepButton>
+            <NextStepButton onAction="#showStep5" realHeight="30" iconSizePercent="0.75">
+                <HBox.margin>
+                    <Insets left="15" top="10"/>
+                </HBox.margin>
+            </NextStepButton>
+        </FlexHBox>
+    </FlexVBox>
+    <FlexVBox fx:id="step5" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
+        <FlexLabel text="%db.import.tip5" realHeight="30" fontSize="16">
+            <VBox.margin>
+                <Insets left="30" top="10"/>
+            </VBox.margin>
+        </FlexLabel>
+        <FlexVBox flexWidth="100%" flexHeight="100% - 100">
+            <fx:define>
+                <FXToggleGroup fx:id="importMode"/>
+            </fx:define>
+            <FXRadioButton toggleGroup="$importMode" text="%db.import.tip11" selected="true" userData="1">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FXRadioButton>
+            <FXRadioButton toggleGroup="$importMode" text="%db.import.tip12" userData="2">
+                <VBox.margin>
+                    <Insets left="30" top="15"/>
+                </VBox.margin>
+            </FXRadioButton>
+        </FlexVBox>
+        <FlexHBox flexWidth="100%" realHeight="50">
+            <PrevStepButton onAction="#showStep4" realHeight="30" iconSizePercent="0.75">
+                <HBox.margin>
+                    <Insets left="30" top="10"/>
+                </HBox.margin>
+            </PrevStepButton>
+            <NextStepButton onAction="#showStep6" realHeight="30" iconSizePercent="0.75">
+                <HBox.margin>
+                    <Insets left="15" top="10"/>
+                </HBox.margin>
+            </NextStepButton>
+        </FlexHBox>
+    </FlexVBox>
+    <FlexVBox fx:id="step6" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
+        <FlexLabel text="%db.import.tip6" realHeight="30" fontSize="16">
+            <VBox.margin>
+                <Insets left="30" top="10"/>
+            </VBox.margin>
+        </FlexLabel>
+        <FlexVBox flexWidth="100%" flexHeight="100% - 100">
+            <MsgTextArea lineLimit="300" fx:id="importMsg" flexWidth="100% - 80" flexHeight="100% - 50">
+                <VBox.margin>
+                    <Insets left="30" top="10"/>
+                </VBox.margin>
+            </MsgTextArea>
+            <FXLabel fx:id="importStatus" realHeight="30">
+                <VBox.margin>
+                    <Insets left="30"/>
+                </VBox.margin>
+            </FXLabel>
+        </FlexVBox>
+        <FlexHBox flexWidth="100%" realHeight="50">
+            <PrevStepButton onAction="#showStep5" groupId="exec" realHeight="30" iconSizePercent="0.75">
+                <HBox.margin>
+                    <Insets left="30" top="10"/>
+                </HBox.margin>
+            </PrevStepButton>
+            <ImportButton tipText="%base.start" groupId="exec" onAction="#doImport" realHeight="30">
+                <HBox.margin>
+                    <Insets left="15" top="10"/>
+                </HBox.margin>
+            </ImportButton>
+            <StopButton disable="true" fx:id="stopImportBtn" onAction="#stopImport" realHeight="30"
+                        iconSizePercent="0.9">
+                <HBox.margin>
+                    <Insets left="15" top="10"/>
+                </HBox.margin>
+            </StopButton>
+            <CancelButton iconSizePercent="0.6" realHeight="30">
+                <HBox.margin>
+                    <Insets left="15" top="10"/>
+                </HBox.margin>
+            </CancelButton>
+        </FlexHBox>
+    </FlexVBox>
+</FlexVBox>

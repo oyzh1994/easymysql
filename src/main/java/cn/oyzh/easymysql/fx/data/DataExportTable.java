@@ -1,0 +1,196 @@
+package cn.oyzh.easymysql.fx.data;
+
+import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.fx.data.DataExportColumn;
+import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
+import cn.oyzh.fx.plus.controls.textfield.SaveFileTextField;
+import cn.oyzh.fx.plus.file.FileChooserHelper;
+import cn.oyzh.fx.plus.file.FileExtensionFilter;
+import cn.oyzh.fx.plus.util.TableViewUtil;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+/**
+ * @author oyzh
+ * @since 2024/08/27
+ */
+public class DataExportTable {
+
+    /**
+     * 表名称
+     */
+    @Getter
+    @Setter
+    private String name;
+
+    /**
+     * 字段列表
+     */
+    @Getter
+    @Setter
+    private List<DataExportColumn> columns;
+
+    /**
+     * 文件路径属性
+     */
+    private StringProperty filePathProperty;
+
+    /**
+     * 是否选中属性
+     */
+    private BooleanProperty selectedProperty;
+
+    /**
+     * 扩展后缀属性
+     */
+    private ObjectProperty<FileExtensionFilter> extensionProperty;
+
+    public BooleanProperty selectedProperty() {
+        if (this.selectedProperty == null) {
+            this.selectedProperty = new SimpleBooleanProperty(false);
+            this.selectedProperty.addListener((observable, oldValue, newValue) -> {
+                if (newValue && this.getFilePath() == null) {
+                    this.updateFilePath();
+                }
+            });
+        }
+        return this.selectedProperty;
+    }
+
+    public boolean isSelected() {
+        return this.selectedProperty != null && this.selectedProperty.get();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selectedProperty().set(selected);
+    }
+
+    public FlexCheckBox getSelectedControl() {
+        FlexCheckBox checkBox = new FlexCheckBox();
+        checkBox.setSelected(this.isSelected());
+        AtomicBoolean ignoreChanged = new AtomicBoolean(false);
+        checkBox.selectedChanged((observable, oldValue, newValue) -> {
+            ignoreChanged.set(true);
+            this.setSelected(newValue);
+            ignoreChanged.set(false);
+        });
+        this.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!ignoreChanged.get()) {
+                checkBox.setSelected(newValue);
+            }
+        });
+        TableViewUtil.selectRowOnMouseClicked(checkBox);
+        return checkBox;
+    }
+
+    public StringProperty filePathProperty() {
+        if (filePathProperty == null) {
+            this.filePathProperty = new SimpleStringProperty();
+        }
+        return this.filePathProperty;
+    }
+
+    public String getFilePath() {
+        return filePathProperty == null ? null : filePathProperty.get();
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePathProperty().set(filePath);
+    }
+
+    public SaveFileTextField getFilePathControl() {
+        SaveFileTextField textField = new SaveFileTextField();
+        textField.setText(this.getFilePath());
+        textField.setExtension(this.getExtension());
+        textField.setInitFileName(this.fileName());
+        textField.setOnSelectedFile(file -> {
+            textField.setText(file.getPath());
+            textField.setInitFileName(file.getName());
+            this.setFilePath(file.getPath());
+        });
+        this.filePathProperty().addListener((observable, oldValue, newValue) -> textField.setText(newValue));
+        this.extensionProperty().addListener((observable, oldValue, newValue) -> {
+            textField.setExtension(newValue);
+            textField.setInitFileName(this.fileName());
+        });
+        TableViewUtil.rowOnCtrlS(textField);
+        TableViewUtil.selectRowOnMouseClicked(textField);
+        return textField;
+    }
+
+    public ObjectProperty<FileExtensionFilter> extensionProperty() {
+        if (this.extensionProperty == null) {
+            this.extensionProperty = new SimpleObjectProperty<>();
+            this.extensionProperty.addListener((observable, oldValue, newValue) -> this.updateFilePath());
+        }
+        return this.extensionProperty;
+    }
+
+    public FileExtensionFilter getExtension() {
+        return this.extensionProperty == null ? null : this.extensionProperty.get();
+    }
+
+    public void setExtension(FileExtensionFilter extension) {
+        this.extensionProperty().set(extension);
+    }
+
+    private String fileName() {
+        if (this.getExtension() != null) {
+            return this.name + this.getExtension().getExtension().substring(1);
+        }
+        return "";
+    }
+
+    public void columns(List<? extends DBColumn> columns) {
+        this.columns = new ArrayList<>();
+        for (DBColumn column : columns) {
+            DataExportColumn exportColumn = new DataExportColumn();
+            exportColumn.copy(column);
+            this.columns.add(exportColumn);
+        }
+    }
+
+    public List<DBColumn> columns() {
+        return new ArrayList<>(this.columns);
+    }
+
+    public List<DBColumn> selectedColumns() {
+        List<DBColumn> selectedColumns = new ArrayList<>();
+        for (DataExportColumn column : this.columns) {
+            if (column.isSelected()) {
+                selectedColumns.add(column);
+            }
+        }
+        return selectedColumns;
+    }
+
+    public List<String> selectedColumnNames() {
+        List<String> selectedColumns = new ArrayList<>();
+        for (DBColumn column : this.selectedColumns()) {
+            selectedColumns.add(column.getName());
+        }
+        return selectedColumns;
+    }
+
+    public boolean hasColumns() {
+        return CollUtil.isNotEmpty(this.columns);
+    }
+
+    private void updateFilePath() {
+        if (this.isSelected() || this.getFilePath() != null) {
+            this.setFilePath(FileChooserHelper.DESKTOP_DIR + File.separator + this.fileName());
+        }
+    }
+}

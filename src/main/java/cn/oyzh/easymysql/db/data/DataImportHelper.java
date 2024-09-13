@@ -1,0 +1,91 @@
+package cn.oyzh.easymysql.db.data;
+
+import cn.hutool.core.date.DateUtil;
+import cn.oyzh.easymysql.db.record.DBRecord;
+import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.db.table.DBColumns;
+import cn.oyzh.easymysql.util.DBDataUtil;
+import cn.oyzh.easymysql.util.DBUtil;
+import lombok.experimental.UtilityClass;
+
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @author oyzh
+ * @since 2024/09/02
+ */
+@UtilityClass
+public class DataImportHelper {
+
+    /**
+     * 参数化
+     *
+     * @param column 字段
+     * @param value  值
+     * @return 参数化后的值
+     */
+    public static Object parameterized(DBColumn column, Object value, DataImportConfig config) throws ParseException {
+        if (value == null) {
+            return null;
+        }
+        if (value.toString().isEmpty()) {
+            return null;
+        }
+        if (column.isDateType()) {
+            if (value instanceof CharSequence date) {
+                Date date1 = DateUtil.parse(date, config.dateFormat());
+                return DateUtil.format(date1, "yyyy-MM-dd HH:mm:ss");
+            }
+        }
+        if (column.supportTimestamp()) {
+            if (value instanceof CharSequence date) {
+                LocalDateTime date1 = DateUtil.parseLocalDateTime(date, config.dateFormat());
+                return DateUtil.format(date1, "yyyy-MM-dd HH:mm:ss");
+            }
+            if (value instanceof Date date) {
+                return DateUtil.format(date, "yyyy-MM-dd HH:mm:ss");
+            }
+        }
+        if (column.supportString()) {
+            return DBDataUtil.escapeQuotes(value.toString());
+        }
+        return value;
+    }
+
+    /**
+     * 转换为插入sql
+     *
+     * @param columns 字段列表
+     * @param records 记录
+     * @param config  配置
+     * @return 插入sql
+     */
+    public static List<String> toInsertSql(DBColumns columns, List<DBRecord> records, DataImportConfig config) throws Exception {
+        List<String> insertSql = new ArrayList<>();
+        for (DBRecord record : records) {
+            StringBuilder sql = new StringBuilder("INSERT INTO ");
+            sql.append(DBUtil.wrap(columns.getTableName()));
+            sql.append("(");
+            for (DBColumn column : columns) {
+                sql.append(DBUtil.wrap(column.getName())).append(", ");
+            }
+            sql.deleteCharAt(sql.length() - 2);
+            sql.append(") VALUES (");
+            for (DBColumn column : columns) {
+                Object val = record.getValue(column.getName());
+                val = DBUtil.unwrapData(val);
+                val = parameterized(column, val, config);
+                sql.append(DBUtil.wrapData(val)).append(", ");
+            }
+            sql.deleteCharAt(sql.length() - 2);
+            sql.append(")");
+            insertSql.add(sql.toString());
+            System.out.println(sql);
+        }
+        return insertSql;
+    }
+}

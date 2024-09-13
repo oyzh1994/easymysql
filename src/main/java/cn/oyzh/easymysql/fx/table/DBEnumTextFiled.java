@@ -1,0 +1,80 @@
+package cn.oyzh.easymysql.fx.table;
+
+import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.easymysql.popups.DBColumnEnumPopupController;
+import cn.oyzh.fx.plus.controls.textfield.ChooseTextField;
+import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
+import cn.oyzh.fx.plus.controls.view.FlexListView;
+import cn.oyzh.fx.plus.i18n.I18nHelper;
+import cn.oyzh.fx.plus.window.PopupAdapter;
+import cn.oyzh.fx.plus.window.PopupManager;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author oyzh
+ * @since 2024/7/10
+ */
+public class DBEnumTextFiled extends ChooseTextField {
+
+    {
+        super.setAction(this::initPopup);
+        this.setPromptText(I18nHelper.pleaseSelectContent());
+    }
+
+    private List<String> values;
+
+    public DBEnumTextFiled() {
+    }
+
+    public DBEnumTextFiled(List<String> values) {
+        this.values = values;
+    }
+
+    private PopupAdapter popup;
+
+    protected void initPopup() {
+        this.popup = PopupManager.parsePopup(DBColumnEnumPopupController.class);
+        this.popup.setProp("values", this.values);
+        this.popup.setProp("onSubmit", (Runnable) () -> {
+            FlexListView<ClearableTextField> listView = this.listView();
+            if (listView != null) {
+                this.values = new ArrayList<>();
+                for (ClearableTextField item : listView.getItems()) {
+                    this.values.add(item.getTextTrim());
+                }
+            }
+            this.initText();
+        });
+        this.popup.showPopup(this);
+    }
+
+    public void initText() {
+        if (CollUtil.isEmpty(this.values)) {
+            this.setText("");
+        } else {
+            StringBuilder builder = new StringBuilder();
+            for (String value : this.values) {
+                builder.append(",").append("'").append(value).append("'");
+            }
+            this.setText(builder.substring(1));
+        }
+    }
+
+    public void setValues(List<String> values) {
+        this.values = values;
+        FlexListView listView = this.listView();
+        if (listView != null) {
+            listView.setItem(values);
+        }
+        this.initText();
+    }
+
+    protected FlexListView<ClearableTextField> listView() {
+        if (this.popup != null) {
+            return (FlexListView<ClearableTextField>) this.popup.content().lookup("#listView");
+        }
+        return null;
+    }
+}

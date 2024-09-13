@@ -1,0 +1,74 @@
+package cn.oyzh.easymysql.fx.data;
+
+import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.easymysql.db.event.DBEvent;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
+import cn.oyzh.fx.plus.controls.view.FlexListView;
+import cn.oyzh.fx.plus.util.ListViewUtil;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author oyzh
+ * @since 2024/09/05
+ */
+public class DataTransportEventListView extends FlexListView<FXCheckBox> {
+
+    @Setter
+    private Runnable selectedChanged;
+
+    public void of(List<DBEvent> events) {
+        List<DataTransportEvent> list = CollUtil.newArrayList();
+        for (DBEvent event : events) {
+            DataTransportEvent obj = new DataTransportEvent();
+            obj.setName(event.getName());
+            list.add(obj);
+        }
+        this.init(list);
+    }
+
+    public void init(List<DataTransportEvent> events) {
+        this.clearItems();
+        if (CollUtil.isNotEmpty(events)) {
+            for (DataTransportEvent event : events) {
+                FXCheckBox checkBox = new FXCheckBox();
+                checkBox.setText(event.getName());
+                checkBox.setSelected(event.isSelected());
+                checkBox.setProp("data", event);
+                checkBox.selectedChanged((observable, oldValue, newValue) -> {
+                    event.setSelected(newValue);
+                    if (this.selectedChanged != null) {
+                        this.selectedChanged.run();
+                    }
+                });
+                ListViewUtil.selectRowOnMouseClicked(checkBox);
+                this.addItem(checkBox);
+            }
+        }
+        if (this.selectedChanged != null) {
+            this.selectedChanged.run();
+        }
+    }
+
+    public List<DataTransportEvent> getSelectedEvents() {
+        List<DataTransportEvent> list = new ArrayList<>();
+        for (FXCheckBox item : this.getItems()) {
+            if (item.isSelected()) {
+                list.add(item.getProp("data"));
+            }
+        }
+        return list;
+    }
+
+    public int getSelectedSize() {
+        int size = 0;
+        for (FXCheckBox item : this.getItems()) {
+            if (item.isSelected()) {
+                size++;
+            }
+        }
+        return size;
+    }
+}

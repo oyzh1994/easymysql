@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.fx.plus.controls.button.ChangelogButton?>
+<?import cn.oyzh.fx.plus.controls.button.AddConnectButton?>
+<?import cn.oyzh.fx.plus.controls.button.AddGroupButton?>
+<?import cn.oyzh.fx.plus.controls.button.OpenTerminalButton?>
+<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
+<?import cn.oyzh.fx.plus.controls.FlexPane?>
+<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.text.FlexLabel?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<FlexPane styleClass="root" flexHeight="100%" flexWidth="100%" xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="cn.oyzh.easydb.tabs.home.DBHomeTabController">
+    <ImageView fitWidth="240" fitHeight="240" layoutX="35" layoutY="95">
+        <Image url="/image/db_clip.png"/>
+    </ImageView>
+    <FlexVBox flexWidth="100% - 300" realHeight="210" layoutX="300" layoutY="100">
+        <FlexLabel text="%db.home.welcome" fontSize="30">
+            <VBox.margin>
+                <Insets top="20"/>
+            </VBox.margin>
+        </FlexLabel>
+        <FlexLabel fx:id="softInfo">
+            <VBox.margin>
+                <Insets top="20"/>
+            </VBox.margin>
+        </FlexLabel>
+        <FlexLabel fx:id="jdkInfo">
+            <VBox.margin>
+                <Insets top="20"/>
+            </VBox.margin>
+        </FlexLabel>
+    </FlexVBox>
+    <FlexHBox flexWidth="100% - 300" realHeight="300" layoutX="300" layoutY="260">
+        <AddConnectButton onMousePrimaryClicked="#addConnect"/>
+        <AddGroupButton onMousePrimaryClicked="#addGroup">
+            <HBox.margin>
+                <Insets left="20"/>
+            </HBox.margin>
+        </AddGroupButton>
+        <OpenTerminalButton onMousePrimaryClicked="#openTerminal">
+            <HBox.margin>
+                <Insets left="20"/>
+            </HBox.margin>
+        </OpenTerminalButton>
+        <ChangelogButton onMousePrimaryClicked="#changelog">
+            <HBox.margin>
+                <Insets left="20"/>
+            </HBox.margin>
+        </ChangelogButton>
+    </FlexHBox>
+</FlexPane>

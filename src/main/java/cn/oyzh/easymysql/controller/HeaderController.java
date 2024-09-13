@@ -1,0 +1,130 @@
+package cn.oyzh.easymysql.controller;
+
+import cn.oyzh.easymysql.controller.SettingController;
+import cn.oyzh.easymysql.controller.data.DBDataTransportController;
+import cn.oyzh.easymysql.event.DBEventUtil;
+import cn.oyzh.fx.common.dto.Project;
+import cn.oyzh.fx.plus.controller.SubStageController;
+import cn.oyzh.fx.plus.controls.svg.SVGLabel;
+import cn.oyzh.fx.plus.information.MessageBox;
+import cn.oyzh.fx.plus.node.NodeMutexes;
+import cn.oyzh.fx.plus.window.StageAdapter;
+import cn.oyzh.fx.plus.window.StageManager;
+import javafx.fxml.FXML;
+import javafx.stage.WindowEvent;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
+/**
+ * 主页头部业务
+ *
+ * @author oyzh
+ * @since 2023/06/16
+ */
+@Lazy
+@Slf4j
+@Component
+public class HeaderController extends SubStageController {
+
+    /**
+     * 项目信息
+     */
+    @Autowired
+    private Project project;
+
+    /**
+     * 展开db树
+     */
+    @FXML
+    private SVGLabel expandTree;
+
+    /**
+     * 收缩db树
+     */
+    @FXML
+    private SVGLabel collapseTree;
+
+    /**
+     * db树互斥器
+     */
+    private final NodeMutexes treeMutexes = new NodeMutexes();
+
+    /**
+     * 数据传输
+     */
+    @FXML
+    private void transport() {
+        StageAdapter wrapper = StageManager.getStage(DBDataTransportController.class);
+        if (wrapper != null) {
+            wrapper.toFront();
+        } else {
+            StageManager.showStage(DBDataTransportController.class);
+        }
+    }
+
+    /**
+     * 设置
+     */
+    @FXML
+    private void setting() {
+        StageAdapter fxView = StageManager.getStage(SettingController.class);
+        if (fxView != null) {
+            fxView.toFront();
+        } else {
+            StageManager.showStage(SettingController.class, this.stage);
+        }
+    }
+
+    /**
+     * 关于
+     */
+    @FXML
+    private void about() {
+        StageManager.showStage(AboutController.class, this.stage);
+    }
+
+    /**
+     * 退出
+     */
+    @FXML
+    private void quit() {
+        if (MessageBox.confirm("确定退出" + this.project.getName() + "？")) {
+            StageManager.exit();
+        }
+    }
+
+    /**
+     * 收缩左侧db树
+     */
+    @FXML
+    private void collapseTree() {
+        this.treeMutexes.visible(this.expandTree);
+        DBEventUtil.leftCollapse();
+    }
+
+    /**
+     * 展开左侧db树
+     */
+    @FXML
+    private void expandTree() {
+        this.treeMutexes.visible(this.collapseTree);
+        DBEventUtil.leftExtend();
+    }
+
+    /**
+     * 搜索
+     */
+    @FXML
+    private void search() {
+        DBEventUtil.searchFire();
+    }
+
+    @Override
+    public void onStageShown(WindowEvent event) {
+        super.onStageShown(event);
+        this.treeMutexes.addNodes(this.collapseTree, this.expandTree);
+        this.treeMutexes.manageBindVisible();
+    }
+}

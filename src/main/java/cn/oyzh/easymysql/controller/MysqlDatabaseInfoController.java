@@ -1,0 +1,56 @@
+package cn.oyzh.easymysql.controller;
+
+import cn.oyzh.easymysql.MysqlConst;
+import cn.oyzh.easymysql.db.DBDatabase;
+import cn.oyzh.easymysql.trees.MysqlDatabaseTreeItem;
+import cn.oyzh.fx.plus.FXConst;
+import cn.oyzh.fx.plus.controller.StageController;
+import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField;
+import cn.oyzh.fx.plus.window.StageAttribute;
+import javafx.fxml.FXML;
+import javafx.stage.Modality;
+import javafx.stage.WindowEvent;
+
+/**
+ * db库信息业务
+ *
+ * @author oyzh
+ * @since 2024/01/30
+ */
+@StageAttribute(
+        title = "DB库信息",
+        modality = Modality.WINDOW_MODAL,
+        iconUrls = MysqlConst.ICON_PATH,
+        value = FXConst.MODULE_PATH + "mysql/views/mysqlDatabaseInfo.fxml"
+)
+public class MysqlDatabaseInfoController extends StageController {
+
+    /**
+     * 名称
+     */
+    @FXML
+    private ReadOnlyTextField dbName;
+
+    /**
+     * 字符集
+     */
+    @FXML
+    private ReadOnlyTextField dbCharset;
+
+    /**
+     * 排序方式
+     */
+    @FXML
+    private ReadOnlyTextField dbCollation;
+
+    @Override
+    public void onStageShown(WindowEvent event) {
+        super.onStageShown(event);
+        this.stage.hideOnEscape();
+        MysqlDatabaseTreeItem dbItem = this.getWindowProp("dbItem");
+        DBDatabase database = dbItem.value();
+        this.dbName.setText(database.getName());
+        this.dbCharset.setText(database.getCharset());
+        this.dbCollation.setText(database.getCollation());
+    }
+}

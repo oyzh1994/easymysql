@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import cn.oyzh.fx.plus.controls.area.ReadOnlyTextArea?>
+<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.button.CloseButton?>
+<?import cn.oyzh.fx.plus.controls.tab.FlexTabPane?>
+<?import cn.oyzh.fx.plus.controls.tab.FXTab?>
+<?import cn.oyzh.fx.plus.controls.text.AccentLabel?>
+<?import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import cn.oyzh.fx.rich.richtextfx.control.FlexRichTextArea?>
+<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="cn.oyzh.easydb.module.mysql.controller.MysqlTableInfoController" realWidth="900" realHeight="600">
+    <FlexTabPane flexWidth="100%" flexHeight="100% - 50">
+        <FXTab text="%base.base">
+            <FlexVBox flexWidth="100%" flexHeight="100%">
+                <FlexHBox flexWidth="100%" realHeight="50">
+                    <AccentLabel realHeight="30" realWidth="65" text="%base.tableName">
+                        <HBox.margin>
+                            <Insets left="20" top="10"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <ReadOnlyTextField tipText="%base.tableName" fx:id="tableName"
+                                       realHeight="30" flexWidth="100% - 140">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </ReadOnlyTextField>
+                </FlexHBox>
+                <FlexHBox flexWidth="100%" realHeight="50">
+                    <AccentLabel realHeight="30" realWidth="65" text="%base.engine">
+                        <HBox.margin>
+                            <Insets left="20" top="10"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <ReadOnlyTextField tipText="%base.engine" fx:id="tableEngine"
+                                       realHeight="30" flexWidth="100% - 140">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </ReadOnlyTextField>
+                </FlexHBox>
+                <FlexHBox flexWidth="100%" realHeight="50">
+                    <AccentLabel realHeight="30" realWidth="65" text="%base.charset">
+                        <HBox.margin>
+                            <Insets left="20" top="10"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <ReadOnlyTextField tipText="%base.charset" fx:id="tableCharset"
+                                       realHeight="30" flexWidth="100% - 140">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </ReadOnlyTextField>
+                </FlexHBox>
+                <FlexHBox flexWidth="100%" realHeight="50">
+                    <AccentLabel realHeight="30" realWidth="65" text="%base.collation">
+                        <HBox.margin>
+                            <Insets left="20" top="10"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <ReadOnlyTextField tipText="%base.collation" fx:id="tableCollation"
+                                       realHeight="30" flexWidth="100% - 140">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </ReadOnlyTextField>
+                </FlexHBox>
+                <FlexHBox flexWidth="100%" realHeight="50" managed="false" visible="false" fx:id="tableRowFormatBox">
+                    <AccentLabel realHeight="30" realWidth="65" text="%base.rowFormat">
+                        <HBox.margin>
+                            <Insets left="20" top="10"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <ReadOnlyTextField tipText="%base.rowFormat" fx:id="tableRowFormat" realHeight="30"
+                                         flexWidth="100% - 140">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </ReadOnlyTextField>
+                </FlexHBox>
+                <FlexHBox flexWidth="100%" realHeight="50" managed="false" visible="false" fx:id="tableAutoIncrementBox">
+                    <AccentLabel realHeight="30" realWidth="65" text="%base.autoIncrement">
+                        <HBox.margin>
+                            <Insets left="20" top="10"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <ReadOnlyTextField tipText="%base.autoIncrement" fx:id="tableAutoIncrement" realHeight="30"
+                                   flexWidth="100% - 140">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </ReadOnlyTextField>
+                </FlexHBox>
+                <FlexHBox flexWidth="100%" realHeight="150">
+                    <AccentLabel realHeight="30" realWidth="65" text="%base.comment">
+                        <HBox.margin>
+                            <Insets left="20" top="10"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <ReadOnlyTextArea fx:id="tableComment" tipText="%base.comment" realHeight="130"
+                                      flexWidth="100% - 140">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </ReadOnlyTextArea>
+                </FlexHBox>
+            </FlexVBox>
+        </FXTab>
+        <FXTab text="%base.ddl">
+            <FlexRichTextArea editable="false" fx:id="tableDefinition" flexHeight="100%" flexWidth="100%"/>
+        </FXTab>
+    </FlexTabPane>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <CloseButton>
+            <HBox.margin>
+                <Insets left="95" top="10"/>
+            </HBox.margin>
+        </CloseButton>
+    </FlexHBox>
+</FlexVBox>

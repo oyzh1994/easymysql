@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.easydb.fx.table.DBIndexColumnListView?>
+<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.svg.AddSVGGlyph?>
+<?import cn.oyzh.fx.plus.controls.svg.CancelSVGGlyph?>
+<?import cn.oyzh.fx.plus.controls.svg.DeleteSVGGlyph?>
+<?import cn.oyzh.fx.plus.controls.svg.MoveDownSVGGlyph?>
+<?import cn.oyzh.fx.plus.controls.svg.MoveUpSVGGlyph?>
+<?import cn.oyzh.fx.plus.controls.svg.SubmitSVGGlyph?>
+<?import cn.oyzh.fx.plus.controls.text.FlexLabel?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="cn.oyzh.easydb.popups.DBIndexFieldPopupController" realWidth="320"
+          realHeight="320">
+    <FlexHBox realHeight="25">
+        <FlexLabel text="%base.name" realWidth="150">
+            <HBox.margin>
+                <Insets left="5" top="5"/>
+            </HBox.margin>
+        </FlexLabel>
+        <FlexLabel text="%base.subPart" realWidth="145">
+            <HBox.margin>
+                <Insets left="5" top="5"/>
+            </HBox.margin>
+        </FlexLabel>
+    </FlexHBox>
+    <DBIndexColumnListView flexWidth="100%" flexHeight="100% - 50" fx:id="listView">
+    </DBIndexColumnListView>
+    <FlexHBox flexWidth="100%" realHeight="25">
+        <SubmitSVGGlyph onMousePrimaryClicked="#submit" sizeStr="15,11">
+            <HBox.margin>
+                <Insets left="10" top="5"/>
+            </HBox.margin>
+        </SubmitSVGGlyph>
+        <CancelSVGGlyph onMousePrimaryClicked="#close" sizeStr="11">
+            <HBox.margin>
+                <Insets left="15" top="5"/>
+            </HBox.margin>
+        </CancelSVGGlyph>
+        <AddSVGGlyph sizeStr="14" onMousePrimaryClicked="#addRow">
+            <HBox.margin>
+                <Insets left="15" top="3"/>
+            </HBox.margin>
+        </AddSVGGlyph>
+        <MoveUpSVGGlyph sizeStr="14" onMousePrimaryClicked="#moveUpRow">
+            <HBox.margin>
+                <Insets left="15" top="3"/>
+            </HBox.margin>
+        </MoveUpSVGGlyph>
+        <MoveDownSVGGlyph sizeStr="14" onMousePrimaryClicked="#moveDownRow">
+            <HBox.margin>
+                <Insets left="15" top="3"/>
+            </HBox.margin>
+        </MoveDownSVGGlyph>
+        <DeleteSVGGlyph sizeStr="14" onMousePrimaryClicked="#deleteRow">
+            <HBox.margin>
+                <Insets left="15" top="3"/>
+            </HBox.margin>
+        </DeleteSVGGlyph>
+    </FlexHBox>
+</FlexVBox>

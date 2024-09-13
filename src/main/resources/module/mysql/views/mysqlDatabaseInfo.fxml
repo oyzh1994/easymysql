@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.button.CancelButton?>
+<?import cn.oyzh.fx.plus.controls.text.AccentLabel?>
+<?import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="cn.oyzh.easydb.module.mysql.controller.MysqlDatabaseInfoController" realWidth="900" realHeight="300">
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <AccentLabel realHeight="30" realWidth="85" text="%base.name">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <ReadOnlyTextField fx:id="dbName"
+                           realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <AccentLabel realHeight="30" realWidth="85" text="%base.charset">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <ReadOnlyTextField tipText="字符集" fx:id="dbCharset"
+                           realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <AccentLabel realHeight="30" realWidth="85" text="%base.collation">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <ReadOnlyTextField tipText="排序方式" fx:id="dbCollation"
+                           realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <CancelButton text="关闭">
+            <HBox.margin>
+                <Insets left="95" top="10"/>
+            </HBox.margin>
+        </CancelButton>
+    </FlexHBox>
+</FlexVBox>

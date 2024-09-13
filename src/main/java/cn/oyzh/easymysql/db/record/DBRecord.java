@@ -1,0 +1,233 @@
+package cn.oyzh.easymysql.db.record;
+
+
+import cn.oyzh.easymysql.db.DBObjectStatus;
+import cn.oyzh.easymysql.db.record.DBRecordData;
+import cn.oyzh.easymysql.db.record.DBRecordProperty;
+import cn.oyzh.easymysql.db.table.DBColumn;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * db记录
+ *
+ * @author oyzh
+ * @since 2023/12/20
+ */
+@EqualsAndHashCode(callSuper = true)
+public class DBRecord extends DBObjectStatus {
+
+    /**
+     * 是否只读
+     */
+    @Getter
+    private boolean readonly;
+
+    public DBRecord() {
+
+    }
+
+    public DBRecord(boolean readonly) {
+        this.readonly = readonly;
+    }
+
+    /**
+     * 数据
+     */
+    private final HashMap<String, DBRecordProperty> properties = new HashMap<>();
+
+    /**
+     * 添加数据
+     *
+     * @param column 字段名
+     * @param value  值
+     * @return 数据属性
+     */
+    public DBRecordProperty putValue(String column, Object value) {
+        DBRecordProperty property = this.getProperty(column);
+        if (property == null) {
+            property = putValue(new DBColumn(column), value);
+        } else {
+            property.setValue(value);
+        }
+        return property;
+    }
+
+    /**
+     * 添加数据
+     *
+     * @param column 字段
+     * @param value  值
+     * @return 数据属性
+     */
+    public DBRecordProperty putValue(DBColumn column, Object value) {
+        DBRecordProperty property = this.getProperty(column.getName());
+        if (property == null) {
+            property = new DBRecordProperty(column, value, this.readonly);
+            property.changedProperty().addListener((observable, oldValue, newValue) -> this.updateStatus());
+            this.properties.put(column.getName(), property);
+        } else {
+            property.setValue(value);
+        }
+        return property;
+    }
+
+    /**
+     * 获取数据
+     *
+     * @param column 字段名
+     * @return 数据
+     */
+    public Object getValue(String column) {
+        DBRecordProperty property = this.getProperty(column);
+        return property == null ? null : property.get();
+    }
+
+    /**
+     * 获取原始数据
+     *
+     * @param column 字段名
+     * @return 原始数据
+     */
+    public Object getOriginal(String column) {
+        DBRecordProperty property = this.getProperty(column);
+        return property == null ? null : property.getOriginal();
+    }
+
+    /**
+     * 获取字段列表
+     *
+     * @return 字段列表
+     */
+    public Set<String> columns() {
+        return this.properties.keySet();
+    }
+
+    /**
+     * 获取属性
+     *
+     * @param key 键
+     * @return 属性
+     */
+    public DBRecordProperty getProperty(String key) {
+        return this.properties.get(key);
+    }
+
+    /**
+     * 清除数据
+     */
+    public void clear() {
+        this.properties.clear();
+    }
+
+    /**
+     * 更新数据
+     *
+     * @param rowData 新数据
+     */
+    public void update(Map<String, Object> rowData) {
+        if (rowData != null) {
+            for (Map.Entry<String, Object> entry : rowData.entrySet()) {
+                this.putValue(entry.getKey(), entry.getValue());
+            }
+        }
+    }
+
+    @Override
+    public boolean isChanged() {
+        if (super.isChanged()) {
+            return true;
+        }
+        for (DBRecordProperty property : this.properties.values()) {
+            if (property.isChanged()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void clearStatus() throws Exception {
+        for (DBRecordProperty property : this.properties.values()) {
+            property.setChanged(false);
+            property.updateOriginal();
+        }
+        super.clearStatus();
+    }
+
+    /**
+     * 抛弃变更
+     */
+    public void discard() throws Exception {
+        for (DBRecordProperty property : this.properties.values()) {
+            property.discard();
+        }
+        super.clearStatus();
+    }
+
+    public void copy(DBRecord record) {
+        if (record != null) {
+            for (String column : record.columns()) {
+                Object value = record.getValue(column);
+                if (value != null) {
+                    this.putValue(column, value);
+                }
+            }
+        }
+    }
+
+    public DBRecordData getRecordData() {
+        DBRecordData recordData = new DBRecordData();
+        for (String column : this.columns()) {
+            DBRecordProperty property = this.getProperty(column);
+            if (property != null) {
+                Object value = property.get();
+                if (value != null) {
+                    recordData.put(property.getColumn(), value);
+                }
+            }
+        }
+        return recordData;
+    }
+
+    public DBRecordData getChangedRecordData() {
+        DBRecordData recordData = new DBRecordData();
+        for (String column : this.columns()) {
+            DBRecordProperty property = this.getProperty(column);
+            if (property != null && property.isChanged()) {
+                recordData.put(property.getColumn(), property.get());
+            }
+        }
+        return recordData;
+    }
+
+    public DBRecordData getOriginalRecordData() {
+        DBRecordData recordData = new DBRecordData();
+        for (String column : this.columns()) {
+            DBRecordProperty property = this.getProperty(column);
+            if (property != null) {
+                Object val = property.getOriginal();
+                if (val != null) {
+                    recordData.put(property.getColumn(), val);
+                }
+            }
+        }
+        return recordData;
+    }
+
+    public boolean isColumnChanged(String column) {
+        return false;
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        for (Map.Entry<String, DBRecordProperty> value : this.properties.entrySet()) {
+            map.put(value.getKey(), value.getValue().get());
+        }
+        return map;
+    }
+}

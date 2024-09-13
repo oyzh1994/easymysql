@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.easydb.fx.DBSqlTextArea?>
+<?import cn.oyzh.easydb.fx.event.DBEventIntervalTypeCombobox?>
+<?import cn.oyzh.easydb.fx.event.DBEventOnCompletionCombobox?>
+<?import cn.oyzh.easydb.fx.event.DBEventStatusCombobox?>
+<?import cn.oyzh.fx.plus.controls.area.FlexTextArea?>
+<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.button.FlexCheckBox?>
+<?import cn.oyzh.fx.plus.controls.button.FXRadioButton?>
+<?import cn.oyzh.fx.plus.controls.svg.SaveSVGGlyph?>
+<?import cn.oyzh.fx.plus.controls.tab.FlexTabPane?>
+<?import cn.oyzh.fx.plus.controls.tab.FXTab?>
+<?import cn.oyzh.fx.plus.controls.text.AccentLabel?>
+<?import cn.oyzh.fx.plus.controls.textfield.ClearableTextField?>
+<?import cn.oyzh.fx.plus.controls.textfield.DateTimeTextField?>
+<?import cn.oyzh.fx.plus.controls.textfield.NumberTextField?>
+<?import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<FlexVBox xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="cn.oyzh.easydb.module.mysql.tabs.MysqlEventDesignTabController" flexWidth="100%" flexHeight="100%">
+    <FlexHBox realHeight="25" flexWidth="100%">
+        <SaveSVGGlyph onMousePrimaryClicked="#save" size="14">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </SaveSVGGlyph>
+    </FlexHBox>
+    <fx:define>
+        <FXToggleGroup fx:id="planType"/>
+    </fx:define>
+    <FlexTabPane flexHeight="100% - 25" flexWidth="100%" fx:id="tabPane">
+        <FXTab text="%base.definition">
+            <DBSqlTextArea showLine="true" fontSize="12" fx:id="definition" flexWidth="100%" flexHeight="100%"/>
+        </FXTab>
+        <FXTab text="%base.plan">
+            <FlexVBox flexHeight="100%" flexWidth="100%">
+                <FlexHBox realHeight="40" flexWidth="100%">
+                    <FXRadioButton text="AT" toggleGroup="$planType" fx:id="onetimeType" realWidth="140"
+                                   userData="ONE TIME">
+                        <HBox.margin>
+                            <Insets left="20" top="15"/>
+                        </HBox.margin>
+                    </FXRadioButton>
+                    <DateTimeTextField text="CURRENT_TIMESTAMP" fx:id="onetime" realHeight="30" flexWidth="100% - 315" disable="true">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </DateTimeTextField>
+                </FlexHBox>
+                <FlexHBox realHeight="40" flexWidth="100%">
+                    <FlexCheckBox text="+INTERVAL" fx:id="onetimeInterval" realWidth="120" disable="true">
+                        <HBox.margin>
+                            <Insets left="40" top="15"/>
+                        </HBox.margin>
+                    </FlexCheckBox>
+                    <NumberTextField fx:id="onetimeIntervalValue" flexWidth="50% - 160" realHeight="30" disable="true">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </NumberTextField>
+                    <DBEventIntervalTypeCombobox fx:id="onetimeIntervalType" realHeight="30" flexWidth="50% - 160"
+                                                 realWidth="30" disable="true" initIndex="0">
+                        <HBox.margin>
+                            <Insets left="5" top="10"/>
+                        </HBox.margin>
+                    </DBEventIntervalTypeCombobox>
+                </FlexHBox>
+                <FlexHBox realHeight="40" flexWidth="100%">
+                    <FXRadioButton text="EVERY" toggleGroup="$planType" fx:id="loopType" realWidth="140"
+                                   userData="RECURRING">
+                        <HBox.margin>
+                            <Insets left="20" top="15"/>
+                        </HBox.margin>
+                    </FXRadioButton>
+                    <NumberTextField flexWidth="50% - 160" fx:id="loopIntervalValue" realHeight="30" disable="true">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </NumberTextField>
+                    <DBEventIntervalTypeCombobox fx:id="loopIntervalType" realHeight="30" flexWidth="50% - 160"
+                                                 realWidth="30" disable="true" initIndex="0">
+                        <HBox.margin>
+                            <Insets left="5" top="10"/>
+                        </HBox.margin>
+                    </DBEventIntervalTypeCombobox>
+                    <VBox.margin>
+                        <Insets top="30"/>
+                    </VBox.margin>
+                </FlexHBox>
+                <FlexHBox realHeight="40" flexWidth="100%">
+                    <FlexCheckBox text="STARTS" fx:id="loopStart" realWidth="120" disable="true">
+                        <HBox.margin>
+                            <Insets left="40" top="15"/>
+                        </HBox.margin>
+                    </FlexCheckBox>
+                    <DateTimeTextField fx:id="loopStartTime" realHeight="30" flexWidth="100% - 315" disable="true">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </DateTimeTextField>
+                </FlexHBox>
+                <FlexHBox realHeight="40" flexWidth="100%">
+                    <FlexCheckBox text="+INTERVAL" fx:id="loopStartInterval" realWidth="100" disable="true">
+                        <HBox.margin>
+                            <Insets left="60" top="15"/>
+                        </HBox.margin>
+                    </FlexCheckBox>
+                    <NumberTextField flexWidth="50% - 160" fx:id="loopStartIntervalValue" realHeight="30"
+                                     disable="true">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </NumberTextField>
+                    <DBEventIntervalTypeCombobox fx:id="loopStartIntervalType" disable="true" realHeight="30"
+                                                 flexWidth="50% - 160" realWidth="30" initIndex="0">
+                        <HBox.margin>
+                            <Insets left="5" top="10"/>
+                        </HBox.margin>
+                    </DBEventIntervalTypeCombobox>
+                </FlexHBox>
+                <FlexHBox realHeight="40" flexWidth="100%">
+                    <FlexCheckBox text="ENDS" fx:id="loopEnd" realWidth="120" disable="true">
+                        <HBox.margin>
+                            <Insets left="40" top="15"/>
+                        </HBox.margin>
+                    </FlexCheckBox>
+                    <DateTimeTextField fx:id="loopEndTime" realHeight="30" flexWidth="100% - 315">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </DateTimeTextField>
+                </FlexHBox>
+                <FlexHBox realHeight="40" flexWidth="100%">
+                    <FlexCheckBox text="+INTERVAL" fx:id="loopEndInterval" realWidth="100" disable="true">
+                        <HBox.margin>
+                            <Insets left="60" top="15"/>
+                        </HBox.margin>
+                    </FlexCheckBox>
+                    <NumberTextField flexWidth="50% - 160" fx:id="loopEndIntervalValue" realHeight="30" disable="true">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </NumberTextField>
+                    <DBEventIntervalTypeCombobox fx:id="loopEndIntervalType" realHeight="30" flexWidth="50% - 160"
+                                                 realWidth="30" disable="true" initIndex="0">
+                        <HBox.margin>
+                            <Insets left="5" top="10"/>
+                        </HBox.margin>
+                    </DBEventIntervalTypeCombobox>
+                </FlexHBox>
+            </FlexVBox>
+        </FXTab>
+        <FXTab text="%base.advanced">
+            <FlexVBox flexHeight="100%" flexWidth="100%">
+                <FlexHBox realHeight="50" flexWidth="100%">
+                    <AccentLabel realWidth="85" text="%base.status" realHeight="25">
+                        <HBox.margin>
+                            <Insets left="20" top="12"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <DBEventStatusCombobox initIndex="0" fx:id="status" flexWidth="100% - 140" realHeight="30">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </DBEventStatusCombobox>
+                </FlexHBox>
+                <FlexHBox realHeight="50" flexWidth="100%">
+                    <AccentLabel realWidth="85" text="%base.onCompletion" realHeight="25">
+                        <HBox.margin>
+                            <Insets left="20" top="12"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <DBEventOnCompletionCombobox initIndex="0" fx:id="onCompletion" flexWidth="100% - 140"
+                                                 realHeight="30">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </DBEventOnCompletionCombobox>
+                </FlexHBox>
+                <FlexHBox realHeight="50" flexWidth="100%">
+                    <AccentLabel realWidth="85" text="%base.definer" realHeight="25">
+                        <HBox.margin>
+                            <Insets left="20" top="12"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <ClearableTextField fx:id="definer" flexWidth="100% - 140" realHeight="30">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </ClearableTextField>
+                </FlexHBox>
+                <FlexHBox realHeight="150" flexWidth="100%">
+                    <AccentLabel realWidth="85" text="%base.comment" realHeight="25">
+                        <HBox.margin>
+                            <Insets left="20" top="12"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <FlexTextArea fx:id="comment" flexWidth="100% - 140" realHeight="120">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </FlexTextArea>
+                </FlexHBox>
+            </FlexVBox>
+        </FXTab>
+        <FXTab text="%base.preview">
+            <DBSqlTextArea editable="false" showLine="true" fontSize="12" fx:id="preview" flexWidth="100%"
+                           flexHeight="100%"/>
+        </FXTab>
+    </FlexTabPane>
+</FlexVBox>

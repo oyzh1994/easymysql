@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.fx.plus.controls.area.ReadOnlyTextArea?>
+<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.text.FlexLabel?>
+<?import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import cn.oyzh.fx.plus.controls.textfield.NumberTextField?>
+<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="cn.oyzh.easydb.popups.DBFieldInfoPopupController" realWidth="360"
+          realHeight="240">
+    <FlexHBox realHeight="30">
+        <FlexLabel text="%base.name" realWidth="85">
+            <HBox.margin>
+                <Insets left="5" top="5"/>
+            </HBox.margin>
+        </FlexLabel>
+        <ReadOnlyTextField fx:id="name" flexWidth="100% - 110">
+            <HBox.margin>
+                <Insets left="10" top="5"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox realHeight="30">
+        <FlexLabel text="%base.type" realWidth="85">
+            <HBox.margin>
+                <Insets left="5" top="5"/>
+            </HBox.margin>
+        </FlexLabel>
+        <ReadOnlyTextField fx:id="type" flexWidth="100% - 110">
+            <HBox.margin>
+                <Insets left="10" top="5"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox realHeight="30" fx:id="sizeBox" managed="false" visible="false">
+        <FlexLabel text="%base.length" realWidth="85">
+            <HBox.margin>
+                <Insets left="5" top="5"/>
+            </HBox.margin>
+        </FlexLabel>
+        <NumberTextField editable="false" fx:id="size" flexWidth="100% - 110">
+            <HBox.margin>
+                <Insets left="10" top="5"/>
+            </HBox.margin>
+        </NumberTextField>
+    </FlexHBox>
+    <FlexHBox realHeight="30" fx:id="valueBox" managed="false" visible="false">
+        <FlexLabel text="%base.value" realWidth="85">
+            <HBox.margin>
+                <Insets left="5" top="5"/>
+            </HBox.margin>
+        </FlexLabel>
+        <ReadOnlyTextField fx:id="value" flexWidth="100% - 110">
+            <HBox.margin>
+                <Insets left="10" top="5"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox realHeight="70">
+        <FlexLabel text="%base.comment" realWidth="85">
+            <HBox.margin>
+                <Insets left="5" top="5"/>
+            </HBox.margin>
+        </FlexLabel>
+        <ReadOnlyTextArea fx:id="comment" realHeight="60" flexWidth="100% - 110">
+            <HBox.margin>
+                <Insets left="10" top="5"/>
+            </HBox.margin>
+        </ReadOnlyTextArea>
+    </FlexHBox>
+    <FlexHBox realHeight="30" fx:id="defaultValueBox" managed="false" visible="false">
+        <FlexLabel text="%base.defaultValue" realWidth="85">
+            <HBox.margin>
+                <Insets left="5" top="5"/>
+            </HBox.margin>
+        </FlexLabel>
+        <ReadOnlyTextField fx:id="defaultValue" flexWidth="100% - 110">
+            <HBox.margin>
+                <Insets left="10" top="5"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox realHeight="30" fx:id="tagsBox" managed="false" visible="false">
+        <FlexLabel text="%base.tags" realWidth="85">
+            <HBox.margin>
+                <Insets left="5" top="5"/>
+            </HBox.margin>
+        </FlexLabel>
+    </FlexHBox>
+</FlexVBox>

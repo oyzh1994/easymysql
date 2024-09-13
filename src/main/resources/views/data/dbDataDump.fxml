@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.easydb.fx.data.DBDumpDataTypeComboBox?>
+<?import cn.oyzh.fx.plus.controls.area.MsgTextArea?>
+<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.button.CloseButton?>
+<?import cn.oyzh.fx.plus.controls.button.StopButton?>
+<?import cn.oyzh.fx.plus.controls.text.AccentLabel?>
+<?import cn.oyzh.fx.plus.controls.text.FXLabel?>
+<?import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import cn.oyzh.fx.plus.controls.button.DumpButton?>
+<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="cn.oyzh.easydb.controller.data.DBDataDumpController" realWidth="700" realHeight="550">
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <AccentLabel text="%base.connect" realHeight="30" realWidth="80">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <ReadOnlyTextField fx:id="connect" realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <AccentLabel text="%base.database" realHeight="30" realWidth="80">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <ReadOnlyTextField fx:id="database" realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50" fx:id="tableBox" managed="false" visible="false">
+        <AccentLabel text="%base.table" realHeight="30" realWidth="80">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <ReadOnlyTextField fx:id="table" realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <AccentLabel text="%base.dataType" realHeight="30" realWidth="80">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <DBDumpDataTypeComboBox initIndex="0" fx:id="dataType" realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </DBDumpDataTypeComboBox>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" flexHeight="100% - 300">
+        <AccentLabel text="%base.processMessage" realHeight="30" realWidth="80">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <MsgTextArea lineLimit="300" fx:id="dumpMsg" flexWidth="100% - 140" flexHeight="100% - 20">
+            <HBox.margin>
+                <Insets left="10" top="20"/>
+            </HBox.margin>
+        </MsgTextArea>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="20">
+        <FXLabel fx:id="dumpStatus">
+            <HBox.margin>
+                <Insets left="110"/>
+            </HBox.margin>
+        </FXLabel>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <DumpButton onAction="#doDump" groupId="exec" realHeight="30" iconSizePercent="0.75">
+            <HBox.margin>
+                <Insets left="110" top="10"/>
+            </HBox.margin>
+        </DumpButton>
+        <StopButton disable="true" fx:id="stopDumpBtn" onAction="#stopDump" realHeight="30" iconSizePercent="0.9">
+            <HBox.margin>
+                <Insets left="15" top="10"/>
+            </HBox.margin>
+        </StopButton>
+        <CloseButton iconSizePercent="0.6">
+            <HBox.margin>
+                <Insets left="15" top="10"/>
+            </HBox.margin>
+        </CloseButton>
+    </FlexHBox>
+</FlexVBox>

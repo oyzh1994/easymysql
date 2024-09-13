@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.easydb.fx.DBCharsetComboBox?>
+<?import cn.oyzh.easydb.fx.DBCollationComboBox?>
+<?import cn.oyzh.fx.plus.controls.button.CancelButton?>
+<?import cn.oyzh.fx.plus.controls.button.SubmitButton?>
+<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.text.FXLabel?>
+<?import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="cn.oyzh.easydb.module.mysql.controller.MysqlDatabaseUpdateController" realWidth="750"
+          realHeight="300">
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <FXLabel realHeight="30" realWidth="65" text="数据库名" styleClass="accent">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </FXLabel>
+        <ReadOnlyTextField tipText="请输入数据库名称" fx:id="name"
+                           realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <FXLabel realHeight="30" realWidth="65" text="字符集" styleClass="accent">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </FXLabel>
+        <DBCharsetComboBox tipText="请选择字符集" fx:id="charset"
+                           realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </DBCharsetComboBox>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <FXLabel realHeight="30" realWidth="65" text="排序规则" styleClass="accent">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </FXLabel>
+        <DBCollationComboBox tipText="请选择排序方式" fx:id="collation"
+                             realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </DBCollationComboBox>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <SubmitButton onAction="#save" text="保存">
+            <HBox.margin>
+                <Insets left="95" top="10"/>
+            </HBox.margin>
+        </SubmitButton>
+        <CancelButton>
+            <HBox.margin>
+                <Insets left="15" top="10"/>
+            </HBox.margin>
+        </CancelButton>
+    </FlexHBox>
+</FlexVBox>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.fx.plus.controls.area.MsgTextArea?>
+<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.button.CloseButton?>
+<?import cn.oyzh.fx.plus.controls.button.FlexCheckBox?>
+<?import cn.oyzh.fx.plus.controls.button.RunSqlFileButton?>
+<?import cn.oyzh.fx.plus.controls.button.StopButton?>
+<?import cn.oyzh.fx.plus.controls.text.AccentLabel?>
+<?import cn.oyzh.fx.plus.controls.text.FXLabel?>
+<?import cn.oyzh.fx.plus.controls.textfield.ChooseFileTextField?>
+<?import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="cn.oyzh.easydb.controller.data.DBRunSqlFileController" realWidth="700" realHeight="550">
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <AccentLabel text="%base.connect" realHeight="30" realWidth="80">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <ReadOnlyTextField fx:id="connect" realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <AccentLabel text="%base.database" realHeight="30" realWidth="80">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <ReadOnlyTextField fx:id="database" realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </ReadOnlyTextField>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <AccentLabel text="%base.options" realHeight="30" realWidth="80">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <FlexCheckBox groupId="exec" fx:id="continueWithErrors" realHeight="30" text="%db.export.tip1" selected="true">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </FlexCheckBox>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <AccentLabel text="%base.file" realHeight="30" realWidth="80">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <ChooseFileTextField groupId="exec" alwaysShowGraphic="true" fx:id="file" realHeight="30" flexWidth="100% - 140">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </ChooseFileTextField>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" flexHeight="100% - 300">
+        <AccentLabel text="%base.processMessage" realHeight="30" realWidth="80">
+            <HBox.margin>
+                <Insets left="20" top="10"/>
+            </HBox.margin>
+        </AccentLabel>
+        <MsgTextArea lineLimit="300" fx:id="execMsg" flexWidth="100% - 140" flexHeight="100% - 20">
+            <HBox.margin>
+                <Insets left="10" top="20"/>
+            </HBox.margin>
+        </MsgTextArea>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="20">
+        <FXLabel fx:id="execStatus">
+            <HBox.margin>
+                <Insets left="110"/>
+            </HBox.margin>
+        </FXLabel>
+    </FlexHBox>
+    <FlexHBox flexWidth="100%" realHeight="50">
+        <RunSqlFileButton onAction="#runSqlFile" groupId="exec" realHeight="30">
+            <HBox.margin>
+                <Insets left="110" top="10"/>
+            </HBox.margin>
+        </RunSqlFileButton>
+        <StopButton disable="true" fx:id="stopSqlFileBtn" onAction="#stopSqlFile" realHeight="30" iconSizePercent="0.9">
+            <HBox.margin>
+                <Insets left="15" top="10"/>
+            </HBox.margin>
+        </StopButton>
+        <CloseButton iconSizePercent="0.6">
+            <HBox.margin>
+                <Insets left="15" top="10"/>
+            </HBox.margin>
+        </CloseButton>
+    </FlexHBox>
+</FlexVBox>

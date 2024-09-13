@@ -1,0 +1,148 @@
+package cn.oyzh.easymysql.popups;
+
+import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.easymysql.MysqlStyle;
+import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.util.DBNodeUtil;
+import cn.oyzh.fx.plus.FXConst;
+import cn.oyzh.fx.plus.controller.PopupController;
+import cn.oyzh.fx.plus.controls.box.FlexHBox;
+import cn.oyzh.fx.plus.controls.text.FXLabel;
+import cn.oyzh.fx.plus.controls.textfield.NumberTextField;
+import cn.oyzh.fx.plus.window.PopupAdapter;
+import cn.oyzh.fx.plus.window.PopupAttribute;
+import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.stage.WindowEvent;
+
+import java.util.List;
+
+/**
+ * 字段信息弹窗业务
+ *
+ * @author oyzh
+ * @since 2024/07/26
+ */
+@PopupAttribute(
+        cssUrls = MysqlStyle.MAIN,
+        value = FXConst.POPUP_PATH + "dbFieldInfoPopup.fxml"
+)
+public class DBFieldInfoPopupController extends PopupController {
+
+    /**
+     * 名称
+     */
+    @FXML
+    private TextField name;
+
+    /**
+     * 字段长
+     */
+    @FXML
+    private NumberTextField size;
+
+    /**
+     * 类型
+     */
+    @FXML
+    private TextField type;
+
+    /**
+     * 值
+     */
+    @FXML
+    private TextField value;
+
+    /**
+     * 注释
+     */
+    @FXML
+    private TextArea comment;
+
+    /**
+     * 默认值
+     */
+    @FXML
+    private TextField defaultValue;
+
+    /**
+     * 长度组件
+     */
+    @FXML
+    private FlexHBox sizeBox;
+
+    /**
+     * 标签组件
+     */
+    @FXML
+    private FlexHBox tagsBox;
+
+    /**
+     * 值组件
+     */
+    @FXML
+    private FlexHBox valueBox;
+
+    /**
+     * 默认值值组件
+     */
+    @FXML
+    private FlexHBox defaultValueBox;
+
+    /**
+     * 关闭
+     */
+    @FXML
+    private void close() {
+        this.closeWindow();
+    }
+
+    @Override
+    public void onWindowShowing(WindowEvent event) {
+        super.onWindowShowing(event);
+        DBColumn column = this.getWindowProp("column");
+        if (column.supportSize()) {
+            if (column.getSize() != null) {
+                this.size.setValue(column.getSize());
+            }
+            this.sizeBox.display();
+        }
+        if (column.supportValue()) {
+            this.value.setText(column.getValue());
+            this.valueBox.display();
+        }
+        if (column.supportDefaultValue()) {
+            this.defaultValue.setText(column.getDefaultValueString());
+            this.defaultValueBox.display();
+        }
+        List<FXLabel> tags = DBNodeUtil.generateTags(column);
+        if (CollUtil.isNotEmpty(tags)) {
+            this.tagsBox.addChild(tags);
+            this.tagsBox.display();
+            boolean first = true;
+            for (FXLabel tag : tags) {
+                if (first) {
+                    first = false;
+                    HBox.setMargin(tag, new Insets(5, 0, 0, 10));
+                } else {
+                    HBox.setMargin(tag, new Insets(5, 0, 0, 5));
+                }
+            }
+        }
+        this.name.setText(column.getName());
+        this.type.setText(column.getType());
+        this.comment.setText(column.getComment());
+    }
+
+    @Override
+    public void onPopupInitialize(PopupAdapter window) {
+        super.onPopupInitialize(window);
+        this.tagsBox.managedBindVisible();
+        this.sizeBox.managedBindVisible();
+        this.valueBox.managedBindVisible();
+        this.defaultValueBox.managedBindVisible();
+    }
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.easydb.fx.record.DBRecordTableView?>
+<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.text.FlexText?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<FlexVBox xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="cn.oyzh.easydb.module.mysql.tabs.MysqlQueryExplainTabController" flexWidth="100%" flexHeight="100%">
+    <DBRecordTableView fx:id="recordTable" flexHeight="100% - 30" flexWidth="100%">
+    </DBRecordTableView>
+    <FlexHBox realHeight="30" flexWidth="100%">
+        <FlexText fx:id="sql">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </FlexText>
+        <FlexText fx:id="used">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </FlexText>
+        <FlexText fx:id="count">
+            <HBox.margin>
+                <Insets left="10" top="10"/>
+            </HBox.margin>
+        </FlexText>
+    </FlexHBox>
+</FlexVBox>

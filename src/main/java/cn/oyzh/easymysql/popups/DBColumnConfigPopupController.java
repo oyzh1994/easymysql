@@ -1,0 +1,277 @@
+package cn.oyzh.easymysql.popups;
+
+import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.fx.DBCharsetComboBox;
+import cn.oyzh.easymysql.fx.DBCollationComboBox;
+import cn.oyzh.easymysql.fx.table.DBDefaultValueTextFiled;
+import cn.oyzh.easymysql.fx.table.DBEnumTextFiled;
+import cn.oyzh.fx.plus.FXConst;
+import cn.oyzh.fx.plus.controller.PopupController;
+import cn.oyzh.fx.plus.controls.box.FlexHBox;
+import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
+import cn.oyzh.fx.plus.controls.textfield.NumberTextField;
+import cn.oyzh.fx.plus.information.MessageBox;
+import cn.oyzh.fx.plus.window.PopupAdapter;
+import cn.oyzh.fx.plus.window.PopupAttribute;
+import javafx.fxml.FXML;
+import javafx.stage.WindowEvent;
+
+/**
+ * 字段配置弹窗
+ *
+ * @author oyzh
+ * @since 2024/07/12
+ */
+@PopupAttribute(
+        value = FXConst.POPUP_PATH + "dbColumnConfigPopup.fxml"
+)
+public class DBColumnConfigPopupController extends PopupController {
+
+    /**
+     * 默认值组件
+     */
+    @FXML
+    private FlexHBox defaultValueBox;
+
+    /**
+     * 默认值
+     */
+    @FXML
+    private DBDefaultValueTextFiled defaultValue;
+
+    /**
+     * 字段值组件
+     */
+    @FXML
+    private FlexHBox valueBox;
+
+    /**
+     * 字段值
+     */
+    @FXML
+    private DBEnumTextFiled value;
+
+    /**
+     * 主键长度组件
+     */
+    @FXML
+    private FlexHBox primaryKeySizeBox;
+
+    /**
+     * 主键长度
+     */
+    @FXML
+    private NumberTextField primaryKeySize;
+
+    /**
+     * 填充零组件
+     */
+    @FXML
+    private FlexHBox zeroFillBox;
+
+    /**
+     * 填充零
+     */
+    @FXML
+    private FlexCheckBox zeroFill;
+
+    /**
+     * 自动递增组件
+     */
+    @FXML
+    private FlexHBox autoIncrementBox;
+
+    /**
+     * 自动递增
+     */
+    @FXML
+    private FlexCheckBox autoIncrement;
+
+    /**
+     * 无符号组件
+     */
+    @FXML
+    private FlexHBox unsignedBox;
+
+    /**
+     * 无符号
+     */
+    @FXML
+    private FlexCheckBox unsigned;
+
+    /**
+     * 根据当前时间戳更新组件
+     */
+    @FXML
+    private FlexHBox currentTimestampBox;
+
+    /**
+     * 根据当前时间戳更新
+     */
+    @FXML
+    private FlexCheckBox currentTimestamp;
+
+    /**
+     * 字符集组件
+     */
+    @FXML
+    private FlexHBox charsetBox;
+
+    /**
+     * 字符集
+     */
+    @FXML
+    private DBCharsetComboBox charset;
+
+    /**
+     * 排序方式组件
+     */
+    @FXML
+    private FlexHBox collationBox;
+
+    /**
+     * 排序方式
+     */
+    @FXML
+    private DBCollationComboBox collation;
+
+    /**
+     * db字段
+     */
+    private DBColumn dbColumn;
+
+    /**
+     * db客户端
+     */
+    private DBClient dbClient;
+
+    /**
+     * 提交
+     */
+    @FXML
+    private void submit() {
+        try {
+            // 值处理
+            if (this.valueBox.isVisible()) {
+                this.dbColumn.setValue(this.value.getTextTrim());
+            }
+            // 字符集、排序处理
+            if (this.charsetBox.isVisible()) {
+                this.dbColumn.setCharset(this.charset.getValue());
+                this.dbColumn.setCollation(this.collation.getValue());
+            }
+            // 填充零处理
+            if (this.zeroFillBox.isVisible()) {
+                this.dbColumn.setZeroFill(this.zeroFill.isSelected());
+            }
+            // 无符号处理
+            if (this.unsignedBox.isVisible()) {
+                this.dbColumn.setUnsigned(this.unsigned.isSelected());
+            }
+            // 默认值处理
+            if (this.defaultValueBox.isEnable()) {
+                this.dbColumn.setDefaultValue(this.defaultValue.getValue());
+            }
+            // 自动递增处理
+            if (this.autoIncrementBox.isVisible()) {
+                this.dbColumn.setAutoIncrement(this.autoIncrement.isSelected());
+            }
+            // 主键长度处理
+            if (this.primaryKeySizeBox.isVisible()) {
+                this.dbColumn.setPrimaryKeySize(this.primaryKeySize.getIntValue());
+            }
+            // 根据时间戳更新处理
+            if (this.currentTimestampBox.isVisible()) {
+                this.dbColumn.setUpdateOnCurrentTimestamp(this.currentTimestamp.isSelected());
+            }
+            this.closeWindow();
+        } catch (Exception ex) {
+            MessageBox.exception(ex);
+        }
+    }
+
+    /**
+     * 关闭
+     */
+    @FXML
+    private void close() {
+        this.closeWindow();
+    }
+
+    @Override
+    protected void bindListeners() {
+        super.bindListeners();
+        // 字符集选中事件
+        this.charset.selectedItemChanged((observable, oldValue, newValue) -> {
+            this.collation.init(newValue, this.dbClient);
+            this.collation.select(0);
+        });
+    }
+
+    @Override
+    public void onWindowShowing(WindowEvent event) {
+        super.onWindowShowing(event);
+        this.dbColumn = this.getWindowProp("dbColumn");
+        this.dbClient = this.getWindowProp("dbClient");
+        // 值
+        if (this.dbColumn.supportValue()) {
+            this.valueBox.display();
+            this.value.setValues(this.dbColumn.getValueList());
+        }
+        // 默认值
+        if (this.dbColumn.supportDefaultValue()) {
+            this.defaultValueBox.enable();
+            this.defaultValue.init(this.dbColumn);
+            this.defaultValue.setText(this.dbColumn.getDefaultValueString());
+        }
+        // 自动递增
+        if (this.dbColumn.supportAutoIncrement()) {
+            this.autoIncrementBox.display();
+            this.autoIncrement.setSelected(this.dbColumn.isAutoIncrement());
+        }
+        // 填充零
+        if (this.dbColumn.supportZeroFill()) {
+            this.zeroFillBox.display();
+            this.zeroFill.setSelected(this.dbColumn.isZeroFill());
+        }
+        // 无符号
+        if (this.dbColumn.supportUnsigned()) {
+            this.unsignedBox.display();
+            this.unsigned.setSelected(this.dbColumn.isUnsigned());
+        }
+        // 字符集及排序
+        if (this.dbColumn.supportCharset()) {
+            this.charsetBox.display();
+            this.collationBox.display();
+            this.charset.init(this.dbClient);
+            this.charset.select(this.dbColumn.getCharset());
+            this.collation.select(this.dbColumn.getCollation());
+        }
+        // 主键长度
+        if (this.dbColumn.isPrimaryKey() && this.dbColumn.supportKeySize()) {
+            this.primaryKeySizeBox.display();
+            if (this.dbColumn.getPrimaryKeySize() != null) {
+                this.primaryKeySize.setValue(this.dbColumn.getPrimaryKeySize());
+            }
+        }
+        // 根据时间戳更新
+        if (this.dbColumn.supportTimestamp()) {
+            this.currentTimestampBox.display();
+            this.currentTimestamp.setSelected(this.dbColumn.isUpdateOnCurrentTimestamp());
+        }
+    }
+
+    @Override
+    public void onPopupInitialize(PopupAdapter window) {
+        super.onPopupInitialize(window);
+        this.valueBox.managedBindVisible();
+        this.charsetBox.managedBindVisible();
+        this.unsignedBox.managedBindVisible();
+        this.zeroFillBox.managedBindVisible();
+        this.collationBox.managedBindVisible();
+        this.autoIncrementBox.managedBindVisible();
+        this.primaryKeySizeBox.managedBindVisible();
+        this.currentTimestampBox.managedBindVisible();
+    }
+}

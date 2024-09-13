@@ -1,0 +1,173 @@
+package cn.oyzh.easymysql.popups;
+
+import cn.oyzh.easymysql.db.record.DBRecordFilter;
+import cn.oyzh.easymysql.db.table.DBColumn;
+import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
+import cn.oyzh.easymysql.module.mysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.trees.MysqlTableTreeItem;
+import cn.oyzh.fx.plus.FXConst;
+import cn.oyzh.fx.plus.controller.PopupController;
+import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
+import cn.oyzh.fx.plus.controls.table.FlexTableView;
+import cn.oyzh.fx.plus.information.MessageBox;
+import cn.oyzh.fx.plus.window.PopupAdapter;
+import cn.oyzh.fx.plus.window.PopupAttribute;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.WindowEvent;
+import org.springframework.context.annotation.Lazy;
+
+import java.util.List;
+
+import static atlantafx.base.controls.Popover.ArrowLocation.BOTTOM_LEFT;
+import static javafx.stage.PopupWindow.AnchorLocation.CONTENT_TOP_LEFT;
+
+/**
+ * 数据过滤业务
+ *
+ * @author oyzh
+ * @since 2024/06/26
+ */
+@Lazy
+@PopupAttribute(
+        value = FXConst.MODULE_PATH + "mysql/popups/mysqlTableRecordFilterPopup.fxml",
+        arrowLocation = BOTTOM_LEFT,
+        anchorLocation = CONTENT_TOP_LEFT
+)
+public class MysqlTableRecordFilterPopupController extends PopupController {
+
+    /**
+     * 表过滤条件表单
+     */
+    @FXML
+    private FlexTableView<DBRecordFilter> filterTable;
+
+    /**
+     * 字段列
+     */
+    @FXML
+    private FlexTableColumn<DBRecordFilter, DBConditionComboBox> column;
+
+    /**
+     * 条件列
+     */
+    @FXML
+    private FlexTableColumn<DBRecordFilter, DBConditionComboBox> condition;
+
+    /**
+     * 值列
+     */
+    @FXML
+    private FlexTableColumn<DBRecordFilter, Node> value;
+
+    /**
+     * 启用列
+     */
+    @FXML
+    private FlexTableColumn<DBRecordFilter, CheckBox> enabled;
+
+    /**
+     * 连接符列
+     */
+    @FXML
+    private FlexTableColumn<DBRecordFilter, ComboBox<String>> joinSymbol;
+
+    /**
+     * db表节点
+     */
+    private MysqlTableTreeItem treeItem;
+
+    /**
+     * 字段列表
+     */
+    private List<DBColumn> columnList;
+
+    /**
+     * 应用
+     */
+    @FXML
+    private void apply() {
+        try {
+            MysqlEventUtil.tableFiltered(this.treeItem, this.filterTable.getItems());
+            this.closeWindow();
+        } catch (Exception ex) {
+            MessageBox.exception(ex);
+        }
+    }
+
+    /**
+     * 关闭
+     */
+    @FXML
+    private void close() {
+        this.closeWindow();
+    }
+
+    @Override
+    protected void bindListeners() {
+        super.bindListeners();
+    }
+
+    @Override
+    public void onWindowShowing(WindowEvent event) {
+        super.onWindowShowing(event);
+        this.treeItem = this.getWindowProp("item");
+        List<DBRecordFilter> filters = this.getWindowProp("filters");
+        this.filterTable.setItem(filters);
+    }
+
+    @Override
+    public void onWindowHidden(WindowEvent event) {
+        super.onWindowHidden(event);
+        this.columnList = null;
+    }
+
+    /**
+     * 初始化列表控件
+     */
+    private void initTable() {
+        this.value.setCellValueFactory(new PropertyValueFactory<>("valueControl"));
+        this.column.setCellValueFactory(new PropertyValueFactory<>("columnControl"));
+        this.enabled.setCellValueFactory(new PropertyValueFactory<>("enabledControl"));
+        this.condition.setCellValueFactory(new PropertyValueFactory<>("conditionControl"));
+        this.joinSymbol.setCellValueFactory(new PropertyValueFactory<>("joinSymbolControl"));
+    }
+
+    @Override
+    public void onPopupInitialize(PopupAdapter window) {
+        super.onPopupInitialize(window);
+        // 初始化表单
+        this.initTable();
+    }
+
+    /**
+     * 添加过滤条件
+     */
+    @FXML
+    private void addFilter() {
+        DBRecordFilter filter = new DBRecordFilter();
+        if (this.columnList == null) {
+            this.columnList = this.treeItem.columns();
+        }
+        filter.setColumns(this.columnList);
+        this.filterTable.addItem(filter);
+    }
+
+    /**
+     * 删除过滤条件
+     */
+    @FXML
+    private void deleteFilter() {
+        try {
+            DBRecordFilter filter = this.filterTable.getSelectedItem();
+            if (filter != null) {
+                this.filterTable.getItems().remove(filter);
+            }
+        } catch (Exception ex) {
+            MessageBox.exception(ex);
+        }
+    }
+}
