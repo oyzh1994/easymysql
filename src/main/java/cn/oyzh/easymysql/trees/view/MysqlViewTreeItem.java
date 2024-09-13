@@ -37,7 +37,7 @@ import java.util.List;
  * @author oyzh
  * @since 2024/12/27
  */
-public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItem.MysqlViewTreeItemValue> {
+public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
 
     /**
      * 当前值
@@ -211,39 +211,5 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItem.MysqlViewTre
         return this.client().updateRecord(this.dbName(), this.viewName(), recordData, originalRecordData);
     }
 
-    /**
-     * db树表节点值
-     *
-     * @author oyzh
-     * @since 2023/12/22
-     */
-    @Accessors(chain = true, fluent = true)
-    public static class MysqlViewTreeItemValue extends DBTreeItemValue {
 
-        /**
-         * db树表节点
-         */
-        private final MysqlViewTreeItem item;
-
-        public MysqlViewTreeItemValue(MysqlViewTreeItem item) {
-            this.item = item;
-            this.flushGraphic();
-            this.flushGraphicColor();
-            this.flushText();
-        }
-
-        @Override
-        public void flushGraphic() {
-            ViewSVGGlyph glyph = (ViewSVGGlyph) this.graphic();
-            if (glyph == null) {
-                glyph = new ViewSVGGlyph("12");
-                this.graphic(glyph);
-            }
-        }
-
-        @Override
-        public String name() {
-            return this.item.viewName();
-        }
-    }
 }
