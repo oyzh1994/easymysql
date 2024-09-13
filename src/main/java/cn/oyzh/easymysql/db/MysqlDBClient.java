@@ -18,7 +18,6 @@ import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
-import cn.oyzh.easymysql.db.schema.DBSchema;
 import cn.oyzh.easymysql.db.table.MysqlCheck;
 import cn.oyzh.easymysql.db.table.MysqlChecks;
 import cn.oyzh.easymysql.db.table.MysqlColumn;
@@ -2354,11 +2353,6 @@ public class MysqlDBClient extends DBClient {
             ex.printStackTrace();
         }
         return false;
-    }
-
-    @Override
-    public List<DBSchema> schemas(String dbName) {
-        throw new UnsupportedOperationException();
     }
 
     @Override

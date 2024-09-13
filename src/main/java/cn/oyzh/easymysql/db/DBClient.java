@@ -15,7 +15,6 @@ import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.db.routine.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlProcedure;
-import cn.oyzh.easymysql.db.schema.DBSchema;
 import cn.oyzh.easymysql.db.table.MysqlChecks;
 import cn.oyzh.easymysql.db.table.MysqlColumn;
 import cn.oyzh.easymysql.db.table.MysqlColumns;
@@ -795,8 +794,6 @@ public abstract class DBClient {
     public boolean isSupportEventFeature() {
         return this.isSupportFeature(DBFeature.SCHEMA);
     }
-
-    public abstract List<DBSchema> schemas(String dbName);
 
     public abstract void dropSchema(String dbName, String schema);
 
