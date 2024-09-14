@@ -206,15 +206,10 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
     public void copy(MysqlTable table) {
         if (table != null) {
             this.setEngine(table.getEngine());
-            // this.setChecks(table.getChecks());
             this.setComment(table.getComment());
-            // this.setColumns(table.getColumns());
-            // this.setIndexes(table.getIndexes());
             this.setCharset(table.getCharset());
-            // this.setTriggers(table.getTriggers());
             this.setRowFormat(table.getRowFormat());
             this.setCollation(table.getCollation());
-            // this.setForeignKeys(table.getForeignKeys());
             this.setHasPrimaryKey(table.isHasPrimaryKey());
             this.setAutoIncrement(table.getAutoIncrement());
             this.setCreateDefinition(table.getCreateDefinition());

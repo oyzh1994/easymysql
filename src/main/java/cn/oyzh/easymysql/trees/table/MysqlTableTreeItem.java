@@ -20,6 +20,7 @@ import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
+import cn.oyzh.easymysql.db.table.MysqlTableSelectParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
@@ -328,7 +329,11 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     @Override
     public void reloadChild() {
         try {
-            MysqlTable table = this.client().table(this.dbName(), this.tableName(), true);
+            MysqlTableSelectParam param = new MysqlTableSelectParam();
+            param.full(true);
+            param.dbName(this.dbName());
+            param.tableName(this.tableName());
+            MysqlTable table = this.client().selectTable(param);
             if (table != null) {
                 this.value.copy(table);
             }

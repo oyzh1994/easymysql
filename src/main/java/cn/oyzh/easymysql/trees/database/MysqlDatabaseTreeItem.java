@@ -24,6 +24,7 @@ import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
 import cn.oyzh.easymysql.db.table.MysqlTableCreateParam;
+import cn.oyzh.easymysql.db.table.MysqlTableSelectParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlInfo;
@@ -401,7 +402,11 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     }
 
     public MysqlTable selectTable(String tableName, boolean full) {
-        return this.client().table(this.dbName(), tableName, full);
+        MysqlTableSelectParam param = new MysqlTableSelectParam();
+        param.full(full);
+        param.dbName(this.dbName());
+        param.tableName(tableName);
+        return this.client().selectTable(param);
     }
 
     public boolean existTable(String tableName) {

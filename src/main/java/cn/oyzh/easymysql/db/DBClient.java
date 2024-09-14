@@ -31,6 +31,7 @@ import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
 import cn.oyzh.easymysql.db.table.MysqlTableCreateParam;
+import cn.oyzh.easymysql.db.table.MysqlTableSelectParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
@@ -420,10 +421,6 @@ public class DBClient {
             ex.printStackTrace();
             throw new DBException(ex);
         }
-    }
-
-    public MysqlTable table(String dbName, String tableName) {
-        return this.table(dbName, tableName, false);
     }
 
     /**
@@ -842,23 +839,62 @@ public class DBClient {
     public static final String[] VIEW_TYPES = new String[]{"VIEW"};
 
     public List<MysqlTable> selectTables(String dbName) {
+        MysqlTableSelectParam param = new MysqlTableSelectParam();
+        param.dbName(dbName);
+        return this.selectTables(param);
+    }
+
+    public List<MysqlTable> selectTables(MysqlTableSelectParam param) {
         try {
-            Connection connection = this.connection(dbName);
-            DatabaseMetaData metaData = connection.getMetaData();
-            ResultSet resultSet = metaData.getTables(null, null, "%", TABLE_TYPES);
+            String dbName = param.dbName();
             List<MysqlTable> tables = new ArrayList<>();
-            while (resultSet.next()) {
-                if (DBUtil.checkTableType(resultSet, dbName)) {
+            Connection connection = this.connection(dbName);
+            if (param.full()) {
+                String sql = "SELECT `AUTO_INCREMENT`, `ROW_FORMAT`, `TABLE_COLLATION`, `TABLE_NAME`, `TABLE_COMMENT`, `ENGINE` FROM information_schema.TABLES WHERE `TABLE_SCHEMA` = ? AND `TABLE_TYPE` != 'VIEW'";
+                DBUtil.printSql(sql);
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1, dbName);
+                ResultSet resultSet = statement.executeQuery();
+                DBUtil.printMetaData(resultSet);
+                while (resultSet.next()) {
                     MysqlTable table = new MysqlTable();
-                    table.setDbName(dbName);
-                    String remarks = resultSet.getString("REMARKS");
+                    String tableEngine = resultSet.getString("ENGINE");
                     String tableName = resultSet.getString("TABLE_NAME");
+                    String rowFormat = resultSet.getString("ROW_FORMAT");
+                    Long autoIncrement = resultSet.getLong("AUTO_INCREMENT");
+                    String tableComment = resultSet.getString("TABLE_COMMENT");
+                    String tableCollation = resultSet.getString("TABLE_COLLATION");
+                    String showCreateTable = this.showCreateTable(dbName, tableName);
+                    table.setDbName(dbName);
                     table.setName(tableName);
-                    table.setComment(remarks);
+                    table.setEngine(tableEngine);
+                    table.setRowFormat(rowFormat);
+                    table.setComment(tableComment);
+                    table.setAutoIncrement(autoIncrement);
+                    table.setCreateDefinition(showCreateTable);
+                    table.setCharsetAndCollation(tableCollation);
                     tables.add(table);
                 }
+                DBUtil.close(resultSet);
+                DBUtil.close(statement);
+            } else {
+                DatabaseMetaData metaData = connection.getMetaData();
+                ResultSet resultSet = metaData.getTables(null, null, "%", TABLE_TYPES);
+                while (resultSet.next()) {
+                    if (DBUtil.checkTableType(resultSet, dbName)) {
+                        MysqlTable table = new MysqlTable();
+                        table.setDbName(dbName);
+                        String remarks = resultSet.getString("REMARKS");
+                        String tableName = resultSet.getString("TABLE_NAME");
+                        table.setName(tableName);
+                        table.setComment(remarks);
+                        tables.add(table);
+                    }
+                }
+                DBUtil.close(resultSet);
             }
-            DBUtil.close(resultSet);
+
+
             return tables;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -1362,37 +1398,56 @@ public class DBClient {
         }
     }
 
-    public MysqlTable table(String dbName, String tableName, boolean full) {
+    public MysqlTable selectTable(String dbName, String tableName) {
+        MysqlTableSelectParam param = new MysqlTableSelectParam();
+        param.dbName(dbName);
+        param.tableName(tableName);
+        return this.selectTable(param);
+    }
+
+    public MysqlTable selectTable(MysqlTableSelectParam param) {
         try {
-            String sql = "SELECT `AUTO_INCREMENT`, `ROW_FORMAT`, `TABLE_COLLATION`, `TABLE_COMMENT`, `ENGINE` FROM information_schema.TABLES WHERE `TABLE_SCHEMA` = ? AND `TABLE_NAME` = ?  AND `TABLE_TYPE` = 'BASE TABLE'";
-            DBUtil.printSql(sql);
-            PreparedStatement statement = this.connection().prepareStatement(sql);
-            statement.setString(1, dbName);
-            statement.setString(2, tableName);
-            // 执行SQL查询并获取结果集
-            ResultSet resultSet = statement.executeQuery();
-            // 打印元数据
-            DBUtil.printMetaData(resultSet);
+            String dbName = param.dbName();
+            String tableName = param.tableName();
             MysqlTable table = new MysqlTable();
-            table.setName(tableName);
             table.setDbName(dbName);
-            String showCreateTable = this.showCreateTable(dbName, tableName);
-            // 遍历结果集
-            while (resultSet.next()) {
-                String tableEngine = resultSet.getString("ENGINE");
-                String rowFormat = resultSet.getString("ROW_FORMAT");
-                Long autoIncrement = resultSet.getLong("AUTO_INCREMENT");
-                String tableComment = resultSet.getString("TABLE_COMMENT");
-                String tableCollation = resultSet.getString("TABLE_COLLATION");
-                table.setEngine(tableEngine);
-                table.setRowFormat(rowFormat);
-                table.setComment(tableComment);
-                table.setAutoIncrement(autoIncrement);
-                table.setCreateDefinition(showCreateTable);
-                table.setCharsetAndCollation(tableCollation);
+            table.setName(tableName);
+            Connection connection = this.connection(dbName);
+            if (param.full()) {
+                String sql = "SELECT `AUTO_INCREMENT`, `ROW_FORMAT`, `TABLE_COLLATION`, `TABLE_COMMENT`, `ENGINE` FROM information_schema.TABLES WHERE `TABLE_SCHEMA` = ? AND `TABLE_NAME` = ?  AND `TABLE_TYPE` = 'BASE TABLE'";
+                DBUtil.printSql(sql);
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1, dbName);
+                statement.setString(2, tableName);
+                ResultSet resultSet = statement.executeQuery();
+                DBUtil.printMetaData(resultSet);
+                String showCreateTable = this.showCreateTable(dbName, tableName);
+                while (resultSet.next()) {
+                    String tableEngine = resultSet.getString("ENGINE");
+                    String rowFormat = resultSet.getString("ROW_FORMAT");
+                    Long autoIncrement = resultSet.getLong("AUTO_INCREMENT");
+                    String tableComment = resultSet.getString("TABLE_COMMENT");
+                    String tableCollation = resultSet.getString("TABLE_COLLATION");
+                    table.setEngine(tableEngine);
+                    table.setRowFormat(rowFormat);
+                    table.setComment(tableComment);
+                    table.setAutoIncrement(autoIncrement);
+                    table.setCreateDefinition(showCreateTable);
+                    table.setCharsetAndCollation(tableCollation);
+                }
+                DBUtil.close(resultSet);
+                DBUtil.close(statement);
+            } else {
+                DatabaseMetaData metaData = connection.getMetaData();
+                ResultSet resultSet = metaData.getTables(null, null, tableName, TABLE_TYPES);
+                while (resultSet.next()) {
+                    if (DBUtil.checkTableType(resultSet, dbName)) {
+                        String remarks = resultSet.getString("REMARKS");
+                        table.setComment(remarks);
+                    }
+                }
+                DBUtil.close(resultSet);
             }
-            DBUtil.close(resultSet);
-            DBUtil.close(statement);
             return table;
         } catch (Exception ex) {
             ex.printStackTrace();

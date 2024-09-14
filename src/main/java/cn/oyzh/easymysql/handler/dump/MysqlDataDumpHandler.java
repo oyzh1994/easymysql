@@ -45,7 +45,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
             this.dumpTrigger();
             this.dumpEvent();
         } else if (this.dumpType == 2) {
-            MysqlTable table = this.dbClient.table(this.dbName, this.tableName);
+            MysqlTable table = this.dbClient.selectTable(this.dbName, this.tableName);
             this.dumpTable(table);
         }
         this.writeTail();
