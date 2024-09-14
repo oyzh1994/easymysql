@@ -394,7 +394,12 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         param.indexes(indexes);
         param.triggers(triggers);
         param.foreignKeys(foreignKeys);
+        param.existPrimaryKey(this.existPrimaryKey(table.getName()));
         this.client().alertTable(param);
+    }
+
+    public boolean existPrimaryKey(String tableName) {
+        return this.client().existPrimaryKey(this.dbName(), tableName);
     }
 
     public MysqlTable selectFullTable(String tableName) {

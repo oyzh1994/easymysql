@@ -1018,7 +1018,7 @@ public class DBClient {
         try {
             StringBuilder builder = new StringBuilder();
             builder.append("INSERT INTO ")
-                    .append(DBUtil.wrap(param.schema(), param.tableName(), this.dialect()))
+                    .append(DBUtil.wrap(param.dbName(), param.tableName(), this.dialect()))
                     .append("(");
             for (String column : param.record().columns()) {
                 builder.append(DBUtil.wrap(column, this.dialect())).append(",");
@@ -2566,5 +2566,37 @@ public class DBClient {
         return character;
     }
 
+    public  boolean existPrimaryKey(String dbName, String tableName)   {
+        try {
+            Connection connection = this.connection();
+            String sql = """
+                    SELECT 
+                       COUNT(*) 
+                    FROM 
+                       INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+                    WHERE 
+                       TABLE_SCHEMA = ? 
+                    AND 
+                       TABLE_NAME = ?
+                    AND 
+                       CONSTRAINT_TYPE = 'PRIMARY KEY' 
+                    LIMIT 1
+                    """;
 
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, dbName);
+            stmt.setString(2, tableName);
+            ResultSet resultSet = stmt.executeQuery();
+            Long count = null;
+            if (resultSet.next()) {
+                count = resultSet.getLong(1);
+            }
+            DBUtil.close(resultSet);
+            DBUtil.close(stmt);
+            return count != null && count > 0;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
+    }
 }

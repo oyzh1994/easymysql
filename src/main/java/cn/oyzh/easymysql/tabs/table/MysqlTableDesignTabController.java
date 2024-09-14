@@ -5,6 +5,7 @@ import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.db.check.MysqlCheck;
 import cn.oyzh.easymysql.db.check.MysqlChecks;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumnControl;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
 import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeys;
@@ -142,7 +143,7 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      * 表字段组件
      */
     @FXML
-    private DBStatusTableView<MysqlColumn> columnTable;
+    private DBStatusTableView<MysqlColumnControl> columnTable;
 
     /**
      * 字段状态列
@@ -196,7 +197,7 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      * 字段配置
      */
     @FXML
-    private FlexTableColumn<MysqlColumn, String> colConfig;
+    private FlexTableColumn<MysqlColumnControl, String> colConfig;
 
     /**
      * 表索引组件
@@ -466,18 +467,15 @@ public class MysqlTableDesignTabController extends DynamicTabController {
             // }
 
             // 字段处理
-            MysqlColumns columns = new MysqlColumns(this.columnTable.getItems());
-            // MysqlColumns columns = this.mysqlTable.getColumns();
-            // if (columns != null) {
-            for (MysqlColumn column : columns) {
+            MysqlColumns columns = new MysqlColumns();
+            for (MysqlColumn column : this.columnTable.getItems()) {
                 if (StrUtil.isBlank(column.getName())) {
                     MessageBox.warn(I18nHelper.invalidData());
                     this.tabPane.select(1);
                     return;
                 }
+                columns.add(column);
             }
-            // tempTable.setColumns(columns);
-            // }
 
             // 外键处理
             // MysqlForeignKeys foreignKeys = this.mysqlTable.getForeignKeys();
@@ -650,7 +648,7 @@ public class MysqlTableDesignTabController extends DynamicTabController {
         // 索引
         this.indexTable.setItem(this.dbItem.indexes(this.tableName()));
         // 字段
-        this.columnTable.setItem(this.dbItem.columns(this.tableName()));
+        this.columnTable.setItem(MysqlColumnControl.of(this.dbItem.columns(this.tableName())));
         // 触发器
         this.triggerTable.setItem(this.dbItem.triggers(this.tableName()));
         // 外键
@@ -673,12 +671,11 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      * 新增字段
      */
     private void addColumn() {
-        MysqlColumn column = new MysqlColumn();
+        MysqlColumnControl column = new MysqlColumnControl();
         column.setCreated(true);
         column.setNullable(true);
         this.columnTable.addItem(column);
         this.columnTable.selectLast();
-        // this.mysqlTable.columns().add(column);
     }
 
     /**

@@ -455,101 +455,101 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         super.putOriginalData("name", name);
     }
 
-    public ClearableTextField getNameControl() {
-        ClearableTextField textField = new ClearableTextField();
-        textField.setPromptText(I18nHelper.pleaseInputName());
-        textField.addTextChangeListener((observable, oldValue, newValue) -> this.setName(newValue));
-        if (this.name != null) {
-            textField.setText(this.name);
-        }
-        TableViewUtil.rowOnCtrlS(textField);
-        TableViewUtil.selectRowOnMouseClicked(textField);
-        return textField;
-    }
+    // public ClearableTextField getNameControl() {
+    //     ClearableTextField textField = new ClearableTextField();
+    //     textField.setPromptText(I18nHelper.pleaseInputName());
+    //     textField.addTextChangeListener((observable, oldValue, newValue) -> this.setName(newValue));
+    //     if (this.name != null) {
+    //         textField.setText(this.name);
+    //     }
+    //     TableViewUtil.rowOnCtrlS(textField);
+    //     TableViewUtil.selectRowOnMouseClicked(textField);
+    //     return textField;
+    // }
 
     public void setComment(String comment) {
         this.comment = comment;
         super.putOriginalData("comment", comment);
     }
 
-    public ClearableTextField getCommentControl() {
-        ClearableTextField textField = new ClearableTextField();
-        textField.setPromptText(I18nHelper.pleaseInputComment());
-        if (this.comment != null) {
-            textField.setText(this.comment);
-        }
-        textField.addTextChangeListener((observable, oldValue, newValue) -> this.setComment(newValue));
-        textField.setFlexWidth("100% - 12");
-        TableViewUtil.rowOnCtrlS(textField);
-        TableViewUtil.selectRowOnMouseClicked(textField);
-        return textField;
-    }
+    // public ClearableTextField getCommentControl() {
+    //     ClearableTextField textField = new ClearableTextField();
+    //     textField.setPromptText(I18nHelper.pleaseInputComment());
+    //     if (this.comment != null) {
+    //         textField.setText(this.comment);
+    //     }
+    //     textField.addTextChangeListener((observable, oldValue, newValue) -> this.setComment(newValue));
+    //     textField.setFlexWidth("100% - 12");
+    //     TableViewUtil.rowOnCtrlS(textField);
+    //     TableViewUtil.selectRowOnMouseClicked(textField);
+    //     return textField;
+    // }
 
     public void setSize(Integer size) {
         this.size = size;
         super.putOriginalData("size", size);
     }
 
-    public NumberTextField getSizeControl() {
-        NumberTextField textField = new NumberTextField();
-        if (this.size != null) {
-            textField.setValue(this.size);
-        } else if (this.supportSize() && this.isCreated() && this.suggestSize() != null) {
-            this.size = this.suggestSize();
-            textField.setValue(this.size);
-        }
-        textField.addTextChangeListener((observable, oldValue, newValue) -> this.setSize(textField.getIntValue()));
-        textField.setFlexWidth("100% - 12");
-        TableViewUtil.rowOnCtrlS(textField);
-        TableViewUtil.selectRowOnMouseClicked(textField);
-        return textField;
-    }
+    // public NumberTextField getSizeControl() {
+    //     NumberTextField textField = new NumberTextField();
+    //     if (this.size != null) {
+    //         textField.setValue(this.size);
+    //     } else if (this.supportSize() && this.isCreated() && this.suggestSize() != null) {
+    //         this.size = this.suggestSize();
+    //         textField.setValue(this.size);
+    //     }
+    //     textField.addTextChangeListener((observable, oldValue, newValue) -> this.setSize(textField.getIntValue()));
+    //     textField.setFlexWidth("100% - 12");
+    //     TableViewUtil.rowOnCtrlS(textField);
+    //     TableViewUtil.selectRowOnMouseClicked(textField);
+    //     return textField;
+    // }
 
     public void setDigits(Integer digits) {
         this.digits = digits;
         super.putOriginalData("digits", digits);
     }
 
-    public NumberTextField getDigitsControl() {
-        NumberTextField textField = new NumberTextField();
-        textField.addTextChangeListener((observable, oldValue, newValue) -> this.setDigits(textField.getIntValue()));
-        if (this.digits != null) {
-            textField.setValue(this.digits);
-        }
-        textField.setFlexWidth("100% - 12");
-        TableViewUtil.rowOnCtrlS(textField);
-        TableViewUtil.selectRowOnMouseClicked(textField);
-        return textField;
-    }
+    // public NumberTextField getDigitsControl() {
+    //     NumberTextField textField = new NumberTextField();
+    //     textField.addTextChangeListener((observable, oldValue, newValue) -> this.setDigits(textField.getIntValue()));
+    //     if (this.digits != null) {
+    //         textField.setValue(this.digits);
+    //     }
+    //     textField.setFlexWidth("100% - 12");
+    //     TableViewUtil.rowOnCtrlS(textField);
+    //     TableViewUtil.selectRowOnMouseClicked(textField);
+    //     return textField;
+    // }
 
-    public DBFiledTypeComboBox getTypeControl() {
-        DBFiledTypeComboBox comboBox = new DBFiledTypeComboBox();
-        comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setType(newValue));
-        comboBox.selectFirstIfNull(this.type);
-        TableViewUtil.rowOnCtrlS(comboBox);
-        TableViewUtil.selectRowOnMouseClicked(comboBox);
-        return comboBox;
-    }
+    // public DBFiledTypeComboBox getTypeControl() {
+    //     DBFiledTypeComboBox comboBox = new DBFiledTypeComboBox();
+    //     comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setType(newValue));
+    //     comboBox.selectFirstIfNull(this.type);
+    //     TableViewUtil.rowOnCtrlS(comboBox);
+    //     TableViewUtil.selectRowOnMouseClicked(comboBox);
+    //     return comboBox;
+    // }
 
     public void setNullable(Boolean nullable) {
         this.nullable = nullable;
         super.putOriginalData("nullable", nullable);
     }
 
-    public FlexCheckBox getNullableControl() {
-        FlexCheckBox checkBox = new FlexCheckBox();
-        checkBox.selectedChanged((observable, oldValue, newValue) -> this.setNullable(newValue));
-        checkBox.setSelected(this.isNullable());
-        // 监听主键值变化
-        this.primaryKeyProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                checkBox.setSelected(false);
-            }
-        });
-        TableViewUtil.rowOnCtrlS(checkBox);
-        TableViewUtil.selectRowOnMouseClicked(checkBox);
-        return checkBox;
-    }
+    // public FlexCheckBox getNullableControl() {
+    //     FlexCheckBox checkBox = new FlexCheckBox();
+    //     checkBox.selectedChanged((observable, oldValue, newValue) -> this.setNullable(newValue));
+    //     checkBox.setSelected(this.isNullable());
+    //     // 监听主键值变化
+    //     this.primaryKeyProperty().addListener((observable, oldValue, newValue) -> {
+    //         if (newValue) {
+    //             checkBox.setSelected(false);
+    //         }
+    //     });
+    //     TableViewUtil.rowOnCtrlS(checkBox);
+    //     TableViewUtil.selectRowOnMouseClicked(checkBox);
+    //     return checkBox;
+    // }
 
     public SimpleBooleanProperty primaryKeyProperty() {
         if (this.primaryKeyProperty == null) {
@@ -563,38 +563,28 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         super.putOriginalData("primaryKey", primaryKey);
     }
 
-    public FlexCheckBox getPrimaryKeyControl() {
-        FlexCheckBox checkBox = new FlexCheckBox();
-        checkBox.selectedChanged((observable, oldValue, newValue) -> {
-            // if (!Objects.equals(newValue, this.primaryKey)) {
-            //     this.primaryKey = newValue;
-            //     this.primaryKeyChanged = true;
-            // }
-            this.setPrimaryKey(newValue);
-        });
-        checkBox.setSelected(this.isPrimaryKey());
-        TableViewUtil.rowOnCtrlS(checkBox);
-        TableViewUtil.selectRowOnMouseClicked(checkBox);
-        return checkBox;
-    }
-
-    public ConfigurationSVGGlyph getConfigControl() {
-        ConfigurationSVGGlyph glyph = new ConfigurationSVGGlyph();
-        glyph.setOnMousePrimaryClicked(event -> {
-            PopupAdapter popup = PopupManager.parsePopup(DBColumnConfigPopupController.class);
-            popup.setProp("dbColumn", this);
-            popup.setProp("dbClient", CacheHelper.get("dbClient"));
-            popup.showPopup(glyph);
-        });
-        TableViewUtil.selectRowOnMouseClicked(glyph);
-        return glyph;
-    }
+    // public FlexCheckBox getPrimaryKeyControl() {
+    //     FlexCheckBox checkBox = new FlexCheckBox();
+    //     checkBox.selectedChanged((observable, oldValue, newValue) -> this.setPrimaryKey(newValue));
+    //     checkBox.setSelected(this.isPrimaryKey());
+    //     TableViewUtil.rowOnCtrlS(checkBox);
+    //     TableViewUtil.selectRowOnMouseClicked(checkBox);
+    //     return checkBox;
+    // }
+    //
+    // public ConfigurationSVGGlyph getConfigControl() {
+    //     ConfigurationSVGGlyph glyph = new ConfigurationSVGGlyph();
+    //     glyph.setOnMousePrimaryClicked(event -> {
+    //         PopupAdapter popup = PopupManager.parsePopup(DBColumnConfigPopupController.class);
+    //         popup.setProp("dbColumn", this);
+    //         popup.setProp("dbClient", CacheHelper.get("dbClient"));
+    //         popup.showPopup(glyph);
+    //     });
+    //     TableViewUtil.selectRowOnMouseClicked(glyph);
+    //     return glyph;
+    // }
 
     public void setZeroFill(Boolean zeroFill) {
-        // if (zeroFill != this.zeroFill) {
-        //     this.zeroFill = zeroFill;
-        //     this.setChanged(true);
-        // }
         this.zeroFill = zeroFill;
         super.putOriginalData("zeroFill", zeroFill);
     }
@@ -604,10 +594,6 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public void setPrimaryKeySize(Integer primaryKeySize) {
-        // if (!Objects.equals(keySize, this.primaryKeySize)) {
-        //     this.primaryKeySize = keySize;
-        //     this.primaryKeyChanged = true;
-        // }
         this.primaryKeySize = primaryKeySize;
         super.putOriginalData("primaryKeySize", primaryKeySize);
     }
@@ -624,7 +610,6 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public boolean isPrimaryKeyChanged() {
-        // return BooleanUtil.isTrue(this.primaryKeyChanged);
         return super.checkOriginalData("primaryKey", this.primaryKeyProperty().get());
     }
 
@@ -632,7 +617,6 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     public void setDeleted(boolean deleted) {
         super.setDeleted(deleted);
         if (deleted && this.isPrimaryKey()) {
-            // this.primaryKeyChanged = true;
             this.setPrimaryKey(false);
         }
     }
