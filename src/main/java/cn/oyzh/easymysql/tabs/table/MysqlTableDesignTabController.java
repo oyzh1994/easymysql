@@ -728,11 +728,10 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      * 新增索引
      */
     private void addIndex() {
-        MysqlIndex index = new MysqlIndex();
+        MysqlIndexControl index = new MysqlIndexControl();
         index.setCreated(true);
         this.indexTable.addItem(index);
         this.indexTable.selectLast();
-        // this.mysqlTable.indexes().add(index);
     }
 
     /**
