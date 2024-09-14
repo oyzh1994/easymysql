@@ -1420,6 +1420,7 @@ public class DBClient {
             }
             DBUtil.close(resultSet);
             DBUtil.close(statement);
+            return table;
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new DBException(ex);

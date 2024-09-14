@@ -601,6 +601,8 @@ public class MysqlTableDesignTabController extends DynamicTabController {
         // 新数据
         if (tableName == null) {
             this.newData = true;
+            this.mysqlTable = new MysqlTable();
+            this.mysqlTable.setName(I18nHelper.unnamedTable());
             this.initNew();
         } else {// 已有数据
             this.newData = false;
@@ -1076,14 +1078,12 @@ public class MysqlTableDesignTabController extends DynamicTabController {
     /**
      * 执行初始化
      *
-     * @param tableName  表信息
-     * @param dbItem db库树节点
+     * @param tableName 表信息
+     * @param dbItem    db库树节点
      */
     public void init(String tableName, MysqlDatabaseTreeItem dbItem) {
         // 获取对象
         this.dbItem = dbItem;
-        // 初始化监听器
-        this.initDBListener();
         // 初始化引擎
         this.tableEngine.init(this.dbItem.client());
 
@@ -1093,6 +1093,9 @@ public class MysqlTableDesignTabController extends DynamicTabController {
 
         // 初始化信息
         this.initInfo(tableName);
+
+        // 初始化监听器
+        this.initDBListener();
 
         // 监听组件
         DBListenerManager.bindListener(this.tableEngine, this.listener);
