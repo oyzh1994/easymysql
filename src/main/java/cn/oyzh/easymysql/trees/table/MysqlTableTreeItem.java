@@ -5,13 +5,14 @@ import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
 import cn.oyzh.easymysql.controller.data.MysqlDataExportController;
 import cn.oyzh.easymysql.controller.table.MysqlTableInfoController;
 import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
+import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.table.MysqlForeignKey;
 import cn.oyzh.easymysql.db.table.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.table.MysqlIndex;
@@ -103,7 +104,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     public MysqlColumns tableColumns() {
-       return new MysqlColumns(this.columns());
+        return new MysqlColumns(this.columns());
     }
 
     public MysqlTriggers tableTriggers() {
@@ -273,7 +274,10 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     public MysqlColumns columns() {
-        return this.client().selectColumns(this.dbName(), null, this.tableName());
+        MysqlSelectColumnParam param = new MysqlSelectColumnParam();
+        param.dbName(this.dbName());
+        param.tableName(this.tableName());
+        return this.client().selectColumns(param);
     }
 
     public List<MysqlIndex> indexes() {

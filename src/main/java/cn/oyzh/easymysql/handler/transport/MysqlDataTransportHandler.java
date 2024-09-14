@@ -1,6 +1,8 @@
 package cn.oyzh.easymysql.handler.transport;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.db.MysqlDBClient;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
@@ -12,6 +14,9 @@ import cn.oyzh.easymysql.fx.data.DataTransportTrigger;
 import cn.oyzh.easymysql.fx.data.DataTransportView;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBUtil;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -22,6 +27,22 @@ import java.util.List;
  */
 @Slf4j
 public class MysqlDataTransportHandler extends DataTransportHandler {
+
+    /**
+     * 来源客户端
+     */
+    @Getter
+    @Setter
+    @Accessors(fluent = true, chain = true)
+    protected MysqlDBClient sourceClient;
+
+    /**
+     * 目标客户端
+     */
+    @Getter
+    @Setter
+    @Accessors(fluent = true, chain = true)
+    protected MysqlDBClient targetClient;
 
     @Override
     public void doTransport() throws Exception {

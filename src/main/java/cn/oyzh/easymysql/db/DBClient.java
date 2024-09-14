@@ -1,7 +1,12 @@
 package cn.oyzh.easymysql.db;
 
 import cn.hutool.log.StaticLog;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
+import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.db.function.MysqlFunction;
+import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
@@ -13,11 +18,7 @@ import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
-import cn.oyzh.easymysql.db.function.MysqlFunction;
-import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.MysqlChecks;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.table.MysqlForeignKey;
 import cn.oyzh.easymysql.db.table.MysqlIndex;
 import cn.oyzh.easymysql.db.table.MysqlTable;
@@ -654,121 +655,6 @@ public abstract class DBClient {
 
     public abstract String selectClientCharacter();
 
-    public String showCreateTable(String dbName, String tableName) {
-        try {
-            Connection connection = this.connection(dbName);
-            String sql = "SHOW CREATE TABLE " + DBUtil.wrap(tableName);
-            Statement stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery(sql);
-            String createDefinition = "";
-            if (resultSet.next()) {
-                createDefinition = resultSet.getString(2);
-            }
-            DBUtil.close(resultSet);
-            DBUtil.close(stmt);
-            return createDefinition;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new DBException(ex);
-        }
-    }
-
-    public String showCreateView(String dbName, String viewName) {
-        try {
-            Connection connection = this.connection(dbName);
-            String sql = "SHOW CREATE VIEW " + DBUtil.wrap(viewName);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            String createDefinition = "";
-            if (resultSet.next()) {
-                createDefinition = resultSet.getString("Create View");
-            }
-            DBUtil.close(resultSet);
-            DBUtil.close(statement);
-            return createDefinition;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new DBException(ex);
-        }
-    }
-
-    public String showCreateFunction(String dbName, String functionName) {
-        try {
-            Connection connection = this.connection(dbName);
-            String sql = "SHOW CREATE FUNCTION " + DBUtil.wrap(functionName);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            String createDefinition = "";
-            if (resultSet.next()) {
-                createDefinition = resultSet.getString("Create Function");
-            }
-            DBUtil.close(resultSet);
-            DBUtil.close(statement);
-            return createDefinition;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new DBException(ex);
-        }
-    }
-
-    public String showCreateProcedure(String dbName, String procedureName) {
-        try {
-            Connection connection = this.connection(dbName);
-            String sql = "SHOW CREATE PROCEDURE " + DBUtil.wrap(procedureName);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            String createDefinition = "";
-            if (resultSet.next()) {
-                createDefinition = resultSet.getString("Create Procedure");
-            }
-            DBUtil.close(resultSet);
-            DBUtil.close(statement);
-            return createDefinition;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new DBException(ex);
-        }
-    }
-
-    public String showCreateTrigger(String dbName, String triggerName) {
-        try {
-            Connection connection = this.connection(dbName);
-            String sql = "SHOW CREATE TRIGGER " + DBUtil.wrap(triggerName);
-            Statement statement = connection.createStatement();
-            // 执行SQL查询并获取结果集
-            ResultSet resultSet = statement.executeQuery(sql);
-            String createDefinition = "";
-            if (resultSet.next()) {
-                createDefinition = resultSet.getString("Sql Original Statement");
-            }
-            DBUtil.close(resultSet);
-            DBUtil.close(statement);
-            return createDefinition;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new DBException(ex);
-        }
-    }
-
-    public String showCreateEvent(String dbName, String eventName) {
-        try {
-            Connection connection = this.connection(dbName);
-            String sql = "SHOW CREATE EVENT " + DBUtil.wrap(eventName);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            String createDefinition = "";
-            if (resultSet.next()) {
-                createDefinition = resultSet.getString("Create Event");
-            }
-            DBUtil.close(resultSet);
-            DBUtil.close(statement);
-            return createDefinition;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new DBException(ex);
-        }
-    }
-
     public abstract void dropEvent(String dbName, MysqlEvent event);
 
     public abstract void createEvent(String dbName, MysqlEvent event);
@@ -821,14 +707,16 @@ public abstract class DBClient {
         }
     }
 
-    public List<MysqlColumn> selectColumns(String dbName, String schema, String tableName) {
+    public MysqlColumns selectColumns(MysqlSelectColumnParam param) {
         try {
-            Connection connection = this.connection(dbName, schema);
+            String dbName = param.dbName();
+            String schema = param.schema();
+            String tableName = param.tableName();
+            Connection connection = this.connection(dbName);
             DatabaseMetaData metaData = connection.getMetaData();
             ResultSet resultSet = metaData.getColumns(dbName, schema, tableName, null);
-            // 打印元数据
             DBUtil.printMetaData(resultSet);
-            List<MysqlColumn> columns = new ArrayList<>();
+            MysqlColumns columns = new MysqlColumns();
             while (resultSet.next()) {
                 String remarks = resultSet.getString("REMARKS");
                 String typeName = resultSet.getString("TYPE_NAME");

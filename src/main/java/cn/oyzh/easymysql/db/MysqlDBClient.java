@@ -2567,4 +2567,119 @@ public class MysqlDBClient extends DBClient {
             throw new DBException(ex);
         }
     }
+
+    public String showCreateTable(String dbName, String tableName) {
+        try {
+            Connection connection = this.connection(dbName);
+            String sql = "SHOW CREATE TABLE " + DBUtil.wrap(tableName);
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql);
+            String createDefinition = "";
+            if (resultSet.next()) {
+                createDefinition = resultSet.getString(2);
+            }
+            DBUtil.close(resultSet);
+            DBUtil.close(stmt);
+            return createDefinition;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
+    }
+
+    public String showCreateView(String dbName, String viewName) {
+        try {
+            Connection connection = this.connection(dbName);
+            String sql = "SHOW CREATE VIEW " + DBUtil.wrap(viewName);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            String createDefinition = "";
+            if (resultSet.next()) {
+                createDefinition = resultSet.getString("Create View");
+            }
+            DBUtil.close(resultSet);
+            DBUtil.close(statement);
+            return createDefinition;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
+    }
+
+    public String showCreateFunction(String dbName, String functionName) {
+        try {
+            Connection connection = this.connection(dbName);
+            String sql = "SHOW CREATE FUNCTION " + DBUtil.wrap(functionName);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            String createDefinition = "";
+            if (resultSet.next()) {
+                createDefinition = resultSet.getString("Create Function");
+            }
+            DBUtil.close(resultSet);
+            DBUtil.close(statement);
+            return createDefinition;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
+    }
+
+    public String showCreateProcedure(String dbName, String procedureName) {
+        try {
+            Connection connection = this.connection(dbName);
+            String sql = "SHOW CREATE PROCEDURE " + DBUtil.wrap(procedureName);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            String createDefinition = "";
+            if (resultSet.next()) {
+                createDefinition = resultSet.getString("Create Procedure");
+            }
+            DBUtil.close(resultSet);
+            DBUtil.close(statement);
+            return createDefinition;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
+    }
+
+    public String showCreateTrigger(String dbName, String triggerName) {
+        try {
+            Connection connection = this.connection(dbName);
+            String sql = "SHOW CREATE TRIGGER " + DBUtil.wrap(triggerName);
+            Statement statement = connection.createStatement();
+            // 执行SQL查询并获取结果集
+            ResultSet resultSet = statement.executeQuery(sql);
+            String createDefinition = "";
+            if (resultSet.next()) {
+                createDefinition = resultSet.getString("Sql Original Statement");
+            }
+            DBUtil.close(resultSet);
+            DBUtil.close(statement);
+            return createDefinition;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
+    }
+
+    public String showCreateEvent(String dbName, String eventName) {
+        try {
+            Connection connection = this.connection(dbName);
+            String sql = "SHOW CREATE EVENT " + DBUtil.wrap(eventName);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            String createDefinition = "";
+            if (resultSet.next()) {
+                createDefinition = resultSet.getString("Create Event");
+            }
+            DBUtil.close(resultSet);
+            DBUtil.close(statement);
+            return createDefinition;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
+    }
 }

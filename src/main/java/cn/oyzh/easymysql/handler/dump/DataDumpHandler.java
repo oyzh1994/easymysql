@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.handler.dump;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
+import cn.oyzh.easymysql.db.MysqlDBClient;
 import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.handler.DataHandler;
 import cn.oyzh.fx.common.util.DateHelper;
@@ -182,7 +183,7 @@ public abstract class DataDumpHandler extends DataHandler {
      */
     public static DataDumpHandler newHandler(DBClient dbClient, String dbName) {
         DataDumpHandler handler = switch (dbClient.dialect()) {
-            case MYSQL -> new MysqlDataDumpHandler(dbClient, dbName);
+            case MYSQL -> new MysqlDataDumpHandler((MysqlDBClient) dbClient, dbName);
             default -> null;
         };
         if (handler != null) {
