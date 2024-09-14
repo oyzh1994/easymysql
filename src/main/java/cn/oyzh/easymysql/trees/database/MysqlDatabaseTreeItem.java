@@ -547,9 +547,18 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     }
 
     public MysqlColumns columns(String tableName) {
+        return this.columns(tableName, false);
+    }
+
+    public MysqlColumns fullColumns(String tableName) {
+        return this.columns(tableName, true);
+    }
+
+    public MysqlColumns columns(String tableName,boolean full) {
         MysqlSelectColumnParam param = new MysqlSelectColumnParam();
         param.dbName(this.dbName());
         param.tableName(tableName);
+        param.full(full);
         return this.client().selectColumns(param);
     }
 

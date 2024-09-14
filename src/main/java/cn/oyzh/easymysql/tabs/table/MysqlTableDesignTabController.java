@@ -10,6 +10,7 @@ import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
 import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.index.MysqlIndex;
+import cn.oyzh.easymysql.db.index.MysqlIndexControl;
 import cn.oyzh.easymysql.db.index.MysqlIndexes;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
@@ -149,49 +150,49 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      * 字段状态列
      */
     @FXML
-    private DBStatusColumn<MysqlColumn> colStatus;
+    private DBStatusColumn<MysqlColumnControl> colStatus;
 
     /**
      * 字段名称列
      */
     @FXML
-    private FlexTableColumn<MysqlColumn, String> colName;
+    private FlexTableColumn<MysqlColumnControl, String> colName;
 
     /**
      * 字段类型列
      */
     @FXML
-    private FlexTableColumn<MysqlColumn, String> colType;
+    private FlexTableColumn<MysqlColumnControl, String> colType;
 
     /**
      * 字段长度
      */
     @FXML
-    private FlexTableColumn<MysqlColumn, Integer> colSize;
+    private FlexTableColumn<MysqlColumnControl, Integer> colSize;
 
     /**
      * 字段小数点列
      */
     @FXML
-    private FlexTableColumn<MysqlColumn, Integer> colDigits;
+    private FlexTableColumn<MysqlColumnControl, Integer> colDigits;
 
     /**
      * 字段是否主键列
      */
     @FXML
-    private FlexTableColumn<MysqlColumn, Boolean> colPrimaryKey;
+    private FlexTableColumn<MysqlColumnControl, Boolean> colPrimaryKey;
 
     /**
      * 字段可为null列
      */
     @FXML
-    private FlexTableColumn<MysqlColumn, Boolean> colNullable;
+    private FlexTableColumn<MysqlColumnControl, Boolean> colNullable;
 
     /**
      * 字段注释列
      */
     @FXML
-    private FlexTableColumn<MysqlColumn, String> colComment;
+    private FlexTableColumn<MysqlColumnControl, String> colComment;
 
     /**
      * 字段配置
@@ -203,43 +204,43 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      * 表索引组件
      */
     @FXML
-    private DBStatusTableView<MysqlIndex> indexTable;
+    private DBStatusTableView<MysqlIndexControl> indexTable;
 
     /**
      * 索引状态列
      */
     @FXML
-    private DBStatusColumn<MysqlIndex> indexStatus;
+    private DBStatusColumn<MysqlIndexControl> indexStatus;
 
     /**
      * 索引名称列
      */
     @FXML
-    private TableColumn<MysqlIndex, String> indexName;
+    private TableColumn<MysqlIndexControl, String> indexName;
 
     /**
      * 索引字段列
      */
     @FXML
-    private TableColumn<MysqlIndex, String> indexColumn;
+    private TableColumn<MysqlIndexControl, String> indexColumn;
 
     /**
      * 索引类型列
      */
     @FXML
-    private TableColumn<MysqlIndex, String> indexType;
+    private TableColumn<MysqlIndexControl, String> indexType;
 
     /**
      * 索引方法列
      */
     @FXML
-    private TableColumn<MysqlIndex, String> indexMethod;
+    private TableColumn<MysqlIndexControl, String> indexMethod;
 
     /**
      * 索引注释列
      */
     @FXML
-    private FlexTableColumn<MysqlIndex, String> indexComment;
+    private FlexTableColumn<MysqlIndexControl, String> indexComment;
 
     /**
      * 表外键组件
@@ -454,17 +455,15 @@ public class MysqlTableDesignTabController extends DynamicTabController {
             }
 
             // 索引处理
-            MysqlIndexes indexes = new MysqlIndexes(this.indexTable.getItems());
-            // if (indexes != null) {
-            for (MysqlIndex index : indexes) {
+            MysqlIndexes indexes = new MysqlIndexes();
+            for (MysqlIndex index : this.indexTable.getItems()) {
                 if (StrUtil.isBlank(index.getName())) {
                     MessageBox.warn(I18nHelper.invalidData());
                     this.tabPane.select(2);
                     return;
                 }
+                indexes.add(index);
             }
-            //     tempTable.setIndexes(indexes);
-            // }
 
             // 字段处理
             MysqlColumns columns = new MysqlColumns();
@@ -646,9 +645,9 @@ public class MysqlTableDesignTabController extends DynamicTabController {
             this.checkTable.setItem(this.dbItem.checks(this.tableName()));
         }
         // 索引
-        this.indexTable.setItem(this.dbItem.indexes(this.tableName()));
+        this.indexTable.setItem(MysqlIndexControl.of(this.dbItem.indexes(this.tableName())));
         // 字段
-        this.columnTable.setItem(MysqlColumnControl.of(this.dbItem.columns(this.tableName())));
+        this.columnTable.setItem(MysqlColumnControl.of(this.dbItem.fullColumns(this.tableName())));
         // 触发器
         this.triggerTable.setItem(this.dbItem.triggers(this.tableName()));
         // 外键

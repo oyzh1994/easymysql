@@ -17,6 +17,8 @@ public class MysqlSelectColumnParam {
 
     private String tableName;
 
+    private boolean full;
+
     public MysqlSelectColumnParam() {
     }
 

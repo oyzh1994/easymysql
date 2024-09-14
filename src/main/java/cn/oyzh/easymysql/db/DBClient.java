@@ -900,38 +900,97 @@ public class DBClient {
             String dbName = param.dbName();
             String schema = param.schema();
             String tableName = param.tableName();
-            Connection connection = this.connection(dbName);
-            DatabaseMetaData metaData = connection.getMetaData();
-            ResultSet resultSet = metaData.getColumns(dbName, schema, tableName, null);
-            DBUtil.printMetaData(resultSet);
             MysqlColumns columns = new MysqlColumns();
-            while (resultSet.next()) {
-                String remarks = resultSet.getString("REMARKS");
-                String typeName = resultSet.getString("TYPE_NAME");
-                String columnDef = resultSet.getString("COLUMN_DEF");
-                Integer columnSize = resultSet.getInt("COLUMN_SIZE");
-                String columnName = resultSet.getString("COLUMN_NAME");
-                String isNullable = resultSet.getString("IS_NULLABLE");
-                Integer decimalDigits = resultSet.getInt("DECIMAL_DIGITS");
-                Integer ordinalPosition = resultSet.getInt("ORDINAL_POSITION");
-                String isAutoincrement = resultSet.getString("IS_AUTOINCREMENT");
-                MysqlColumn column = new MysqlColumn();
-                column.setDbName(dbName);
-                column.setSchema(schema);
-                column.setType(typeName);
-                column.setSize(columnSize);
-                column.setName(columnName);
-                column.setComment(remarks);
-                column.setTableName(tableName);
-                column.setDigits(decimalDigits);
-                column.setDefaultValue(columnDef);
-                column.setPosition(ordinalPosition);
-                column.setNullable("YES".equalsIgnoreCase(isNullable));
-                column.setAutoIncrement("YES".equalsIgnoreCase(isAutoincrement));
-                columns.add(column);
+            if (param.full()) {
+                String sql = """
+                        SELECT
+                            a.EXTRA as COLUMN_EXTRA,
+                            a.COLUMN_KEY as COLUMN_KEY,
+                            a.COLUMN_COMMENT as REMARKS,
+                            a.COLUMN_TYPE as COLUMN_TYPE,
+                            a.COLUMN_NAME as COLUMN_NAME,
+                            a.IS_NULLABLE as IS_NULLABLE,
+                            a.COLUMN_DEFAULT as COLUMN_DEF,
+                            a.COLLATION_NAME as COLLATION_NAME,
+                            a.CHARACTER_SET_NAME as CHARSET_NAME,
+                            a.ORDINAL_POSITION as ORDINAL_POSITION
+                        FROM
+                            INFORMATION_SCHEMA.`COLUMNS` a
+                        WHERE
+                            a.TABLE_SCHEMA = ?
+                        AND
+                            a.TABLE_NAME = ?
+                        """;
+                PreparedStatement statement = this.connection().prepareStatement(sql);
+                statement.setString(1, dbName);
+                statement.setString(2, tableName);
+                ResultSet resultSet = statement.executeQuery();
+                DBUtil.printMetaData(resultSet);
+                while (resultSet.next()) {
+                    Object def = resultSet.getObject("COLUMN_DEF");
+                    String remarks = resultSet.getString("REMARKS");
+                    int position = resultSet.getInt("ORDINAL_POSITION");
+                    String nullable = resultSet.getString("IS_NULLABLE");
+                    String columnKey = resultSet.getString("COLUMN_KEY");
+                    String columnType = resultSet.getString("COLUMN_TYPE");
+                    String columnName = resultSet.getString("COLUMN_NAME");
+                    String charsetName = resultSet.getString("CHARSET_NAME");
+                    String columnExtra = resultSet.getString("COLUMN_EXTRA");
+                    String collationName = resultSet.getString("COLLATION_NAME");
+                    MysqlColumn column = new MysqlColumn();
+                    column.initColumn(columnType, columnExtra);
+                    column.setDbName(dbName);
+                    column.setName(columnName);
+                    column.setComment(remarks);
+                    column.setDefaultValue(def);
+                    column.setPosition(position);
+                    column.setCharset(charsetName);
+                    column.setTableName(tableName);
+                    column.setCollation(collationName);
+                    column.setNullable("yes".equalsIgnoreCase(nullable));
+                    column.setPrimaryKey("pri".equalsIgnoreCase(columnKey));
+                    columns.add(column);
+                }
+                DBUtil.close(resultSet);
+                DBUtil.close(statement);
+                // 初始化状态
+                for (MysqlColumn value : columns) {
+                    value.initStatus();
+                }
+            } else {
+                Connection connection = this.connection(dbName);
+                DatabaseMetaData metaData = connection.getMetaData();
+                ResultSet resultSet = metaData.getColumns(dbName, schema, tableName, null);
+                DBUtil.printMetaData(resultSet);
+                while (resultSet.next()) {
+                    String remarks = resultSet.getString("REMARKS");
+                    String typeName = resultSet.getString("TYPE_NAME");
+                    String columnDef = resultSet.getString("COLUMN_DEF");
+                    Integer columnSize = resultSet.getInt("COLUMN_SIZE");
+                    String columnName = resultSet.getString("COLUMN_NAME");
+                    String isNullable = resultSet.getString("IS_NULLABLE");
+                    Integer decimalDigits = resultSet.getInt("DECIMAL_DIGITS");
+                    Integer ordinalPosition = resultSet.getInt("ORDINAL_POSITION");
+                    String isAutoincrement = resultSet.getString("IS_AUTOINCREMENT");
+                    MysqlColumn column = new MysqlColumn();
+                    column.setDbName(dbName);
+                    column.setSchema(schema);
+                    column.setType(typeName);
+                    column.setSize(columnSize);
+                    column.setName(columnName);
+                    column.setComment(remarks);
+                    column.setTableName(tableName);
+                    column.setDigits(decimalDigits);
+                    column.setDefaultValue(columnDef);
+                    column.setPosition(ordinalPosition);
+                    column.setNullable("YES".equalsIgnoreCase(isNullable));
+                    column.setAutoIncrement("YES".equalsIgnoreCase(isAutoincrement));
+                    columns.add(column);
+                }
+                DBUtil.close(resultSet);
             }
-            DBUtil.close(resultSet);
-            return columns;
+            // 返回排序后的数据
+            return new MysqlColumns(columns.sortOfPosition());
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new DBException(ex);
@@ -2566,7 +2625,7 @@ public class DBClient {
         return character;
     }
 
-    public  boolean existPrimaryKey(String dbName, String tableName)   {
+    public boolean existPrimaryKey(String dbName, String tableName) {
         try {
             Connection connection = this.connection();
             String sql = """
