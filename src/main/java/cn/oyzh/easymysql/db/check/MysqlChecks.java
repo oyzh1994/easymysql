@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.db.table;
+package cn.oyzh.easymysql.db.check;
 
 import cn.oyzh.easymysql.db.DBObjectList;
 

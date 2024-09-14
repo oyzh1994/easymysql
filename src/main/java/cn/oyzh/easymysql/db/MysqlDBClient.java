@@ -20,13 +20,13 @@
 // import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 // import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 // import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
-// import cn.oyzh.easymysql.db.table.MysqlCheck;
-// import cn.oyzh.easymysql.db.table.MysqlChecks;
+// import cn.oyzh.easymysql.db.check.MysqlCheck;
+// import cn.oyzh.easymysql.db.check.MysqlChecks;
 // import cn.oyzh.easymysql.db.table.MysqlForeignKey;
 // import cn.oyzh.easymysql.db.table.MysqlIndex;
 // import cn.oyzh.easymysql.db.table.MysqlTable;
 // import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
-// import cn.oyzh.easymysql.db.table.MysqlTrigger;
+// import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 // import cn.oyzh.easymysql.db.view.MysqlView;
 // import cn.oyzh.easymysql.domain.MysqlInfo;
 // import cn.oyzh.easymysql.exception.DBException;

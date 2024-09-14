@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.db.table;
+package cn.oyzh.easymysql.db.check;
 
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.fx.common.util.ObjectCopier;

@@ -1,7 +1,6 @@
 package cn.oyzh.easymysql.db.event;
 
 import cn.oyzh.easymysql.db.DBObjectList;
-import cn.oyzh.easymysql.db.table.MysqlCheck;
 
 import java.util.List;
 

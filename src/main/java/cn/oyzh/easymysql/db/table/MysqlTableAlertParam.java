@@ -1,9 +1,10 @@
 package cn.oyzh.easymysql.db.table;
 
+import cn.oyzh.easymysql.db.check.MysqlChecks;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.event.MysqlEvents;
+import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**

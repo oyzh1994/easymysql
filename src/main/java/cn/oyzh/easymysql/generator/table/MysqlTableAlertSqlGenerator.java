@@ -1,23 +1,7 @@
 package cn.oyzh.easymysql.generator.table;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.db.DBObjectList;
-import cn.oyzh.easymysql.db.table.MysqlCheck;
-import cn.oyzh.easymysql.db.table.MysqlChecks;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.column.MysqlColumns;
-import cn.oyzh.easymysql.db.table.MysqlForeignKey;
-import cn.oyzh.easymysql.db.table.MysqlForeignKeys;
-import cn.oyzh.easymysql.db.table.MysqlIndex;
-import cn.oyzh.easymysql.db.table.MysqlIndexes;
-import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
-import cn.oyzh.easymysql.db.table.MysqlTrigger;
-import cn.oyzh.easymysql.db.table.MysqlTriggers;
-import cn.oyzh.easymysql.util.DBUtil;
-
-import java.util.List;
 
 /**
  * @author oyzh
