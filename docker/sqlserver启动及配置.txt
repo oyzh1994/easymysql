@@ -1,0 +1,7 @@
+1. 运行
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=TestMs_01" -p 11433:1433 --name sqlserver -d mcr.microsoft.com/mssql/server
+
+2. 连接
+主机=127.0.0.1,11433
+user=sa
+password=TestMs_01

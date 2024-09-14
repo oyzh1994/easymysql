@@ -1,0 +1,42 @@
+1. 运行
+docker run -itd -p 11521:1521 --name oracle11 registry.cn-hangzhou.aliyuncs.com/helowin/oracle_11g
+
+2. 配置
+docker exec -it oracle11 bash
+su root
+输入密码
+helowin
+vi /etc/profile
+export ORACLE_HOME=/home/oracle/app/oracle/product/11.2.0/dbhome_2
+export ORACLE_SID=helowin
+export PATH=$ORACLE_HOME/bin:$PATH
+source /etc/profile
+
+3. 处理数据库
+ln -s $ORACLE_HOME/bin/sqlplus /usr/bin
+su - oracle
+sqlplus /nolog -- 登录
+conn /as sysdba
+alter user system identified by system; -- 修改system用户账号密码；
+alter user sys identified by system; -- 修改sys用户账号密码；
+create user test identified by test; -- 创建内部管理员账号密码；
+grant connect,resource,dba to test; -- 将dba权限授权给内部管理员账号和密码；
+ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED; -- 修改密码规则策略为密码永不过期；（会出现坑，后面讲解）
+alter system set processes=1000 scope=spfile; -- 修改数据库最大连接数据；
+
+4. 重启数据库
+conn /as sysdba
+shutdown immediate; -- 关闭数据库
+startup; -- 启动数据库
+退出软链接
+exit
+
+5. 连接
+sid=helowin
+服务名=helowin
+user=test
+password=test
+
+6. 其他
+服务名配置文件路径
+/home/oracle/app/oracle/product/11.2.0/dbhome_2/network/admin/tnsnames.ora
