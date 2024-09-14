@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.fx.data.DataDateTextFiled;
 import cn.oyzh.easymysql.fx.data.DataExportColumnListView;
@@ -421,7 +422,7 @@ public class MysqlDataExportController extends StageController {
         this.tableCombobox.clearItems();
         for (DataExportTable o : this.exportTableView.getSelectedTables()) {
             if (!o.hasColumns()) {
-                o.columns(this.dbClient.tableColumns(this.dbName, null, o.getName()));
+                o.columns(this.dbClient.selectColumns(new MysqlSelectColumnParam(this.dbName, o.getName())));
             }
             this.tableCombobox.addItem(o);
         }

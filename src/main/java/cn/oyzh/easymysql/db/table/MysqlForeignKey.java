@@ -1,8 +1,9 @@
 package cn.oyzh.easymysql.db.table;
 
-import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBObjectStatus;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.fx.DBDatabaseComboBox;
 import cn.oyzh.easymysql.fx.table.DBFieldTextFiled;
 import cn.oyzh.easymysql.fx.table.DBForeignKeyPolicyComboBox;
@@ -233,8 +234,7 @@ public class MysqlForeignKey extends DBObjectStatus {
                 String dbName = this.getPrimaryKeyDatabase();
                 String tableName = this.getPrimaryKeyTable();
                 DBClient client = CacheHelper.get("dbClient");
-                List<MysqlColumn> columns = client.tableColumns(dbName, null, tableName);
-                textField.setColumns(columns);
+                textField.setColumns(client.selectColumns(new MysqlSelectColumnParam(dbName, tableName)));
                 textField.setSelectedColumns(this.primaryKeyColumns);
             };
             this.primaryKeyTableProperty().addListener((observable, oldValue, newValue) -> func.run());

@@ -262,8 +262,8 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         param.dbName(this.dbName());
         param.start(pageNo * limit);
         param.tableName(this.tableName());
-        List<MysqlRecord> rows = this.client().selectTableRecords(param);
-        long count = this.client().tableCount(dbName(), this.tableName(), filters);
+        List<MysqlRecord> rows = this.client().selectRecords(param);
+        long count = this.client().selectRecordCount(param);
         Paging<MysqlRecord> paging = new Paging<>(rows, limit, count);
         paging.currentPage(pageNo);
         return paging;
@@ -274,10 +274,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     public MysqlColumns columns() {
-        MysqlSelectColumnParam param = new MysqlSelectColumnParam();
-        param.dbName(this.dbName());
-        param.tableName(this.tableName());
-        return this.client().selectColumns(param);
+        return this.client().selectColumns(new MysqlSelectColumnParam(this.dbName(), this.tableName()));
     }
 
     public List<MysqlIndex> indexes() {

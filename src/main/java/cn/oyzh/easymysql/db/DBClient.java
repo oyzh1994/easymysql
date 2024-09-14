@@ -448,13 +448,13 @@ public abstract class DBClient {
 
     public abstract void alertView(String dbName, MysqlView view);
 
-    public abstract Long tableAutoIncrement(String dbName, String tableName);
+    // public abstract Long tableAutoIncrement(String dbName, String tableName);
 
-    public long tableCount(String dbName, String tableName) {
-        return this.tableCount(dbName, tableName, null);
-    }
-
-    public abstract long tableCount(String dbName, String tableName, List<MysqlRecordFilter> filters);
+    // public long tableCount(String dbName, String tableName) {
+    //     return this.tableCount(dbName, tableName, null);
+    // }
+    //
+    // public abstract long tableCount(String dbName, String tableName, List<MysqlRecordFilter> filters);
 
     public abstract List<MysqlIndex> indexes(String dbName, String tableName);
 
@@ -463,14 +463,6 @@ public abstract class DBClient {
     public abstract List<MysqlForeignKey> foreignKeys(String dbName, String tableName);
 
     public abstract MysqlColumns tableColumns(String dbName, String schema, String tableName);
-
-    public List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit) {
-        return this.selectTableRecords(dbName, tableName, start, limit, null, null, false);
-    }
-
-    public List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, List<MysqlRecordFilter> filters) {
-        return this.selectTableRecords(dbName, tableName, start, limit, null, filters, false);
-    }
 
     public abstract List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, MysqlColumns columns, List<MysqlRecordFilter> filters, boolean readonly);
 
@@ -510,8 +502,6 @@ public abstract class DBClient {
 
     public abstract List<String> collation(String charset);
 
-    public abstract String columnCollation(String dbName, String tableName, String columnName);
-
     public abstract boolean existDatabase(String dbName);
 
     public abstract boolean createDatabase(DBDatabase database);
@@ -522,7 +512,7 @@ public abstract class DBClient {
 
     public abstract boolean dropDatabase(String dbName);
 
-    public abstract boolean isUpdateOnCurrentTimestamp(String dbName, String tableName, String colName);
+    // public abstract boolean isUpdateOnCurrentTimestamp(String dbName, String tableName, String colName);
 
     public MysqlQueryResults<MysqlExecuteResult> executeSql(String dbName, String sql) {
         MysqlQueryResults<MysqlExecuteResult> results = new MysqlQueryResults<>();
@@ -750,9 +740,9 @@ public abstract class DBClient {
         }
     }
 
-    public abstract List<MysqlRecord> selectTableRecords(MysqlSelectRecordParam param);
+    public abstract List<MysqlRecord> selectRecords(MysqlSelectRecordParam param);
 
-    public abstract long selectTableCount(MysqlSelectRecordParam param);
+    public abstract long selectRecordCount(MysqlSelectRecordParam param);
 
     public abstract int insertRecord(MysqlInsertRecordParam param);
 

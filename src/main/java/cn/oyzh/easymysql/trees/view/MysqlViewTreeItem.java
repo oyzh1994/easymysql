@@ -1,15 +1,16 @@
 package cn.oyzh.easymysql.trees.view;
 
+import cn.oyzh.easymysql.controller.view.MysqlViewInfoController;
 import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.column.MysqlColumns;
+import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlInfo;
-import cn.oyzh.easymysql.controller.view.MysqlViewInfoController;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -126,9 +127,16 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         return this.parent.dbItem();
     }
 
-    public Paging<MysqlRecord> recordPage(long pageNo, long limit, List<MysqlRecordFilter> filters) {
+    public Paging<MysqlRecord> recordPage(long pageNo, long limit, List<MysqlRecordFilter> filters, List<MysqlColumn> columns) {
+        MysqlSelectRecordParam param = new MysqlSelectRecordParam();
+        param.limit(limit);
+        param.filters(filters);
+        param.columns(columns);
+        param.start(pageNo * limit);
+        param.dbName(this.dbName());
+        param.tableName(this.viewName());
         List<MysqlRecord> records = this.client().viewRecords(this.dbName(), this.viewName(), pageNo * limit, limit, filters);
-        long count = this.client().tableCount(dbName(), this.viewName(), filters);
+        long count = this.client().selectRecordCount(param);
         Paging<MysqlRecord> paging = new Paging<>(records, limit, count);
         paging.currentPage(pageNo);
         return paging;

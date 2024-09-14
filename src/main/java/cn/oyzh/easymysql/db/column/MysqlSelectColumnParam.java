@@ -17,4 +17,18 @@ public class MysqlSelectColumnParam {
 
     private String tableName;
 
+    public MysqlSelectColumnParam() {
+    }
+
+    public MysqlSelectColumnParam(String dbName, String tableName) {
+        this.dbName = dbName;
+        this.tableName = tableName;
+    }
+
+    public MysqlSelectColumnParam(String dbName, String schema, String tableName) {
+        this.dbName = dbName;
+        this.schema = schema;
+        this.tableName = tableName;
+    }
+
 }

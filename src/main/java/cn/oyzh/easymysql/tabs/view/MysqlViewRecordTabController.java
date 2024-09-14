@@ -2,11 +2,11 @@ package cn.oyzh.easymysql.tabs.view;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.DBObjectList;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.event.RecordDeleteEvent;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
@@ -14,10 +14,10 @@ import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;
 import cn.oyzh.easymysql.listener.DBListener;
 import cn.oyzh.easymysql.listener.DBListenerManager;
-import cn.oyzh.easymysql.popups.MysqlTableRecordFilterPopupController;
-import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.popups.DBPageSettingPopupController;
+import cn.oyzh.easymysql.popups.MysqlTableRecordFilterPopupController;
 import cn.oyzh.easymysql.store.DBSettingStore;
+import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.util.DBRecordUtil;
 import cn.oyzh.fx.common.dto.Paging;
 import cn.oyzh.fx.common.spring.ScopeType;
@@ -173,7 +173,7 @@ public class MysqlViewRecordTabController extends DynamicTabController {
      */
     private void initDataList(long pageNo) {
         try {
-            this.pageData = this.item.recordPage(pageNo, this.setting.getRecordPageLimit(), this.enabledFilters());
+            this.pageData = this.item.recordPage(pageNo, this.setting.getRecordPageLimit(), this.enabledFilters(), this.columns);
             this.pageBox.setPaging(this.pageData);
             this.initRecords(this.pageData.dataList());
         } catch (Exception ex) {

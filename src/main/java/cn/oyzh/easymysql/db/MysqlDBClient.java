@@ -422,52 +422,52 @@ public class MysqlDBClient extends DBClient {
         }
     }
 
-    @Override
-    public Long tableAutoIncrement(String dbName, String tableName) {
-        Long val = null;
-        try {
-            String sql = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?";
-            PreparedStatement statement = this.connection(dbName).prepareStatement(sql);
-            statement.setString(1, dbName);
-            statement.setString(2, tableName);
-            DBUtil.printSql(sql);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                val = resultSet.getLong(1);
-            }
-            DBUtil.close(resultSet);
-            DBUtil.close(statement);
-        } catch (Exception ex) {
-            throw new DBException(ex);
-        }
-        return val;
-    }
+    // @Override
+    // public Long tableAutoIncrement(String dbName, String tableName) {
+    //     Long val = null;
+    //     try {
+    //         String sql = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?";
+    //         PreparedStatement statement = this.connection(dbName).prepareStatement(sql);
+    //         statement.setString(1, dbName);
+    //         statement.setString(2, tableName);
+    //         DBUtil.printSql(sql);
+    //         ResultSet resultSet = statement.executeQuery();
+    //         if (resultSet.next()) {
+    //             val = resultSet.getLong(1);
+    //         }
+    //         DBUtil.close(resultSet);
+    //         DBUtil.close(statement);
+    //     } catch (Exception ex) {
+    //         throw new DBException(ex);
+    //     }
+    //     return val;
+    // }
 
-    @Override
-    public long tableCount(String dbName, String tableName, List<MysqlRecordFilter> filters) {
-        long count = 0;
-        try {
-            Connection connection = this.connection(dbName);
-            StringBuilder builder = new StringBuilder("SELECT COUNT(*) FROM");
-            builder.append(DBUtil.wrap(dbName, tableName));
-            String filterCondition = MysqlConditionUtil.buildCondition(filters);
-            if (StrUtil.isNotBlank(filterCondition)) {
-                builder.append(" WHERE ").append(filterCondition);
-            }
-            String sql = builder.toString();
-            DBUtil.printSql(sql);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            if (resultSet.next()) {
-                count = resultSet.getLong(1);
-            }
-            DBUtil.close(resultSet);
-            DBUtil.close(statement);
-        } catch (Exception ex) {
-            throw new DBException(ex);
-        }
-        return count;
-    }
+    // @Override
+    // public long tableCount(String dbName, String tableName, List<MysqlRecordFilter> filters) {
+    //     long count = 0;
+    //     try {
+    //         Connection connection = this.connection(dbName);
+    //         StringBuilder builder = new StringBuilder("SELECT COUNT(*) FROM");
+    //         builder.append(DBUtil.wrap(dbName, tableName));
+    //         String filterCondition = MysqlConditionUtil.buildCondition(filters);
+    //         if (StrUtil.isNotBlank(filterCondition)) {
+    //             builder.append(" WHERE ").append(filterCondition);
+    //         }
+    //         String sql = builder.toString();
+    //         DBUtil.printSql(sql);
+    //         Statement statement = connection.createStatement();
+    //         ResultSet resultSet = statement.executeQuery(sql);
+    //         if (resultSet.next()) {
+    //             count = resultSet.getLong(1);
+    //         }
+    //         DBUtil.close(resultSet);
+    //         DBUtil.close(statement);
+    //     } catch (Exception ex) {
+    //         throw new DBException(ex);
+    //     }
+    //     return count;
+    // }
 
     @Override
     public List<MysqlIndex> indexes(String dbName, String tableName) {
@@ -1368,27 +1368,27 @@ public class MysqlDBClient extends DBClient {
         }
     }
 
-    @Override
-    public String columnCollation(String dbName, String tableName, String columnName) {
-        String collation = null;
-        try {
-            String sql = "SELECT COLLATION_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ? AND COLUMN_NAME= ?;";
-            DBUtil.printSql(sql);
-            PreparedStatement statement = this.connection().prepareStatement(sql);
-            statement.setString(1, dbName);
-            statement.setString(2, tableName);
-            statement.setString(3, columnName);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                collation = resultSet.getString(1);
-            }
-            DBUtil.close(resultSet);
-            DBUtil.close(statement);
-        } catch (Exception ex) {
-            throw new DBException(ex);
-        }
-        return collation;
-    }
+    // @Override
+    // public String columnCollation(String dbName, String tableName, String columnName) {
+    //     String collation = null;
+    //     try {
+    //         String sql = "SELECT COLLATION_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ? AND COLUMN_NAME= ?;";
+    //         DBUtil.printSql(sql);
+    //         PreparedStatement statement = this.connection().prepareStatement(sql);
+    //         statement.setString(1, dbName);
+    //         statement.setString(2, tableName);
+    //         statement.setString(3, columnName);
+    //         ResultSet resultSet = statement.executeQuery();
+    //         while (resultSet.next()) {
+    //             collation = resultSet.getString(1);
+    //         }
+    //         DBUtil.close(resultSet);
+    //         DBUtil.close(statement);
+    //     } catch (Exception ex) {
+    //         throw new DBException(ex);
+    //     }
+    //     return collation;
+    // }
 
     @Override
     public boolean existDatabase(String dbName) {
@@ -1491,26 +1491,26 @@ public class MysqlDBClient extends DBClient {
         }
     }
 
-    @Override
-    public boolean isUpdateOnCurrentTimestamp(String dbName, String tableName, String colName) {
-        try {
-            StringBuilder builder = new StringBuilder("SHOW FULL COLUMNS FROM ").append(DBUtil.wrap(dbName, tableName));
-            builder.append(" WHERE Field=").append(DBUtil.wrapData(colName));
-            builder.append(" AND Extra LIKE '%on update CURRENT_TIMESTAMP%'");
-            String sql = builder.toString();
-            DBUtil.printSql(sql);
-            Statement statement = this.connection().createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            DBUtil.printMetaData(resultSet);
-            boolean result = resultSet.next();
-            DBUtil.close(resultSet);
-            DBUtil.close(statement);
-            return result;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new DBException(ex);
-        }
-    }
+    // @Override
+    // public boolean isUpdateOnCurrentTimestamp(String dbName, String tableName, String colName) {
+    //     try {
+    //         StringBuilder builder = new StringBuilder("SHOW FULL COLUMNS FROM ").append(DBUtil.wrap(dbName, tableName));
+    //         builder.append(" WHERE Field=").append(DBUtil.wrapData(colName));
+    //         builder.append(" AND Extra LIKE '%on update CURRENT_TIMESTAMP%'");
+    //         String sql = builder.toString();
+    //         DBUtil.printSql(sql);
+    //         Statement statement = this.connection().createStatement();
+    //         ResultSet resultSet = statement.executeQuery(sql);
+    //         DBUtil.printMetaData(resultSet);
+    //         boolean result = resultSet.next();
+    //         DBUtil.close(resultSet);
+    //         DBUtil.close(statement);
+    //         return result;
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //         throw new DBException(ex);
+    //     }
+    // }
 
     @Override
     public MysqlQueryResults<MysqlExplainResult> explainSql(String dbName, String sql) {
@@ -2327,7 +2327,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public List<MysqlRecord> selectTableRecords(MysqlSelectRecordParam param) {
+    public List<MysqlRecord> selectRecords(MysqlSelectRecordParam param) {
         try {
             Connection connection = this.connection(param.dbName(), param.schema());
             StringBuilder builder = new StringBuilder("SELECT * FROM ");
@@ -2375,7 +2375,7 @@ public class MysqlDBClient extends DBClient {
     }
 
     @Override
-    public long selectTableCount(MysqlSelectRecordParam param) {
+    public long selectRecordCount(MysqlSelectRecordParam param) {
         long count = 0;
         try {
             Connection connection = this.connection(param.dbName(), param.schema());
