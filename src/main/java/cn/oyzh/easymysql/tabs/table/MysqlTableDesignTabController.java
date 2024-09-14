@@ -625,18 +625,21 @@ public class MysqlTableDesignTabController extends DynamicTabController {
         this.tableCollation.init(this.mysqlTable.getCharset(), this.dbItem.client());
         this.tableCollation.select(this.mysqlTable.getCollation());
 
-        // 检查器
-        if (this.dbItem.isSupportCheckFeature()) {
-            this.checkTable.setItem(this.tableItem.checks());
+        if(!this.newData){
+            // 检查器
+            if (this.dbItem.isSupportCheckFeature()) {
+                this.checkTable.setItem(this.dbItem.checks(this.tableName()));
+            }
+            // 索引
+            this.indexTable.setItem(this.dbItem.indexes(this.tableName()));
+            // 字段
+            this.columnTable.setItem(this.dbItem.columns(this.tableName()));
+            // 触发器
+            this.triggerTable.setItem(this.dbItem.triggers(this.tableName()));
+            // 外键
+            this.foreignKeyTable.setItem(this.dbItem.foreignKeys(this.tableName()));
         }
-        // 索引
-        this.indexTable.setItem(this.tableItem.indexes());
-        // 字段
-        this.columnTable.setItem(this.tableItem.columns());
-        // 触发器
-        this.triggerTable.setItem(this.tableItem.triggers());
-        // 外键
-        this.foreignKeyTable.setItem(this.tableItem.foreignKeys());
+
 
         // 行格式
         if (this.mysqlTable.isInnoDB()) {

@@ -21,7 +21,7 @@ import javafx.stage.WindowEvent;
         title = "DB库信息",
         modality = Modality.WINDOW_MODAL,
         iconUrls = MysqlConst.ICON_PATH,
-        value = FXConst.MODULE_PATH + "mysql/views/mysqlDatabaseInfo.fxml"
+        value = FXConst.VIEW_PATH + "database/mysqlDatabaseInfo.fxml"
 )
 public class MysqlDatabaseInfoController extends StageController {
 

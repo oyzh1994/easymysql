@@ -344,8 +344,8 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
         return this.client.existDatabase(dbName);
     }
 
-    public boolean createDatabase(DBDatabase database) {
-        return this.client.createDatabase(database);
+    public void createDatabase(DBDatabase database) {
+         this.client.createDatabase(database);
     }
 
     public boolean alterDatabase(DBDatabase database) {

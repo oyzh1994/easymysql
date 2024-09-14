@@ -1,11 +1,12 @@
 package cn.oyzh.easymysql.tabs.query;
 
 import cn.oyzh.easymysql.db.DBObjectList;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
+import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;
@@ -363,15 +364,12 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
             } else {
                 // 获取主键
                 MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
-                // 主键存在，则根据主键删除
-                if (primaryKey != null) {
-                    success = this.dbItem.client().deleteRecord(this.result.dbName(), this.result.tableName(), primaryKey) == 1;
-                } else {// 主键不存在，则根据所有字段更新
-                    // 所有字段数据
-                    MysqlRecordData recordData = record.getOriginalRecordData();
-                    // 删除行
-                    success = this.dbItem.client().deleteRecord(this.result.dbName(), this.result.tableName(), recordData) == 1;
-                }
+                MysqlDeleteRecordParam param = new MysqlDeleteRecordParam();
+                param.dbName(this.result.dbName());
+                param.tableName(this.result.tableName());
+                param.primaryKey(primaryKey);
+                param.record(record.getOriginalRecordData());
+                success = this.dbItem.deleteRecord(param) == 1;
             }
             // 操作成功
             if (success) {

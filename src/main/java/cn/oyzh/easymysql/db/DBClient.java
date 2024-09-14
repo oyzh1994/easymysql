@@ -25,10 +25,13 @@ import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.db.table.MysqlCheck;
 import cn.oyzh.easymysql.db.table.MysqlChecks;
 import cn.oyzh.easymysql.db.table.MysqlForeignKey;
+import cn.oyzh.easymysql.db.table.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.table.MysqlIndex;
+import cn.oyzh.easymysql.db.table.MysqlIndexes;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
 import cn.oyzh.easymysql.db.table.MysqlTrigger;
+import cn.oyzh.easymysql.db.table.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.DBEventUtil;
@@ -595,7 +598,7 @@ public class DBClient {
         }
     }
 
-    public List<MysqlTrigger> triggers(String dbName, String tableName) {
+    public MysqlTriggers triggers(String dbName, String tableName) {
         try {
             String sql = """
                         SELECT 
@@ -612,7 +615,7 @@ public class DBClient {
             statement.setString(1, dbName);
             statement.setString(2, tableName);
             ResultSet resultSet = statement.executeQuery();
-            List<MysqlTrigger> list = new ArrayList<>();
+            MysqlTriggers list = new MysqlTriggers();
             while (resultSet.next()) {
                 MysqlTrigger trigger = new MysqlTrigger();
                 String name = resultSet.getString("TRIGGER_NAME");
@@ -628,11 +631,10 @@ public class DBClient {
             DBUtil.close(statement);
             return list;
         } catch (Exception ex) {
+            ex.printStackTrace();
             throw new DBException(ex);
         }
     }
-
-    // public abstract MysqlRecord selectRecord(String dbName, String tableName, MysqlRecordPrimaryKey primaryKey);
 
     public String selectVersion() {
         if (this.hasProperty("version")) {
@@ -1554,7 +1556,7 @@ public class DBClient {
         }
     }
 
-    public List<MysqlIndex> indexes(String dbName, String tableName) {
+    public MysqlIndexes indexes(String dbName, String tableName) {
         try {
             Connection connection = this.connection();
             Statement statement = connection.createStatement();
@@ -1589,7 +1591,7 @@ public class DBClient {
             }
             DBUtil.close(resultSet);
             DBUtil.close(statement);
-            return new ArrayList<>(indexMap.values());
+            return new MysqlIndexes(indexMap.values());
         } catch (Exception ex) {
             throw new DBException(ex);
         }
@@ -1637,7 +1639,7 @@ public class DBClient {
         }
     }
 
-    public List<MysqlForeignKey> foreignKeys(String dbName, String tableName) {
+    public MysqlForeignKeys foreignKeys(String dbName, String tableName) {
         try {
             // 查询外键
             String sql = """
@@ -1690,7 +1692,7 @@ public class DBClient {
                 foreignKey.addPrimaryKeyColumn(pkColumnName);
             }
             DBUtil.close(resultSet);
-            return new ArrayList<>(foreignKeyMap.values());
+            return new MysqlForeignKeys(foreignKeyMap.values());
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new DBException(ex);
@@ -1908,7 +1910,6 @@ public class DBClient {
             throw new DBException(ex);
         }
     }
-
 
     public int updateRecord(String dbName, String tableName, MysqlRecordData recordData, MysqlRecordData originalRecordData) {
         try {
@@ -2171,9 +2172,10 @@ public class DBClient {
         return result;
     }
 
-    public boolean createDatabase(DBDatabase database) {
+    public void createDatabase(DBDatabase database) {
         try {
-            StringBuilder builder = new StringBuilder("CREATE DATABASE ").append(DBUtil.wrap(database.getName()));
+            StringBuilder builder = new StringBuilder("CREATE DATABASE ");
+            builder.append(DBUtil.wrap(database.getName(), this.dialect()));
             if (database.getCharset() != null) {
                 builder.append(" CHARACTER SET ").append(DBUtil.wrapData(database.getCharset()));
             }
@@ -2185,8 +2187,8 @@ public class DBClient {
             Statement statement = this.connection().createStatement();
             statement.execute(sql);
             DBUtil.close(statement);
-            return true;
         } catch (Exception ex) {
+            ex.printStackTrace();
             throw new DBException(ex);
         }
     }

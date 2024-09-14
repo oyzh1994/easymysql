@@ -2,6 +2,8 @@ package cn.oyzh.easymysql.db.table;
 
 import cn.oyzh.easymysql.db.DBObjectList;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,7 +18,7 @@ public class MysqlIndexes extends DBObjectList<MysqlIndex> {
 
     }
 
-    public MysqlIndexes(List<MysqlIndex> list) {
+    public MysqlIndexes(Collection<MysqlIndex> list) {
         super.addAll(list);
     }
 }

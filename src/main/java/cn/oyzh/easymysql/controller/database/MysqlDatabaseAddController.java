@@ -23,10 +23,9 @@ import javafx.stage.WindowEvent;
  * @since 2024/01/30
  */
 @StageAttribute(
-        title = "DB数据库新增",
         modality = Modality.APPLICATION_MODAL,
         iconUrls = MysqlConst.ICON_PATH,
-        value = FXConst.MODULE_PATH + "mysql/views/mysqlDatabaseAdd.fxml"
+        value = FXConst.VIEW_PATH + "database/mysqlDatabaseAdd.fxml"
 )
 public class MysqlDatabaseAddController extends StageController {
 
@@ -66,7 +65,7 @@ public class MysqlDatabaseAddController extends StageController {
             // 检查字段是否存在
             String dbName = this.name.getText();
             if (this.connectItem.existDatabase(dbName)) {
-                MessageBox.warn("数据库" + dbName + "已存在！");
+                MessageBox.warn(I18nHelper.database() + " " + dbName + " " + I18nHelper.alreadyExists());
                 return;
             }
             DBDatabase database = new DBDatabase();
@@ -75,12 +74,9 @@ public class MysqlDatabaseAddController extends StageController {
                 database.setCharset(this.charset.getSelectedItem());
                 database.setCollation(this.collation.getSelectedItem());
             }
-            if (this.connectItem.createDatabase(database)) {
-                MysqlEventUtil.databaseAdded(this.connectItem, database);
-                this.closeWindow();
-            } else {
-                MessageBox.warn(I18nHelper.operationFail());
-            }
+            this.connectItem.createDatabase(database);
+            MysqlEventUtil.databaseAdded(this.connectItem, database);
+            this.closeWindow();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
@@ -100,6 +96,11 @@ public class MysqlDatabaseAddController extends StageController {
                 this.collation.disable();
             }
         });
+    }
+
+    @Override
+    public String getViewTitle() {
+        return I18nHelper.addDatabase();
     }
 
     @Override

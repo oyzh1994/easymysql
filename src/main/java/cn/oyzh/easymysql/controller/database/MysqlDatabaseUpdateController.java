@@ -26,7 +26,7 @@ import javafx.stage.WindowEvent;
         title = "DB数据库编辑",
         modality = Modality.APPLICATION_MODAL,
         iconUrls = MysqlConst.ICON_PATH,
-        value = FXConst.MODULE_PATH + "mysql/views/mysqlDatabaseUpdate.fxml"
+        value = FXConst.VIEW_PATH + "database/mysqlDatabaseUpdate.fxml"
 )
 public class MysqlDatabaseUpdateController extends StageController {
 

@@ -8,6 +8,7 @@ import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
+import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
@@ -360,7 +361,11 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     public int deleteRecord(MysqlRecordPrimaryKey primaryKey) {
-        return this.client().deleteRecord(this.dbName(), this.tableName(), primaryKey);
+        MysqlDeleteRecordParam param = new MysqlDeleteRecordParam();
+        param.dbName(this.dbName());
+        param.tableName(this.tableName());
+        param.primaryKey(primaryKey);
+        return this.client().deleteRecord(param);
     }
 
     public MysqlRecord selectRecord(MysqlRecordPrimaryKey primaryKey) {

@@ -8,12 +8,14 @@ import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
+import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
+import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
 import cn.oyzh.easymysql.db.table.MysqlChecks;
 import cn.oyzh.easymysql.db.table.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.table.MysqlIndexes;
@@ -409,7 +411,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     }
 
     public void dropTable(String tableName) {
-         this.client().dropTable(this.dbName(), tableName);
+        this.client().dropTable(this.dbName(), tableName);
     }
 
     public MysqlQueryResults<MysqlExecuteResult> executeSql(String sql) {
@@ -517,4 +519,30 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return this.client().dialect();
     }
 
+    public int deleteRecord(MysqlDeleteRecordParam param) {
+        return this.client().deleteRecord(param);
+    }
+
+    public MysqlChecks checks(String tableName) {
+        return this.client().checks(this.dbName(), tableName);
+    }
+
+    public MysqlTriggers triggers(String tableName) {
+        return this.client().triggers(this.dbName(), tableName);
+    }
+
+    public MysqlColumns columns(String tableName) {
+        MysqlSelectColumnParam param = new MysqlSelectColumnParam();
+        param.dbName(this.dbName());
+        param.tableName(tableName);
+        return this.client().selectColumns(param);
+    }
+
+    public MysqlIndexes indexes(String tableName) {
+        return this.client().indexes(this.dbName(), tableName);
+    }
+
+    public MysqlForeignKeys foreignKeys(String tableName) {
+        return this.client().foreignKeys(this.dbName(), tableName);
+    }
 }
