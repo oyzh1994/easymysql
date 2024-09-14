@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.handler.dump;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.MysqlDBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
@@ -27,11 +26,8 @@ import java.util.List;
 @Slf4j
 public class MysqlDataDumpHandler extends DataDumpHandler {
 
-    private final MysqlDBClient dbClient;
-
     public MysqlDataDumpHandler(DBClient dbClient, String dbName) {
         super(dbClient, dbName);
-        this.dbClient = (MysqlDBClient) dbClient;
     }
 
     @Override

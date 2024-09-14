@@ -14,7 +14,7 @@ public class DBClientUtil {
 
     public static DBClient newClient(MysqlInfo info) {
         if (DBDialect.valueOf(info.getType()) == DBDialect.MYSQL) {
-            return new MysqlDBClient(info);
+            return new DBClient(info);
         }
         return null;
     }

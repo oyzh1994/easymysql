@@ -1,7 +1,6 @@
 package cn.oyzh.easymysql.handler.transport;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.oyzh.easymysql.db.MysqlDBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
@@ -28,22 +27,6 @@ import java.util.List;
  */
 @Slf4j
 public class MysqlDataTransportHandler extends DataTransportHandler {
-
-    /**
-     * 来源客户端
-     */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
-    protected MysqlDBClient sourceClient;
-
-    /**
-     * 目标客户端
-     */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
-    protected MysqlDBClient targetClient;
 
     @Override
     public void doTransport() throws Exception {
