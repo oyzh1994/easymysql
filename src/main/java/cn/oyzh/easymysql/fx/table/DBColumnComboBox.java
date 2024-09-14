@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.table;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.fx.plus.SimpleStringConverter;
 import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
 

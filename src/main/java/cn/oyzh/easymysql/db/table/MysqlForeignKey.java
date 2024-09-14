@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.db.table;
 
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.fx.DBDatabaseComboBox;

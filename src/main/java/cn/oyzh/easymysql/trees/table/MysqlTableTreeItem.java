@@ -3,13 +3,15 @@ package cn.oyzh.easymysql.trees.table;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
 import cn.oyzh.easymysql.controller.data.MysqlDataExportController;
+import cn.oyzh.easymysql.controller.table.MysqlTableInfoController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
-import cn.oyzh.easymysql.db.table.MysqlColumns;
+import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.table.MysqlForeignKey;
 import cn.oyzh.easymysql.db.table.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.table.MysqlIndex;
@@ -18,14 +20,11 @@ import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTrigger;
 import cn.oyzh.easymysql.db.table.MysqlTriggers;
 import cn.oyzh.easymysql.domain.MysqlInfo;
-import cn.oyzh.easymysql.controller.table.MysqlTableInfoController;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
-import cn.oyzh.easymysql.trees.DBTreeItemValue;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.util.DBI18nHelper;
 import cn.oyzh.fx.common.dto.Paging;
-import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
@@ -104,10 +103,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     public MysqlColumns tableColumns() {
-        // if (this.value.getColumns() == null) {
-        this.value.setColumns(new MysqlColumns(this.columns()));
-        // }
-        return this.value.columns();
+       return new MysqlColumns(this.columns());
     }
 
     public MysqlTriggers tableTriggers() {
@@ -257,8 +253,15 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return this.parent.dbItem();
     }
 
-    public Paging<MysqlRecord> recordPage(long pageNo, long limit, List<MysqlRecordFilter> filters) {
-        List<MysqlRecord> rows = this.client().selectTableRecords(this.dbName(), this.tableName(), pageNo * limit, limit, filters);
+    public Paging<MysqlRecord> recordPage(long pageNo, long limit, List<MysqlRecordFilter> filters, List<MysqlColumn> columns) {
+        MysqlSelectRecordParam param = new MysqlSelectRecordParam();
+        param.limit(limit);
+        param.filters(filters);
+        param.columns(columns);
+        param.dbName(this.dbName());
+        param.start(pageNo * limit);
+        param.tableName(this.tableName());
+        List<MysqlRecord> rows = this.client().selectTableRecords(param);
         long count = this.client().tableCount(dbName(), this.tableName(), filters);
         Paging<MysqlRecord> paging = new Paging<>(rows, limit, count);
         paging.currentPage(pageNo);
@@ -269,8 +272,8 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return parent.infoName();
     }
 
-    public List<MysqlColumn> columns() {
-        return this.client().tableColumns(this.dbName(), null, this.tableName());
+    public MysqlColumns columns() {
+        return this.client().selectColumns(this.dbName(), null, this.tableName());
     }
 
     public List<MysqlIndex> indexes() {

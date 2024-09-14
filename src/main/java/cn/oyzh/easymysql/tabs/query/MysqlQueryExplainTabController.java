@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.tabs.query;
 
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;

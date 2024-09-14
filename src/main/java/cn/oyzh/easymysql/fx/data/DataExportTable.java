@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.data;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
 import cn.oyzh.fx.plus.controls.textfield.SaveFileTextField;
 import cn.oyzh.fx.plus.file.FileChooserHelper;

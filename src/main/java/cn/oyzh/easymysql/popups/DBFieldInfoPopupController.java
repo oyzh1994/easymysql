@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.popups;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.MysqlStyle;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.util.DBNodeUtil;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;

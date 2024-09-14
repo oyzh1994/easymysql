@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.db.data;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.HexUtil;
 import cn.hutool.json.JSONUtil;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.fx.common.util.TextUtil;
 

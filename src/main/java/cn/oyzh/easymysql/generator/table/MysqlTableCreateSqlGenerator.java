@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.generator.table;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.table.MysqlCheck;
 import cn.oyzh.easymysql.db.table.MysqlChecks;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.table.MysqlForeignKey;
 import cn.oyzh.easymysql.db.table.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.table.MysqlIndex;

@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.table;
 
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.fx.plus.controls.select.SelectTextFiled;
 
 /**

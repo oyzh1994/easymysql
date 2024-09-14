@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.handler.transport;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
-import cn.oyzh.easymysql.db.table.MysqlColumns;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.fx.data.DataTransportEvent;
 import cn.oyzh.easymysql.fx.data.DataTransportFunction;
 import cn.oyzh.easymysql.fx.data.DataTransportProcedure;

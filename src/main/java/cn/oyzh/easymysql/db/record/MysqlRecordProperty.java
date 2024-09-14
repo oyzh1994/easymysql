@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.record;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.exception.DBException;
 import cn.oyzh.easymysql.listener.DBListener;

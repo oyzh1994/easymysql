@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db.record;
 
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

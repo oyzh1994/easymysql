@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.exception.DBException;
 import lombok.experimental.UtilityClass;
 

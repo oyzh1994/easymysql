@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.util;
 
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.fx.plus.controls.text.FXLabel;
 import cn.oyzh.fx.plus.controls.textfield.BitTextField;
 import cn.oyzh.fx.plus.controls.textfield.ChooseFileTextField;

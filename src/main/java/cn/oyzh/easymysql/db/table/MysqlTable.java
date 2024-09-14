@@ -2,6 +2,8 @@ package cn.oyzh.easymysql.db.table;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.fx.common.util.ObjectComparator;
 import cn.oyzh.fx.common.util.ObjectCopier;

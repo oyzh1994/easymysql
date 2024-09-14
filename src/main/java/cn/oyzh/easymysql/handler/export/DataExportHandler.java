@@ -13,7 +13,7 @@ import cn.oyzh.easymysql.db.data.MysqlTxtTypeFileWriter;
 import cn.oyzh.easymysql.db.data.MysqlTypeFileWriter;
 import cn.oyzh.easymysql.db.data.MysqlXmlTypeFileWriter;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.MysqlColumns;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.fx.data.DataExportTable;
 import cn.oyzh.easymysql.handler.DataHandler;
 import lombok.Getter;

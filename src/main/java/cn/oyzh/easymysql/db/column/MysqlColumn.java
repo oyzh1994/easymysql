@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.db.table;
+package cn.oyzh.easymysql.db.column;
 
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;

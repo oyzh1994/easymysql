@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.condition;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.util.DBNodeUtil;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;

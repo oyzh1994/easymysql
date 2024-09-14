@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db.record;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 
 import java.util.Collection;
 import java.util.Collections;

@@ -4,6 +4,8 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.condition.MysqlConditionUtil;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.db.function.MysqlFunction;
+import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
@@ -12,16 +14,14 @@ import cn.oyzh.easymysql.db.record.MysqlInsertRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
-import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
+import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
-import cn.oyzh.easymysql.db.function.MysqlFunction;
-import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.db.table.MysqlCheck;
 import cn.oyzh.easymysql.db.table.MysqlChecks;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
-import cn.oyzh.easymysql.db.table.MysqlColumns;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.table.MysqlForeignKey;
 import cn.oyzh.easymysql.db.table.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.table.MysqlIndex;
@@ -34,10 +34,10 @@ import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.exception.DBException;
 import cn.oyzh.easymysql.generator.event.EventAlertSqlGenerator;
 import cn.oyzh.easymysql.generator.event.EventCreateSqlGenerator;
-import cn.oyzh.easymysql.generator.table.TableAlertSqlGenerator;
-import cn.oyzh.easymysql.generator.table.TableCreateSqlGenerator;
 import cn.oyzh.easymysql.generator.routine.DBFunctionSqlGenerator;
 import cn.oyzh.easymysql.generator.routine.DBProcedureSqlGenerator;
+import cn.oyzh.easymysql.generator.table.TableAlertSqlGenerator;
+import cn.oyzh.easymysql.generator.table.TableCreateSqlGenerator;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.easymysql.util.DBUtil;
 import com.mysql.cj.Messages;
@@ -2330,18 +2330,17 @@ public class MysqlDBClient extends DBClient {
     public List<MysqlRecord> selectTableRecords(MysqlSelectRecordParam param) {
         try {
             Connection connection = this.connection(param.dbName(), param.schema());
-            StringBuilder builder = new StringBuilder("SELECT *, 0 AS _NAV_ORDER_F_ FROM ");
-            builder.append(DBUtil.wrap(param.schema(), param.tableName(), this.dialect()));
+            StringBuilder builder = new StringBuilder("SELECT * FROM ");
+            builder.append(DBUtil.wrap(param.dbName(), param.tableName(), this.dialect()));
             String filterCondition = MysqlConditionUtil.buildCondition(param.filters());
             if (StrUtil.isNotBlank(filterCondition)) {
                 builder.append(" WHERE ").append(filterCondition);
             }
             if (param.hasPageControl()) {
-                builder.append(" ORDER BY _NAV_ORDER_F_ OFFSET ")
+                builder.append(" LIMIT ")
                         .append(param.start())
-                        .append(" ROWS FETCH NEXT ")
-                        .append(param.limit())
-                        .append(" ROWS ONLY");
+                        .append(",")
+                        .append(param.limit());
             }
             String sql = builder.toString();
             DBUtil.printSql(sql);
@@ -2353,7 +2352,7 @@ public class MysqlDBClient extends DBClient {
             if (param.columns() != null) {
                 columns = param.columns();
             } else {
-                columns = DBHelper.parseColumns(resultSet, List.of("_NAV_ORDER_F_"));
+                columns = DBHelper.parseColumns(resultSet);
             }
             while (resultSet.next()) {
                 MysqlRecord record = new MysqlRecord(param.readonly());

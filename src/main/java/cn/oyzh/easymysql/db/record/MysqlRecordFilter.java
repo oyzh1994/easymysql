@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db.record;
 
 import cn.oyzh.easymysql.condition.MysqlCondition;
 import cn.oyzh.easymysql.condition.MysqlConditionUtil;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.fx.table.DBColumnComboBox;
 import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
 import cn.oyzh.easymysql.fx.table.DBJoinSymbolComboBox;

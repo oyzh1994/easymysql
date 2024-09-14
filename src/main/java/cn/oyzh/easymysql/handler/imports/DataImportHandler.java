@@ -12,7 +12,7 @@ import cn.oyzh.easymysql.db.data.MysqlTxtTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlXmlTypeFileReader;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.table.MysqlColumns;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.fx.data.DataImportFile;
 import cn.oyzh.easymysql.handler.DataHandler;
 import cn.oyzh.fx.common.thread.ThreadUtil;

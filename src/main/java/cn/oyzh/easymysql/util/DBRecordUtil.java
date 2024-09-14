@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.util;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.record.MysqlRecordProperty;
-import cn.oyzh.easymysql.db.table.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.fx.record.DBBinaryTextFiled;
 import cn.oyzh.easymysql.fx.record.DBJsonTextFiled;
 import cn.oyzh.fx.plus.controls.select.SelectTextFiled;
