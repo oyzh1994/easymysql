@@ -187,23 +187,25 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     private void clearTable() {
-        if (MessageBox.confirm("确定清空表数据？")) {
-            if (this.dbItem().clearTable(this.tableName())) {
+        try {
+            if (MessageBox.confirm("确定清空表数据？")) {
+                this.dbItem().clearTable(this.tableName());
                 MysqlEventUtil.tableCleared(this, this.dbItem());
-            } else {
-                MessageBox.warn("清空表数据失败！");
             }
+        } catch (Exception ex) {
+            MessageBox.exception(ex);
         }
     }
 
     private void dropTable() {
-        if (MessageBox.confirm("确定删除表" + this.tableName() + "？")) {
-            if (this.dbItem().dropTable(this.tableName())) {
+        try {
+            if (MessageBox.confirm("确定删除表" + this.tableName() + "？")) {
+                this.dbItem().dropTable(this.tableName());
                 this.remove();
                 MysqlEventUtil.tableDropped(this, this.dbItem());
-            } else {
-                MessageBox.warn("删除表失败！");
             }
+        } catch (Exception ex) {
+            MessageBox.exception(ex);
         }
     }
 
@@ -235,13 +237,10 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
             }
             String oldName = this.value.getName();
             // 修改名称
-            if (this.dbItem().renameTable(oldName, tableName)) {
-                this.value.setName(tableName);
-                this.getValue().flushText();
-                MysqlEventUtil.tableRenamed(this, this.dbItem());
-            } else {
-                MessageBox.warn(I18nHelper.operationFail());
-            }
+            this.dbItem().renameTable(oldName, tableName);
+            this.value.setName(tableName);
+            this.getValue().flushText();
+            MysqlEventUtil.tableRenamed(this, this.dbItem());
         } catch (Exception ex) {
             ex.printStackTrace();
             MessageBox.exception(ex);

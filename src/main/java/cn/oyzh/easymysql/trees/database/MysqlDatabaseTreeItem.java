@@ -9,7 +9,6 @@ import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
-import cn.oyzh.easymysql.db.event.MysqlEvents;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
@@ -351,11 +350,11 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     }
 
     public Integer tableSize() {
-        return this.client().tableSize(this.dbName(), null);
+        return this.client().tableSize(this.dbName());
     }
 
     public Integer viewSize() {
-        return this.client().viewSize(this.dbName(), null);
+        return this.client().viewSize(this.dbName());
     }
 
     public String infoName() {
@@ -377,7 +376,6 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     public void alterTable(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
         MysqlTableAlertParam param = new MysqlTableAlertParam();
         param.table(table);
-        // param.events(events);
         param.checks(checks);
         param.columns(columns);
         param.indexes(indexes);
@@ -398,20 +396,20 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return this.client().existTable(this.dbName(), tableName);
     }
 
-    public boolean renameTable(String oldTableName, String newTableName) {
-        return this.client().renameTable(this.dbName(), oldTableName, newTableName);
+    public void renameTable(String oldTableName, String newTableName) {
+        this.client().renameTable(this.dbName(), oldTableName, newTableName);
     }
 
-    public boolean clearTable(String tableName) {
-        return this.client().clearTable(this.dbName(), tableName);
+    public void clearTable(String tableName) {
+        this.client().clearTable(this.dbName(), tableName);
     }
 
     public void truncateTable(String tableName) {
-        this.client().truncateTable(this.dbName(), null, tableName);
+        this.client().truncateTable(this.dbName(), tableName);
     }
 
-    public boolean dropTable(String tableName) {
-        return this.client().dropTable(this.dbName(), tableName);
+    public void dropTable(String tableName) {
+         this.client().dropTable(this.dbName(), tableName);
     }
 
     public MysqlQueryResults<MysqlExecuteResult> executeSql(String sql) {

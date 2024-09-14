@@ -398,12 +398,12 @@ public class DBClient {
      * @param dbName 库名称或者模式名称
      * @return 表数量
      */
-    public int tableSize(String dbName, String schema) {
+    public int tableSize(String dbName) {
         try {
             int size = 0;
-            Connection connection = this.connection(dbName, schema);
+            Connection connection = this.connection(dbName);
             DatabaseMetaData metaData = connection.getMetaData();
-            ResultSet resultSet = metaData.getTables(dbName, schema, "%", TABLE_TYPES);
+            ResultSet resultSet = metaData.getTables(null, dbName, "%", TABLE_TYPES);
             DBUtil.printMetaData(resultSet);
             while (resultSet.next()) {
                 if (DBUtil.checkTableType(resultSet, dbName)) {
@@ -428,12 +428,12 @@ public class DBClient {
      * @param dbName 库名称或者模式名称
      * @return 视图数量
      */
-    public int viewSize(String dbName, String schema) {
+    public int viewSize(String dbName) {
         try {
             int size = 0;
-            Connection connection = this.connection(dbName, schema);
+            Connection connection = this.connection(dbName);
             DatabaseMetaData metaData = connection.getMetaData();
-            ResultSet resultSet = metaData.getTables(dbName, schema, null, VIEW_TYPES);
+            ResultSet resultSet = metaData.getTables(null, dbName, "%", VIEW_TYPES);
             DBUtil.printMetaData(resultSet);
             while (resultSet.next()) {
                 if (DBUtil.checkViewType(resultSet, dbName)) {
@@ -1292,6 +1292,7 @@ public class DBClient {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
+    @Deprecated
     protected Connection schemaConnection(String dbName) throws SQLException, ClassNotFoundException {
         Connection connection = this.connection(dbName);
         if (connection instanceof JdbcConnection jdbcConnection) {
@@ -1986,7 +1987,6 @@ public class DBClient {
         }
     }
 
-
     public void createTable(String dbName, MysqlTable table) {
         Connection connection = null;
         try {
@@ -2012,12 +2012,8 @@ public class DBClient {
         Connection connection = null;
         try {
             String dbName = param.table().getDbName();
-
             connection = this.connection(dbName);
-            // param.setDbName(dbName);
             Statement statement = connection.createStatement();
-            // boolean hasPrimaryKey = DBHelper.hasPrimaryKey(this.connection(), dbName, table.getName());
-            // table.setHasPrimaryKey(hasPrimaryKey);
             String sql = TableAlertSqlGenerator.generate(this.dialect(), param);
             DBUtil.printSql(sql);
             List<String> sqlList = DBSqlParser.parseSql(sql, this.dialect());
@@ -2037,8 +2033,8 @@ public class DBClient {
     public boolean existTable(String dbName, String tableName) {
         boolean result;
         try {
-            DatabaseMetaData metaData = this.schemaConnection(dbName).getMetaData();
-            ResultSet resultSet = metaData.getTables(null, dbName, tableName, new String[]{"TABLE"});
+            DatabaseMetaData metaData = this.connection(dbName).getMetaData();
+            ResultSet resultSet = metaData.getTables(null, dbName, tableName, TABLE_TYPES);
             result = resultSet.next();
             DBUtil.close(resultSet);
         } catch (Exception ex) {
@@ -2047,57 +2043,61 @@ public class DBClient {
         return result;
     }
 
-    public boolean renameTable(String dbName, String oldTableName, String newTableName) {
-        boolean result;
+    public void renameTable(String dbName, String oldTableName, String newTableName) {
         try {
-            Statement statement = this.connection().createStatement();
-            String sql = "RENAME TABLE " + DBUtil.wrap(dbName, oldTableName) + " TO " + DBUtil.wrap(dbName, newTableName);
+            StringBuilder builder = new StringBuilder("RENAME TABLE ");
+            builder.append(DBUtil.wrap(dbName, oldTableName, this.dialect()))
+                    .append(" TO ")
+                    .append(DBUtil.wrap(dbName, newTableName, this.dialect()));
+            String sql = builder.toString();
+            Connection connection = this.connection(dbName);
+            Statement statement = connection.createStatement();
             DBUtil.printSql(sql);
             statement.execute(sql);
             DBUtil.close(statement);
-            result = true;
         } catch (Exception ex) {
-            throw new DBException(ex);
-        }
-        return result;
-    }
-
-    public boolean clearTable(String dbName, String tableName) {
-        try {
-            Statement statement = this.connection(dbName).createStatement();
-            String sql = "DELETE FROM " + DBUtil.wrap(dbName, tableName);
-            DBUtil.printSql(sql);
-            statement.executeUpdate(sql);
-            DBUtil.close(statement);
-        } catch (Exception ex) {
-            throw new DBException(ex);
-        }
-        return true;
-    }
-
-    public void truncateTable(String dbName, String schema, String tableName) {
-        try {
-            Statement statement = this.connection(dbName).createStatement();
-            String sql = "TRUNCATE TABLE " + DBUtil.wrap(dbName, tableName);
-            DBUtil.printSql(sql);
-            statement.executeUpdate(sql);
-            DBUtil.close(statement);
-        } catch (Exception ex) {
+            ex.printStackTrace();
             throw new DBException(ex);
         }
     }
 
-    public boolean dropTable(String dbName, String tableName) {
+    public void clearTable(String dbName, String tableName) {
         try {
             Statement statement = this.connection(dbName).createStatement();
-            String sql = "DROP TABLE " + DBUtil.wrap(dbName, tableName);
+            String sql = "DELETE FROM " + DBUtil.wrap(dbName, tableName, this.dialect());
             DBUtil.printSql(sql);
             statement.executeUpdate(sql);
             DBUtil.close(statement);
         } catch (Exception ex) {
+            ex.printStackTrace();
             throw new DBException(ex);
         }
-        return true;
+    }
+
+    public void truncateTable(String dbName, String tableName) {
+        try {
+            Statement statement = this.connection(dbName).createStatement();
+            String sql = "TRUNCATE TABLE " + DBUtil.wrap(dbName, tableName, this.dialect());
+            DBUtil.printSql(sql);
+            statement.executeUpdate(sql);
+            DBUtil.close(statement);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
+    }
+
+    public void dropTable(String dbName, String tableName) {
+        try {
+            Statement statement = this.connection(dbName).createStatement();
+            String sql = "DROP TABLE " + DBUtil.wrap(dbName, tableName, this.dialect());
+            DBUtil.printSql(sql);
+            statement.executeUpdate(sql);
+            DBUtil.close(statement);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
     }
 
     public List<String> charsets() {
