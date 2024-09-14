@@ -339,7 +339,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         if (columns == null) {
             columns = this.columns();
         }
-        return !this.columns.primaryKeys().isEmpty();
+        return this.columns.primaryKeys().isEmpty();
     }
 
     @Override

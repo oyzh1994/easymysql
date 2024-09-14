@@ -93,4 +93,13 @@ public class MysqlColumns extends DBObjectList<MysqlColumn> {
         }
         return list;
     }
+
+    public boolean hasPrimaryKey() {
+        for (MysqlColumn column : this) {
+            if (column.isPrimaryKey()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.tabs.table;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.DBObjectList;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
@@ -126,7 +127,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
     /**
      * 字段列表
      */
-    private List<MysqlColumn> columns;
+    private MysqlColumns columns;
 
     /**
      * 设置
@@ -183,7 +184,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
      *
      * @param columns 列数据
      */
-    private void initColumns(List<MysqlColumn> columns) {
+    private void initColumns(MysqlColumns columns) {
         // 设置字段列表
         this.columns = columns;
         // 数据列集合
@@ -350,7 +351,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
             // 初始化数据
             this.initDataList(0);
             // 判断是否缺少主键列
-            this.missPrimaryKey.setVisible(!this.item.hasPrimaryKey());
+            this.missPrimaryKey.setVisible(!this.columns.hasPrimaryKey());
             // 设置过滤激活
             this.filter.setActive(CollUtil.isNotEmpty(this.enabledFilters()));
             // 禁用组件

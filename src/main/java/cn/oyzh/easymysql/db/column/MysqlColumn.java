@@ -613,6 +613,9 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public boolean isPrimaryKey() {
+        if(this.isAutoIncrement()){
+            return true;
+        }
         return BooleanUtil.isTrue(this.primaryKeyProperty().get());
     }
 
