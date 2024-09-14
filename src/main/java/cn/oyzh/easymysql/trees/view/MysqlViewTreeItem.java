@@ -206,7 +206,11 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     }
 
     public int deleteRecord(MysqlRecordData recordData) {
-        return this.client().deleteRecord(this.dbName(), this.viewName(), recordData);
+        MysqlDeleteRecordParam param = new MysqlDeleteRecordParam();
+        param.record(recordData);
+        param.dbName(this.dbName());
+        param.tableName(this.viewName());
+        return this.client().deleteRecord(param);
     }
 
     public int deleteRecord(MysqlRecordPrimaryKey primaryKey) {

@@ -364,7 +364,11 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     public int deleteRecord(MysqlRecordData recordData) {
-        return this.client().deleteRecord(this.dbName(), this.tableName(), recordData);
+        MysqlDeleteRecordParam param = new MysqlDeleteRecordParam();
+        param.dbName(this.dbName());
+        param.tableName(this.tableName());
+        param.record(recordData);
+        return this.client().deleteRecord(param);
     }
 
     public int deleteRecord(MysqlRecordPrimaryKey primaryKey) {
