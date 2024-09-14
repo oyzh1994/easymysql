@@ -535,10 +535,8 @@ public class MysqlTableDesignTabController extends DynamicTabController {
             }
             // 判断结果
             this.unsaved = false;
-            // 重载表数据
-            this.mysqlTable = this.dbItem.selectTable(tableName);
             // 初始化信息
-            this.initInfo();
+            this.initInfo(tableName);
         } catch (Exception ex) {
             MessageBox.exception(ex);
         } finally {
@@ -597,19 +595,39 @@ public class MysqlTableDesignTabController extends DynamicTabController {
     /**
      * 初始化信息
      */
-    protected void initInfo() {
+    protected void initInfo(String tableName) {
         // 更新初始化标志位
         this.initiating = true;
-
-        // 更新新表标志位
-        this.newData = this.mysqlTable.isNew();
-
         // 新数据
-        if (newData) {
-            this.tableEngine.select("innoDB");
+        if (tableName == null) {
+            this.newData = true;
+            this.initNew();
         } else {// 已有数据
-            this.moveUp.disappear();
+            this.newData = false;
+            this.mysqlTable = this.dbItem.selectFullTable(tableName);
+            this.initNormal();
         }
+        // 标记为结束
+        FXUtil.runPulse(() -> this.initiating = false);
+    }
+
+    /**
+     * 初始化信息
+     */
+    protected void initNew() {
+        // 重载表数据
+        this.tableEngine.select("innoDB");
+        // 字符集
+        if (this.tableCharset.isItemEmpty()) {
+            this.tableCharset.init(this.dbItem.client());
+        }
+    }
+
+    /**
+     * 初始化信息
+     */
+    protected void initNormal() {
+        this.moveUp.disappear();
 
         // 基本信息
         this.tableEngine.select(this.mysqlTable.getEngine());
@@ -623,21 +641,18 @@ public class MysqlTableDesignTabController extends DynamicTabController {
         this.tableCollation.init(this.mysqlTable.getCharset(), this.dbItem.client());
         this.tableCollation.select(this.mysqlTable.getCollation());
 
-        if (!this.newData) {
-            // 检查器
-            if (this.dbItem.isSupportCheckFeature()) {
-                this.checkTable.setItem(this.dbItem.checks(this.tableName()));
-            }
-            // 索引
-            this.indexTable.setItem(this.dbItem.indexes(this.tableName()));
-            // 字段
-            this.columnTable.setItem(this.dbItem.columns(this.tableName()));
-            // 触发器
-            this.triggerTable.setItem(this.dbItem.triggers(this.tableName()));
-            // 外键
-            this.foreignKeyTable.setItem(this.dbItem.foreignKeys(this.tableName()));
+        // 检查器
+        if (this.dbItem.isSupportCheckFeature()) {
+            this.checkTable.setItem(this.dbItem.checks(this.tableName()));
         }
-
+        // 索引
+        this.indexTable.setItem(this.dbItem.indexes(this.tableName()));
+        // 字段
+        this.columnTable.setItem(this.dbItem.columns(this.tableName()));
+        // 触发器
+        this.triggerTable.setItem(this.dbItem.triggers(this.tableName()));
+        // 外键
+        this.foreignKeyTable.setItem(this.dbItem.foreignKeys(this.tableName()));
 
         // 行格式
         if (this.mysqlTable.isInnoDB()) {
@@ -650,9 +665,6 @@ public class MysqlTableDesignTabController extends DynamicTabController {
             this.tableAutoIncrementBox.display();
             this.tableAutoIncrement.setValue(this.mysqlTable.getAutoIncrement());
         }
-
-        // 标记为结束
-        FXUtil.runPulse(() -> this.initiating = false);
     }
 
     /**
@@ -1064,13 +1076,12 @@ public class MysqlTableDesignTabController extends DynamicTabController {
     /**
      * 执行初始化
      *
-     * @param table  表信息
+     * @param tableName  表信息
      * @param dbItem db库树节点
      */
-    public void init(MysqlTable table, MysqlDatabaseTreeItem dbItem) {
+    public void init(String tableName, MysqlDatabaseTreeItem dbItem) {
         // 获取对象
         this.dbItem = dbItem;
-        this.mysqlTable = table;
         // 初始化监听器
         this.initDBListener();
         // 初始化引擎
@@ -1081,7 +1092,7 @@ public class MysqlTableDesignTabController extends DynamicTabController {
         CacheHelper.set("dbClient", this.dbItem.client());
 
         // 初始化信息
-        this.initInfo();
+        this.initInfo(tableName);
 
         // 监听组件
         DBListenerManager.bindListener(this.tableEngine, this.listener);

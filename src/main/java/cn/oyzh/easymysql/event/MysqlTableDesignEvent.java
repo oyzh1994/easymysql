@@ -14,16 +14,11 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(fluent = true)
 @EqualsAndHashCode(callSuper = true)
-public class MysqlTableDesignEvent extends Event<MysqlTable> {
+public class MysqlTableDesignEvent extends Event<String> {
 
     private MysqlDatabaseTreeItem dbItem;
 
-    public String tableName() {
-        return this.data().getName();
+    public String dbName() {
+        return this.dbItem.dbName();
     }
-
-    public MysqlTable table() {
-        return this.data();
-    }
-
 }

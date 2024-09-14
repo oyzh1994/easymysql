@@ -49,12 +49,6 @@ import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.common.ssh.SSHForwardInfo;
 import cn.oyzh.fx.common.ssh.SSHForwarder;
-import com.mysql.cj.Messages;
-import com.mysql.cj.conf.EnumPropertyDefinition;
-import com.mysql.cj.conf.PropertyDefinition;
-import com.mysql.cj.conf.PropertyDefinitions;
-import com.mysql.cj.conf.PropertyKey;
-import com.mysql.cj.jdbc.JdbcConnection;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
@@ -384,7 +378,6 @@ public class DBClient {
     public String infoName() {
         return this.dbInfo.getName();
     }
-
 
     /**
      * 添加状态监听器
@@ -1298,7 +1291,6 @@ public class DBClient {
         }
     }
 
-
     public List<String> engines() {
         if (this.hasProperty("engines")) {
             return this.getProperty("engines");
@@ -1319,24 +1311,6 @@ public class DBClient {
         }
     }
 
-    /**
-     * 获取结构连接
-     *
-     * @param dbName 库名称
-     * @return 连接
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    @Deprecated
-    protected Connection schemaConnection(String dbName) throws SQLException, ClassNotFoundException {
-        Connection connection = this.connection(dbName);
-        if (connection instanceof JdbcConnection jdbcConnection) {
-            PropertyDefinition<PropertyDefinitions.DatabaseTerm> definition = new EnumPropertyDefinition<>(PropertyKey.databaseTerm, PropertyDefinitions.DatabaseTerm.SCHEMA, PropertyDefinitions.RUNTIME_MODIFIABLE, Messages.getString("ConnectionProperties.databaseTerm"), "8.0.17", PropertyDefinitions.CATEGORY_CONNECTION, Integer.MIN_VALUE);
-            jdbcConnection.getPropertySet().addProperty(definition.createRuntimeProperty());
-        }
-        return connection;
-    }
-
     public List<DBDatabase> databases() {
         try {
             Statement statement = this.connection().createStatement();
@@ -1354,46 +1328,6 @@ public class DBClient {
             return list;
         } catch (Exception ex) {
             ex.printStackTrace();
-            throw new DBException(ex);
-        }
-    }
-
-    public List<MysqlTable> tables(String dbName, String schema, boolean full) {
-        try {
-            List<MysqlTable> list = new ArrayList<>();
-            String sql = "SELECT `AUTO_INCREMENT`, `ROW_FORMAT`, `TABLE_COLLATION`, `TABLE_NAME`, `TABLE_COMMENT`, `ENGINE` FROM information_schema.TABLES WHERE `TABLE_SCHEMA` = ? AND `TABLE_TYPE` != 'VIEW'";
-            DBUtil.printSql(sql);
-            PreparedStatement statement = this.connection().prepareStatement(sql);
-            statement.setString(1, dbName);
-            // 执行SQL查询并获取结果集
-            ResultSet resultSet = statement.executeQuery();
-            // 打印元数据
-            DBUtil.printMetaData(resultSet);
-            // 遍历结果集
-            while (resultSet.next()) {
-                MysqlTable table = new MysqlTable();
-                String tableEngine = resultSet.getString("ENGINE");
-                String tableName = resultSet.getString("TABLE_NAME");
-                String rowFormat = resultSet.getString("ROW_FORMAT");
-                Long autoIncrement = resultSet.getLong("AUTO_INCREMENT");
-                String tableComment = resultSet.getString("TABLE_COMMENT");
-                String tableCollation = resultSet.getString("TABLE_COLLATION");
-                String showCreateTable = this.showCreateTable(dbName, tableName);
-                table.setDbName(dbName);
-                table.setName(tableName);
-                table.setEngine(tableEngine);
-                table.setRowFormat(rowFormat);
-                table.setComment(tableComment);
-                table.setAutoIncrement(autoIncrement);
-                table.setCreateDefinition(showCreateTable);
-                table.setCharsetAndCollation(tableCollation);
-                list.add(table);
-            }
-            // 关闭连接和释放资源
-            DBUtil.close(resultSet);
-            DBUtil.close(statement);
-            return list;
-        } catch (Exception ex) {
             throw new DBException(ex);
         }
     }
@@ -1449,6 +1383,43 @@ public class DBClient {
                 DBUtil.close(resultSet);
             }
             return table;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
+    }
+
+    public MysqlTable selectFullTable(MysqlTableSelectParam param) {
+        try {
+            String dbName = param.dbName();
+            String tableName = param.tableName();
+            MysqlTable table = new MysqlTable();
+            table.setDbName(dbName);
+            table.setName(tableName);
+            Connection connection = this.connection(dbName);
+            String sql = "SELECT `AUTO_INCREMENT`, `ROW_FORMAT`, `TABLE_COLLATION`, `TABLE_COMMENT`, `ENGINE` FROM information_schema.TABLES WHERE `TABLE_SCHEMA` = ? AND `TABLE_NAME` = ?  AND `TABLE_TYPE` = 'BASE TABLE'";
+            DBUtil.printSql(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, dbName);
+            statement.setString(2, tableName);
+            ResultSet resultSet = statement.executeQuery();
+            DBUtil.printMetaData(resultSet);
+            String showCreateTable = this.showCreateTable(dbName, tableName);
+            while (resultSet.next()) {
+                String tableEngine = resultSet.getString("ENGINE");
+                String rowFormat = resultSet.getString("ROW_FORMAT");
+                Long autoIncrement = resultSet.getLong("AUTO_INCREMENT");
+                String tableComment = resultSet.getString("TABLE_COMMENT");
+                String tableCollation = resultSet.getString("TABLE_COLLATION");
+                table.setEngine(tableEngine);
+                table.setRowFormat(rowFormat);
+                table.setComment(tableComment);
+                table.setAutoIncrement(autoIncrement);
+                table.setCreateDefinition(showCreateTable);
+                table.setCharsetAndCollation(tableCollation);
+            }
+            DBUtil.close(resultSet);
+            DBUtil.close(statement);
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new DBException(ex);
@@ -1548,7 +1519,7 @@ public class DBClient {
     public boolean existView(String dbName, String viewName) {
         boolean result;
         try {
-            DatabaseMetaData metaData = this.schemaConnection(dbName).getMetaData();
+            DatabaseMetaData metaData = this.connection(dbName).getMetaData();
             ResultSet resultSet = metaData.getTables(null, dbName, viewName, new String[]{"VIEW"});
             result = resultSet.next();
             DBUtil.close(resultSet);

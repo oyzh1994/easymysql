@@ -397,16 +397,11 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         this.client().alertTable(param);
     }
 
-    public MysqlTable selectTable(String tableName) {
-        return this.selectTable(tableName, true);
-    }
-
-    public MysqlTable selectTable(String tableName, boolean full) {
+    public MysqlTable selectFullTable(String tableName) {
         MysqlTableSelectParam param = new MysqlTableSelectParam();
-        param.full(full);
         param.dbName(this.dbName());
         param.tableName(tableName);
-        return this.client().selectTable(param);
+        return this.client().selectFullTable(param);
     }
 
     public boolean existTable(String tableName) {

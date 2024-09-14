@@ -238,9 +238,9 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-    public static void designTable(MysqlTable table, MysqlDatabaseTreeItem dbItem) {
+    public static void designTable(String tableName, MysqlDatabaseTreeItem dbItem) {
         MysqlTableDesignEvent event = new MysqlTableDesignEvent();
-        event.data(table);
+        event.data(tableName);
         event.dbItem(dbItem);
         EventUtil.post(event);
     }
