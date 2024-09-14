@@ -71,9 +71,9 @@ public class MysqlIndexControl extends MysqlIndex {
         return textField;
     }
 
-    public static MysqlIndexControl of(MysqlIndex column) {
+    public static MysqlIndexControl of(MysqlIndex index) {
         MysqlIndexControl control = new MysqlIndexControl();
-        control.copy(column);
+        control.copy(index);
         return control;
     }
 

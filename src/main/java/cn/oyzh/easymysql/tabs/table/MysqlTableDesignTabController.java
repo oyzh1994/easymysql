@@ -3,17 +3,20 @@ package cn.oyzh.easymysql.tabs.table;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.db.check.MysqlCheck;
+import cn.oyzh.easymysql.db.check.MysqlCheckControl;
 import cn.oyzh.easymysql.db.check.MysqlChecks;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumnControl;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
+import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeyControl;
 import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.index.MysqlIndex;
 import cn.oyzh.easymysql.db.index.MysqlIndexControl;
 import cn.oyzh.easymysql.db.index.MysqlIndexes;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
+import cn.oyzh.easymysql.db.trigger.MysqlTriggerControl;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
@@ -246,55 +249,55 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      * 表外键组件
      */
     @FXML
-    private DBStatusTableView<MysqlForeignKey> foreignKeyTable;
+    private DBStatusTableView<MysqlForeignKeyControl> foreignKeyTable;
 
     /**
      * 外键状态列
      */
     @FXML
-    private DBStatusColumn<MysqlForeignKey> foreignKeyStatus;
+    private DBStatusColumn<MysqlForeignKeyControl> foreignKeyStatus;
 
     /**
      * 外键名称列
      */
     @FXML
-    private TableColumn<MysqlForeignKey, String> foreignKeyName;
+    private TableColumn<MysqlForeignKeyControl, String> foreignKeyName;
 
     /**
      * 外键字段列
      */
     @FXML
-    private TableColumn<MysqlForeignKey, String> foreignKeyColumn;
+    private TableColumn<MysqlForeignKeyControl, String> foreignKeyColumn;
 
     /**
      * 外键引用库
      */
     @FXML
-    private TableColumn<MysqlForeignKey, String> foreignKeyPKDatabase;
+    private TableColumn<MysqlForeignKeyControl, String> foreignKeyPKDatabase;
 
     /**
      * 外键引用表
      */
     @FXML
-    private TableColumn<MysqlForeignKey, String> foreignKeyPKTable;
+    private TableColumn<MysqlForeignKeyControl, String> foreignKeyPKTable;
 
     /**
      * 外键引用字段
      */
     @FXML
-    private FlexTableColumn<MysqlForeignKey, String> foreignKeyPKColumn;
+    private FlexTableColumn<MysqlForeignKeyControl, String> foreignKeyPKColumn;
 
     /**
      * 外键删除策略
      */
     @FXML
-    private FlexTableColumn<MysqlForeignKey, String> foreignKeyDeletePolicy;
+    private FlexTableColumn<MysqlForeignKeyControl, String> foreignKeyDeletePolicy;
 
     /**
      * 外键更新策略
      */
     @FXML
-    private FlexTableColumn<MysqlForeignKey, String> foreignKeyUpdatePolicy;
+    private FlexTableColumn<MysqlForeignKeyControl, String> foreignKeyUpdatePolicy;
 
     /**
      * db表
@@ -305,55 +308,55 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      * 触发器组件
      */
     @FXML
-    private DBStatusTableView<MysqlTrigger> triggerTable;
+    private DBStatusTableView<MysqlTriggerControl> triggerTable;
 
     /**
      * 触发器状态
      */
     @FXML
-    private DBStatusColumn<MysqlTrigger> triggerStatus;
+    private DBStatusColumn<MysqlTriggerControl> triggerStatus;
 
     /**
      * 触发器名称
      */
     @FXML
-    private FlexTableColumn<MysqlTrigger, String> triggerName;
+    private FlexTableColumn<MysqlTriggerControl, String> triggerName;
 
     /**
      * 触发器策略
      */
     @FXML
-    private FlexTableColumn<MysqlTrigger, String> triggerPolicy;
+    private FlexTableColumn<MysqlTriggerControl, String> triggerPolicy;
 
     /**
      * 触发器定义
      */
     @FXML
-    private FlexTableColumn<MysqlTrigger, String> triggerDefinition;
+    private FlexTableColumn<MysqlTriggerControl, String> triggerDefinition;
 
     /**
      * 检查器组件
      */
     @FXML
-    private DBStatusTableView<MysqlCheck> checkTable;
+    private DBStatusTableView<MysqlCheckControl> checkTable;
 
     /**
      * 检查器状态
      */
     @FXML
-    private DBStatusColumn<MysqlTrigger> checkStatus;
+    private DBStatusColumn<MysqlCheckControl> checkStatus;
 
     /**
      * 检查器名称
      */
     @FXML
-    private FlexTableColumn<MysqlTrigger, String> checkName;
+    private FlexTableColumn<MysqlCheckControl, String> checkName;
 
     /**
      * 检查器子语句
      */
     @FXML
-    private FlexTableColumn<MysqlTrigger, String> checkClause;
+    private FlexTableColumn<MysqlCheckControl, String> checkClause;
 
     /**
      * db库节点
@@ -477,46 +480,37 @@ public class MysqlTableDesignTabController extends DynamicTabController {
             }
 
             // 外键处理
-            // MysqlForeignKeys foreignKeys = this.mysqlTable.getForeignKeys();
-            MysqlForeignKeys foreignKeys = new MysqlForeignKeys(this.foreignKeyTable.getItems());
-            // if (foreignKeys != null) {
-            for (MysqlForeignKey foreignKey : foreignKeys) {
+            MysqlForeignKeys foreignKeys = new MysqlForeignKeys();
+            for (MysqlForeignKey foreignKey : this.foreignKeyTable.getItems()) {
                 if (StrUtil.isBlank(foreignKey.getName())) {
                     MessageBox.warn(I18nHelper.invalidData());
                     this.tabPane.select(3);
                     return;
                 }
+                foreignKeys.add(foreignKey);
             }
-            // tempTable.setForeignKeys(foreignKeys);
-            // }
 
             // 触发器处理
-            // MysqlTriggers triggers = this.mysqlTable.getTriggers();
-            MysqlTriggers triggers = new MysqlTriggers(this.triggerTable.getItems());
-            // if (triggers != null) {
-            for (MysqlTrigger trigger : triggers) {
+            MysqlTriggers triggers = new MysqlTriggers();
+            for (MysqlTrigger trigger : this.triggerTable.getItems()) {
                 if (StrUtil.isBlank(trigger.getName())) {
                     MessageBox.warn(I18nHelper.invalidData());
                     this.tabPane.select(4);
                     return;
                 }
+                triggers.add(trigger);
             }
-            // tempTable.setTriggers(triggers);
-            // }
 
             // 检查处理
-            MysqlChecks checks = new MysqlChecks(this.checkTable.getItems());
-            // MysqlChecks checks = this.mysqlTable.getChecks();
-            // if (checks != null) {
-            for (MysqlCheck check : checks) {
+            MysqlChecks checks = new MysqlChecks();
+            for (MysqlCheck check : this.checkTable.getItems()) {
                 if (StrUtil.isBlank(check.getName()) || StrUtil.isBlank(check.getClause())) {
                     MessageBox.warn(I18nHelper.invalidData());
                     this.tabPane.select(5);
                     return;
                 }
+                checks.add(check);
             }
-            // tempTable.setChecks(checks);
-            // }
             // 检查处理
 
             this.disableTab();
@@ -642,16 +636,16 @@ public class MysqlTableDesignTabController extends DynamicTabController {
 
         // 检查器
         if (this.dbItem.isSupportCheckFeature()) {
-            this.checkTable.setItem(this.dbItem.checks(this.tableName()));
+            this.checkTable.setItem(MysqlCheckControl.of(this.dbItem.checks(this.tableName())));
         }
         // 索引
         this.indexTable.setItem(MysqlIndexControl.of(this.dbItem.indexes(this.tableName())));
         // 字段
         this.columnTable.setItem(MysqlColumnControl.of(this.dbItem.fullColumns(this.tableName())));
         // 触发器
-        this.triggerTable.setItem(this.dbItem.triggers(this.tableName()));
+        this.triggerTable.setItem(MysqlTriggerControl.of(this.dbItem.triggers(this.tableName())));
         // 外键
-        this.foreignKeyTable.setItem(this.dbItem.foreignKeys(this.tableName()));
+        this.foreignKeyTable.setItem(MysqlForeignKeyControl.of(this.dbItem.foreignKeys(this.tableName())));
 
         // 行格式
         if (this.mysqlTable.isInnoDB()) {
@@ -784,11 +778,10 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      * 新增外键
      */
     private void addForeignKey() {
-        MysqlForeignKey foreignKey = new MysqlForeignKey();
+        MysqlForeignKeyControl foreignKey = new MysqlForeignKeyControl();
         foreignKey.setCreated(true);
         this.foreignKeyTable.addItem(foreignKey);
         this.foreignKeyTable.selectLast();
-        // this.mysqlTable.foreignKeys().add(foreignKey);
     }
 
     /**
@@ -841,11 +834,10 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      * 新增触发器
      */
     private void addTrigger() {
-        MysqlTrigger trigger = new MysqlTrigger();
+        MysqlTriggerControl trigger = new MysqlTriggerControl();
         trigger.setCreated(true);
         this.triggerTable.addItem(trigger);
         this.triggerTable.selectLast();
-        // this.mysqlTable.triggers().add(trigger);
     }
 
     /**
@@ -898,11 +890,10 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      * 新增检查
      */
     private void addCheck() {
-        MysqlCheck check = new MysqlCheck();
+        MysqlCheckControl check = new MysqlCheckControl();
         check.setCreated(true);
         this.checkTable.addItem(check);
         this.checkTable.selectLast();
-        // this.mysqlTable.checks().add(check);
     }
 
     /**

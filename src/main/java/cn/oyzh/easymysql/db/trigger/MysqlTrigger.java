@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.db.trigger;
 
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.fx.table.DBTriggerPolicyComboBox;
+import cn.oyzh.fx.common.util.ObjectCopier;
 import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
 import cn.oyzh.fx.plus.controls.textfield.EnlargeTextFiled;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
@@ -17,7 +18,7 @@ import lombok.Getter;
  */
 @Getter
 @EqualsAndHashCode(callSuper = true)
-public class MysqlTrigger extends DBObjectStatus {
+public class MysqlTrigger extends DBObjectStatus implements ObjectCopier<MysqlTrigger> {
 
     /**
      * 名称
@@ -53,58 +54,58 @@ public class MysqlTrigger extends DBObjectStatus {
         super.putOriginalData("name", name);
     }
 
-    public ClearableTextField getNameControl() {
-        ClearableTextField textField = new ClearableTextField();
-        textField.setPromptText(I18nHelper.pleaseInputName());
-        textField.addTextChangeListener((observable, oldValue, newValue) -> {
-            this.setName(newValue);
-        });
-        if (this.name != null) {
-            textField.setText(this.name);
-        }
-        TableViewUtil.rowOnCtrlS(textField);
-        TableViewUtil.selectRowOnMouseClicked(textField);
-        return textField;
-    }
+    // public ClearableTextField getNameControl() {
+    //     ClearableTextField textField = new ClearableTextField();
+    //     textField.setPromptText(I18nHelper.pleaseInputName());
+    //     textField.addTextChangeListener((observable, oldValue, newValue) -> {
+    //         this.setName(newValue);
+    //     });
+    //     if (this.name != null) {
+    //         textField.setText(this.name);
+    //     }
+    //     TableViewUtil.rowOnCtrlS(textField);
+    //     TableViewUtil.selectRowOnMouseClicked(textField);
+    //     return textField;
+    // }
 
     public void setPolicy(String policy) {
         this.policy = policy;
         super.putOriginalData("policy", policy);
     }
-
-    public DBTriggerPolicyComboBox getPolicyControl() {
-        DBTriggerPolicyComboBox comboBox = new DBTriggerPolicyComboBox();
-        comboBox.selectedItemChanged((observable, oldValue, newValue) -> {
-            this.setPolicy(newValue);
-        });
-        comboBox.selectFirstIfNull(this.policy);
-        TableViewUtil.rowOnCtrlS(comboBox);
-        TableViewUtil.selectRowOnMouseClicked(comboBox);
-        return comboBox;
-    }
+    //
+    // public DBTriggerPolicyComboBox getPolicyControl() {
+    //     DBTriggerPolicyComboBox comboBox = new DBTriggerPolicyComboBox();
+    //     comboBox.selectedItemChanged((observable, oldValue, newValue) -> {
+    //         this.setPolicy(newValue);
+    //     });
+    //     comboBox.selectFirstIfNull(this.policy);
+    //     TableViewUtil.rowOnCtrlS(comboBox);
+    //     TableViewUtil.selectRowOnMouseClicked(comboBox);
+    //     return comboBox;
+    // }
 
     public void setDefinition(String definition) {
         this.definition = definition;
         super.putOriginalData("definition", definition);
     }
 
-    public EnlargeTextFiled getDefinitionControl() {
-        EnlargeTextFiled textField = new EnlargeTextFiled();
-        textField.setPromptText(I18nHelper.pleaseInputContent());
-        textField.addTextChangeListener((observable, oldValue, newValue) -> {
-            // if (!StrUtil.equalsIgnoreCase(newValue, this.definition)) {
-            //     this.definition = newValue;
-            //     this.setChanged(true);
-            // }
-            this.setDefinition(newValue);
-        });
-        if (this.definition != null) {
-            textField.setText(this.definition);
-        }
-        TableViewUtil.rowOnCtrlS(textField);
-        TableViewUtil.selectRowOnMouseClicked(textField);
-        return textField;
-    }
+    // public EnlargeTextFiled getDefinitionControl() {
+    //     EnlargeTextFiled textField = new EnlargeTextFiled();
+    //     textField.setPromptText(I18nHelper.pleaseInputContent());
+    //     textField.addTextChangeListener((observable, oldValue, newValue) -> {
+    //         // if (!StrUtil.equalsIgnoreCase(newValue, this.definition)) {
+    //         //     this.definition = newValue;
+    //         //     this.setChanged(true);
+    //         // }
+    //         this.setDefinition(newValue);
+    //     });
+    //     if (this.definition != null) {
+    //         textField.setText(this.definition);
+    //     }
+    //     TableViewUtil.rowOnCtrlS(textField);
+    //     TableViewUtil.selectRowOnMouseClicked(textField);
+    //     return textField;
+    // }
 
     public void setPolicy(String timing, String manipulation) {
         this.setPolicy(timing.toUpperCase() + " " + manipulation.toUpperCase());
@@ -113,5 +114,14 @@ public class MysqlTrigger extends DBObjectStatus {
     public void setTableName(String tableName) {
         this.tableName = tableName;
         super.putOriginalData("tableName", tableName);
+    }
+
+    @Override
+    public void copy(MysqlTrigger t1) {
+        if (t1 != null) {
+            this.name = t1.name;
+            this.policy = t1.policy;
+            this.definition = t1.definition;
+        }
     }
 }

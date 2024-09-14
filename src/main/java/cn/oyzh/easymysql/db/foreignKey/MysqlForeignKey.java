@@ -1,18 +1,8 @@
 package cn.oyzh.easymysql.db.foreignKey;
 
-import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
-import cn.oyzh.easymysql.fx.DBDatabaseComboBox;
-import cn.oyzh.easymysql.fx.table.DBFieldTextFiled;
-import cn.oyzh.easymysql.fx.table.DBForeignKeyPolicyComboBox;
-import cn.oyzh.easymysql.fx.table.DBTableComboBox;
 import cn.oyzh.fx.common.util.CacheHelper;
-import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
-import cn.oyzh.fx.plus.controls.textfield.FlexTextField;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
-import cn.oyzh.fx.plus.util.TableViewUtil;
+import cn.oyzh.fx.common.util.ObjectCopier;
 import javafx.beans.property.SimpleStringProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,7 +17,7 @@ import java.util.List;
  * @since 2024/01/25
  */
 @EqualsAndHashCode(callSuper = true)
-public class MysqlForeignKey extends DBObjectStatus {
+public class MysqlForeignKey extends DBObjectStatus implements ObjectCopier<MysqlForeignKey> {
 
     /**
      * 外键名称
@@ -102,45 +92,45 @@ public class MysqlForeignKey extends DBObjectStatus {
         super.putOriginalData("name", name);
     }
 
-    public FlexTextField getNameControl() {
-        try {
-            ClearableTextField textField = new ClearableTextField();
-            textField.setPromptText(I18nHelper.pleaseInputName());
-            textField.addTextChangeListener((observable, oldValue, newValue) -> this.setName(newValue));
-            if (this.name != null) {
-                textField.setText(this.name);
-            }
-            TableViewUtil.rowOnCtrlS(textField);
-            TableViewUtil.selectRowOnMouseClicked(textField);
-            return textField;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
+    // public FlexTextField getNameControl() {
+    //     try {
+    //         ClearableTextField textField = new ClearableTextField();
+    //         textField.setPromptText(I18nHelper.pleaseInputName());
+    //         textField.addTextChangeListener((observable, oldValue, newValue) -> this.setName(newValue));
+    //         if (this.name != null) {
+    //             textField.setText(this.name);
+    //         }
+    //         TableViewUtil.rowOnCtrlS(textField);
+    //         TableViewUtil.selectRowOnMouseClicked(textField);
+    //         return textField;
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //     }
+    //     return null;
+    // }
 
     public void setColumns(List<String> columns) {
         this.columns = columns;
         super.putOriginalData("columns", columns);
     }
 
-    public DBFieldTextFiled getColumnControl() {
-        try {
-            List<MysqlColumn> columnList = CacheHelper.get("columnList");
-            if (columnList == null) {
-                columnList = new ArrayList<>();
-            }
-            DBFieldTextFiled textField = new DBFieldTextFiled(columnList, this.columns);
-            textField.addTextChangeListener((observable, oldValue, newValue) -> this.setColumns(textField.getSelectedColumns()));
-            textField.setFlexWidth("100% - 12");
-            TableViewUtil.rowOnCtrlS(textField);
-            TableViewUtil.selectRowOnMouseClicked(textField);
-            return textField;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
+    // public DBFieldTextFiled getColumnControl() {
+    //     try {
+    //         List<MysqlColumn> columnList = CacheHelper.get("columnList");
+    //         if (columnList == null) {
+    //             columnList = new ArrayList<>();
+    //         }
+    //         DBFieldTextFiled textField = new DBFieldTextFiled(columnList, this.columns);
+    //         textField.addTextChangeListener((observable, oldValue, newValue) -> this.setColumns(textField.getSelectedColumns()));
+    //         textField.setFlexWidth("100% - 12");
+    //         TableViewUtil.rowOnCtrlS(textField);
+    //         TableViewUtil.selectRowOnMouseClicked(textField);
+    //         return textField;
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //     }
+    //     return null;
+    // }
 
     public void setPrimaryKeyDatabase(String primaryKeyDatabase) {
         this.primaryKeyDatabaseProperty().set(primaryKeyDatabase);
@@ -158,20 +148,20 @@ public class MysqlForeignKey extends DBObjectStatus {
         return dbName;
     }
 
-    public DBDatabaseComboBox getPrimaryKeyDatabaseControl() {
-        try {
-            DBDatabaseComboBox comboBox = new DBDatabaseComboBox();
-            comboBox.init(CacheHelper.get("dbClient"));
-            comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setPrimaryKeyDatabase(newValue));
-            comboBox.selectFirstIfNull(this.getPrimaryKeyDatabase());
-            TableViewUtil.rowOnCtrlS(comboBox);
-            TableViewUtil.selectRowOnMouseClicked(comboBox);
-            return comboBox;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
+    // public DBDatabaseComboBox getPrimaryKeyDatabaseControl() {
+    //     try {
+    //         DBDatabaseComboBox comboBox = new DBDatabaseComboBox();
+    //         comboBox.init(CacheHelper.get("dbClient"));
+    //         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setPrimaryKeyDatabase(newValue));
+    //         comboBox.selectFirstIfNull(this.getPrimaryKeyDatabase());
+    //         TableViewUtil.rowOnCtrlS(comboBox);
+    //         TableViewUtil.selectRowOnMouseClicked(comboBox);
+    //         return comboBox;
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //     }
+    //     return null;
+    // }
 
     public void setPrimaryKeyTable(String primaryKeyTable) {
         this.primaryKeyTableProperty().set(primaryKeyTable);
@@ -185,82 +175,82 @@ public class MysqlForeignKey extends DBObjectStatus {
         return this.primaryKeyTableProperty.get();
     }
 
-    public DBTableComboBox getPrimaryKeyTableControl() {
-        try {
-            DBTableComboBox comboBox = new DBTableComboBox();
-            DBClient dbClient = CacheHelper.get("dbClient");
-            comboBox.init(this.getPrimaryKeyDatabase(), dbClient);
-            comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setPrimaryKeyTable(newValue));
-            comboBox.selectFirstIfNull(this.getPrimaryKeyTable());
-            this.primaryKeyDatabaseProperty().addListener((observable, oldValue, newValue) -> {
-                comboBox.init(this.getPrimaryKeyDatabase(), dbClient);
-                comboBox.selectFirst();
-            });
-            TableViewUtil.rowOnCtrlS(comboBox);
-            TableViewUtil.selectRowOnMouseClicked(comboBox);
-            return comboBox;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
+    // public DBTableComboBox getPrimaryKeyTableControl() {
+    //     try {
+    //         DBTableComboBox comboBox = new DBTableComboBox();
+    //         DBClient dbClient = CacheHelper.get("dbClient");
+    //         comboBox.init(this.getPrimaryKeyDatabase(), dbClient);
+    //         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setPrimaryKeyTable(newValue));
+    //         comboBox.selectFirstIfNull(this.getPrimaryKeyTable());
+    //         this.primaryKeyDatabaseProperty().addListener((observable, oldValue, newValue) -> {
+    //             comboBox.init(this.getPrimaryKeyDatabase(), dbClient);
+    //             comboBox.selectFirst();
+    //         });
+    //         TableViewUtil.rowOnCtrlS(comboBox);
+    //         TableViewUtil.selectRowOnMouseClicked(comboBox);
+    //         return comboBox;
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //     }
+    //     return null;
+    // }
 
-    public DBForeignKeyPolicyComboBox getDeletePolicyControl() {
-        try {
-            DBForeignKeyPolicyComboBox comboBox = new DBForeignKeyPolicyComboBox();
-            comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setDeletePolicy(newValue));
-            comboBox.selectFirstIfNull(this.deletePolicy);
-            TableViewUtil.rowOnCtrlS(comboBox);
-            TableViewUtil.selectRowOnMouseClicked(comboBox);
-            return comboBox;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
+    // public DBForeignKeyPolicyComboBox getDeletePolicyControl() {
+    //     try {
+    //         DBForeignKeyPolicyComboBox comboBox = new DBForeignKeyPolicyComboBox();
+    //         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setDeletePolicy(newValue));
+    //         comboBox.selectFirstIfNull(this.deletePolicy);
+    //         TableViewUtil.rowOnCtrlS(comboBox);
+    //         TableViewUtil.selectRowOnMouseClicked(comboBox);
+    //         return comboBox;
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //     }
+    //     return null;
+    // }
 
     public void setPrimaryKeyColumns(List<String> primaryKeyColumns) {
         this.primaryKeyColumns = primaryKeyColumns;
         super.putOriginalData("primaryKeyColumns", primaryKeyColumns);
     }
 
-    public DBFieldTextFiled getPrimaryKeyColumnControl() {
-        try {
-            DBFieldTextFiled textField = new DBFieldTextFiled();
-            textField.addTextChangeListener((observable, oldValue, newValue) -> this.setPrimaryKeyColumns(textField.getSelectedColumns()));
-            textField.setFlexWidth("100% - 12");
-            Runnable func = () -> {
-                textField.clear();
-                String dbName = this.getPrimaryKeyDatabase();
-                String tableName = this.getPrimaryKeyTable();
-                DBClient client = CacheHelper.get("dbClient");
-                textField.setColumns(client.selectColumns(new MysqlSelectColumnParam(dbName, tableName)));
-                textField.setSelectedColumns(this.primaryKeyColumns);
-            };
-            this.primaryKeyTableProperty().addListener((observable, oldValue, newValue) -> func.run());
-            func.run();
-            TableViewUtil.rowOnCtrlS(textField);
-            TableViewUtil.selectRowOnMouseClicked(textField);
-            return textField;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    public DBForeignKeyPolicyComboBox getUpdatePolicyControl() {
-        try {
-            DBForeignKeyPolicyComboBox comboBox = new DBForeignKeyPolicyComboBox();
-            comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setUpdatePolicy(newValue));
-            comboBox.selectFirstIfNull(this.updatePolicy);
-            TableViewUtil.rowOnCtrlS(comboBox);
-            TableViewUtil.selectRowOnMouseClicked(comboBox);
-            return comboBox;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
+    // public DBFieldTextFiled getPrimaryKeyColumnControl() {
+    //     try {
+    //         DBFieldTextFiled textField = new DBFieldTextFiled();
+    //         textField.addTextChangeListener((observable, oldValue, newValue) -> this.setPrimaryKeyColumns(textField.getSelectedColumns()));
+    //         textField.setFlexWidth("100% - 12");
+    //         Runnable func = () -> {
+    //             textField.clear();
+    //             String dbName = this.getPrimaryKeyDatabase();
+    //             String tableName = this.getPrimaryKeyTable();
+    //             DBClient client = CacheHelper.get("dbClient");
+    //             textField.setColumns(client.selectColumns(new MysqlSelectColumnParam(dbName, tableName)));
+    //             textField.setSelectedColumns(this.primaryKeyColumns);
+    //         };
+    //         this.primaryKeyTableProperty().addListener((observable, oldValue, newValue) -> func.run());
+    //         func.run();
+    //         TableViewUtil.rowOnCtrlS(textField);
+    //         TableViewUtil.selectRowOnMouseClicked(textField);
+    //         return textField;
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //     }
+    //     return null;
+    // }
+    //
+    // public DBForeignKeyPolicyComboBox getUpdatePolicyControl() {
+    //     try {
+    //         DBForeignKeyPolicyComboBox comboBox = new DBForeignKeyPolicyComboBox();
+    //         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setUpdatePolicy(newValue));
+    //         comboBox.selectFirstIfNull(this.updatePolicy);
+    //         TableViewUtil.rowOnCtrlS(comboBox);
+    //         TableViewUtil.selectRowOnMouseClicked(comboBox);
+    //         return comboBox;
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //     }
+    //     return null;
+    // }
 
     public void addColumn(String columnName) {
         if (this.columns == null) {
@@ -274,5 +264,18 @@ public class MysqlForeignKey extends DBObjectStatus {
             this.setPrimaryKeyColumns(new ArrayList<>());
         }
         this.primaryKeyColumns.add(columnName);
+    }
+
+    @Override
+    public void copy(MysqlForeignKey t1) {
+        if (t1 != null) {
+            this.name = t1.name;
+            this.columns = t1.columns;
+            this.deletePolicy = t1.deletePolicy;
+            this.updatePolicy = t1.updatePolicy;
+            this.primaryKeyColumns = t1.primaryKeyColumns;
+            this.setPrimaryKeyTable(t1.getPrimaryKeyTable());
+            this.setPrimaryKeyDatabase(t1.getPrimaryKeyDatabase());
+        }
     }
 }
