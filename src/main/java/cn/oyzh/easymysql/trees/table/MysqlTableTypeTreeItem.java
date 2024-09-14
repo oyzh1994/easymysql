@@ -147,7 +147,7 @@ public class MysqlTableTypeTreeItem extends DBTreeItem<MysqlTableTypeTreeItemVal
     private void _loadChild() {
         Task task = TaskBuilder.newBuilder()
                 .onStart(() -> {
-                    List<MysqlTable> tables = this.client().tables(this.dbName());
+                    List<MysqlTable> tables = this.client().selectTables(this.dbName());
                     // 无数据直接更新列表
                     if (this.isChildEmpty()) {
                         List<TreeItem<?>> list = new ArrayList<>();

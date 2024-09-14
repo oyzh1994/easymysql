@@ -19,7 +19,7 @@ public class DBTableComboBox extends FlexComboBox<String> {
     }
 
     public void init(String dbName, String tableName, DBClient client) {
-        List<MysqlTable> list = client.tables(dbName);
+        List<MysqlTable> list = client.selectTables(dbName);
         this.setItem(list.parallelStream().map(MysqlTable::getName).toList());
         if (tableName != null) {
             this.select(tableName);

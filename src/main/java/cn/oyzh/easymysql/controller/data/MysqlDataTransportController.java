@@ -526,7 +526,7 @@ public class MysqlDataTransportController extends StageController {
             this.eventList.of(this.sourceClient.events(this.sourceDatabase.getSelectedItem()));
         }
         if (this.tableList.isItemEmpty()) {
-            this.tableList.of(this.sourceClient.tables(this.sourceDatabase.getSelectedItem()));
+            this.tableList.of(this.sourceClient.selectTables(this.sourceDatabase.getSelectedItem()));
         }
         if (this.triggerList.isItemEmpty()) {
             this.triggerList.of(this.sourceClient.triggers(this.sourceDatabase.getSelectedItem()));

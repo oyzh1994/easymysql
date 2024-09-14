@@ -55,7 +55,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
     }
 
     protected void dumpTable() throws InterruptedException, IOException {
-        List<MysqlTable> tables = this.dbClient.tables(this.dbName);
+        List<MysqlTable> tables = this.dbClient.selectTables(this.dbName);
         if (CollUtil.isNotEmpty(tables)) {
             for (MysqlTable table : tables) {
                 this.checkInterrupt();

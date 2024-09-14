@@ -397,7 +397,7 @@ public class MysqlDataExportController extends StageController {
             return;
         }
         if (this.exportTableView.isItemEmpty()) {
-            List<MysqlTable> tables = this.dbClient.tables(this.dbName);
+            List<MysqlTable> tables = this.dbClient.selectTables(this.dbName);
             for (MysqlTable table : tables) {
                 DataExportTable exportTable = new DataExportTable();
                 exportTable.setName(table.getName());

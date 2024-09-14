@@ -418,19 +418,6 @@ public class DBClient {
         }
     }
 
-    public List<MysqlTable> tables(String dbName) {
-        return this.tables(dbName, null, false);
-    }
-
-    public List<MysqlTable> tables(String dbName, boolean full) {
-        return this.tables(dbName, null, full);
-    }
-
-    public List<MysqlTable> tables(String dbName, String schema) {
-        return this.tables(dbName, schema, false);
-    }
-
-
     public MysqlTable table(String dbName, String tableName) {
         return this.table(dbName, tableName, false);
     }
@@ -512,7 +499,6 @@ public class DBClient {
         return results;
     }
 
-
     public int insertBatch(String dbName, List<String> sqlList) {
         return this.insertBatch(dbName, sqlList, false);
     }
@@ -559,15 +545,13 @@ public class DBClient {
 
     public void alertFunction(String dbName, MysqlFunction function) {
         try {
-            String sql = "DROP FUNCTION IF EXISTS " + DBUtil.wrap(dbName, function.getName());
+            String sql = "DROP FUNCTION IF EXISTS " + DBUtil.wrap(dbName, function.getName(), this.dialect());
             DBUtil.printSql(sql);
-            Statement statement = this.connection(dbName).createStatement();
+            Connection connection = this.connection(dbName);
+            Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
             sql = DBFunctionSqlGenerator.INSTANCE.generate(function);
-            DBUtil.printSql(sql);
-            Statement statement1 = this.connection(dbName).createStatement();
-            statement1.executeUpdate(sql);
-            DBUtil.close(statement1);
+            statement.executeUpdate(sql);
             DBUtil.close(statement);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -858,19 +842,18 @@ public class DBClient {
 
     public static final String[] VIEW_TYPES = new String[]{"VIEW"};
 
-    public List<MysqlTable> selectTables(String dbName, String schema) {
+    public List<MysqlTable> selectTables(String dbName) {
         try {
-            Connection connection = this.connection(dbName, schema);
+            Connection connection = this.connection(dbName);
             DatabaseMetaData metaData = connection.getMetaData();
-            ResultSet resultSet = metaData.getTables(dbName, schema, "%", TABLE_TYPES);
+            ResultSet resultSet = metaData.getTables(null, null, "%", TABLE_TYPES);
             List<MysqlTable> tables = new ArrayList<>();
             while (resultSet.next()) {
                 if (DBUtil.checkTableType(resultSet, dbName)) {
                     MysqlTable table = new MysqlTable();
                     table.setDbName(dbName);
-                    table.setSchema(schema);
-                    String tableName = resultSet.getString("TABLE_NAME");
                     String remarks = resultSet.getString("REMARKS");
+                    String tableName = resultSet.getString("TABLE_NAME");
                     table.setName(tableName);
                     table.setComment(remarks);
                     tables.add(table);
@@ -979,7 +962,7 @@ public class DBClient {
         try {
             Connection connection = this.connection(param.dbName(), param.schema());
             StringBuilder builder = new StringBuilder("SELECT COUNT(*) FROM");
-            builder.append(DBUtil.wrap(param.schema(), param.tableName(), this.dialect()));
+            builder.append(DBUtil.wrap(param.dbName(), param.tableName(), this.dialect()));
             String filterCondition = MysqlConditionUtil.buildCondition(param.filters());
             if (StrUtil.isNotBlank(filterCondition)) {
                 builder.append(" WHERE ").append(filterCondition);
@@ -994,6 +977,7 @@ public class DBClient {
             DBUtil.close(resultSet);
             DBUtil.close(statement);
         } catch (Exception ex) {
+            ex.printStackTrace();
             throw new DBException(ex);
         }
         return count;

@@ -193,7 +193,7 @@ public class DBQueryUtil {
                     // 更新表索引
                     for (DBDatabase database : DB_DATABASES) {
                         if (!DBUtil.isInternalDatabase(database.getName())) {
-                            List<MysqlTable> tables = client.tables(database.getName());
+                            List<MysqlTable> tables = client.selectTables(database.getName());
                             DB_TABLES.addAll(tables);
                         }
                     }
