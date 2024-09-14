@@ -4,6 +4,7 @@ import cn.oyzh.easymysql.db.DBObjectList;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
+import cn.oyzh.easymysql.db.record.MysqlInsertRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
@@ -225,16 +226,19 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
     private void insertRecord(MysqlRecord record) {
         MysqlRecordData recordData = record.getRecordData();
         MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
+        MysqlInsertRecordParam param = new MysqlInsertRecordParam();
+        param.record(recordData);
+        param.primaryKey(primaryKey);
+        param.dbName(this.result.dbName());
+        param.tableName(this.result.tableName());
+        this.dbItem.client().insertRecord(param);
         if (primaryKey != null) {
-            this.dbItem.client().insertRecord(this.result.dbName(), this.result.tableName(), recordData, primaryKey);
-            MysqlSelectRecordParam param = new MysqlSelectRecordParam();
-            param.primaryKey(primaryKey);
-            param.dbName(this.result.dbName());
-            param.tableName(this.result.tableName());
+            MysqlSelectRecordParam selectRecordParam = new MysqlSelectRecordParam();
+            selectRecordParam.primaryKey(primaryKey);
+            selectRecordParam.dbName(this.result.dbName());
+            selectRecordParam.tableName(this.result.tableName());
             // 处理回显
-            record.copy(this.dbItem.client().selectRecord(param));
-        } else {
-            this.dbItem.client().insertRecord(this.result.dbName(), this.result.tableName(), record.getRecordData());
+            record.copy(this.dbItem.client().selectRecord(selectRecordParam));
         }
     }
 

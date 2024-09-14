@@ -452,10 +452,6 @@ public class DBClient {
         }
     }
 
-    public int insertRecord(String dbName, String tableName, MysqlRecordData recordData) {
-        return this.insertRecord(dbName, tableName, recordData, null);
-    }
-
     public MysqlQueryResults<MysqlExecuteResult> executeSql(String dbName, String sql) {
         MysqlQueryResults<MysqlExecuteResult> results = new MysqlQueryResults<>();
         Connection connection = null;
@@ -1819,48 +1815,6 @@ public class DBClient {
             DBUtil.close(statement);
             return records;
         } catch (Exception ex) {
-            throw new DBException(ex);
-        }
-    }
-
-    public int insertRecord(String dbName, String tableName, MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
-        if (recordData == null || recordData.isEmpty()) {
-            return 0;
-        }
-        try {
-            StringBuilder builder = new StringBuilder();
-            builder.append("INSERT INTO ").append(DBUtil.wrap(dbName, tableName)).append("(");
-            for (String column : recordData.columns()) {
-                builder.append(DBUtil.wrap(column)).append(",");
-            }
-            builder.append(")");
-            builder.append(" VALUES(");
-            for (String column : recordData.columns()) {
-                if (recordData.isTypeGeometry(column)) {
-                    builder.append("ST_GeomFromText(?),");
-                } else {
-                    builder.append("?,");
-                }
-            }
-            builder.append(")");
-            String sql = builder.toString();
-            sql = sql.replaceAll(",\\)", ")");
-            DBUtil.printSql(sql);
-            Connection connection = this.connection(dbName);
-            PreparedStatement statement = connection.prepareStatement(sql);
-            int index = 1;
-            for (String colName : recordData.columns()) {
-                DBUtil.setVal(statement, recordData.value(colName), index++);
-            }
-            int count = statement.executeUpdate();
-            // 处理自动递增值
-            if (primaryKey != null && primaryKey.shouldReturnData()) {
-                primaryKey.setReturnData(DBHelper.lastInsertId(connection));
-            }
-            DBUtil.close(statement);
-            return count;
-        } catch (Exception ex) {
-            ex.printStackTrace();
             throw new DBException(ex);
         }
     }

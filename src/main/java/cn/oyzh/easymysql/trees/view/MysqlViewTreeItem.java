@@ -5,6 +5,7 @@ import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
+import cn.oyzh.easymysql.db.record.MysqlInsertRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
@@ -196,7 +197,12 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     }
 
     public int insertRecord(MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
-        return this.client().insertRecord(this.dbName(), this.viewName(), recordData, primaryKey);
+        MysqlInsertRecordParam param = new MysqlInsertRecordParam();
+        param.record(recordData);
+        param.dbName(this.dbName());
+        param.primaryKey(primaryKey);
+        param.tableName(this.viewName());
+        return this.client().insertRecord(param);
     }
 
     public int deleteRecord(MysqlRecordData recordData) {
