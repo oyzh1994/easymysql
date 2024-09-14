@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.fx.table;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.table.MysqlIndex;
+import cn.oyzh.easymysql.db.index.MysqlIndex;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
 import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
 import cn.oyzh.fx.plus.controls.textfield.NumberTextField;

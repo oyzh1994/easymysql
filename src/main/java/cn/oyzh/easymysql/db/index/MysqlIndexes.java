@@ -1,10 +1,8 @@
-package cn.oyzh.easymysql.db.table;
+package cn.oyzh.easymysql.db.index;
 
 import cn.oyzh.easymysql.db.DBObjectList;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * db表索引

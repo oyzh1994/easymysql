@@ -22,8 +22,8 @@
 // import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 // import cn.oyzh.easymysql.db.check.MysqlCheck;
 // import cn.oyzh.easymysql.db.check.MysqlChecks;
-// import cn.oyzh.easymysql.db.table.MysqlForeignKey;
-// import cn.oyzh.easymysql.db.table.MysqlIndex;
+// import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
+// import cn.oyzh.easymysql.db.index.MysqlIndex;
 // import cn.oyzh.easymysql.db.table.MysqlTable;
 // import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
 // import cn.oyzh.easymysql.db.trigger.MysqlTrigger;

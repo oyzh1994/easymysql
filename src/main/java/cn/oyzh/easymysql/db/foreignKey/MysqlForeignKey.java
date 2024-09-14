@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.db.table;
+package cn.oyzh.easymysql.db.foreignKey;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBObjectStatus;

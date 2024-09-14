@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.fx.table;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.table.MysqlIndex;
+import cn.oyzh.easymysql.db.index.MysqlIndex;
 import cn.oyzh.easymysql.popups.DBIndexFieldPopupController;
 import cn.oyzh.fx.plus.controls.textfield.ChooseTextField;
 import cn.oyzh.fx.plus.i18n.I18nHelper;

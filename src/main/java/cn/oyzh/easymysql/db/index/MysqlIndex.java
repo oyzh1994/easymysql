@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.db.table;
+package cn.oyzh.easymysql.db.index;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
