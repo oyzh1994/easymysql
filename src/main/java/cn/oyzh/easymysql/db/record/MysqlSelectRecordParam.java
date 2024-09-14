@@ -30,6 +30,8 @@ public class MysqlSelectRecordParam {
 
     private List<MysqlRecordFilter> filters;
 
+    private MysqlRecordPrimaryKey primaryKey;
+
     public boolean hasPageControl() {
         return this.start != null && this.limit != null;
     }

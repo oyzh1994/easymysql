@@ -19,6 +19,8 @@ import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
+import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
 import cn.oyzh.easymysql.db.table.MysqlTableCreateParam;
@@ -552,5 +554,9 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
 
     public MysqlForeignKeys foreignKeys(String tableName) {
         return this.client().foreignKeys(this.dbName(), tableName);
+    }
+
+    public MysqlRecord selectRecord(MysqlSelectRecordParam param) {
+        return this.client().selectRecord(param);
     }
 }

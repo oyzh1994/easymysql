@@ -84,7 +84,6 @@ public class MysqlTableCreateSqlGenerator {
         return sql;
     }
 
-
     protected void triggerHandle(StringBuilder builder, MysqlTableCreateParam param) {
         for (MysqlTrigger trigger : param.triggers()) {
             builder.append("CREATE TRIGGER ")

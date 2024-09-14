@@ -5,18 +5,19 @@ import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
 import cn.oyzh.easymysql.controller.data.MysqlDataExportController;
 import cn.oyzh.easymysql.controller.table.MysqlTableInfoController;
 import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.db.check.MysqlChecks;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
+import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
+import cn.oyzh.easymysql.db.index.MysqlIndex;
 import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
-import cn.oyzh.easymysql.db.check.MysqlChecks;
-import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
-import cn.oyzh.easymysql.db.index.MysqlIndex;
+import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.domain.MysqlInfo;
@@ -369,16 +370,28 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     public MysqlRecord selectRecord(MysqlRecordPrimaryKey primaryKey) {
-        return this.client().selectRecord(this.dbName(), this.tableName(), primaryKey);
+        MysqlSelectRecordParam param = new MysqlSelectRecordParam();
+        param.dbName(this.dbName());
+        param.tableName(this.tableName());
+        param.primaryKey(primaryKey);
+        return this.client().selectRecord(param);
     }
 
     public int updateRecord(MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
-        return this.client().updateRecord(this.dbName(), this.tableName(), recordData, primaryKey);
+        MysqlUpdateRecordParam param = new MysqlUpdateRecordParam();
+        param.dbName(this.dbName());
+        param.tableName(this.tableName());
+        param.primaryKey(primaryKey);
+        param.updateRecord(recordData);
+        return this.client().updateRecord(param);
     }
 
     public int updateRecord(MysqlRecordData recordData, MysqlRecordData originalRecordData) {
-        return this.client().updateRecord(this.dbName(), this.tableName(), recordData, originalRecordData);
+        MysqlUpdateRecordParam param = new MysqlUpdateRecordParam();
+        param.dbName(this.dbName());
+        param.tableName(this.tableName());
+        param.updateRecord(recordData);
+        param.record(originalRecordData);
+        return this.client().updateRecord(param);
     }
-
-
 }

@@ -1956,39 +1956,6 @@ public class DBClient {
         }
     }
 
-    public int updateRecord(String dbName, String tableName, MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
-        try {
-            StringBuilder builder = new StringBuilder();
-            builder.append("UPDATE ").append(DBUtil.wrap(dbName, tableName)).append(" SET ");
-            for (String column : recordData.columns()) {
-                if (recordData.isTypeGeometry(column)) {
-                    builder.append(DBUtil.wrap(column)).append(" = ST_GeomFromText(?),");
-                } else {
-                    builder.append(DBUtil.wrap(column)).append(" = ?,");
-                }
-            }
-            // 删除最后一个字符
-            builder.deleteCharAt(builder.length() - 1);
-            // builder.append(" WHERE ").append(DBUtil.wrap(primaryKey.getColumnName())).append(" = ? LIMIT 1");
-            builder.append(" WHERE ").append(DBUtil.wrap(primaryKey.getColumnName())).append(" = ?");
-            String sql = builder.toString();
-            DBUtil.printInfo(sql, recordData);
-            Connection connection = this.connection(dbName);
-            PreparedStatement statement = connection.prepareStatement(sql);
-            int index = 1;
-            for (String colName : recordData.columns()) {
-                DBUtil.setVal(statement, recordData.value(colName), index++);
-            }
-            DBUtil.setVal(statement, primaryKey.originalData(), index);
-            int count = DBUtil.executeUpdate(statement);
-            DBUtil.close(statement);
-            return count;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new DBException(ex);
-        }
-    }
-
     public void createTable(MysqlTableCreateParam param) {
         Connection connection = null;
         try {
@@ -2650,12 +2617,19 @@ public class DBClient {
         }
     }
 
-
-    public MysqlRecord selectRecord(String dbName, String tableName, MysqlRecordPrimaryKey primaryKey) {
+    public MysqlRecord selectRecord(MysqlSelectRecordParam param) {
         try {
+
+            String dbName = param.dbName();
+            String tableName = param.tableName();
             Connection connection = this.connection(dbName);
-            String sql = "SELECT * FROM " + DBUtil.wrap(dbName, tableName) + " WHERE " + DBUtil.wrap(primaryKey.getColumnName()) + " = ?";
-            // String sql = "SELECT * FROM " + DBUtil.wrap(dbName, tableName) + " WHERE " + DBUtil.wrap(primaryKey.getColumnName()) + " = ? LIMIT 1";
+            MysqlRecordPrimaryKey primaryKey = param.primaryKey();
+            StringBuilder builder = new StringBuilder("SELECT * FROM ");
+            builder.append(DBUtil.wrap(dbName, tableName, DBDialect.MYSQL))
+                    .append(" WHERE ")
+                    .append(DBUtil.wrap(primaryKey.getColumnName(), DBDialect.MYSQL))
+                    .append(" = ?");
+            String sql = builder.toString();
             DBUtil.printSql(sql);
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setObject(1, primaryKey.data());

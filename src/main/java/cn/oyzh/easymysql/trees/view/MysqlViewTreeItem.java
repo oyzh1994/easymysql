@@ -10,6 +10,7 @@ import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
+import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
@@ -211,16 +212,28 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     }
 
     public MysqlRecord selectRecord(MysqlRecordPrimaryKey primaryKey) {
-        return this.client().selectRecord(this.dbName(), this.viewName(), primaryKey);
+        MysqlSelectRecordParam param = new MysqlSelectRecordParam();
+        param.dbName(this.dbName());
+        param.tableName(this.viewName());
+        param.primaryKey(primaryKey);
+        return this.client().selectRecord(param);
     }
 
     public int updateRecord(MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
-        return this.client().updateRecord(this.dbName(), this.viewName(), recordData, primaryKey);
+        MysqlUpdateRecordParam param = new MysqlUpdateRecordParam();
+        param.dbName(this.dbName());
+        param.tableName(this.viewName());
+        param.primaryKey(primaryKey);
+        param.updateRecord(recordData);
+        return this.client().updateRecord(param);
     }
 
     public int updateRecord(MysqlRecordData recordData, MysqlRecordData originalRecordData) {
-        return this.client().updateRecord(this.dbName(), this.viewName(), recordData, originalRecordData);
+        MysqlUpdateRecordParam param = new MysqlUpdateRecordParam();
+        param.dbName(this.dbName());
+        param.tableName(this.viewName());
+        param.updateRecord(recordData);
+        param.record(originalRecordData);
+        return this.client().updateRecord(param);
     }
-
-
 }

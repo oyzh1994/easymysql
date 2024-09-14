@@ -7,6 +7,8 @@ import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
+import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
+import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;
@@ -225,8 +227,12 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
         MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
         if (primaryKey != null) {
             this.dbItem.client().insertRecord(this.result.dbName(), this.result.tableName(), recordData, primaryKey);
+            MysqlSelectRecordParam param = new MysqlSelectRecordParam();
+            param.primaryKey(primaryKey);
+            param.dbName(this.result.dbName());
+            param.tableName(this.result.tableName());
             // 处理回显
-            record.copy(this.dbItem.client().selectRecord(this.result.dbName(), this.result.tableName(), primaryKey));
+            record.copy(this.dbItem.client().selectRecord(param));
         } else {
             this.dbItem.client().insertRecord(this.result.dbName(), this.result.tableName(), record.getRecordData());
         }
@@ -240,6 +246,9 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
     private void updateRecord(MysqlRecord record) {
         // 获取主键
         MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
+        MysqlUpdateRecordParam param = new MysqlUpdateRecordParam();
+        param.dbName(this.result.dbName());
+        param.tableName(this.result.tableName());
         // 主键存在，则根据主键更新
         if (primaryKey != null) {
             // 记录数据
@@ -248,17 +257,24 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
             if (!record.isColumnChanged(primaryKey.getColumnName())) {
                 recordData.remove(primaryKey.getColumnName());
             }
+            param.primaryKey(primaryKey);
             // 更新行
-            this.dbItem.client().updateRecord(this.result.dbName(), this.result.tableName(), recordData, primaryKey);
+            this.dbItem.client().updateRecord(param);
+            MysqlSelectRecordParam selectRecordParam = new MysqlSelectRecordParam();
+            selectRecordParam.primaryKey(primaryKey);
+            selectRecordParam.dbName(this.result.dbName());
+            selectRecordParam.tableName(this.result.tableName());
             // 处理回显
-            record.copy(this.dbItem.client().selectRecord(this.result.dbName(), this.result.tableName(), primaryKey));
+            record.copy(this.dbItem.selectRecord(selectRecordParam));
         } else {// 主键不存在，则根据所有字段更新
             // 变更数据
             MysqlRecordData changedRecordData = record.getChangedRecordData();
             // 原始数据
             MysqlRecordData originalRecordData = record.getOriginalRecordData();
+            param.record(originalRecordData);
+            param.updateRecord(changedRecordData);
             // 更新行
-            this.dbItem.client().updateRecord(this.result.dbName(), this.result.tableName(), changedRecordData, originalRecordData);
+            this.dbItem.client().updateRecord(param);
         }
     }
 
