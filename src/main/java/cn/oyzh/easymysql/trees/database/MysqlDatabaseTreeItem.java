@@ -7,20 +7,21 @@ import cn.oyzh.easymysql.controller.database.MysqlDatabaseUpdateController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
+import cn.oyzh.easymysql.db.check.MysqlChecks;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
+import cn.oyzh.easymysql.db.index.MysqlIndexes;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
-import cn.oyzh.easymysql.db.check.MysqlChecks;
-import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeys;
-import cn.oyzh.easymysql.db.index.MysqlIndexes;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
+import cn.oyzh.easymysql.db.table.MysqlTableCreateParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlInfo;
@@ -371,8 +372,15 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         }
     }
 
-    public void createTable(MysqlTable table) {
-        this.client().createTable(this.dbName(), table);
+    public void createTable(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
+        MysqlTableCreateParam param = new MysqlTableCreateParam();
+        param.table(table);
+        param.checks(checks);
+        param.columns(columns);
+        param.indexes(indexes);
+        param.triggers(triggers);
+        param.foreignKeys(foreignKeys);
+        this.client().createTable(param);
     }
 
     public void alterTable(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {

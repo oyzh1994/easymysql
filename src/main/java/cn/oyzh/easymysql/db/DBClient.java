@@ -4,11 +4,17 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.StaticLog;
 import cn.oyzh.easymysql.condition.MysqlConditionUtil;
+import cn.oyzh.easymysql.db.check.MysqlCheck;
+import cn.oyzh.easymysql.db.check.MysqlChecks;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
+import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
+import cn.oyzh.easymysql.db.index.MysqlIndex;
+import cn.oyzh.easymysql.db.index.MysqlIndexes;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
@@ -22,14 +28,9 @@ import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
-import cn.oyzh.easymysql.db.check.MysqlCheck;
-import cn.oyzh.easymysql.db.check.MysqlChecks;
-import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
-import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeys;
-import cn.oyzh.easymysql.db.index.MysqlIndex;
-import cn.oyzh.easymysql.db.index.MysqlIndexes;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
+import cn.oyzh.easymysql.db.table.MysqlTableCreateParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
@@ -41,8 +42,8 @@ import cn.oyzh.easymysql.generator.event.EventAlertSqlGenerator;
 import cn.oyzh.easymysql.generator.event.EventCreateSqlGenerator;
 import cn.oyzh.easymysql.generator.routine.DBFunctionSqlGenerator;
 import cn.oyzh.easymysql.generator.routine.DBProcedureSqlGenerator;
-import cn.oyzh.easymysql.generator.table.TableAlertSqlGenerator;
-import cn.oyzh.easymysql.generator.table.TableCreateSqlGenerator;
+import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
+import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.common.ssh.SSHForwardInfo;
@@ -1988,13 +1989,13 @@ public class DBClient {
         }
     }
 
-    public void createTable(String dbName, MysqlTable table) {
+    public void createTable(MysqlTableCreateParam param) {
         Connection connection = null;
         try {
+            String dbName = param.dbName();
             connection = this.connection(dbName);
             Statement statement = connection.createStatement();
-            table.setDbName(dbName);
-            String sql = TableCreateSqlGenerator.generate(this.dialect(), table);
+            String sql = MysqlTableCreateSqlGenerator.generateSql(param);
             DBUtil.printSql(sql);
             List<String> sqlList = DBSqlParser.parseSql(sql, this.dialect());
             connection.setAutoCommit(false);
@@ -2015,7 +2016,7 @@ public class DBClient {
             String dbName = param.table().getDbName();
             connection = this.connection(dbName);
             Statement statement = connection.createStatement();
-            String sql = TableAlertSqlGenerator.generate(this.dialect(), param);
+            String sql = MysqlTableAlertSqlGenerator.generateSql(param);
             DBUtil.printSql(sql);
             List<String> sqlList = DBSqlParser.parseSql(sql, this.dialect());
             connection.setAutoCommit(false);

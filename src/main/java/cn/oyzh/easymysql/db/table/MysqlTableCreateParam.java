@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Data
 @Accessors(fluent = true, chain = true)
-public class MysqlTableAlertParam {
+public class MysqlTableCreateParam {
 
     private MysqlTable table;
 
@@ -31,11 +31,6 @@ public class MysqlTableAlertParam {
     private MysqlTriggers triggers;
 
     private MysqlForeignKeys foreignKeys;
-
-    /**
-     * 是否存在主键
-     */
-    private boolean existPrimaryKey;
 
     public String dbName() {
         return this.table.getDbName();
@@ -63,21 +58,6 @@ public class MysqlTableAlertParam {
 
     public boolean hasTrigger() {
         return CollUtil.isNotEmpty(this.triggers);
-    }
-
-    public boolean primaryKeyChanged() {
-        if (this.hasColumns()) {
-            boolean b1 = this.columns.primaryKeyChanged();
-            if (b1) {
-                return true;
-            }
-            for (MysqlColumn column : this.columns.createdList()) {
-                if (column.isPrimaryKey()) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public String tableName() {

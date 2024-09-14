@@ -2,10 +2,10 @@ package cn.oyzh.easymysql.tabs.table;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.check.MysqlCheck;
 import cn.oyzh.easymysql.db.check.MysqlChecks;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
 import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.index.MysqlIndex;
@@ -497,28 +497,28 @@ public class MysqlTableDesignTabController extends DynamicTabController {
             // MysqlTriggers triggers = this.mysqlTable.getTriggers();
             MysqlTriggers triggers = new MysqlTriggers(this.triggerTable.getItems());
             // if (triggers != null) {
-                for (MysqlTrigger trigger : triggers) {
-                    if (StrUtil.isBlank(trigger.getName())) {
-                        MessageBox.warn(I18nHelper.invalidData());
-                        this.tabPane.select(4);
-                        return;
-                    }
+            for (MysqlTrigger trigger : triggers) {
+                if (StrUtil.isBlank(trigger.getName())) {
+                    MessageBox.warn(I18nHelper.invalidData());
+                    this.tabPane.select(4);
+                    return;
                 }
-                // tempTable.setTriggers(triggers);
+            }
+            // tempTable.setTriggers(triggers);
             // }
 
             // 检查处理
-            MysqlChecks checks =new MysqlChecks(this.checkTable.getItems());
+            MysqlChecks checks = new MysqlChecks(this.checkTable.getItems());
             // MysqlChecks checks = this.mysqlTable.getChecks();
             // if (checks != null) {
-                for (MysqlCheck check : checks) {
-                    if (StrUtil.isBlank(check.getName()) || StrUtil.isBlank(check.getClause())) {
-                        MessageBox.warn(I18nHelper.invalidData());
-                        this.tabPane.select(5);
-                        return;
-                    }
+            for (MysqlCheck check : checks) {
+                if (StrUtil.isBlank(check.getName()) || StrUtil.isBlank(check.getClause())) {
+                    MessageBox.warn(I18nHelper.invalidData());
+                    this.tabPane.select(5);
+                    return;
                 }
-                // tempTable.setChecks(checks);
+            }
+            // tempTable.setChecks(checks);
             // }
             // 检查处理
 
@@ -526,11 +526,11 @@ public class MysqlTableDesignTabController extends DynamicTabController {
 
             // 创建表
             if (this.newData) {
-                this.dbItem.createTable(tempTable);
+                this.dbItem.createTable(tempTable, columns, indexes, foreignKeys, triggers, checks);
                 MysqlEventUtil.tableAdded(this.dbItem);
                 this.initDBListener();
             } else {// 修改表
-                this.dbItem.alterTable(tempTable,columns,indexes,foreignKeys,triggers,checks);
+                this.dbItem.alterTable(tempTable, columns, indexes, foreignKeys, triggers, checks);
                 MysqlEventUtil.tableAlerted(tableName, this.dbItem);
             }
             // 判断结果
@@ -623,7 +623,7 @@ public class MysqlTableDesignTabController extends DynamicTabController {
         this.tableCollation.init(this.mysqlTable.getCharset(), this.dbItem.client());
         this.tableCollation.select(this.mysqlTable.getCollation());
 
-        if(!this.newData){
+        if (!this.newData) {
             // 检查器
             if (this.dbItem.isSupportCheckFeature()) {
                 this.checkTable.setItem(this.dbItem.checks(this.tableName()));

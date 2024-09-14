@@ -1,9 +1,6 @@
 package cn.oyzh.easymysql.db.table;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.fx.common.util.ObjectComparator;
 import cn.oyzh.fx.common.util.ObjectCopier;
@@ -11,9 +8,6 @@ import javafx.beans.property.SimpleStringProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * db表
@@ -391,4 +385,7 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
         return StrUtil.isBlank(this.getName());
     }
 }
+
+
+
 
