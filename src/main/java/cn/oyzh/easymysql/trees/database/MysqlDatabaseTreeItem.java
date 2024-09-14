@@ -7,13 +7,20 @@ import cn.oyzh.easymysql.controller.database.MysqlDatabaseUpdateController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.db.event.MysqlEvents;
+import cn.oyzh.easymysql.db.function.MysqlFunction;
+import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
-import cn.oyzh.easymysql.db.function.MysqlFunction;
-import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
+import cn.oyzh.easymysql.db.table.MysqlChecks;
+import cn.oyzh.easymysql.db.table.MysqlForeignKeys;
+import cn.oyzh.easymysql.db.table.MysqlIndexes;
 import cn.oyzh.easymysql.db.table.MysqlTable;
+import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
+import cn.oyzh.easymysql.db.table.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
@@ -367,8 +374,16 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         this.client().createTable(this.dbName(), table);
     }
 
-    public void alterTable(MysqlTable table) {
-        this.client().alterTable(this.dbName(), table);
+    public void alterTable(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
+        MysqlTableAlertParam param = new MysqlTableAlertParam();
+        param.table(table);
+        // param.events(events);
+        param.checks(checks);
+        param.columns(columns);
+        param.indexes(indexes);
+        param.triggers(triggers);
+        param.foreignKeys(foreignKeys);
+        this.client().alertTable(param);
     }
 
     public MysqlTable selectTable(String tableName) {

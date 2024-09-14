@@ -47,26 +47,26 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
     @Setter
     private String createDefinition;
 
-    /**
-     * 索引
-     */
-    @Getter
-    @Setter
-    private MysqlIndexes indexes;
+    // /**
+    //  * 索引
+    //  */
+    // @Getter
+    // @Setter
+    // private MysqlIndexes indexes;
 
-    /**
-     * 触发器
-     */
-    @Getter
-    @Setter
-    private MysqlTriggers triggers;
+    // /**
+    //  * 触发器
+    //  */
+    // @Getter
+    // @Setter
+    // private MysqlTriggers triggers;
 
-    /**
-     * 外键
-     */
-    @Getter
-    @Setter
-    private MysqlForeignKeys foreignKeys;
+    // /**
+    //  * 外键
+    //  */
+    // @Getter
+    // @Setter
+    // private MysqlForeignKeys foreignKeys;
 
     /**
      * 引擎
@@ -86,12 +86,12 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
     @Getter
     private String collation;
 
-    /**
-     * 检查器
-     */
-    @Getter
-    @Setter
-    private MysqlChecks checks;
+    // /**
+    //  * 检查器
+    //  */
+    // @Getter
+    // @Setter
+    // private MysqlChecks checks;
 
     public void setEngine(String engine) {
         this.engine = engine;
@@ -139,17 +139,17 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
         return super.checkOriginalData("autoIncrement", this.autoIncrement);
     }
 
-    public boolean hasIndex() {
-        return this.indexes != null && !this.indexes.isEmpty();
-    }
+    // public boolean hasIndex() {
+    //     return this.indexes != null && !this.indexes.isEmpty();
+    // }
+    //
+    // public boolean hasForeignKey() {
+    //     return CollUtil.isNotEmpty(this.foreignKeys);
+    // }
 
-    public boolean hasForeignKey() {
-        return CollUtil.isNotEmpty(this.foreignKeys);
-    }
-
-    public boolean hasCheck() {
-        return CollUtil.isNotEmpty(this.checks);
-    }
+    // public boolean hasCheck() {
+    //     return CollUtil.isNotEmpty(this.checks);
+    // }
 
     public boolean hasCharset() {
         return this.getCharset() != null;
@@ -171,37 +171,37 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
         }
     }
 
-    public boolean hasTrigger() {
-        return this.triggers != null && !this.triggers.isEmpty();
-    }
+    // public boolean hasTrigger() {
+    //     return this.triggers != null && !this.triggers.isEmpty();
+    // }
+    //
+    // public MysqlIndexes indexes() {
+    //     if (this.indexes == null) {
+    //         this.indexes = new MysqlIndexes();
+    //     }
+    //     return this.indexes;
+    // }
+    //
+    // public MysqlTriggers triggers() {
+    //     if (this.triggers == null) {
+    //         this.triggers = new MysqlTriggers();
+    //     }
+    //     return this.triggers;
+    // }
+    //
+    // public MysqlForeignKeys foreignKeys() {
+    //     if (this.foreignKeys == null) {
+    //         this.foreignKeys = new MysqlForeignKeys();
+    //     }
+    //     return this.foreignKeys;
+    // }
 
-    public MysqlIndexes indexes() {
-        if (this.indexes == null) {
-            this.indexes = new MysqlIndexes();
-        }
-        return this.indexes;
-    }
-
-    public MysqlTriggers triggers() {
-        if (this.triggers == null) {
-            this.triggers = new MysqlTriggers();
-        }
-        return this.triggers;
-    }
-
-    public MysqlForeignKeys foreignKeys() {
-        if (this.foreignKeys == null) {
-            this.foreignKeys = new MysqlForeignKeys();
-        }
-        return this.foreignKeys;
-    }
-
-    public MysqlChecks checks() {
-        if (this.checks == null) {
-            this.checks = new MysqlChecks();
-        }
-        return this.checks;
-    }
+    // public MysqlChecks checks() {
+    //     if (this.checks == null) {
+    //         this.checks = new MysqlChecks();
+    //     }
+    //     return this.checks;
+    // }
 
 
     public boolean hasAutoIncrement() {
@@ -212,15 +212,15 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
     public void copy(MysqlTable table) {
         if (table != null) {
             this.setEngine(table.getEngine());
-            this.setChecks(table.getChecks());
+            // this.setChecks(table.getChecks());
             this.setComment(table.getComment());
-            this.setColumns(table.getColumns());
-            this.setIndexes(table.getIndexes());
+            // this.setColumns(table.getColumns());
+            // this.setIndexes(table.getIndexes());
             this.setCharset(table.getCharset());
-            this.setTriggers(table.getTriggers());
+            // this.setTriggers(table.getTriggers());
             this.setRowFormat(table.getRowFormat());
             this.setCollation(table.getCollation());
-            this.setForeignKeys(table.getForeignKeys());
+            // this.setForeignKeys(table.getForeignKeys());
             this.setHasPrimaryKey(table.isHasPrimaryKey());
             this.setAutoIncrement(table.getAutoIncrement());
             this.setCreateDefinition(table.getCreateDefinition());
@@ -235,29 +235,29 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
         return StrUtil.isNotBlank(this.getRowFormat());
     }
 
-    public void removeIndex(MysqlIndex index) {
-        if (index != null && this.indexes != null) {
-            this.indexes().remove(index);
-        }
-    }
+    // public void removeIndex(MysqlIndex index) {
+    //     if (index != null && this.indexes != null) {
+    //         this.indexes().remove(index);
+    //     }
+    // }
+    //
+    // public void removeTrigger(MysqlTrigger trigger) {
+    //     if (trigger != null && this.triggers != null) {
+    //         this.triggers().remove(trigger);
+    //     }
+    // }
+    //
+    // public void removeForeignKey(MysqlForeignKey foreignKey) {
+    //     if (foreignKey != null && this.foreignKeys != null) {
+    //         this.foreignKeys().remove(foreignKey);
+    //     }
+    // }
 
-    public void removeTrigger(MysqlTrigger trigger) {
-        if (trigger != null && this.triggers != null) {
-            this.triggers().remove(trigger);
-        }
-    }
-
-    public void removeForeignKey(MysqlForeignKey foreignKey) {
-        if (foreignKey != null && this.foreignKeys != null) {
-            this.foreignKeys().remove(foreignKey);
-        }
-    }
-
-    public void removeCheck(MysqlCheck check) {
-        if (check != null && this.checks != null) {
-            this.checks().remove(check);
-        }
-    }
+    // public void removeCheck(MysqlCheck check) {
+    //     if (check != null && this.checks != null) {
+    //         this.checks().remove(check);
+    //     }
+    // }
 
     /**
      * 库名称
@@ -273,12 +273,12 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
     @Getter
     private String schema;
 
-    /**
-     * 表字段
-     */
-    @Setter
-    @Getter
-    protected MysqlColumns columns;
+    // /**
+    //  * 表字段
+    //  */
+    // @Setter
+    // @Getter
+    // protected MysqlColumns columns;
 
     /**
      * 表名称
@@ -320,46 +320,46 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
         return this.commentProperty == null ? null : this.commentProperty.get();
     }
 
-    public boolean primaryKeyChanged() {
-        if (this.hasColumns()) {
-            boolean b1 = this.columns.primaryKeyChanged();
-            if (b1) {
-                return true;
-            }
-            for (MysqlColumn column : this.columns.createdList()) {
-                if (column.isPrimaryKey()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    // public boolean primaryKeyChanged() {
+    //     if (this.hasColumns()) {
+    //         boolean b1 = this.columns.primaryKeyChanged();
+    //         if (b1) {
+    //             return true;
+    //         }
+    //         for (MysqlColumn column : this.columns.createdList()) {
+    //             if (column.isPrimaryKey()) {
+    //                 return true;
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
+    //
+    // public List<MysqlColumn> primaryKeys() {
+    //     if (this.hasColumns()) {
+    //         return this.columns.primaryKeys();
+    //     }
+    //     return Collections.emptyList();
+    // }
 
-    public List<MysqlColumn> primaryKeys() {
-        if (this.hasColumns()) {
-            return this.columns.primaryKeys();
-        }
-        return Collections.emptyList();
-    }
+    // public boolean hasPrimaryKey() {
+    //     return CollUtil.isNotEmpty(this.primaryKeys());
+    // }
 
-    public boolean hasPrimaryKey() {
-        return CollUtil.isNotEmpty(this.primaryKeys());
-    }
-
-    public boolean hasColumns() {
-        return this.columns != null && !this.columns.isEmpty();
-    }
+    // public boolean hasColumns() {
+    //     return this.columns != null && !this.columns.isEmpty();
+    // }
 
     public boolean hasComment() {
         return this.getComment() != null;
     }
 
-    public MysqlColumns columns() {
-        if (this.columns == null) {
-            this.columns = new MysqlColumns();
-        }
-        return this.columns;
-    }
+    // public MysqlColumns columns() {
+    //     if (this.columns == null) {
+    //         this.columns = new MysqlColumns();
+    //     }
+    //     return this.columns;
+    // }
 
     @Override
     public boolean compare(MysqlTable table) {
@@ -375,11 +375,11 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
         return StrUtil.equals(this.getDbName(), table.getDbName());
     }
 
-    public void removeColumn(MysqlColumn column) {
-        if (column != null && this.columns != null) {
-            this.columns().remove(column);
-        }
-    }
+    // public void removeColumn(MysqlColumn column) {
+    //     if (column != null && this.columns != null) {
+    //         this.columns().remove(column);
+    //     }
+    // }
 
     /**
      * 是否新数据

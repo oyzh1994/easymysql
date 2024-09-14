@@ -22,6 +22,7 @@ import cn.oyzh.easymysql.db.table.MysqlChecks;
 import cn.oyzh.easymysql.db.table.MysqlForeignKey;
 import cn.oyzh.easymysql.db.table.MysqlIndex;
 import cn.oyzh.easymysql.db.table.MysqlTable;
+import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
 import cn.oyzh.easymysql.db.table.MysqlTrigger;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlInfo;
@@ -462,9 +463,9 @@ public abstract class DBClient {
 
     public abstract List<MysqlForeignKey> foreignKeys(String dbName, String tableName);
 
-    public abstract MysqlColumns tableColumns(String dbName, String schema, String tableName);
+    // public abstract MysqlColumns tableColumns(String dbName, String schema, String tableName);
 
-    public abstract List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, MysqlColumns columns, List<MysqlRecordFilter> filters, boolean readonly);
+    // public abstract List<MysqlRecord> selectTableRecords(String dbName, String tableName, Long start, Long limit, MysqlColumns columns, List<MysqlRecordFilter> filters, boolean readonly);
 
     public abstract List<MysqlColumn> viewColumns(String dbName, String viewName);
 
@@ -486,7 +487,7 @@ public abstract class DBClient {
 
     public abstract void createTable(String dbName, MysqlTable table);
 
-    public abstract void alterTable(String dbName, MysqlTable table);
+    public abstract void alertTable( MysqlTableAlertParam param);
 
     public abstract boolean existTable(String dbName, String tableName);
 

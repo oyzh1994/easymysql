@@ -3,9 +3,10 @@ package cn.oyzh.easymysql.query;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
+import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.util.DBUtil;
@@ -220,7 +221,7 @@ public class DBQueryUtil {
                     // 更新字段索引
                     for (MysqlTable dbTable : DB_TABLES) {
                         if (!DBUtil.isInternalDatabase(dbTable.getDbName())) {
-                            List<MysqlColumn> columns = client.tableColumns(dbTable.getDbName(),null, dbTable.getName());
+                            List<MysqlColumn> columns = client.selectColumns(new MysqlSelectColumnParam(dbTable.getDbName(), dbTable.getName()));
                             DB_COLUMNS.addAll(columns);
                         }
                     }

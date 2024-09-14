@@ -3,6 +3,8 @@ package cn.oyzh.easymysql.handler.imports;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
+import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.db.data.MysqlCsvTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlDataImportConfig;
 import cn.oyzh.easymysql.db.data.MysqlDataImportHelper;
@@ -12,7 +14,6 @@ import cn.oyzh.easymysql.db.data.MysqlTxtTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlTypeFileReader;
 import cn.oyzh.easymysql.db.data.MysqlXmlTypeFileReader;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.fx.data.DataImportFile;
 import cn.oyzh.easymysql.handler.DataHandler;
 import cn.oyzh.fx.common.thread.ThreadUtil;
@@ -179,7 +180,7 @@ public class DataImportHandler extends DataHandler {
         }
         try (MysqlTypeFileReader reader = this.initReader(file.getFile())) {
             // 获取数据库表字段
-            MysqlColumns dbColumns = new MysqlColumns(this.dbClient.tableColumns(this.dbName,null, tableName));
+            MysqlColumns dbColumns = new MysqlColumns(this.dbClient.selectColumns(new MysqlSelectColumnParam(this.dbName, tableName)));
             if (!dbColumns.isEmpty()) {
                 while (true) {
                     this.checkInterrupt();

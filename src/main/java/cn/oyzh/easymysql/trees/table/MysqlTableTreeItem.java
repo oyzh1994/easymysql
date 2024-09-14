@@ -13,13 +13,11 @@ import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
+import cn.oyzh.easymysql.db.table.MysqlChecks;
 import cn.oyzh.easymysql.db.table.MysqlForeignKey;
-import cn.oyzh.easymysql.db.table.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.table.MysqlIndex;
-import cn.oyzh.easymysql.db.table.MysqlIndexes;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTrigger;
-import cn.oyzh.easymysql.db.table.MysqlTriggers;
 import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
@@ -96,30 +94,30 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return this.parent.info();
     }
 
-    public MysqlIndexes tableIndexes() {
-        // if (this.value.getIndexes() == null) {
-        this.value.setIndexes(new MysqlIndexes(this.indexes()));
-        // }
-        return this.value.indexes();
-    }
+    // public MysqlIndexes tableIndexes() {
+    //     // if (this.value.getIndexes() == null) {
+    //     this.value.setIndexes(new MysqlIndexes(this.indexes()));
+    //     // }
+    //     return this.value.indexes();
+    // }
 
-    public MysqlColumns tableColumns() {
-        return new MysqlColumns(this.columns());
-    }
+    // public MysqlColumns tableColumns() {
+    //     return new MysqlColumns(this.columns());
+    // }
 
-    public MysqlTriggers tableTriggers() {
-        // if (this.value.getTriggers() == null) {
-        this.value.setTriggers(new MysqlTriggers(this.triggers()));
-        // }
-        return this.value.triggers();
-    }
-
-    public MysqlForeignKeys tableForeignKeys() {
-        // if (this.value.getForeignKeys() == null) {
-        this.value.setForeignKeys(new MysqlForeignKeys(this.foreignKeys()));
-        // }
-        return this.value.foreignKeys();
-    }
+    // public MysqlTriggers tableTriggers() {
+    //     // if (this.value.getTriggers() == null) {
+    //     this.value.setTriggers(new MysqlTriggers(this.triggers()));
+    //     // }
+    //     return this.value.triggers();
+    // }
+    //
+    // public MysqlForeignKeys tableForeignKeys() {
+    //     // if (this.value.getForeignKeys() == null) {
+    //     this.value.setForeignKeys(new MysqlForeignKeys(this.foreignKeys()));
+    //     // }
+    //     return this.value.foreignKeys();
+    // }
 
     @Override
     public List<MenuItem> getMenuItems() {
@@ -281,6 +279,10 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return this.client().indexes(this.dbName(), this.tableName());
     }
 
+    public MysqlChecks checks() {
+        return this.client().checks(this.dbName(), this.tableName());
+    }
+
     public List<MysqlForeignKey> foreignKeys() {
         return this.client().foreignKeys(this.dbName(), this.tableName());
     }
@@ -294,24 +296,27 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         MysqlEventUtil.tableOpen(this, this.dbItem());
     }
 
+
+    private MysqlColumns columns;
+
     /**
      * 获取主键列，优先返回自动递增列
      *
      * @return 主键列
      */
     public MysqlColumn getPrimaryKey() {
-        if (this.value.getColumns() == null) {
-            this.tableColumns();
+        if (columns == null) {
+            columns = this.columns();
         }
         MysqlColumn dbColumn = null;
-        for (MysqlColumn column : this.value.primaryKeys()) {
+        for (MysqlColumn column : this.columns.primaryKeys()) {
             if (column.isAutoIncrement()) {
                 dbColumn = column;
                 break;
             }
         }
         if (dbColumn == null) {
-            for (MysqlColumn column : this.value.primaryKeys()) {
+            for (MysqlColumn column : this.columns.primaryKeys()) {
                 return column;
             }
         }
@@ -332,7 +337,10 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     public boolean hasPrimaryKey() {
-        return this.value.hasPrimaryKey();
+        if (columns == null) {
+            columns = this.columns();
+        }
+        return !this.columns.primaryKeys().isEmpty();
     }
 
     @Override

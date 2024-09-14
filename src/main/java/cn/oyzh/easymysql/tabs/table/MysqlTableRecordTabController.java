@@ -288,6 +288,8 @@ public class MysqlTableRecordTabController extends DynamicTabController {
         return null;
     }
 
+
+
     /**
      * 应用变更
      */

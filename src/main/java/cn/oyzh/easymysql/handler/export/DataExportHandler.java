@@ -3,6 +3,7 @@ package cn.oyzh.easymysql.handler.export;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.data.MysqlCsvTypeFileWriter;
 import cn.oyzh.easymysql.db.data.MysqlDataExportConfig;
 import cn.oyzh.easymysql.db.data.MysqlExcelTypeFileWriter;
@@ -13,7 +14,7 @@ import cn.oyzh.easymysql.db.data.MysqlTxtTypeFileWriter;
 import cn.oyzh.easymysql.db.data.MysqlTypeFileWriter;
 import cn.oyzh.easymysql.db.data.MysqlXmlTypeFileWriter;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.column.MysqlColumns;
+import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.fx.data.DataExportTable;
 import cn.oyzh.easymysql.handler.DataHandler;
 import lombok.Getter;
@@ -239,7 +240,14 @@ public class DataExportHandler extends DataHandler {
                 while (true) {
                     this.checkInterrupt();
                     long start1 = System.currentTimeMillis();
-                    List<MysqlRecord> records = this.dbClient.selectTableRecords(this.dbName, tableName, start, (long) this.queryLimit, columns, null, true);
+                    MysqlSelectRecordParam param = new MysqlSelectRecordParam();
+                    param.start(start);
+                    param.readonly(true);
+                    param.columns(columns);
+                    param.dbName(this.dbName);
+                    param.tableName(tableName);
+                    param.limit((long) this.queryLimit);
+                    List<MysqlRecord> records = this.dbClient.selectRecords(param);
                     if (CollUtil.isEmpty(records)) {
                         break;
                     }
@@ -341,7 +349,7 @@ public class DataExportHandler extends DataHandler {
         //     // 写入数据
         //     WorkbookHelper.write(this.workbook, table.getFilePath());
         // } else {
-            writer.writeHeader();
+        writer.writeHeader();
         // }
     }
 
@@ -369,11 +377,11 @@ public class DataExportHandler extends DataHandler {
         // } else if (this.isExcelType()) {
         //     this.writeExcelRecord(table, columns, records);
         // } else {
-            List<Map<String, Object>> objects = new ArrayList<>();
-            for (MysqlRecord object : records) {
-                objects.add(object.toMap());
-            }
-            writer.writeObjects(objects);
+        List<Map<String, Object>> objects = new ArrayList<>();
+        for (MysqlRecord object : records) {
+            objects.add(object.toMap());
+        }
+        writer.writeObjects(objects);
         // }
     }
 

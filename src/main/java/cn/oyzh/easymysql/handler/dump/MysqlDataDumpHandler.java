@@ -4,10 +4,12 @@ import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.MysqlDBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
+import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
+import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTrigger;
 import cn.oyzh.easymysql.db.view.MysqlView;
@@ -92,11 +94,18 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
         String line2 = "-- Records of " + tableName;
         String line3 = "-- ----------------------------";
         this.fileWriter.appendLines(List.of(line0, line1, line2, line3));
-        MysqlColumns columns = new MysqlColumns(this.dbClient.tableColumns(this.dbName, null, tableName));
+        MysqlColumns columns = new MysqlColumns(this.dbClient.selectColumns(new MysqlSelectColumnParam(this.dbName, tableName)));
         while (true) {
             this.checkInterrupt();
             long start1 = System.currentTimeMillis();
-            List<MysqlRecord> records = this.dbClient.selectTableRecords(this.dbName, tableName, start, (long) this.queryLimit, columns, null, true);
+            MysqlSelectRecordParam param = new MysqlSelectRecordParam();
+            param.start(start);
+            param.readonly(true);
+            param.columns(columns);
+            param.dbName(this.dbName);
+            param.tableName(tableName);
+            param.limit((long) this.queryLimit);
+            List<MysqlRecord> records = this.dbClient.selectRecords(param);
             if (CollUtil.isEmpty(records)) {
                 break;
             }

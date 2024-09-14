@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.generator.table;
 
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.table.MysqlTable;
+import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
 import lombok.Getter;
 
 /**
@@ -18,9 +19,9 @@ public abstract class TableAlertSqlGenerator {
         this.dialect = dialect;
     }
 
-    public abstract String generate(MysqlTable table);
+    public abstract String generate(MysqlTableAlertParam table);
 
-    public static String generate(DBDialect dialect, MysqlTable table) {
+    public static String generate(DBDialect dialect, MysqlTableAlertParam table) {
         return switch (dialect) {
             case MYSQL -> new MysqlTableAlertSqlGenerator().generate(table);
             default -> null;

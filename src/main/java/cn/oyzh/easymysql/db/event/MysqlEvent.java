@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.db.event;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.common.util.ObjectComparator;
 import cn.oyzh.fx.common.util.ObjectCopier;
@@ -14,7 +15,7 @@ import java.util.Date;
  * @author oyzh
  * @since 2024/09/09
  */
-public class MysqlEvent implements ObjectCopier<MysqlEvent>, ObjectComparator<MysqlEvent> {
+public class MysqlEvent extends DBObjectStatus implements ObjectCopier<MysqlEvent>, ObjectComparator<MysqlEvent> {
 
     /**
      * 名称

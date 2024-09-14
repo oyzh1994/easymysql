@@ -1,11 +1,12 @@
 package cn.oyzh.easymysql.handler.transport;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.MysqlDBClient;
-import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
+import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
+import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.fx.data.DataTransportEvent;
 import cn.oyzh.easymysql.fx.data.DataTransportFunction;
 import cn.oyzh.easymysql.fx.data.DataTransportProcedure;
@@ -109,12 +110,18 @@ public class MysqlDataTransportHandler extends DataTransportHandler {
 
         // 传输表
         this.message("Transport Table " + tableName + " Starting");
-        List<MysqlColumn> columns = this.sourceClient.tableColumns(this.sourceDatabase, null, tableName);
+        List<MysqlColumn> columns = this.sourceClient.selectColumns(new MysqlSelectColumnParam(this.sourceDatabase, tableName));
         MysqlColumns dbColumns = new MysqlColumns(columns);
         long start = 0;
         while (true) {
             this.checkInterrupt();
-            List<MysqlRecord> records = this.sourceClient.selectTableRecords(this.sourceDatabase, tableName, start, (long) this.selectLimit, null, null, true);
+            MysqlSelectRecordParam param = new MysqlSelectRecordParam();
+            param.start(start);
+            param.readonly(true);
+            param.tableName(tableName);
+            param.dbName(this.sourceDatabase);
+            param.limit((long) this.selectLimit);
+            List<MysqlRecord> records = this.sourceClient.selectRecords(param);
             if (CollUtil.isEmpty(records)) {
                 break;
             }
