@@ -29,6 +29,8 @@ import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
+import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.event.MysqlEventTreeItem;
@@ -386,6 +388,21 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         this.client().createTable(param);
     }
 
+    public void createTable(MysqlTableCreateParam param) {
+        this.client().createTable(param);
+    }
+
+    public MysqlTableCreateParam createTableParam(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
+        MysqlTableCreateParam param = new MysqlTableCreateParam();
+        param.table(table);
+        param.checks(checks);
+        param.columns(columns);
+        param.indexes(indexes);
+        param.triggers(triggers);
+        param.foreignKeys(foreignKeys);
+        return param;
+    }
+
     public void alterTable(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
         MysqlTableAlertParam param = new MysqlTableAlertParam();
         param.table(table);
@@ -396,6 +413,22 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         param.foreignKeys(foreignKeys);
         param.existPrimaryKey(this.existPrimaryKey(table.getName()));
         this.client().alertTable(param);
+    }
+
+    public void alterTable(MysqlTableAlertParam param) {
+        this.client().alertTable(param);
+    }
+
+    public MysqlTableAlertParam alterTableParam(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
+        MysqlTableAlertParam param = new MysqlTableAlertParam();
+        param.table(table);
+        param.checks(checks);
+        param.columns(columns);
+        param.indexes(indexes);
+        param.triggers(triggers);
+        param.foreignKeys(foreignKeys);
+        param.existPrimaryKey(this.existPrimaryKey(table.getName()));
+        return param;
     }
 
     public boolean existPrimaryKey(String tableName) {
@@ -554,7 +587,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return this.columns(tableName, true);
     }
 
-    public MysqlColumns columns(String tableName,boolean full) {
+    public MysqlColumns columns(String tableName, boolean full) {
         MysqlSelectColumnParam param = new MysqlSelectColumnParam();
         param.dbName(this.dbName());
         param.tableName(tableName);

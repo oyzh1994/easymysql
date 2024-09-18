@@ -11,8 +11,8 @@ import cn.oyzh.easymysql.fx.routine.DBCharacteristicCombobox;
 import cn.oyzh.easymysql.fx.table.DBEnumTextFiled;
 import cn.oyzh.easymysql.fx.table.DBFiledTypeComboBox;
 import cn.oyzh.easymysql.generator.routine.DBFunctionSqlGenerator;
-import cn.oyzh.easymysql.listener.DBListener;
-import cn.oyzh.easymysql.listener.DBListenerManager;
+import cn.oyzh.easymysql.listener.DBStatusListener;
+import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.common.spring.ScopeType;
@@ -192,7 +192,7 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
     /**
      * 数据监听器
      */
-    private DBListener listener;
+    private DBStatusListener listener;
 
     /**
      * 未保存标志位
@@ -227,7 +227,7 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
                 }
                 if (list != null) {
                     for (DBObjectStatus status : list) {
-                        DBListenerManager.bindListener(status.statusProperty(), this.listener);
+                        DBStatusListenerManager.bindListener(status.statusProperty(), this.listener);
                     }
                 }
             }
@@ -255,16 +255,16 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
 
         // 监听组件
         CacheHelper.set("dbClient", this.dbItem.client());
-        DBListenerManager.bindListener(this.definer, this.listener);
-        DBListenerManager.bindListener(this.comment, this.listener);
-        DBListenerManager.bindListener(this.definition, this.listener);
-        DBListenerManager.bindListener(this.returnType, this.listener);
-        DBListenerManager.bindListener(this.returnSize, this.listener);
-        DBListenerManager.bindListener(this.returnDigits, this.listener);
-        DBListenerManager.bindListener(this.securityType, this.listener);
-        DBListenerManager.bindListener(this.returnValues, this.listener);
-        DBListenerManager.bindListener(this.returnCharset, this.listener);
-        DBListenerManager.bindListener(this.characteristic, this.listener);
+        DBStatusListenerManager.bindListener(this.definer, this.listener);
+        DBStatusListenerManager.bindListener(this.comment, this.listener);
+        DBStatusListenerManager.bindListener(this.definition, this.listener);
+        DBStatusListenerManager.bindListener(this.returnType, this.listener);
+        DBStatusListenerManager.bindListener(this.returnSize, this.listener);
+        DBStatusListenerManager.bindListener(this.returnDigits, this.listener);
+        DBStatusListenerManager.bindListener(this.securityType, this.listener);
+        DBStatusListenerManager.bindListener(this.returnValues, this.listener);
+        DBStatusListenerManager.bindListener(this.returnCharset, this.listener);
+        DBStatusListenerManager.bindListener(this.characteristic, this.listener);
         this.paramTable.itemList().addListener(this.listChangeListener);
     }
 
@@ -273,7 +273,7 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
      */
     private void initDBListener() {
         // 初始化监听器
-        this.listener = new DBListener(this.function.getDbName() + ":" + this.function.getName()) {
+        this.listener = new DBStatusListener(this.function.getDbName() + ":" + this.function.getName()) {
             @Override
             public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
                 initChangedFlag();

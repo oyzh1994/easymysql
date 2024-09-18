@@ -1,10 +1,8 @@
 package cn.oyzh.easymysql.db.check;
 
+import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.fx.common.util.ObjectCopier;
-import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
-import cn.oyzh.fx.plus.util.TableViewUtil;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -82,31 +80,7 @@ public class MysqlCheck extends DBObjectStatus implements ObjectCopier<MysqlChec
         }
     }
 
-    // public ClearableTextField getNameControl() {
-    //     ClearableTextField textField = new ClearableTextField();
-    //     textField.setPromptText(I18nHelper.pleaseInputName());
-    //     textField.addTextChangeListener((observable, oldValue, newValue) -> {
-    //         this.setName(newValue);
-    //     });
-    //     if (this.name != null) {
-    //         textField.setText(this.name);
-    //     }
-    //     TableViewUtil.rowOnCtrlS(textField);
-    //     TableViewUtil.selectRowOnMouseClicked(textField);
-    //     return textField;
-    // }
-    //
-    // public ClearableTextField getClauseControl() {
-    //     ClearableTextField textField = new ClearableTextField();
-    //     textField.setPromptText(I18nHelper.pleaseInputName());
-    //     textField.addTextChangeListener((observable, oldValue, newValue) -> {
-    //         this.setClause(newValue);
-    //     });
-    //     if (this.clause != null) {
-    //         textField.setText(this.clause);
-    //     }
-    //     TableViewUtil.rowOnCtrlS(textField);
-    //     TableViewUtil.selectRowOnMouseClicked(textField);
-    //     return textField;
-    // }
+    public boolean isInvalid() {
+        return StrUtil.isBlank(this.name) || StrUtil.isBlank(this.clause);
+    }
 }

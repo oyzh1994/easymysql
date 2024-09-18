@@ -1,7 +1,5 @@
 package cn.oyzh.easymysql.db.check;
 
-import cn.oyzh.easymysql.db.index.MysqlIndex;
-import cn.oyzh.easymysql.db.index.MysqlIndexControl;
 import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.util.TableViewUtil;

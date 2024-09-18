@@ -1,12 +1,7 @@
 package cn.oyzh.easymysql.db.trigger;
 
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.fx.table.DBTriggerPolicyComboBox;
 import cn.oyzh.fx.common.util.ObjectCopier;
-import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
-import cn.oyzh.fx.plus.controls.textfield.EnlargeTextFiled;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
-import cn.oyzh.fx.plus.util.TableViewUtil;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -123,5 +118,9 @@ public class MysqlTrigger extends DBObjectStatus implements ObjectCopier<MysqlTr
             this.policy = t1.policy;
             this.definition = t1.definition;
         }
+    }
+
+    public boolean isInvalid() {
+        return false;
     }
 }

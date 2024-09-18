@@ -254,7 +254,7 @@ public class MysqlTableAlertSqlGenerator {
                     builder.append(" USING ").append(index.methodName());
                 }
                 if (index.getComment() != null) {
-                    builder.append(" COMMENT ").append(DBUtil.wrapData(index.getName()));
+                    builder.append(" COMMENT ").append(DBUtil.wrapData(index.getComment()));
                 }
                 // 拼接,
                 builder.append(",");

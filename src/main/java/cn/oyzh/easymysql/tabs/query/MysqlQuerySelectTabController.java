@@ -13,8 +13,8 @@ import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;
-import cn.oyzh.easymysql.listener.DBListener;
-import cn.oyzh.easymysql.listener.DBListenerManager;
+import cn.oyzh.easymysql.listener.DBStatusListener;
+import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.util.DBRecordUtil;
 import cn.oyzh.fx.common.spring.ScopeType;
@@ -117,7 +117,7 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
     /**
      * 记录变更监听器
      */
-    private DBListener changeListener;
+    private DBStatusListener changeListener;
 
     /**
      * 字段列表
@@ -136,7 +136,7 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
         this.initDataList();
         if (result.isUpdatable()) {
             if (this.changeListener == null) {
-                this.changeListener = new DBListener(this.result.dbName() + ":" + this.result.tableName()) {
+                this.changeListener = new DBStatusListener(this.result.dbName() + ":" + this.result.tableName()) {
                     @Override
                     public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
                         apply.enable();
@@ -405,7 +405,7 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
     @Override
     public void onTabClose(DynamicTab tab, Event event) {
         super.onTabClose(tab, event);
-        DBListenerManager.removeListener(this.changeListener);
+        DBStatusListenerManager.removeListener(this.changeListener);
     }
 
     @Override

@@ -190,7 +190,7 @@ public class MysqlTableCreateSqlGenerator {
             builder.append(") ");
             builder.append(" USING ").append(index.getType());
             if (index.getComment() != null) {
-                builder.append(" COMMENT ").append(DBUtil.wrapData(index.getName()));
+                builder.append(" COMMENT ").append(DBUtil.wrapData(index.getComment()));
             }
             // 拼接,
             builder.append(",");

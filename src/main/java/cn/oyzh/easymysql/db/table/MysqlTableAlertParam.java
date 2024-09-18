@@ -83,4 +83,8 @@ public class MysqlTableAlertParam {
     public String tableName() {
         return this.table.getName();
     }
+
+    public void setTableName(String tableName) {
+        this.table.setName(tableName);
+    }
 }

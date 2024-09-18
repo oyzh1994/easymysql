@@ -1,5 +1,7 @@
 package cn.oyzh.easymysql.db.foreignKey;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.fx.common.util.CacheHelper;
 import cn.oyzh.fx.common.util.ObjectCopier;
@@ -277,5 +279,10 @@ public class MysqlForeignKey extends DBObjectStatus implements ObjectCopier<Mysq
             this.setPrimaryKeyTable(t1.getPrimaryKeyTable());
             this.setPrimaryKeyDatabase(t1.getPrimaryKeyDatabase());
         }
+    }
+
+    public boolean isInvalid() {
+        return StrUtil.isBlank(this.name) || CollUtil.isNotEmpty(this.primaryKeyColumns) || CollUtil.isEmpty(this.columns)
+                || StrUtil.isBlank(this.getPrimaryKeyTable()) || StrUtil.isBlank(this.getPrimaryKeyDatabase());
     }
 }

@@ -13,27 +13,27 @@ import java.util.Map;
  * @author oyzh
  * @since 2024/7/23
  */
-public class DBListenerManager {
+public class DBStatusListenerManager {
 
-    private static final Map<String, DBListener> LISTENERS = new HashMap<>();
+    private static final Map<String, DBStatusListener> LISTENERS = new HashMap<>();
 
-    public static void addListener(DBListener listener) {
+    public static void addListener(DBStatusListener listener) {
         if (listener != null) {
             LISTENERS.put(listener.getKey(), listener);
         }
     }
 
-    public static void removeListener(DBListener listener) {
+    public static void removeListener(DBStatusListener listener) {
         if (listener != null) {
             LISTENERS.remove(listener.getKey());
         }
     }
 
-    public static DBListener getListener(String key) {
+    public static DBStatusListener getListener(String key) {
         return LISTENERS.get(key);
     }
 
-    public static void bindListener(Object node, DBListener listener) {
+    public static void bindListener(Object node, DBStatusListener listener) {
         if (node instanceof GenericStyledArea<?, ?, ?> node1) {
             node1.textProperty().addListener((observable, oldValue, newValue) -> {
                 if (listener != null) {

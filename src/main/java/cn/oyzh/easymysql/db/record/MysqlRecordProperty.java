@@ -4,8 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.exception.DBException;
-import cn.oyzh.easymysql.listener.DBListener;
-import cn.oyzh.easymysql.listener.DBListenerManager;
+import cn.oyzh.easymysql.listener.DBStatusListener;
+import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.util.DBNodeUtil;
 import cn.oyzh.easymysql.util.DBRecordUtil;
 import cn.oyzh.fx.plus.util.ClipboardUtil;
@@ -126,11 +126,11 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
 
     public void setChanged(boolean changed) {
         this.changedProperty().set(changed);
-        DBListener listener;
+        DBStatusListener listener;
         if (column.getSchema() != null) {
-            listener = DBListenerManager.getListener(column.getDbName() + ":" + column.getSchema() + ":" + column.getTableName());
+            listener = DBStatusListenerManager.getListener(column.getDbName() + ":" + column.getSchema() + ":" + column.getTableName());
         } else {
-            listener = DBListenerManager.getListener(column.getDbName() + ":" + column.getTableName());
+            listener = DBStatusListenerManager.getListener(column.getDbName() + ":" + column.getTableName());
         }
         if (listener != null) {
             listener.changed(null, null, null);

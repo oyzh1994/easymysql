@@ -8,8 +8,8 @@ import cn.oyzh.easymysql.fx.event.DBEventOnCompletionCombobox;
 import cn.oyzh.easymysql.fx.event.DBEventStatusCombobox;
 import cn.oyzh.easymysql.generator.event.EventAlertSqlGenerator;
 import cn.oyzh.easymysql.generator.event.EventCreateSqlGenerator;
-import cn.oyzh.easymysql.listener.DBListener;
-import cn.oyzh.easymysql.listener.DBListenerManager;
+import cn.oyzh.easymysql.listener.DBStatusListener;
+import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.common.spring.ScopeType;
@@ -221,7 +221,7 @@ public class MysqlEventDesignTabController extends DynamicTabController {
     /**
      * 数据监听器
      */
-    private DBListener listener;
+    private DBStatusListener listener;
 
     /**
      * 未保存标志位
@@ -259,31 +259,31 @@ public class MysqlEventDesignTabController extends DynamicTabController {
         CacheHelper.set("dbClient", this.dbItem.client());
 
         // 基础
-        DBListenerManager.bindListener(this.status, this.listener);
-        DBListenerManager.bindListener(this.definer, this.listener);
-        DBListenerManager.bindListener(this.comment, this.listener);
-        DBListenerManager.bindListener(this.definition, this.listener);
-        DBListenerManager.bindListener(this.onCompletion, this.listener);
+        DBStatusListenerManager.bindListener(this.status, this.listener);
+        DBStatusListenerManager.bindListener(this.definer, this.listener);
+        DBStatusListenerManager.bindListener(this.comment, this.listener);
+        DBStatusListenerManager.bindListener(this.definition, this.listener);
+        DBStatusListenerManager.bindListener(this.onCompletion, this.listener);
 
         // 单次类型
-        DBListenerManager.bindListener(this.onetime, this.listener);
-        DBListenerManager.bindListener(this.onetimeType, this.listener);
-        DBListenerManager.bindListener(this.onetimeInterval, this.listener);
-        DBListenerManager.bindListener(this.onetimeIntervalValue, this.listener);
-        DBListenerManager.bindListener(this.onetimeIntervalType, this.listener);
+        DBStatusListenerManager.bindListener(this.onetime, this.listener);
+        DBStatusListenerManager.bindListener(this.onetimeType, this.listener);
+        DBStatusListenerManager.bindListener(this.onetimeInterval, this.listener);
+        DBStatusListenerManager.bindListener(this.onetimeIntervalValue, this.listener);
+        DBStatusListenerManager.bindListener(this.onetimeIntervalType, this.listener);
 
         // 周期类型
-        DBListenerManager.bindListener(this.loopType, this.listener);
-        DBListenerManager.bindListener(this.loopStart, this.listener);
-        DBListenerManager.bindListener(this.loopStartTime, this.listener);
-        DBListenerManager.bindListener(this.loopStartInterval, this.listener);
-        DBListenerManager.bindListener(this.loopStartIntervalValue, this.listener);
-        DBListenerManager.bindListener(this.loopStartIntervalType, this.listener);
-        DBListenerManager.bindListener(this.loopEnd, this.listener);
-        DBListenerManager.bindListener(this.loopEndTime, this.listener);
-        DBListenerManager.bindListener(this.loopEndInterval, this.listener);
-        DBListenerManager.bindListener(this.loopEndIntervalValue, this.listener);
-        DBListenerManager.bindListener(this.loopEndIntervalType, this.listener);
+        DBStatusListenerManager.bindListener(this.loopType, this.listener);
+        DBStatusListenerManager.bindListener(this.loopStart, this.listener);
+        DBStatusListenerManager.bindListener(this.loopStartTime, this.listener);
+        DBStatusListenerManager.bindListener(this.loopStartInterval, this.listener);
+        DBStatusListenerManager.bindListener(this.loopStartIntervalValue, this.listener);
+        DBStatusListenerManager.bindListener(this.loopStartIntervalType, this.listener);
+        DBStatusListenerManager.bindListener(this.loopEnd, this.listener);
+        DBStatusListenerManager.bindListener(this.loopEndTime, this.listener);
+        DBStatusListenerManager.bindListener(this.loopEndInterval, this.listener);
+        DBStatusListenerManager.bindListener(this.loopEndIntervalValue, this.listener);
+        DBStatusListenerManager.bindListener(this.loopEndIntervalType, this.listener);
     }
 
     /**
@@ -291,7 +291,7 @@ public class MysqlEventDesignTabController extends DynamicTabController {
      */
     private void initDBListener() {
         // 初始化监听器
-        this.listener = new DBListener(this.event.getDbName() + ":" + this.event.getName()) {
+        this.listener = new DBStatusListener(this.event.getDbName() + ":" + this.event.getName()) {
             @Override
             public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
                 initChangedFlag();

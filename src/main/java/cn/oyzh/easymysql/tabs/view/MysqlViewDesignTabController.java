@@ -5,8 +5,8 @@ import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
 import cn.oyzh.easymysql.fx.DBSqlTextArea;
 import cn.oyzh.easymysql.fx.view.DBViewAlgorithmComboBox;
 import cn.oyzh.easymysql.fx.view.DBViewCheckOptionComboBox;
-import cn.oyzh.easymysql.listener.DBListener;
-import cn.oyzh.easymysql.listener.DBListenerManager;
+import cn.oyzh.easymysql.listener.DBStatusListener;
+import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.common.spring.ScopeType;
@@ -85,7 +85,7 @@ public class MysqlViewDesignTabController extends DynamicTabController {
     /**
      * 数据监听器
      */
-    private DBListener listener;
+    private DBStatusListener listener;
 
     /**
      * 未保存标志位
@@ -152,11 +152,11 @@ public class MysqlViewDesignTabController extends DynamicTabController {
         this.initInfo();
 
         // 监听组件
-        DBListenerManager.bindListener(this.definer, this.listener);
-        DBListenerManager.bindListener(this.algorithm, this.listener);
-        DBListenerManager.bindListener(this.definition, this.listener);
-        DBListenerManager.bindListener(this.checkOption, this.listener);
-        DBListenerManager.bindListener(this.securityType, this.listener);
+        DBStatusListenerManager.bindListener(this.definer, this.listener);
+        DBStatusListenerManager.bindListener(this.algorithm, this.listener);
+        DBStatusListenerManager.bindListener(this.definition, this.listener);
+        DBStatusListenerManager.bindListener(this.checkOption, this.listener);
+        DBStatusListenerManager.bindListener(this.securityType, this.listener);
     }
 
     /**
@@ -164,7 +164,7 @@ public class MysqlViewDesignTabController extends DynamicTabController {
      */
     private void initDBListener() {
         // 初始化监听器
-        this.listener = new DBListener(this.dbView.getDbName() + ":" + this.dbView.getName()) {
+        this.listener = new DBStatusListener(this.dbView.getDbName() + ":" + this.dbView.getName()) {
             @Override
             public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
                 initChangedFlag();

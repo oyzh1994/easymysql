@@ -3,19 +3,8 @@ package cn.oyzh.easymysql.db.column;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.fx.table.DBFiledTypeComboBox;
-import cn.oyzh.easymysql.popups.DBColumnConfigPopupController;
 import cn.oyzh.easymysql.util.DBColumnUtil;
-import cn.oyzh.fx.common.util.CacheHelper;
 import cn.oyzh.fx.common.util.ObjectCopier;
-import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
-import cn.oyzh.fx.plus.controls.svg.ConfigurationSVGGlyph;
-import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
-import cn.oyzh.fx.plus.controls.textfield.NumberTextField;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
-import cn.oyzh.fx.plus.util.TableViewUtil;
-import cn.oyzh.fx.plus.window.PopupAdapter;
-import cn.oyzh.fx.plus.window.PopupManager;
 import javafx.beans.property.SimpleBooleanProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -599,7 +588,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public boolean isPrimaryKey() {
-        if(this.isAutoIncrement()){
+        if (this.isAutoIncrement()) {
             return true;
         }
         return BooleanUtil.isTrue(this.primaryKeyProperty().get());
@@ -726,5 +715,9 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
             this.primaryKeySize = column.primaryKeySize;
             this.updateOnCurrentTimestamp = column.updateOnCurrentTimestamp;
         }
+    }
+
+    public boolean isInvalid() {
+        return StrUtil.isBlank(this.name) || StrUtil.isBlank(this.type);
     }
 }
