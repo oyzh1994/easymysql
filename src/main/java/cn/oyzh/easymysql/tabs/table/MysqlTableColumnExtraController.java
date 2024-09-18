@@ -195,8 +195,10 @@ public class MysqlTableColumnExtraController extends SubTabController {
         super.bindListeners();
         // 字符集选中事件
         this.charset.selectedItemChanged((observable, oldValue, newValue) -> {
-            this.collation.init(newValue, this.dbClient);
-            this.collation.select(0);
+            if (newValue != null) {
+                this.collation.init(newValue, this.dbClient);
+                this.collation.selectFirst();
+            }
             this.submit();
         });
         // 填充零变化事件
@@ -211,6 +213,8 @@ public class MysqlTableColumnExtraController extends SubTabController {
         this.autoIncrement.selectedChanged((observable, oldValue, newValue) -> this.submit());
         // 当前时间戳变化事件
         this.currentTimestamp.selectedChanged((observable, oldValue, newValue) -> this.submit());
+        // 默认值变化事件
+        this.defaultValue.addTextChangeListener((observable, oldValue, newValue) -> this.submit());
         // 键长度变化事件
         this.primaryKeySize.addTextChangeListener((observable, oldValue, newValue) -> this.submit());
     }
@@ -233,8 +237,7 @@ public class MysqlTableColumnExtraController extends SubTabController {
         // 默认值
         if (this.column.supportDefaultValue()) {
             this.defaultValueBox.display();
-            this.defaultValue.init(this.column);
-            this.defaultValue.setText(this.column.getDefaultValueString());
+            this.defaultValue.init(this.column, this.column.getDefaultValueString());
         } else {
             this.defaultValueBox.disappear();
         }
