@@ -43,7 +43,8 @@ import cn.oyzh.fx.plus.controls.textfield.NumberTextField;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.tabs.DynamicTab;
-import cn.oyzh.fx.plus.tabs.DynamicTabController;
+import cn.oyzh.fx.plus.tabs.ParentTabController;
+import cn.oyzh.fx.plus.tabs.SubTabController;
 import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.plus.util.NodeUtil;
 import cn.oyzh.fx.plus.util.TableViewUtil;
@@ -57,6 +58,7 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -66,7 +68,7 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2024/08/07
  */
-public class MysqlTableDesignTabController extends DynamicTabController {
+public class MysqlTableDesignTabController extends ParentTabController {
 
     /**
      * 新增按钮
@@ -402,6 +404,9 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      */
     private boolean initiating;
 
+    @FXML
+    private MysqlTableColumnExtraController tableColumnExtraController;
+
     private MysqlTableCreateParam initCreateParam() {
         return (MysqlTableCreateParam) this.initParam((byte) 1);
     }
@@ -416,7 +421,7 @@ public class MysqlTableDesignTabController extends DynamicTabController {
         tempTable.setDbName(this.mysqlTable.getDbName());
 
         // 设置表名称
-        if(!this.newData){
+        if (!this.newData) {
             tempTable.setName(this.mysqlTable.getName());
         }
 
@@ -1137,6 +1142,8 @@ public class MysqlTableDesignTabController extends DynamicTabController {
         this.columnTable.setStatusListener(this.listener);
         this.triggerTable.setStatusListener(this.listener);
         this.foreignKeyTable.setStatusListener(this.listener);
+
+        this.columnTable.selectedIndexChanged((observable, oldValue, newValue) -> this.tableColumnExtraController.init(this.columnTable.getSelectedItem(), this.dbItem().client()));
     }
 
     @Override
@@ -1267,5 +1274,10 @@ public class MysqlTableDesignTabController extends DynamicTabController {
 
     public String dbName() {
         return this.mysqlTable.getDbName();
+    }
+
+    @Override
+    public List<? extends SubTabController> getSubControllers() {
+        return List.of(this.tableColumnExtraController);
     }
 }
