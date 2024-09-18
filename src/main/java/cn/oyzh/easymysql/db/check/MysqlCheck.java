@@ -82,31 +82,31 @@ public class MysqlCheck extends DBObjectStatus implements ObjectCopier<MysqlChec
         }
     }
 
-    public ClearableTextField getNameControl() {
-        ClearableTextField textField = new ClearableTextField();
-        textField.setPromptText(I18nHelper.pleaseInputName());
-        textField.addTextChangeListener((observable, oldValue, newValue) -> {
-            this.setName(newValue);
-        });
-        if (this.name != null) {
-            textField.setText(this.name);
-        }
-        TableViewUtil.rowOnCtrlS(textField);
-        TableViewUtil.selectRowOnMouseClicked(textField);
-        return textField;
-    }
-
-    public ClearableTextField getClauseControl() {
-        ClearableTextField textField = new ClearableTextField();
-        textField.setPromptText(I18nHelper.pleaseInputName());
-        textField.addTextChangeListener((observable, oldValue, newValue) -> {
-            this.setClause(newValue);
-        });
-        if (this.clause != null) {
-            textField.setText(this.clause);
-        }
-        TableViewUtil.rowOnCtrlS(textField);
-        TableViewUtil.selectRowOnMouseClicked(textField);
-        return textField;
-    }
+    // public ClearableTextField getNameControl() {
+    //     ClearableTextField textField = new ClearableTextField();
+    //     textField.setPromptText(I18nHelper.pleaseInputName());
+    //     textField.addTextChangeListener((observable, oldValue, newValue) -> {
+    //         this.setName(newValue);
+    //     });
+    //     if (this.name != null) {
+    //         textField.setText(this.name);
+    //     }
+    //     TableViewUtil.rowOnCtrlS(textField);
+    //     TableViewUtil.selectRowOnMouseClicked(textField);
+    //     return textField;
+    // }
+    //
+    // public ClearableTextField getClauseControl() {
+    //     ClearableTextField textField = new ClearableTextField();
+    //     textField.setPromptText(I18nHelper.pleaseInputName());
+    //     textField.addTextChangeListener((observable, oldValue, newValue) -> {
+    //         this.setClause(newValue);
+    //     });
+    //     if (this.clause != null) {
+    //         textField.setText(this.clause);
+    //     }
+    //     TableViewUtil.rowOnCtrlS(textField);
+    //     TableViewUtil.selectRowOnMouseClicked(textField);
+    //     return textField;
+    // }
 }

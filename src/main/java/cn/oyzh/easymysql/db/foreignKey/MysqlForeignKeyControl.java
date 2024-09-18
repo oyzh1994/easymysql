@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * db表外键
  *
  * @author oyzh
  * @since 2024/01/25
