@@ -1921,6 +1921,7 @@ public class DBClient {
             connection.commit();
             DBUtil.close(statement);
         } catch (Exception ex) {
+            ex.printStackTrace();
             DBUtil.rollback(connection);
             throw new DBException(ex);
         }

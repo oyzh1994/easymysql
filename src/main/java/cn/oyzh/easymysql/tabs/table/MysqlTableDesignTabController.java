@@ -593,6 +593,7 @@ public class MysqlTableDesignTabController extends DynamicTabController {
         if (tableName == null) {
             this.newData = true;
             this.mysqlTable = new MysqlTable();
+            this.mysqlTable.setDbName(this.dbItem.dbName());
             this.mysqlTable.setName(I18nHelper.unnamedTable());
             this.initNew();
         } else {// 已有数据

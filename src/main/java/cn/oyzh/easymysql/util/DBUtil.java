@@ -252,7 +252,7 @@ public class DBUtil {
         if (val instanceof CharSequence v) {
             String v1 = v.toString();
             if (v1.isEmpty()) {
-                return null;
+                return "''";
             }
             if (!v1.startsWith("'") && !v1.startsWith("\"")) {
                 v1 = "'" + v1;

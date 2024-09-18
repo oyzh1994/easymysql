@@ -21,13 +21,13 @@ import java.util.List;
  */
 public class MysqlTableCreateSqlGenerator {
 
-
     public String generate(MysqlTableCreateParam param) {
         String dbName = param.dbName();
         MysqlTable table = param.table();
+        String tableName = param.tableName();
         StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE ")
-                .append(DBUtil.wrap(dbName, table.getName(), DBDialect.MYSQL))
+                .append(DBUtil.wrap(dbName, tableName, DBDialect.MYSQL))
                 .append(" ( ");
         // 字段
         if (param.hasColumns()) {
