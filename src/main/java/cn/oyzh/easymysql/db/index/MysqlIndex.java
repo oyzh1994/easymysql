@@ -92,12 +92,10 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
         super.putOriginalData("columns", columns);
     }
 
-
     public void setType(String type) {
         this.type = type;
         super.putOriginalData("type", type);
     }
-
 
     public void setMethod(String method) {
         this.method = method;
@@ -177,7 +175,7 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
         /**
          * 子部分
          */
-        private int subPart;
+        private Integer subPart;
 
         @Override
         public boolean equals(Object o) {

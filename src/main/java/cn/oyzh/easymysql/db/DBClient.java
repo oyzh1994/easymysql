@@ -898,97 +898,39 @@ public class DBClient {
     public MysqlColumns selectColumns(MysqlSelectColumnParam param) {
         try {
             String dbName = param.dbName();
-            String schema = param.schema();
             String tableName = param.tableName();
             MysqlColumns columns = new MysqlColumns();
-            if (param.full()) {
-                String sql = """
-                        SELECT
-                            a.EXTRA as COLUMN_EXTRA,
-                            a.COLUMN_KEY as COLUMN_KEY,
-                            a.COLUMN_COMMENT as REMARKS,
-                            a.COLUMN_TYPE as COLUMN_TYPE,
-                            a.COLUMN_NAME as COLUMN_NAME,
-                            a.IS_NULLABLE as IS_NULLABLE,
-                            a.COLUMN_DEFAULT as COLUMN_DEF,
-                            a.COLLATION_NAME as COLLATION_NAME,
-                            a.CHARACTER_SET_NAME as CHARSET_NAME,
-                            a.ORDINAL_POSITION as ORDINAL_POSITION
-                        FROM
-                            INFORMATION_SCHEMA.`COLUMNS` a
-                        WHERE
-                            a.TABLE_SCHEMA = ?
-                        AND
-                            a.TABLE_NAME = ?
-                        """;
-                PreparedStatement statement = this.connection().prepareStatement(sql);
-                statement.setString(1, dbName);
-                statement.setString(2, tableName);
-                ResultSet resultSet = statement.executeQuery();
-                DBUtil.printMetaData(resultSet);
-                while (resultSet.next()) {
-                    Object def = resultSet.getObject("COLUMN_DEF");
-                    String remarks = resultSet.getString("REMARKS");
-                    int position = resultSet.getInt("ORDINAL_POSITION");
-                    String nullable = resultSet.getString("IS_NULLABLE");
-                    String columnKey = resultSet.getString("COLUMN_KEY");
-                    String columnType = resultSet.getString("COLUMN_TYPE");
-                    String columnName = resultSet.getString("COLUMN_NAME");
-                    String charsetName = resultSet.getString("CHARSET_NAME");
-                    String columnExtra = resultSet.getString("COLUMN_EXTRA");
-                    String collationName = resultSet.getString("COLLATION_NAME");
-                    MysqlColumn column = new MysqlColumn();
-                    column.initColumn(columnType, columnExtra);
-                    column.setDbName(dbName);
-                    column.setName(columnName);
-                    column.setComment(remarks);
-                    column.setDefaultValue(def);
-                    column.setPosition(position);
-                    column.setCharset(charsetName);
-                    column.setTableName(tableName);
-                    column.setCollation(collationName);
-                    column.setNullable("yes".equalsIgnoreCase(nullable));
-                    column.setPrimaryKey("pri".equalsIgnoreCase(columnKey));
-                    columns.add(column);
-                }
-                DBUtil.close(resultSet);
-                DBUtil.close(statement);
-                // 初始化状态
-                for (MysqlColumn value : columns) {
-                    value.initStatus();
-                }
-            } else {
-                Connection connection = this.connection(dbName);
-                DatabaseMetaData metaData = connection.getMetaData();
-                ResultSet resultSet = metaData.getColumns(dbName, schema, tableName, null);
-                DBUtil.printMetaData(resultSet);
-                while (resultSet.next()) {
-                    String remarks = resultSet.getString("REMARKS");
-                    String typeName = resultSet.getString("TYPE_NAME");
-                    String columnDef = resultSet.getString("COLUMN_DEF");
-                    Integer columnSize = resultSet.getInt("COLUMN_SIZE");
-                    String columnName = resultSet.getString("COLUMN_NAME");
-                    String isNullable = resultSet.getString("IS_NULLABLE");
-                    Integer decimalDigits = resultSet.getInt("DECIMAL_DIGITS");
-                    Integer ordinalPosition = resultSet.getInt("ORDINAL_POSITION");
-                    String isAutoincrement = resultSet.getString("IS_AUTOINCREMENT");
-                    MysqlColumn column = new MysqlColumn();
-                    column.setDbName(dbName);
-                    column.setSchema(schema);
-                    column.setType(typeName);
-                    column.setSize(columnSize);
-                    column.setName(columnName);
-                    column.setComment(remarks);
-                    column.setTableName(tableName);
-                    column.setDigits(decimalDigits);
-                    column.setDefaultValue(columnDef);
-                    column.setPosition(ordinalPosition);
-                    column.setNullable("YES".equalsIgnoreCase(isNullable));
-                    column.setAutoIncrement("YES".equalsIgnoreCase(isAutoincrement));
-                    columns.add(column);
-                }
-                DBUtil.close(resultSet);
+            String sql = "SHOW FULL COLUMNS FROM " + DBUtil.wrap(dbName, tableName, this.dialect());
+            PreparedStatement statement = this.connection().prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            DBUtil.printMetaData(resultSet);
+            int position = 0;
+            while (resultSet.next()) {
+                String key = resultSet.getString("Key");
+                String type = resultSet.getString("Type");
+                String field = resultSet.getString("Field");
+                Object def = resultSet.getObject("Default");
+                String extra = resultSet.getString("Extra");
+                String nullable = resultSet.getString("Null");
+                String comment = resultSet.getString("Comment");
+                String collation = resultSet.getString("COLLATION");
+
+                MysqlColumn column = new MysqlColumn();
+                column.parseKey(key);
+                column.parseType(type);
+                column.parseExtra(extra);
+                column.parseCollation(collation);
+
+                column.setName(field);
+                column.setDbName(dbName);
+                column.setComment(comment);
+                column.setDefaultValue(def);
+                column.setPosition(position++);
+                column.setTableName(tableName);
+                column.setNullable("yes".equalsIgnoreCase(nullable));
+                columns.add(column);
             }
+            DBUtil.close(resultSet);
             // 返回排序后的数据
             return new MysqlColumns(columns.sortOfPosition());
         } catch (Exception ex) {
@@ -2628,32 +2570,14 @@ public class DBClient {
 
     public boolean existPrimaryKey(String dbName, String tableName) {
         try {
-            Connection connection = this.connection();
-            String sql = """
-                    SELECT 
-                       COUNT(*) 
-                    FROM 
-                       INFORMATION_SCHEMA.TABLE_CONSTRAINTS
-                    WHERE 
-                       TABLE_SCHEMA = ? 
-                    AND 
-                       TABLE_NAME = ?
-                    AND 
-                       CONSTRAINT_TYPE = 'PRIMARY KEY' 
-                    LIMIT 1
-                    """;
-
+            Connection connection = this.connection(dbName);
+            String sql = "SHOW INDEX FROM " + DBUtil.wrap(dbName, tableName, this.dialect()) + " WHERE Key_name = 'PRIMARY'";
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, dbName);
-            stmt.setString(2, tableName);
             ResultSet resultSet = stmt.executeQuery();
-            Long count = null;
-            if (resultSet.next()) {
-                count = resultSet.getLong(1);
-            }
+            boolean exist = resultSet.next();
             DBUtil.close(resultSet);
             DBUtil.close(stmt);
-            return count != null && count > 0;
+            return exist;
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new DBException(ex);

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs.table;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.db.check.MysqlCheck;
 import cn.oyzh.easymysql.db.check.MysqlCheckControl;
 import cn.oyzh.easymysql.db.check.MysqlChecks;
@@ -57,10 +57,8 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 
 import java.net.URL;
-import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
 /**
  * db表设计业务
@@ -417,6 +415,11 @@ public class MysqlTableDesignTabController extends DynamicTabController {
         // 数据库
         tempTable.setDbName(this.mysqlTable.getDbName());
 
+        // 设置表名称
+        if(!this.newData){
+            tempTable.setName(this.mysqlTable.getName());
+        }
+
         // 注释
         String comment = this.tableComment.getText();
         if (!StrUtil.equals(comment, this.mysqlTable.getComment())) {
@@ -463,6 +466,9 @@ public class MysqlTableDesignTabController extends DynamicTabController {
             if (!column.isInvalid()) {
                 columns.add(column);
             }
+        }
+        if (CollUtil.isNotEmpty(this.columnTable.getDeleteItems())) {
+            columns.addAll(this.columnTable.getDeleteItems());
         }
 
         // 索引处理
@@ -577,10 +583,8 @@ public class MysqlTableDesignTabController extends DynamicTabController {
                 param.setTableName(tableName);
                 this.dbItem.createTable(param);
                 MysqlEventUtil.tableAdded(this.dbItem);
-                // this.initDBListener();
             } else {// 修改表
                 MysqlTableAlertParam param = this.initAlertParam();
-                param.setTableName(tableName);
                 this.dbItem.alterTable(param);
                 MysqlEventUtil.tableAlerted(tableName, this.dbItem);
             }
@@ -620,7 +624,7 @@ public class MysqlTableDesignTabController extends DynamicTabController {
     //     }
     // };
 
-    private final String statusKey= UUID.randomUUID().toString();
+    // private final String statusKey = UUID.randomUUID().toString();
     //
     // /**
     //  * 初始化数据监听器
@@ -663,6 +667,8 @@ public class MysqlTableDesignTabController extends DynamicTabController {
             this.mysqlTable = this.dbItem.selectFullTable(tableName);
             this.initNormal();
         }
+        // 重置表格
+        this.columnTable.reset();
         // 标记为结束
         FXUtil.runPulse(() -> this.initiating = false);
     }
@@ -704,7 +710,7 @@ public class MysqlTableDesignTabController extends DynamicTabController {
         // 索引
         this.indexTable.setItem(MysqlIndexControl.of(this.dbItem.indexes(this.tableName())));
         // 字段
-        this.columnTable.setItem(MysqlColumnControl.of(this.dbItem.fullColumns(this.tableName())));
+        this.columnTable.setItem(MysqlColumnControl.of(this.dbItem.columns(this.tableName())));
         // 触发器
         this.triggerTable.setItem(MysqlTriggerControl.of(this.dbItem.triggers(this.tableName())));
         // 外键
@@ -743,15 +749,13 @@ public class MysqlTableDesignTabController extends DynamicTabController {
             if (column == null) {
                 return;
             }
-            // 从table移除数据
-            if (column.isCreated()) {
-                this.columnTable.removeItem(column);
+            // 确认操作
+            if (!column.isCreated() && !MessageBox.confirm(I18nHelper.deleteField() + " " + column.getName())) {
                 return;
             }
-            // 删除数据
-            if (MessageBox.confirm(I18nHelper.deleteField() + " " + column.getName())) {
-                column.setDeleted(true);
-            }
+            // 从table移除数据
+            this.columnTable.removeItem(column);
+            column.setDeleted(true);
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
@@ -1120,7 +1124,7 @@ public class MysqlTableDesignTabController extends DynamicTabController {
             }
         });
         // 初始化监听器
-        this.listener = new DBStatusListener(statusKey) {
+        this.listener = new DBStatusListener() {
             @Override
             public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
                 initChangedFlag();
@@ -1190,15 +1194,15 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      */
     @FXML
     private void doAdd() {
-        if (this.tabPane.getSelectedIndex() == 1) {
+        if (this.tabPane.isSelectedTab("columnTab")) {
             this.addColumn();
-        } else if (this.tabPane.getSelectedIndex() == 2) {
+        } else if (this.tabPane.isSelectedTab("indexTab")) {
             this.addIndex();
-        } else if (this.tabPane.getSelectedIndex() == 3) {
+        } else if (this.tabPane.isSelectedTab("foreignKeyTab")) {
             this.addForeignKey();
-        } else if (this.tabPane.getSelectedIndex() == 4) {
+        } else if (this.tabPane.isSelectedTab("triggerTab")) {
             this.addTrigger();
-        } else if (this.tabPane.getSelectedIndex() == 5) {
+        } else if (this.tabPane.isSelectedTab("checkTab")) {
             this.addCheck();
         }
     }
@@ -1208,15 +1212,15 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      */
     @FXML
     private void doDelete() {
-        if (this.tabPane.getSelectedIndex() == 1) {
+        if (this.tabPane.isSelectedTab("columnTab")) {
             this.deleteColumn();
-        } else if (this.tabPane.getSelectedIndex() == 2) {
+        } else if (this.tabPane.isSelectedTab("indexTab")) {
             this.deleteIndex();
-        } else if (this.tabPane.getSelectedIndex() == 3) {
+        } else if (this.tabPane.isSelectedTab("foreignKeyTab")) {
             this.deleteForeignKey();
-        } else if (this.tabPane.getSelectedIndex() == 4) {
+        } else if (this.tabPane.isSelectedTab("triggerTab")) {
             this.deleteTrigger();
-        } else if (this.tabPane.getSelectedIndex() == 5) {
+        } else if (this.tabPane.isSelectedTab("checkTab")) {
             this.deleteCheck();
         }
     }
@@ -1226,15 +1230,15 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      */
     @FXML
     private void doMoveUp() {
-        if (this.tabPane.getSelectedIndex() == 1) {
+        if (this.tabPane.isSelectedTab("columnTab")) {
             this.moveColumnUp();
-        } else if (this.tabPane.getSelectedIndex() == 2) {
+        } else if (this.tabPane.isSelectedTab("indexTab")) {
             this.moveIndexUp();
-        } else if (this.tabPane.getSelectedIndex() == 3) {
+        } else if (this.tabPane.isSelectedTab("foreignKeyTab")) {
             this.moveForeignKeyUp();
-        } else if (this.tabPane.getSelectedIndex() == 4) {
+        } else if (this.tabPane.isSelectedTab("triggerTab")) {
             this.moveTriggerUp();
-        } else if (this.tabPane.getSelectedIndex() == 5) {
+        } else if (this.tabPane.isSelectedTab("checkTab")) {
             this.moveCheckUp();
         }
     }
@@ -1244,15 +1248,15 @@ public class MysqlTableDesignTabController extends DynamicTabController {
      */
     @FXML
     private void doMoveDown() {
-        if (this.tabPane.getSelectedIndex() == 1) {
+        if (this.tabPane.isSelectedTab("columnTab")) {
             this.moveColumnDown();
-        } else if (this.tabPane.getSelectedIndex() == 2) {
+        } else if (this.tabPane.isSelectedTab("indexTab")) {
             this.moveIndexDown();
-        } else if (this.tabPane.getSelectedIndex() == 3) {
+        } else if (this.tabPane.isSelectedTab("foreignKeyTab")) {
             this.moveForeignKeyDown();
-        } else if (this.tabPane.getSelectedIndex() == 4) {
+        } else if (this.tabPane.isSelectedTab("triggerTab")) {
             this.moveTriggerDown();
-        } else if (this.tabPane.getSelectedIndex() == 5) {
+        } else if (this.tabPane.isSelectedTab("checkTab")) {
             this.moveCheckDown();
         }
     }

@@ -26,8 +26,8 @@ public class MysqlColumnControl extends MysqlColumn {
     public ClearableTextField getNameControl() {
         ClearableTextField textField = new ClearableTextField();
         textField.setPromptText(I18nHelper.pleaseInputName());
-        textField.addTextChangeListener((observable, oldValue, newValue) -> this.setName(newValue));
         textField.setText(this.getName());
+        textField.addTextChangeListener((observable, oldValue, newValue) -> this.setName(newValue));
         TableViewUtil.rowOnCtrlS(textField);
         TableViewUtil.selectRowOnMouseClicked(textField);
         return textField;
@@ -36,11 +36,9 @@ public class MysqlColumnControl extends MysqlColumn {
     public ClearableTextField getCommentControl() {
         ClearableTextField textField = new ClearableTextField();
         textField.setPromptText(I18nHelper.pleaseInputComment());
-        if (this.getComment() != null) {
-            textField.setText(this.getComment());
-        }
-        textField.addTextChangeListener((observable, oldValue, newValue) -> this.setComment(newValue));
         textField.setFlexWidth("100% - 12");
+        textField.setText(this.getComment());
+        textField.addTextChangeListener((observable, oldValue, newValue) -> this.setComment(newValue));
         TableViewUtil.rowOnCtrlS(textField);
         TableViewUtil.selectRowOnMouseClicked(textField);
         return textField;
@@ -48,23 +46,23 @@ public class MysqlColumnControl extends MysqlColumn {
 
     public NumberTextField getSizeControl() {
         NumberTextField textField = new NumberTextField();
+        textField.setFlexWidth("100% - 12");
+        TableViewUtil.rowOnCtrlS(textField);
         if (this.getSize() != null) {
             textField.setValue(this.getSize());
         } else if (this.supportSize() && this.isCreated() && this.suggestSize() != null) {
             textField.setValue(this.getSize());
         }
         textField.addTextChangeListener((observable, oldValue, newValue) -> this.setSize(textField.getIntValue()));
-        textField.setFlexWidth("100% - 12");
-        TableViewUtil.rowOnCtrlS(textField);
         TableViewUtil.selectRowOnMouseClicked(textField);
         return textField;
     }
 
     public NumberTextField getDigitsControl() {
         NumberTextField textField = new NumberTextField();
-        textField.addTextChangeListener((observable, oldValue, newValue) -> this.setDigits(textField.getIntValue()));
-        textField.setValue(this.getDigits());
         textField.setFlexWidth("100% - 12");
+        textField.setValue(this.getDigits());
+        textField.addTextChangeListener((observable, oldValue, newValue) -> this.setDigits(textField.getIntValue()));
         TableViewUtil.rowOnCtrlS(textField);
         TableViewUtil.selectRowOnMouseClicked(textField);
         return textField;
@@ -72,8 +70,8 @@ public class MysqlColumnControl extends MysqlColumn {
 
     public DBFiledTypeComboBox getTypeControl() {
         DBFiledTypeComboBox comboBox = new DBFiledTypeComboBox();
-        comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setType(newValue));
         comboBox.selectFirstIfNull(this.getType());
+        comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setType(newValue));
         TableViewUtil.rowOnCtrlS(comboBox);
         TableViewUtil.selectRowOnMouseClicked(comboBox);
         return comboBox;
@@ -81,8 +79,8 @@ public class MysqlColumnControl extends MysqlColumn {
 
     public FlexCheckBox getNullableControl() {
         FlexCheckBox checkBox = new FlexCheckBox();
-        checkBox.selectedChanged((observable, oldValue, newValue) -> this.setNullable(newValue));
         checkBox.setSelected(this.isNullable());
+        checkBox.selectedChanged((observable, oldValue, newValue) -> this.setNullable(newValue));
         // 监听主键值变化
         this.primaryKeyProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
@@ -96,8 +94,8 @@ public class MysqlColumnControl extends MysqlColumn {
 
     public FlexCheckBox getPrimaryKeyControl() {
         FlexCheckBox checkBox = new FlexCheckBox();
-        checkBox.selectedChanged((observable, oldValue, newValue) -> this.setPrimaryKey(newValue));
         checkBox.setSelected(this.isPrimaryKey());
+        checkBox.selectedChanged((observable, oldValue, newValue) -> this.setPrimaryKey(newValue));
         TableViewUtil.rowOnCtrlS(checkBox);
         TableViewUtil.selectRowOnMouseClicked(checkBox);
         return checkBox;

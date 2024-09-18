@@ -28,23 +28,22 @@
                 <Insets left="10" top="10"/>
             </HBox.margin>
         </SaveSVGGlyph>
-        <AddSVGGlyph fx:id="add" onMousePrimaryClicked="#doAdd" size="14" managed="false" visible="false">
+        <AddSVGGlyph fx:id="add" onMousePrimaryClicked="#doAdd" size="14">
             <HBox.margin>
                 <Insets left="10" top="10"/>
             </HBox.margin>
         </AddSVGGlyph>
-        <DeleteSVGGlyph fx:id="delete" onMousePrimaryClicked="#doDelete" size="14" managed="false" visible="false">
+        <DeleteSVGGlyph fx:id="delete" onMousePrimaryClicked="#doDelete" size="14">
             <HBox.margin>
                 <Insets left="10" top="10"/>
             </HBox.margin>
         </DeleteSVGGlyph>
-        <MoveUpSVGGlyph fx:id="moveUp" onMousePrimaryClicked="#doMoveUp" size="14" managed="false" visible="false">
+        <MoveUpSVGGlyph fx:id="moveUp" onMousePrimaryClicked="#doMoveUp" size="14">
             <HBox.margin>
                 <Insets left="10" top="10"/>
             </HBox.margin>
         </MoveUpSVGGlyph>
-        <MoveDownSVGGlyph fx:id="moveDown" onMousePrimaryClicked="#doMoveDown" size="14" managed="false"
-                          visible="false">
+        <MoveDownSVGGlyph fx:id="moveDown" onMousePrimaryClicked="#doMoveDown" size="14">
             <HBox.margin>
                 <Insets left="10" top="10"/>
             </HBox.margin>

@@ -162,10 +162,6 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public void setType(String type) {
-        if (StrUtil.containsIgnoreCase(type, " UNSIGNED")) {
-            this.setUnsigned(true);
-            type = type.substring(0, type.length() - 9);
-        }
         this.type = type;
         super.putOriginalData("type", type);
     }
@@ -190,13 +186,6 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         super.putOriginalData("defaultValue", defaultValue);
     }
 
-    // public void defaultValue(Object defaultValue) {
-    //     if (!Objects.equals(defaultValue, this.defaultValue)) {
-    //         this.defaultValue = defaultValue;
-    //         this.setChanged(true);
-    //     }
-    // }
-
     public String getDefaultValueString() {
         Object defaultValue = this.defaultValue;
         return defaultValue == null ? null : defaultValue.toString();
@@ -211,13 +200,6 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         }
     }
 
-    // public void autoIncrement(Boolean autoIncrement) {
-    //     if (autoIncrement != this.autoIncrement) {
-    //         this.autoIncrement = autoIncrement;
-    //         this.setChanged(true);
-    //     }
-    // }
-
     public boolean isAutoIncrement() {
         return BooleanUtil.isTrue(this.autoIncrement);
     }
@@ -227,37 +209,21 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public void setCharset(String charset) {
-        // if (!StrUtil.equalsIgnoreCase(charset, this.charset)) {
-        //     this.charset = charset;
-        //     this.setChanged(true);
-        // }
         this.charset = charset;
         super.putOriginalData("charset", charset);
     }
 
     public void setCollation(String collation) {
-        // if (!StrUtil.equalsIgnoreCase(collation, this.collation)) {
-        //     this.collation = collation;
-        //     this.setChanged(true);
-        // }
         this.collation = collation;
         super.putOriginalData("collation", collation);
     }
 
     public void setValue(String value) {
-        // if (!StrUtil.equalsIgnoreCase(value, this.value)) {
-        //     this.value = value;
-        //     this.setChanged(true);
-        // }
         this.value = value;
         super.putOriginalData("value", value);
     }
 
     public void setUnsigned(Boolean unsigned) {
-        // if (unsigned != this.unsigned) {
-        //     this.unsigned = unsigned;
-        //     this.setChanged(true);
-        // }
         this.unsigned = unsigned;
         super.putOriginalData("unsigned", unsigned);
     }
@@ -275,14 +241,6 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         this.updateOnCurrentTimestamp = updateOnCurrentTimestamp;
         super.putOriginalData("updateOnCurrentTimestamp", updateOnCurrentTimestamp);
     }
-
-    // public void updateOnCurrentTimestamp(Boolean updateOnCurrentTimestamp) {
-    //     if (updateOnCurrentTimestamp != this.updateOnCurrentTimestamp) {
-    //         super.putOriginalData("updateOnCurrentTimestamp", updateOnCurrentTimestamp);
-    //         this.updateOnCurrentTimestamp = updateOnCurrentTimestamp;
-    //         // this.setChanged(true);
-    //     }
-    // }
 
     public boolean isUpdateOnCurrentTimestamp() {
         return BooleanUtil.isTrue(this.updateOnCurrentTimestamp);
@@ -444,101 +402,25 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         super.putOriginalData("name", name);
     }
 
-    // public ClearableTextField getNameControl() {
-    //     ClearableTextField textField = new ClearableTextField();
-    //     textField.setPromptText(I18nHelper.pleaseInputName());
-    //     textField.addTextChangeListener((observable, oldValue, newValue) -> this.setName(newValue));
-    //     if (this.name != null) {
-    //         textField.setText(this.name);
-    //     }
-    //     TableViewUtil.rowOnCtrlS(textField);
-    //     TableViewUtil.selectRowOnMouseClicked(textField);
-    //     return textField;
-    // }
-
     public void setComment(String comment) {
         this.comment = comment;
         super.putOriginalData("comment", comment);
     }
-
-    // public ClearableTextField getCommentControl() {
-    //     ClearableTextField textField = new ClearableTextField();
-    //     textField.setPromptText(I18nHelper.pleaseInputComment());
-    //     if (this.comment != null) {
-    //         textField.setText(this.comment);
-    //     }
-    //     textField.addTextChangeListener((observable, oldValue, newValue) -> this.setComment(newValue));
-    //     textField.setFlexWidth("100% - 12");
-    //     TableViewUtil.rowOnCtrlS(textField);
-    //     TableViewUtil.selectRowOnMouseClicked(textField);
-    //     return textField;
-    // }
 
     public void setSize(Integer size) {
         this.size = size;
         super.putOriginalData("size", size);
     }
 
-    // public NumberTextField getSizeControl() {
-    //     NumberTextField textField = new NumberTextField();
-    //     if (this.size != null) {
-    //         textField.setValue(this.size);
-    //     } else if (this.supportSize() && this.isCreated() && this.suggestSize() != null) {
-    //         this.size = this.suggestSize();
-    //         textField.setValue(this.size);
-    //     }
-    //     textField.addTextChangeListener((observable, oldValue, newValue) -> this.setSize(textField.getIntValue()));
-    //     textField.setFlexWidth("100% - 12");
-    //     TableViewUtil.rowOnCtrlS(textField);
-    //     TableViewUtil.selectRowOnMouseClicked(textField);
-    //     return textField;
-    // }
-
     public void setDigits(Integer digits) {
         this.digits = digits;
         super.putOriginalData("digits", digits);
     }
 
-    // public NumberTextField getDigitsControl() {
-    //     NumberTextField textField = new NumberTextField();
-    //     textField.addTextChangeListener((observable, oldValue, newValue) -> this.setDigits(textField.getIntValue()));
-    //     if (this.digits != null) {
-    //         textField.setValue(this.digits);
-    //     }
-    //     textField.setFlexWidth("100% - 12");
-    //     TableViewUtil.rowOnCtrlS(textField);
-    //     TableViewUtil.selectRowOnMouseClicked(textField);
-    //     return textField;
-    // }
-
-    // public DBFiledTypeComboBox getTypeControl() {
-    //     DBFiledTypeComboBox comboBox = new DBFiledTypeComboBox();
-    //     comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setType(newValue));
-    //     comboBox.selectFirstIfNull(this.type);
-    //     TableViewUtil.rowOnCtrlS(comboBox);
-    //     TableViewUtil.selectRowOnMouseClicked(comboBox);
-    //     return comboBox;
-    // }
-
     public void setNullable(Boolean nullable) {
         this.nullable = nullable;
         super.putOriginalData("nullable", nullable);
     }
-
-    // public FlexCheckBox getNullableControl() {
-    //     FlexCheckBox checkBox = new FlexCheckBox();
-    //     checkBox.selectedChanged((observable, oldValue, newValue) -> this.setNullable(newValue));
-    //     checkBox.setSelected(this.isNullable());
-    //     // 监听主键值变化
-    //     this.primaryKeyProperty().addListener((observable, oldValue, newValue) -> {
-    //         if (newValue) {
-    //             checkBox.setSelected(false);
-    //         }
-    //     });
-    //     TableViewUtil.rowOnCtrlS(checkBox);
-    //     TableViewUtil.selectRowOnMouseClicked(checkBox);
-    //     return checkBox;
-    // }
 
     public SimpleBooleanProperty primaryKeyProperty() {
         if (this.primaryKeyProperty == null) {
@@ -547,31 +429,32 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         return this.primaryKeyProperty;
     }
 
+    public boolean isPrimaryKey() {
+        return this.primaryKeyProperty != null && this.primaryKeyProperty.get();
+    }
+
     public void setPrimaryKey(Boolean primaryKey) {
         this.primaryKeyProperty().set(primaryKey);
         super.putOriginalData("primaryKey", primaryKey);
     }
 
-    // public FlexCheckBox getPrimaryKeyControl() {
-    //     FlexCheckBox checkBox = new FlexCheckBox();
-    //     checkBox.selectedChanged((observable, oldValue, newValue) -> this.setPrimaryKey(newValue));
-    //     checkBox.setSelected(this.isPrimaryKey());
-    //     TableViewUtil.rowOnCtrlS(checkBox);
-    //     TableViewUtil.selectRowOnMouseClicked(checkBox);
-    //     return checkBox;
-    // }
-    //
-    // public ConfigurationSVGGlyph getConfigControl() {
-    //     ConfigurationSVGGlyph glyph = new ConfigurationSVGGlyph();
-    //     glyph.setOnMousePrimaryClicked(event -> {
-    //         PopupAdapter popup = PopupManager.parsePopup(DBColumnConfigPopupController.class);
-    //         popup.setProp("dbColumn", this);
-    //         popup.setProp("dbClient", CacheHelper.get("dbClient"));
-    //         popup.showPopup(glyph);
-    //     });
-    //     TableViewUtil.selectRowOnMouseClicked(glyph);
-    //     return glyph;
-    // }
+    public boolean isPrimaryKeyChanged() {
+        boolean checked1 = super.checkOriginalData("primaryKey", this.isPrimaryKey());
+        if (!checked1) {
+            return true;
+        }
+        boolean checked2 = super.checkOriginalData("primarySize", this.getPrimaryKeySize());
+        if (!checked2) {
+            return true;
+        }
+        if(this.isNameChanged()){
+            return true;
+        }
+        if(this.isDeleted()){
+            return true;
+        }
+        return false;
+    }
 
     public void setZeroFill(Boolean zeroFill) {
         this.zeroFill = zeroFill;
@@ -587,28 +470,17 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         super.putOriginalData("primaryKeySize", primaryKeySize);
     }
 
-    public boolean isPrimaryKey() {
-        if (this.isAutoIncrement()) {
-            return true;
-        }
-        return BooleanUtil.isTrue(this.primaryKeyProperty().get());
-    }
-
     public boolean isNullable() {
         return BooleanUtil.isTrue(this.nullable);
     }
 
-    public boolean isPrimaryKeyChanged() {
-        return super.checkOriginalData("primaryKey", this.primaryKeyProperty().get());
-    }
-
-    @Override
-    public void setDeleted(boolean deleted) {
-        super.setDeleted(deleted);
-        if (deleted && this.isPrimaryKey()) {
-            this.setPrimaryKey(false);
-        }
-    }
+    // @Override
+    // public void setDeleted(boolean deleted) {
+    //     super.setDeleted(deleted);
+    //     // if (deleted && this.isPrimaryKey()) {
+    //     //     this.setPrimaryKey(false);
+    //     // }
+    // }
 
     public boolean isYearType() {
         return DBColumnUtil.isYearType(this.getType());
@@ -655,6 +527,67 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         }
     }
 
+    public void parseKey(String key) {
+        if (StrUtil.isEmpty(key)) {
+            return;
+        }
+        this.setPrimaryKey("pri".equalsIgnoreCase(key));
+    }
+
+    public void parseType(String type) {
+        if (!type.contains("(") && !type.contains(" ")) {
+            this.setType(type);
+            return;
+        }
+        type = type.toLowerCase();
+        if (type.contains("unsigned")) {
+            this.setUnsigned(true);
+            type = type.replace("unsigned", "").trim();
+        }
+        if (type.contains("zerofill")) {
+            this.setZeroFill(true);
+            type = type.replace("zerofill", "").trim();
+        }
+        if(!type.contains("(")){
+            this.setType(type);
+            return;
+        }
+
+        String _type = type.substring(0, type.indexOf("("));
+        this.setType(_type);
+        String sub1 = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+        // 枚举
+        if (this.supportEnum()) {
+            this.setValue(sub1);
+        } else if (this.supportDigits() && sub1.contains(",")) {// 小数
+            String[] arr = sub1.split(",");
+            this.setSize(Integer.parseInt(arr[0]));
+            this.setDigits(Integer.parseInt(arr[1]));
+        } else {// 整数
+            this.setSize(Integer.parseInt(sub1));
+        }
+    }
+
+    public void parseExtra(String extra) {
+        if (StrUtil.isEmpty(extra)) {
+            return;
+        }
+        if (StrUtil.containsIgnoreCase(extra, "auto_increment")) {
+            this.setAutoIncrement(true);
+        }
+        if (StrUtil.containsIgnoreCase(extra, "on update CURRENT_TIMESTAMP")) {
+            this.setUpdateOnCurrentTimestamp(true);
+        }
+    }
+
+    public void parseCollation(String collation) {
+        if (StrUtil.isEmpty(collation)) {
+            return;
+        }
+        this.setCollation(collation);
+        this.setCharset(collation.substring(0, collation.indexOf("_")));
+    }
+
     public void initColumn(String columnType, String columnExtra) {
         if (!columnType.contains("(") && !columnType.contains(" ")) {
             this.setType(columnType.toUpperCase());
@@ -695,25 +628,24 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     @Override
     public void copy(MysqlColumn column) {
         if (column != null) {
-            this.size = column.size;
-            this.name = column.name;
-            this.type = column.type;
-            this.value = column.value;
-            this.dbName = column.dbName;
-            this.digits = column.digits;
-            this.comment = column.comment;
-            this.charset = column.charset;
-            this.position = column.position;
-            this.nullable = column.nullable;
-            this.unsigned = column.unsigned;
-            this.zeroFill = column.zeroFill;
-            this.collation = column.collation;
-            this.tableName = column.tableName;
-            this.defaultValue = column.defaultValue;
+            this.setSize(column.size);
+            this.setName(column.name);
+            this.setType(column.type);
+            this.setValue(column.value);
+            this.setDbName(column.dbName);
+            this.setDigits(column.digits);
+            this.setComment(column.comment);
+            this.setCharset(column.charset);
+            this.setNullable(column.nullable);
+            this.setUnsigned(column.unsigned);
+            this.setZeroFill(column.zeroFill);
+            this.setTableName(column.tableName);
+            this.setCollation(column.collation);
+            this.setDefaultValue(column.defaultValue);
             this.setPrimaryKey(column.isPrimaryKey());
-            this.autoIncrement = column.autoIncrement;
-            this.primaryKeySize = column.primaryKeySize;
-            this.updateOnCurrentTimestamp = column.updateOnCurrentTimestamp;
+            this.setAutoIncrement(column.autoIncrement);
+            this.setPrimaryKeySize(column.primaryKeySize);
+            this.setUpdateOnCurrentTimestamp(column.updateOnCurrentTimestamp);
         }
     }
 

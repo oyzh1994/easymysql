@@ -4,6 +4,8 @@ import javafx.beans.value.ChangeListener;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.UUID;
+
 /**
  * @author oyzh
  * @since 2024/7/23
@@ -12,6 +14,11 @@ public abstract class DBStatusListener implements ChangeListener<Object> {
 
     @Getter
     private final String key;
+
+    public DBStatusListener() {
+        this.key = UUID.randomUUID().toString();
+        DBStatusListenerManager.addListener(this);
+    }
 
     public DBStatusListener(@NonNull String key) {
         this.key = key;

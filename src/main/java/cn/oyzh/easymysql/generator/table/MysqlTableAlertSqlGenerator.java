@@ -242,7 +242,7 @@ public class MysqlTableAlertSqlGenerator {
                         .append(DBUtil.wrap(index.getName(), DBDialect.MYSQL))
                         .append(" (");
                 for (MysqlIndex.IndexColumn column : index.getColumns()) {
-                    builder.append(DBUtil.wrap(column.getColumnName(),DBDialect.MYSQL));
+                    builder.append(DBUtil.wrap(column.getColumnName(), DBDialect.MYSQL));
                     if (column.getSubPart() > 0) {
                         builder.append("(").append(column.getSubPart()).append(")");
                     }
