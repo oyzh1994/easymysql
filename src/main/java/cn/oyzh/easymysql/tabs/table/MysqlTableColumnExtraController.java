@@ -4,7 +4,7 @@ import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
-import cn.oyzh.easymysql.fx.table.DBDefaultValueTextFiled;
+import cn.oyzh.easymysql.fx.table.MysqlDefaultValueTextFiled;
 import cn.oyzh.easymysql.fx.table.DBEnumTextFiled;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
 import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
@@ -34,7 +34,7 @@ public class MysqlTableColumnExtraController extends SubTabController {
      * 默认值
      */
     @FXML
-    private DBDefaultValueTextFiled defaultValue;
+    private MysqlDefaultValueTextFiled defaultValue;
 
     /**
      * 字段值组件
@@ -221,7 +221,8 @@ public class MysqlTableColumnExtraController extends SubTabController {
 
     /**
      * 执行初始化
-     * @param column 字段
+     *
+     * @param column   字段
      * @param dbClient 客户端
      */
     public void init(MysqlColumn column, DBClient dbClient) {
@@ -275,7 +276,9 @@ public class MysqlTableColumnExtraController extends SubTabController {
         if (this.column.supportCharset()) {
             this.charsetBox.display();
             this.collationBox.display();
-            this.charset.init(this.dbClient);
+            if (this.charset.isItemEmpty()) {
+                this.charset.init(this.dbClient);
+            }
             this.charset.select(this.column.getCharset());
             this.collation.select(this.column.getCollation());
         } else {

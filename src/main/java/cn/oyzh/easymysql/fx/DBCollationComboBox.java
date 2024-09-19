@@ -14,8 +14,9 @@ public class DBCollationComboBox extends FlexComboBox<String> {
         String aCharset = this.getProp("charset");
         if (!StrUtil.equalsIgnoreCase(charset, aCharset)) {
             this.setProp("charset", charset);
+            this.clearItems();
             for (String collation : client.collation(charset)) {
-                this.addItem(collation);
+                this.addItem(collation.toUpperCase());
             }
         }
     }

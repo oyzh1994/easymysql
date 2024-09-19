@@ -10,14 +10,6 @@ import lombok.Getter;
  */
 public class DBCharsetComboBox extends FlexComboBox<String> {
 
-    @Getter
-    private DBClient client;
-
-    public void setClient(DBClient client) {
-        this.client = client;
-        this.init(client);
-    }
-
     public void init(DBClient client) {
         this.clearItems();
         // 空数据

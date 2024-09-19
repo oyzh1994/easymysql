@@ -47,7 +47,7 @@ public class DBRecordUtil {
         } else if (column.supportEnum()) {
             SelectTextFiled textField = new SelectTextFiled();
             textField.setEditable(false);
-            textField.setDataList(column.getValueList());
+            textField.setItemList(column.getValueList());
             textField.setValue(object);
             node = textField;
         } else if (column.supportInteger()) {

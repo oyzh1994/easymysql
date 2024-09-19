@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.DBCharsetComboBox?>
 <?import cn.oyzh.easymysql.fx.DBCollationComboBox?>
-<?import cn.oyzh.easymysql.fx.table.DBDefaultValueTextFiled?>
+<?import cn.oyzh.easymysql.fx.table.MysqlDefaultValueTextFiled?>
 <?import cn.oyzh.easymysql.fx.table.DBEnumTextFiled?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
@@ -33,11 +33,11 @@
                 <Insets left="10" top="5"/>
             </HBox.margin>
         </AccentLabel>
-        <DBDefaultValueTextFiled fx:id="defaultValue" flexWidth="100% - 140" realHeight="25" styleClass="popover-item">
+        <MysqlDefaultValueTextFiled fx:id="defaultValue" flexWidth="100% - 140" realHeight="25" styleClass="popover-item">
             <HBox.margin>
                 <Insets left="5" top="5"/>
             </HBox.margin>
-        </DBDefaultValueTextFiled>
+        </MysqlDefaultValueTextFiled>
     </FlexHBox>
     <FlexHBox flexWidth="100%" realHeight="30" fx:id="currentTimestampBox" managed="false" visible="false">
         <FlexCheckBox fx:id="currentTimestamp" realHeight="25" text="%base.updateByCurrentTimestamp">

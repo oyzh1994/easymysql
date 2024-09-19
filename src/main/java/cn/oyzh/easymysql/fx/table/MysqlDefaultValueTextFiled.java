@@ -7,9 +7,9 @@ import cn.oyzh.fx.plus.controls.select.SelectTextFiled;
  * @author oyzh
  * @since 2024/7/12
  */
-public class DBDefaultValueTextFiled extends SelectTextFiled {
+public class MysqlDefaultValueTextFiled extends SelectTextFiled {
 
-    private boolean editableFlag = true;
+    private boolean editableFlag;
 
     {
         this.selectIndexChanged((observable, oldValue, newValue) -> {
@@ -26,28 +26,28 @@ public class DBDefaultValueTextFiled extends SelectTextFiled {
     public void init(MysqlColumn column, String defaultValue) {
         this.clear();
         this.clearData();
-        if (column.supportString() || column.supportBit()) {
-            this.editableFlag = true;
+        if (column.supportEnum()) {
+            this.editableFlag = false;
             this.setEditable(false);
+            this.setItemList(column.getValueList());
+            this.addData("NULL");
+            if (defaultValue != null) {
+                this.selectItem(defaultValue);
+            } else {
+                this.selectIndex(this.getItemSize());
+            }
+        } else {
+            this.editableFlag = true;
             this.addData("");
             this.addData("EMPTY STRING");
             this.addData("NULL");
-        } else if (column.supportEnum()) {
-            this.editableFlag = false;
-            this.setEditable(false);
-            this.setDataList(column.getValueList());
-            this.addData("NULL");
-        } else {
-            this.editableFlag = true;
-            this.setEditable(false);
-            this.addData("");
-            this.addData("NULL");
-        }
-        if (defaultValue != null) {
-            this.setEditable(true);
-            this.setText(defaultValue);
-        } else if (this.editableFlag) {
-            this.setEditable(true);
+            if (defaultValue != null) {
+                this.setEditable(true);
+                this.setText(defaultValue);
+            } else {
+                this.setEditable(false);
+                this.selectIndex(2);
+            }
         }
     }
 

@@ -420,7 +420,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
         // 数据库
         tempTable.setDbName(this.mysqlTable.getDbName());
 
-        // 设置表名称
+        // 表名称
         if (!this.newData) {
             tempTable.setName(this.mysqlTable.getName());
         }

@@ -4,7 +4,7 @@ import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
-import cn.oyzh.easymysql.fx.table.DBDefaultValueTextFiled;
+import cn.oyzh.easymysql.fx.table.MysqlDefaultValueTextFiled;
 import cn.oyzh.easymysql.fx.table.DBEnumTextFiled;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
@@ -38,7 +38,7 @@ public class DBColumnConfigPopupController extends PopupController {
      * 默认值
      */
     @FXML
-    private DBDefaultValueTextFiled defaultValue;
+    private MysqlDefaultValueTextFiled defaultValue;
 
     /**
      * 字段值组件
