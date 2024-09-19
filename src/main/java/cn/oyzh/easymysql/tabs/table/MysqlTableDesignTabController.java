@@ -597,6 +597,8 @@ public class MysqlTableDesignTabController extends ParentTabController {
             this.unsaved = false;
             // 初始化信息
             this.initInfo(tableName);
+            // 重置表格
+            this.resetTable();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         } finally {
@@ -654,6 +656,10 @@ public class MysqlTableDesignTabController extends ParentTabController {
         }
     }
 
+    protected void resetTable() throws Exception {
+        this.columnTable.reset();
+    }
+
     /**
      * 初始化信息
      */
@@ -672,8 +678,6 @@ public class MysqlTableDesignTabController extends ParentTabController {
             this.mysqlTable = this.dbItem.selectFullTable(tableName);
             this.initNormal();
         }
-        // 重置表格
-        this.columnTable.reset();
         // 标记为结束
         FXUtil.runPulse(() -> this.initiating = false);
     }
@@ -1122,7 +1126,6 @@ public class MysqlTableDesignTabController extends ParentTabController {
                     sql = MysqlTableCreateSqlGenerator.generateSql(param);
                 } else {
                     MysqlTableAlertParam param = this.initAlertParam();
-                    param.setTableName(this.mysqlTable.getName());
                     sql = MysqlTableAlertSqlGenerator.generateSql(param);
                 }
                 this.sqlPreview.setText(sql);
@@ -1166,7 +1169,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * @param tableName 表信息
      * @param dbItem    db库树节点
      */
-    public void init(String tableName, MysqlDatabaseTreeItem dbItem) {
+    public void init(String tableName, MysqlDatabaseTreeItem dbItem) throws Exception {
         // 获取对象
         this.dbItem = dbItem;
         // 初始化引擎

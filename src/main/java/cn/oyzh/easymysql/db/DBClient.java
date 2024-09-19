@@ -1872,13 +1872,17 @@ public class DBClient {
     public void alertTable(MysqlTableAlertParam param) {
         Connection connection = null;
         try {
+            String sql = MysqlTableAlertSqlGenerator.generateSql(param);
+            // 无变化
+            if(StrUtil.isBlank(sql)){
+                return;
+            }
             String dbName = param.table().getDbName();
             connection = this.connection(dbName);
+            connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
-            String sql = MysqlTableAlertSqlGenerator.generateSql(param);
             DBUtil.printSql(sql);
             List<String> sqlList = DBSqlParser.parseSql(sql, this.dialect());
-            connection.setAutoCommit(false);
             for (String sqlStr : sqlList) {
                 statement.executeUpdate(sqlStr);
             }

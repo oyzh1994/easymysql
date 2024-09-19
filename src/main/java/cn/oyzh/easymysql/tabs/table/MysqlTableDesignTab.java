@@ -64,7 +64,7 @@ public class MysqlTableDesignTab extends MysqlTab {
      * @param tableName db表
      * @param dbItem    db数据库树节点
      */
-    public void init(String tableName, MysqlDatabaseTreeItem dbItem) {
+    public void init(String tableName, MysqlDatabaseTreeItem dbItem) throws Exception {
         this.controller().init(tableName, dbItem);
         this.flush();
     }

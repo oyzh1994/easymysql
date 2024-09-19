@@ -106,8 +106,14 @@ public class DBObjectStatus {
         return this.originalData().get(key);
     }
 
+    protected void clearOriginalData( ) {
+        if (this.originalData != null) {
+            this.originalData().clear();
+        }
+    }
+
     protected Boolean checkOriginalData(String key, Object currentData) {
-        return !Objects.equals(getOriginalData(key), currentData);
+        return !Objects.equals(this.getOriginalData(key), currentData);
     }
 
     public void initStatus() {

@@ -19,8 +19,9 @@ public class DBStatusTableView<S extends DBObjectStatus> extends FlexTableView<S
     @Getter
     private List<S> deleteItems;
 
-    public void reset() {
+    public void reset() throws Exception {
         this.deleteItems = null;
+        this.clearStatus();
     }
 
     public void clearStatus() throws Exception {

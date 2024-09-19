@@ -162,7 +162,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type = type.toUpperCase();
         super.putOriginalData("type", type);
     }
 
@@ -440,20 +440,20 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
 
     public boolean isPrimaryKeyChanged() {
         boolean checked1 = super.checkOriginalData("primaryKey", this.isPrimaryKey());
-        if (!checked1) {
+        if (checked1) {
             return true;
+        }
+        if (!this.isPrimaryKey()) {
+            return false;
         }
         boolean checked2 = super.checkOriginalData("primarySize", this.getPrimaryKeySize());
-        if (!checked2) {
+        if (checked2) {
             return true;
         }
-        if(this.isNameChanged()){
+        if (this.isNameChanged()) {
             return true;
         }
-        if(this.isDeleted()){
-            return true;
-        }
-        return false;
+        return this.isDeleted();
     }
 
     public void setZeroFill(Boolean zeroFill) {
@@ -548,7 +548,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
             this.setZeroFill(true);
             type = type.replace("zerofill", "").trim();
         }
-        if(!type.contains("(")){
+        if (!type.contains("(")) {
             this.setType(type);
             return;
         }
