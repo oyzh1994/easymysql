@@ -208,11 +208,11 @@ public class MysqlTableDesignTabController extends ParentTabController {
     @FXML
     private FlexTableColumn<MysqlColumnControl, String> colComment;
 
-    /**
-     * 字段配置
-     */
-    @FXML
-    private FlexTableColumn<MysqlColumnControl, String> colConfig;
+    // /**
+    //  * 字段配置
+    //  */
+    // @FXML
+    // private FlexTableColumn<MysqlColumnControl, String> colConfig;
 
     /**
      * 表索引组件
@@ -1020,7 +1020,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
         this.colComment.setCellValueFactory(new PropertyValueFactory<>("commentControl"));
         this.colNullable.setCellValueFactory(new PropertyValueFactory<>("nullableControl"));
         this.colPrimaryKey.setCellValueFactory(new PropertyValueFactory<>("primaryKeyControl"));
-        this.colConfig.setCellValueFactory(new PropertyValueFactory<>("configControl"));
+        // this.colConfig.setCellValueFactory(new PropertyValueFactory<>("configControl"));
 
         // 索引
         this.indexName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));

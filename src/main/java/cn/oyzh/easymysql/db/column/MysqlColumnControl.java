@@ -101,17 +101,17 @@ public class MysqlColumnControl extends MysqlColumn {
         return checkBox;
     }
 
-    public ConfigurationSVGGlyph getConfigControl() {
-        ConfigurationSVGGlyph glyph = new ConfigurationSVGGlyph();
-        glyph.setOnMousePrimaryClicked(event -> {
-            PopupAdapter popup = PopupManager.parsePopup(DBColumnConfigPopupController.class);
-            popup.setProp("dbColumn", this);
-            popup.setProp("dbClient", CacheHelper.get("dbClient"));
-            popup.showPopup(glyph);
-        });
-        TableViewUtil.selectRowOnMouseClicked(glyph);
-        return glyph;
-    }
+    // public ConfigurationSVGGlyph getConfigControl() {
+    //     ConfigurationSVGGlyph glyph = new ConfigurationSVGGlyph();
+    //     glyph.setOnMousePrimaryClicked(event -> {
+    //         PopupAdapter popup = PopupManager.parsePopup(DBColumnConfigPopupController.class);
+    //         popup.setProp("dbColumn", this);
+    //         popup.setProp("dbClient", CacheHelper.get("dbClient"));
+    //         popup.showPopup(glyph);
+    //     });
+    //     TableViewUtil.selectRowOnMouseClicked(glyph);
+    //     return glyph;
+    // }
 
     public static MysqlColumnControl of(MysqlColumn column) {
         MysqlColumnControl control = new MysqlColumnControl();

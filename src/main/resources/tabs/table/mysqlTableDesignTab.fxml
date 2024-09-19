@@ -56,14 +56,14 @@
                     <columns>
                         <DBStatusColumn fx:id="colStatus"/>
                         <FlexTableColumn flexWidth="15%" fx:id="colName" text="%base.name" resizable="true"/>
-                        <FlexTableColumn realWidth="120" fx:id="colType" text="%base.type"/>
-                        <FlexTableColumn realWidth="80" fx:id="colSize" text="%base.length"/>
-                        <FlexTableColumn realWidth="80" fx:id="colDigits" text="%base.digits"/>
-                        <FlexTableColumn realWidth="60" fx:id="colPrimaryKey" text="%base.primaryKey"/>
-                        <FlexTableColumn realWidth="80" fx:id="colNullable" text="%base.nullable"/>
-                        <FlexTableColumn flexWidth="85% - 510" fx:id="colComment" text="%base.comment"
+                        <FlexTableColumn maxWidth="120" realWidth="120" fx:id="colType" text="%base.type"/>
+                        <FlexTableColumn maxWidth="80" realWidth="80" fx:id="colSize" text="%base.length"/>
+                        <FlexTableColumn maxWidth="80" realWidth="80" fx:id="colDigits" text="%base.digits"/>
+                        <FlexTableColumn maxWidth="60" realWidth="60" fx:id="colPrimaryKey" text="%base.primaryKey"/>
+                        <FlexTableColumn maxWidth="80" realWidth="80" fx:id="colNullable" text="%base.nullable"/>
+                        <FlexTableColumn flexWidth="85% - 460" fx:id="colComment" text="%base.comment"
                                          resizable="true"/>
-                        <FlexTableColumn realWidth="50" fx:id="colConfig" text="%base.config"/>
+                        <!-- <FlexTableColumn realWidth="50" fx:id="colConfig" text="%base.config"/> -->
                     </columns>
                 </DBStatusTableView>
                 <fx:include fx:id="tableColumnExtra" source="./mysqlTableColumnExtra.fxml">

@@ -143,9 +143,9 @@ public class MysqlTableColumnExtraController extends SubTabController {
     private DBClient dbClient;
 
     /**
-     * 提交
+     * 应用
      */
-    private void submit() {
+    private void apply() {
         try {
             if (this.ignoreChanged) {
                 return;
@@ -199,26 +199,31 @@ public class MysqlTableColumnExtraController extends SubTabController {
                 this.collation.init(newValue, this.dbClient);
                 this.collation.selectFirst();
             }
-            this.submit();
+            this.apply();
         });
         // 填充零变化事件
-        this.zeroFill.selectedChanged((observable, oldValue, newValue) -> this.submit());
+        this.zeroFill.selectedChanged((observable, oldValue, newValue) -> this.apply());
         // 无符号变化事件
-        this.unsigned.selectedChanged((observable, oldValue, newValue) -> this.submit());
+        this.unsigned.selectedChanged((observable, oldValue, newValue) -> this.apply());
         // 值变化事件
-        this.value.addTextChangeListener((observable, oldValue, newValue) -> this.submit());
+        this.value.addTextChangeListener((observable, oldValue, newValue) -> this.apply());
         // 排序选中事件
-        this.collation.selectedItemChanged((observable, oldValue, newValue) -> this.submit());
+        this.collation.selectedItemChanged((observable, oldValue, newValue) -> this.apply());
         // 自动递增变化事件
-        this.autoIncrement.selectedChanged((observable, oldValue, newValue) -> this.submit());
+        this.autoIncrement.selectedChanged((observable, oldValue, newValue) -> this.apply());
         // 当前时间戳变化事件
-        this.currentTimestamp.selectedChanged((observable, oldValue, newValue) -> this.submit());
+        this.currentTimestamp.selectedChanged((observable, oldValue, newValue) -> this.apply());
         // 默认值变化事件
-        this.defaultValue.addTextChangeListener((observable, oldValue, newValue) -> this.submit());
+        this.defaultValue.addTextChangeListener((observable, oldValue, newValue) -> this.apply());
         // 键长度变化事件
-        this.primaryKeySize.addTextChangeListener((observable, oldValue, newValue) -> this.submit());
+        this.primaryKeySize.addTextChangeListener((observable, oldValue, newValue) -> this.apply());
     }
 
+    /**
+     * 执行初始化
+     * @param column 字段
+     * @param dbClient 客户端
+     */
     public void init(MysqlColumn column, DBClient dbClient) {
         if (column == null) {
             return;
