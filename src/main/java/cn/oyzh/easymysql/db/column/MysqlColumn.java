@@ -195,10 +195,10 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     public void setAutoIncrement(Boolean autoIncrement) {
         this.autoIncrement = autoIncrement;
         super.putOriginalData("autoIncrement", autoIncrement);
-        // 如果是自动递增，则清除默认值
-        if (BooleanUtil.isTrue(autoIncrement)) {
-            this.setDefaultValue(null);
-        }
+        // // 如果是自动递增，则清除默认值
+        // if (BooleanUtil.isTrue(autoIncrement)) {
+        //     this.setDefaultValue(null);
+        // }
     }
 
     public boolean isAutoIncrement() {
@@ -431,19 +431,17 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public boolean isPrimaryKey() {
-        // return this.primaryKey != null && this.primaryKey.isPrimaryKey();
         return this.primaryKeyProperty != null && this.primaryKeyProperty.get();
     }
 
     public void setPrimaryKey(Boolean primaryKey) {
         this.primaryKeyProperty().set(primaryKey);
-        // this.primaryKey = primaryKey;
         super.putOriginalData("primaryKey", primaryKey);
     }
 
     public boolean isColumnChanged() {
         for (Map.Entry<String, Object> entry : super.originalData().entrySet()) {
-            if (StrUtil.equalsAny(entry.getKey(), "primaryKey", "primaryKeySize")) {
+            if (!StrUtil.equalsAny(entry.getKey(), "primaryKey", "primaryKeySize")) {
                 return true;
             }
         }
@@ -451,21 +449,21 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public boolean isPrimaryKeyChanged() {
-        if (this.isCreated() && this.isPrimaryKey()) {
-            return true;
-        }
         boolean checked1 = super.checkOriginalData("primaryKey", this.isPrimaryKey());
         if (checked1) {
             return true;
-        }
-        if (!this.isPrimaryKey()) {
-            return false;
         }
         boolean checked2 = super.checkOriginalData("primaryKeySize", this.getPrimaryKeySize());
         if (checked2) {
             return true;
         }
-        if (this.isNameChanged()) {
+        if (this.isCreated() && this.isPrimaryKey()) {
+            return true;
+        }
+        if (this.isNameChanged() && this.isPrimaryKey()) {
+            return true;
+        }
+        if (this.isDeleted() && this.isPrimaryKey()) {
             return true;
         }
         return this.isDeleted();
