@@ -32,6 +32,8 @@ public class MysqlTableAlertParam {
 
     private MysqlForeignKeys foreignKeys;
 
+    // private MysqlPrimaryKeys primaryKeys;
+
     /**
      * 是否存在主键
      */
@@ -67,12 +69,28 @@ public class MysqlTableAlertParam {
 
     public boolean primaryKeyChanged() {
         if (this.hasColumns()) {
-            boolean b1 = this.columns.primaryKeyChanged();
-            if (b1) {
-                return true;
+            for (MysqlColumn column : columns) {
+                if (column.isPrimaryKeyChanged()) {
+                    return true;
+                }
+                if (column.isCreated() && column.isPrimaryKey()) {
+                    return true;
+                }
             }
-            for (MysqlColumn column : this.columns.createdList()) {
-                if (column.isPrimaryKey()) {
+        }
+        return false;
+    }
+
+    public boolean columnChanged() {
+        if (this.hasColumns()) {
+            for (MysqlColumn column : this.columns) {
+                if (column.isDeleted()) {
+                    return true;
+                }
+                if (column.isCreated()) {
+                    return true;
+                }
+                if (column.isColumnChanged()) {
                     return true;
                 }
             }
@@ -87,4 +105,6 @@ public class MysqlTableAlertParam {
     public void setTableName(String tableName) {
         this.table.setName(tableName);
     }
+
+
 }

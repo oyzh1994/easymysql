@@ -1777,7 +1777,7 @@ public class DBClient {
                 column.setTableName(viewName);
                 column.setCollation(collationName);
                 column.setNullable("yes".equalsIgnoreCase(nullable));
-                column.setPrimaryKey("pri".equalsIgnoreCase(columnKey));
+                // column.setPrimaryKey("pri".equalsIgnoreCase(columnKey));
                 columns.put(columnName, column);
             }
             DBUtil.close(resultSet);

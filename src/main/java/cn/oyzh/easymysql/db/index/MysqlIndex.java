@@ -13,6 +13,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * db表索引
@@ -183,7 +184,7 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
                 return true;
             }
             if (o instanceof IndexColumn column) {
-                return column.subPart == this.subPart && StrUtil.equals(this.columnName, column.columnName);
+                return Objects.equals(column.subPart, this.subPart) && StrUtil.equals(this.columnName, column.columnName);
             }
             return false;
         }

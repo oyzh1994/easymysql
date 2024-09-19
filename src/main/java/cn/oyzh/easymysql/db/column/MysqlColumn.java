@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * db字段
@@ -430,15 +431,29 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public boolean isPrimaryKey() {
+        // return this.primaryKey != null && this.primaryKey.isPrimaryKey();
         return this.primaryKeyProperty != null && this.primaryKeyProperty.get();
     }
 
     public void setPrimaryKey(Boolean primaryKey) {
         this.primaryKeyProperty().set(primaryKey);
+        // this.primaryKey = primaryKey;
         super.putOriginalData("primaryKey", primaryKey);
     }
 
+    public boolean isColumnChanged() {
+        for (Map.Entry<String, Object> entry : super.originalData().entrySet()) {
+            if (StrUtil.equalsAny(entry.getKey(), "primaryKey", "primaryKeySize")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isPrimaryKeyChanged() {
+        if (this.isCreated() && this.isPrimaryKey()) {
+            return true;
+        }
         boolean checked1 = super.checkOriginalData("primaryKey", this.isPrimaryKey());
         if (checked1) {
             return true;
@@ -446,7 +461,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         if (!this.isPrimaryKey()) {
             return false;
         }
-        boolean checked2 = super.checkOriginalData("primarySize", this.getPrimaryKeySize());
+        boolean checked2 = super.checkOriginalData("primaryKeySize", this.getPrimaryKeySize());
         if (checked2) {
             return true;
         }
@@ -468,6 +483,9 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     public void setPrimaryKeySize(Integer primaryKeySize) {
         this.primaryKeySize = primaryKeySize;
         super.putOriginalData("primaryKeySize", primaryKeySize);
+        // if (this.primaryKey != null) {
+        //     this.primaryKey.setPrimaryKeySize(primaryKeySize);
+        // }
     }
 
     public boolean isNullable() {
@@ -531,7 +549,13 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         if (StrUtil.isEmpty(key)) {
             return;
         }
-        this.setPrimaryKey("pri".equalsIgnoreCase(key));
+        if ("pri".equalsIgnoreCase(key)) {
+            // this.primaryKey = new MysqlPrimaryKey();
+            // this.primaryKey.setPrimaryKey(true);
+            this.setPrimaryKey(true);
+        } else {
+            this.setPrimaryKey(false);
+        }
     }
 
     public void parseType(String type) {
@@ -652,4 +676,8 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     public boolean isInvalid() {
         return StrUtil.isBlank(this.name) || StrUtil.isBlank(this.type);
     }
+
+    // public Integer getPrimaryKeySize() {
+    //     return this.primaryKey == null ? null : this.primaryKey.getPrimaryKeySize();
+    // }
 }

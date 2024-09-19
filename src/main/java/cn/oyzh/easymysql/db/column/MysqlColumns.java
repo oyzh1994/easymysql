@@ -43,11 +43,6 @@ public class MysqlColumns extends DBObjectList<MysqlColumn> {
     }
 
     public boolean primaryKeyChanged() {
-        for (MysqlColumn column : this) {
-            if (column.isPrimaryKeyChanged()) {
-                return true;
-            }
-        }
         return false;
     }
 

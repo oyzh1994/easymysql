@@ -44,7 +44,7 @@ public class MysqlTableAlertSqlGenerator {
                 .append(DBUtil.wrap(dbName, tableName, DBDialect.MYSQL))
                 .append(" \n");
         // 字段
-        if (param.hasColumns()) {
+        if (param.columnChanged()) {
             this.columnHandle(this.sqlBuilder, param);
         }
         // 主键

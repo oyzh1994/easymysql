@@ -95,7 +95,9 @@ public class MysqlColumnControl extends MysqlColumn {
     public FlexCheckBox getPrimaryKeyControl() {
         FlexCheckBox checkBox = new FlexCheckBox();
         checkBox.setSelected(this.isPrimaryKey());
-        checkBox.selectedChanged((observable, oldValue, newValue) -> this.setPrimaryKey(newValue));
+        checkBox.selectedChanged((observable, oldValue, newValue) -> {
+            this.setPrimaryKey(newValue);
+        });
         TableViewUtil.rowOnCtrlS(checkBox);
         TableViewUtil.selectRowOnMouseClicked(checkBox);
         return checkBox;

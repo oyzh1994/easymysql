@@ -83,7 +83,7 @@ public class DBObjectStatus {
         }
     }
 
-    private Map<String, Object> originalData() {
+    protected Map<String, Object> originalData() {
         if (this.originalData == null) {
             this.originalData = new HashMap<>();
         }
