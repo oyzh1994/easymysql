@@ -201,7 +201,7 @@ public class SettingController extends StageController {
             }
         }
         // 记住页面大小处理
-        if (this.setting.getPageInfo() != null) {
+        if (this.setting.getRememberPageSize() != null) {
             this.pageSize.setSelected(this.setting.isRememberPageSize());
         }
         // 记住页面拉伸处理
@@ -259,7 +259,7 @@ public class SettingController extends StageController {
         // 透明度相关处理
         this.setting.setOpacity(this.opacity.getValue());
         // 其他设置
-        this.setting.setPageInfo(this.pageSize.isSelected() ? 1 : 0);
+        this.setting.setRememberPageSize(this.pageSize.isSelected() ? 1 : 0);
         this.setting.setTabStrategy(this.tabStrategy.getStrategy());
         this.setting.setTabLimit(this.tabLimit.getValue().intValue());
         this.setting.setRememberPageResize(this.pageResize.isSelected() ? 1 : 0);
