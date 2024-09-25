@@ -4,7 +4,7 @@ import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.domain.MysqlInfo;
 import cn.oyzh.easymysql.handler.DataHandler;
-import cn.oyzh.fx.common.util.DateHelper;
+import cn.oyzh.fx.common.date.DateHelper;
 import cn.oyzh.fx.common.util.FastFileWriter;
 import lombok.Getter;
 import lombok.Setter;

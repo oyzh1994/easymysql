@@ -5,7 +5,7 @@ import cn.hutool.core.util.HexUtil;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
-import cn.oyzh.fx.common.util.DateHelper;
+import cn.oyzh.fx.common.date.DateHelper;
 import cn.oyzh.fx.common.util.TextUtil;
 import lombok.experimental.UtilityClass;
 
