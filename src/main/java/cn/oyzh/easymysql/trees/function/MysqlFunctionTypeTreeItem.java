@@ -84,19 +84,19 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
      * 加载子节点
      */
     public void loadChild() {
-        if (!this.loaded && !this.loading) {
+        if (!this.isLoaded() && !this.isLoading()) {
             this.reloadChild();
-            this.extend();
+            this.expend();
         }
     }
 
     @Override
     public void reloadChild() {
-        if (this.loading) {
+        if (this.isLoading()) {
             return;
         }
-        this.loaded = true;
-        this.loading = true;
+        this.setLoaded(true);
+        this.setLoading(true);
         Task task = TaskBuilder.newBuilder()
                 .onStart(() -> {
                     List<MysqlFunction> functions = this.client().functions(this.dbName());
@@ -108,7 +108,7 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
                         }
                         this.setChild(list);
                     } else {// 有数据则执行删除、新增、更新操作
-                        ObservableList children = this.getRichChildren();
+                        ObservableList children = this.richChildren();
                         ObservableList<MysqlFunctionTreeItem> list = children;
                         List<MysqlFunctionTreeItem> delList = new ArrayList<>();
                         List<MysqlFunctionTreeItem> addList = new ArrayList<>();
@@ -135,12 +135,12 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
                     }
                 })
                 .onError(ex -> {
-                    this.loaded = false;
+                    this.setLoaded(false);
                     MessageBox.exception(ex);
                 })
                 .onSuccess(this::flushValue)
                 .onFinish(() -> {
-                    this.loading = false;
+                    this.setLoading(false);
                     this.stopWaiting();
                 })
                 .build();
@@ -161,8 +161,9 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
      */
     private void flushValue() {
         BackgroundService.submitFXLater(() -> {
-            this.getValue().flushGraphicColor();
-            this.getValue().flushNum();
+//            this.getValue().flushGraphicColor();
+//            this.getValue().flushNum();
+            this.refresh();
         });
     }
 

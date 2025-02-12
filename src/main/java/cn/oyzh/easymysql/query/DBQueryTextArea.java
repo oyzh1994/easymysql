@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.query;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.thread.TaskManager;
+import cn.oyzh.common.util.NumberUtil;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.fx.plus.keyboard.KeyboardUtil;
@@ -106,7 +107,7 @@ public class DBQueryTextArea extends FlexRichTextArea {
                     // 行结束
                     long lineEnd = textLen.get() + len + 1;
                     // 判断边距
-                    if (NumUtil.checkBound(lineStart, lineEnd, start, end)) {
+                    if (NumberUtil.checkBound(lineStart, lineEnd, start, end)) {
                         if (undoComment.get()) {
                             str = str.stripLeading().substring(3);
                         } else {
@@ -204,6 +205,6 @@ public class DBQueryTextArea extends FlexRichTextArea {
                 ex.printStackTrace();
             }
         };
-        TaskManager.startDelay("query:initTextStyle:" + this.hashCode(), task, 150);
+        TaskManager.startDelay("query:initTextStyle:" + this.hashCode(), task::run, 150);
     }
 }

@@ -118,10 +118,10 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
         return this.value.getName();
     }
 
-    @Override
-    public boolean supportFilter() {
-        return true;
-    }
+//    @Override
+//    public boolean supportFilter() {
+//        return true;
+//    }
 
     @Override
     public void reloadChild() {

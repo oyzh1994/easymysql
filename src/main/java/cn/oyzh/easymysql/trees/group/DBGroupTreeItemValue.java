@@ -1,8 +1,9 @@
 package cn.oyzh.easymysql.trees.group;
 
-import cn.oyzh.easymysql.trees.DBTreeItemValue;
 import cn.oyzh.fx.gui.svg.glyph.GroupSVGGlyph;
+import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
+import cn.oyzh.fx.plus.controls.tree.view.FXTreeItem;
 import javafx.scene.paint.Color;
 import lombok.experimental.Accessors;
 
@@ -14,33 +15,43 @@ import lombok.experimental.Accessors;
  * @since 2023/12/21
  */
 @Accessors(chain = true, fluent = true)
-public class DBGroupTreeItemValue extends DBTreeItemValue {
+public class DBGroupTreeItemValue extends RichTreeItemValue {
 
-    private final DBGroupTreeItem item;
+//    private final DBGroupTreeItem item;
 
     public DBGroupTreeItemValue(DBGroupTreeItem item) {
-        this.item = item;
-        this.flushGraphic();
-        this.flushGraphicColor();
-        this.name(item.value().getName());
+//        this.item = item;
+//        this.flushGraphic();
+//        this.flushGraphicColor();
+//        this.name(item.value().getName());
+        super(item);
     }
 
     @Override
-    public void flushGraphic() {
-        if (this.graphic() == null) {
-            GroupSVGGlyph glyph = new GroupSVGGlyph("10");
-            glyph.disableTheme();
-            this.graphic(glyph);
-        }
+    protected DBGroupTreeItem item() {
+        return (DBGroupTreeItem) super.item();
     }
 
     @Override
-    public void flushGraphicColor() {
-        SVGGlyph glyph = (SVGGlyph) this.graphic();
-        if (this.item.isChildEmpty()) {
-            super.flushGraphicColor();
-        } else {
-            glyph.setColor(Color.DEEPSKYBLUE);
+    public String name() {
+        return this.item().value().getName();
+    }
+
+    @Override
+    public SVGGlyph graphic() {
+        if (this.graphic == null) {
+            this.graphic = new GroupSVGGlyph("10");
+            this.graphic.disableTheme();
+//            this.graphic(glyph);
         }
+        return super.graphic();
+    }
+
+    @Override
+    public Color graphicColor() {
+        if (!this.item.isChildEmpty()) {
+           return Color.DEEPSKYBLUE;
+        }
+        return super.graphicColor();
     }
 }

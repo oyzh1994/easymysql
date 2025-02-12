@@ -209,7 +209,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      */
     public List<MysqlTableTreeItem> getTableChild() {
         List<MysqlTableTreeItem> list = new ArrayList<>();
-        for (RichTreeItem<?> child : this.getTableTypeChild().getRichChildren()) {
+        for (RichTreeItem<?> child : this.getTableTypeChild().richChildren()) {
             if (child instanceof MysqlTableTreeItem treeItem) {
                 list.add(treeItem);
             }
@@ -223,7 +223,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      * @return 查询类型子节点
      */
     public MysqlQueryTypeTreeItem getQueryTypeChild() {
-        for (RichTreeItem<?> child : this.getRichChildren()) {
+        for (RichTreeItem<?> child : this.richChildren()) {
             if (child instanceof MysqlQueryTypeTreeItem treeItem) {
                 return treeItem;
             }
@@ -237,7 +237,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      * @return 函数类型子节点
      */
     public MysqlFunctionTypeTreeItem getFunctionTypeChild() {
-        for (RichTreeItem<?> child : this.getRichChildren()) {
+        for (RichTreeItem<?> child : this.richChildren()) {
             if (child instanceof MysqlFunctionTypeTreeItem treeItem) {
                 return treeItem;
             }

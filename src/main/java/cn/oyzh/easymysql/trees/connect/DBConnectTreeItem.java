@@ -249,7 +249,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
         dbInfo.setName(this.value.getName() + "-" + I18nHelper.repeat());
         dbInfo.setCollects(Collections.emptyList());
         if (this.infoStore.add(dbInfo)) {
-            this.parent().addConnect(dbInfo);
+            this.connectManager().addConnect(dbInfo);
         } else {
             MessageBox.warn(I18nHelper.operationFail());
         }
@@ -259,7 +259,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
     public void delete() {
         if (MessageBox.confirm(I18nHelper.delete() + " [" + this.value().getName() + "]")) {
             this.closeConnect(false);
-            if (this.parent().delConnectItem(this)) {
+            if (this.connectManager().delConnectItem(this)) {
                 DBEventUtil.infoDeleted(this.value);
             } else {
                 MessageBox.warn(I18nHelper.operationFail());
@@ -322,7 +322,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
      *
      * @return 父节点
      */
-    public DBConnectManager parent() {
+    public DBConnectManager connectManager() {
         Object object = this.getParent();
         if (object instanceof DBConnectManager connectManager) {
             return connectManager;

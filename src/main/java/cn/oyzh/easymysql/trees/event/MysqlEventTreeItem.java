@@ -5,7 +5,6 @@ import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
-import cn.oyzh.easymysql.trees.DBTreeItemValue;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -119,9 +118,9 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
         return this.value.getName();
     }
 
-    @Override
-    public boolean supportFilter() {
-        return true;
-    }
+//    @Override
+//    public boolean supportFilter() {
+//        return true;
+//    }
 
 }

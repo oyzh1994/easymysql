@@ -126,8 +126,9 @@ public class MysqlQueryTypeTreeItem extends DBTreeItem<MysqlQueryTypeTreeItemVal
      * 刷新值
      */
     private void flushValue() {
-        this.getValue().flushGraphicColor();
-        this.getValue().flushNum();
+//        this.getValue().flushGraphicColor();
+//        this.getValue().flushNum();
+        this.refresh();
     }
 
     public MysqlConnect info() {

@@ -47,6 +47,7 @@ import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
 import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.easymysql.util.DBUtil;
+import cn.oyzh.ssh.SSHForwardConfig;
 import cn.oyzh.ssh.SSHForwarder;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -234,7 +235,7 @@ public class DBClient {
     public DBClient(@NonNull MysqlConnect dbInfo) {
         this.dbInfo = dbInfo;
         if (dbInfo.isSSHForward()) {
-            this.sshForwarder = new SSHForwarder(dbInfo.getSshInfo());
+            this.sshForwarder = new SSHForwarder(dbInfo.getSshConfig());
         }
         this.stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -308,7 +309,7 @@ public class DBClient {
         int port;
         // ssh端口转发
         if (this.dbInfo.isSSHForward()) {
-            SSHForwardInfo forwardInfo = new SSHForwardInfo();
+            SSHForwardConfig forwardInfo = new SSHForwardConfig();
             forwardInfo.setHost(this.dbInfo.hostIp());
             forwardInfo.setPort(this.dbInfo.hostPort());
             // 连接信息

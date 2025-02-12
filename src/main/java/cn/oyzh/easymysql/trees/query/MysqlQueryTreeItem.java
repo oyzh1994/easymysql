@@ -115,7 +115,8 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
         this.value.setName(name);
         // 修改名称
         if (DBQueryStore.INSTANCE.update(this.value)) {
-            this.getValue().flushText();
+//            this.getValue().flushText();
+            this.refresh();
         } else {
             this.value.setName(oldName);
             MessageBox.warn(I18nHelper.operationFail());
@@ -139,10 +140,10 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
         MysqlEventUtil.queryOpen(this.value, this.dbItem());
     }
 
-    @Override
-    public boolean supportFilter() {
-        return true;
-    }
+//    @Override
+//    public boolean supportFilter() {
+//        return true;
+//    }
 
 
 }

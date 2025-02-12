@@ -179,10 +179,10 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         return dbColumn;
     }
 
-    @Override
-    public boolean supportFilter() {
-        return true;
-    }
+//    @Override
+//    public boolean supportFilter() {
+//        return true;
+//    }
 
     public boolean isUpdatable() {
         return this.value.isUpdatable();
