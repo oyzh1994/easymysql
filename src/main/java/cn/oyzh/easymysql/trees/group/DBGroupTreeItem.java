@@ -112,7 +112,8 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
         }
         // 修改名称
         if (this.groupStore.update(this.value)) {
-            this.getValue().flushText();
+//            this.getValue().flushText();
+            this.refresh();
         } else {
             MessageBox.warn(I18nHelper.operationFail());
         }
@@ -198,7 +199,7 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
     @Override
     public List<DBConnectTreeItem> getConnectItems() {
         List<DBConnectTreeItem> items = new ArrayList<>(this.getChildrenSize());
-        for (TreeItem<?> item : this.getRealChildren()) {
+        for (TreeItem<?> item : this.richChildren()) {
             if (item instanceof DBConnectTreeItem treeItem) {
                 items.add(treeItem);
             }

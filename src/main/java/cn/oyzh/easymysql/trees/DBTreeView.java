@@ -41,7 +41,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
     public DBTreeItemFilter itemFilter() {
         // 初始化过滤器
         if (this.itemFilter == null) {
-            this.itemFilter = SpringUtil.getBean(DBTreeItemFilter.class);
+            this.itemFilter = new DBTreeItemFilter();
         }
         return (DBTreeItemFilter) this.itemFilter;
     }
@@ -50,12 +50,12 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
         this.dragContent = "db_tree_drag";
         this.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.setCellFactory((Callback<TreeView<?>, TreeCell<?>>) param -> new DBTreeCell());
-        super.root(new DBRootTreeItem(this));
-        this.root().extend();
+        super.setRoot(new DBRootTreeItem(this));
+        this.getRoot().expend();
     }
 
     @Override
-    public DBRootTreeItem root() {
+    public DBRootTreeItem getRoot() {
         return (DBRootTreeItem) this.getRoot();
     }
 
@@ -63,7 +63,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      * 关闭连接
      */
     public void closeConnects() {
-        for (DBConnectTreeItem treeItem : this.root().getConnectedItems()) {
+        for (DBConnectTreeItem treeItem : this.getRoot().getConnectedItems()) {
             ThreadUtil.startVirtual(treeItem::closeConnect);
         }
     }
@@ -108,7 +108,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
     @EventSubscribe
     private void onInfoUpdate(DBInfoUpdatedEvent event) {
         f1:
-        for (TreeItem<?> item : this.root().unfilteredChildren()) {
+        for (TreeItem<?> item : this.getRoot().unfilteredChildren()) {
             if (item instanceof DBConnectTreeItem connectTreeItem) {
                 if (connectTreeItem.value() == event.data()) {
                     connectTreeItem.value(event.data());
@@ -142,7 +142,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      */
     @EventSubscribe
     public void addGroup(DBAddGroupEvent event) {
-        this.root().addGroup();
+        this.getRoot().addGroup();
     }
 
     /**
@@ -152,7 +152,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      */
     @EventSubscribe
     private void infoAdded(DBInfoAddedEvent event) {
-        this.root().addConnect(event.data());
+        this.getRoot().addConnect(event.data());
     }
 
     /**
@@ -162,6 +162,6 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      */
     @EventSubscribe
     private void infoUpdated(DBInfoUpdatedEvent event) {
-        this.root().infoUpdate(event.data());
+        this.getRoot().infoUpdate(event.data());
     }
 }

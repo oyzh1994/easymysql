@@ -257,7 +257,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      */
     private List<DBGroupTreeItem> getGroupItems() {
         List<DBGroupTreeItem> items = new ArrayList<>(this.getChildrenSize());
-        for (TreeItem<?> item : this.getRealChildren()) {
+        for (TreeItem<?> item : this.richChildren()) {
             if (item instanceof DBGroupTreeItem treeItem) {
                 items.add(treeItem);
             }
@@ -281,7 +281,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      */
     public void infoUpdate(MysqlConnect info) {
         f1:
-        for (TreeItem<?> item : this.getRealChildren()) {
+        for (TreeItem<?> item : this.richChildren()) {
             if (item instanceof DBConnectTreeItem connectTreeItem) {
                 if (connectTreeItem.value() == info) {
                     connectTreeItem.value(info);
@@ -316,7 +316,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
                 this.infoStore.update(item.value());
             }
             super.addChild(item);
-            this.extend();
+            this.expend();
         }
     }
 
@@ -324,7 +324,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     public void addConnectItems(@NonNull List<DBConnectTreeItem> items) {
         if (CollUtil.isNotEmpty(items)) {
             this.addChild((List) items);
-            this.extend();
+            this.expend();
         }
     }
 
@@ -341,7 +341,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     @Override
     public List<DBConnectTreeItem> getConnectItems() {
         List<DBConnectTreeItem> items = new ArrayList<>(this.getChildrenSize());
-        for (TreeItem<?> child : this.getRealChildren()) {
+        for (TreeItem<?> child : this.richChildren()) {
             if (child instanceof DBConnectTreeItem connectTreeItem) {
                 items.add(connectTreeItem);
             } else if (child instanceof DBGroupTreeItem groupTreeItem) {
@@ -354,7 +354,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     @Override
     public List<DBConnectTreeItem> getConnectedItems() {
         List<DBConnectTreeItem> items = new ArrayList<>(this.getChildrenSize());
-        for (Object item : this.getRealChildren()) {
+        for (Object item : this.richChildren()) {
             if (item instanceof DBConnectTreeItem connectTreeItem) {
                 if (connectTreeItem.isConnected()) {
                     items.add(connectTreeItem);

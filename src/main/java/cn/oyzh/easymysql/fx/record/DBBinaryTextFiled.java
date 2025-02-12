@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.fx.record;
 
+import cn.oyzh.common.util.NumberUtil;
 import cn.oyzh.fx.gui.text.field.ChooseFileTextField;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +26,7 @@ public class DBBinaryTextFiled extends ChooseFileTextField {
 
     public static String format(String columnType, Object o) {
         if (o instanceof byte[] bytes) {
-            return "(" + columnType + ")" + " " + NumUtil.formatSize(bytes.length);
+            return "(" + columnType + ")" + " " + NumberUtil.formatSize(bytes.length);
         }
         return "(" + columnType + ")";
     }

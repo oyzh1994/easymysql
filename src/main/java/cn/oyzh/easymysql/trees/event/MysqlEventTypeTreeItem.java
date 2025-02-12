@@ -81,19 +81,19 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItemVal
      * 加载子节点
      */
     public void loadChild() {
-        if (!this.isWaiting() && !this.loaded && !this.loading) {
+        if (!this.isWaiting() && !this.isLoaded() && !this.isLoading()) {
             this.reloadChild();
-            this.extend();
+            this.expend();
         }
     }
 
     @Override
     public void reloadChild() {
-        if (this.loading) {
+        if (this.isLoading()) {
             return;
         }
-        this.loaded = true;
-        this.loading = true;
+        this.setLoaded(true);
+        this.setLoading(true);
         Task task = TaskBuilder.newBuilder()
                 .onStart(() -> {
                     List<MysqlEvent> events = this.client().events(this.dbName());
@@ -105,7 +105,7 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItemVal
                         }
                         this.setChild(list);
                     } else {// 有数据则执行删除、新增、更新操作
-                        ObservableList children = this.getRichChildren();
+                        ObservableList children = this.richChildren();
                         ObservableList<MysqlEventTreeItem> list = children;
                         List<MysqlEventTreeItem> delList = new ArrayList<>();
                         List<MysqlEventTreeItem> addList = new ArrayList<>();
@@ -132,12 +132,12 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItemVal
                     }
                 })
                 .onError(ex -> {
-                    this.loaded = false;
+                    this.setLoaded(false);
                     MessageBox.exception(ex);
                 })
                 .onSuccess(this::flushValue)
                 .onFinish(() -> {
-                    this.loading = false;
+                    this.setLoading(false);
                     this.stopWaiting();
                 })
                 .build();
@@ -157,8 +157,9 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItemVal
      * 刷新值
      */
     private void flushValue() {
-        this.getValue().flushGraphicColor();
-        this.getValue().flushNum();
+//        this.getValue().flushGraphicColor();
+//        this.getValue().flushNum();
+        this.refresh();
     }
 
     public MysqlConnect info() {

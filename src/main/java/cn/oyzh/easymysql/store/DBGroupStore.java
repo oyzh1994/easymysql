@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.json.JSONUtil;
 import cn.oyzh.common.log.JulLog;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlGroup;
@@ -48,7 +49,7 @@ public class DBGroupStore extends ArrayFileStore<MysqlGroup> {
                 return new ArrayList<>();
             }
             // 将文本转换为DBGroup列表
-            List<MysqlGroup> DBGroups = JSONUtil.toList(text, MysqlGroup.class);
+            List<MysqlGroup> DBGroups = JSONUtil.toBeanList(text, MysqlGroup.class);
             if (CollUtil.isNotEmpty(DBGroups)) {
                 // 对DBGroup列表进行排序
                 DBGroups = DBGroups.parallelStream().sorted().collect(Collectors.toList());

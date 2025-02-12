@@ -46,7 +46,7 @@ public abstract class MysqlTypeFileWriter implements Closeable {
             }
         }
         if (column.supportJson()) {
-            return JSONUtil.escape(value.toString());
+            return TextUtil.escape(value.toString());
         }
         if (column.supportBinary()) {
             byte[] bytes = (byte[]) value;

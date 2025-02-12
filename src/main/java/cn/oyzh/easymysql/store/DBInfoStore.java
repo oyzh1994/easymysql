@@ -5,6 +5,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.dto.Paging;
+import cn.oyzh.common.json.JSONUtil;
 import cn.oyzh.common.log.JulLog;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlConnect;
@@ -58,7 +59,7 @@ public class DBInfoStore extends ArrayFileStore<MysqlConnect> {
                 return new ArrayList<>();
             }
             // 将文件内容解析为dbInfo列表
-            List<MysqlConnect> infos = JSONUtil.toList(text, MysqlConnect.class);
+            List<MysqlConnect> infos = JSONUtil.toBeanList(text, MysqlConnect.class);
             // 如果dbInfo列表非空
             if (CollUtil.isNotEmpty(infos)) {
                 // 对dbInfo列表进行排序
