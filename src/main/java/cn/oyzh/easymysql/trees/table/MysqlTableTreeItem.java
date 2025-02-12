@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.trees.table;
 
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.dto.Paging;
 import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
 import cn.oyzh.easymysql.controller.data.MysqlDataExportController;
 import cn.oyzh.easymysql.controller.table.MysqlTableInfoController;
@@ -27,13 +28,12 @@ import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.util.DBI18nHelper;
-import cn.oyzh.fx.common.dto.Paging;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
+import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
-import cn.oyzh.fx.plus.menu.MenuItemHelper;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
@@ -243,7 +243,8 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
             // 修改名称
             this.dbItem().renameTable(oldName, tableName);
             this.value.setName(tableName);
-            this.getValue().flushText();
+//            this.getValue().flushText();
+            this.refresh();
             MysqlEventUtil.tableRenamed(this, this.dbItem());
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -350,10 +351,10 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return this.columns.primaryKeys().isEmpty();
     }
 
-    @Override
-    public boolean supportFilter() {
-        return true;
-    }
+//    @Override
+//    public boolean supportFilter() {
+//        return true;
+//    }
 
     public int insertRecord(MysqlRecordData recordData) {
         return this.insertRecord(recordData, null);

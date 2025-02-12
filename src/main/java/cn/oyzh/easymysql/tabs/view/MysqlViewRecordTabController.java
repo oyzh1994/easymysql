@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.tabs.view;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.dto.Paging;
 import cn.oyzh.easymysql.db.DBObjectList;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
@@ -19,31 +20,25 @@ import cn.oyzh.easymysql.popups.MysqlTableRecordFilterPopupController;
 import cn.oyzh.easymysql.store.DBSettingStore;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.util.DBRecordUtil;
-import cn.oyzh.fx.common.dto.Paging;
-import cn.oyzh.fx.common.spring.ScopeType;
+import cn.oyzh.fx.gui.page.PageBox;
+import cn.oyzh.fx.gui.page.PageEvent;
+import cn.oyzh.fx.gui.tabs.DynamicTab;
+import cn.oyzh.fx.gui.tabs.DynamicTabController;
 import cn.oyzh.fx.plus.controls.box.FlexVBox;
-import cn.oyzh.fx.plus.controls.page.PageBox;
-import cn.oyzh.fx.plus.controls.page.PageEvent;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
-import cn.oyzh.fx.plus.tabs.DynamicTab;
-import cn.oyzh.fx.plus.tabs.DynamicTabController;
-import cn.oyzh.fx.plus.util.NodeUtil;
+import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
-import com.google.common.eventbus.Subscribe;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -56,9 +51,6 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2024/06/28
  */
-@Lazy
-@Component
-@Scope(ScopeType.PROTOTYPE)
 public class MysqlViewRecordTabController extends DynamicTabController {
 
     /**

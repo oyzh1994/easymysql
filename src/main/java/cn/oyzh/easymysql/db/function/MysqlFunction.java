@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.db.function;
 
+import cn.oyzh.common.util.ObjectCopier;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineSchema;
-import cn.oyzh.fx.common.util.ObjectCopier;
 import lombok.Getter;
 import lombok.Setter;
 

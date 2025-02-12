@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.domain;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.fx.common.util.ObjectComparator;
+import cn.oyzh.common.util.ObjectComparator;
 import lombok.Data;
 import lombok.NonNull;
 

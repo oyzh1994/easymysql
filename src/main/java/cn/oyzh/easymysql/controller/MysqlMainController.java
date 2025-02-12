@@ -4,7 +4,7 @@ import cn.hutool.log.JulLog;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlPageInfo;
 import cn.oyzh.easymysql.domain.MysqlSetting;
-import cn.oyzh.easymysql.event.DBInfoUpdatedEvent;
+import cn.oyzh.easymysql.event.connect.DBInfoUpdatedEvent;
 import cn.oyzh.easymysql.event.DBLeftCollapseEvent;
 import cn.oyzh.easymysql.event.DBLeftExtendEvent;
 import cn.oyzh.easymysql.fx.DBMsgTextArea;
