@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.tabs.procedure;
 
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
@@ -12,29 +13,24 @@ import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.common.spring.ScopeType;
-import cn.oyzh.fx.common.util.CacheHelper;
-import cn.oyzh.fx.plus.controls.area.FlexTextArea;
+import cn.oyzh.fx.gui.tabs.DynamicTabController;
 import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
 import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
 import cn.oyzh.fx.plus.controls.table.FlexTableView;
-import cn.oyzh.fx.plus.controls.textfield.FlexTextField;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
+import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
+import cn.oyzh.fx.plus.controls.text.field.FlexTextField;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
-import cn.oyzh.fx.plus.tabs.DynamicTabController;
+import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.util.FXUtil;
-import cn.oyzh.fx.plus.util.NodeUtil;
 import cn.oyzh.fx.plus.util.TableViewUtil;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.List;
@@ -47,9 +43,6 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2024/07/08
  */
-@Lazy
-@Component
-@Scope(ScopeType.PROTOTYPE)
 public class MysqlProcedureDesignTabController extends DynamicTabController {
 
     /**

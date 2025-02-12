@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.controller;
 
-import cn.hutool.log.JulLog;
+import cn.oyzh.common.log.JulLog;
+import cn.oyzh.common.thread.TaskManager;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlPageInfo;
 import cn.oyzh.easymysql.domain.MysqlSetting;
@@ -16,24 +17,18 @@ import cn.oyzh.easymysql.store.DBSettingStore;
 import cn.oyzh.easymysql.tabs.DBTabPane;
 import cn.oyzh.easymysql.trees.DBTreeView;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
-import cn.oyzh.fx.common.thread.TaskManager;
+import cn.oyzh.event.EventUtil;
 import cn.oyzh.fx.plus.controller.ParentStageController;
 import cn.oyzh.fx.plus.controller.SubStageController;
-import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
-import cn.oyzh.fx.plus.event.EventUtil;
 import cn.oyzh.fx.plus.keyboard.KeyListener;
-import cn.oyzh.fx.plus.node.ResizeEnhance;
-import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.TreeItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.WindowEvent;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,8 +40,6 @@ import java.util.List;
  * @author oyzh
  * @since 2023/06/22
  */
-@Lazy
-@Component
 public class MysqlMainController extends ParentStageController {
 
     /**

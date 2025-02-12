@@ -9,20 +9,16 @@ import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.common.spring.ScopeType;
-import cn.oyzh.fx.plus.controls.textfield.FlexTextField;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
+import cn.oyzh.fx.gui.tabs.DynamicTabController;
+import cn.oyzh.fx.plus.controls.text.field.FlexTextField;
 import cn.oyzh.fx.plus.information.MessageBox;
-import cn.oyzh.fx.plus.tabs.DynamicTabController;
+import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.util.FXUtil;
-import cn.oyzh.fx.plus.util.NodeUtil;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,9 +29,6 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2024/06/28
  */
-@Lazy
-@Component
-@Scope(ScopeType.PROTOTYPE)
 public class MysqlViewDesignTabController extends DynamicTabController {
 
     /**

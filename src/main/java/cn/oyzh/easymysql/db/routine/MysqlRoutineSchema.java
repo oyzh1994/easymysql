@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.routine;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.fx.common.util.ObjectComparator;
+import cn.oyzh.common.util.ObjectComparator;
 import javafx.beans.property.SimpleStringProperty;
 import lombok.Getter;
 import lombok.Setter;

@@ -6,11 +6,11 @@ import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
 import cn.oyzh.easymysql.fx.table.MysqlDefaultValueTextFiled;
 import cn.oyzh.easymysql.fx.table.DBEnumTextFiled;
+import cn.oyzh.fx.gui.tabs.SubTabController;
+import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
-import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
-import cn.oyzh.fx.plus.controls.textfield.NumberTextField;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.information.MessageBox;
-import cn.oyzh.fx.plus.tabs.SubTabController;
 import javafx.fxml.FXML;
 
 import java.net.URL;
@@ -70,7 +70,7 @@ public class MysqlTableColumnExtraController extends SubTabController {
      * 填充零
      */
     @FXML
-    private FlexCheckBox zeroFill;
+    private FXCheckBox zeroFill;
 
     /**
      * 自动递增组件
@@ -82,7 +82,7 @@ public class MysqlTableColumnExtraController extends SubTabController {
      * 自动递增
      */
     @FXML
-    private FlexCheckBox autoIncrement;
+    private FXCheckBox autoIncrement;
 
     /**
      * 无符号组件
@@ -94,7 +94,7 @@ public class MysqlTableColumnExtraController extends SubTabController {
      * 无符号
      */
     @FXML
-    private FlexCheckBox unsigned;
+    private FXCheckBox unsigned;
 
     /**
      * 根据当前时间戳更新组件
@@ -106,7 +106,7 @@ public class MysqlTableColumnExtraController extends SubTabController {
      * 根据当前时间戳更新
      */
     @FXML
-    private FlexCheckBox currentTimestamp;
+    private FXCheckBox currentTimestamp;
 
     /**
      * 字符集组件

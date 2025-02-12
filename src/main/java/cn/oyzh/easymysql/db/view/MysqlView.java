@@ -2,11 +2,11 @@ package cn.oyzh.easymysql.db.view;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.ObjectComparator;
+import cn.oyzh.common.util.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
-import cn.oyzh.fx.common.util.ObjectComparator;
-import cn.oyzh.fx.common.util.ObjectCopier;
 import javafx.beans.property.SimpleStringProperty;
 import lombok.Getter;
 import lombok.Setter;
