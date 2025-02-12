@@ -42,6 +42,9 @@ import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTypeTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTypeTreeItem;
+import cn.oyzh.fx.gui.menu.MenuItemHelper;
+import cn.oyzh.fx.gui.tree.view.RichTreeItem;
+import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.fx.plus.window.StageAdapter;
@@ -249,7 +252,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      */
     public List<MysqlFunctionTreeItem> getFunctionChild() {
         List<MysqlFunctionTreeItem> list = new ArrayList<>();
-        for (RichTreeItem<?> child : this.getFunctionTypeChild().getRichChildren()) {
+        for (RichTreeItem<?> child : this.getFunctionTypeChild().richChildren()) {
             if (child instanceof MysqlFunctionTreeItem treeItem) {
                 list.add(treeItem);
             }
@@ -263,7 +266,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      * @return 过程类型子节点
      */
     public MysqlProcedureTypeTreeItem getProcedureTypeChild() {
-        for (RichTreeItem<?> child : this.getRichChildren()) {
+        for (RichTreeItem<?> child : this.richChildren()) {
             if (child instanceof MysqlProcedureTypeTreeItem treeItem) {
                 return treeItem;
             }
@@ -278,7 +281,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      */
     public List<MysqlProcedureTreeItem> getProcedureChild() {
         List<MysqlProcedureTreeItem> list = new ArrayList<>();
-        for (RichTreeItem<?> child : this.getProcedureTypeChild().getRichChildren()) {
+        for (RichTreeItem<?> child : this.getProcedureTypeChild().richChildren()) {
             if (child instanceof MysqlProcedureTreeItem treeItem) {
                 list.add(treeItem);
             }
@@ -287,7 +290,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     }
 
     public MysqlEventTypeTreeItem getEventTypeChild() {
-        for (RichTreeItem<?> child : this.getRichChildren()) {
+        for (RichTreeItem<?> child : this.richChildren()) {
             if (child instanceof MysqlEventTypeTreeItem treeItem) {
                 return treeItem;
             }
@@ -297,7 +300,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
 
     public List<MysqlEventTreeItem> getEventChild() {
         List<MysqlEventTreeItem> list = new ArrayList<>();
-        for (RichTreeItem<?> child : this.getEventTypeChild().getRichChildren()) {
+        for (RichTreeItem<?> child : this.getEventTypeChild().richChildren()) {
             if (child instanceof MysqlEventTreeItem treeItem) {
                 list.add(treeItem);
             }
@@ -311,7 +314,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      * @return 查询类型子节点
      */
     public MysqlViewTypeTreeItem getViewTypeChild() {
-        for (RichTreeItem<?> child : this.getRichChildren()) {
+        for (RichTreeItem<?> child : this.richChildren()) {
             if (child instanceof MysqlViewTypeTreeItem treeItem) {
                 return treeItem;
             }
@@ -326,7 +329,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      */
     public List<MysqlViewTreeItem> getViewChild() {
         List<MysqlViewTreeItem> list = new ArrayList<>();
-        for (RichTreeItem<?> child : this.getViewTypeChild().getRichChildren()) {
+        for (RichTreeItem<?> child : this.getViewTypeChild().richChildren()) {
             if (child instanceof MysqlViewTreeItem treeItem) {
                 list.add(treeItem);
             }
@@ -368,7 +371,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     public void onPrimaryDoubleClick() {
         if (this.isChildEmpty()) {
             this.initTypes();
-            this.extend();
+            this.expend();
         }
     }
 

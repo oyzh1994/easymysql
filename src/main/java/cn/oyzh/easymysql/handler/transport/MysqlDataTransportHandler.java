@@ -25,7 +25,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/09/06
  */
-@Slf4j
 public class MysqlDataTransportHandler extends DataTransportHandler {
 
     @Override

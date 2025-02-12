@@ -20,10 +20,10 @@ public class DBTreeItemFilter implements RichTreeItemFilter {
     @Getter
     private boolean onlyCollect;
 
-    /**
-     * db主页搜索处理
-     */
-    private DBSearchHandler searchHandler;
+//    /**
+//     * db主页搜索处理
+//     */
+//    private DBSearchHandler searchHandler;
 
     @Override
     public boolean test(RichTreeItem<?> item) {
@@ -31,11 +31,11 @@ public class DBTreeItemFilter implements RichTreeItemFilter {
         if (item != null && !item.isFilterable()) {
             return true;
         }
-        // 判断是否满足搜索要求
-        DBSearchParam param = this.searchHandler.searchParam();
-        if (param != null && !param.isEmpty() && param.isFilterMode()) {
-            return this.searchHandler.getMatchType(item) != null;
-        }
+//        // 判断是否满足搜索要求
+//        DBSearchParam param = this.searchHandler.searchParam();
+//        if (param != null && !param.isEmpty() && param.isFilterMode()) {
+//            return this.searchHandler.getMatchType(item) != null;
+//        }
         return true;
     }
 

@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.handler.dump;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.log.JulLog;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
@@ -14,7 +15,6 @@ import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBUtil;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +23,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/09/10
  */
-@Slf4j
 public class MysqlDataDumpHandler extends DataDumpHandler {
 
     public MysqlDataDumpHandler(DBClient dbClient, String dbName) {
@@ -106,12 +105,12 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
                 break;
             }
             long end1 = System.currentTimeMillis();
-            log.info("查询耗时: {}ms", (end1 - start1));
+            JulLog.info("查询耗时: {}ms", (end1 - start1));
             long start2 = System.currentTimeMillis();
             List<String> inserts = DBDataUtil.toInsertSql(columns, records);
             this.fileWriter.appendLines(inserts);
             long end2 = System.currentTimeMillis();
-            log.info("写入耗时: {}ms", (end2 - start2));
+            JulLog.info("写入耗时: {}ms", (end2 - start2));
             start += this.queryLimit;
             this.processed(records.size());
         }

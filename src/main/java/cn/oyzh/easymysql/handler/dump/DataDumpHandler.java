@@ -1,11 +1,11 @@
 package cn.oyzh.easymysql.handler.dump;
 
+import cn.oyzh.common.date.DateHelper;
+import cn.oyzh.common.util.FastFileWriter;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.handler.DataHandler;
-import cn.oyzh.fx.common.date.DateHelper;
-import cn.oyzh.fx.common.util.FastFileWriter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -19,7 +19,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/08/22
  */
-@Slf4j
 public abstract class DataDumpHandler extends DataHandler {
 
     /**

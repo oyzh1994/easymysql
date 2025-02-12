@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.handler.transport;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.fx.data.DataTransportEvent;
@@ -10,7 +11,6 @@ import cn.oyzh.easymysql.fx.data.DataTransportTable;
 import cn.oyzh.easymysql.fx.data.DataTransportTrigger;
 import cn.oyzh.easymysql.fx.data.DataTransportView;
 import cn.oyzh.easymysql.handler.DataHandler;
-import cn.oyzh.fx.common.thread.ThreadUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -23,7 +23,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/09/06
  */
-@Slf4j
 public abstract class DataTransportHandler extends DataHandler {
 
     /**

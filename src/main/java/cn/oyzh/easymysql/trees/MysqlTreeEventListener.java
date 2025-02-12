@@ -20,29 +20,24 @@ import cn.oyzh.easymysql.trees.function.MysqlFunctionTreeItem;
 import cn.oyzh.easymysql.trees.procedure.MysqlProcedureTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
-import cn.oyzh.fx.plus.event.EventListener;
-import com.google.common.eventbus.Subscribe;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import cn.oyzh.event.EventListener;
+import cn.oyzh.event.EventSubscribe;
 
 /**
  * @author oyzh
  * @since 2024-09-12
  */
-@Component
 public class MysqlTreeEventListener implements EventListener {
 
-    @PostConstruct
-    private void init(){
-        EventListener.super.register();
-    }
-
-    @PreDestroy
-    private void destroy(){
-        EventListener.super.unregister();
-    }
+//    @PostConstruct
+//    private void init(){
+//        EventListener.super.register();
+//    }
+//
+//    @PreDestroy
+//    private void destroy(){
+//        EventListener.super.unregister();
+//    }
 
     /**
      * 查询新增事件

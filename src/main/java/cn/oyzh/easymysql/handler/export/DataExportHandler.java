@@ -252,11 +252,11 @@ public class DataExportHandler extends DataHandler {
                         break;
                     }
                     long end1 = System.currentTimeMillis();
-                    log.info("查询耗时: {}ms", (end1 - start1));
+                    JulLog.info("查询耗时: {}ms", (end1 - start1));
                     long start2 = System.currentTimeMillis();
                     this.writeRecord(writer, table, columns, records);
                     long end2 = System.currentTimeMillis();
-                    log.info("写入耗时: {}ms", (end2 - start2));
+                    JulLog.info("写入耗时: {}ms", (end2 - start2));
                     start += this.queryLimit;
                     this.processed(records.size());
                 }

@@ -5,28 +5,28 @@ import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.store.DBSettingStore;
+import cn.oyzh.fx.gui.tabs.TabStrategyComboBox;
+import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.FlexSlider;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
-import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.picker.FlexColorPicker;
-import cn.oyzh.fx.plus.controls.textfield.NumberTextField;
+import cn.oyzh.fx.plus.controls.text.FlexSlider;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
 import cn.oyzh.fx.plus.font.FontFamilyComboBox;
 import cn.oyzh.fx.plus.font.FontManager;
 import cn.oyzh.fx.plus.font.FontSizeComboBox;
 import cn.oyzh.fx.plus.font.FontWeightComboBox;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
-import cn.oyzh.fx.plus.i18n.I18nManager;
 import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
 import cn.oyzh.fx.plus.i18n.LocaleComboBox;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.opacity.OpacityManager;
-import cn.oyzh.fx.plus.tabs.TabStrategyComboBox;
 import cn.oyzh.fx.plus.theme.ThemeComboBox;
 import cn.oyzh.fx.plus.theme.ThemeManager;
 import cn.oyzh.fx.plus.window.StageAttribute;
+import cn.oyzh.i18n.I18nHelper;
+import cn.oyzh.i18n.I18nManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Modality;
@@ -41,9 +41,8 @@ import java.util.Objects;
  * @since 2023/06/16
  */
 @StageAttribute(
-        iconUrls = MysqlConst.ICON_PATH,
         modality = Modality.APPLICATION_MODAL,
-        value = FXConst.VIEW_PATH + "setting.fxml"
+        value = FXConst.FXML_PATH + "setting.fxml"
 )
 public class SettingController extends StageController {
 
@@ -75,19 +74,19 @@ public class SettingController extends StageController {
      * 记住页面大小
      */
     @FXML
-    private FlexCheckBox pageSize;
+    private FXCheckBox pageSize;
 
     /**
      * 记住页面拉伸
      */
     @FXML
-    private FlexCheckBox pageResize;
+    private FXCheckBox pageResize;
 
     /**
      * 记住页面位置
      */
     @FXML
-    private FlexCheckBox pageLocation;
+    private FXCheckBox pageLocation;
 
     /**
      * 标签数量限制
