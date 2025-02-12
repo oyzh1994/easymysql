@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.tabs.event;
 
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.fx.DBSqlTextArea;
 import cn.oyzh.easymysql.fx.event.DBEventIntervalTypeCombobox;
@@ -12,28 +13,23 @@ import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.common.spring.ScopeType;
-import cn.oyzh.fx.common.util.CacheHelper;
-import cn.oyzh.fx.plus.controls.area.FlexTextArea;
+import cn.oyzh.fx.gui.tabs.DynamicTabController;
+import cn.oyzh.fx.gui.text.field.DateTimeTextField;
+import cn.oyzh.fx.gui.text.field.NumberTextField;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.button.FXRadioButton;
-import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
 import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
-import cn.oyzh.fx.plus.controls.textfield.DateTimeTextField;
-import cn.oyzh.fx.plus.controls.textfield.FlexTextField;
-import cn.oyzh.fx.plus.controls.textfield.NumberTextField;
+import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
+import cn.oyzh.fx.plus.controls.text.field.FlexTextField;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
-import cn.oyzh.fx.plus.tabs.DynamicTabController;
+import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.util.FXUtil;
-import cn.oyzh.fx.plus.util.NodeUtil;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,9 +39,6 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2024/09/09
  */
-@Lazy
-@Component
-@Scope(ScopeType.PROTOTYPE)
 public class MysqlEventDesignTabController extends DynamicTabController {
 
     /**
@@ -96,7 +89,7 @@ public class MysqlEventDesignTabController extends DynamicTabController {
      * 单次循环组件
      */
     @FXML
-    private FlexCheckBox onetimeInterval;
+    private FXCheckBox onetimeInterval;
 
     /**
      * 单次循环值
@@ -132,7 +125,7 @@ public class MysqlEventDesignTabController extends DynamicTabController {
      * 周期循环开始
      */
     @FXML
-    private FlexCheckBox loopStart;
+    private FXCheckBox loopStart;
 
     /**
      * 周期循环开始时间
@@ -144,7 +137,7 @@ public class MysqlEventDesignTabController extends DynamicTabController {
      * 周期循环开始组件
      */
     @FXML
-    private FlexCheckBox loopStartInterval;
+    private FXCheckBox loopStartInterval;
 
     /**
      * 周期循环开始值
@@ -162,7 +155,7 @@ public class MysqlEventDesignTabController extends DynamicTabController {
      * 周期循环结束
      */
     @FXML
-    private FlexCheckBox loopEnd;
+    private FXCheckBox loopEnd;
 
     /**
      * 周期循环结束时间
@@ -174,7 +167,7 @@ public class MysqlEventDesignTabController extends DynamicTabController {
      * 周期循环结束类型
      */
     @FXML
-    private FlexCheckBox loopEndInterval;
+    private FXCheckBox loopEndInterval;
 
     /**
      * 周期循环结束值

@@ -1,7 +1,6 @@
 package cn.oyzh.easymysql.trees;
 
-import cn.oyzh.easymysql.trees.DBTreeItemValue;
-import cn.oyzh.fx.plus.trees.RichTreeCell;
+import cn.oyzh.fx.gui.tree.view.RichTreeCell;
 
 /**
  * redis树节点工厂

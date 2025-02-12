@@ -7,9 +7,9 @@ import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.store.DBQueryStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
+import cn.oyzh.fx.gui.menu.MenuItemHelper;
+import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
-import cn.oyzh.fx.plus.menu.MenuItemHelper;
-import cn.oyzh.fx.plus.trees.RichTreeItemFilter;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
@@ -88,7 +88,7 @@ public class MysqlQueryTypeTreeItem extends DBTreeItem<MysqlQueryTypeTreeItemVal
         if (!this.isWaiting() && (!this.nodeLoaded)) {
             this.nodeLoaded = true;
             this._loadChild();
-            this.extend();
+            this.expend();
         }
     }
 

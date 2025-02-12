@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.trees.view;
 
 import cn.oyzh.easymysql.trees.DBTreeItemValue;
+import cn.oyzh.fx.gui.svg.glyph.ViewSVGGlyph;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import cn.oyzh.fx.plus.controls.svg.ViewSVGGlyph;
 import cn.oyzh.fx.plus.controls.text.FXText;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;

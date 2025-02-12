@@ -21,9 +21,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/08/16
  */
-@Lazy
-@Component
-@Scope(ScopeType.PROTOTYPE)
 public class MysqlQueryExplainTabController extends DynamicTabController {
 
     /**

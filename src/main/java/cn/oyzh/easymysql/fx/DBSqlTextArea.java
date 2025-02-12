@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.fx;
 
+import cn.oyzh.common.thread.TaskManager;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.query.DBQueryUtil;
 import cn.oyzh.easymysql.sql.DBSqlParser;
-import cn.oyzh.fx.common.thread.TaskManager;
 import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.rich.RichTextStyle;
 import cn.oyzh.fx.rich.richtextfx.control.FlexRichTextArea;

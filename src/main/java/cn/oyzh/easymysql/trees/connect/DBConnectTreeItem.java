@@ -1,6 +1,10 @@
 package cn.oyzh.easymysql.trees.connect;
 
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.thread.IRunnable;
+import cn.oyzh.common.thread.Task;
+import cn.oyzh.common.thread.TaskBuilder;
+import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.easymysql.controller.info.MysqlInfoUpdateController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
@@ -13,15 +17,12 @@ import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.store.DBInfoStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.DBTreeView;
-import cn.oyzh.fx.common.thread.Task;
-import cn.oyzh.fx.common.thread.TaskBuilder;
-import cn.oyzh.fx.common.thread.ThreadUtil;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
+import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
-import cn.oyzh.fx.plus.menu.MenuItemHelper;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -166,9 +167,9 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
                             this.closeConnect(false);
                         } else {
                             this.reloadChild();
-                            this.extend();
+                            this.expend();
                         }
-                        this.flushGraphic();
+                        this.refresh();
                     })
                     .onFinish(this::stopWaiting)
                     .onSuccess(this::flushLocal)
@@ -200,11 +201,11 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
         Runnable func = () -> {
             this.client.close();
             this.clearChild();
-            this.flushGraphic();
+            this.refresh();
         };
         if (waiting) {
             Task task = TaskBuilder.newBuilder()
-                    .onStart(func)
+                    .onStart(func::run)
                     .onFinish(this::stopWaiting)
                     .onSuccess(this::flushLocal)
                     .onError(MessageBox::exception)
@@ -214,15 +215,15 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
             func.run();
         }
     }
-
-    @Override
-    public void free() {
-        if (!this.isConnected()) {
-            this.connect();
-        } else {
-            super.free();
-        }
-    }
+//
+//    @Override
+//    public void free() {
+//        if (!this.isConnected()) {
+//            this.connect();
+//        } else {
+//            super.free();
+//        }
+//    }
 
     /**
      * 编辑连接

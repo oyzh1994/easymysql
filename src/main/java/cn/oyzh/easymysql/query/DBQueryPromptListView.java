@@ -1,13 +1,13 @@
 package cn.oyzh.easymysql.query;
 
+import cn.oyzh.fx.gui.svg.glyph.FunctionSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.ProcedureSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.ViewSVGGlyph;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
-import cn.oyzh.fx.plus.controls.svg.FunctionSVGGlyph;
-import cn.oyzh.fx.plus.controls.svg.ProcedureSVGGlyph;
+import cn.oyzh.fx.plus.controls.label.FlexLabel;
+import cn.oyzh.fx.plus.controls.list.FlexListView;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.svg.SVGLabel;
-import cn.oyzh.fx.plus.controls.svg.ViewSVGGlyph;
-import cn.oyzh.fx.plus.controls.text.FlexLabel;
-import cn.oyzh.fx.plus.controls.view.FlexListView;
 import cn.oyzh.fx.plus.util.ControlUtil;
 import cn.oyzh.fx.plus.util.MouseUtil;
 import javafx.geometry.Insets;

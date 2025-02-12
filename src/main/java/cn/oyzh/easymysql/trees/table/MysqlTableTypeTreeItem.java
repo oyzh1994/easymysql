@@ -1,5 +1,7 @@
 package cn.oyzh.easymysql.trees.table;
 
+import cn.oyzh.common.thread.Task;
+import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.easymysql.controller.data.MysqlDataExportController;
 import cn.oyzh.easymysql.controller.data.MysqlDataImportController;
 import cn.oyzh.easymysql.db.DBClient;
@@ -8,15 +10,13 @@ import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.common.thread.Task;
-import cn.oyzh.fx.common.thread.TaskBuilder;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
+import cn.oyzh.fx.gui.menu.MenuItemHelper;
+import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
-import cn.oyzh.fx.plus.menu.MenuItemHelper;
-import cn.oyzh.fx.plus.trees.RichTreeItemFilter;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
@@ -122,7 +122,7 @@ public class MysqlTableTypeTreeItem extends DBTreeItem<MysqlTableTypeTreeItemVal
         if (!this.isWaiting() && (!this.nodeLoaded)) {
             this.nodeLoaded = true;
             this._loadChild();
-            this.extend();
+            this.expend();
         }
     }
 
@@ -147,7 +147,7 @@ public class MysqlTableTypeTreeItem extends DBTreeItem<MysqlTableTypeTreeItemVal
                         }
                         this.setChild(list);
                     } else {// 有数据则执行删除、新增、更新操作
-                        ObservableList children = this.getRichChildren();
+                        ObservableList children = this.richChildren();
                         ObservableList<MysqlTableTreeItem> list = children;
                         List<MysqlTableTreeItem> delList = new ArrayList<>();
                         List<MysqlTableTreeItem> addList = new ArrayList<>();

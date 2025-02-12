@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees.group;
 
 import cn.oyzh.easymysql.trees.DBTreeItemValue;
-import cn.oyzh.fx.plus.controls.svg.GroupSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.GroupSVGGlyph;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import javafx.scene.paint.Color;
 import lombok.experimental.Accessors;

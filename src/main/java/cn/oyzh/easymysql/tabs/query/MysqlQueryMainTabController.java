@@ -10,22 +10,18 @@ import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.query.DBQueryTextArea;
 import cn.oyzh.easymysql.query.DBQueryUtil;
 import cn.oyzh.easymysql.store.DBQueryStore;
-import cn.oyzh.fx.common.spring.ScopeType;
+import cn.oyzh.fx.gui.tabs.DynamicTabController;
 import cn.oyzh.fx.plus.controls.box.FlexVBox;
 import cn.oyzh.fx.plus.controls.tab.FXTab;
 import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.keyboard.KeyboardUtil;
-import cn.oyzh.fx.plus.tabs.DynamicTabController;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.input.KeyEvent;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,9 +34,6 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2024/02/18
  */
-@Lazy
-@Component
-@Scope(ScopeType.PROTOTYPE)
 public class MysqlQueryMainTabController extends DynamicTabController {
 
     /**

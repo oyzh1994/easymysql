@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author oyzh
  * @since 2024/08/26
  */
-@Slf4j
 @UtilityClass
 public class DBExportUtil {
 

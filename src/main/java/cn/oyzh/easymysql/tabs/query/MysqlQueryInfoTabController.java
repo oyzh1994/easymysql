@@ -2,9 +2,9 @@ package cn.oyzh.easymysql.tabs.query;
 
 import cn.oyzh.easymysql.db.query.MysqlQueryResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
-import cn.oyzh.fx.plus.controls.area.FlexTextArea;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
-import cn.oyzh.fx.plus.tabs.DynamicTabController;
+import cn.oyzh.fx.gui.tabs.DynamicTabController;
+import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 
 /**

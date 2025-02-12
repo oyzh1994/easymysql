@@ -1,7 +1,6 @@
 package cn.oyzh.easymysql.trees.function;
 
 import cn.oyzh.easymysql.trees.DBTreeItemValue;
-import cn.oyzh.fx.plus.controls.svg.FunctionSVGGlyph;
 import lombok.experimental.Accessors;
 
 /**

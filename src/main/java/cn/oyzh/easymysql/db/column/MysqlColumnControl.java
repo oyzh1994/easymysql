@@ -3,6 +3,7 @@ package cn.oyzh.easymysql.db.column;
 import cn.oyzh.easymysql.fx.table.DBFiledTypeComboBox;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.util.TableViewUtil;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
@@ -73,8 +74,8 @@ public class MysqlColumnControl extends MysqlColumn {
         return comboBox;
     }
 
-    public FlexCheckBox getNullableControl() {
-        FlexCheckBox checkBox = new FlexCheckBox();
+    public FXCheckBox getNullableControl() {
+        FXCheckBox checkBox = new FXCheckBox();
         checkBox.setSelected(this.isNullable());
         checkBox.selectedChanged((observable, oldValue, newValue) -> this.setNullable(newValue));
         // 监听主键值变化
@@ -88,8 +89,8 @@ public class MysqlColumnControl extends MysqlColumn {
         return checkBox;
     }
 
-    public FlexCheckBox getPrimaryKeyControl() {
-        FlexCheckBox checkBox = new FlexCheckBox();
+    public FXCheckBox getPrimaryKeyControl() {
+        FXCheckBox checkBox = new FXCheckBox();
         checkBox.setSelected(this.isPrimaryKey());
         checkBox.selectedChanged((observable, oldValue, newValue) -> {
             this.setPrimaryKey(newValue);

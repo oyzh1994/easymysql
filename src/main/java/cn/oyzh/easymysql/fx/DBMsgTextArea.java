@@ -1,10 +1,9 @@
 package cn.oyzh.easymysql.fx;
 
-import cn.oyzh.fx.common.Const;
-import cn.oyzh.fx.plus.controls.area.MsgTextArea;
+import cn.oyzh.common.Const;
 import cn.oyzh.event.EventFormatter;
-import cn.oyzh.fx.plus.event.EventListener;
-import com.google.common.eventbus.Subscribe;
+import cn.oyzh.event.EventListener;
+import cn.oyzh.fx.gui.text.area.MsgTextArea;
 
 /**
  * @author oyzh

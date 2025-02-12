@@ -1,14 +1,14 @@
 package cn.oyzh.easymysql.fx.record;
 
+import cn.oyzh.fx.gui.skin.ActionTextFieldSkin;
+import cn.oyzh.fx.gui.svg.glyph.CancelSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.EnlargeSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.SubmitSVGGlyph;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
 import cn.oyzh.fx.plus.controls.box.FlexVBox;
-import cn.oyzh.fx.plus.controls.svg.CancelSVGGlyph;
-import cn.oyzh.fx.plus.controls.svg.EnlargeSVGGlyph;
-import cn.oyzh.fx.plus.controls.svg.SubmitSVGGlyph;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
-import cn.oyzh.fx.plus.skin.ActionTextFieldSkinExt;
 import cn.oyzh.fx.plus.window.PopupExt;
 import cn.oyzh.fx.rich.richtextfx.json.RichJsonTextAreaPane;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.geometry.Insets;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -22,7 +22,7 @@ import lombok.Setter;
  * @author oyzh
  * @since 2024/07/21
  */
-public class DBJsonTextFiledSkin extends ActionTextFieldSkinExt {
+public class DBJsonTextFiledSkin extends ActionTextFieldSkin {
 
     /**
      * 展开宽

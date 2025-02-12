@@ -1,7 +1,5 @@
 package cn.oyzh.easymysql.trees;
 
-import cn.oyzh.easymysql.search.DBSearchHandler;
-import cn.oyzh.easymysql.search.DBSearchParam;
 import cn.oyzh.fx.gui.tree.view.RichTreeItem;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.util;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.JulLog;
+import cn.oyzh.common.log.JulLog;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.column.MysqlColumn;

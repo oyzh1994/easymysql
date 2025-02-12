@@ -1,9 +1,7 @@
 package cn.oyzh.easymysql.query;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.oyzh.easymysql.query.DBQueryPromptListView;
-import cn.oyzh.easymysql.query.DBQueryTokenAnalyzer;
-import cn.oyzh.fx.common.thread.TaskManager;
+import cn.oyzh.common.thread.TaskManager;
 import cn.oyzh.fx.plus.controls.popup.FXPopup;
 import cn.oyzh.fx.plus.theme.ThemeManager;
 import cn.oyzh.fx.plus.thread.RenderService;

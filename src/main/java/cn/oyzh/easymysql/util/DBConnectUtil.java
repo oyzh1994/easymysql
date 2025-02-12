@@ -1,13 +1,12 @@
 package cn.oyzh.easymysql.util;
 
+import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
-import cn.oyzh.fx.common.thread.ThreadUtil;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * db连接工具类
@@ -15,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author oyzh
  * @since 2023/07/01
  */
-@Slf4j
 @UtilityClass
 public class DBConnectUtil {
 

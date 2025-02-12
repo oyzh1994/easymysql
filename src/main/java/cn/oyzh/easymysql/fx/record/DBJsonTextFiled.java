@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.record;
 
-import cn.oyzh.easymysql.fx.record.DBJsonTextFiledSkin;
-import cn.oyzh.fx.plus.controls.textfield.LimitTextField;
+
+import cn.oyzh.fx.gui.text.field.LimitTextField;
 
 /**
  * @author oyzh

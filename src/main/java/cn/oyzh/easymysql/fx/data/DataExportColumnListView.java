@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.fx.data;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
-import cn.oyzh.fx.plus.controls.view.FlexListView;
+import cn.oyzh.fx.plus.controls.list.FlexListView;
 import cn.oyzh.fx.plus.util.ListViewUtil;
 
 import java.util.List;

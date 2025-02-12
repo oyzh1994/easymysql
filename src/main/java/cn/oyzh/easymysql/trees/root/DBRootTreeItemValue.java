@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.trees.root;
 
 import cn.oyzh.easymysql.trees.DBTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
+import cn.oyzh.i18n.I18nHelper;
 
 
 /**

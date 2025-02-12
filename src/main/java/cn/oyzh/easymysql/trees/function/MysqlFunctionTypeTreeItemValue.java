@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees.function;
 
 import cn.oyzh.easymysql.trees.DBTreeItemValue;
-import cn.oyzh.fx.plus.controls.svg.FunctionSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.FunctionSVGGlyph;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.text.FXText;
 import javafx.geometry.Insets;

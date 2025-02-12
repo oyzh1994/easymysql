@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.data;
 
-import cn.oyzh.fx.common.util.OSUtil;
+import cn.oyzh.common.util.OSUtil;
 import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
 
 /**

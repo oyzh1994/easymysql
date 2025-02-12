@@ -1,10 +1,9 @@
 package cn.oyzh.easymysql.query;
 
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.thread.TaskManager;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.sql.DBSqlParser;
-import cn.oyzh.fx.common.thread.TaskManager;
-import cn.oyzh.fx.common.util.NumUtil;
 import cn.oyzh.fx.plus.keyboard.KeyboardUtil;
 import cn.oyzh.fx.rich.RichTextStyle;
 import cn.oyzh.fx.rich.richtextfx.control.FlexRichTextArea;
