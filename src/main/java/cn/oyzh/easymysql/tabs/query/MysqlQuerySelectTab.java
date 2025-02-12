@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.tabs.query;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.plus.tabs.DynamicTab;
+import cn.oyzh.fx.gui.tabs.DynamicTab;
 
 /**
  * db查询tab

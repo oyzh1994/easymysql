@@ -7,10 +7,10 @@ import cn.oyzh.easymysql.fx.table.DBColumnComboBox;
 import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
 import cn.oyzh.easymysql.fx.table.DBJoinSymbolComboBox;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
-import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.flex.FlexUtil;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.util.TableViewUtil;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import lombok.Getter;
@@ -159,8 +159,8 @@ public class MysqlRecordFilter {
      *
      * @return 启用组件
      */
-    public FlexCheckBox getEnabledControl() {
-        FlexCheckBox checkBox = new FlexCheckBox();
+    public FXCheckBox getEnabledControl() {
+        FXCheckBox checkBox = new FXCheckBox();
         checkBox.setSelected(this.enabled);
         checkBox.selectedChanged((observable, oldValue, newValue) -> this.enabled = newValue);
         TableViewUtil.selectRowOnMouseClicked(checkBox);

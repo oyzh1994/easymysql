@@ -2,9 +2,9 @@ package cn.oyzh.easymysql.db.column;
 
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.util.DBColumnUtil;
-import cn.oyzh.fx.common.util.ObjectCopier;
 import javafx.beans.property.SimpleBooleanProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

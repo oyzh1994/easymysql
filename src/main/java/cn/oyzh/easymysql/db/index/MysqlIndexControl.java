@@ -1,13 +1,13 @@
 package cn.oyzh.easymysql.db.index;
 
+import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.fx.table.DBIndexFieldTextFiled;
 import cn.oyzh.easymysql.fx.table.DBIndexMethodComboBox;
 import cn.oyzh.easymysql.fx.table.DBIndexTypeComboBox;
-import cn.oyzh.fx.common.util.CacheHelper;
-import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
+import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.plus.util.TableViewUtil;
+import cn.oyzh.i18n.I18nHelper;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;

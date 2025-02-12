@@ -1,16 +1,12 @@
 package cn.oyzh.easymysql.db.column;
 
 import cn.oyzh.easymysql.fx.table.DBFiledTypeComboBox;
-import cn.oyzh.easymysql.popups.DBColumnConfigPopupController;
-import cn.oyzh.fx.common.util.CacheHelper;
-import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
-import cn.oyzh.fx.plus.controls.svg.ConfigurationSVGGlyph;
-import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
-import cn.oyzh.fx.plus.controls.textfield.NumberTextField;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
+import cn.oyzh.fx.gui.text.field.ClearableTextField;
+import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.util.TableViewUtil;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
+import cn.oyzh.i18n.I18nHelper;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;

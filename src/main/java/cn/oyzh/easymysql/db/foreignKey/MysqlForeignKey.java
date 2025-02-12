@@ -2,9 +2,9 @@ package cn.oyzh.easymysql.db.foreignKey;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.cache.CacheHelper;
+import cn.oyzh.common.util.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.fx.common.util.CacheHelper;
-import cn.oyzh.fx.common.util.ObjectCopier;
 import javafx.beans.property.SimpleStringProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

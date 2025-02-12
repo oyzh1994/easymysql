@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.db.foreignKey;
 
+import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
@@ -9,11 +10,10 @@ import cn.oyzh.easymysql.fx.DBDatabaseComboBox;
 import cn.oyzh.easymysql.fx.table.DBFieldTextFiled;
 import cn.oyzh.easymysql.fx.table.DBForeignKeyPolicyComboBox;
 import cn.oyzh.easymysql.fx.table.DBTableComboBox;
-import cn.oyzh.fx.common.util.CacheHelper;
-import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
-import cn.oyzh.fx.plus.controls.textfield.FlexTextField;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
+import cn.oyzh.fx.gui.text.field.ClearableTextField;
+import cn.oyzh.fx.plus.controls.text.field.FlexTextField;
 import cn.oyzh.fx.plus.util.TableViewUtil;
+import cn.oyzh.i18n.I18nHelper;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;

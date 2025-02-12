@@ -3,10 +3,10 @@ package cn.oyzh.easymysql.fx.table;
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.popups.DBColumnFieldPopupController;
-import cn.oyzh.fx.plus.controls.textfield.ChooseTextField;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
+import cn.oyzh.fx.gui.text.field.ChooseTextField;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
+import cn.oyzh.i18n.I18nHelper;
 
 import java.util.Collections;
 import java.util.List;

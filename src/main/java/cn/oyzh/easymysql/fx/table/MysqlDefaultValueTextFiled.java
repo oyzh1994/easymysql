@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.table;
 
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.fx.plus.controls.select.SelectTextFiled;
+import cn.oyzh.fx.gui.text.field.SelectTextFiled;
 
 /**
  * @author oyzh
