@@ -1,10 +1,10 @@
 package cn.oyzh.easymysql.popups;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
-import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
-import cn.oyzh.fx.plus.controls.view.FlexListView;
+import cn.oyzh.fx.plus.controls.list.FlexListView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.util.ControlUtil;
 import cn.oyzh.fx.plus.util.ListViewUtil;

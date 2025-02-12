@@ -1,7 +1,6 @@
 package cn.oyzh.easymysql.fx.record;
 
-import cn.oyzh.fx.common.util.NumUtil;
-import cn.oyzh.fx.plus.controls.textfield.ChooseFileTextField;
+import cn.oyzh.fx.gui.text.field.ChooseFileTextField;
 import lombok.Getter;
 import lombok.Setter;
 

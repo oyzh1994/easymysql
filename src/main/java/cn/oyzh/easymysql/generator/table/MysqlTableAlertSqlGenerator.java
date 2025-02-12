@@ -16,7 +16,6 @@ import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.util.DBUtil;
-import cn.oyzh.fx.common.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
