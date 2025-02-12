@@ -5,6 +5,7 @@ import cn.oyzh.common.log.JulLog;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.store.DBSettingStore;
+import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.fx.gui.tray.DesktopTrayItem;
 import cn.oyzh.fx.gui.tray.QuitTrayItem;
 import cn.oyzh.fx.gui.tray.SettingTrayItem;
@@ -13,6 +14,7 @@ import cn.oyzh.fx.plus.controller.ParentStageController;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
 import cn.oyzh.fx.plus.information.MessageBox;
+import cn.oyzh.fx.plus.titlebar.TitleBar;
 import cn.oyzh.fx.plus.tray.TrayManager;
 import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.plus.window.StageAdapter;
@@ -64,80 +66,82 @@ public class MainController extends ParentStageController {
     /**
      * db相关配置
      */
-    private final MysqlSetting setting = DBSettingStore.SETTING;
+    private final MysqlSetting setting = MysqlSettingStore.SETTING;
+
+    private final MysqlSettingStore settingStore = MysqlSettingStore.INSTANCE;
 //
 //    /**
 //     * 页面信息储存
 //     */
 //    private final DBPageInfoStore pageInfoStore = DBPageInfoStore.INSTANCE;
 
-    /**
-     * 初始化系统托盘
-     */
-    private void initSystemTray() {
-        if (!TrayManager.supported()) {
-            JulLog.warn("tray is not supported.");
-            return;
-        }
-        if (!TrayManager.exist()) {
-            try {
-                // 初始化
-                TrayManager.init(MysqlConst.ICON_PATH);
-                // 设置标题
-                TrayManager.setTitle(this.project.getName() + " v" + this.project.getVersion());
-                // 打开主页
-                TrayManager.addMenuItem(new DesktopTrayItem("12", this::showMain));
-                // 打开设置
-                TrayManager.addMenuItem(new SettingTrayItem("12", this::showSetting));
-                // 退出程序
-                TrayManager.addMenuItem(new QuitTrayItem("12", () -> {
-                    JulLog.warn("exit app by tray.");
-                    StageManager.exit();
-                }));
-                // 鼠标事件
-                TrayManager.onMouseClicked(e -> {
-                    // 单击鼠标主键，显示主页
-                    if (e.getButton() == MouseEvent.BUTTON1) {
-                        this.showMain();
-                    }
-                });
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * 显示设置
-     */
-    private void showSetting() {
-        FXUtil.runLater(() -> {
-            StageAdapter wrapper = StageManager.getStage(SettingController.class);
-            if (wrapper != null) {
-                JulLog.info("front setting.");
-                wrapper.toFront();
-            } else {
-                JulLog.info("show setting.");
-                StageManager.showStage(SettingController.class, this.stage);
-            }
-        });
-    }
-
-    /**
-     * 显示主页
-     */
-    private void showMain() {
-        FXUtil.runLater(() -> {
-            StageAdapter wrapper = StageManager.getStage(MainController.class);
-            if (wrapper != null) {
-                JulLog.info("front main.");
-                wrapper.toFront();
-            } else {
-                JulLog.info("show main.");
-                StageManager.showStage(MainController.class);
-            }
-        });
-    }
+//    /**
+//     * 初始化系统托盘
+//     */
+//    private void initSystemTray() {
+//        if (!TrayManager.supported()) {
+//            JulLog.warn("tray is not supported.");
+//            return;
+//        }
+//        if (!TrayManager.exist()) {
+//            try {
+//                // 初始化
+//                TrayManager.init(MysqlConst.ICON_PATH);
+//                // 设置标题
+//                TrayManager.setTitle(this.project.getName() + " v" + this.project.getVersion());
+//                // 打开主页
+//                TrayManager.addMenuItem(new DesktopTrayItem("12", this::showMain));
+//                // 打开设置
+//                TrayManager.addMenuItem(new SettingTrayItem("12", this::showSetting));
+//                // 退出程序
+//                TrayManager.addMenuItem(new QuitTrayItem("12", () -> {
+//                    JulLog.warn("exit app by tray.");
+//                    StageManager.exit();
+//                }));
+//                // 鼠标事件
+//                TrayManager.onMouseClicked(e -> {
+//                    // 单击鼠标主键，显示主页
+//                    if (e.getButton() == MouseEvent.BUTTON1) {
+//                        this.showMain();
+//                    }
+//                });
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+//    }
+//
+//    /**
+//     * 显示设置
+//     */
+//    private void showSetting() {
+//        FXUtil.runLater(() -> {
+//            StageAdapter wrapper = StageManager.getStage(SettingController.class);
+//            if (wrapper != null) {
+//                JulLog.info("front setting.");
+//                wrapper.toFront();
+//            } else {
+//                JulLog.info("show setting.");
+//                StageManager.showStage(SettingController.class, this.stage);
+//            }
+//        });
+//    }
+//
+//    /**
+//     * 显示主页
+//     */
+//    private void showMain() {
+//        FXUtil.runLater(() -> {
+//            StageAdapter wrapper = StageManager.getStage(MainController.class);
+//            if (wrapper != null) {
+//                JulLog.info("front main.");
+//                wrapper.toFront();
+//            } else {
+//                JulLog.info("show main.");
+//                StageManager.showStage(MainController.class);
+//            }
+//        });
+//    }
 
     @Override
     public List<? extends StageController> getSubControllers() {
@@ -152,7 +156,7 @@ public class MainController extends ParentStageController {
             JulLog.info("exit directly.");
             StageManager.exit();
         } else if (this.setting.isExitAsk()) { // 总是询问
-            if (MessageBox.confirm(I18nHelper.quit() + this.project.getName())) {
+            if (MessageBox.confirm(I18nHelper.quit() + " " + this.project.getName())) {
                 JulLog.info("exit by confirm.");
                 StageManager.exit();
             } else {
@@ -165,26 +169,8 @@ public class MainController extends ParentStageController {
                 TrayManager.show();
             } else {
                 JulLog.error("tray not support!");
-                MessageBox.warn(I18nHelper.trayNotSupport());
+                // MessageBox.warn(I18nHelper.trayNotSupport());
             }
-        }
-    }
-
-    @Override
-    public void onWindowShowing(WindowEvent event) {
-        super.onWindowShowing(event);
-        this.stage.title(this.project.getName() + "-v" + this.project.getVersion());
-    }
-
-    @Override
-    public void onWindowShown(WindowEvent event) {
-        super.onWindowShown(event);
-        try {
-            this.initSystemTray();
-            TrayManager.show();
-        } catch (Exception ex) {
-            JulLog.warn("不支持系统托盘!");
-            ex.printStackTrace();
         }
     }
 
@@ -193,20 +179,20 @@ public class MainController extends ParentStageController {
         boolean savePageInfo = false;
         // 记住页面大小
         if (this.setting.isRememberPageSize()) {
-            this.pageInfo.setWidth(this.stage.getWidth());
-            this.pageInfo.setHeight(this.stage.getHeight());
-            this.pageInfo.setMaximized(this.stage.isMaximized());
+            this.setting.setPageWidth(this.stage.getWidth());
+            this.setting.setPageHeight(this.stage.getHeight());
+            this.setting.setPageMaximized(this.stage.isMaximized());
             savePageInfo = true;
         }
         // 记住页面位置
         if (this.setting.isRememberPageLocation()) {
-            this.pageInfo.setScreenX(this.stage.getX());
-            this.pageInfo.setScreenY(this.stage.getY());
+            this.setting.setPageScreenX(this.stage.getX());
+            this.setting.setPageScreenY(this.stage.getY());
             savePageInfo = true;
         }
         // 保存页面信息
         if (savePageInfo) {
-            this.pageInfoStore.update(this.pageInfo);
+            this.settingStore.replace(this.setting);
         }
         // 关闭托盘
         TrayManager.destroy();
@@ -215,23 +201,41 @@ public class MainController extends ParentStageController {
 
     @Override
     public void onStageInitialize(StageAdapter stage) {
-        super.onStageInitialize(stage);
-        // 设置上次保存的页面大小
-        if (this.setting.isRememberPageSize()) {
-            if (this.pageInfo.isMaximized()) {
-                this.stage.setMaximized(true);
-                JulLog.debug("view setMaximized");
-            } else if (this.pageInfo.getWidth() != null && this.pageInfo.getHeight() != null) {
-                this.stage.setWidth(this.pageInfo.getWidth());
-                this.stage.setHeight(this.pageInfo.getHeight());
-                JulLog.debug("view setWidth:{} setHeight:{}", this.pageInfo.getWidth(), this.pageInfo.getHeight());
+        try {
+            super.onStageInitialize(stage);
+            // 设置上次保存的页面大小
+            if (this.setting.isRememberPageSize()) {
+                if (this.setting.isPageMaximized()) {
+                    this.stage.setMaximized(true);
+                    JulLog.debug("view maximized");
+                } else if (this.setting.getPageWidth() != null && this.setting.getPageHeight() != null) {
+                    this.stage.setSize(this.setting.getPageWidth(), this.setting.getPageHeight());
+                    JulLog.debug("view width:{} height:{}", this.setting.getPageWidth(), this.setting.getPageHeight());
+                }
             }
+            // 设置上次保存的页面位置
+            if (this.setting.isRememberPageLocation() && !this.setting.isPageMaximized() && this.setting.getPageScreenX() != null && this.setting.getPageScreenY() != null) {
+                this.stage.setLocation(this.setting.getPageScreenX(), this.setting.getPageScreenY());
+                JulLog.debug("view x:{} y:{}", this.setting.getPageScreenX(), this.setting.getPageScreenY());
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JulLog.warn("onStageInitialize error", ex);
         }
-        // 设置上次保存的页面位置
-        if (this.setting.isRememberPageLocation() && !this.pageInfo.isMaximized() && this.pageInfo.getScreenX() != null && this.pageInfo.getScreenY() != null) {
-            this.stage.setX(this.pageInfo.getScreenX());
-            this.stage.setY(this.pageInfo.getScreenY());
-            JulLog.debug("view setX:{} setY:{}", this.pageInfo.getScreenX(), this.pageInfo.getScreenY());
+    }
+
+    @Override
+    public void onWindowShown(WindowEvent event) {
+        try {
+            super.onWindowShown(event);
+            TitleBar titleBar = this.stage.getTitleBar();
+            // 加载标题
+            if (titleBar != null && !titleBar.isHasContent()) {
+                titleBar.loadContent("/fxml/header2.fxml");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JulLog.warn("onStageInitialize error", ex);
         }
     }
 
