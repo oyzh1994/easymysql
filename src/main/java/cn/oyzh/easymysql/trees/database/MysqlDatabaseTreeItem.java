@@ -194,7 +194,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      * @return 表类型子节点
      */
     public MysqlTableTypeTreeItem getTableTypeChild() {
-        for (RichTreeItem<?> child : this.getRichChildren()) {
+        for (RichTreeItem<?> child : this.richChildren()) {
             if (child instanceof MysqlTableTypeTreeItem treeItem) {
                 return treeItem;
             }

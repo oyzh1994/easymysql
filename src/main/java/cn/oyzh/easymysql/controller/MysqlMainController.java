@@ -19,9 +19,12 @@ import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.event.EventUtil;
 import cn.oyzh.fx.plus.controller.ParentStageController;
 import cn.oyzh.fx.plus.controller.SubStageController;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
 import cn.oyzh.fx.plus.keyboard.KeyListener;
+import cn.oyzh.fx.plus.node.NodeResizeHelper;
+import com.sun.javafx.scene.control.ResizeHelper;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.TreeItem;
@@ -66,7 +69,7 @@ public class MysqlMainController extends ParentStageController {
     /**
      * 大小调整增强
      */
-    private ResizeEnhance resizeEnhance;
+    private NodeResizeHelper resizeEnhance;
 
     // /**
     //  * 倒序排序
@@ -97,15 +100,15 @@ public class MysqlMainController extends ParentStageController {
     @FXML
     public DBTabPane tabPane;
 
-    /**
-     * 页面信息
-     */
-    private final MysqlPageInfo pageInfo = DBPageInfoStore.PAGE_INFO;
-
-    /**
-     * 页面信息储存
-     */
-    private final DBPageInfoStore pageInfoStore = DBPageInfoStore.INSTANCE;
+//    /**
+//     * 页面信息
+//     */
+//    private final MysqlPageInfo pageInfo = DBPageInfoStore.PAGE_INFO;
+//
+//    /**
+//     * 页面信息储存
+//     */
+//    private final DBPageInfoStore pageInfoStore = DBPageInfoStore.INSTANCE;
 
     /**
      * 消息文本框
@@ -114,10 +117,10 @@ public class MysqlMainController extends ParentStageController {
     private DBMsgTextArea msgArea;
 
     /**
-     * 搜索Controller
-     */
-    @FXML
-    private SearchController searchController;
+//     * 搜索Controller
+//     */
+//    @FXML
+//    private SearchController searchController;
 
     /**
      * 对子节点排序，正序
@@ -197,10 +200,10 @@ public class MysqlMainController extends ParentStageController {
         // this.treeItemFilter.initFilters();
         this.filter();
 
-        // 设置上次保存的页面拉伸
-        if (this.setting.isRememberPageResize()) {
-            this.resizeMainLeft(this.pageInfo.getMainLeftWidth());
-        }
+//        // 设置上次保存的页面拉伸
+//        if (this.setting.isRememberPageResize()) {
+//            this.resizeMainLeft(this.pageInfo.getMainLeftWidth());
+//        }
     }
 
     @Override
@@ -245,8 +248,8 @@ public class MysqlMainController extends ParentStageController {
      */
     private void savePageResize() {
         if (this.setting.isRememberPageResize()) {
-            this.pageInfo.setMainLeftWidth(this.tabPaneLeft.getMinWidth());
-            this.pageInfoStore.update(this.pageInfo);
+//            this.pageInfo.setMainLeftWidth(this.tabPaneLeft.getMinWidth());
+//            this.pageInfoStore.update(this.pageInfo);
         }
     }
 
@@ -264,11 +267,10 @@ public class MysqlMainController extends ParentStageController {
         this.sortDesc.managedBindVisible();
         this.tree.selectItemChanged(this::treeItemChanged);
         // 文件拖拽初始化
-        this.stage.initDragFile(this.tree.dragContent(), this.tree.root()::dragFile);
+        this.stage.initDragFile(this.tree.getDragContent(), this.tree.root()::dragFile);
         // 拖动改变db树大小处理
-        this.resizeEnhance = new ResizeEnhance(this.tabPaneLeft, Cursor.DEFAULT);
-        this.resizeEnhance.minWidth(390d);
-        this.resizeEnhance.maxWidth(800d);
+        this.resizeEnhance = new NodeResizeHelper(this.tabPaneLeft, Cursor.DEFAULT);
+        this.resizeEnhance.widthLimit(390f,800f);
         this.resizeEnhance.triggerThreshold(8d);
         this.resizeEnhance.mouseDragged(event -> {
             double sceneX = event.getSceneX();
@@ -324,10 +326,10 @@ public class MysqlMainController extends ParentStageController {
         JulLog.info("LEFT_COLLAPSE.");
     }
 
-    @Override
-    public List<SubStageController> getSubControllers() {
-        return Collections.singletonList(this.searchController);
-    }
+//    @Override
+//    public List<SubStageController> getSubControllers() {
+//        return Collections.singletonList(this.searchController);
+//    }
 
     /**
      * 当前活跃的db树节点

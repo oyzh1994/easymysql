@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.trees;
 
 
 import cn.oyzh.fx.gui.tree.view.RichTreeItem;
+import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.gui.tree.view.RichTreeView;
 
 /**
@@ -10,7 +11,7 @@ import cn.oyzh.fx.gui.tree.view.RichTreeView;
  * @author oyzh
  * @since 2023/06/27
  */
-public abstract class DBTreeItem<V extends DBTreeItemValue> extends RichTreeItem<V> {
+public abstract class DBTreeItem<V extends RichTreeItemValue> extends RichTreeItem<V> {
 
     public DBTreeItem(RichTreeView treeView) {
         super(treeView);

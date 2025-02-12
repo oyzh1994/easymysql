@@ -1,7 +1,9 @@
 package cn.oyzh.easymysql.trees.view;
 
-import cn.oyzh.easymysql.trees.DBTreeItemValue;
 import cn.oyzh.fx.gui.svg.glyph.ViewSVGGlyph;
+import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
+import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
+import cn.oyzh.fx.plus.controls.tree.view.FXTreeItem;
 import lombok.experimental.Accessors;
 
 /**
@@ -11,31 +13,36 @@ import lombok.experimental.Accessors;
  * @since 2023/12/22
  */
 @Accessors(chain = true, fluent = true)
-public class MysqlViewTreeItemValue extends DBTreeItemValue {
+public class MysqlViewTreeItemValue extends RichTreeItemValue {
 
-    /**
-     * db树表节点
-     */
-    private final MysqlViewTreeItem item;
+//    /**
+//     * db树表节点
+//     */
+//    private final MysqlViewTreeItem item;
 
     public MysqlViewTreeItemValue(MysqlViewTreeItem item) {
-        this.item = item;
-        this.flushGraphic();
-        this.flushGraphicColor();
-        this.flushText();
+//        this.item = item;
+//        this.flushGraphic();
+//        this.flushGraphicColor();
+//        this.flushText();
+        super(item);
     }
 
     @Override
-    public void flushGraphic() {
-        ViewSVGGlyph glyph = (ViewSVGGlyph) this.graphic();
-        if (glyph == null) {
-            glyph = new ViewSVGGlyph("12");
-            this.graphic(glyph);
+    protected MysqlViewTreeItem item() {
+        return (MysqlViewTreeItem) super.item();
+    }
+
+    @Override
+    public SVGGlyph graphic() {
+        if (this.graphic == null) {
+            this.graphic  = new ViewSVGGlyph("12");
         }
+        return super.graphic();
     }
 
     @Override
     public String name() {
-        return this.item.viewName();
+        return this.item().viewName();
     }
 }

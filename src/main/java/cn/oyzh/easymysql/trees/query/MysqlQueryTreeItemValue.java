@@ -1,6 +1,9 @@
 package cn.oyzh.easymysql.trees.query;
 
-import cn.oyzh.easymysql.trees.DBTreeItemValue;
+import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
+import cn.oyzh.fx.gui.svg.glyph.QuerySVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.ViewSVGGlyph;
+import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import lombok.experimental.Accessors;
 
@@ -11,31 +14,36 @@ import lombok.experimental.Accessors;
  * @since 2023/12/22
  */
 @Accessors(chain = true, fluent = true)
-public class MysqlQueryTreeItemValue extends DBTreeItemValue {
+public class MysqlQueryTreeItemValue extends RichTreeItemValue {
 
-    /**
-     * db树表节点
-     */
-    private final MysqlQueryTreeItem item;
+//    /**
+//     * db树表节点
+//     */
+//    private final MysqlQueryTreeItem item;
 
     public MysqlQueryTreeItemValue(MysqlQueryTreeItem item) {
-        this.item = item;
-        this.flushGraphic();
-        this.flushGraphicColor();
-        this.flushText();
+//        this.item = item;
+//        this.flushGraphic();
+//        this.flushGraphicColor();
+//        this.flushText();
+        super(item);
     }
 
     @Override
-    public void flushGraphic() {
-        SVGGlyph glyph = (SVGGlyph) this.graphic();
-        if (glyph == null) {
-            glyph = new SVGGlyph("/font/query.svg", "12");
-            this.graphic(glyph);
+    protected MysqlQueryTreeItem item() {
+        return (MysqlQueryTreeItem) super.item();
+    }
+
+    @Override
+    public SVGGlyph graphic() {
+        if (this.graphic == null) {
+            this.graphic  = new QuerySVGGlyph("12");
         }
+        return super.graphic();
     }
 
     @Override
     public String name() {
-        return this.item.queryName();
+        return this.item().queryName();
     }
 }
