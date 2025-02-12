@@ -8,7 +8,6 @@ import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.DBTreeItemValue;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
-import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.i18n.I18nHelper;
@@ -27,7 +26,7 @@ import java.util.List;
  * @author oyzh
  * @since 2024/09/09
  */
-public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItem.MysqlEventTreeItemValue> {
+public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
 
     /**
      * 当前值
@@ -125,37 +124,4 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItem.MysqlEvent
         return true;
     }
 
-    /**
-     * @author oyzh
-     * @since 2024/09/09
-     */
-    @Accessors(chain = true, fluent = true)
-    public static class MysqlEventTreeItemValue extends DBTreeItemValue {
-
-        /**
-         * db树表节点
-         */
-        private final MysqlEventTreeItem item;
-
-        public MysqlEventTreeItemValue(MysqlEventTreeItem item) {
-            this.item = item;
-            this.flushGraphic();
-            this.flushGraphicColor();
-            this.flushText();
-        }
-
-        @Override
-        public void flushGraphic() {
-            SVGGlyph glyph = (SVGGlyph) this.graphic();
-            if (glyph == null) {
-                glyph = new SVGGlyph("/font/event.svg", "12");
-                this.graphic(glyph);
-            }
-        }
-
-        @Override
-        public String name() {
-            return this.item.eventName();
-        }
-    }
 }

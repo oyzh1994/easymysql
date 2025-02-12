@@ -11,19 +11,13 @@ import cn.oyzh.easymysql.trees.DBTreeItemValue;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
-import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import cn.oyzh.fx.plus.controls.text.FXText;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
@@ -34,7 +28,7 @@ import java.util.List;
  * @author oyzh
  * @since 2024/09/09
  */
-public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItem.MysqlEventTypeTreeItemValue> {
+public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItemValue> {
 
     /**
      * 值
@@ -191,63 +185,4 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItem.My
         return this.client().eventSize(this.dbName());
     }
 
-    /**
-     * @author oyzh
-     * @since 2024/09/09
-     */
-    public static class MysqlEventTypeTreeItemValue extends DBTreeItemValue {
-
-        private final MysqlEventTypeTreeItem item;
-
-        public MysqlEventTypeTreeItemValue(MysqlEventTypeTreeItem item) {
-            this.item = item;
-            this.flushGraphic();
-            this.name(item.value());
-        }
-
-        @Override
-        public void flushGraphic() {
-            SVGGlyph glyph = (SVGGlyph) this.graphic();
-            if (glyph == null) {
-                glyph = new SVGGlyph("/font/event.svg", "12");
-                glyph.disableTheme();
-                this.graphic(glyph);
-            }
-        }
-
-        @Override
-        public void flushGraphicColor() {
-            SVGGlyph glyph = (SVGGlyph) this.graphic();
-            if (this.item.isChildEmpty()) {
-                glyph.setColor((Paint) null);
-            } else {
-                glyph.setColor(Color.GREEN);
-            }
-        }
-
-        /**
-         * 刷新节点数量
-         */
-        public void flushNum() {
-            try {
-                Integer size = this.item.eventSize();
-                // 寻找组件
-                FXText text = (FXText) this.lookup("#num");
-                if (size == null) {
-                    this.removeChild(text);
-                } else {
-                    if (text == null) {
-                        text = new FXText();
-                        this.addChild(text);
-                        text.setId("num");
-                        text.setFill(Color.valueOf("#228B22"));
-                        HBox.setMargin(text, new Insets(0, 0, 0, 3));
-                    }
-                    text.setTextExt("(" + size + ")");
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
 }

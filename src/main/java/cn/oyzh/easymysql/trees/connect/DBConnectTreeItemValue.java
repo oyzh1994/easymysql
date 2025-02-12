@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.trees.connect;
 
-import cn.oyzh.easymysql.trees.DBTreeItemValue;
+import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.theme.ThemeManager;
 import javafx.scene.paint.Color;
@@ -12,44 +12,35 @@ import javafx.scene.paint.Color;
  * @author oyzh
  * @since 2023/12/22
  */
-public class DBConnectTreeItemValue extends DBTreeItemValue {
+public class DBConnectTreeItemValue extends RichTreeItemValue {
 
-    /**
-     * 节点
-     */
-    private final DBConnectTreeItem item;
+//    /**
+//     * 节点
+//     */
+//    private final DBConnectTreeItem item;
 
     public DBConnectTreeItemValue(DBConnectTreeItem item) {
-        this.item = item;
-        this.flushGraphic();
-        this.flushGraphicColor();
-        this.name(item.value().getName());
+//        this.item = item;
+//        this.flushGraphic();
+//        this.flushGraphicColor();
+//        this.name(item.value().getName());
+        super(item);
     }
 
     @Override
-    public void flushGraphic() {
-        SVGGlyph glyph = (SVGGlyph) this.graphic();
-        if (glyph == null) {
-            glyph = new SVGGlyph("/font/mysql.svg", "12");
-            glyph.disableTheme();
-            this.graphic(glyph);
+    public SVGGlyph graphic() {
+        if (this.graphic == null) {
+            this.graphic = new SVGGlyph("/font/mysql.svg", "12");
+            this.graphic.disableTheme();
         }
+        return super.graphic();
     }
 
     @Override
-    public void flushGraphicColor() {
-        SVGGlyph glyph = (SVGGlyph) this.graphic();
-        if (glyph == null) {
-            return;
+    public Color graphicColor() {
+        if (!this.item().isChildEmpty()) {
+          return Color.GREEN;
         }
-        if (this.item.isChildEmpty()) {
-            if (ThemeManager.isDarkMode()) {
-                glyph.setColor(Color.WHITE);
-            } else {
-                glyph.setColor(Color.BLACK);
-            }
-        } else {
-            glyph.setColor(Color.GREEN);
-        }
+        return super.graphicColor();
     }
 }
