@@ -49,7 +49,7 @@ public class MysqlTreeEventListener implements EventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onQueryAdded(MysqlQueryAddedEvent event) {
         event.item().getQueryTypeChild().addChild(event.data());
     }
@@ -59,7 +59,7 @@ public class MysqlTreeEventListener implements EventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void viewAdded(MysqlViewAddedEvent event) {
         MysqlDatabaseTreeItem dbItem = event.data();
         if (dbItem != null) {
@@ -72,7 +72,7 @@ public class MysqlTreeEventListener implements EventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void viewAlerted(MysqlViewAlertedEvent event) {
         String viewName = event.data();
         for (MysqlViewTreeItem viewItem : event.dbItem().getViewChild()) {
@@ -89,7 +89,7 @@ public class MysqlTreeEventListener implements EventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onTableAdded(MysqlTableAddedEvent event) {
         MysqlDatabaseTreeItem dbItem = event.data();
         if (dbItem != null) {
@@ -102,7 +102,7 @@ public class MysqlTreeEventListener implements EventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onTableAlerted(MysqlTableAlertedEvent event) {
         String tableName = event.data();
         for (MysqlTableTreeItem tableItem : event.dbItem().getTableChild()) {
@@ -118,7 +118,7 @@ public class MysqlTreeEventListener implements EventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onProcedureAdded(MysqlProcedureAddedEvent event) {
         MysqlDatabaseTreeItem dbItem = event.data();
         if (dbItem != null) {
@@ -131,7 +131,7 @@ public class MysqlTreeEventListener implements EventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onProcedureAlerted(MysqlProcedureAlertedEvent event) {
         String procedureName = event.data();
         for (MysqlProcedureTreeItem procedureItem : event.dbItem().getProcedureChild()) {
@@ -147,7 +147,7 @@ public class MysqlTreeEventListener implements EventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onFunctionAdded(MysqlFunctionAddedEvent event) {
         MysqlDatabaseTreeItem dbItem = event.data();
         if (dbItem != null) {
@@ -160,7 +160,7 @@ public class MysqlTreeEventListener implements EventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onFunctionAlerted(MysqlFunctionAlertedEvent event) {
         String functionName = event.data();
         for (MysqlFunctionTreeItem functionItem : event.dbItem().getFunctionChild()) {
@@ -176,7 +176,7 @@ public class MysqlTreeEventListener implements EventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onEventAdded(MysqlEventAddedEvent event) {
         MysqlDatabaseTreeItem dbItem = event.data();
         if (dbItem != null) {
@@ -189,7 +189,7 @@ public class MysqlTreeEventListener implements EventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onEventAlerted(MysqlEventAlertedEvent event) {
         String functionName = event.data();
         for (MysqlEventTreeItem eventTreeItem : event.dbItem().getEventChild()) {
@@ -205,7 +205,7 @@ public class MysqlTreeEventListener implements EventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onDatabaseAdded(MysqlDatabaseAddedEvent event) {
         DBConnectTreeItem connectItem = event.connectItem();
         if (connectItem != null) {

@@ -272,7 +272,7 @@ public class SearchController extends SubStageController {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     public void flushSearchResult(TreeChildChangedEvent event) {
         if (this.treeView.searching()) {
             TaskManager.startDelay("db:search:flushSearchResult", () -> {
@@ -287,7 +287,7 @@ public class SearchController extends SubStageController {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     public void searchFire(DBSearchFireEvent event) {
         if (this.searchMain.isVisible()) {
             this.searchMain.disappear();

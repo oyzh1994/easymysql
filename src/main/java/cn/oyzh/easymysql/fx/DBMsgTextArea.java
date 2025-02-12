@@ -11,7 +11,7 @@ import cn.oyzh.fx.gui.text.area.MsgTextArea;
  */
 public class DBMsgTextArea extends MsgTextArea implements EventListener {
 
-    @Subscribe
+    @EventSubscribe
     private void onEventMsg(EventFormatter formatter) {
         String formatMsg = formatter.eventFormat();
         if (formatMsg != null) {

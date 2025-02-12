@@ -17,6 +17,7 @@ import cn.oyzh.easymysql.store.DBSettingStore;
 import cn.oyzh.easymysql.tabs.DBTabPane;
 import cn.oyzh.easymysql.trees.DBTreeView;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
+import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.event.EventUtil;
 import cn.oyzh.fx.plus.controller.ParentStageController;
 import cn.oyzh.fx.plus.controller.SubStageController;
@@ -145,7 +146,7 @@ public class MysqlMainController extends ParentStageController {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onInfoUpdate(DBInfoUpdatedEvent event) {
         if (this.info == event.data()) {
             this.stage.appendTitle(" (" + event.data().getName() + ")");
@@ -301,7 +302,7 @@ public class MysqlMainController extends ParentStageController {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void leftExtend(DBLeftExtendEvent event) {
         this.tabPaneLeft.display();
         double w = this.tabPaneLeft.getMinWidth();
@@ -316,7 +317,7 @@ public class MysqlMainController extends ParentStageController {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void leftCollapse(DBLeftCollapseEvent event) {
         this.tabPaneLeft.disappear();
         this.tabPane.setLayoutX(0);

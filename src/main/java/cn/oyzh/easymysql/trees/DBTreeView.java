@@ -6,12 +6,11 @@ import cn.oyzh.easymysql.event.connect.DBAddConnectEvent;
 import cn.oyzh.easymysql.event.group.DBAddGroupEvent;
 import cn.oyzh.easymysql.event.connect.DBInfoAddedEvent;
 import cn.oyzh.easymysql.event.connect.DBInfoUpdatedEvent;
-import cn.oyzh.easymysql.event.DBSearchFinishEvent;
-import cn.oyzh.easymysql.event.DBSearchStartEvent;
 import cn.oyzh.easymysql.event.TreeChildFilterEvent;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.group.DBGroupTreeItem;
 import cn.oyzh.easymysql.trees.root.DBRootTreeItem;
+import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.event.FXEventListener;
 import cn.oyzh.fx.plus.window.StageManager;
@@ -69,34 +68,34 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
         }
     }
 
-    /**
-     * 搜索开始事件
-     *
-     * @param event 事件
-     */
-    @Subscribe
-    private void onSearchStart(DBSearchStartEvent event) {
-        this.searching = true;
-        this.filter();
-    }
-
-    /**
-     * 搜索结束事件
-     *
-     * @param event 事件
-     */
-    @Subscribe
-    private void onSearchFinish(DBSearchFinishEvent event) {
-        this.searching = false;
-        this.filter();
-    }
+//    /**
+//     * 搜索开始事件
+//     *
+//     * @param event 事件
+//     */
+//    @EventSubscribe
+//    private void onSearchStart(DBSearchStartEvent event) {
+//        this.searching = true;
+//        this.filter();
+//    }
+//
+//    /**
+//     * 搜索结束事件
+//     *
+//     * @param event 事件
+//     */
+//    @EventSubscribe
+//    private void onSearchFinish(DBSearchFinishEvent event) {
+//        this.searching = false;
+//        this.filter();
+//    }
 
     /**
      * 树节点过滤事件
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onTreeChildFilter(TreeChildFilterEvent event) {
         this.filter();
     }
@@ -106,10 +105,10 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onInfoUpdate(DBInfoUpdatedEvent event) {
         f1:
-        for (TreeItem<?> item : this.root().getRealChildren()) {
+        for (TreeItem<?> item : this.root().unfilteredChildren()) {
             if (item instanceof DBConnectTreeItem connectTreeItem) {
                 if (connectTreeItem.value() == event.data()) {
                     connectTreeItem.value(event.data());
@@ -131,7 +130,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void addConnect(DBAddConnectEvent event) {
         StageManager.showStage(MysqlInfoAddController.class, this.window());
     }
@@ -141,7 +140,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     public void addGroup(DBAddGroupEvent event) {
         this.root().addGroup();
     }
@@ -151,7 +150,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void infoAdded(DBInfoAddedEvent event) {
         this.root().addConnect(event.data());
     }
@@ -161,7 +160,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void infoUpdated(DBInfoUpdatedEvent event) {
         this.root().infoUpdate(event.data());
     }

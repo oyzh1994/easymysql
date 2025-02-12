@@ -426,7 +426,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
     /**
      * 删除记录
      */
-    @Subscribe
+    @EventSubscribe
     private void deleteRecord(RecordDeleteEvent event) {
         this.deleteRecord();
     }

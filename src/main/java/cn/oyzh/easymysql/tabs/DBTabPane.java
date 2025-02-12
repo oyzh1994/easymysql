@@ -131,7 +131,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onConnectionClosed(DBConnectionClosedEvent event) {
     //     if (event.isMysqlType()) {
     //         this.removeTab(this.getMysqlTabs());
@@ -181,7 +181,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlTableOpen(MysqlTableOpenEvent event) {
     //     MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
     //     if (tab == null) {
@@ -199,7 +199,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlTableRenamed(MysqlTableRenamedEvent event) {
     //     MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
     //     if (tab != null) {
@@ -212,7 +212,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlTableCleared(MysqlTableClearedEvent event) {
     //     MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
     //     if (tab != null) {
@@ -225,7 +225,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlTableTruncated(MysqlTableTruncatedEvent event) {
     //     MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
     //     if (tab != null) {
@@ -238,7 +238,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlTableDropped(MysqlTableDroppedEvent event) {
     //     MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
     //     if (tab != null) {
@@ -251,7 +251,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlTableFiltered(MysqlTableFilteredEvent event) {
     //     MysqlTableRecordTab tableTab = this.getMysqlTableRecordTab(event.dbItem(), event.data());
     //     if (tableTab != null) {
@@ -265,7 +265,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlTableAlerted(MysqlTableAlertedEvent event) {
     //     MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.data());
     //     if (tab != null) {
@@ -288,7 +288,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlViewOpen(MysqlViewOpenEvent event) {
     //     try {
     //         MysqlViewRecordTab tab = this.getMysqlViewRecordTab(event.dbItem(), event.viewName());
@@ -308,7 +308,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlViewFiltered(MysqlViewFilteredEvent event) {
     //     MysqlViewRecordTab viewRecordTab = this.getMysqlViewRecordTab(event.dbItem(), event.viewName());
     //     if (viewRecordTab != null) {
@@ -331,7 +331,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlQueryAdd(MysqlQueryAddEvent event) {
     //     try {
     //         MysqlQueryMainTab tab = new MysqlQueryMainTab();
@@ -349,7 +349,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlQueryDeleted(MysqlQueryDeletedEvent event) {
     //     MysqlQueryMainTab tab = this.getMysqlQueryMainTab(event.data());
     //     if (tab != null) {
@@ -362,7 +362,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlQueryOpen(MysqlQueryOpenEvent event) {
     //     try {
     //         MysqlQueryMainTab tab = this.getMysqlQueryMainTab(event.queryId());
@@ -382,7 +382,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlDatabaseClosed(MysqlDatabaseClosedEvent event) {
     //     this.removeTab(this.getMysqlTabs(event.data()));
     // }
@@ -401,7 +401,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlFunctionDesign(MysqlFunctionDesignEvent event) {
     //     try {
     //         MysqlFunctionDesignTab tab = this.getMysqlFunctionTab(event.dbItem(), event.functionName());
@@ -430,7 +430,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlProcedureDesign(MysqlProcedureDesignEvent event) {
     //     try {
     //         MysqlProcedureDesignTab tab = this.getMysqlProcedureTab(event.dbItem(), event.procedureName());
@@ -459,7 +459,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlEventDesign(MysqlEventDesignEvent event) {
     //     try {
     //         MysqlEventDesignTab tab = this.getMysqlEventTab(event.dbItem(), event.eventName());
@@ -488,7 +488,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlViewDesign(MysqlViewDesignEvent event) {
     //     try {
     //         MysqlViewDesignTab tab = this.getMysqlViewDesignTab(event.dbItem(), event.viewName());
@@ -517,7 +517,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMysqlTableDesign(MysqlTableDesignEvent event) {
     //     try {
     //         MysqlTableDesignTab tab = this.getMysqlTableDesignTab(event.dbItem(), event.tableName());
@@ -576,7 +576,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMariadbTableFiltered(MariadbTableFilteredEvent event) {
     //     MariadbTableRecordTab recordTab = this.getMariadbTableRecordTab(event.dbItem(), event.data());
     //     if (recordTab != null) {
@@ -590,7 +590,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMariadbTableAlerted(MariadbTableAlertedEvent event) {
     //     MariadbTableRecordTab tab = this.getMariadbTableRecordTab(event.dbItem(), event.data());
     //     if (tab != null) {
@@ -613,7 +613,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMariadbFunctionDesign(MariadbFunctionDesignEvent event) {
     //     MariadbFunctionDesignTab tab = this.getMariadbFunctionTab(event.dbItem(), event.functionName());
     //     if (tab == null) {
@@ -638,7 +638,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMariadbProcedureDesign(MariadbProcedureDesignEvent event) {
     //     MariadbProcedureDesignTab tab = this.getMariadbProcedureTab(event.dbItem(), event.procedureName());
     //     if (tab == null) {
@@ -663,7 +663,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMariadbEventDesign(MariadbEventDesignEvent event) {
     //     MariadbEventDesignTab tab = this.getMariadbEventTab(event.dbItem(), event.eventName());
     //     if (tab == null) {
@@ -688,7 +688,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMariadbViewDesign(MariadbViewDesignEvent event) {
     //     MariadbViewDesignTab tab = this.getMariadbViewDesignTab(event.dbItem(), event.viewName());
     //     if (tab == null) {
@@ -713,7 +713,7 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
     //  *
     //  * @param event 事件
     //  */
-    // @Subscribe
+    // @EventSubscribe
     // private void onMariadbTableDesign(MariadbTableDesignEvent event) {
     //     try {
     //         MariadbTableDesignTab tab = this.getMariadbTableDesignTab(event.dbItem(), event.tableName());

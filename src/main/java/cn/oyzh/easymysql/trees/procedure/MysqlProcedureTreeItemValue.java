@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees.procedure;
 
 import cn.oyzh.easymysql.trees.DBTreeItemValue;
-import cn.oyzh.fx.plus.controls.svg.ProcedureSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.ProcedureSVGGlyph;
 import lombok.experimental.Accessors;
 
 /**

@@ -109,7 +109,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlTableOpen(MysqlTableOpenEvent event) {
         try {
             MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
@@ -129,7 +129,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlTableRenamed(MysqlTableRenamedEvent event) {
         try {
             MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
@@ -146,7 +146,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlTableCleared(MysqlTableClearedEvent event) {
         try {
             MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
@@ -163,7 +163,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlTableTruncated(MysqlTableTruncatedEvent event) {
         try {
             MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
@@ -180,7 +180,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlTableDropped(MysqlTableDroppedEvent event) {
         try {
             MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
@@ -197,7 +197,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlTableFiltered(MysqlTableFilteredEvent event) {
         try {
             MysqlTableRecordTab tableTab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
@@ -215,7 +215,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlTableAlerted(MysqlTableAlertedEvent event) {
         try {
             MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.data());
@@ -242,7 +242,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlViewOpen(MysqlViewOpenEvent event) {
         try {
             MysqlViewRecordTab tab = this.getMysqlViewRecordTab(event.dbItem(), event.viewName());
@@ -262,7 +262,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlViewFiltered(MysqlViewFilteredEvent event) {
         try {
             MysqlViewRecordTab viewRecordTab = this.getMysqlViewRecordTab(event.dbItem(), event.viewName());
@@ -289,7 +289,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlQueryAdd(MysqlQueryAddEvent event) {
         try {
             MysqlQueryMainTab tab = new MysqlQueryMainTab();
@@ -307,7 +307,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlQueryDeleted(MysqlQueryDeletedEvent event) {
         try {
             MysqlQueryMainTab tab = this.getMysqlQueryMainTab(event.queryId());
@@ -324,7 +324,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlQueryOpen(MysqlQueryOpenEvent event) {
         try {
             MysqlQueryMainTab tab = this.getMysqlQueryMainTab(event.queryId());
@@ -344,7 +344,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlDatabaseClosed(MysqlDatabaseClosedEvent event) {
         this.removeTab(this.getMysqlTabs(event.data()));
     }
@@ -363,7 +363,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlFunctionDesign(MysqlFunctionDesignEvent event) {
         try {
             MysqlFunctionDesignTab tab = this.getMysqlFunctionTab(event.dbItem(), event.functionName());
@@ -392,7 +392,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlProcedureDesign(MysqlProcedureDesignEvent event) {
         try {
             MysqlProcedureDesignTab tab = this.getMysqlProcedureTab(event.dbItem(), event.procedureName());
@@ -421,7 +421,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlEventDesign(MysqlEventDesignEvent event) {
         try {
             MysqlEventDesignTab tab = this.getMysqlEventTab(event.dbItem(), event.eventName());
@@ -450,7 +450,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlViewDesign(MysqlViewDesignEvent event) {
         try {
             MysqlViewDesignTab tab = this.getMysqlViewDesignTab(event.dbItem(), event.viewName());
@@ -479,7 +479,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onMysqlTableDesign(MysqlTableDesignEvent event) {
         try {
             MysqlTableDesignTab tab = this.getMysqlTableDesignTab(event.dbItem(), event.data());
@@ -499,7 +499,7 @@ public class MysqlTabEventListener implements FXEventListener {
      *
      * @param event 事件
      */
-    @Subscribe
+    @EventSubscribe
     private void onConnectionClosed(DBConnectionClosedEvent event) {
         this.removeTab(this.getMysqlTabs());
     }
