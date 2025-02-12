@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.event;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.search.DBSearchParam;
 import cn.oyzh.fx.plus.changelog.ChangelogEvent;
 import cn.oyzh.fx.plus.event.EventUtil;
@@ -50,7 +50,7 @@ public class DBEventUtil {
      *
      * @param info redis信息
      */
-    public static void terminalOpen(MysqlInfo info) {
+    public static void terminalOpen(MysqlConnect info) {
         DBTerminalOpenEvent event = new DBTerminalOpenEvent();
         event.data(info);
         EventUtil.post(event);
@@ -61,7 +61,7 @@ public class DBEventUtil {
      *
      * @param info redis信息
      */
-    public static void terminalClose(MysqlInfo info) {
+    public static void terminalClose(MysqlConnect info) {
         DBTerminalCloseEvent event = new DBTerminalCloseEvent();
         event.data(info);
         EventUtil.post(event);
@@ -289,7 +289,7 @@ public class DBEventUtil {
      *
      * @param info DB信息
      */
-    public static void infoUpdated(MysqlInfo info) {
+    public static void infoUpdated(MysqlConnect info) {
         DBInfoUpdatedEvent event = new DBInfoUpdatedEvent();
         event.data(info);
         EventUtil.post(event);
@@ -341,7 +341,7 @@ public class DBEventUtil {
         EventUtil.post(new DBLeftExtendEvent());
     }
 
-    public static void infoAdded(MysqlInfo dbInfo) {
+    public static void infoAdded(MysqlConnect dbInfo) {
         DBInfoAddedEvent event = new DBInfoAddedEvent();
         event.data(dbInfo);
         EventUtil.post(event);
@@ -432,7 +432,7 @@ public class DBEventUtil {
     //     EventUtil.post(event);
     // }
 
-    public static void infoDeleted(MysqlInfo info) {
+    public static void infoDeleted(MysqlConnect info) {
         DBInfoDeletedEvent event = new DBInfoDeletedEvent();
         event.data(info);
         EventUtil.post(event);

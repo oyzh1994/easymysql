@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.handler.DataHandler;
 import cn.oyzh.fx.common.thread.ThreadUtil;
 import lombok.Getter;
@@ -47,7 +47,7 @@ public abstract class DataRunSqlFileHandler extends DataHandler {
     @Getter
     @Setter
     @Accessors(fluent = true, chain = true)
-    protected MysqlInfo dbInfo;
+    protected MysqlConnect dbInfo;
 
     /**
      * 插入限制

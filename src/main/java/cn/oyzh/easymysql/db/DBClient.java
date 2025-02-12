@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
+import cn.hutool.log.JulLog;
 import cn.oyzh.easymysql.condition.MysqlConditionUtil;
 import cn.oyzh.easymysql.db.check.MysqlCheck;
 import cn.oyzh.easymysql.db.check.MysqlChecks;
@@ -35,7 +35,7 @@ import cn.oyzh.easymysql.db.table.MysqlTableSelectParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.exception.DBException;
 import cn.oyzh.easymysql.exception.ReadonlyOperationException;
@@ -85,7 +85,7 @@ public class DBClient {
      * db信息
      */
     @Getter
-    protected final MysqlInfo dbInfo;
+    protected final MysqlConnect dbInfo;
 
     /**
      * ssh端口转发器
@@ -232,7 +232,7 @@ public class DBClient {
         return this.state.getReadOnlyProperty();
     }
 
-    public DBClient(@NonNull MysqlInfo dbInfo) {
+    public DBClient(@NonNull MysqlConnect dbInfo) {
         this.dbInfo = dbInfo;
         if (dbInfo.isSSHForward()) {
             this.sshForwarder = new SSHForwarder(dbInfo.getSshInfo());
@@ -295,7 +295,7 @@ public class DBClient {
             }
         } catch (Exception ex) {
             this.state.set(DBConnState.FAILED);
-            StaticLog.warn("dbClient start error", ex);
+            JulLog.warn("dbClient start error", ex);
             throw new DBException(ex);
         }
     }
@@ -334,10 +334,10 @@ public class DBClient {
             if (this.dbInfo.isSSHForward()) {
                 this.sshForwarder.destroy();
             }
-            StaticLog.info("dbClient closed.");
+            JulLog.info("dbClient closed.");
             this.state.set(DBConnState.CLOSED);
         } catch (Exception ex) {
-            StaticLog.warn("dbClient close error.", ex);
+            JulLog.warn("dbClient close error.", ex);
         }
     }
 

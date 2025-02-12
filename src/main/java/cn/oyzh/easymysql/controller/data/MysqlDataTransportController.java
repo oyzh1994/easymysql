@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.fx.DBDatabaseComboBox;
 import cn.oyzh.easymysql.fx.DBInfoComboBox;
 import cn.oyzh.easymysql.fx.data.DataTransportEventListView;
@@ -489,8 +489,8 @@ public class MysqlDataTransportController extends StageController {
 
     @FXML
     private void showStep2() {
-        MysqlInfo sourceInfo = this.sourceInfo.getSelectedItem();
-        MysqlInfo targetInfo = this.targetInfo.getSelectedItem();
+        MysqlConnect sourceInfo = this.sourceInfo.getSelectedItem();
+        MysqlConnect targetInfo = this.targetInfo.getSelectedItem();
         String sourceDatabase = this.sourceDatabase.getSelectedItem();
         String targetDatabase = this.targetDatabase.getSelectedItem();
         if (sourceInfo == null) {

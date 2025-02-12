@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.trees;
 
-import cn.oyzh.fx.plus.trees.RichTreeItemValue;
+import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import lombok.experimental.Accessors;
 
 

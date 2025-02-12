@@ -1,10 +1,10 @@
 package cn.oyzh.easymysql.tabs.home;
 
+import cn.oyzh.fx.gui.svg.glyph.HomeSVGGlyph;
+import cn.oyzh.fx.gui.tabs.DynamicTab;
 import cn.oyzh.fx.plus.FXConst;
-import cn.oyzh.fx.plus.controls.svg.HomeSVGGlyph;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
-import cn.oyzh.fx.plus.tabs.DynamicTab;
 import javafx.scene.Cursor;
 
 /**
@@ -22,7 +22,7 @@ public class DBHomeTab extends DynamicTab {
 
     @Override
     protected String url() {
-        return FXConst.TAB_PATH + "home/dbHomeTab.fxml";
+        return  "/tabs/home/dbHomeTab.fxml";
     }
 
     @Override

@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import cn.hutool.log.StaticLog;
+import cn.hutool.log.JulLog;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlSearchHistory;
 import cn.oyzh.fx.common.dto.Paging;
@@ -38,7 +38,7 @@ public class DBSearchHistoryStore extends ArrayFileStore<MysqlSearchHistory> {
 
     {
         this.filePath(MysqlConst.STORE_PATH + "db_search_history.json");
-        StaticLog.info("dbSearchHistoryStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
+        JulLog.info("dbSearchHistoryStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
     }
 
     @Override
@@ -86,7 +86,7 @@ public class DBSearchHistoryStore extends ArrayFileStore<MysqlSearchHistory> {
             // 保存数据
             return this.save(histories);
         } catch (Exception e) {
-            StaticLog.warn("add error,err:{}", e.getMessage());
+            JulLog.warn("add error,err:{}", e.getMessage());
         }
         return false;
     }

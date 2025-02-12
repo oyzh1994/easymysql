@@ -1,17 +1,17 @@
-package cn.oyzh.easymysql.search;
-
-import cn.oyzh.fx.plus.controls.search.SearchParam;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-/**
- * redis搜索参数
- *
- * @author oyzh
- * @since 2023/06/10
- */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class DBSearchParam extends SearchParam {
-
-}
+//package cn.oyzh.easymysql.search;
+//
+//import cn.oyzh.fx.plus.controls.search.SearchParam;
+//import lombok.Data;
+//import lombok.EqualsAndHashCode;
+//
+///**
+// * redis搜索参数
+// *
+// * @author oyzh
+// * @since 2023/06/10
+// */
+//@Data
+//@EqualsAndHashCode(callSuper = true)
+//public class DBSearchParam extends SearchParam {
+//
+//}

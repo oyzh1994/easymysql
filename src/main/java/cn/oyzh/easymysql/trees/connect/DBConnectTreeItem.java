@@ -6,7 +6,7 @@ import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.db.DBDatabase;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseAddController;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -48,7 +48,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
      */
     @Getter
     @Accessors(chain = true, fluent = true)
-    private MysqlInfo value;
+    private MysqlConnect value;
 
     /**
      * db客户端
@@ -67,7 +67,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
      */
     private final DBInfoStore infoStore = DBInfoStore.INSTANCE;
 
-    public DBConnectTreeItem(@NonNull MysqlInfo value, @NonNull DBTreeView treeView) {
+    public DBConnectTreeItem(@NonNull MysqlConnect value, @NonNull DBTreeView treeView) {
         super(treeView);
         this.value(value);
         // 监听键变化
@@ -243,7 +243,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
      * 复制连接
      */
     private void repeatConnect() {
-        MysqlInfo dbInfo = new MysqlInfo();
+        MysqlConnect dbInfo = new MysqlConnect();
         dbInfo.copy(this.value);
         dbInfo.setName(this.value.getName() + "-" + I18nHelper.repeat());
         dbInfo.setCollects(Collections.emptyList());
@@ -292,7 +292,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
      *
      * @param value redis信息
      */
-    public void value(@NonNull MysqlInfo value) {
+    public void value(@NonNull MysqlConnect value) {
         this.value = value;
         this.client = DBClientUtil.newClient(value);
         this.setValue(new DBConnectTreeItemValue(this));

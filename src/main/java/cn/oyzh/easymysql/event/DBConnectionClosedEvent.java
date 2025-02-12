@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.event;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.fx.plus.event.Event;
 import cn.oyzh.fx.plus.event.EventFormatter;
 
@@ -17,7 +17,7 @@ public class DBConnectionClosedEvent extends Event<DBClient> implements EventFor
         return String.format("[%s] 客户端已断开", this.data().infoName());
     }
 
-    public MysqlInfo info() {
+    public MysqlConnect info() {
         return this.data().dbInfo();
     }
 

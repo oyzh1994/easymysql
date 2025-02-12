@@ -30,9 +30,8 @@ import cn.oyzh.easymysql.tabs.table.MysqlTableRecordTab;
 import cn.oyzh.easymysql.tabs.view.MysqlViewDesignTab;
 import cn.oyzh.easymysql.tabs.view.MysqlViewRecordTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.plus.event.EventListener;
+import cn.oyzh.fx.plus.event.FXEventListener;
 import cn.oyzh.fx.plus.information.MessageBox;
-import com.google.common.eventbus.Subscribe;
 import javafx.scene.control.Tab;
 
 import java.util.ArrayList;
@@ -42,22 +41,14 @@ import java.util.List;
  * @author oyzh
  * @since 2024-09-12
  */
-public class MysqlTabEventListener implements EventListener {
+public class MysqlTabEventListener implements FXEventListener {
 
     private DBTabPane tabPane;
 
     public MysqlTabEventListener(DBTabPane tabPane) {
         super();
-        this.tabPane = tabPane;
-        EventListener.super.register();
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        this.tabPane = null;
-        EventListener.super.unregister();
-        super.finalize();
-    }
 
     private List<Tab> getTabs() {
         return this.tabPane.getTabs();

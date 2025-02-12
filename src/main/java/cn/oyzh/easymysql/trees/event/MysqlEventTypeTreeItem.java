@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.trees.event;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.DBTreeItemValue;
@@ -168,7 +168,7 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItem.My
         this.getValue().flushNum();
     }
 
-    public MysqlInfo info() {
+    public MysqlConnect info() {
         return dbItem.info();
     }
 

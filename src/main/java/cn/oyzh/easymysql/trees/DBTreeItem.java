@@ -1,9 +1,8 @@
 package cn.oyzh.easymysql.trees;
 
-import cn.oyzh.easymysql.trees.DBTreeItemValue;
-import cn.oyzh.easymysql.trees.DBTreeView;
-import cn.oyzh.fx.plus.trees.RichTreeItem;
-import cn.oyzh.fx.plus.trees.RichTreeView;
+
+import cn.oyzh.fx.gui.tree.view.RichTreeItem;
+import cn.oyzh.fx.gui.tree.view.RichTreeView;
 
 /**
  * 基础的树节点

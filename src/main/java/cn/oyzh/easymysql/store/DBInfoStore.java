@@ -5,9 +5,9 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import cn.hutool.log.StaticLog;
+import cn.hutool.log.JulLog;
 import cn.oyzh.easymysql.MysqlConst;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.fx.common.dto.Paging;
 import cn.oyzh.fx.common.store.ArrayFileStore;
 import lombok.NonNull;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @author oyzh
  * @since 2020/5/23
  */
-public class DBInfoStore extends ArrayFileStore<MysqlInfo> {
+public class DBInfoStore extends ArrayFileStore<MysqlConnect> {
 
     /**
      * 当前实例
@@ -33,13 +33,13 @@ public class DBInfoStore extends ArrayFileStore<MysqlInfo> {
     /**
      * 已加载的db节点
      */
-    private final List<MysqlInfo> infos;
+    private final List<MysqlConnect> infos;
 
     {
         this.filePath(MysqlConst.STORE_PATH + "db_info.json");
-        StaticLog.info("DBInfoStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
+        JulLog.info("DBInfoStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
         this.infos = this.load();
-        for (MysqlInfo dbInfo : this.infos) {
+        for (MysqlConnect dbInfo : this.infos) {
             if (StrUtil.isBlank(dbInfo.getId())) {
                 dbInfo.setId(UUID.fastUUID().toString(true));
                 this.update(dbInfo);
@@ -48,7 +48,7 @@ public class DBInfoStore extends ArrayFileStore<MysqlInfo> {
     }
 
     @Override
-    public synchronized List<MysqlInfo> load() {
+    public synchronized List<MysqlConnect> load() {
         // 如果infos为空
         if (this.infos == null) {
             // 读取storeFile文件的内容
@@ -59,7 +59,7 @@ public class DBInfoStore extends ArrayFileStore<MysqlInfo> {
                 return new ArrayList<>();
             }
             // 将文件内容解析为dbInfo列表
-            List<MysqlInfo> infos = JSONUtil.toList(text, MysqlInfo.class);
+            List<MysqlConnect> infos = JSONUtil.toList(text, MysqlConnect.class);
             // 如果dbInfo列表非空
             if (CollUtil.isNotEmpty(infos)) {
                 // 对dbInfo列表进行排序
@@ -73,7 +73,7 @@ public class DBInfoStore extends ArrayFileStore<MysqlInfo> {
     }
 
     @Override
-    public synchronized boolean add(@NonNull MysqlInfo dbInfo) {
+    public synchronized boolean add(@NonNull MysqlConnect dbInfo) {
         try {
             if (!this.infos.contains(dbInfo)) {
                 if (StrUtil.isBlank(dbInfo.getId())) {
@@ -85,44 +85,44 @@ public class DBInfoStore extends ArrayFileStore<MysqlInfo> {
                 return this.save(this.infos);
             }
         } catch (Exception e) {
-            StaticLog.warn("add error,err:{}", e.getMessage());
+            JulLog.warn("add error,err:{}", e.getMessage());
         }
         return false;
     }
 
     @Override
-    public synchronized boolean update(@NonNull MysqlInfo dbInfo) {
+    public synchronized boolean update(@NonNull MysqlConnect dbInfo) {
         try {
             // 更新数据
             if (this.infos.contains(dbInfo)) {
                 return this.save(this.infos);
             }
         } catch (Exception e) {
-            StaticLog.warn("update error,err:{}", e.getMessage());
+            JulLog.warn("update error,err:{}", e.getMessage());
         }
         return false;
     }
 
     @Override
-    public synchronized boolean delete(@NonNull MysqlInfo dbInfo) {
+    public synchronized boolean delete(@NonNull MysqlConnect dbInfo) {
         try {
             // 删除数据
             if (this.infos.remove(dbInfo)) {
                 return this.save(this.infos);
             }
         } catch (Exception e) {
-            StaticLog.warn("delete error,err:{}", e.getMessage());
+            JulLog.warn("delete error,err:{}", e.getMessage());
             return false;
         }
         return true;
     }
 
     @Override
-    public synchronized Paging<MysqlInfo> getPage(int limit, Map<String, Object> params) {
+    public synchronized Paging<MysqlConnect> getPage(int limit, Map<String, Object> params) {
         // 加载数据
-        List<MysqlInfo> infos = this.load();
+        List<MysqlConnect> infos = this.load();
         // 分页对象
-        Paging<MysqlInfo> paging = new Paging<>(infos, limit);
+        Paging<MysqlConnect> paging = new Paging<>(infos, limit);
         // 数据为空
         if (CollUtil.isNotEmpty(infos)) {
             String searchKeyWord = params == null ? null : (String) params.get("searchKeyWord");

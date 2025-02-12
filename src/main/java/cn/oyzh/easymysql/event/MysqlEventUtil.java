@@ -5,9 +5,8 @@ import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
-import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.view.MysqlView;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.query.MysqlQueryTreeItem;
@@ -232,7 +231,7 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-    public static void infoDeleted(MysqlInfo info) {
+    public static void infoDeleted(MysqlConnect info) {
         DBInfoDeletedEvent event = new DBInfoDeletedEvent();
         event.data(info);
         EventUtil.post(event);

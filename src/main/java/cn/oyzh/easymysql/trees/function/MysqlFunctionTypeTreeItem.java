@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.trees.function;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -166,7 +166,7 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
         });
     }
 
-    public MysqlInfo info() {
+    public MysqlConnect info() {
         return dbItem.info();
     }
 

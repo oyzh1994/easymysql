@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.controller;
 
-import cn.hutool.log.StaticLog;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.hutool.log.JulLog;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlPageInfo;
 import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.event.DBInfoUpdatedEvent;
@@ -57,7 +57,7 @@ public class MysqlMainController extends ParentStageController {
     /**
      * 当前激活的db信息
      */
-    private MysqlInfo info;
+    private MysqlConnect info;
 
     /**
      * 左侧db树
@@ -164,7 +164,7 @@ public class MysqlMainController extends ParentStageController {
      *
      * @param info db信息
      */
-    private void flushViewTitle(MysqlInfo info) {
+    private void flushViewTitle(MysqlConnect info) {
         if (info != null) {
             this.stage.appendTitle(" (" + info.getName() + ")");
         } else {
@@ -315,7 +315,7 @@ public class MysqlMainController extends ParentStageController {
         this.tabPane.setLayoutX(w);
         this.tabPane.setFlexWidth("100% - " + w);
         this.tabPaneLeft.parentAutosize();
-        StaticLog.info("LEFT_EXTEND.");
+        JulLog.info("LEFT_EXTEND.");
     }
 
     /**
@@ -329,7 +329,7 @@ public class MysqlMainController extends ParentStageController {
         this.tabPane.setLayoutX(0);
         this.tabPane.setFlexWidth("100%");
         this.tabPaneLeft.parentAutosize();
-        StaticLog.info("LEFT_COLLAPSE.");
+        JulLog.info("LEFT_COLLAPSE.");
     }
 
     @Override

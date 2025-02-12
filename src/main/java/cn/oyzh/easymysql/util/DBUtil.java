@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.util;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.log.StaticLog;
+import cn.hutool.log.JulLog;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
@@ -152,9 +152,9 @@ public class DBUtil {
             for (int i = 1; i <= columnCount; i++) {
                 // 获取列名
                 String columnName = metaData.getColumnName(i);
-                StaticLog.info("Column Name: {}", columnName);
+                JulLog.info("Column Name: {}", columnName);
             }
-            StaticLog.info("printMetaData======================>");
+            JulLog.info("printMetaData======================>");
         }
     }
 
@@ -164,8 +164,8 @@ public class DBUtil {
      * @param sql sql语句
      */
     public static void printSql(String sql) {
-        StaticLog.info(sql);
-        // StaticLog.info("printSql======================>");
+        JulLog.info(sql);
+        // JulLog.info("printSql======================>");
     }
 
     /**
@@ -174,8 +174,8 @@ public class DBUtil {
      * @param sqlList sql列表
      */
     public static void printSql(List<String> sqlList) {
-        StaticLog.info(Arrays.toString(sqlList.toArray()));
-        // StaticLog.info("printSql======================>");
+        JulLog.info(Arrays.toString(sqlList.toArray()));
+        // JulLog.info("printSql======================>");
     }
 
     /**
@@ -186,9 +186,9 @@ public class DBUtil {
     public static void printData(MysqlRecordData data) {
         if (data != null) {
             for (Map.Entry<MysqlColumn, Object> entry : data.entries()) {
-                StaticLog.info(entry.getKey().getName() + "=" + entry.getValue());
+                JulLog.info(entry.getKey().getName() + "=" + entry.getValue());
             }
-            StaticLog.info("printData======================>");
+            JulLog.info("printData======================>");
         }
     }
 

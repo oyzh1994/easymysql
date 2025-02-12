@@ -2,14 +2,12 @@ package cn.oyzh.easymysql.trees.query;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.store.DBQueryStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
-import cn.oyzh.easymysql.trees.DBTreeItemValue;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
@@ -72,7 +70,7 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
      *
      * @return redis信息
      */
-    public MysqlInfo info() {
+    public MysqlConnect info() {
         return this.parent.info();
     }
 

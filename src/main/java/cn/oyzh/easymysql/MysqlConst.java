@@ -13,29 +13,24 @@ import java.io.File;
 @UtilityClass
 public class MysqlConst {
 
-    // /**
-    //  * tab基础地址
-    //  */
-    // public final static String TAB_BASE_PATH = "/tabs/";
-    //
-    // /**
-    //  * fxml基础地址
-    //  */
-    // public final static String FXML_BASE_PATH = "/views/";
-    //
-    // /**
-    //  * popup基础地址
-    //  */
-    // public final static String POPUP_BASE_PATH = "/popups/";
-
     /**
      * 数据保存路径
      */
     public static final String STORE_PATH = System.getProperty("user.home") + File.separator + ".easymysql" + File.separator;
 
     /**
+     * 缓存保存路径
+     */
+    public static final String CACHE_PATH = STORE_PATH + "cache" + File.separator;
+
+    /**
      * icon地址
      */
     public final static String ICON_PATH = "/image/db_clip.png";
+
+    /**
+     * 托盘icon地址
+     */
+    public final static String TRAY_ICON_PATH = "/image/db_clip.png";
 
 }

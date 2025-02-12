@@ -27,10 +27,8 @@ import cn.oyzh.easymysql.db.table.MysqlTableCreateParam;
 import cn.oyzh.easymysql.db.table.MysqlTableSelectParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
-import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
-import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.event.MysqlEventTreeItem;
@@ -46,9 +44,6 @@ import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTypeTreeItem;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
-import cn.oyzh.fx.plus.menu.MenuItemHelper;
-import cn.oyzh.fx.plus.trees.RichTreeItem;
-import cn.oyzh.fx.plus.trees.RichTreeItemFilter;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
 import javafx.scene.control.MenuItem;
@@ -353,7 +348,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      *
      * @return db信息
      */
-    public MysqlInfo info() {
+    public MysqlConnect info() {
         return this.parent.value();
     }
 

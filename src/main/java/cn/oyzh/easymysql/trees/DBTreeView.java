@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.trees;
 
-import cn.hutool.extra.spring.SpringUtil;
+import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.easymysql.controller.info.MysqlInfoAddController;
 import cn.oyzh.easymysql.event.DBAddConnectEvent;
 import cn.oyzh.easymysql.event.DBAddGroupEvent;
@@ -12,11 +12,9 @@ import cn.oyzh.easymysql.event.TreeChildFilterEvent;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.group.DBGroupTreeItem;
 import cn.oyzh.easymysql.trees.root.DBRootTreeItem;
-import cn.oyzh.fx.common.thread.ThreadUtil;
-import cn.oyzh.fx.plus.event.EventListener;
-import cn.oyzh.fx.plus.trees.RichTreeView;
+import cn.oyzh.fx.gui.tree.view.RichTreeView;
+import cn.oyzh.fx.plus.event.FXEventListener;
 import cn.oyzh.fx.plus.window.StageManager;
-import com.google.common.eventbus.Subscribe;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
@@ -31,7 +29,7 @@ import lombok.experimental.Accessors;
  * @author oyzh
  * @since 2023/12/27
  */
-public class DBTreeView extends RichTreeView implements EventListener {
+public class DBTreeView extends RichTreeView implements FXEventListener {
 
     /**
      * 搜索中标志位

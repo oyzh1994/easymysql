@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.trees.procedure;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -67,7 +67,7 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItemVal
      *
      * @return redis信息
      */
-    public MysqlInfo info() {
+    public MysqlConnect info() {
         return this.parent.info();
     }
 

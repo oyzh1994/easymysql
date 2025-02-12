@@ -22,7 +22,7 @@ import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlTableSelectParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -94,7 +94,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
      *
      * @return redis信息
      */
-    public MysqlInfo info() {
+    public MysqlConnect info() {
         return this.parent.info();
     }
 

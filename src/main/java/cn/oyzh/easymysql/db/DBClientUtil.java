@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db;
 
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -12,7 +12,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class DBClientUtil {
 
-    public static DBClient newClient(MysqlInfo info) {
+    public static DBClient newClient(MysqlConnect info) {
         if (DBDialect.valueOf(info.getType()) == DBDialect.MYSQL) {
             return new DBClient(info);
         }

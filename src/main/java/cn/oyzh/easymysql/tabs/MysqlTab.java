@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs;
 
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.plus.tabs.DynamicTab;
+import cn.oyzh.fx.gui.tabs.DynamicTab;
 
 /**
  * @author oyzh

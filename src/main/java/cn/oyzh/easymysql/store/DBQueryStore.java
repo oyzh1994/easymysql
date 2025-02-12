@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import cn.hutool.log.StaticLog;
+import cn.hutool.log.JulLog;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.fx.common.store.ArrayFileStore;
@@ -35,7 +35,7 @@ public class DBQueryStore extends ArrayFileStore<MysqlQuery> {
 
     {
         this.filePath(MysqlConst.STORE_PATH + "db_query.json");
-        StaticLog.info("DBQueryStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
+        JulLog.info("DBQueryStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
         this.queryList = this.load();
     }
 
@@ -76,7 +76,7 @@ public class DBQueryStore extends ArrayFileStore<MysqlQuery> {
                 return this.save(this.queryList);
             }
         } catch (Exception e) {
-            StaticLog.warn("add error,err:{}", e.getMessage());
+            JulLog.warn("add error,err:{}", e.getMessage());
         }
         return false;
     }
@@ -90,7 +90,7 @@ public class DBQueryStore extends ArrayFileStore<MysqlQuery> {
                 return this.save(this.queryList);
             }
         } catch (Exception e) {
-            StaticLog.warn("update error,err:{}", e.getMessage());
+            JulLog.warn("update error,err:{}", e.getMessage());
         }
         return false;
     }
@@ -103,7 +103,7 @@ public class DBQueryStore extends ArrayFileStore<MysqlQuery> {
                 return this.save(this.queryList);
             }
         } catch (Exception e) {
-            StaticLog.warn("delete error,err:{}", e.getMessage());
+            JulLog.warn("delete error,err:{}", e.getMessage());
             return false;
         }
         return true;

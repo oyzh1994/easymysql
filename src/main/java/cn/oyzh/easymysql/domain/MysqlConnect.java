@@ -3,8 +3,8 @@ package cn.oyzh.easymysql.domain;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.fx.common.ssh.SSHConnectInfo;
-import cn.oyzh.fx.common.util.ObjectComparator;
+import cn.oyzh.common.util.ObjectComparator;
+import cn.oyzh.ssh.SSHConnect;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2020/3/6
  */
 @ToString
-public class MysqlInfo implements Comparable<MysqlInfo>, ObjectComparator<MysqlInfo> {
+public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<MysqlConnect> {
 
     /**
      * 数据id
@@ -110,7 +110,7 @@ public class MysqlInfo implements Comparable<MysqlInfo>, ObjectComparator<MysqlI
      */
     @Setter
     @Getter
-    private SSHConnectInfo sshInfo;
+    private MysqlSSHConfig sshConfig;
 
     @Setter
     @Getter
@@ -126,17 +126,17 @@ public class MysqlInfo implements Comparable<MysqlInfo>, ObjectComparator<MysqlI
      * @param info db信息
      * @return 当前对象
      */
-    public MysqlInfo copy(@NonNull MysqlInfo info) {
+    public MysqlConnect copy(@NonNull MysqlConnect info) {
         this.name = info.name;
         this.host = info.host;
         this.user = info.user;
         this.type = info.type;
         this.remark = info.remark;
         this.groupId = info.groupId;
-        this.sshInfo = info.sshInfo;
         this.readonly = info.readonly;
         this.password = info.password;
         this.collects = info.collects;
+        this.sshConfig = info.sshConfig;
         this.sshForward = info.sshForward;
         this.connectTimeOut = info.connectTimeOut;
         return this;
@@ -216,7 +216,7 @@ public class MysqlInfo implements Comparable<MysqlInfo>, ObjectComparator<MysqlI
     }
 
     @Override
-    public int compareTo(MysqlInfo o) {
+    public int compareTo(MysqlConnect o) {
         if (o == null) {
             return 1;
         }
@@ -252,7 +252,7 @@ public class MysqlInfo implements Comparable<MysqlInfo>, ObjectComparator<MysqlI
     }
 
     @Override
-    public boolean compare(MysqlInfo t1) {
+    public boolean compare(MysqlConnect t1) {
         if (t1 == null) {
             return false;
         }

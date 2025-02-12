@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.store;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import cn.hutool.log.StaticLog;
+import cn.hutool.log.JulLog;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.fx.common.store.ObjectFileStore;
@@ -30,7 +30,7 @@ public class DBSettingStore extends ObjectFileStore<MysqlSetting> {
 
     {
         this.filePath(MysqlConst.STORE_PATH + "db_setting.json");
-        StaticLog.info("dbSettingStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
+        JulLog.info("dbSettingStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
     }
 
     @Override

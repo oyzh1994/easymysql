@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.controller.info.MysqlInfoAddController;
 import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.domain.MysqlGroup;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.store.DBGroupStore;
 import cn.oyzh.easymysql.store.DBInfoStore;
@@ -163,7 +163,7 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
     }
 
     @Override
-    public void addConnect(@NonNull MysqlInfo DBInfo) {
+    public void addConnect(@NonNull MysqlConnect DBInfo) {
         this.addConnectItem(new DBConnectTreeItem(DBInfo, this.getTreeView()));
     }
 

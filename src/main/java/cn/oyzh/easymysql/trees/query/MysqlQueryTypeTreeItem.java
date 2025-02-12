@@ -1,25 +1,18 @@
 package cn.oyzh.easymysql.trees.query;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.store.DBQueryStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
-import cn.oyzh.easymysql.trees.DBTreeItemValue;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import cn.oyzh.fx.plus.controls.text.FXText;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.fx.plus.menu.MenuItemHelper;
-import cn.oyzh.fx.plus.theme.ThemeManager;
 import cn.oyzh.fx.plus.trees.RichTreeItemFilter;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
@@ -137,7 +130,7 @@ public class MysqlQueryTypeTreeItem extends DBTreeItem<MysqlQueryTypeTreeItemVal
         this.getValue().flushNum();
     }
 
-    public MysqlInfo info() {
+    public MysqlConnect info() {
         return dbItem.info();
     }
 

@@ -5,7 +5,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import cn.hutool.log.StaticLog;
+import cn.hutool.log.JulLog;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlGroup;
 import cn.oyzh.fx.common.store.ArrayFileStore;
@@ -36,7 +36,7 @@ public class DBGroupStore extends ArrayFileStore<MysqlGroup> {
 
     {
         this.filePath(MysqlConst.STORE_PATH + "db_group.json");
-        StaticLog.info("DBGroupStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
+        JulLog.info("DBGroupStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
         this.groups = this.load();
     }
 
@@ -83,7 +83,7 @@ public class DBGroupStore extends ArrayFileStore<MysqlGroup> {
                 return this.save(this.groups);
             }
         } catch (Exception e) {
-            StaticLog.warn("add error,err:{}", e.getMessage());
+            JulLog.warn("add error,err:{}", e.getMessage());
         }
         return false;
     }
@@ -96,7 +96,7 @@ public class DBGroupStore extends ArrayFileStore<MysqlGroup> {
                 return this.save(this.groups);
             }
         } catch (Exception e) {
-            StaticLog.warn("update error,err:{}", e.getMessage());
+            JulLog.warn("update error,err:{}", e.getMessage());
         }
         return false;
     }
@@ -109,7 +109,7 @@ public class DBGroupStore extends ArrayFileStore<MysqlGroup> {
                 return this.save(this.groups);
             }
         } catch (Exception e) {
-            StaticLog.warn("delete error,err:{}", e.getMessage());
+            JulLog.warn("delete error,err:{}", e.getMessage());
             return false;
         }
         return true;

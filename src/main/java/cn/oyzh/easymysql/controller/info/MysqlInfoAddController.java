@@ -3,22 +3,19 @@ package cn.oyzh.easymysql.controller.info;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlGroup;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.fx.DBTypeComboBox;
-import cn.oyzh.easymysql.fx.info.ServiceTypeCombobox;
 import cn.oyzh.easymysql.store.DBInfoStore;
 import cn.oyzh.easymysql.util.DBConnectUtil;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.area.FlexTextArea;
-import cn.oyzh.fx.plus.controls.box.FlexHBox;
 import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
 import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
 import cn.oyzh.fx.plus.controls.textfield.NumberTextField;
 import cn.oyzh.fx.plus.controls.textfield.PortTextField;
 import cn.oyzh.fx.plus.information.MessageBox;
-import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageAttribute;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
@@ -131,7 +128,7 @@ public class MysqlInfoAddController extends StageController {
         // 检查连接地址
         String host = this.getHost();
         if (StrUtil.isNotBlank(host)) {
-            MysqlInfo dbInfo = new MysqlInfo();
+            MysqlConnect dbInfo = new MysqlConnect();
             dbInfo.setHost(host);
             dbInfo.setConnectTimeOut(5);
             dbInfo.setUser(this.user.getText());
@@ -156,7 +153,7 @@ public class MysqlInfoAddController extends StageController {
         }
         try {
             String name = this.name.getTextTrim();
-            MysqlInfo dbInfo = new MysqlInfo();
+            MysqlConnect dbInfo = new MysqlConnect();
             dbInfo.setName(name);
             Number connectTimeOut = this.connectTimeOut.getValue();
             dbInfo.setHost(host);

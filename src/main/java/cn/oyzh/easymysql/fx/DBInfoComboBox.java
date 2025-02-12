@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx;
 
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.store.DBInfoStore;
 import cn.oyzh.fx.plus.SimpleStringConverter;
 import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
@@ -11,12 +11,12 @@ import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
  * @author oyzh
  * @since 2024/09/05
  */
-public class DBInfoComboBox extends FlexComboBox<MysqlInfo> {
+public class DBInfoComboBox extends FlexComboBox<MysqlConnect> {
 
     {
         this.setConverter(new SimpleStringConverter<>() {
             @Override
-            public String toString(MysqlInfo object) {
+            public String toString(MysqlConnect object) {
                 if (object == null) {
                     return null;
                 }

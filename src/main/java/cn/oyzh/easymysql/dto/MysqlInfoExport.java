@@ -1,11 +1,10 @@
 package cn.oyzh.easymysql.dto;
 
-import cn.hutool.extra.spring.SpringUtil;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
-import cn.hutool.log.StaticLog;
-import cn.oyzh.easymysql.domain.MysqlInfo;
-import cn.oyzh.fx.common.dto.Project;
+import cn.oyzh.common.dto.Project;
+import cn.oyzh.common.json.JSONObject;
+import cn.oyzh.common.json.JSONUtil;
+import cn.oyzh.common.log.JulLog;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -36,7 +35,7 @@ public class MysqlInfoExport {
      * 导出连接数据
      */
     @Getter
-    private List<MysqlInfo> connects;
+    private List<MysqlConnect> connects;
 
     /**
      * 从db连接数据生成
@@ -44,9 +43,9 @@ public class MysqlInfoExport {
      * @param dbInfos 连接列表
      * @return DBInfoExport
      */
-    public static MysqlInfoExport fromConnects(@NonNull List<MysqlInfo> dbInfos) {
+    public static MysqlInfoExport fromConnects(@NonNull List<MysqlConnect> dbInfos) {
         MysqlInfoExport export = new MysqlInfoExport();
-        Project project = SpringUtil.getBean(Project.class);
+        Project project = Project.load();
         export.version = project.getVersion();
         export.connects = dbInfos;
         export.platform = System.getProperty("os.name");
@@ -60,12 +59,12 @@ public class MysqlInfoExport {
      * @return RedisInfoExport
      */
     public static MysqlInfoExport fromJSON(@NonNull String json) {
-        StaticLog.info("json: {}", json);
-        JSONObject object = JSONUtil.parseObj(json);
+        JulLog.info("json: {}", json);
+        JSONObject object = JSONUtil.parseObject(json);
         MysqlInfoExport export = new MysqlInfoExport();
         export.connects = new ArrayList<>();
-        export.version = object.getStr("version");
-        export.connects = object.getBeanList("connects", MysqlInfo.class);
+        export.version = object.getString("version");
+        export.connects = object.getBeanList("connects", MysqlConnect.class);
         return export;
     }
 
@@ -75,6 +74,6 @@ public class MysqlInfoExport {
      * @return json字符串
      */
     public String toJSONString() {
-        return JSONUtil.toJsonStr(this);
+        return JSONUtil.toJson(this);
     }
 }

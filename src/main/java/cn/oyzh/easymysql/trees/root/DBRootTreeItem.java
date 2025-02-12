@@ -7,7 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.controller.info.MysqlInfoAddController;
 import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.domain.MysqlGroup;
-import cn.oyzh.easymysql.domain.MysqlInfo;
+import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.dto.MysqlInfoExport;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.store.DBGroupStore;
@@ -80,7 +80,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
             this.addChild(list);
         }
         // 初始化连接
-        List<MysqlInfo> infos = this.infoStore.load();
+        List<MysqlConnect> infos = this.infoStore.load();
         if (CollUtil.isNotEmpty(infos)) {
             this.addConnects(infos);
         }
@@ -107,7 +107,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      * 导出连接
      */
     private void exportConnect() {
-        List<MysqlInfo> infos = this.infoStore.load();
+        List<MysqlConnect> infos = this.infoStore.load();
         if (infos.isEmpty()) {
             MessageBox.warn(I18nHelper.connectionIsEmpty());
             return;
@@ -181,9 +181,9 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
         try {
             String text = FileUtil.readUtf8String(file);
             MysqlInfoExport export = MysqlInfoExport.fromJSON(text);
-            List<MysqlInfo> infos = export.getConnects();
+            List<MysqlConnect> infos = export.getConnects();
             if (CollUtil.isNotEmpty(infos)) {
-                for (MysqlInfo info : infos) {
+                for (MysqlConnect info : infos) {
                     if (this.infoStore.add(info)) {
                         this.addConnect(info);
                     } else {
@@ -270,7 +270,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      *
      * @param info 连接
      */
-    public void infoAdd(MysqlInfo info) {
+    public void infoAdd(MysqlConnect info) {
         this.addConnect(info);
     }
 
@@ -279,7 +279,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      *
      * @param info 连接
      */
-    public void infoUpdate(MysqlInfo info) {
+    public void infoUpdate(MysqlConnect info) {
         f1:
         for (TreeItem<?> item : this.getRealChildren()) {
             if (item instanceof DBConnectTreeItem connectTreeItem) {
@@ -299,7 +299,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     }
 
     @Override
-    public void addConnect(@NonNull MysqlInfo info) {
+    public void addConnect(@NonNull MysqlConnect info) {
         DBGroupTreeItem groupItem = this.getGroupItem(info.getGroupId());
         if (groupItem == null) {
             super.addChild(new DBConnectTreeItem(info, this.getTreeView()));

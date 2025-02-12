@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.store;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import cn.hutool.log.StaticLog;
+import cn.hutool.log.JulLog;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlPageInfo;
 import cn.oyzh.fx.common.store.ObjectFileStore;
@@ -29,7 +29,7 @@ public class DBPageInfoStore extends ObjectFileStore<MysqlPageInfo> {
 
     {
         this.filePath(MysqlConst.STORE_PATH + "page_info.json");
-        StaticLog.info("DBPageInfoStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
+        JulLog.info("DBPageInfoStore filePath:{} charset:{} init {}.", this.filePath(), this.charset(), super.init() ? "success" : "fail");
     }
 
     @Override
