@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.exception;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.fx.common.ssh.SSHException;
+import cn.oyzh.ssh.SSHException;
 
 import java.util.function.Function;
 

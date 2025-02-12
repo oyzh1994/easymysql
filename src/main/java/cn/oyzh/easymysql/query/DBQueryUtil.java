@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.query;
 
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
@@ -10,7 +11,6 @@ import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.util.DBUtil;
-import cn.oyzh.fx.common.thread.ThreadUtil;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;

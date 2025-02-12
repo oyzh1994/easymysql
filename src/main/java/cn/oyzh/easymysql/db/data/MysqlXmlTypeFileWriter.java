@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.db.data;
 
 import cn.hutool.core.io.IoUtil;
+import cn.oyzh.common.file.LineFileWriter;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
-import cn.oyzh.fx.common.file.LineFileWriter;
 
 import java.io.IOException;
 import java.util.Map;

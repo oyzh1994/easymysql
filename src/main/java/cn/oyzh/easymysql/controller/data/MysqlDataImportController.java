@@ -54,9 +54,8 @@ import java.util.Date;
  * @since 2024/08/30
  */
 @StageAttribute(
-        iconUrls = MysqlConst.ICON_PATH,
         modality = Modality.WINDOW_MODAL,
-        value = FXConst.VIEW_PATH + "data/dbDataImport.fxml"
+        value = FXConst.FXML_PATH + "data/dbDataImport.fxml"
 )
 public class MysqlDataImportController extends StageController {
 

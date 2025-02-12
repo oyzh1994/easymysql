@@ -75,23 +75,23 @@ public class DBEventUtil {
         EventUtil.post(event);
     }
 
-    /**
-     * 搜索开始事件
-     */
-    public static void searchStart(DBSearchParam searchParam) {
-        DBSearchStartEvent event = new DBSearchStartEvent();
-        event.data(searchParam);
-        EventUtil.post(event);
-    }
-
-    /**
-     * 搜索结束事件
-     */
-    public static void searchFinish(DBSearchParam searchParam) {
-        DBSearchFinishEvent event = new DBSearchFinishEvent();
-        event.data(searchParam);
-        EventUtil.post(event);
-    }
+//    /**
+//     * 搜索开始事件
+//     */
+//    public static void searchStart(DBSearchParam searchParam) {
+//        DBSearchStartEvent event = new DBSearchStartEvent();
+//        event.data(searchParam);
+//        EventUtil.post(event);
+//    }
+//
+//    /**
+//     * 搜索结束事件
+//     */
+//    public static void searchFinish(DBSearchParam searchParam) {
+//        DBSearchFinishEvent event = new DBSearchFinishEvent();
+//        event.data(searchParam);
+//        EventUtil.post(event);
+//    }
 
     /**
      * 树节点过滤事件
@@ -355,9 +355,9 @@ public class DBEventUtil {
         EventUtil.post(event);
     }
 
-    public static void searchFire() {
-        EventUtil.post(new DBSearchFireEvent());
-    }
+//    public static void searchFire() {
+//        EventUtil.post(new DBSearchFireEvent());
+//    }
 
     // public static void viewOpen(MysqlViewTreeItem item) {
     //     MysqlViewOpenEvent event = new MysqlViewOpenEvent();

@@ -18,7 +18,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.WindowEvent;
-import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
 
@@ -31,7 +30,6 @@ import static javafx.stage.PopupWindow.AnchorLocation.CONTENT_TOP_LEFT;
  * @author oyzh
  * @since 2024/06/26
  */
-@Lazy
 @PopupAttribute(
         value = FXConst.POPUP_PATH + "mysqlTableRecordFilterPopup.fxml",
         arrowLocation = BOTTOM_LEFT,

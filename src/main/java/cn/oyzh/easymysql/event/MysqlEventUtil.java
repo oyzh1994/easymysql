@@ -45,7 +45,7 @@ import cn.oyzh.easymysql.trees.query.MysqlQueryTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
-import cn.oyzh.fx.plus.event.EventUtil;
+import cn.oyzh.event.EventUtil;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;

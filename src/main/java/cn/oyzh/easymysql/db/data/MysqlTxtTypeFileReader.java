@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db.data;
 
-import cn.oyzh.fx.common.file.SkipAbleFileReader;
+import cn.oyzh.common.file.SkipAbleFileReader;
 import lombok.NonNull;
 
 import java.io.File;

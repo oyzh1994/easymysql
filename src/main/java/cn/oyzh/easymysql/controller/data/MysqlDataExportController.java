@@ -53,9 +53,8 @@ import java.util.List;
  * @since 2024/08/26
  */
 @StageAttribute(
-        iconUrls = MysqlConst.ICON_PATH,
         modality = Modality.WINDOW_MODAL,
-        value = FXConst.VIEW_PATH + "data/dbDataExport.fxml"
+        value = FXConst.FXML_PATH + "data/dbDataExport.fxml"
 )
 public class MysqlDataExportController extends StageController {
 

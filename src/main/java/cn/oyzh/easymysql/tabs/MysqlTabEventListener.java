@@ -30,6 +30,7 @@ import cn.oyzh.easymysql.tabs.table.MysqlTableRecordTab;
 import cn.oyzh.easymysql.tabs.view.MysqlViewDesignTab;
 import cn.oyzh.easymysql.tabs.view.MysqlViewRecordTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
+import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.fx.plus.event.FXEventListener;
 import cn.oyzh.fx.plus.information.MessageBox;
 import javafx.scene.control.Tab;

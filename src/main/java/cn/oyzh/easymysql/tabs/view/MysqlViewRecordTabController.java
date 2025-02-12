@@ -20,6 +20,7 @@ import cn.oyzh.easymysql.popups.MysqlTableRecordFilterPopupController;
 import cn.oyzh.easymysql.store.DBSettingStore;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.util.DBRecordUtil;
+import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.fx.gui.page.PageBox;
 import cn.oyzh.fx.gui.page.PageEvent;
 import cn.oyzh.fx.gui.tabs.DynamicTab;

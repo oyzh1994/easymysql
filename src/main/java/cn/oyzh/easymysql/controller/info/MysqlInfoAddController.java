@@ -30,8 +30,7 @@ import javafx.stage.WindowEvent;
 @StageAttribute(
         title = "DB连接新增",
         modality = Modality.WINDOW_MODAL,
-        iconUrls = MysqlConst.ICON_PATH,
-        value = FXConst.VIEW_PATH + "info/dbInfoAdd.fxml"
+        value = FXConst.FXML_PATH + "info/dbInfoAdd.fxml"
 )
 public class MysqlInfoAddController extends StageController {
 
