@@ -1,21 +1,20 @@
 package cn.oyzh.easymysql.controller.data;
 
+import cn.oyzh.common.thread.ThreadUtil;
+import cn.oyzh.common.util.SystemUtil;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.handler.runfile.DataRunSqlFileHandler;
-import cn.oyzh.fx.common.thread.ThreadUtil;
-import cn.oyzh.fx.common.util.SystemUtil;
+import cn.oyzh.fx.gui.text.area.MsgTextArea;
+import cn.oyzh.fx.gui.text.field.ChooseFileTextField;
+import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.area.MsgTextArea;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.button.FlexButton;
-import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
-import cn.oyzh.fx.plus.controls.text.FXLabel;
-import cn.oyzh.fx.plus.controls.textfield.ChooseFileTextField;
-import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField;
+import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
@@ -23,6 +22,7 @@ import cn.oyzh.fx.plus.util.Counter;
 import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageAttribute;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
@@ -38,9 +38,8 @@ import java.io.IOException;
  * @since 2024/08/29
  */
 @StageAttribute(
-        iconUrls = MysqlConst.ICON_PATH,
         modality = Modality.WINDOW_MODAL,
-        value = FXConst.VIEW_PATH + "data/dbRunSqlFile.fxml"
+        value = FXConst.FXML_PATH + "data/dbRunSqlFile.fxml"
 )
 public class MysqlRunSqlFileController extends StageController {
 
@@ -88,7 +87,7 @@ public class MysqlRunSqlFileController extends StageController {
      * 遇到错误时继续
      */
     @FXML
-    private FlexCheckBox continueWithErrors;
+    private FXCheckBox continueWithErrors;
 
     /**
      * 文件
@@ -202,8 +201,8 @@ public class MysqlRunSqlFileController extends StageController {
     }
 
     @Override
-    public void onStageShown(WindowEvent event) {
-        super.onStageShown(event);
+    public void onWindowShown(WindowEvent event) {
+        super.onWindowShown(event);
         this.dbInfo = this.getWindowProp("dbInfo");
         this.dbClient = this.getWindowProp("dbClient");
         String dbName = this.getWindowProp("dbName");

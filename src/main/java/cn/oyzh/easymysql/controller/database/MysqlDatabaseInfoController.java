@@ -44,8 +44,8 @@ public class MysqlDatabaseInfoController extends StageController {
     private ReadOnlyTextField dbCollation;
 
     @Override
-    public void onStageShown(WindowEvent event) {
-        super.onStageShown(event);
+    public void onWindowShown(WindowEvent event) {
+        super.onWindowShown(event);
         this.stage.hideOnEscape();
         MysqlDatabaseTreeItem dbItem = this.getWindowProp("dbItem");
         DBDatabase database = dbItem.value();

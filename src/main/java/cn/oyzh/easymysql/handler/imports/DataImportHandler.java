@@ -32,7 +32,6 @@ import java.util.Map;
  * @author oyzh
  * @since 2024/08/27
  */
-@Slf4j
 public class DataImportHandler extends DataHandler {
 
     /**

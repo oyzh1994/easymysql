@@ -6,12 +6,12 @@ import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
+import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.StageAttribute;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
@@ -104,7 +104,7 @@ public class MysqlDatabaseAddController extends StageController {
     }
 
     @Override
-    public void onStageShown(WindowEvent event) {
+    public void onWindowShown(WindowEvent event) {
         this.connectItem = this.getWindowProp("connectItem");
 
         // 初始化字符集和排序
@@ -112,7 +112,7 @@ public class MysqlDatabaseAddController extends StageController {
         this.charset.enable();
         this.collation.disable();
 
-        super.onStageShown(event);
+        super.onWindowShown(event);
         this.stage.switchOnTab();
         this.stage.hideOnEscape();
     }

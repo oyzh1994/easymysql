@@ -9,7 +9,7 @@ import cn.oyzh.easymysql.fx.table.DBEnumTextFiled;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
-import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.textfield.NumberTextField;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.PopupAdapter;
@@ -74,7 +74,7 @@ public class DBColumnConfigPopupController extends PopupController {
      * 填充零
      */
     @FXML
-    private FlexCheckBox zeroFill;
+    private FXCheckBox zeroFill;
 
     /**
      * 自动递增组件
@@ -86,7 +86,7 @@ public class DBColumnConfigPopupController extends PopupController {
      * 自动递增
      */
     @FXML
-    private FlexCheckBox autoIncrement;
+    private FXCheckBox autoIncrement;
 
     /**
      * 无符号组件
@@ -98,7 +98,7 @@ public class DBColumnConfigPopupController extends PopupController {
      * 无符号
      */
     @FXML
-    private FlexCheckBox unsigned;
+    private FXCheckBox unsigned;
 
     /**
      * 根据当前时间戳更新组件
@@ -110,7 +110,7 @@ public class DBColumnConfigPopupController extends PopupController {
      * 根据当前时间戳更新
      */
     @FXML
-    private FlexCheckBox currentTimestamp;
+    private FXCheckBox currentTimestamp;
 
     /**
      * 字符集组件

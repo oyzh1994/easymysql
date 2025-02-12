@@ -343,8 +343,8 @@ public class MysqlDataExportController extends StageController {
     }
 
     @Override
-    public void onStageShown(WindowEvent event) {
-        super.onStageShown(event);
+    public void onWindowShown(WindowEvent event) {
+        super.onWindowShown(event);
         this.dbName = this.getWindowProp("dbName");
         this.dbClient = this.getWindowProp("dbClient");
         this.tableName = this.getWindowProp("tableName");

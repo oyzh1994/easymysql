@@ -239,8 +239,8 @@ public class MysqlDataDumpController extends StageController {
     }
 
     @Override
-    public void onStageShown(WindowEvent event) {
-        super.onStageShown(event);
+    public void onWindowShown(WindowEvent event) {
+        super.onWindowShown(event);
         this.dbInfo = this.getWindowProp("dbInfo");
         this.dbClient = this.getWindowProp("dbClient");
         this.dumpType = this.getWindowProp("dumpType");

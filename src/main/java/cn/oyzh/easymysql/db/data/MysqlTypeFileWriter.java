@@ -2,10 +2,9 @@ package cn.oyzh.easymysql.db.data;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.HexUtil;
-import cn.hutool.json.JSONUtil;
+import cn.oyzh.common.util.TextUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.util.DBDataUtil;
-import cn.oyzh.fx.common.util.TextUtil;
 
 import java.io.Closeable;
 import java.time.LocalDateTime;

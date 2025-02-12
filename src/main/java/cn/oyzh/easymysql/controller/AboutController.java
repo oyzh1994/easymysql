@@ -52,7 +52,7 @@ public class AboutController extends SubStageController {
     private Project project;
 
     @Override
-    public void onStageShown(WindowEvent event) {
+    public void onWindowShown(WindowEvent event) {
         this.name.setText(this.project.getName());
         this.version.setText("v" + this.project.getVersion());
         this.updateDate.setText(this.project.getUpdateDate());

@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.fx.data;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
-import cn.oyzh.fx.plus.controls.textfield.SaveFileTextField;
+import cn.oyzh.fx.gui.text.field.SaveFileTextField;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
 import cn.oyzh.fx.plus.file.FileExtensionFilter;
 import cn.oyzh.fx.plus.util.TableViewUtil;
@@ -76,8 +76,8 @@ public class DataExportTable {
         this.selectedProperty().set(selected);
     }
 
-    public FlexCheckBox getSelectedControl() {
-        FlexCheckBox checkBox = new FlexCheckBox();
+    public FXCheckBox getSelectedControl() {
+        FXCheckBox checkBox = new FXCheckBox();
         checkBox.setSelected(this.isSelected());
         AtomicBoolean ignoreChanged = new AtomicBoolean(false);
         checkBox.selectedChanged((observable, oldValue, newValue) -> {

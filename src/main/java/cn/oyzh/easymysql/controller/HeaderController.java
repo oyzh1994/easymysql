@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.controller;
 
+import cn.oyzh.common.dto.Project;
 import cn.oyzh.easymysql.controller.data.MysqlDataTransportController;
 import cn.oyzh.easymysql.event.DBEventUtil;
-import cn.oyzh.fx.common.dto.Project;
 import cn.oyzh.fx.plus.controller.SubStageController;
 import cn.oyzh.fx.plus.controls.svg.SVGLabel;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -12,9 +12,6 @@ import cn.oyzh.fx.plus.window.StageManager;
 import javafx.fxml.FXML;
 import javafx.stage.WindowEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 /**
  * 主页头部业务
@@ -22,16 +19,12 @@ import org.springframework.stereotype.Component;
  * @author oyzh
  * @since 2023/06/16
  */
-@Lazy
-@Slf4j
-@Component
 public class HeaderController extends SubStageController {
 
     /**
      * 项目信息
      */
-    @Autowired
-    private Project project;
+    private Project project = Project.load();
 
     /**
      * 展开db树
@@ -121,8 +114,8 @@ public class HeaderController extends SubStageController {
     }
 
     @Override
-    public void onStageShown(WindowEvent event) {
-        super.onStageShown(event);
+    public void onWindowShown(WindowEvent event) {
+        super.onWindowShown(event);
         this.treeMutexes.addNodes(this.collapseTree, this.expandTree);
         this.treeMutexes.manageBindVisible();
     }

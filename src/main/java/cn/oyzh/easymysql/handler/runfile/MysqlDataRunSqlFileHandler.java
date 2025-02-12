@@ -13,7 +13,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author oyzh
  * @since 2024/09/10
  */
-@Slf4j
 public class MysqlDataRunSqlFileHandler extends DataRunSqlFileHandler {
 
     public MysqlDataRunSqlFileHandler(DBClient dbClient, String dbName) {

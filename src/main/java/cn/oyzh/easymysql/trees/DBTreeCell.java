@@ -8,7 +8,6 @@ import cn.oyzh.fx.gui.tree.view.RichTreeCell;
  * @author oyzh
  * @since 2023/06/31
  */
-//@Slf4j
 public class DBTreeCell extends RichTreeCell<DBTreeItemValue> {
 
 }

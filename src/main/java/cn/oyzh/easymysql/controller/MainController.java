@@ -56,20 +56,20 @@ public class MainController extends ParentStageController {
     @FXML
     private MysqlMainController mysqlMainController;
 
-    /**
-     * 页面信息
-     */
-    private final MysqlPageInfo pageInfo = DBPageInfoStore.PAGE_INFO;
+//    /**
+//     * 页面信息
+//     */
+//    private final MysqlPageInfo pageInfo = DBPageInfoStore.PAGE_INFO;
 
     /**
      * db相关配置
      */
     private final MysqlSetting setting = DBSettingStore.SETTING;
-
-    /**
-     * 页面信息储存
-     */
-    private final DBPageInfoStore pageInfoStore = DBPageInfoStore.INSTANCE;
+//
+//    /**
+//     * 页面信息储存
+//     */
+//    private final DBPageInfoStore pageInfoStore = DBPageInfoStore.INSTANCE;
 
     /**
      * 初始化系统托盘
@@ -145,7 +145,7 @@ public class MainController extends ParentStageController {
     }
 
     @Override
-    public void onStageCloseRequest(WindowEvent event) {
+    public void onWindowCloseRequest(WindowEvent event) {
         JulLog.warn("main view closing.");
         // 直接退出应用
         if (this.setting.isExitDirectly()) {
@@ -173,12 +173,12 @@ public class MainController extends ParentStageController {
     @Override
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
-        this.stage.setTitleExt(this.project.getName() + "-v" + this.project.getVersion());
+        this.stage.title(this.project.getName() + "-v" + this.project.getVersion());
     }
 
     @Override
-    public void onStageShown(WindowEvent event) {
-        super.onStageShown(event);
+    public void onWindowShown(WindowEvent event) {
+        super.onWindowShown(event);
         try {
             this.initSystemTray();
             TrayManager.show();

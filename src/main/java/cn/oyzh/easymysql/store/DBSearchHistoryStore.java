@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
  * @author oyzh
  * @since 2022/12/16
  */
-//@Slf4j
 public class DBSearchHistoryStore extends ArrayFileStore<MysqlSearchHistory> {
 
     /**

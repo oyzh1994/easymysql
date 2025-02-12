@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.popups;
 
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
-import cn.oyzh.fx.plus.controls.button.FlexCheckBox;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.view.FlexListView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.PopupAdapter;
@@ -70,7 +70,7 @@ public class DBRecordEnumPopupController extends PopupController {
         List<String> values = this.getWindowProp("values");
         List<String> allValues = this.getWindowProp("allValues");
         for (String value : allValues) {
-            FlexCheckBox checkBox = new FlexCheckBox(value);
+            FXCheckBox checkBox = new FXCheckBox(value);
             if (values.contains(value)) {
                 checkBox.setSelected(true);
             }

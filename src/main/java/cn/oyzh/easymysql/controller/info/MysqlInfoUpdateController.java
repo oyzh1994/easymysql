@@ -7,13 +7,13 @@ import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.fx.DBTypeComboBox;
 import cn.oyzh.easymysql.store.DBInfoStore;
 import cn.oyzh.easymysql.util.DBConnectUtil;
+import cn.oyzh.fx.gui.text.field.ClearableTextField;
+import cn.oyzh.fx.gui.text.field.NumberTextField;
+import cn.oyzh.fx.gui.text.field.PortTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.area.FlexTextArea;
 import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
-import cn.oyzh.fx.plus.controls.textfield.ClearableTextField;
-import cn.oyzh.fx.plus.controls.textfield.NumberTextField;
-import cn.oyzh.fx.plus.controls.textfield.PortTextField;
+import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.StageAttribute;
 import javafx.fxml.FXML;
@@ -27,7 +27,11 @@ import lombok.NonNull;
  * @author oyzh
  * @since 2023/12/22
  */
-@StageAttribute(title = "DB连接修改", modality = Modality.WINDOW_MODAL, iconUrls = MysqlConst.ICON_PATH, value = FXConst.VIEW_PATH + "info/dbInfoUpdate.fxml")
+@StageAttribute(
+        title = "DB连接修改",
+        modality = Modality.WINDOW_MODAL,
+        value = FXConst.FXML_PATH + "info/dbInfoUpdate.fxml"
+)
 public class MysqlInfoUpdateController extends StageController {
 
     /**
@@ -167,8 +171,8 @@ public class MysqlInfoUpdateController extends StageController {
     }
 
     @Override
-    public void onStageShown(@NonNull WindowEvent event) {
-        super.onStageShown(event);
+    public void onWindowShown(@NonNull WindowEvent event) {
+        super.onWindowShown(event);
         this.dbInfo = this.getWindowProp("info");
         this.name.setText(this.dbInfo.getName());
         this.user.setText(this.dbInfo.getUser());

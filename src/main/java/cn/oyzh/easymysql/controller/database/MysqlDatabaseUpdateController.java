@@ -7,9 +7,9 @@ import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
+import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.StageAttribute;
 import javafx.fxml.FXML;
@@ -25,8 +25,7 @@ import javafx.stage.WindowEvent;
 @StageAttribute(
         title = "DB数据库编辑",
         modality = Modality.APPLICATION_MODAL,
-        iconUrls = MysqlConst.ICON_PATH,
-        value = FXConst.VIEW_PATH + "database/mysqlDatabaseUpdate.fxml"
+        value = FXConst.FXML_PATH + "database/mysqlDatabaseUpdate.fxml"
 )
 public class MysqlDatabaseUpdateController extends StageController {
 
@@ -102,7 +101,7 @@ public class MysqlDatabaseUpdateController extends StageController {
     }
 
     @Override
-    public void onStageShown(WindowEvent event) {
+    public void onWindowShown(WindowEvent event) {
         this.database = this.getWindowProp("database");
         this.connectItem = this.getWindowProp("connectItem");
 
@@ -115,7 +114,7 @@ public class MysqlDatabaseUpdateController extends StageController {
         this.collation.init(this.database.getCharset(), this.connectItem.client());
         this.collation.select(this.database.getCollation());
 
-        super.onStageShown(event);
+        super.onWindowShown(event);
         this.stage.switchOnTab();
         this.stage.hideOnEscape();
     }

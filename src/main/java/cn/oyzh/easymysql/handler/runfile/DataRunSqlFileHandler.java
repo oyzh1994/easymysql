@@ -20,7 +20,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/08/29
  */
-@Slf4j
 public abstract class DataRunSqlFileHandler extends DataHandler {
 
     /**

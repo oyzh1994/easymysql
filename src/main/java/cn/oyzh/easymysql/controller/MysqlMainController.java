@@ -89,7 +89,7 @@ public class MysqlMainController extends ParentStageController {
      * 仅看收藏键
      */
     @FXML
-    private FlexCheckBox onlyCollect;
+    private FXCheckBox onlyCollect;
 
     /**
      * db切换面板
@@ -185,8 +185,8 @@ public class MysqlMainController extends ParentStageController {
     }
 
     @Override
-    public void onStageShown(WindowEvent event) {
-        super.onStageShown(event);
+    public void onWindowShown(WindowEvent event) {
+        super.onWindowShown(event);
         // 注册事件处理
         EventUtil.register(this.tree);
         EventUtil.register(this.tabPane);

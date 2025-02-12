@@ -3,11 +3,11 @@ package cn.oyzh.easymysql.controller.table;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
+import cn.oyzh.fx.gui.text.area.ReadOnlyTextArea;
+import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.area.ReadOnlyTextArea;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
-import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageAttribute;
 import cn.oyzh.fx.rich.richtextfx.control.FlexRichTextArea;
@@ -24,8 +24,7 @@ import javafx.stage.WindowEvent;
 @StageAttribute(
         title = "DB表信息",
         modality = Modality.WINDOW_MODAL,
-        iconUrls = MysqlConst.ICON_PATH,
-        value = FXConst.MODULE_PATH + "mysql/views/mysqlTableInfo.fxml"
+        value = FXConst.FXML_PATH + "mysql/views/mysqlTableInfo.fxml"
 )
 public class MysqlTableInfoController extends StageController {
 
@@ -90,7 +89,7 @@ public class MysqlTableInfoController extends StageController {
     private FlexRichTextArea tableDefinition;
 
     @Override
-    public void onStageShown(WindowEvent event) {
+    public void onWindowShown(WindowEvent event) {
         MysqlTableTreeItem tableItem = this.getWindowProp("tableItem");
         MysqlTable table = tableItem.value();
         this.tableName.setText(table.getName());
@@ -107,7 +106,7 @@ public class MysqlTableInfoController extends StageController {
             this.tableAutoIncrementBox.display();
             this.tableAutoIncrement.setText(table.getAutoIncrement() + "");
         }
-        super.onStageShown(event);
+        super.onWindowShown(event);
         this.stage.hideOnEscape();
     }
 

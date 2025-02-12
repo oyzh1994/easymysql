@@ -3,10 +3,10 @@ package cn.oyzh.easymysql.controller.view;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
+import cn.oyzh.fx.gui.text.area.ReadOnlyTextArea;
+import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.area.ReadOnlyTextArea;
-import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField;
 import cn.oyzh.fx.plus.window.StageAttribute;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
@@ -21,8 +21,7 @@ import javafx.stage.WindowEvent;
 @StageAttribute(
         title = "DB视图信息",
         modality = Modality.WINDOW_MODAL,
-        iconUrls = MysqlConst.ICON_PATH,
-        value = FXConst.MODULE_PATH + "mysql/views/mysqlViewInfo.fxml"
+        value = FXConst.FXML_PATH + "mysql/views/mysqlViewInfo.fxml"
 )
 public class MysqlViewInfoController extends StageController {
 
@@ -39,8 +38,8 @@ public class MysqlViewInfoController extends StageController {
     private ReadOnlyTextArea viewComment;
 
     @Override
-    public void onStageShown(WindowEvent event) {
-        super.onStageShown(event);
+    public void onWindowShown(WindowEvent event) {
+        super.onWindowShown(event);
         this.stage.hideOnEscape();
         MysqlViewTreeItem item = this.getWindowProp("item");
         MysqlView view = item.value();
