@@ -7,25 +7,25 @@
 <?import cn.oyzh.easymysql.fx.data.DataRecordSeparatorComboBox?>
 <?import cn.oyzh.easymysql.fx.data.DataTxtIdentifierComboBox?>
 <?import cn.oyzh.easymysql.fx.table.DBTableComboBox?>
-<?import cn.oyzh.fx.plus.controls.area.MsgTextArea?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
-<?import cn.oyzh.fx.plus.controls.button.CancelButton?>
 <?import cn.oyzh.fx.plus.controls.button.FlexButton?>
 <?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXRadioButton?>
-<?import cn.oyzh.fx.plus.controls.button.ImportButton?>
-<?import cn.oyzh.fx.plus.controls.button.NextStepButton?>
-<?import cn.oyzh.fx.plus.controls.button.PrevStepButton?>
-<?import cn.oyzh.fx.plus.controls.button.StopButton?>
 <?import cn.oyzh.fx.plus.controls.table.FlexTableColumn?>
-<?import cn.oyzh.fx.plus.controls.text.FlexLabel?>
-<?import cn.oyzh.fx.plus.controls.text.FXLabel?>
-<?import cn.oyzh.fx.plus.controls.textfield.NumberTextField?>
 <?import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import cn.oyzh.fx.plus.controls.label.FlexLabel?>
+<?import cn.oyzh.fx.gui.button.NextStepButton?>
+<?import cn.oyzh.fx.gui.button.CancelButton?>
+<?import cn.oyzh.fx.gui.button.PrevStepButton?>
+<?import cn.oyzh.fx.gui.text.field.NumberTextField?>
+<?import cn.oyzh.fx.plus.controls.label.FXLabel?>
+<?import cn.oyzh.fx.gui.text.area.MsgTextArea?>
+<?import cn.oyzh.fx.gui.button.ImportButton?>
+<?import cn.oyzh.fx.gui.button.StopButton?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.data.MysqlDataImportController" realWidth="700" realHeight="650">
     <FlexVBox fx:id="step1" flexHeight="100%" flexWidth="100%">

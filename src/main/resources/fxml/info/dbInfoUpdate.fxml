@@ -5,7 +5,7 @@
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
 <?import cn.oyzh.fx.plus.controls.button.CancelButton?>
-<?import cn.oyzh.fx.plus.controls.button.FlexCheckBox?>
+<?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
 <?import cn.oyzh.fx.plus.controls.button.SubmitButton?>
 <?import cn.oyzh.fx.plus.controls.button.TestButton?>
 <?import cn.oyzh.fx.plus.controls.tab.FlexTabPane?>
@@ -118,11 +118,11 @@
                             <Insets left="20" top="10"/>
                         </HBox.margin>
                     </AccentLabel>
-                    <FlexCheckBox text="%base.readonlyMode" tipText="%base.readonlyModeTip" fx:id="readonly">
+                    <FXCheckBox text="%base.readonlyMode" tipText="%base.readonlyModeTip" fx:id="readonly">
                         <HBox.margin>
                             <Insets left="10" top="16"/>
                         </HBox.margin>
-                    </FlexCheckBox>
+                    </FXCheckBox>
                 </FlexHBox>
                 <FlexHBox flexWidth="100%" realHeight="50">
                     <AccentLabel realHeight="30" realWidth="100" text="%base.connectTimeout">

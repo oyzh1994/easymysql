@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.fx.plus.controls.button.FlexCheckBox?>
+<?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.FlexPane?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
@@ -51,11 +51,11 @@
                     </PositioningSVGGlyph>
                 </FlexHBox>
                 <FlexHBox realHeight="30" flexWidth="100%">
-                    <FlexCheckBox text="%base.onlyCollect" fx:id="onlyCollect" fontSize="9">
+                    <FXCheckBox text="%base.onlyCollect" fx:id="onlyCollect" fontSize="9">
                         <FlexHBox.margin>
                             <Insets left="10" top="5"/>
                         </FlexHBox.margin>
-                    </FlexCheckBox>
+                    </FXCheckBox>
                 </FlexHBox>
                 <fx:include visible="false" managed="false" fx:id="search" source="search.fxml" prefHeight="60"
                             flexWidth="100% - 2"/>

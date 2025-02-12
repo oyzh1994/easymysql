@@ -6,25 +6,24 @@
 <?import cn.oyzh.easymysql.fx.data.DataFieldSeparatorComboBox?>
 <?import cn.oyzh.easymysql.fx.data.DataRecordSeparatorComboBox?>
 <?import cn.oyzh.easymysql.fx.data.DataTxtIdentifierComboBox?>
-<?import cn.oyzh.fx.plus.controls.area.MsgTextArea?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
-<?import cn.oyzh.fx.plus.controls.button.CancelButton?>
-<?import cn.oyzh.fx.plus.controls.button.ExportButton?>
 <?import cn.oyzh.fx.plus.controls.button.FlexButton?>
-<?import cn.oyzh.fx.plus.controls.button.FlexCheckBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXRadioButton?>
-<?import cn.oyzh.fx.plus.controls.button.NextStepButton?>
-<?import cn.oyzh.fx.plus.controls.button.PrevStepButton?>
-<?import cn.oyzh.fx.plus.controls.button.StopButton?>
 <?import cn.oyzh.fx.plus.controls.table.FlexTableColumn?>
-<?import cn.oyzh.fx.plus.controls.text.FlexLabel?>
-<?import cn.oyzh.fx.plus.controls.text.FXLabel?>
 <?import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import cn.oyzh.fx.plus.controls.label.FlexLabel?>
+<?import cn.oyzh.fx.gui.button.NextStepButton?>
+<?import cn.oyzh.fx.gui.button.CancelButton?>
+<?import cn.oyzh.fx.gui.button.PrevStepButton?>
+<?import cn.oyzh.fx.gui.text.area.MsgTextArea?>
+<?import cn.oyzh.fx.plus.controls.label.FXLabel?>
+<?import cn.oyzh.fx.gui.button.ExportButton?>
+<?import cn.oyzh.fx.gui.button.StopButton?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.data.MysqlDataExportController" realWidth="700" realHeight="650">
     <FlexVBox fx:id="step1" flexHeight="100%" flexWidth="100%">
@@ -195,22 +194,22 @@
             </VBox.margin>
         </FlexLabel>
         <FlexVBox flexHeight="100% - 100" flexWidth="100%">
-            <FlexCheckBox text="%db.export.tip10" fx:id="includeFields" selected="true" visible="false" managed="false"
+            <FXCheckBox text="%db.export.tip10" fx:id="includeFields" selected="true" visible="false" managed="false"
                           groupId="includeFields">
                 <VBox.margin>
                     <Insets left="30" top="15"/>
                 </VBox.margin>
-            </FlexCheckBox>
+            </FXCheckBox>
             <FXCheckBox text="%db.export.tip11" fx:id="earlyVersion" visible="false" managed="false" groupId="earlyVersion">
                 <VBox.margin>
                     <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXCheckBox>
-            <FlexCheckBox text="%db.export.tip1" selected="true">
+            <FXCheckBox text="%db.export.tip1" selected="true">
                 <VBox.margin>
                     <Insets left="30" top="15"/>
                 </VBox.margin>
-            </FlexCheckBox>
+            </FXCheckBox>
             <FlexLabel text="%base.fileFormat" realHeight="30" fontWeight="BOLD" groupId="fieldToAttr" managed="false"
                        visible="false">
                 <VBox.margin>

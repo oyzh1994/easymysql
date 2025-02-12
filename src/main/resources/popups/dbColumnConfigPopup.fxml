@@ -5,7 +5,7 @@
 <?import cn.oyzh.easymysql.fx.table.DBEnumTextFiled?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
-<?import cn.oyzh.fx.plus.controls.button.FlexCheckBox?>
+<?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
 <?import cn.oyzh.fx.plus.controls.svg.CancelSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.svg.SubmitSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.text.AccentLabel?>
@@ -40,11 +40,11 @@
         </MysqlDefaultValueTextFiled>
     </FlexHBox>
     <FlexHBox flexWidth="100%" realHeight="30" fx:id="currentTimestampBox" managed="false" visible="false">
-        <FlexCheckBox fx:id="currentTimestamp" realHeight="25" text="%base.updateByCurrentTimestamp">
+        <FXCheckBox fx:id="currentTimestamp" realHeight="25" text="%base.updateByCurrentTimestamp">
             <HBox.margin>
                 <Insets left="95" top="5"/>
             </HBox.margin>
-        </FlexCheckBox>
+        </FXCheckBox>
     </FlexHBox>
     <FlexHBox flexWidth="100%" realHeight="30" fx:id="charsetBox" managed="false" visible="false">
         <AccentLabel realHeight="25" realWidth="80" text="%base.charset">
@@ -71,25 +71,25 @@
         </DBCollationComboBox>
     </FlexHBox>
     <FlexHBox flexWidth="100%" realHeight="30" fx:id="autoIncrementBox" managed="false" visible="false">
-        <FlexCheckBox fx:id="autoIncrement" realHeight="25" text="%base.autoIncrement">
+        <FXCheckBox fx:id="autoIncrement" realHeight="25" text="%base.autoIncrement">
             <HBox.margin>
                 <Insets left="95" top="5"/>
             </HBox.margin>
-        </FlexCheckBox>
+        </FXCheckBox>
     </FlexHBox>
     <FlexHBox flexWidth="100%" realHeight="30" fx:id="unsignedBox" managed="false" visible="false">
-        <FlexCheckBox fx:id="unsigned" realHeight="25" text="%base.unsigned">
+        <FXCheckBox fx:id="unsigned" realHeight="25" text="%base.unsigned">
             <HBox.margin>
                 <Insets left="95" top="5"/>
             </HBox.margin>
-        </FlexCheckBox>
+        </FXCheckBox>
     </FlexHBox>
     <FlexHBox flexWidth="100%" realHeight="30" fx:id="zeroFillBox" managed="false" visible="false">
-        <FlexCheckBox fx:id="zeroFill" realHeight="25" text="%base.zeroFill">
+        <FXCheckBox fx:id="zeroFill" realHeight="25" text="%base.zeroFill">
             <HBox.margin>
                 <Insets left="95" top="5"/>
             </HBox.margin>
-        </FlexCheckBox>
+        </FXCheckBox>
     </FlexHBox>
     <FlexHBox flexWidth="100%" realHeight="30" fx:id="primaryKeySizeBox" managed="false" visible="false">
         <AccentLabel realHeight="25" realWidth="80" text="%base.keySize">

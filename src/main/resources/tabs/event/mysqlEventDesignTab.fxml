@@ -6,7 +6,7 @@
 <?import cn.oyzh.fx.plus.controls.area.FlexTextArea?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
-<?import cn.oyzh.fx.plus.controls.button.FlexCheckBox?>
+<?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXRadioButton?>
 <?import cn.oyzh.fx.plus.controls.svg.SaveSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.tab.FlexTabPane?>
@@ -52,11 +52,11 @@
                     </DateTimeTextField>
                 </FlexHBox>
                 <FlexHBox realHeight="40" flexWidth="100%">
-                    <FlexCheckBox text="+INTERVAL" fx:id="onetimeInterval" realWidth="120" disable="true">
+                    <FXCheckBox text="+INTERVAL" fx:id="onetimeInterval" realWidth="120" disable="true">
                         <HBox.margin>
                             <Insets left="40" top="15"/>
                         </HBox.margin>
-                    </FlexCheckBox>
+                    </FXCheckBox>
                     <NumberTextField fx:id="onetimeIntervalValue" flexWidth="50% - 160" realHeight="30" disable="true">
                         <HBox.margin>
                             <Insets left="10" top="10"/>
@@ -92,11 +92,11 @@
                     </VBox.margin>
                 </FlexHBox>
                 <FlexHBox realHeight="40" flexWidth="100%">
-                    <FlexCheckBox text="STARTS" fx:id="loopStart" realWidth="120" disable="true">
+                    <FXCheckBox text="STARTS" fx:id="loopStart" realWidth="120" disable="true">
                         <HBox.margin>
                             <Insets left="40" top="15"/>
                         </HBox.margin>
-                    </FlexCheckBox>
+                    </FXCheckBox>
                     <DateTimeTextField fx:id="loopStartTime" realHeight="30" flexWidth="100% - 315" disable="true">
                         <HBox.margin>
                             <Insets left="10" top="10"/>
@@ -104,11 +104,11 @@
                     </DateTimeTextField>
                 </FlexHBox>
                 <FlexHBox realHeight="40" flexWidth="100%">
-                    <FlexCheckBox text="+INTERVAL" fx:id="loopStartInterval" realWidth="100" disable="true">
+                    <FXCheckBox text="+INTERVAL" fx:id="loopStartInterval" realWidth="100" disable="true">
                         <HBox.margin>
                             <Insets left="60" top="15"/>
                         </HBox.margin>
-                    </FlexCheckBox>
+                    </FXCheckBox>
                     <NumberTextField flexWidth="50% - 160" fx:id="loopStartIntervalValue" realHeight="30"
                                      disable="true">
                         <HBox.margin>
@@ -123,11 +123,11 @@
                     </DBEventIntervalTypeCombobox>
                 </FlexHBox>
                 <FlexHBox realHeight="40" flexWidth="100%">
-                    <FlexCheckBox text="ENDS" fx:id="loopEnd" realWidth="120" disable="true">
+                    <FXCheckBox text="ENDS" fx:id="loopEnd" realWidth="120" disable="true">
                         <HBox.margin>
                             <Insets left="40" top="15"/>
                         </HBox.margin>
-                    </FlexCheckBox>
+                    </FXCheckBox>
                     <DateTimeTextField fx:id="loopEndTime" realHeight="30" flexWidth="100% - 315">
                         <HBox.margin>
                             <Insets left="10" top="10"/>
@@ -135,11 +135,11 @@
                     </DateTimeTextField>
                 </FlexHBox>
                 <FlexHBox realHeight="40" flexWidth="100%">
-                    <FlexCheckBox text="+INTERVAL" fx:id="loopEndInterval" realWidth="100" disable="true">
+                    <FXCheckBox text="+INTERVAL" fx:id="loopEndInterval" realWidth="100" disable="true">
                         <HBox.margin>
                             <Insets left="60" top="15"/>
                         </HBox.margin>
-                    </FlexCheckBox>
+                    </FXCheckBox>
                     <NumberTextField flexWidth="50% - 160" fx:id="loopEndIntervalValue" realHeight="30" disable="true">
                         <HBox.margin>
                             <Insets left="10" top="10"/>
