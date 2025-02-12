@@ -1,23 +1,22 @@
 package cn.oyzh.easymysql.controller.data;
 
 import cn.hutool.core.io.FileUtil;
+import cn.oyzh.common.thread.ThreadUtil;
+import cn.oyzh.common.util.SystemUtil;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.fx.data.DBDumpDataTypeComboBox;
 import cn.oyzh.easymysql.handler.dump.DataDumpHandler;
-import cn.oyzh.fx.common.thread.ThreadUtil;
-import cn.oyzh.fx.common.util.SystemUtil;
+import cn.oyzh.fx.gui.text.area.MsgTextArea;
+import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.area.MsgTextArea;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
 import cn.oyzh.fx.plus.controls.button.FlexButton;
-import cn.oyzh.fx.plus.controls.text.FXLabel;
-import cn.oyzh.fx.plus.controls.textfield.ReadOnlyTextField;
+import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
 import cn.oyzh.fx.plus.file.FileExtensionFilter;
-import cn.oyzh.fx.plus.i18n.I18nHelper;
 import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
@@ -25,6 +24,7 @@ import cn.oyzh.fx.plus.util.Counter;
 import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageAttribute;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
@@ -41,9 +41,8 @@ import java.util.List;
  * @since 2024/08/22
  */
 @StageAttribute(
-        iconUrls = MysqlConst.ICON_PATH,
         modality = Modality.WINDOW_MODAL,
-        value = FXConst.VIEW_PATH + "data/dbDataDump.fxml"
+        value = FXConst.FXML_PATH + "data/dbDataDump.fxml"
 )
 public class MysqlDataDumpController extends StageController {
 

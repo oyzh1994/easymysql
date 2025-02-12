@@ -2,15 +2,14 @@ package cn.oyzh.easymysql.handler.runfile;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.handler.DataHandler;
-import cn.oyzh.fx.common.thread.ThreadUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.util.ArrayList;
