@@ -3,6 +3,7 @@ package cn.oyzh.easymysql.store;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.json.JSONUtil;
 import cn.oyzh.common.log.JulLog;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlQuery;
@@ -46,7 +47,7 @@ public class DBQueryStore extends ArrayFileStore<MysqlQuery> {
             if (StrUtil.isBlank(text)) {
                 return new ArrayList<>();
             }
-            List<MysqlQuery> list = JSONUtil.toList(text, MysqlQuery.class);
+            List<MysqlQuery> list = JSONUtil.toBeanList(text, MysqlQuery.class);
             if (CollUtil.isNotEmpty(list)) {
                 list = list.parallelStream().sorted().collect(Collectors.toList());
             }

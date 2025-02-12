@@ -1,0 +1,26 @@
+package cn.oyzh.easymysql.util;
+
+import cn.oyzh.common.util.ProcessUtil;
+import cn.oyzh.fx.plus.window.StageManager;
+import lombok.experimental.UtilityClass;
+
+import java.io.IOException;
+
+/**
+ * @author oyzh
+ * @since 2024-12-18
+ */
+@UtilityClass
+public class MysqlProcessUtil {
+
+    /**
+     * 重启应用
+     */
+    public static void restartApplication() {
+        try {
+            ProcessUtil.restartApplication(100, StageManager::exit);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+}

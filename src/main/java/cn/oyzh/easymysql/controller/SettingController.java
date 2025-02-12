@@ -1,11 +1,12 @@
 package cn.oyzh.easymysql.controller;
 
 
-import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.MysqlConst;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.domain.MysqlSetting;
-import cn.oyzh.easymysql.store.DBSettingStore;
-import cn.oyzh.fx.gui.tabs.TabStrategyComboBox;
+import cn.oyzh.easymysql.store.MysqlSettingStore;
+import cn.oyzh.easymysql.util.MysqlProcessUtil;
+import cn.oyzh.fx.gui.setting.SettingMainPane;
+import cn.oyzh.fx.gui.setting.SettingTreeItem;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
@@ -14,6 +15,7 @@ import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.picker.FlexColorPicker;
 import cn.oyzh.fx.plus.controls.text.FlexSlider;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
+import cn.oyzh.fx.plus.domain.Setting;
 import cn.oyzh.fx.plus.font.FontFamilyComboBox;
 import cn.oyzh.fx.plus.font.FontManager;
 import cn.oyzh.fx.plus.font.FontSizeComboBox;
@@ -42,9 +44,15 @@ import java.util.Objects;
  */
 @StageAttribute(
         modality = Modality.APPLICATION_MODAL,
-        value = FXConst.FXML_PATH + "setting.fxml"
+        value = FXConst.FXML_PATH + "setting2.fxml"
 )
 public class SettingController extends StageController {
+
+    /**
+     * 主面板
+     */
+    @FXML
+    private SettingMainPane root;
 
     /**
      * 退出方式
@@ -89,16 +97,10 @@ public class SettingController extends StageController {
     private FXCheckBox pageLocation;
 
     /**
-     * 标签数量限制
+     * 键加载限制
      */
     @FXML
-    private NumberTextField tabLimit;
-
-    /**
-     * 标签策略
-     */
-    @FXML
-    private TabStrategyComboBox tabStrategy;
+    private NumberTextField keyLoadLimit;
 
     /**
      * 主题
@@ -161,32 +163,86 @@ public class SettingController extends StageController {
     private FontFamilyComboBox fontFamily;
 
     /**
+     * 编辑器字体大小
+     */
+    @FXML
+    private FontSizeComboBox editorFontSize;
+
+    /**
+     * 编辑器字体粗细
+     */
+    @FXML
+    private FontWeightComboBox editorFontWeight;
+
+    /**
+     * 编辑器字体名称
+     */
+    @FXML
+    private FontFamilyComboBox editorFontFamily;
+
+    /**
+     * 终端字体大小
+     */
+    @FXML
+    private FontSizeComboBox terminalFontSize;
+
+    /**
+     * 终端字体粗细
+     */
+    @FXML
+    private FontWeightComboBox terminalFontWeight;
+
+    /**
+     * 终端字体名称
+     */
+    @FXML
+    private FontFamilyComboBox terminalFontFamily;
+
+    /**
+     * 查询字体大小
+     */
+    @FXML
+    private FontSizeComboBox queryFontSize;
+
+    /**
+     * 查询字体粗细
+     */
+    @FXML
+    private FontWeightComboBox queryFontWeight;
+
+    /**
+     * 查询字体名称
+     */
+    @FXML
+    private FontFamilyComboBox queryFontFamily;
+
+    /**
      * 区域
      */
     @FXML
     private LocaleComboBox locale;
 
     /**
-     * 透明度
+     * 窗口透明度
      */
     @FXML
     private FlexSlider opacity;
 
     /**
-     * 键加载限制
+     * 标题栏透明度
      */
     @FXML
-    private NumberTextField keyLoadLimit;
+    private FlexSlider titleBarOpacity;
 
     /**
      * 配置对象
      */
-    private final MysqlSetting setting = DBSettingStore.SETTING;
+    private final MysqlSetting setting = MysqlSettingStore.SETTING;
 
     /**
      * 配置持久化对象
      */
-    private final DBSettingStore settingStore = DBSettingStore.INSTANCE;
+    private final MysqlSettingStore settingStore = MysqlSettingStore.INSTANCE;
 
     @Override
     public void onWindowShowing(WindowEvent event) {
@@ -213,21 +269,30 @@ public class SettingController extends StageController {
         }
         // 主题相关处理
         this.theme.select(this.setting.getTheme());
-        this.fgColor.setColor(StrUtil.emptyToDefault(this.setting.getFgColor(), this.theme.getFgColorHex()));
-        this.bgColor.setColor(StrUtil.emptyToDefault(this.setting.getBgColor(), this.theme.getBgColorHex()));
-        this.accentColor.setColor(StrUtil.emptyToDefault(this.setting.getAccentColor(), this.theme.getAccentColorHex()));
-        // 标签相关处理
-        this.tabLimit.setValue(this.setting.getTabLimit());
-        this.tabStrategy.select(this.setting.getTabStrategy());
+        this.fgColor.setColor(StringUtil.emptyToDefault(this.setting.getFgColor(), this.theme.getFgColorHex()));
+        this.bgColor.setColor(StringUtil.emptyToDefault(this.setting.getBgColor(), this.theme.getBgColorHex()));
+        this.accentColor.setColor(StringUtil.emptyToDefault(this.setting.getAccentColor(), this.theme.getAccentColorHex()));
         // 字体相关处理
-        this.fontSize.select(this.setting.getFontSize());
+        this.fontSize.selectSize(this.setting.getFontSize());
         this.fontFamily.select(this.setting.getFontFamily());
         this.fontWeight.selectWeight(this.setting.getFontWeight());
+        this.editorFontSize.selectSize(this.setting.getEditorFontSize());
+        this.editorFontFamily.select(this.setting.getEditorFontFamily());
+        this.editorFontWeight.selectWeight(this.setting.getEditorFontWeight());
+        this.terminalFontSize.selectSize(this.setting.getTerminalFontSize());
+        this.terminalFontFamily.select(this.setting.getTerminalFontFamily());
+        this.terminalFontWeight.selectWeight(this.setting.getTerminalFontWeight());
+        this.queryFontSize.selectSize(this.setting.getQueryFontSize());
+        this.queryFontFamily.select(this.setting.getQueryFontFamily());
+        this.queryFontWeight.selectWeight(this.setting.getQueryFontWeight());
         // 区域相关处理
         this.locale.select(this.setting.getLocale());
         // 透明度相关处理
         if (this.setting.getOpacity() != null) {
             this.opacity.setValue(this.setting.getOpacity());
+        }
+        if (this.setting.getTitleBarOpacity() != null) {
+            this.titleBarOpacity.setValue(this.setting.getTitleBarOpacity());
         }
     }
 
@@ -236,62 +301,83 @@ public class SettingController extends StageController {
      */
     @FXML
     private void saveSetting() {
-        String locale = this.locale.name();
-        Integer fontSize = this.fontSize.getValue();
-        String fontFamily = this.fontFamily.getValue();
-        Integer fontWeight = this.fontWeight.getWeight();
+        try {
+            String locale = this.locale.name();
+            Byte fontSize = this.fontSize.byteValue();
+            short fontWeight = this.fontWeight.getWeight();
+            String fontFamily = this.fontFamily.getValue();
+            Byte editorFontSize = this.editorFontSize.byteValue();
+            short editorFontWeight = this.editorFontWeight.getWeight();
+            String editorFontFamily = this.editorFontFamily.getValue();
+            Byte terminalFontSize = this.terminalFontSize.byteValue();
+            short terminalFontWeight = this.terminalFontWeight.getWeight();
+            String terminalFontFamily = this.terminalFontFamily.getValue();
+            Byte queryFontSize = this.queryFontSize.byteValue();
+            short queryFontWeight = this.queryFontWeight.getWeight();
+            String queryFontFamily = this.queryFontFamily.getValue();
 
-        // 提示文字
-        String tips = this.checkConfigForRestart(fontSize, fontWeight, fontFamily, locale);
+            // 提示文字
+            String tips = this.checkConfigForRestart(locale);
 
-        // 字体相关
-        this.setting.setFontSize(fontSize);
-        this.setting.setFontWeight(fontWeight);
-        this.setting.setFontFamily(fontFamily);
-        // 主题相关
-        this.setting.setTheme(this.theme.name());
-        this.setting.setBgColor(this.bgColor.getColor());
-        this.setting.setFgColor(this.fgColor.getColor());
-        this.setting.setAccentColor(this.accentColor.getColor());
-        // 区域相关处理
-        this.setting.setLocale(locale);
-        // 透明度相关处理
-        this.setting.setOpacity(this.opacity.getValue());
-        // 其他设置
-        this.setting.setRememberPageSize(this.pageSize.isSelected() ? 1 : 0);
-        this.setting.setTabStrategy(this.tabStrategy.getStrategy());
-        this.setting.setTabLimit(this.tabLimit.getValue().intValue());
-        this.setting.setRememberPageResize(this.pageResize.isSelected() ? 1 : 0);
-        this.setting.setRememberPageLocation(this.pageLocation.isSelected() ? 1 : 0);
-        this.setting.setExitMode(Integer.parseInt(this.exitMode.selectedUserData()));
-        if (this.settingStore.update(this.setting)) {
-            MessageBox.okToast(I18nHelper.operationSuccess() + tips);
-            this.closeWindow();
-            // 应用区域配置
-            I18nManager.apply(this.setting.getLocale());
-            // 应用字体配置
-            FontManager.apply(this.setting.fontConfig());
-            // 应用透明度配置
-            OpacityManager.apply(this.opacity.getValue());
-            // 应用主题配置
-            ThemeManager.apply(this.setting.themeConfig());
-        } else {
-            MessageBox.warnToast(I18nHelper.operationFail());
+            // 字体相关
+            this.setting.setFontSize(fontSize);
+            this.setting.setFontFamily(fontFamily);
+            this.setting.setFontWeight(fontWeight);
+            this.setting.setEditorFontSize(editorFontSize);
+            this.setting.setEditorFontFamily(editorFontFamily);
+            this.setting.setEditorFontWeight(editorFontWeight);
+            this.setting.setTerminalFontSize(terminalFontSize);
+            this.setting.setTerminalFontFamily(terminalFontFamily);
+            this.setting.setTerminalFontWeight(terminalFontWeight);
+            this.setting.setQueryFontSize(queryFontSize);
+            this.setting.setQueryFontFamily(queryFontFamily);
+            this.setting.setQueryFontWeight(queryFontWeight);
+            // 主题相关
+            this.setting.setTheme(this.theme.name());
+            this.setting.setBgColor(this.bgColor.getColor());
+            this.setting.setFgColor(this.fgColor.getColor());
+            this.setting.setAccentColor(this.accentColor.getColor());
+            // 区域相关处理
+            this.setting.setLocale(locale);
+            // 透明度相关处理
+            this.setting.setOpacity((float) this.opacity.getValue());
+            this.setting.setTitleBarOpacity((float) this.titleBarOpacity.getValue());
+            // 页面设置
+            this.setting.setRememberPageSize((byte) (this.pageSize.isSelected() ? 1 : 0));
+            this.setting.setRememberPageResize((byte) (this.pageResize.isSelected() ? 1 : 0));
+            this.setting.setRememberPageLocation((byte) (this.pageLocation.isSelected() ? 1 : 0));
+            this.setting.setExitMode((byte) Integer.parseInt(this.exitMode.selectedUserData()));
+            // 更新设置
+            if (this.settingStore.update(this.setting)) {
+                // 关闭窗口
+                this.closeWindow();
+                // 应用区域配置
+                I18nManager.apply(this.setting.getLocale());
+                // 应用字体配置
+                FontManager.apply(this.setting.fontConfig());
+                // 应用主题配置
+                ThemeManager.apply(this.setting.themeConfig());
+                // 应用透明度配置
+                OpacityManager.apply(this.setting.opacityConfig());
+                // 提示不为空，说明需要重启，则执行重启
+                if (StringUtil.isNotBlank(tips) && MessageBox.confirm(tips)) {
+                    MysqlProcessUtil.restartApplication();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            MessageBox.exception(ex);
         }
     }
 
     /**
      * 检查重启软件配置
      *
-     * @param fontSize   字体大小
-     * @param fontWeight 字体宽度
-     * @param fontFamily 字体名称
-     * @param locale     区域
+     * @param locale 区域
      * @return 结果
      */
-    private String checkConfigForRestart(Integer fontSize, Integer fontWeight, String fontFamily, String locale) {
-        if (!Objects.equals(this.setting.getFontSize(), fontSize) || !Objects.equals(this.setting.getLocale(), locale)
-                || !Objects.equals(this.setting.getFontFamily(), fontFamily) || !Objects.equals(this.setting.getFontWeight(), fontWeight)) {
+    private String checkConfigForRestart(String locale) {
+        if (!Objects.equals(this.setting.getLocale(), locale)) {
             return I18nResourceBundle.i18nString("base.restartTip1");
         }
         return "";

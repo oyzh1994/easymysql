@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.generator.table;
 
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.DBObjectList;
 import cn.oyzh.easymysql.db.check.MysqlCheck;

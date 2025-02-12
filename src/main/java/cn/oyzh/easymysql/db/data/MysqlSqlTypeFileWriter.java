@@ -3,11 +3,13 @@ package cn.oyzh.easymysql.db.data;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.HexUtil;
 import cn.oyzh.common.file.LineFileWriter;
+import cn.oyzh.common.util.TextUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBUtil;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -35,7 +37,7 @@ public class MysqlSqlTypeFileWriter extends MysqlTypeFileWriter {
      */
     private final LineFileWriter writer;
 
-    public MysqlSqlTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) {
+    public MysqlSqlTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) throws FileNotFoundException {
         this.columns = columns;
         this.config = config;
         this.writer = LineFileWriter.create(filePath, config.charset());

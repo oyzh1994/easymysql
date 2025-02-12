@@ -4,6 +4,7 @@ import cn.oyzh.common.file.LineFileWriter;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class MysqlHtmlTypeFileWriter extends MysqlTypeFileWriter {
      */
     private LineFileWriter writer;
 
-    public MysqlHtmlTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) {
+    public MysqlHtmlTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) throws FileNotFoundException {
         this.columns = columns;
         this.config = config;
         this.writer = LineFileWriter.create(filePath, config.charset());

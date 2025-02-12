@@ -227,7 +227,7 @@ public class MysqlMainController extends ParentStageController {
      *
      * @param newWidth 新宽度
      */
-    private void resizeMainLeft(Double newWidth) {
+    private void resizeMainLeft(Float newWidth) {
         if (newWidth != null && !Double.isNaN(newWidth)) {
             // 设置组件宽
             this.tabPaneLeft.setRealWidth(newWidth);
@@ -255,39 +255,87 @@ public class MysqlMainController extends ParentStageController {
 
     @Override
     protected void bindListeners() {
-        // 左侧栏业务
-        this.onlyCollect.selectedChanged((obs, o, n) -> {
-            if (n) {
-            } else {
-            }
-            this.filter();
-        });
+        // // 左侧栏业务
+        // this.onlyCollect.selectedChanged((obs, o, n) -> {
+        //     if (n) {
+        //         this.showSet.disable();
+        //         this.showZSet.disable();
+        //         this.showHash.disable();
+        //         this.showList.disable();
+        //         this.showString.disable();
+        //         this.showStream.disable();
+        //     } else {
+        //         this.showSet.enable();
+        //         this.showZSet.enable();
+        //         this.showHash.enable();
+        //         this.showList.enable();
+        //         this.showString.enable();
+        //         this.showStream.enable();
+        //     }
+        //     this.filter();
+        // });
+        // this.showSet.selectedChanged((obs, o, n) -> this.filter());
+        // this.showHash.selectedChanged((obs, o, n) -> this.filter());
+        // this.showList.selectedChanged((obs, o, n) -> this.filter());
+        // this.showZSet.selectedChanged((obs, o, n) -> this.filter());
+        // this.showString.selectedChanged((obs, o, n) -> this.filter());
+        // this.showStream.selectedChanged((obs, o, n) -> this.filter());
+        // this.sortAsc.managedBindVisible();
+        // this.sortDesc.managedBindVisible();
+        // // redis树变化事件
+        // this.tree.selectItemChanged(this::treeItemChanged);
+        // // 文件拖拽初始化
+        // this.stage.initDragFile(this.tree.getDragContent(), this.tree.getRoot()::dragFile);
+        // 拖动改变redis树大小处理
+        NodeResizeHelper resizeHelper = new NodeResizeHelper(this.tabPaneLeft, Cursor.DEFAULT, this::resizeMainLeft);
+        resizeHelper.widthLimit(240f, 650f);
+        // // 初始化拉伸事件
+        // this.tree.setOnMouseMoved(resizeHelper.mouseMoved());
+        resizeHelper.initResizeEvent();
 
-        this.sortAsc.managedBindVisible();
-        this.sortDesc.managedBindVisible();
-        this.tree.selectItemChanged(this::treeItemChanged);
-        // 文件拖拽初始化
-        this.stage.initDragFile(this.tree.getDragContent(), this.tree.root()::dragFile);
-        // 拖动改变db树大小处理
-        this.resizeEnhance = new NodeResizeHelper(this.tabPaneLeft, Cursor.DEFAULT);
-        this.resizeEnhance.widthLimit(390f,800f);
-        this.resizeEnhance.triggerThreshold(8d);
-        this.resizeEnhance.mouseDragged(event -> {
-            double sceneX = event.getSceneX();
-            if (this.resizeEnhance.resizeWidthAble(sceneX)) {
-                // 左侧组件重新布局
-                this.resizeMainLeft(sceneX);
-            }
-        });
-        // 初始化拉伸事件
-        this.tree.setOnMouseMoved(this.resizeEnhance.mouseMoved());
-        this.resizeEnhance.initResizeEvent();
-
-
-        // 监听F5按键
-        KeyListener.listenReleased(this.tree, KeyCode.F5, keyEvent -> this.tree.reload());
-        KeyListener.listenReleased(this.tabPane, KeyCode.F5, keyEvent -> this.tabPane.reload());
+        // 搜索触发事件
+        // KeyListener.listenReleased(this.stage, new KeyHandler().keyCode(KeyCode.F).controlDown(true).handler(t1 -> RedisEventUtil.searchFire()));
+        // // 刷新触发事件
+        // KeyListener.listenReleased(this.tree, KeyCode.F5, keyEvent -> this.tree.reload());
+        // // 刷新触发事件
+        // KeyListener.listenReleased(this.tabPane, KeyCode.F5, keyEvent -> this.tabPane.reload());
     }
+
+//    /**
+//     * 树节点变化事件
+//     *
+//     * @param event 事件
+//     */
+//    @EventSubscribe
+//    private void treeItemChanged(MysqlTreeItemChangedEvent event) {
+//        // if (item instanceof RedisKeyTreeItem<?> treeItem) {
+//        //     this.flushViewTitle(treeItem.info());
+//        //     RedisEventUtil.treeChildSelected(treeItem);
+//        // } else if (item instanceof RedisConnectTreeItem treeItem) {
+//        //     this.flushViewTitle(treeItem.value());
+//        // } else {
+//        //     this.flushViewTitle(null);
+//        // }
+//        if (event.data() instanceof RedisConnectTreeItem treeItem) {
+//            this.flushViewTitle(treeItem.value());
+//        } else if (event.data() instanceof RedisDatabaseTreeItem treeItem) {
+//            this.flushViewTitle(treeItem.redisConnect());
+//        } else if (event.data() instanceof RedisDatabasesTreeItem treeItem) {
+//            this.flushViewTitle(treeItem.redisConnect());
+////        } else if (event.data() instanceof RedisDataTreeItem treeItem) {
+////            this.flushViewTitle(treeItem.redisConnect());
+//        } else if (event.data() instanceof RedisQueryTreeItem treeItem) {
+//            this.flushViewTitle(treeItem.redisConnect());
+//        } else if (event.data() instanceof RedisQueriesTreeItem treeItem) {
+//            this.flushViewTitle(treeItem.redisConnect());
+//        } else if (event.data() instanceof RedisTerminalTreeItem treeItem) {
+//            this.flushViewTitle(treeItem.redisConnect());
+//        } else if (event.data() instanceof RedisServerInfoTreeItem treeItem) {
+//            this.flushViewTitle(treeItem.redisConnect());
+//        } else {
+//            this.flushViewTitle(null);
+//        }
+//    }
 
     /**
      * 定位节点

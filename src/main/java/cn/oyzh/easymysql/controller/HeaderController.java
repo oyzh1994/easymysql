@@ -105,13 +105,13 @@ public class HeaderController extends SubStageController {
         DBEventUtil.leftExtend();
     }
 
-    /**
-     * 搜索
-     */
-    @FXML
-    private void search() {
-        DBEventUtil.searchFire();
-    }
+//    /**
+//     * 搜索
+//     */
+//    @FXML
+//    private void search() {
+//        DBEventUtil.searchFire();
+//    }
 
     @Override
     public void onWindowShown(WindowEvent event) {
