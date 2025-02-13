@@ -14,11 +14,11 @@ public class DBConnectionClosedEvent extends Event<DBClient> implements EventFor
 
     @Override
     public String eventFormat() {
-        return String.format("[%s] 客户端已断开", this.data().infoName());
+        return String.format("[%s] 客户端已断开", this.data().connectName());
     }
 
-    public MysqlConnect info() {
-        return this.data().dbInfo();
+    public MysqlConnect dbConnect() {
+        return this.data().dbConnect();
     }
 
     public boolean isMysqlType() {

@@ -13,10 +13,10 @@ public class DBConnectionConnectedEvent extends Event<DBClient> implements  Even
 
     @Override
     public String eventFormat() {
-        return String.format("[%s] 客户端已连接", this.data().infoName());
+        return String.format("[%s] 客户端已连接", this.data().connectName());
     }
 
-    public MysqlConnect info() {
-        return this.data().dbInfo();
+    public MysqlConnect dbConnect() {
+        return this.data().dbConnect();
     }
 }

@@ -140,6 +140,10 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
         MysqlEventUtil.queryOpen(this.value, this.dbItem());
     }
 
+    public MysqlConnect dbConnect() {
+        return this.client().dbConnect();
+    }
+
 //    @Override
 //    public boolean supportFilter() {
 //        return true;

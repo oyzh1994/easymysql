@@ -151,5 +151,7 @@ public class MysqlQueryTypeTreeItem extends DBTreeItem<MysqlQueryTypeTreeItemVal
         return dbQueries == null ? 0 : dbQueries.size();
     }
 
-
+    public MysqlConnect dbConnect() {
+        return this.dbItem.dbConnect();
+    }
 }

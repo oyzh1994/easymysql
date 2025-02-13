@@ -595,4 +595,8 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     public MysqlRecord selectRecord(MysqlSelectRecordParam param) {
         return this.client().selectRecord(param);
     }
+
+    public MysqlConnect dbConnect() {
+        return this.client().dbConnect();
+    }
 }

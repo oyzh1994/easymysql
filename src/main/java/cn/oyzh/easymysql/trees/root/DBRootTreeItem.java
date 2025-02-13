@@ -106,7 +106,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     /**
      * 导出连接
      */
-    private void exportConnect() {
+    public void exportConnect() {
         List<MysqlConnect> infos = this.connectStore.load();
         if (infos.isEmpty()) {
             MessageBox.warn(I18nHelper.connectionIsEmpty());
@@ -146,7 +146,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     /**
      * 导入连接
      */
-    private void importConnect() {
+    public void importConnect() {
         FileExtensionFilter filter1 = FileChooserHelper.jsonExtensionFilter();
         File file = FileChooserHelper.choose(I18nHelper.chooseFile(), filter1);
         // 解析文件

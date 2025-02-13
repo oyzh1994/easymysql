@@ -11,10 +11,12 @@ import cn.oyzh.easymysql.event.connect.DBInfoUpdatedEvent;
 import cn.oyzh.easymysql.event.group.DBAddGroupEvent;
 import cn.oyzh.easymysql.event.terminal.DBTerminalCloseEvent;
 import cn.oyzh.easymysql.event.terminal.DBTerminalOpenEvent;
+import cn.oyzh.easymysql.event.tree.MysqlTreeItemChangedEvent;
 import cn.oyzh.event.EventUtil;
 import cn.oyzh.fx.gui.event.Layout1Event;
 import cn.oyzh.fx.gui.event.Layout2Event;
 import cn.oyzh.fx.plus.changelog.ChangelogEvent;
+import javafx.scene.control.TreeItem;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -608,6 +610,17 @@ public class DBEventUtil {
      */
     public static void layout2() {
         EventUtil.post(new Layout2Event());
+    }
+
+    /**
+     * 节点选中事件
+     *
+     * @param item 节点
+     */
+    public static void treeItemChanged(TreeItem<?> item) {
+        MysqlTreeItemChangedEvent event = new MysqlTreeItemChangedEvent();
+        event.data(item);
+        EventUtil.post(event);
     }
 
 }

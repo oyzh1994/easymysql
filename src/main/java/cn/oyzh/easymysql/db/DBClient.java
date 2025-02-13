@@ -85,7 +85,7 @@ public class DBClient {
      * db信息
      */
     @Getter
-    protected final MysqlConnect dbInfo;
+    protected final MysqlConnect dbConnect;
 
     /**
      * ssh端口转发器
@@ -102,7 +102,7 @@ public class DBClient {
     public Connection connection() throws SQLException, ClassNotFoundException {
         Connection connection = this.connectionManager.getServerConnection();
         if (connection == null || connection.isClosed()) {
-            connection = this.initConnection(this.connConfig, null, this.dbInfo.getUser(), this.dbInfo.getPassword());
+            connection = this.initConnection(this.connConfig, null, this.dbConnect.getUser(), this.dbConnect.getPassword());
             this.connectionManager.setServerConnection(connection);
         }
         return connection;
@@ -111,7 +111,7 @@ public class DBClient {
     public Connection connection(String dbName) throws SQLException, ClassNotFoundException {
         Connection connection = this.connectionManager.getConnection(dbName);
         if (connection == null || connection.isClosed()) {
-            connection = this.initConnection(this.connConfig, dbName, this.dbInfo.getUser(), this.dbInfo.getPassword());
+            connection = this.initConnection(this.connConfig, dbName, this.dbConnect.getUser(), this.dbConnect.getPassword());
             this.connectionManager.addConnection(dbName, connection);
         }
         connection.setAutoCommit(true);
@@ -124,7 +124,7 @@ public class DBClient {
         }
         Connection connection = this.connectionManager.getSchemaConnection(dbName, schema);
         if (connection == null || connection.isClosed()) {
-            connection = this.initConnection(this.connConfig, dbName, this.dbInfo.getUser(), this.dbInfo.getPassword());
+            connection = this.initConnection(this.connConfig, dbName, this.dbConnect.getUser(), this.dbConnect.getPassword());
             this.connectionManager.addSchemaConnection(dbName, schema, connection);
         }
         connection.setAutoCommit(true);
@@ -134,7 +134,7 @@ public class DBClient {
     public Connection functionConnection(String dbName, String schema) throws SQLException, ClassNotFoundException {
         Connection connection = this.connectionManager.getFunctionConnection(dbName, schema);
         if (connection == null || connection.isClosed()) {
-            connection = this.initConnection(this.connConfig, dbName, this.dbInfo.getUser(), this.dbInfo.getPassword());
+            connection = this.initConnection(this.connConfig, dbName, this.dbConnect.getUser(), this.dbConnect.getPassword());
             this.connectionManager.addFunctionConnection(dbName, schema, connection);
         }
         connection.setAutoCommit(true);
@@ -144,7 +144,7 @@ public class DBClient {
     public Connection procedureConnection(String dbName, String schema) throws SQLException, ClassNotFoundException {
         Connection connection = this.connectionManager.getProcedureConnection(dbName, schema);
         if (connection == null || connection.isClosed()) {
-            connection = this.initConnection(this.connConfig, dbName, this.dbInfo.getUser(), this.dbInfo.getPassword());
+            connection = this.initConnection(this.connConfig, dbName, this.dbConnect.getUser(), this.dbConnect.getPassword());
             this.connectionManager.addProcedureConnection(dbName, schema, connection);
         }
         connection.setAutoCommit(true);
@@ -152,7 +152,7 @@ public class DBClient {
     }
 
     public Connection newConnection(String dbName) throws SQLException, ClassNotFoundException {
-        Connection connection = this.initConnection(this.connConfig, dbName, this.dbInfo.getUser(), this.dbInfo.getPassword());
+        Connection connection = this.initConnection(this.connConfig, dbName, this.dbConnect.getUser(), this.dbConnect.getPassword());
         connection.setAutoCommit(true);
         return connection;
     }
@@ -233,7 +233,7 @@ public class DBClient {
     }
 
     public DBClient(@NonNull MysqlConnect dbInfo) {
-        this.dbInfo = dbInfo;
+        this.dbConnect = dbInfo;
         if (dbInfo.isSSHForward()) {
             this.sshForwarder = new SSHForwarder(dbInfo.getSshConfig());
         }
@@ -253,7 +253,7 @@ public class DBClient {
      * @return 结果
      */
     public boolean isReadonly() {
-        return this.dbInfo.isReadonly();
+        return this.dbConnect.isReadonly();
     }
 
     /**
@@ -282,7 +282,7 @@ public class DBClient {
             // 更新连接状态
             this.state.set(DBConnState.CONNECTING);
             // 连接成功前阻塞线程
-            if (this.connection().isValid(this.dbInfo.getConnectTimeOut())) {
+            if (this.connection().isValid(this.dbConnect.getConnectTimeOut())) {
                 // 更新连接状态
                 this.state.set(DBConnState.CONNECTED);
             } else {// 连接未成功则关闭
@@ -308,17 +308,17 @@ public class DBClient {
         String ip;
         int port;
         // ssh端口转发
-        if (this.dbInfo.isSSHForward()) {
+        if (this.dbConnect.isSSHForward()) {
             SSHForwardConfig forwardInfo = new SSHForwardConfig();
-            forwardInfo.setHost(this.dbInfo.hostIp());
-            forwardInfo.setPort(this.dbInfo.hostPort());
+            forwardInfo.setHost(this.dbConnect.hostIp());
+            forwardInfo.setPort(this.dbConnect.hostPort());
             // 连接信息
             ip = "127.0.0.1";
             port = this.sshForwarder.forward(forwardInfo);
         } else {// 直连
             // 连接信息
-            ip = this.dbInfo.hostIp();
-            port = this.dbInfo.hostPort();
+            ip = this.dbConnect.hostIp();
+            port = this.dbConnect.hostPort();
         }
         this.connConfig.setHost(ip);
         this.connConfig.setPort(port);
@@ -331,7 +331,7 @@ public class DBClient {
         try {
             this.connectionManager.destroy();
             // 销毁端口转发
-            if (this.dbInfo.isSSHForward()) {
+            if (this.dbConnect.isSSHForward()) {
                 this.sshForwarder.destroy();
             }
             JulLog.info("dbClient closed.");
@@ -375,8 +375,8 @@ public class DBClient {
      *
      * @return 连接名称
      */
-    public String infoName() {
-        return this.dbInfo.getName();
+    public String connectName() {
+        return this.dbConnect.getName();
     }
 
     /**

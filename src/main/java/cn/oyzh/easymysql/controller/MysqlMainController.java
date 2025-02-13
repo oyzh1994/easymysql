@@ -2,11 +2,15 @@ package cn.oyzh.easymysql.controller;
 
 import cn.oyzh.common.log.JulLog;
 import cn.oyzh.common.thread.TaskManager;
+import cn.oyzh.easymysql.controller.main.ConnectController;
+import cn.oyzh.easymysql.controller.main.MessageController;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.event.DBLeftCollapseEvent;
 import cn.oyzh.easymysql.event.DBLeftExtendEvent;
 import cn.oyzh.easymysql.event.connect.DBInfoUpdatedEvent;
+import cn.oyzh.easymysql.event.tree.MysqlTreeItemChangedEvent;
+import cn.oyzh.easymysql.fx.DBDatabaseComboBox;
 import cn.oyzh.easymysql.fx.DBMsgTextArea;
 import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.easymysql.tabs.DBTabPane;
@@ -14,9 +18,13 @@ import cn.oyzh.easymysql.trees.DBTreeView;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.query.MysqlQueryTreeItem;
+import cn.oyzh.easymysql.trees.query.MysqlQueryTypeTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.event.EventSubscribe;
+import cn.oyzh.fx.gui.event.Layout1Event;
+import cn.oyzh.fx.gui.event.Layout2Event;
 import cn.oyzh.fx.plus.controller.ParentStageController;
+import cn.oyzh.fx.plus.controller.SubStageController;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
@@ -29,6 +37,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.WindowEvent;
 
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -62,80 +72,22 @@ public class MysqlMainController extends ParentStageController {
     private FlexTabPane tabPaneLeft;
 
     /**
-     * 大小调整增强
-     */
-    private NodeResizeHelper resizeEnhance;
-
-    // /**
-    //  * 倒序排序
-    //  */
-    // private boolean ascSort;
-
-    /**
-     * 节点排序(正序)
-     */
-    @FXML
-    private SVGGlyph sortAsc;
-
-    /**
-     * 节点排序(倒序)
-     */
-    @FXML
-    private SVGGlyph sortDesc;
-
-    /**
-     * 仅看收藏键
-     */
-    @FXML
-    private FXCheckBox onlyCollect;
-
-    /**
      * db切换面板
      */
     @FXML
     public DBTabPane tabPane;
 
-//    /**
-//     * 页面信息
-//     */
-//    private final MysqlPageInfo pageInfo = DBPageInfoStore.PAGE_INFO;
-//
-//    /**
-//     * 页面信息储存
-//     */
-//    private final DBPageInfoStore pageInfoStore = DBPageInfoStore.INSTANCE;
-
     /**
-     * 消息文本框
+     * redis连接
      */
     @FXML
-    private DBMsgTextArea msgArea;
+    private ConnectController connectController;
 
     /**
-//     * 搜索Controller
-//     */
-//    @FXML
-//    private SearchController searchController;
-
-    /**
-     * 对子节点排序，正序
+     * redis消息
      */
     @FXML
-    private void sortAsc() {
-        this.sortAsc.disappear();
-        this.sortDesc.display();
-        this.tree.sortAsc();
-    }
-
-    /**
-     * 对子节点排序，倒序
-     */
-    @FXML
-    private void sortDesc() {
-        this.sortDesc.disappear();
-        this.sortAsc.display();
-        this.tree.sortDesc();
-    }
+    private MessageController messageController;
 
     /**
      * db信息修改事件
@@ -193,7 +145,7 @@ public class MysqlMainController extends ParentStageController {
         // 初始化过滤
         // this.tree.itemFilter(this.treeItemFilter);
         // this.treeItemFilter.initFilters();
-        this.filter();
+//        this.filter();
 
 //        // 设置上次保存的页面拉伸
 //        if (this.setting.isRememberPageResize()) {
@@ -296,41 +248,25 @@ public class MysqlMainController extends ParentStageController {
         // KeyListener.listenReleased(this.tabPane, KeyCode.F5, keyEvent -> this.tabPane.reload());
     }
 
-//    /**
-//     * 树节点变化事件
-//     *
-//     * @param event 事件
-//     */
-//    @EventSubscribe
-//    private void treeItemChanged(MysqlTreeItemChangedEvent event) {
-//        // if (item instanceof RedisKeyTreeItem<?> treeItem) {
-//        //     this.flushViewTitle(treeItem.info());
-//        //     RedisEventUtil.treeChildSelected(treeItem);
-//        // } else if (item instanceof RedisConnectTreeItem treeItem) {
-//        //     this.flushViewTitle(treeItem.value());
-//        // } else {
-//        //     this.flushViewTitle(null);
-//        // }
-//        if (event.data() instanceof RedisConnectTreeItem treeItem) {
-//            this.flushViewTitle(treeItem.value());
-//        } else if (event.data() instanceof RedisDatabaseTreeItem treeItem) {
-//            this.flushViewTitle(treeItem.redisConnect());
-//        } else if (event.data() instanceof RedisDatabasesTreeItem treeItem) {
-//            this.flushViewTitle(treeItem.redisConnect());
-////        } else if (event.data() instanceof RedisDataTreeItem treeItem) {
-////            this.flushViewTitle(treeItem.redisConnect());
-//        } else if (event.data() instanceof RedisQueryTreeItem treeItem) {
-//            this.flushViewTitle(treeItem.redisConnect());
-//        } else if (event.data() instanceof RedisQueriesTreeItem treeItem) {
-//            this.flushViewTitle(treeItem.redisConnect());
-//        } else if (event.data() instanceof RedisTerminalTreeItem treeItem) {
-//            this.flushViewTitle(treeItem.redisConnect());
-//        } else if (event.data() instanceof RedisServerInfoTreeItem treeItem) {
-//            this.flushViewTitle(treeItem.redisConnect());
-//        } else {
-//            this.flushViewTitle(null);
-//        }
-//    }
+    /**
+     * 树节点变化事件
+     *
+     * @param event 事件
+     */
+    @EventSubscribe
+    private void treeItemChanged(MysqlTreeItemChangedEvent event) {
+        if (event.data() instanceof DBConnectTreeItem treeItem) {
+            this.flushViewTitle(treeItem.value());
+        } else if (event.data() instanceof MysqlDatabaseTreeItem treeItem) {
+            this.flushViewTitle(treeItem.dbConnect());
+        } else if (event.data() instanceof MysqlQueryTreeItem treeItem) {
+            this.flushViewTitle(treeItem.dbConnect());
+        } else if (event.data() instanceof MysqlQueryTypeTreeItem treeItem) {
+            this.flushViewTitle(treeItem.dbConnect());
+        } else {
+            this.flushViewTitle(null);
+        }
+    }
 
     /**
      * 定位节点
@@ -341,88 +277,30 @@ public class MysqlMainController extends ParentStageController {
     }
 
     /**
-     * 展开左侧事件
-     *
-     * @param event 事件
+     * 布局2
      */
     @EventSubscribe
-    private void leftExtend(DBLeftExtendEvent event) {
+    private void layout2(Layout2Event event) {
         this.tabPaneLeft.display();
-        double w = this.tabPaneLeft.getMinWidth();
+        double w = this.tabPaneLeft.realWidth();
         this.tabPane.setLayoutX(w);
         this.tabPane.setFlexWidth("100% - " + w);
         this.tabPaneLeft.parentAutosize();
-        JulLog.info("LEFT_EXTEND.");
     }
 
     /**
-     * 收缩左侧事件
-     *
-     * @param event 事件
+     * 布局1
      */
     @EventSubscribe
-    private void leftCollapse(DBLeftCollapseEvent event) {
+    private void layout1(Layout1Event event) {
         this.tabPaneLeft.disappear();
         this.tabPane.setLayoutX(0);
         this.tabPane.setFlexWidth("100%");
         this.tabPaneLeft.parentAutosize();
-        JulLog.info("LEFT_COLLAPSE.");
     }
 
-//    @Override
-//    public List<SubStageController> getSubControllers() {
-//        return Collections.singletonList(this.searchController);
-//    }
-
-    /**
-     * 当前活跃的db树节点
-     *
-     * @return db树节点
-     */
-    public TreeItem<?> activeItem() {
-        return tree.getSelectedItem();
+    @Override
+    public List<SubStageController> getSubControllers() {
+        return List.of(this.connectController, this.messageController);
     }
-
-    /**
-     * 执行过滤
-     */
-    private void filter() {
-        TaskManager.startDelay("db:tree:filter", () -> {
-            this.tree.disable();
-            if (this.onlyCollect.isSelected()) {
-                this.tree.itemFilter().setOnlyCollect(true);
-            } else {
-                this.tree.itemFilter().setOnlyCollect(false);
-            }
-            this.tree.filter();
-            this.tree.enable();
-        }, 100);
-    }
-
-    /**
-     * 清空消息
-     */
-    @FXML
-    private void clearMsg() {
-        this.msgArea.clear();
-    }
-
-    public void openTerminal(MouseEvent mouseEvent) {
-
-    }
-
-    // /**
-    //  * 处理操作消息
-    //  */
-    // @EventGroup(value = DBEventGroups.KEY_ACTION, async = true, verbose = true)
-    // @EventGroup(value = DBEventGroups.INFO_ACTION, async = true, verbose = true)
-    // @EventGroup(value = DBEventGroups.CONNECTION_ACTION, async = true, verbose = true)
-    // private void onActionMsg(Event<EventMsg> event) {
-    //     if (event.data() instanceof EventMsgFormatter formatter) {
-    //         String formatMsg = formatter.formatMsg();
-    //         if (formatMsg != null) {
-    //             this.msgArea.appendLine(String.format("%s %s", Const.DATE_TIME_FORMAT.format(System.currentTimeMillis()), formatMsg));
-    //         }
-    //     }
-    // }
 }
