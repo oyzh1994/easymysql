@@ -6,12 +6,12 @@
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
-<?import cn.oyzh.fx.plus.controls.svg.CancelSVGGlyph?>
-<?import cn.oyzh.fx.plus.controls.svg.SubmitSVGGlyph?>
-<?import cn.oyzh.fx.plus.controls.text.AccentLabel?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
-<?import cn.oyzh.fx.plus.controls.textfield.NumberTextField?>
+<?import cn.oyzh.fx.gui.label.AccentLabel?>
+<?import cn.oyzh.fx.gui.text.field.NumberTextField?>
+<?import cn.oyzh.fx.gui.svg.glyph.SubmitSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.CancelSVGGlyph?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.popups.DBColumnConfigPopupController" realWidth="320"
           realHeight="200">
@@ -40,7 +40,7 @@
         </MysqlDefaultValueTextFiled>
     </FlexHBox>
     <FlexHBox flexWidth="100%" realHeight="30" fx:id="currentTimestampBox" managed="false" visible="false">
-        <FXCheckBox fx:id="currentTimestamp" realHeight="25" text="%base.updateByCurrentTimestamp">
+        <FXCheckBox fx:id="currentTimestamp" prefHeight="25" text="%base.updateByCurrentTimestamp">
             <HBox.margin>
                 <Insets left="95" top="5"/>
             </HBox.margin>
@@ -71,21 +71,21 @@
         </DBCollationComboBox>
     </FlexHBox>
     <FlexHBox flexWidth="100%" realHeight="30" fx:id="autoIncrementBox" managed="false" visible="false">
-        <FXCheckBox fx:id="autoIncrement" realHeight="25" text="%base.autoIncrement">
+        <FXCheckBox fx:id="autoIncrement" prefHeight="25" text="%base.autoIncrement">
             <HBox.margin>
                 <Insets left="95" top="5"/>
             </HBox.margin>
         </FXCheckBox>
     </FlexHBox>
     <FlexHBox flexWidth="100%" realHeight="30" fx:id="unsignedBox" managed="false" visible="false">
-        <FXCheckBox fx:id="unsigned" realHeight="25" text="%base.unsigned">
+        <FXCheckBox fx:id="unsigned" prefHeight="25" text="%base.unsigned">
             <HBox.margin>
                 <Insets left="95" top="5"/>
             </HBox.margin>
         </FXCheckBox>
     </FlexHBox>
     <FlexHBox flexWidth="100%" realHeight="30" fx:id="zeroFillBox" managed="false" visible="false">
-        <FXCheckBox fx:id="zeroFill" realHeight="25" text="%base.zeroFill">
+        <FXCheckBox fx:id="zeroFill" prefHeight="25" text="%base.zeroFill">
             <HBox.margin>
                 <Insets left="95" top="5"/>
             </HBox.margin>

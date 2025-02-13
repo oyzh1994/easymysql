@@ -2,16 +2,16 @@
 <?import cn.oyzh.easymysql.fx.DBSqlTextArea?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
-<?import cn.oyzh.fx.plus.controls.svg.SaveSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.tab.FlexTabPane?>
 <?import cn.oyzh.fx.plus.controls.tab.FXTab?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
-<?import cn.oyzh.fx.plus.controls.text.AccentLabel?>
 <?import cn.oyzh.easymysql.fx.view.DBViewAlgorithmComboBox?>
 <?import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox?>
 <?import cn.oyzh.easymysql.fx.view.DBViewCheckOptionComboBox?>
-<?import cn.oyzh.fx.plus.controls.textfield.FlexTextField?>
+<?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
+<?import cn.oyzh.fx.gui.label.AccentLabel?>
+<?import cn.oyzh.fx.plus.controls.text.field.FlexTextField?>
 <FlexVBox xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="cn.oyzh.easymysql.tabs.view.MysqlViewDesignTabController" flexWidth="100%" flexHeight="100%">

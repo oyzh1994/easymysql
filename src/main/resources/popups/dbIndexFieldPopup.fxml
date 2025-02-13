@@ -2,15 +2,15 @@
 <?import cn.oyzh.easymysql.fx.table.DBIndexColumnListView?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
-<?import cn.oyzh.fx.plus.controls.svg.AddSVGGlyph?>
-<?import cn.oyzh.fx.plus.controls.svg.CancelSVGGlyph?>
-<?import cn.oyzh.fx.plus.controls.svg.DeleteSVGGlyph?>
-<?import cn.oyzh.fx.plus.controls.svg.MoveDownSVGGlyph?>
-<?import cn.oyzh.fx.plus.controls.svg.MoveUpSVGGlyph?>
-<?import cn.oyzh.fx.plus.controls.svg.SubmitSVGGlyph?>
-<?import cn.oyzh.fx.plus.controls.text.FlexLabel?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
+<?import cn.oyzh.fx.plus.controls.label.FlexLabel?>
+<?import cn.oyzh.fx.gui.svg.glyph.SubmitSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.AddSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.CancelSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.MoveUpSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.MoveDownSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.DeleteSVGGlyph?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.popups.DBIndexFieldPopupController" realWidth="320"
           realHeight="320">

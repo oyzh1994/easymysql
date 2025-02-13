@@ -3,22 +3,22 @@
 <?import cn.oyzh.easymysql.fx.event.DBEventIntervalTypeCombobox?>
 <?import cn.oyzh.easymysql.fx.event.DBEventOnCompletionCombobox?>
 <?import cn.oyzh.easymysql.fx.event.DBEventStatusCombobox?>
-<?import cn.oyzh.fx.plus.controls.area.FlexTextArea?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXRadioButton?>
-<?import cn.oyzh.fx.plus.controls.svg.SaveSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.tab.FlexTabPane?>
 <?import cn.oyzh.fx.plus.controls.tab.FXTab?>
-<?import cn.oyzh.fx.plus.controls.text.AccentLabel?>
-<?import cn.oyzh.fx.plus.controls.textfield.ClearableTextField?>
-<?import cn.oyzh.fx.plus.controls.textfield.DateTimeTextField?>
-<?import cn.oyzh.fx.plus.controls.textfield.NumberTextField?>
 <?import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
+<?import cn.oyzh.fx.gui.text.field.DateTimeTextField?>
+<?import cn.oyzh.fx.gui.text.field.NumberTextField?>
+<?import cn.oyzh.fx.gui.label.AccentLabel?>
+<?import cn.oyzh.fx.gui.text.field.ClearableTextField?>
+<?import cn.oyzh.fx.plus.controls.text.area.FlexTextArea?>
 <FlexVBox xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="cn.oyzh.easymysql.tabs.event.MysqlEventDesignTabController" flexWidth="100%" flexHeight="100%">
@@ -52,7 +52,7 @@
                     </DateTimeTextField>
                 </FlexHBox>
                 <FlexHBox realHeight="40" flexWidth="100%">
-                    <FXCheckBox text="+INTERVAL" fx:id="onetimeInterval" realWidth="120" disable="true">
+                    <FXCheckBox text="+INTERVAL" fx:id="onetimeInterval" prefWidth="120" disable="true">
                         <HBox.margin>
                             <Insets left="40" top="15"/>
                         </HBox.margin>
@@ -92,7 +92,7 @@
                     </VBox.margin>
                 </FlexHBox>
                 <FlexHBox realHeight="40" flexWidth="100%">
-                    <FXCheckBox text="STARTS" fx:id="loopStart" realWidth="120" disable="true">
+                    <FXCheckBox text="STARTS" fx:id="loopStart" prefWidth="120" disable="true">
                         <HBox.margin>
                             <Insets left="40" top="15"/>
                         </HBox.margin>
@@ -104,7 +104,7 @@
                     </DateTimeTextField>
                 </FlexHBox>
                 <FlexHBox realHeight="40" flexWidth="100%">
-                    <FXCheckBox text="+INTERVAL" fx:id="loopStartInterval" realWidth="100" disable="true">
+                    <FXCheckBox text="+INTERVAL" fx:id="loopStartInterval" prefWidth="100" disable="true">
                         <HBox.margin>
                             <Insets left="60" top="15"/>
                         </HBox.margin>
@@ -123,7 +123,7 @@
                     </DBEventIntervalTypeCombobox>
                 </FlexHBox>
                 <FlexHBox realHeight="40" flexWidth="100%">
-                    <FXCheckBox text="ENDS" fx:id="loopEnd" realWidth="120" disable="true">
+                    <FXCheckBox text="ENDS" fx:id="loopEnd" prefWidth="120" disable="true">
                         <HBox.margin>
                             <Insets left="40" top="15"/>
                         </HBox.margin>
@@ -135,7 +135,7 @@
                     </DateTimeTextField>
                 </FlexHBox>
                 <FlexHBox realHeight="40" flexWidth="100%">
-                    <FXCheckBox text="+INTERVAL" fx:id="loopEndInterval" realWidth="100" disable="true">
+                    <FXCheckBox text="+INTERVAL" fx:id="loopEndInterval" prefWidth="100" disable="true">
                         <HBox.margin>
                             <Insets left="60" top="15"/>
                         </HBox.margin>
@@ -157,7 +157,7 @@
         <FXTab text="%base.advanced">
             <FlexVBox flexHeight="100%" flexWidth="100%">
                 <FlexHBox realHeight="50" flexWidth="100%">
-                    <AccentLabel realWidth="85" text="%base.status" realHeight="25">
+                    <AccentLabel realWidth="85" text="%base.status" prefWidth="25">
                         <HBox.margin>
                             <Insets left="20" top="12"/>
                         </HBox.margin>
