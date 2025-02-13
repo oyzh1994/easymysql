@@ -1,13 +1,13 @@
 package cn.oyzh.easymysql.tabs.view;
 
 import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
 import cn.oyzh.easymysql.fx.DBSqlTextArea;
 import cn.oyzh.easymysql.fx.view.DBViewAlgorithmComboBox;
 import cn.oyzh.easymysql.fx.view.DBViewCheckOptionComboBox;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
-import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.tabs.DynamicTabController;
 import cn.oyzh.fx.plus.controls.text.field.FlexTextField;

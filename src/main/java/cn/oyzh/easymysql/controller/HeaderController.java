@@ -11,7 +11,6 @@ import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
 import javafx.fxml.FXML;
 import javafx.stage.WindowEvent;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 主页头部业务

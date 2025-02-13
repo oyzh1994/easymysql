@@ -3,7 +3,6 @@ package cn.oyzh.easymysql.handler.runfile;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.nio.charset.StandardCharsets;

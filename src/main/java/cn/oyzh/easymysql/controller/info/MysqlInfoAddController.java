@@ -1,12 +1,11 @@
 package cn.oyzh.easymysql.controller.info;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.MysqlConst;
-import cn.oyzh.easymysql.domain.MysqlGroup;
 import cn.oyzh.easymysql.domain.MysqlConnect;
+import cn.oyzh.easymysql.domain.MysqlGroup;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.fx.DBTypeComboBox;
-import cn.oyzh.easymysql.store.DBInfoStore;
+import cn.oyzh.easymysql.store.MysqlConnectStore;
 import cn.oyzh.easymysql.util.DBConnectUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
@@ -96,7 +95,7 @@ public class MysqlInfoAddController extends StageController {
     /**
      * db连接储存对象
      */
-    private final DBInfoStore infoStore = DBInfoStore.INSTANCE;
+    private final MysqlConnectStore connectStore = MysqlConnectStore.INSTANCE;
 
     /**
      * 获取连接地址
@@ -163,7 +162,7 @@ public class MysqlInfoAddController extends StageController {
             dbInfo.setGroupId(this.group == null ? null : this.group.getGid());
             dbInfo.setConnectTimeOut(connectTimeOut == null ? 5 : connectTimeOut.intValue());
             // 保存数据
-            boolean result = this.infoStore.add(dbInfo);
+            boolean result = this.connectStore.replace(dbInfo);
             if (result) {
                 DBEventUtil.infoAdded(dbInfo);
                 MessageBox.okToast("新增db信息成功!");

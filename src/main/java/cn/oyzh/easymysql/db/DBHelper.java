@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.db;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
+import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.util.DBUtil;
 import lombok.experimental.UtilityClass;
 

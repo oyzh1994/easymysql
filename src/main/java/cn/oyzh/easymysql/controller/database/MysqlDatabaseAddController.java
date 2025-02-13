@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql.controller.database;
 
-import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;

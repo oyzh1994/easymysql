@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.db;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.db.DBObjectStatus;
 
 import java.util.ArrayList;
 import java.util.Collections;

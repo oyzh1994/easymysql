@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.fx.record;
 
 import atlantafx.base.controls.Popover;
-import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.popups.DBFieldInfoPopupController;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;

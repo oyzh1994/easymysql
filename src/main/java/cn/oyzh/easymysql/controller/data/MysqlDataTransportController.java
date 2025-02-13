@@ -3,7 +3,6 @@ package cn.oyzh.easymysql.controller.data;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.common.util.SystemUtil;
-import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;

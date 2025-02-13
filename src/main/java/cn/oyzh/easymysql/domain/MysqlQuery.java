@@ -8,6 +8,8 @@ import cn.oyzh.store.jdbc.Table;
 import lombok.Data;
 import lombok.NonNull;
 
+import java.io.Serializable;
+
 /**
  * db查询
  *
@@ -16,14 +18,14 @@ import lombok.NonNull;
  */
 @Data
 @Table("t_query")
-public class MysqlQuery implements Comparable<MysqlQuery>, ObjectComparator<MysqlQuery> {
+public class MysqlQuery implements Serializable, Comparable<MysqlQuery>, ObjectComparator<MysqlQuery> {
 
     /**
      * 数据id
      */
     @Column
     @PrimaryKey
-    private String id;
+    private String uid;
 
     /**
      * 连接id
@@ -68,7 +70,7 @@ public class MysqlQuery implements Comparable<MysqlQuery>, ObjectComparator<Mysq
         if (t1 == null) {
             return 1;
         }
-        return StrUtil.compare(t1.id, this.id, true);
+        return StrUtil.compare(t1.uid, this.uid, true);
     }
 
     @Override
@@ -76,10 +78,10 @@ public class MysqlQuery implements Comparable<MysqlQuery>, ObjectComparator<Mysq
         if (t1 == null) {
             return false;
         }
-        return StrUtil.equals(this.id, t1.id);
+        return StrUtil.equals(this.uid, t1.uid);
     }
 
     public boolean isNew() {
-        return this.getId() == null;
+        return this.getUid() == null;
     }
 }

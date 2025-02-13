@@ -7,7 +7,7 @@ import cn.oyzh.easymysql.controller.MainController;
 import cn.oyzh.easymysql.controller.SettingController;
 import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.exception.DBExceptionParser;
-import cn.oyzh.easymysql.store.DBSettingStore;
+import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.easymysql.store.MysqlStoreUtil;
 import cn.oyzh.event.EventFactory;
 import cn.oyzh.fx.gui.tray.DesktopTrayItem;
@@ -25,10 +25,9 @@ import cn.oyzh.fx.plus.tray.TrayManager;
 import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
-import cn.oyzh.fx.terminal.util.TerminalManager;
 import cn.oyzh.i18n.I18nManager;
-import javafx.application.Platform;
 import javafx.stage.Stage;
+
 import java.awt.event.MouseEvent;
 
 
@@ -75,7 +74,7 @@ public class EasyMysqlApp extends FXApplication {
             // 禁用fx的css日志
             FXUtil.disableCSSLogger();
             // 配置对象
-            MysqlSetting setting = DBSettingStore.SETTING;
+            MysqlSetting setting = MysqlSettingStore.SETTING;
             // 应用区域
             I18nManager.apply(setting.getLocale());
             // 应用字体

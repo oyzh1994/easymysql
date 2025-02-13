@@ -2,13 +2,8 @@ package cn.oyzh.easymysql.controller;
 
 import cn.oyzh.common.dto.Project;
 import cn.oyzh.common.log.JulLog;
-import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlSetting;
-import cn.oyzh.easymysql.store.DBSettingStore;
 import cn.oyzh.easymysql.store.MysqlSettingStore;
-import cn.oyzh.fx.gui.tray.DesktopTrayItem;
-import cn.oyzh.fx.gui.tray.QuitTrayItem;
-import cn.oyzh.fx.gui.tray.SettingTrayItem;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.ParentStageController;
 import cn.oyzh.fx.plus.controller.StageController;
@@ -16,7 +11,6 @@ import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.titlebar.TitleBar;
 import cn.oyzh.fx.plus.tray.TrayManager;
-import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageAttribute;
 import cn.oyzh.fx.plus.window.StageManager;
@@ -24,7 +18,6 @@ import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.WindowEvent;
 
-import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +29,6 @@ import java.util.List;
  */
 @StageAttribute(
         usePrimary = true,
-//        iconUrls = MysqlConst.ICON_PATH,
         value = FXConst.FXML_PATH + "main.fxml"
 )
 public class MainController extends ParentStageController {

@@ -4,27 +4,24 @@ import cn.oyzh.common.log.JulLog;
 import cn.oyzh.common.thread.TaskManager;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlSetting;
-import cn.oyzh.easymysql.event.connect.DBInfoUpdatedEvent;
 import cn.oyzh.easymysql.event.DBLeftCollapseEvent;
 import cn.oyzh.easymysql.event.DBLeftExtendEvent;
+import cn.oyzh.easymysql.event.connect.DBInfoUpdatedEvent;
 import cn.oyzh.easymysql.fx.DBMsgTextArea;
-import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.easymysql.trees.query.MysqlQueryTreeItem;
-import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
-import cn.oyzh.easymysql.store.DBSettingStore;
+import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.easymysql.tabs.DBTabPane;
 import cn.oyzh.easymysql.trees.DBTreeView;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.query.MysqlQueryTreeItem;
+import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.event.EventSubscribe;
-import cn.oyzh.event.EventUtil;
 import cn.oyzh.fx.plus.controller.ParentStageController;
-import cn.oyzh.fx.plus.controller.SubStageController;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
 import cn.oyzh.fx.plus.keyboard.KeyListener;
 import cn.oyzh.fx.plus.node.NodeResizeHelper;
-import com.sun.javafx.scene.control.ResizeHelper;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.TreeItem;
@@ -32,8 +29,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.WindowEvent;
 
-import java.util.Collections;
-import java.util.List;
 
 
 /**
@@ -47,7 +42,7 @@ public class MysqlMainController extends ParentStageController {
     /**
      * 配置对象
      */
-    private final MysqlSetting setting = DBSettingStore.SETTING;
+    private final MysqlSetting setting = MysqlSettingStore.SETTING;
 
     /**
      * 当前激活的db信息

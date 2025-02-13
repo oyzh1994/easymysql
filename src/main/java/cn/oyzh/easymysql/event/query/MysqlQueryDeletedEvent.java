@@ -10,6 +10,6 @@ import cn.oyzh.event.Event;
 public class MysqlQueryDeletedEvent extends Event<MysqlQueryTreeItem> {
 
     public String queryId() {
-        return this.data().value().getId();
+        return this.data().value().getUid();
     }
 }

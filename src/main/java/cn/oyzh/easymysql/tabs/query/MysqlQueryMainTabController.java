@@ -6,10 +6,10 @@ import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
-import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.query.DBQueryTextArea;
 import cn.oyzh.easymysql.query.DBQueryUtil;
-import cn.oyzh.easymysql.store.DBQueryStore;
+import cn.oyzh.easymysql.store.MysqlQueryStore;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.tabs.DynamicTabController;
 import cn.oyzh.fx.plus.controls.box.FlexVBox;
 import cn.oyzh.fx.plus.controls.tab.FXTab;
@@ -269,12 +269,12 @@ public class MysqlQueryMainTabController extends DynamicTabController {
             boolean result;
             // 新增查询
             if (this.query.isNew()) {
-                result = DBQueryStore.INSTANCE.add(this.query);
+                result = MysqlQueryStore.INSTANCE.insert(this.query);
                 if (result) {
                     MysqlEventUtil.queryAdded(this.query, this.dbItem);
                 }
             } else {// 修改查询
-                result = DBQueryStore.INSTANCE.update(this.query);
+                result = MysqlQueryStore.INSTANCE.update(this.query);
             }
             if (!result) {
                 MessageBox.warn(I18nHelper.operationFail());

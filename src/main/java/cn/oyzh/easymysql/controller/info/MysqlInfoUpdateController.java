@@ -1,11 +1,10 @@
 package cn.oyzh.easymysql.controller.info;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.fx.DBTypeComboBox;
-import cn.oyzh.easymysql.store.DBInfoStore;
+import cn.oyzh.easymysql.store.MysqlConnectStore;
 import cn.oyzh.easymysql.util.DBConnectUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
@@ -96,7 +95,7 @@ public class MysqlInfoUpdateController extends StageController {
     /**
      * db连接储存对象
      */
-    private final DBInfoStore infoStore = DBInfoStore.INSTANCE;
+    private final MysqlConnectStore connectStore = MysqlConnectStore.INSTANCE;
 
     /**
      * 获取连接地址
@@ -161,7 +160,7 @@ public class MysqlInfoUpdateController extends StageController {
         this.dbInfo.setPassword(this.password.getText());
         this.dbInfo.setConnectTimeOut(connectTimeOut == null ? 5 : connectTimeOut.intValue());
         // 保存数据
-        if (this.infoStore.update(this.dbInfo)) {
+        if (this.connectStore.update(this.dbInfo)) {
             DBEventUtil.infoUpdated(this.dbInfo);
             MessageBox.okToast("修改db信息成功!");
             this.closeWindow();

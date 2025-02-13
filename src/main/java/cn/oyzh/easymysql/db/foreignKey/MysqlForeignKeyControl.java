@@ -4,8 +4,6 @@ import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
-import cn.oyzh.easymysql.db.index.MysqlIndex;
-import cn.oyzh.easymysql.db.index.MysqlIndexControl;
 import cn.oyzh.easymysql.fx.DBDatabaseComboBox;
 import cn.oyzh.easymysql.fx.table.DBFieldTextFiled;
 import cn.oyzh.easymysql.fx.table.DBForeignKeyPolicyComboBox;

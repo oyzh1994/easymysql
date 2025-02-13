@@ -12,6 +12,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import java.util.List;
  */
 @ToString
 @Table("t_connect")
-public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<MysqlConnect> {
+public class MysqlConnect implements Serializable, Comparable<MysqlConnect>, ObjectComparator<MysqlConnect> {
 
     /**
      * 数据id

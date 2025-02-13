@@ -64,7 +64,7 @@ public class MysqlQueryMainTab extends MysqlTab {
     }
 
     public String queryId() {
-        return this.query().getId();
+        return this.query().getUid();
     }
 
     @Override

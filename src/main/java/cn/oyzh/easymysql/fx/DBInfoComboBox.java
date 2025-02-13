@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx;
 
 import cn.oyzh.easymysql.domain.MysqlConnect;
-import cn.oyzh.easymysql.store.DBInfoStore;
+import cn.oyzh.easymysql.store.MysqlConnectStore;
 import cn.oyzh.fx.plus.SimpleStringConverter;
 import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
 
@@ -23,6 +23,6 @@ public class DBInfoComboBox extends FlexComboBox<MysqlConnect> {
                 return object.getName();
             }
         });
-        this.setItem(DBInfoStore.INSTANCE.load());
+        this.setItem(MysqlConnectStore.INSTANCE.load());
     }
 }

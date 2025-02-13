@@ -4,11 +4,11 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.controller.info.MysqlInfoAddController;
 import cn.oyzh.easymysql.db.DBConnectManager;
-import cn.oyzh.easymysql.domain.MysqlGroup;
 import cn.oyzh.easymysql.domain.MysqlConnect;
+import cn.oyzh.easymysql.domain.MysqlGroup;
 import cn.oyzh.easymysql.event.DBEventUtil;
-import cn.oyzh.easymysql.store.DBGroupStore;
-import cn.oyzh.easymysql.store.DBInfoStore;
+import cn.oyzh.easymysql.store.MysqlConnectStore;
+import cn.oyzh.easymysql.store.MysqlGroupStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.DBTreeView;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
@@ -49,12 +49,12 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
     /**
      * DB信息储存
      */
-    private final DBInfoStore infoStore = DBInfoStore.INSTANCE;
+    private final MysqlConnectStore connectStore = MysqlConnectStore.INSTANCE;
 
     /**
      * DB分组储存
      */
-    private final DBGroupStore groupStore = DBGroupStore.INSTANCE;
+    private final MysqlGroupStore groupStore = MysqlGroupStore.INSTANCE;
 
     public DBGroupTreeItem(@NonNull MysqlGroup group, @NonNull DBTreeView treeView) {
         super(treeView);
@@ -173,7 +173,7 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
         if (!this.containsChild(item)) {
             if (!Objects.equals(item.value().getGroupId(), this.value.getGid())) {
                 item.value().setGroupId(this.value.getGid());
-                this.infoStore.update(item.value());
+                this.connectStore.update(item.value());
             }
             super.addChild(item);
         }
@@ -189,7 +189,7 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
     @Override
     public boolean delConnectItem(@NonNull DBConnectTreeItem item) {
         // 删除连接
-        if (this.infoStore.delete(item.value())) {
+        if (this.connectStore.delete(item.value())) {
             this.removeChild(item);
             return true;
         }

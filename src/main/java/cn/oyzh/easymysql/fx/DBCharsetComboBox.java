@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.fx;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
-import lombok.Getter;
 
 /**
  * @author oyzh

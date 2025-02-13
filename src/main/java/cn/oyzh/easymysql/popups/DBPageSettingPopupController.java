@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.popups;
 
 import cn.oyzh.easymysql.domain.MysqlSetting;
-import cn.oyzh.easymysql.store.DBSettingStore;
+import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
@@ -35,12 +35,12 @@ public class DBPageSettingPopupController extends PopupController {
     /**
      * 设置
      */
-    private final MysqlSetting setting = DBSettingStore.SETTING;
+    private final MysqlSetting setting = MysqlSettingStore.SETTING;
 
     /**
      * 设置存储
      */
-    private final DBSettingStore settingStore = DBSettingStore.INSTANCE;
+    private final MysqlSettingStore settingStore = MysqlSettingStore.INSTANCE;
 
     /**
      * 应用

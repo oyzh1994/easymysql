@@ -3,7 +3,6 @@ package cn.oyzh.easymysql.controller;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.dto.Project;
-import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.SubStageController;
 import cn.oyzh.fx.plus.controls.text.FlexText;

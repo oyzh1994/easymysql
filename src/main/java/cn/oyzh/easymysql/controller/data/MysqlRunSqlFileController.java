@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.controller.data;
 
 import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.common.util.SystemUtil;
-import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.handler.runfile.DataRunSqlFileHandler;

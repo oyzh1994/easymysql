@@ -5,7 +5,7 @@ import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
-import cn.oyzh.easymysql.store.DBQueryStore;
+import cn.oyzh.easymysql.store.MysqlQueryStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
@@ -90,7 +90,7 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
     @Override
     public void delete() {
         if (MessageBox.confirm(I18nHelper.delete() + " " + this.queryName() + "?")) {
-            if (DBQueryStore.INSTANCE.delete(this.value)) {
+            if (MysqlQueryStore.INSTANCE.delete(this.value)) {
                 this.remove();
                 MysqlEventUtil.queryDeleted(this);
             } else {
@@ -114,7 +114,7 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
         String oldName = this.value.getName();
         this.value.setName(name);
         // 修改名称
-        if (DBQueryStore.INSTANCE.update(this.value)) {
+        if (MysqlQueryStore.INSTANCE.update(this.value)) {
 //            this.getValue().flushText();
             this.refresh();
         } else {

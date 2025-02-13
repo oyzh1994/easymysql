@@ -1,7 +1,6 @@
 package cn.oyzh.easymysql.sql;
 
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.sql.DruidSqlParser;
 
 import java.util.List;
 

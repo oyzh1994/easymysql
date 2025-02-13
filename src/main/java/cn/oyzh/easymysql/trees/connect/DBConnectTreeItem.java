@@ -1,10 +1,10 @@
 package cn.oyzh.easymysql.trees.connect;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.common.thread.IRunnable;
 import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.common.thread.ThreadUtil;
+import cn.oyzh.easymysql.controller.database.MysqlDatabaseAddController;
 import cn.oyzh.easymysql.controller.info.MysqlInfoUpdateController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
@@ -12,11 +12,10 @@ import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.DBEventUtil;
-import cn.oyzh.easymysql.controller.database.MysqlDatabaseAddController;
-import cn.oyzh.easymysql.store.DBInfoStore;
-import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.store.MysqlConnectStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.DBTreeView;
+import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
@@ -66,7 +65,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
     /**
      * redis信息储存
      */
-    private final DBInfoStore infoStore = DBInfoStore.INSTANCE;
+    private final MysqlConnectStore connectStore = MysqlConnectStore.INSTANCE;
 
     public DBConnectTreeItem(@NonNull MysqlConnect value, @NonNull DBTreeView treeView) {
         super(treeView);
@@ -248,7 +247,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
         dbInfo.copy(this.value);
         dbInfo.setName(this.value.getName() + "-" + I18nHelper.repeat());
         dbInfo.setCollects(Collections.emptyList());
-        if (this.infoStore.add(dbInfo)) {
+        if (this.connectStore.insert(dbInfo)) {
             this.connectManager().addConnect(dbInfo);
         } else {
             MessageBox.warn(I18nHelper.operationFail());
@@ -281,7 +280,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
         }
         this.value.setName(connectName);
         // 修改名称
-        if (this.infoStore.update(this.value)) {
+        if (this.connectStore.update(this.value)) {
             this.setValue(new DBConnectTreeItemValue(this));
         } else {
             MessageBox.warn(I18nHelper.operationFail());

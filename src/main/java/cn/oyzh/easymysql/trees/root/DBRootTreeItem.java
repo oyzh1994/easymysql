@@ -6,12 +6,12 @@ import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.controller.info.MysqlInfoAddController;
 import cn.oyzh.easymysql.db.DBConnectManager;
-import cn.oyzh.easymysql.domain.MysqlGroup;
 import cn.oyzh.easymysql.domain.MysqlConnect;
+import cn.oyzh.easymysql.domain.MysqlGroup;
 import cn.oyzh.easymysql.dto.MysqlInfoExport;
 import cn.oyzh.easymysql.event.DBEventUtil;
-import cn.oyzh.easymysql.store.DBGroupStore;
-import cn.oyzh.easymysql.store.DBInfoStore;
+import cn.oyzh.easymysql.store.MysqlConnectStore;
+import cn.oyzh.easymysql.store.MysqlGroupStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.DBTreeView;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
@@ -47,12 +47,12 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     /**
      * DB信息储存
      */
-    private final DBInfoStore infoStore = DBInfoStore.INSTANCE;
+    private final MysqlConnectStore connectStore = MysqlConnectStore.INSTANCE;
 
     /**
      * DB分组储存
      */
-    private final DBGroupStore groupStore = DBGroupStore.INSTANCE;
+    private final MysqlGroupStore groupStore = MysqlGroupStore.INSTANCE;
 
     public DBRootTreeItem(@NonNull DBTreeView treeView) {
         super(treeView);
@@ -80,7 +80,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
             this.addChild(list);
         }
         // 初始化连接
-        List<MysqlConnect> infos = this.infoStore.load();
+        List<MysqlConnect> infos = this.connectStore.load();
         if (CollUtil.isNotEmpty(infos)) {
             this.addConnects(infos);
         }
@@ -107,7 +107,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      * 导出连接
      */
     private void exportConnect() {
-        List<MysqlConnect> infos = this.infoStore.load();
+        List<MysqlConnect> infos = this.connectStore.load();
         if (infos.isEmpty()) {
             MessageBox.warn(I18nHelper.connectionIsEmpty());
             return;
@@ -184,7 +184,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
             List<MysqlConnect> infos = export.getConnects();
             if (CollUtil.isNotEmpty(infos)) {
                 for (MysqlConnect info : infos) {
-                    if (this.infoStore.add(info)) {
+                    if (this.connectStore.insert(info)) {
                         this.addConnect(info);
                     } else {
                         MessageBox.warn(I18nHelper.connect() + "[" + info.getName() + "]" + I18nHelper.importFail());
@@ -228,8 +228,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
             MessageBox.warn(I18nHelper.contentAlreadyExists());
             return;
         }
-        group = this.groupStore.add(groupName);
-        if (group != null) {
+        if (this.groupStore.insert(group)) {
             this.addChild(new DBGroupTreeItem(group, this.getTreeView()));
         } else {
             MessageBox.warn(I18nHelper.operationFail());
@@ -313,7 +312,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
         if (!this.containsChild(item)) {
             if (item.value().getGroupId() != null) {
                 item.value().setGroupId(null);
-                this.infoStore.update(item.value());
+                this.connectStore.update(item.value());
             }
             super.addChild(item);
             this.expend();
@@ -331,7 +330,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     @Override
     public boolean delConnectItem(@NonNull DBConnectTreeItem item) {
         // 删除连接
-        if (this.infoStore.delete(item.value())) {
+        if (this.connectStore.delete(item.value())) {
             this.removeChild(item);
             return true;
         }

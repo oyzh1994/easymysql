@@ -1,14 +1,9 @@
 package cn.oyzh.easymysql.trees.function;
 
-import cn.oyzh.easymysql.trees.query.MysqlQueryTypeTreeItem;
 import cn.oyzh.fx.gui.svg.glyph.FunctionSVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import cn.oyzh.fx.plus.controls.text.FXText;
-import javafx.geometry.Insets;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 /**
  * db树视图类型值

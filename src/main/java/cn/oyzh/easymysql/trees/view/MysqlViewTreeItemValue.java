@@ -3,7 +3,6 @@ package cn.oyzh.easymysql.trees.view;
 import cn.oyzh.fx.gui.svg.glyph.ViewSVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import cn.oyzh.fx.plus.controls.tree.view.FXTreeItem;
 import lombok.experimental.Accessors;
 
 /**

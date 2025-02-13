@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.db.query;
 
 import cn.oyzh.easymysql.db.DBHelper;
-import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 

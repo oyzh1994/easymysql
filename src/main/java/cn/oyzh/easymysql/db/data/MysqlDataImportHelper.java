@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.db.data;
 
 import cn.hutool.core.date.DateUtil;
-import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBUtil;
 import lombok.experimental.UtilityClass;

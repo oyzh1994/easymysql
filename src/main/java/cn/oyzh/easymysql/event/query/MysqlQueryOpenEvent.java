@@ -17,6 +17,6 @@ public class MysqlQueryOpenEvent extends Event<MysqlQuery> {
     private MysqlDatabaseTreeItem item;
 
     public String queryId() {
-        return this.data().getId();
+        return this.data().getUid();
     }
 }

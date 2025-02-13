@@ -17,7 +17,7 @@ import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.popups.DBPageSettingPopupController;
 import cn.oyzh.easymysql.popups.MysqlTableRecordFilterPopupController;
-import cn.oyzh.easymysql.store.DBSettingStore;
+import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.util.DBRecordUtil;
 import cn.oyzh.event.EventSubscribe;
@@ -132,7 +132,7 @@ public class MysqlViewRecordTabController extends DynamicTabController {
     /**
      * 设置
      */
-    private final MysqlSetting setting = DBSettingStore.SETTING;
+    private final MysqlSetting setting = MysqlSettingStore.SETTING;
 
     /**
      * 执行初始化

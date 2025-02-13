@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.trees.connect;
 
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import cn.oyzh.fx.plus.theme.ThemeManager;
 import javafx.scene.paint.Color;
 
 
@@ -25,6 +24,16 @@ public class DBConnectTreeItemValue extends RichTreeItemValue {
 //        this.flushGraphicColor();
 //        this.name(item.value().getName());
         super(item);
+    }
+
+    @Override
+    protected DBConnectTreeItem item() {
+        return (DBConnectTreeItem) super.item();
+    }
+
+    @Override
+    public String name() {
+        return this.item().value().getName();
     }
 
     @Override
