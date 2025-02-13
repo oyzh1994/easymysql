@@ -1,17 +1,11 @@
 package cn.oyzh.easymysql.controller;
 
-import cn.oyzh.common.log.JulLog;
-import cn.oyzh.common.thread.TaskManager;
 import cn.oyzh.easymysql.controller.main.ConnectController;
 import cn.oyzh.easymysql.controller.main.MessageController;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlSetting;
-import cn.oyzh.easymysql.event.DBLeftCollapseEvent;
-import cn.oyzh.easymysql.event.DBLeftExtendEvent;
-import cn.oyzh.easymysql.event.connect.DBInfoUpdatedEvent;
+import cn.oyzh.easymysql.event.connect.MysqlConnectUpdatedEvent;
 import cn.oyzh.easymysql.event.tree.MysqlTreeItemChangedEvent;
-import cn.oyzh.easymysql.fx.DBDatabaseComboBox;
-import cn.oyzh.easymysql.fx.DBMsgTextArea;
 import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.easymysql.tabs.DBTabPane;
 import cn.oyzh.easymysql.trees.DBTreeView;
@@ -25,8 +19,6 @@ import cn.oyzh.fx.gui.event.Layout1Event;
 import cn.oyzh.fx.gui.event.Layout2Event;
 import cn.oyzh.fx.plus.controller.ParentStageController;
 import cn.oyzh.fx.plus.controller.SubStageController;
-import cn.oyzh.fx.plus.controls.button.FXCheckBox;
-import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
 import cn.oyzh.fx.plus.keyboard.KeyListener;
 import cn.oyzh.fx.plus.node.NodeResizeHelper;
@@ -34,10 +26,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.TreeItem;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.WindowEvent;
 
-import java.util.Collections;
 import java.util.List;
 
 
@@ -95,7 +85,7 @@ public class MysqlMainController extends ParentStageController {
      * @param event 事件
      */
     @EventSubscribe
-    private void onInfoUpdate(DBInfoUpdatedEvent event) {
+    private void onInfoUpdate(MysqlConnectUpdatedEvent event) {
         if (this.info == event.data()) {
             this.stage.appendTitle(" (" + event.data().getName() + ")");
         }

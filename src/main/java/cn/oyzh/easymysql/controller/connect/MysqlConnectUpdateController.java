@@ -1,19 +1,28 @@
 package cn.oyzh.easymysql.controller.connect;
 
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
+import cn.oyzh.easymysql.domain.MysqlSSHConfig;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.fx.DBTypeComboBox;
 import cn.oyzh.easymysql.store.MysqlConnectStore;
+import cn.oyzh.easymysql.store.MysqlSSHConfigStore;
+import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.easymysql.util.DBConnectUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.gui.text.field.PortTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
+import cn.oyzh.fx.plus.controls.tab.FXTab;
 import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
 import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
+import cn.oyzh.fx.plus.controls.toggle.FXToggleSwitch;
 import cn.oyzh.fx.plus.information.MessageBox;
+import cn.oyzh.fx.plus.node.NodeGroupUtil;
+import cn.oyzh.fx.plus.window.FXStageStyle;
 import cn.oyzh.fx.plus.window.StageAttribute;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
@@ -28,10 +37,17 @@ import lombok.NonNull;
  * @since 2023/12/22
  */
 @StageAttribute(
-        modality = Modality.WINDOW_MODAL,
-        value = FXConst.FXML_PATH + "info/dbInfoUpdate.fxml"
+        stageStyle = FXStageStyle.UNIFIED,
+        modality = Modality.APPLICATION_MODAL,
+        value = FXConst.FXML_PATH + "connect/mysqlConnectUpdate.fxml"
 )
 public class MysqlConnectUpdateController extends StageController {
+
+    /**
+     * 只读模式
+     */
+    @FXML
+    private FXCheckBox readonly;
 
     /**
      * tab组件
@@ -42,13 +58,19 @@ public class MysqlConnectUpdateController extends StageController {
     /**
      * db信息
      */
-    private MysqlConnect dbInfo;
+    private MysqlConnect mysqlConnect;
 
     /**
      * 名称
      */
     @FXML
     private ClearableTextField name;
+
+    /**
+     * 备注
+     */
+    @FXML
+    private FlexTextArea remark;
 
     /**
      * 类型
@@ -81,21 +103,68 @@ public class MysqlConnectUpdateController extends StageController {
     private PortTextField hostPort;
 
     /**
-     * 备注
-     */
-    @FXML
-    private FlexTextArea remark;
-
-    /**
-     * 连接超时
+     * 超时时间
      */
     @FXML
     private NumberTextField connectTimeOut;
 
     /**
+     * 执行超时
+     */
+    @FXML
+    private NumberTextField executeTimeOut;
+
+    /**
+     * ssh面板
+     */
+    @FXML
+    private FXTab sshTab;
+
+    /**
+     * 开启ssh
+     */
+    @FXML
+    private FXToggleSwitch sshForward;
+
+    /**
+     * ssh主机地址
+     */
+    @FXML
+    private ClearableTextField sshHost;
+
+    /**
+     * ssh主机端口
+     */
+    @FXML
+    private PortTextField sshPort;
+
+    /**
+     * ssh主机端口
+     */
+    @FXML
+    private NumberTextField sshTimeout;
+
+    /**
+     * ssh主机用户
+     */
+    @FXML
+    private ClearableTextField sshUser;
+
+    /**
+     * ssh主机密码
+     */
+    @FXML
+    private ClearableTextField sshPassword;
+
+    /**
      * db连接储存对象
      */
     private final MysqlConnectStore connectStore = MysqlConnectStore.INSTANCE;
+
+    /**
+     * ssh配置储存
+     */
+    private final MysqlSSHConfigStore sshConfigStore = MysqlSSHConfigStore.INSTANCE;
 
     /**
      * 获取连接地址
@@ -119,20 +188,41 @@ public class MysqlConnectUpdateController extends StageController {
     }
 
     /**
+     * 获取ssh信息
+     *
+     * @return ssh连接信息
+     */
+    private MysqlSSHConfig getSSHConfig() {
+        MysqlSSHConfig sshConfig = new MysqlSSHConfig();
+        sshConfig.setHost(this.sshHost.getText());
+        sshConfig.setUser(this.sshUser.getText());
+        sshConfig.setPort(this.sshPort.getIntValue());
+        sshConfig.setPassword(this.sshPassword.getText());
+        sshConfig.setTimeout(this.sshTimeout.getIntValue());
+        return sshConfig;
+    }
+
+    /**
      * 测试连接
      */
     @FXML
     private void testConnect() {
         // 检查连接地址
         String host = this.getHost();
-        if (StrUtil.isNotBlank(host)) {
-            MysqlConnect dbInfo = new MysqlConnect();
-            dbInfo.setHost(host);
-            dbInfo.setConnectTimeOut(5);
-            dbInfo.setUser(this.user.getText());
-            dbInfo.setType(this.type.getType());
-            dbInfo.setPassword(this.password.getText());
-            DBConnectUtil.testConnect(this.stage, dbInfo);
+        if (StringUtil.isBlank(host) || StringUtil.isBlank(host.split(":")[0])) {
+            MessageBox.warn(I18nHelper.contentCanNotEmpty());
+        } else {
+            MysqlConnect mysqlConnect = new MysqlConnect();
+            mysqlConnect.setHost(host);
+            mysqlConnect.setConnectTimeOut(3);
+            mysqlConnect.setId(this.mysqlConnect.getId());
+            mysqlConnect.setUser(this.user.getText());
+            mysqlConnect.setPassword(this.password.getText());
+            mysqlConnect.setSshForward(this.sshForward.isSelected());
+            if (mysqlConnect.isSSHForward()) {
+                mysqlConnect.setSshConfig(this.getSSHConfig());
+            }
+            DBConnectUtil.testConnect(this.stage, mysqlConnect);
         }
     }
 
@@ -146,41 +236,83 @@ public class MysqlConnectUpdateController extends StageController {
             return;
         }
         // 名称未填，则直接以host为名称
-        if (StrUtil.isBlank(this.name.getTextTrim())) {
+        if (StringUtil.isBlank(this.name.getTextTrim())) {
             this.name.setText(host.replace(":", "_"));
         }
-        String name = this.name.getTextTrim();
-        this.dbInfo.setName(name);
-        Number connectTimeOut = this.connectTimeOut.getValue();
+        try {
+            String name = this.name.getTextTrim();
+            this.mysqlConnect.setName(name);
+            Number connectTimeOut = this.connectTimeOut.getValue();
 
-        this.dbInfo.setHost(host.trim());
-        this.dbInfo.setUser(this.user.getText());
-        this.dbInfo.setType(this.type.getType());
-        this.dbInfo.setRemark(this.remark.getTextTrim());
-        this.dbInfo.setPassword(this.password.getText());
-        this.dbInfo.setConnectTimeOut(connectTimeOut == null ? 5 : connectTimeOut.intValue());
-        // 保存数据
-        if (this.connectStore.update(this.dbInfo)) {
-            DBEventUtil.infoUpdated(this.dbInfo);
-//            MessageBox.okToast(I18nHelper.operationSuccess());
-            this.closeWindow();
-        } else {
-            MessageBox.warn(I18nHelper.operationFail());
+            this.mysqlConnect.setHost(host.trim());
+            this.mysqlConnect.setUser(this.user.getText());
+            // ssh配置
+            this.mysqlConnect.setSshConfig(this.getSSHConfig());
+            this.mysqlConnect.setSshForward(this.sshForward.isSelected());
+            this.mysqlConnect.setType(this.type.getType());
+            this.mysqlConnect.setRemark(this.remark.getTextTrim());
+            this.mysqlConnect.setPassword(this.password.getText());
+            this.mysqlConnect.setConnectTimeOut(connectTimeOut == null ? 5 : connectTimeOut.intValue());
+            // 保存数据
+            if (this.connectStore.replace(this.mysqlConnect)) {
+                DBEventUtil.connectUpdated(this.mysqlConnect);
+                MessageBox.okToast(I18nHelper.operationSuccess());
+                this.closeWindow();
+            } else {
+                MessageBox.warn(I18nHelper.operationFail());
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            MessageBox.exception(ex);
         }
+    }
+
+    @Override
+    protected void bindListeners() {
+        // 连接ip处理
+        this.hostIp.addTextChangeListener((observableValue, s, t1) -> {
+            // 内容包含“:”，则直接切割字符为ip端口
+            if (t1 != null && t1.contains(":")) {
+                try {
+                    this.hostIp.setText(t1.split(":")[0]);
+                    this.hostPort.setValue(Integer.parseInt(t1.split(":")[1]));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        // ssh配置
+        this.sshForward.selectedChanged((observable, oldValue, newValue) -> {
+            if (newValue) {
+                NodeGroupUtil.enable(this.sshTab, "ssh");
+            } else {
+                NodeGroupUtil.disable(this.sshTab, "ssh");
+            }
+        });
     }
 
     @Override
     public void onWindowShown(@NonNull WindowEvent event) {
         super.onWindowShown(event);
-        this.dbInfo = this.getWindowProp("info");
-        this.name.setText(this.dbInfo.getName());
-        this.user.setText(this.dbInfo.getUser());
-        this.hostIp.setText(this.dbInfo.hostIp());
-        this.type.selectType(this.dbInfo.getType());
-        this.remark.setText(this.dbInfo.getRemark());
-        this.hostPort.setValue(this.dbInfo.hostPort());
-        this.password.setText(this.dbInfo.getPassword());
-        this.connectTimeOut.setValue(this.dbInfo.getConnectTimeOut());
+        this.mysqlConnect = this.getWindowProp("info");
+        this.name.setText(this.mysqlConnect.getName());
+        this.user.setText(this.mysqlConnect.getUser());
+        this.hostIp.setText(this.mysqlConnect.hostIp());
+        this.type.selectType(this.mysqlConnect.getType());
+        this.remark.setText(this.mysqlConnect.getRemark());
+        this.hostPort.setValue(this.mysqlConnect.hostPort());
+        this.password.setText(this.mysqlConnect.getPassword());
+        this.connectTimeOut.setValue(this.mysqlConnect.getConnectTimeOut());
+        // ssh配置
+        this.sshForward.setSelected(this.mysqlConnect.isSSHForward());
+        MysqlSSHConfig sshConfig = this.sshConfigStore.getByIid(this.mysqlConnect.getId());
+        if (sshConfig != null) {
+            this.sshHost.setText(sshConfig.getHost());
+            this.sshUser.setText(sshConfig.getUser());
+            this.sshPort.setValue(sshConfig.getPort());
+            this.sshTimeout.setValue(sshConfig.getTimeout());
+            this.sshPassword.setText(sshConfig.getPassword());
+        }
         this.stage.switchOnTab();
         this.stage.hideOnEscape();
     }
@@ -190,3 +322,4 @@ public class MysqlConnectUpdateController extends StageController {
         return I18nHelper.connectUpdateTitle();
     }
 }
+

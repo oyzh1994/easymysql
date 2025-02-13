@@ -1,8 +1,10 @@
 package cn.oyzh.easymysql.controller.connect;
 
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlGroup;
+import cn.oyzh.easymysql.domain.MysqlSSHConfig;
 import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.fx.DBTypeComboBox;
 import cn.oyzh.easymysql.store.MysqlConnectStore;
@@ -12,9 +14,14 @@ import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.gui.text.field.PortTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
+import cn.oyzh.fx.plus.controls.tab.FXTab;
 import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
 import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
+import cn.oyzh.fx.plus.controls.toggle.FXToggleSwitch;
 import cn.oyzh.fx.plus.information.MessageBox;
+import cn.oyzh.fx.plus.node.NodeGroupUtil;
+import cn.oyzh.fx.plus.window.FXStageStyle;
 import cn.oyzh.fx.plus.window.StageAttribute;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
@@ -28,11 +35,17 @@ import javafx.stage.WindowEvent;
  * @since 2023/12/22
  */
 @StageAttribute(
-        title = "DB连接新增",
-        modality = Modality.WINDOW_MODAL,
-        value = FXConst.FXML_PATH + "info/dbInfoAdd.fxml"
+        stageStyle = FXStageStyle.UNIFIED,
+        modality = Modality.APPLICATION_MODAL,
+        value = FXConst.FXML_PATH + "connect/mysqlConnectAdd.fxml"
 )
 public class MysqlConnectAddController extends StageController {
+
+    /**
+     * 只读模式
+     */
+    @FXML
+    private FXCheckBox readonly;
 
     /**
      * tab组件
@@ -89,6 +102,48 @@ public class MysqlConnectAddController extends StageController {
     private NumberTextField connectTimeOut;
 
     /**
+     * ssh面板
+     */
+    @FXML
+    private FXTab sshTab;
+
+    /**
+     * 开启ssh
+     */
+    @FXML
+    private FXToggleSwitch sshForward;
+
+    /**
+     * ssh主机地址
+     */
+    @FXML
+    private ClearableTextField sshHost;
+
+    /**
+     * ssh主机端口
+     */
+    @FXML
+    private PortTextField sshPort;
+
+    /**
+     * ssh主机端口
+     */
+    @FXML
+    private NumberTextField sshTimeout;
+
+    /**
+     * ssh主机用户
+     */
+    @FXML
+    private ClearableTextField sshUser;
+
+    /**
+     * ssh主机密码
+     */
+    @FXML
+    private ClearableTextField sshPassword;
+
+    /**
      * 分组
      */
     private MysqlGroup group;
@@ -120,20 +175,41 @@ public class MysqlConnectAddController extends StageController {
     }
 
     /**
+     * 获取ssh信息
+     *
+     * @return ssh连接信息
+     */
+    private MysqlSSHConfig getSSHConfig() {
+        MysqlSSHConfig sshConfig = new MysqlSSHConfig();
+        sshConfig.setHost(this.sshHost.getText());
+        sshConfig.setUser(this.sshUser.getText());
+        sshConfig.setPort(this.sshPort.getIntValue());
+        sshConfig.setPassword(this.sshPassword.getText());
+        sshConfig.setTimeout(this.sshTimeout.getIntValue());
+        return sshConfig;
+    }
+
+    /**
      * 测试连接
      */
     @FXML
     private void testConnect() {
         // 检查连接地址
         String host = this.getHost();
-        if (StrUtil.isNotBlank(host)) {
-            MysqlConnect dbInfo = new MysqlConnect();
-            dbInfo.setHost(host);
-            dbInfo.setConnectTimeOut(5);
-            dbInfo.setUser(this.user.getText());
-            dbInfo.setType(this.type.getType());
-            dbInfo.setPassword(this.password.getText());
-            DBConnectUtil.testConnect(this.stage, dbInfo);
+        if (StringUtil.isBlank(host) || StringUtil.isBlank(host.split(":")[0])) {
+            MessageBox.warn(I18nHelper.contentCanNotEmpty());
+        } else {
+            // 创建redis连接
+            MysqlConnect redisConnect = new MysqlConnect();
+            redisConnect.setHost(host);
+            redisConnect.setConnectTimeOut(3);
+            redisConnect.setUser(this.user.getText());
+            redisConnect.setPassword(this.password.getText());
+            redisConnect.setSshForward(this.sshForward.isSelected());
+            if (redisConnect.isSSHForward()) {
+                redisConnect.setSshConfig(this.getSSHConfig());
+            }
+            DBConnectUtil.testConnect(this.stage, redisConnect);
         }
     }
 
@@ -152,29 +228,43 @@ public class MysqlConnectAddController extends StageController {
         }
         try {
             String name = this.name.getTextTrim();
-            MysqlConnect dbInfo = new MysqlConnect();
-            dbInfo.setName(name);
+            MysqlConnect mysqlConnect = new MysqlConnect();
+            mysqlConnect.setName(name);
             Number connectTimeOut = this.connectTimeOut.getValue();
-            dbInfo.setHost(host);
-            dbInfo.setUser(this.user.getText());
-            dbInfo.setType(this.type.getType());
-            dbInfo.setRemark(this.remark.getTextTrim());
-            dbInfo.setPassword(this.password.getText());
-            dbInfo.setGroupId(this.group == null ? null : this.group.getGid());
-            dbInfo.setConnectTimeOut(connectTimeOut == null ? 5 : connectTimeOut.intValue());
+            mysqlConnect.setHost(host);
+            mysqlConnect.setUser(this.user.getText());
+            mysqlConnect.setType(this.type.getType());
+            mysqlConnect.setRemark(this.remark.getTextTrim());
+            mysqlConnect.setPassword(this.password.getText());
+            mysqlConnect.setGroupId(this.group == null ? null : this.group.getGid());
+            mysqlConnect.setConnectTimeOut(connectTimeOut == null ? 5 : connectTimeOut.intValue());
+            mysqlConnect.setSshConfig(this.getSSHConfig());
+            mysqlConnect.setSshForward(this.sshForward.isSelected());
+
             // 保存数据
-            boolean result = this.connectStore.replace(dbInfo);
+            boolean result = this.connectStore.replace(mysqlConnect);
             if (result) {
-                DBEventUtil.infoAdded(dbInfo);
-//                MessageBox.okToast("新增db信息成功!");
+                DBEventUtil.connectAdded(mysqlConnect);
                 this.closeWindow();
             } else {
-//                MessageBox.warn("新增db信息失败！");
                 MessageBox.warn(I18nHelper.operationFail());
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             MessageBox.exception(ex);
         }
+    }
+
+    @Override
+    protected void bindListeners() {
+        // ssh配置
+        this.sshForward.selectedChanged((observable, oldValue, newValue) -> {
+            if (newValue) {
+                NodeGroupUtil.enable(this.sshTab, "ssh");
+            } else {
+                NodeGroupUtil.disable(this.sshTab, "ssh");
+            }
+        });
     }
 
     @Override

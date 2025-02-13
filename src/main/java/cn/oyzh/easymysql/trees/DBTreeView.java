@@ -4,8 +4,8 @@ import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.easymysql.controller.connect.MysqlConnectAddController;
 import cn.oyzh.easymysql.event.TreeChildFilterEvent;
 import cn.oyzh.easymysql.event.connect.DBAddConnectEvent;
-import cn.oyzh.easymysql.event.connect.DBInfoAddedEvent;
-import cn.oyzh.easymysql.event.connect.DBInfoUpdatedEvent;
+import cn.oyzh.easymysql.event.connect.MysqlConnectAddedEvent;
+import cn.oyzh.easymysql.event.connect.MysqlConnectUpdatedEvent;
 import cn.oyzh.easymysql.event.group.DBAddGroupEvent;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.group.DBGroupTreeItem;
@@ -106,7 +106,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      * @param event 事件
      */
     @EventSubscribe
-    private void onInfoUpdate(DBInfoUpdatedEvent event) {
+    private void onInfoUpdate(MysqlConnectUpdatedEvent event) {
         f1:
         for (TreeItem<?> item : this.getRoot().unfilteredChildren()) {
             if (item instanceof DBConnectTreeItem connectTreeItem) {
@@ -151,7 +151,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      * @param event 事件
      */
     @EventSubscribe
-    private void infoAdded(DBInfoAddedEvent event) {
+    private void infoAdded(MysqlConnectAddedEvent event) {
         this.getRoot().addConnect(event.data());
     }
 
@@ -161,7 +161,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      * @param event 事件
      */
     @EventSubscribe
-    private void infoUpdated(DBInfoUpdatedEvent event) {
+    private void infoUpdated(MysqlConnectUpdatedEvent event) {
         this.getRoot().infoUpdate(event.data());
     }
 }

@@ -8,7 +8,7 @@ import cn.oyzh.event.EventFormatter;
  * @author oyzh
  * @since 2024/7/26
  */
-public class DBInfoDeletedEvent extends Event<MysqlConnect> implements EventFormatter {
+public class MysqlConnectDeletedEvent extends Event<MysqlConnect> implements EventFormatter {
 
     @Override
     public String eventFormat() {

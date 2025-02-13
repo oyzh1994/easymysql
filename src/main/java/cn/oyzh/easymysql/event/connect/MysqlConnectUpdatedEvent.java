@@ -8,10 +8,10 @@ import cn.oyzh.event.EventFormatter;
  * @author oyzh
  * @since 2024/01/30
  */
-public class DBInfoAddedEvent extends Event<MysqlConnect> implements EventFormatter {
+public class MysqlConnectUpdatedEvent extends Event<MysqlConnect> implements EventFormatter {
 
     @Override
     public String eventFormat() {
-        return String.format("连接[%s] 已新增", this.data().getName());
+        return String.format("连接[%s] 已修改", this.data().getName());
     }
 }
