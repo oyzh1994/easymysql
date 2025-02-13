@@ -40,11 +40,11 @@ public class HeaderController2 extends SubStageController {
      */
     @FXML
     private void setting() {
-        StageAdapter fxView = StageManager.getStage(SettingController.class);
+        StageAdapter fxView = StageManager.getStage(SettingController2.class);
         if (fxView != null) {
             fxView.toFront();
         } else {
-            StageManager.showStage(SettingController.class, this.stage);
+            StageManager.showStage(SettingController2.class, this.stage);
         }
     }
 
