@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.controller.info;
+package cn.oyzh.easymysql.controller.connect;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
@@ -15,6 +15,7 @@ import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
 import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.StageAttribute;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
@@ -27,11 +28,10 @@ import lombok.NonNull;
  * @since 2023/12/22
  */
 @StageAttribute(
-        title = "DB连接修改",
         modality = Modality.WINDOW_MODAL,
         value = FXConst.FXML_PATH + "info/dbInfoUpdate.fxml"
 )
-public class MysqlInfoUpdateController extends StageController {
+public class MysqlConnectUpdateController extends StageController {
 
     /**
      * tab组件
@@ -162,10 +162,10 @@ public class MysqlInfoUpdateController extends StageController {
         // 保存数据
         if (this.connectStore.update(this.dbInfo)) {
             DBEventUtil.infoUpdated(this.dbInfo);
-            MessageBox.okToast("修改db信息成功!");
+//            MessageBox.okToast(I18nHelper.operationSuccess());
             this.closeWindow();
         } else {
-            MessageBox.warn("修改db信息失败！");
+            MessageBox.warn(I18nHelper.operationFail());
         }
     }
 
@@ -183,5 +183,10 @@ public class MysqlInfoUpdateController extends StageController {
         this.connectTimeOut.setValue(this.dbInfo.getConnectTimeOut());
         this.stage.switchOnTab();
         this.stage.hideOnEscape();
+    }
+
+    @Override
+    public String getViewTitle() {
+        return I18nHelper.connectUpdateTitle();
     }
 }

@@ -368,7 +368,7 @@ public class MysqlDataImportController extends StageController {
 
     @Override
     public String getViewTitle() {
-        return I18nResourceBundle.i18nString("base.title.import");
+        return I18nHelper.importTitle();
     }
 
     @Override

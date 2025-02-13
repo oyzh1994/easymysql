@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.DBTypeComboBox?>
+<?import cn.oyzh.easymysql.fx.info.ServiceTypeCombobox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
@@ -12,13 +13,13 @@
 <?import cn.oyzh.fx.gui.text.field.PortTextField?>
 <?import cn.oyzh.fx.gui.text.field.NumberTextField?>
 <?import cn.oyzh.fx.plus.controls.label.FXLabel?>
-<?import cn.oyzh.fx.plus.controls.text.area.FlexTextArea?>
 <?import cn.oyzh.fx.gui.toggle.SwitchToggleSwitch?>
 <?import cn.oyzh.fx.gui.button.TestButton?>
-<?import cn.oyzh.fx.gui.button.CancelButton?>
 <?import cn.oyzh.fx.gui.button.SubmitButton?>
+<?import cn.oyzh.fx.gui.button.CancelButton?>
+<?import cn.oyzh.fx.plus.controls.text.area.FlexTextArea?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.controller.info.MysqlInfoAddController" realWidth="750" realHeight="450">
+          fx:controller="cn.oyzh.easymysql.controller.connect.MysqlConnectUpdateController" realWidth="750" realHeight="450">
     <FlexTabPane flexWidth="100%" flexHeight="100% - 60" fx:id="tabPane">
         <FXTab text="%base.base">
             <FlexVBox flexWidth="100%" flexHeight="100%">
@@ -87,6 +88,25 @@
                             <Insets left="5" top="10"/>
                         </HBox.margin>
                     </ClearableTextField>
+                </FlexHBox>
+                <FlexHBox flexWidth="100%" realHeight="50" fx:id="serviceBox" managed="false" visible="false">
+                    <AccentLabel realHeight="30" realWidth="100" text="%base.serviceName">
+                        <HBox.margin>
+                            <Insets left="20" top="10"/>
+                        </HBox.margin>
+                    </AccentLabel>
+                    <ClearableTextField fx:id="serviceName" tipText="%base.serviceName"
+                                        realHeight="30"
+                                        flexWidth="100% -265" maxLen="1024">
+                        <HBox.margin>
+                            <Insets left="10" top="10"/>
+                        </HBox.margin>
+                    </ClearableTextField>
+                    <ServiceTypeCombobox fx:id="serviceType" realWidth="120" initIndex="0" realHeight="30">
+                        <HBox.margin>
+                            <Insets left="5" top="10"/>
+                        </HBox.margin>
+                    </ServiceTypeCombobox>
                 </FlexHBox>
             </FlexVBox>
         </FXTab>
@@ -210,7 +230,7 @@
                 <Insets left="130" top="10"/>
             </HBox.margin>
         </TestButton>
-        <SubmitButton onAction="#add" text="%base.add">
+        <SubmitButton onAction="#update" text="%base.update">
             <HBox.margin>
                 <Insets left="15" top="10"/>
             </HBox.margin>

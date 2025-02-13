@@ -368,7 +368,7 @@ public class MysqlDataExportController extends StageController {
 
     @Override
     public String getViewTitle() {
-        return I18nResourceBundle.i18nString("base.title.export");
+        return I18nHelper.exportTitle();
     }
 
     @Override

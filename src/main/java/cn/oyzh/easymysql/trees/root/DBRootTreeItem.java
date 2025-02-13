@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.easymysql.controller.info.MysqlInfoAddController;
+import cn.oyzh.easymysql.controller.connect.MysqlConnectAddController;
 import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlGroup;
@@ -202,7 +202,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      * 添加连接
      */
     private void addConnect() {
-        StageManager.showStage(MysqlInfoAddController.class, this.window());
+        StageManager.showStage(MysqlConnectAddController.class, this.window());
     }
 
     /**

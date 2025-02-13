@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.common.thread.ThreadUtil;
-import cn.oyzh.easymysql.controller.info.MysqlInfoAddController;
+import cn.oyzh.easymysql.controller.connect.MysqlConnectAddController;
 import cn.oyzh.easymysql.event.TreeChildFilterEvent;
 import cn.oyzh.easymysql.event.connect.DBAddConnectEvent;
 import cn.oyzh.easymysql.event.connect.DBInfoAddedEvent;
@@ -132,7 +132,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      */
     @EventSubscribe
     private void addConnect(DBAddConnectEvent event) {
-        StageManager.showStage(MysqlInfoAddController.class, this.window());
+        StageManager.showStage(MysqlConnectAddController.class, this.window());
     }
 
     /**

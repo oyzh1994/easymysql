@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.controller.info;
+package cn.oyzh.easymysql.controller.connect;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
@@ -16,6 +16,7 @@ import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
 import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.StageAttribute;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
@@ -31,7 +32,7 @@ import javafx.stage.WindowEvent;
         modality = Modality.WINDOW_MODAL,
         value = FXConst.FXML_PATH + "info/dbInfoAdd.fxml"
 )
-public class MysqlInfoAddController extends StageController {
+public class MysqlConnectAddController extends StageController {
 
     /**
      * tab组件
@@ -165,10 +166,11 @@ public class MysqlInfoAddController extends StageController {
             boolean result = this.connectStore.replace(dbInfo);
             if (result) {
                 DBEventUtil.infoAdded(dbInfo);
-                MessageBox.okToast("新增db信息成功!");
+//                MessageBox.okToast("新增db信息成功!");
                 this.closeWindow();
             } else {
-                MessageBox.warn("新增db信息失败！");
+//                MessageBox.warn("新增db信息失败！");
+                MessageBox.warn(I18nHelper.operationFail());
             }
         } catch (Exception ex) {
             MessageBox.exception(ex);
@@ -181,5 +183,10 @@ public class MysqlInfoAddController extends StageController {
         this.group = this.getWindowProp("group");
         this.stage.switchOnTab();
         this.stage.hideOnEscape();
+    }
+
+    @Override
+    public String getViewTitle() {
+        return I18nHelper.connectAddTitle();
     }
 }

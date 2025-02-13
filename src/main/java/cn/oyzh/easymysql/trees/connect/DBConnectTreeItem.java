@@ -5,7 +5,7 @@ import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseAddController;
-import cn.oyzh.easymysql.controller.info.MysqlInfoUpdateController;
+import cn.oyzh.easymysql.controller.connect.MysqlConnectUpdateController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.db.DBConnectManager;
@@ -234,7 +234,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
             }
             this.closeConnect();
         }
-        StageAdapter fxView = StageManager.parseStage(MysqlInfoUpdateController.class, this.window());
+        StageAdapter fxView = StageManager.parseStage(MysqlConnectUpdateController.class, this.window());
         fxView.setProp("info", this.value());
         fxView.display();
     }

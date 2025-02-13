@@ -468,7 +468,7 @@ public class MysqlDataTransportController extends StageController {
 
     @Override
     public String getViewTitle() {
-        return I18nResourceBundle.i18nString("base.title.transport");
+        return I18nHelper.transportTitle();
     }
 
     @Override
