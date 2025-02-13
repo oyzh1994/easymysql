@@ -27,8 +27,7 @@ public class MysqlSettingStore extends JdbcKeyValueStore<MysqlSetting> {
     /**
      * 当前设置
      */
-    public static final MysqlSetting SETTING = INSTANCE.select();
-
+    public static final MysqlSetting SETTING = INSTANCE.load();
 
     public MysqlSetting load() {
         MysqlSetting setting = null;

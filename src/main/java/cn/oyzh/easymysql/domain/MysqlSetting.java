@@ -2,6 +2,8 @@ package cn.oyzh.easymysql.domain;
 
 
 import cn.oyzh.fx.plus.domain.Setting;
+import cn.oyzh.store.jdbc.Column;
+import cn.oyzh.store.jdbc.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -13,11 +15,13 @@ import lombok.Getter;
  */
 @Getter
 @EqualsAndHashCode(callSuper = true)
+@Table("t_setting")
 public class MysqlSetting extends Setting {
 
     /**
      * 记录每页限制
      */
+    @Column
     private Integer recordPageLimit;
 
     public void setRecordPageLimit(Integer recordPageLimit) {

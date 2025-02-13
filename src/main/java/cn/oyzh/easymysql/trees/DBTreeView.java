@@ -56,7 +56,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
 
     @Override
     public DBRootTreeItem getRoot() {
-        return (DBRootTreeItem) this.getRoot();
+        return (DBRootTreeItem) super.getRoot();
     }
 
     /**

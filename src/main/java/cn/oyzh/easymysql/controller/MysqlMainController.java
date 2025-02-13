@@ -191,9 +191,9 @@ public class MysqlMainController extends ParentStageController {
     public void onWindowShown(WindowEvent event) {
         super.onWindowShown(event);
         // 注册事件处理
-        EventUtil.register(this.tree);
-        EventUtil.register(this.tabPane);
-        EventUtil.register(this.msgArea);
+//        EventUtil.register(this.tree);
+//        EventUtil.register(this.tabPane);
+//        EventUtil.register(this.msgArea);
 
         // 初始化过滤
         // this.tree.itemFilter(this.treeItemFilter);
@@ -210,9 +210,9 @@ public class MysqlMainController extends ParentStageController {
     public void onWindowHidden(WindowEvent event) {
         super.onWindowHidden(event);
         // 取消注册事件处理
-        EventUtil.unregister(this.tree);
-        EventUtil.unregister(this.tabPane);
-        EventUtil.unregister(this.msgArea);
+//        EventUtil.unregister(this.tree);
+//        EventUtil.unregister(this.tabPane);
+//        EventUtil.unregister(this.msgArea);
         // 关闭连接
         this.tree.closeConnects();
         // 保存页面拉伸

@@ -4,11 +4,13 @@ package cn.oyzh.easymysql.domain;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.util.ObjectComparator;
 import cn.oyzh.fx.plus.domain.TreeGroup;
+import cn.oyzh.store.jdbc.Table;
 
 /**
  * @author oyzh
  * @since 2023/12/15
  */
+@Table("t_group")
 public class MysqlGroup extends TreeGroup implements ObjectComparator<MysqlGroup> {
 
     public MysqlGroup() {

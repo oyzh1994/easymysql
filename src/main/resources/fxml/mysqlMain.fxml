@@ -57,8 +57,8 @@
                         </FlexHBox.margin>
                     </FXCheckBox>
                 </FlexHBox>
-                <fx:include visible="false" managed="false" fx:id="search" source="search.fxml" prefHeight="60"
-                            flexWidth="100% - 2"/>
+<!--                <fx:include visible="false" managed="false" fx:id="search" source="search.fxml" prefHeight="60"-->
+<!--                            flexWidth="100% - 2"/>-->
                 <DBTreeView fx:id="tree" flexHeight="100% - 60" flexWidth="100%"/>
             </FlexVBox>
         </FXTab>

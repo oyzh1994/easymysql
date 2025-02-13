@@ -4,7 +4,9 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.util.ObjectComparator;
-import cn.oyzh.ssh.SSHConnect;
+import cn.oyzh.store.jdbc.Column;
+import cn.oyzh.store.jdbc.PrimaryKey;
+import cn.oyzh.store.jdbc.Table;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -20,6 +22,7 @@ import java.util.List;
  * @since 2020/3/6
  */
 @ToString
+@Table("t_connect")
 public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<MysqlConnect> {
 
     /**
@@ -27,6 +30,8 @@ public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<
      */
     @Getter
     @Setter
+    @Column
+    @PrimaryKey
     private String id;
 
     /**
@@ -34,6 +39,7 @@ public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<
      */
     @Getter
     @Setter
+    @Column
     private String host;
 
     /**
@@ -41,6 +47,7 @@ public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<
      */
     @Getter
     @Setter
+    @Column
     private String name;
 
     /**
@@ -48,6 +55,7 @@ public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<
      */
     @Getter
     @Setter
+    @Column
     private String user;
 
     /**
@@ -55,6 +63,7 @@ public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<
      */
     @Getter
     @Setter
+    @Column
     private String type;
 
     /**
@@ -62,6 +71,7 @@ public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<
      */
     @Getter
     @Setter
+    @Column
     private String password;
 
     /**
@@ -69,6 +79,7 @@ public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<
      */
     @Getter
     @Setter
+    @Column
     private String remark;
 
     /**
@@ -76,6 +87,7 @@ public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<
      */
     @Setter
     @Getter
+    @Column
     private Boolean readonly;
 
     /**
@@ -83,10 +95,11 @@ public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<
      */
     @Getter
     @Setter
+    @Column
     private String groupId;
 
     /**
-     * 收藏的表
+     * 收藏列表
      */
     @Getter
     @Setter
@@ -96,6 +109,7 @@ public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<
      * 连接超时时间
      */
     @Setter
+    @Column
     private Integer connectTimeOut;
 
     /**
@@ -103,6 +117,7 @@ public class MysqlConnect implements Comparable<MysqlConnect>, ObjectComparator<
      */
     @Setter
     @Getter
+    @Column
     private Boolean sshForward;
 
     /**
