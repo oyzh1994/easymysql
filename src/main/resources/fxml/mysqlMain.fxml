@@ -19,8 +19,8 @@
 <?import cn.oyzh.fx.gui.svg.glyph.MessageSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.ClearSVGGlyph?>
 <FlexPane styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.controller.MysqlMainController" flexWidth="100%" flexHeight="100% - 30">
-    <FlexTabPane flexHeight="100%" realWidth="440" rotateGraphic="true" side="LEFT" fx:id="tabPaneLeft">
+          fx:controller="cn.oyzh.easymysql.controller.MysqlMainController" flexWidth="100% - 30" flexHeight="100%">
+    <FlexTabPane flexHeight="100%" realWidth="440" fx:id="tabPaneLeft">
         <FXTab text="%base.connection">
             <graphic>
                 <ConnectionSVGGlyph cursorType="DEFAULT" size="12"/>

@@ -42,7 +42,7 @@ public class MainController extends ParentStageController {
      * 头部页面
      */
     @FXML
-    private HeaderController headerController;
+    private HeaderController2 headerController;
 
     /**
      * db主页业务

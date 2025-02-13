@@ -12,6 +12,8 @@ import cn.oyzh.easymysql.event.group.DBAddGroupEvent;
 import cn.oyzh.easymysql.event.terminal.DBTerminalCloseEvent;
 import cn.oyzh.easymysql.event.terminal.DBTerminalOpenEvent;
 import cn.oyzh.event.EventUtil;
+import cn.oyzh.fx.gui.event.Layout1Event;
+import cn.oyzh.fx.gui.event.Layout2Event;
 import cn.oyzh.fx.plus.changelog.ChangelogEvent;
 import lombok.experimental.UtilityClass;
 
@@ -592,5 +594,20 @@ public class DBEventUtil {
     //     event.dbItem(dbItem);
     //     EventUtil.post(event);
     // }
+
+
+    /**
+     * 布局1
+     */
+    public static void layout1() {
+        EventUtil.post(new Layout1Event());
+    }
+
+    /**
+     * 布局2
+     */
+    public static void layout2() {
+        EventUtil.post(new Layout2Event());
+    }
 
 }

@@ -15,6 +15,20 @@ import javafx.scene.control.Tab;
  */
 public class DBTabPane extends DynamicTabPane implements FXEventListener {
 
+    private final MysqlTabEventListener listener = new MysqlTabEventListener(this);
+
+    @Override
+    public void register() {
+        this.listener.register();
+        FXEventListener.super.register();
+    }
+
+    @Override
+    public boolean unregister() {
+        this.listener.unregister();
+        return FXEventListener.super.unregister();
+    }
+
     @Override
     protected void initTabPane() {
         super.initTabPane();
@@ -30,9 +44,8 @@ public class DBTabPane extends DynamicTabPane implements FXEventListener {
                 }
             }
         });
-        new MysqlTabEventListener(this);
+//        new MysqlTabEventListener(this);
     }
-
 
     /**
      * 刷新主页标签
