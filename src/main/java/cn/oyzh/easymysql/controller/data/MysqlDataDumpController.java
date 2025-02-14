@@ -12,6 +12,7 @@ import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
+import cn.oyzh.fx.plus.controls.box.FlexVBox;
 import cn.oyzh.fx.plus.controls.button.FlexButton;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
@@ -95,7 +96,7 @@ public class MysqlDataDumpController extends StageController {
      * 表组件
      */
     @FXML
-    private FlexHBox tableBox;
+    private FlexVBox tableBox;
 
     /**
      * 表

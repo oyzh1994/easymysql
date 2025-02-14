@@ -21,6 +21,7 @@
 <?import cn.oyzh.fx.gui.button.PrevStepButton?>
 <?import cn.oyzh.fx.gui.button.StopButton?>
 <?import cn.oyzh.fx.gui.button.TransportButton?>
+<?import cn.oyzh.fx.gui.svg.glyph.database.DatabaseSVGGlyph?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.data.MysqlDataTransportController" realWidth="800" realHeight="600">
     <FlexHBox flexWidth="100%" realHeight="100">
@@ -304,21 +305,21 @@
                 </VBox.margin>
             </FXLabel>
         </FlexVBox>
-        <FlexHBox flexWidth="100%" realHeight="50">
+        <FlexHBox flexWidth="100%" >
             <PrevStepButton onAction="#showStep2" groupId="exec" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
-                    <Insets left="30" top="10"/>
+                    <Insets left="30" top="15"/>
                 </HBox.margin>
             </PrevStepButton>
             <TransportButton tipText="%base.start" groupId="exec" onAction="#doTransport" realHeight="30">
                 <HBox.margin>
-                    <Insets left="15" top="10"/>
+                    <Insets left="15" top="15"/>
                 </HBox.margin>
             </TransportButton>
             <StopButton disable="true" fx:id="stopTransportBtn" onAction="#stopTransport" realHeight="30"
                         iconSizePercent="0.9">
                 <HBox.margin>
-                    <Insets left="15" top="10"/>
+                    <Insets left="15" top="15"/>
                 </HBox.margin>
             </StopButton>
         </FlexHBox>

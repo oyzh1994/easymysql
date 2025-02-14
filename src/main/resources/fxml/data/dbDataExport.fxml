@@ -24,78 +24,79 @@
 <?import cn.oyzh.fx.plus.controls.label.FXLabel?>
 <?import cn.oyzh.fx.gui.button.ExportButton?>
 <?import cn.oyzh.fx.gui.button.StopButton?>
+<?import cn.oyzh.fx.gui.label.InfoLabel?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.data.MysqlDataExportController" realWidth="700" realHeight="650">
     <FlexVBox fx:id="step1" flexHeight="100%" flexWidth="100%">
-        <FlexLabel text="%db.export.tip4" realHeight="30" fontSize="16">
+        <InfoLabel text="%db.export.tip4">
             <VBox.margin>
                 <Insets left="30" top="10"/>
             </VBox.margin>
-        </FlexLabel>
+        </InfoLabel>
         <FlexVBox flexHeight="100% - 100" flexWidth="100%">
             <fx:define>
                 <FXToggleGroup fx:id="fileType"/>
             </fx:define>
             <FXRadioButton toggleGroup="$fileType" text="%base.sqlType" selected="true" userData="sql">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXRadioButton>
             <FXRadioButton toggleGroup="$fileType" text="%base.jsonType" userData="json">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXRadioButton>
             <FXRadioButton toggleGroup="$fileType" text="%base.xmlType" userData="xml">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXRadioButton>
             <FXRadioButton toggleGroup="$fileType" text="%base.csvType" userData="csv">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXRadioButton>
             <FXRadioButton toggleGroup="$fileType" text="%base.htmlType" userData="html">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXRadioButton>
             <FXRadioButton toggleGroup="$fileType" text="%base.xlsType" userData="xls">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXRadioButton>
             <FXRadioButton toggleGroup="$fileType" text="%base.xlsxType" userData="xlsx">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXRadioButton>
             <FXRadioButton toggleGroup="$fileType" text="%base.txtType" userData="txt">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXRadioButton>
         </FlexVBox>
-        <FlexHBox flexWidth="100%" realHeight="50">
+        <FlexHBox flexWidth="100%">
             <NextStepButton onAction="#showStep2" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
-                    <Insets left="30" top="10"/>
+                    <Insets left="30" top="15"/>
                 </HBox.margin>
             </NextStepButton>
             <CancelButton iconSizePercent="0.6" realHeight="30">
                 <HBox.margin>
-                    <Insets left="15" top="10"/>
+                    <Insets left="15" top="15"/>
                 </HBox.margin>
             </CancelButton>
         </FlexHBox>
     </FlexVBox>
     <FlexVBox fx:id="step2" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
-        <FlexLabel text="%db.export.tip5" realHeight="30" fontSize="16">
+        <InfoLabel text="%db.export.tip5">
             <VBox.margin>
                 <Insets left="30" top="10"/>
             </VBox.margin>
-        </FlexLabel>
+        </InfoLabel>
         <FlexVBox flexHeight="100% - 100" flexWidth="100%">
             <DataExportTableTableView fx:id="exportTableView" flexHeight="100% - 60" flexWidth="100% - 40">
                 <columns>
@@ -121,30 +122,30 @@
                 </FlexButton>
             </FlexHBox>
         </FlexVBox>
-        <FlexHBox flexWidth="100%" realHeight="50">
+        <FlexHBox flexWidth="100%">
             <PrevStepButton onAction="#showStep1" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
-                    <Insets left="30" top="10"/>
+                    <Insets left="30" top="15"/>
                 </HBox.margin>
             </PrevStepButton>
             <NextStepButton onAction="#showStep3" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
-                    <Insets left="15" top="10"/>
+                    <Insets left="15" top="15"/>
                 </HBox.margin>
             </NextStepButton>
             <CancelButton iconSizePercent="0.6" realHeight="30">
                 <HBox.margin>
-                    <Insets left="15" top="10"/>
+                    <Insets left="15" top="15"/>
                 </HBox.margin>
             </CancelButton>
         </FlexHBox>
     </FlexVBox>
     <FlexVBox fx:id="step3" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
-        <FlexLabel text="%db.export.tip6" realHeight="30" fontSize="16">
+        <InfoLabel text="%db.export.tip6">
             <VBox.margin>
                 <Insets left="30" top="10"/>
             </VBox.margin>
-        </FlexLabel>
+        </InfoLabel>
         <FlexVBox flexHeight="100% - 100" flexWidth="100%">
             <DataExportTableComboBox realHeight="30" flexWidth="100% - 140" fx:id="tableCombobox">
                 <VBox.margin>
@@ -169,64 +170,65 @@
                 </FlexButton>
             </FlexHBox>
         </FlexVBox>
-        <FlexHBox flexWidth="100%" realHeight="50">
+        <FlexHBox flexWidth="100%">
             <PrevStepButton onAction="#showStep2" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
-                    <Insets left="30" top="10"/>
+                    <Insets left="30" top="15"/>
                 </HBox.margin>
             </PrevStepButton>
             <NextStepButton onAction="#showStep4" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
-                    <Insets left="15" top="10"/>
+                    <Insets left="15" top="15"/>
                 </HBox.margin>
             </NextStepButton>
             <CancelButton iconSizePercent="0.6" realHeight="30">
                 <HBox.margin>
-                    <Insets left="15" top="10"/>
+                    <Insets left="15" top="15"/>
                 </HBox.margin>
             </CancelButton>
         </FlexHBox>
     </FlexVBox>
     <FlexVBox fx:id="step4" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
-        <FlexLabel text="%db.export.tip7" realHeight="30" fontSize="16">
+        <InfoLabel text="%db.export.tip7">
             <VBox.margin>
                 <Insets left="30" top="10"/>
             </VBox.margin>
-        </FlexLabel>
+        </InfoLabel>
         <FlexVBox flexHeight="100% - 100" flexWidth="100%">
             <FXCheckBox text="%db.export.tip10" fx:id="includeFields" selected="true" visible="false" managed="false"
-                          groupId="includeFields">
+                        groupId="includeFields">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXCheckBox>
-            <FXCheckBox text="%db.export.tip11" fx:id="earlyVersion" visible="false" managed="false" groupId="earlyVersion">
+            <FXCheckBox text="%db.export.tip11" fx:id="earlyVersion" visible="false" managed="false"
+                        groupId="earlyVersion">
                 <VBox.margin>
                     <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXCheckBox>
             <FXCheckBox text="%db.export.tip1" selected="true">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
-                </VBox.margin>
-            </FXCheckBox>
-            <FlexLabel text="%base.fileFormat" realHeight="30" fontWeight="BOLD" groupId="fieldToAttr" managed="false"
-                       visible="false">
-                <VBox.margin>
-                    <Insets left="30" top="15"/>
-                </VBox.margin>
-            </FlexLabel>
-            <FXCheckBox text="%db.export.tip11" fx:id="fieldToAttr" visible="false" managed="false" groupId="fieldToAttr">
-                <VBox.margin>
                     <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXCheckBox>
-            <FlexLabel text="%base.dateFormat" realHeight="30" fontWeight="BOLD" groupId="dateFormat" managed="false"
+            <InfoLabel text="%base.fileFormat" groupId="fieldToAttr" managed="false"
                        visible="false">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
-            </FlexLabel>
+            </InfoLabel>
+            <FXCheckBox text="%db.export.tip11" fx:id="fieldToAttr" visible="false" managed="false"
+                        groupId="fieldToAttr">
+                <VBox.margin>
+                    <Insets left="30" top="5"/>
+                </VBox.margin>
+            </FXCheckBox>
+            <InfoLabel text="%base.dateFormat" groupId="dateFormat" managed="false" visible="false">
+                <VBox.margin>
+                    <Insets left="30" top="10"/>
+                </VBox.margin>
+            </InfoLabel>
             <FlexHBox realHeight="30" flexWidth="100%" groupId="dateFormat" managed="false" visible="false">
                 <DataDateTextFiled realWidth="250" realHeight="30" promptText="%db.export.tip9"
                                    text="yyyy-MM-dd HH:mm:ss" fx:id="dateFormat">
@@ -240,36 +242,33 @@
                     </HBox.margin>
                 </FlexLabel>
             </FlexHBox>
-            <FlexLabel text="%base.recordSeparator" realHeight="30" fontWeight="BOLD" groupId="recordSeparator"
-                       managed="false" visible="false">
+            <InfoLabel text="%base.recordSeparator" groupId="recordSeparator" managed="false" visible="false">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
-            </FlexLabel>
+            </InfoLabel>
             <DataRecordSeparatorComboBox realWidth="250" realHeight="30" fx:id="recordSeparator"
                                          groupId="recordSeparator" managed="false" visible="false">
                 <VBox.margin>
                     <Insets left="30" top="5"/>
                 </VBox.margin>
             </DataRecordSeparatorComboBox>
-            <FlexLabel text="%base.fieldSeparator" realHeight="30" fontWeight="BOLD" groupId="fieldSeparator"
-                       managed="false" visible="false">
+            <InfoLabel text="%base.fieldSeparator" groupId="fieldSeparator" managed="false" visible="false">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
-            </FlexLabel>
+            </InfoLabel>
             <DataFieldSeparatorComboBox initIndex="0" realWidth="250" realHeight="30" fx:id="fieldSeparator"
                                         groupId="fieldSeparator" managed="false" visible="false">
                 <VBox.margin>
                     <Insets left="30" top="5"/>
                 </VBox.margin>
             </DataFieldSeparatorComboBox>
-            <FlexLabel text="%base.txtIdentifier" realHeight="30" fontWeight="BOLD" groupId="txtIdentifier"
-                       managed="false" visible="false">
+            <InfoLabel text="%base.txtIdentifier" groupId="txtIdentifier" managed="false" visible="false">
                 <VBox.margin>
-                    <Insets left="30" top="15"/>
+                    <Insets left="30" top="10"/>
                 </VBox.margin>
-            </FlexLabel>
+            </InfoLabel>
             <DataTxtIdentifierComboBox initIndex="0" realWidth="250" realHeight="30" fx:id="txtIdentifier"
                                        groupId="txtIdentifier" managed="false" visible="false">
                 <VBox.margin>
@@ -277,30 +276,30 @@
                 </VBox.margin>
             </DataTxtIdentifierComboBox>
         </FlexVBox>
-        <FlexHBox flexWidth="100%" realHeight="50">
+        <FlexHBox flexWidth="100%">
             <PrevStepButton onAction="#showStep3" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
-                    <Insets left="30" top="10"/>
+                    <Insets left="30" top="15"/>
                 </HBox.margin>
             </PrevStepButton>
             <NextStepButton onAction="#showStep5" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
-                    <Insets left="15" top="10"/>
+                    <Insets left="15" top="15"/>
                 </HBox.margin>
             </NextStepButton>
             <CancelButton iconSizePercent="0.6" realHeight="30">
                 <HBox.margin>
-                    <Insets left="15" top="10"/>
+                    <Insets left="15" top="15"/>
                 </HBox.margin>
             </CancelButton>
         </FlexHBox>
     </FlexVBox>
     <FlexVBox fx:id="step5" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
-        <FlexLabel text="%db.export.tip8" realHeight="30" fontSize="16">
+        <InfoLabel text="%db.export.tip8">
             <VBox.margin>
                 <Insets left="30" top="10"/>
             </VBox.margin>
-        </FlexLabel>
+        </InfoLabel>
         <FlexVBox flexWidth="100%" flexHeight="100% - 100">
             <MsgTextArea lineLimit="300" fx:id="exportMsg" flexWidth="100% - 80" flexHeight="100% - 50">
                 <VBox.margin>
@@ -309,30 +308,30 @@
             </MsgTextArea>
             <FXLabel fx:id="exportStatus" realHeight="30">
                 <VBox.margin>
-                    <Insets left="30"/>
+                    <Insets left="30" top="5"/>
                 </VBox.margin>
             </FXLabel>
         </FlexVBox>
-        <FlexHBox flexWidth="100%" realHeight="50">
+        <FlexHBox flexWidth="100%">
             <PrevStepButton onAction="#showStep4" groupId="exec" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
-                    <Insets left="30" top="10"/>
+                    <Insets left="30" top="15"/>
                 </HBox.margin>
             </PrevStepButton>
             <ExportButton tipText="%base.start" groupId="exec" onAction="#doExport" realHeight="30">
                 <HBox.margin>
-                    <Insets left="15" top="10"/>
+                    <Insets left="15" top="15"/>
                 </HBox.margin>
             </ExportButton>
             <StopButton disable="true" fx:id="stopExportBtn" onAction="#stopExport" realHeight="30"
                         iconSizePercent="0.9">
                 <HBox.margin>
-                    <Insets left="15" top="10"/>
+                    <Insets left="15" top="15"/>
                 </HBox.margin>
             </StopButton>
             <CancelButton iconSizePercent="0.6" realHeight="30">
                 <HBox.margin>
-                    <Insets left="15" top="10"/>
+                    <Insets left="15" top="15"/>
                 </HBox.margin>
             </CancelButton>
         </FlexHBox>
