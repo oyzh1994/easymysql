@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.fx.gui.label.InfoLabel?>
+<?import cn.oyzh.fx.gui.svg.glyph.ApplySVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.CancelSVGGlyph?>
+<?import cn.oyzh.fx.gui.text.field.NumberTextField?>
 <?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
-<?import cn.oyzh.fx.gui.label.AccentLabel?>
-<?import cn.oyzh.fx.gui.svg.glyph.ApplySVGGlyph?>
-<?import cn.oyzh.fx.gui.text.field.NumberTextField?>
-<?import cn.oyzh.fx.gui.svg.glyph.CancelSVGGlyph?>
+<?import javafx.scene.layout.VBox?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.popups.MysqlPageSettingPopupController" realWidth="280"
-          realHeight="80">
-    <FlexHBox flexWidth="100%" realHeight="30">
-        <AccentLabel realHeight="25" realWidth="70" text="%base.pageLimit">
+          realHeight="110">
+    <InfoLabel  text="%base.pageLimit">
+        <VBox.margin>
+            <Insets left="30" top="10"/>
+        </VBox.margin>
+    </InfoLabel>
+    <NumberTextField fx:id="limit" minVal="1" step="100" realHeight="25" flexWidth="100% - 120"
+                     styleClass="popover-item">
+        <VBox.margin>
+            <Insets left="30" top="5"/>
+        </VBox.margin>
+    </NumberTextField>
+    <FlexHBox flexWidth="100%">
+        <ApplySVGGlyph onMousePrimaryClicked="#apply" sizeStr="14,11">
             <HBox.margin>
-                <Insets left="10" top="5"/>
-            </HBox.margin>
-        </AccentLabel>
-        <NumberTextField fx:id="limit" minVal="1" step="100" realHeight="25" flexWidth="100% - 120" styleClass="popover-item">
-            <HBox.margin>
-                <Insets left="5" top="5"/>
-            </HBox.margin>
-        </NumberTextField>
-    </FlexHBox>
-    <FlexHBox flexWidth="100%" realHeight="25">
-        <ApplySVGGlyph onMousePrimaryClicked="#apply" sizeStr="15,11">
-            <HBox.margin>
-                <Insets left="85" top="5"/>
+                <Insets left="30" top="15"/>
             </HBox.margin>
         </ApplySVGGlyph>
         <CancelSVGGlyph onMousePrimaryClicked="#close" sizeStr="11">
             <HBox.margin>
-                <Insets left="30" top="5"/>
+                <Insets left="15" top="15"/>
             </HBox.margin>
         </CancelSVGGlyph>
     </FlexHBox>
