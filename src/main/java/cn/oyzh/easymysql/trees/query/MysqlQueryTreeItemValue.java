@@ -3,7 +3,6 @@ package cn.oyzh.easymysql.trees.query;
 import cn.oyzh.fx.gui.svg.glyph.QuerySVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import lombok.experimental.Accessors;
 
 /**
  * db树表节点值

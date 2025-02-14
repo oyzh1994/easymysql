@@ -45,6 +45,7 @@ import cn.oyzh.easymysql.trees.view.MysqlViewTypeTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.gui.tree.view.RichTreeItem;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
+import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.fx.plus.window.StageAdapter;
@@ -72,19 +73,17 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     @Accessors(chain = true, fluent = true)
     private final DBDatabase value;
 
-    /**
-     * 父节点
-     */
-    @Getter
-    @Accessors(chain = true, fluent = true)
-    protected DBConnectTreeItem parent;
-
-    public MysqlDatabaseTreeItem(DBDatabase database, DBConnectTreeItem parent) {
-        super(parent.getTreeView());
+    public MysqlDatabaseTreeItem(DBDatabase database, RichTreeView treeView) {
+        super(treeView);
         super.setFilterable(true);
-        this.parent = parent;
         this.value = database;
         this.setValue(new MysqlDatabaseTreeItemValue(this));
+    }
+
+    @Override
+    public DBConnectTreeItem parent() {
+        TreeItem<?> treeItem = super.parent();
+        return (DBConnectTreeItem)treeItem;
     }
 
     public String dbName() {
@@ -146,7 +145,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
 
     private void dropDB() {
         if (MessageBox.confirm("确定删除库" + this.dbName() + "？")) {
-            if (this.parent.dropDatabase(this.dbName())) {
+            if (this.parent().dropDatabase(this.dbName())) {
                 this.remove();
                 MysqlEventUtil.databaseDropped(this);
             } else {
@@ -161,7 +160,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     public void editDB() {
         StageAdapter fxView = StageManager.parseStage(MysqlDatabaseUpdateController.class, this.window());
         fxView.setProp("database", this.value);
-        fxView.setProp("connectItem", this.parent);
+        fxView.setProp("connectItem", this.parent());
         fxView.display();
     }
 
@@ -343,7 +342,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      * @return db客户端
      */
     public DBClient client() {
-        return this.parent.client();
+        return this.parent().client();
     }
 
     /**
@@ -352,7 +351,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      * @return db信息
      */
     public MysqlConnect info() {
-        return this.parent.value();
+        return this.parent().value();
     }
 
     public Integer tableSize() {

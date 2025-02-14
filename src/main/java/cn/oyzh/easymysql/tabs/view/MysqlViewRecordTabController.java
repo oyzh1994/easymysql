@@ -9,7 +9,7 @@ import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.domain.MysqlSetting;
-import cn.oyzh.easymysql.event.RecordDeleteEvent;
+import cn.oyzh.easymysql.event.record.RecordDeleteEvent;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;

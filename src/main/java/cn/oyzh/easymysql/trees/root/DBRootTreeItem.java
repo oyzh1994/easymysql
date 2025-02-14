@@ -9,7 +9,6 @@ import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlGroup;
 import cn.oyzh.easymysql.dto.MysqlInfoExport;
-import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.store.MysqlConnectStore;
 import cn.oyzh.easymysql.store.MysqlGroupStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
@@ -25,7 +24,6 @@ import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
-import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
 import lombok.NonNull;
@@ -59,11 +57,11 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
         this.setValue(new DBRootTreeItemValue());
         // 初始化子节点
         this.initChildes();
-        // 监听变化
-        super.addEventHandler(childrenModificationEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
-            DBEventUtil.treeChildChanged();
-            this.flushLocal();
-        });
+//        // 监听变化
+//        super.addEventHandler(childrenModificationEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
+//            DBEventUtil.treeChildChanged();
+//            this.flushLocal();
+//        });
     }
 
     /**

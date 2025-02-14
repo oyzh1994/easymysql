@@ -1,4 +1,4 @@
-package cn.oyzh.easymysql.event;
+package cn.oyzh.easymysql.event.record;
 
 import cn.oyzh.event.Event;
 

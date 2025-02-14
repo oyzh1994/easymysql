@@ -36,7 +36,7 @@ import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlConnect;
-import cn.oyzh.easymysql.event.DBEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.exception.DBException;
 import cn.oyzh.easymysql.exception.ReadonlyOperationException;
 import cn.oyzh.easymysql.generator.event.EventAlertSqlGenerator;
@@ -240,8 +240,8 @@ public class DBClient {
         this.stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 switch (newValue) {
-                    case CLOSED -> DBEventUtil.connectionClosed(this);
-                    case CONNECTED -> DBEventUtil.connectionConnected(this);
+                    case CLOSED -> MysqlEventUtil.connectionClosed(this);
+                    case CONNECTED -> MysqlEventUtil.connectionConnected(this);
                 }
             }
         });

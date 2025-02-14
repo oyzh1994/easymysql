@@ -4,14 +4,14 @@ import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.common.thread.ThreadUtil;
-import cn.oyzh.easymysql.controller.database.MysqlDatabaseAddController;
 import cn.oyzh.easymysql.controller.connect.MysqlConnectUpdateController;
+import cn.oyzh.easymysql.controller.database.MysqlDatabaseAddController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.domain.MysqlConnect;
-import cn.oyzh.easymysql.event.DBEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.store.MysqlConnectStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.DBTreeView;
@@ -22,7 +22,6 @@ import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
@@ -70,21 +69,17 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
     public DBConnectTreeItem(@NonNull MysqlConnect value, @NonNull DBTreeView treeView) {
         super(treeView);
         this.value(value);
-        // 监听键变化
-        super.addEventHandler(childrenModificationEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
-            DBEventUtil.treeChildChanged();
-            this.flushLocal();
-        });
+//        // 监听键变化
+//        super.addEventHandler(childrenModificationEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
+//            DBEventUtil.treeChildChanged();
+//            this.flushLocal();
+//        });
     }
 
     @Override
     public void reloadChild() {
-        List<DBDatabase> databases = this.client.databases();
-        List<TreeItem<?>> list = new ArrayList<>();
-        for (DBDatabase database : databases) {
-            list.add(new MysqlDatabaseTreeItem(database, this));
-        }
-        this.setChild(list);
+        this.clearChild();
+        this.loadChild();
     }
 
     @Override
@@ -117,7 +112,6 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
             items.add(repeatConnect);
             items.add(deleteConnect);
         }
-
         return items;
     }
 
@@ -129,14 +123,6 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
         StageAdapter fxView = StageManager.parseStage(MysqlDatabaseAddController.class, this.window());
         fxView.setProp("connectItem", this);
         fxView.display();
-    }
-
-    /**
-     * 打开终端
-     */
-    @FXML
-    private void openTerminal() {
-        DBEventUtil.terminalOpen(this.value);
     }
 
     /**
@@ -165,17 +151,12 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
                             this.canceled = false;
                             this.closeConnect(false);
                         } else {
-                            this.reloadChild();
-                            this.expend();
+                            this.loadChild();
                         }
-                        this.refresh();
                     })
-                    .onFinish(this::stopWaiting)
-                    .onSuccess(this::flushLocal)
-                    .onError(ex -> {
-                        this.closeConnect();
-                        MessageBox.exception(ex);
-                    })
+                    .onFinish(this::refresh)
+                    .onSuccess(this::expend)
+                    .onError(MessageBox::exception)
                     .build();
             // 执行连接
             this.startWaiting(task);
@@ -200,13 +181,11 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
         Runnable func = () -> {
             this.client.close();
             this.clearChild();
-            this.refresh();
         };
         if (waiting) {
             Task task = TaskBuilder.newBuilder()
                     .onStart(func::run)
-                    .onFinish(this::stopWaiting)
-                    .onSuccess(this::flushLocal)
+                    .onSuccess(this::refresh)
                     .onError(MessageBox::exception)
                     .build();
             this.startWaiting(task);
@@ -214,15 +193,6 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
             func.run();
         }
     }
-//
-//    @Override
-//    public void free() {
-//        if (!this.isConnected()) {
-//            this.connect();
-//        } else {
-//            super.free();
-//        }
-//    }
 
     /**
      * 编辑连接
@@ -259,7 +229,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
         if (MessageBox.confirm(I18nHelper.delete() + " [" + this.value().getName() + "]")) {
             this.closeConnect(false);
             if (this.connectManager().delConnectItem(this)) {
-                DBEventUtil.connectDeleted(this.value);
+                MysqlEventUtil.connectDeleted(this.value);
             } else {
                 MessageBox.warn(I18nHelper.operationFail());
             }
@@ -335,8 +305,23 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
     }
 
     @Override
+    public void loadChild() {
+        List<DBDatabase> databases = this.client.databases();
+        List<TreeItem<?>> list = new ArrayList<>();
+        for (DBDatabase database : databases) {
+            list.add(new MysqlDatabaseTreeItem(database, this.getTreeView()));
+        }
+        this.setChild(list);
+        this.expend();
+    }
+
+    @Override
     public void onPrimaryDoubleClick() {
-        this.connect();
+        if (!this.isConnected()) {
+            this.connect();
+        } else {
+            super.onPrimaryDoubleClick();
+        }
     }
 
     public boolean existDatabase(String dbName) {
@@ -344,7 +329,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
     }
 
     public void createDatabase(DBDatabase database) {
-         this.client.createDatabase(database);
+        this.client.createDatabase(database);
     }
 
     public boolean alterDatabase(DBDatabase database) {

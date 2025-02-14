@@ -1,14 +1,12 @@
 package cn.oyzh.easymysql.controller.connect;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlSSHConfig;
-import cn.oyzh.easymysql.event.DBEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBTypeComboBox;
 import cn.oyzh.easymysql.store.MysqlConnectStore;
 import cn.oyzh.easymysql.store.MysqlSSHConfigStore;
-import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.easymysql.util.DBConnectUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
@@ -255,7 +253,7 @@ public class MysqlConnectUpdateController extends StageController {
             this.mysqlConnect.setConnectTimeOut(connectTimeOut == null ? 5 : connectTimeOut.intValue());
             // 保存数据
             if (this.connectStore.replace(this.mysqlConnect)) {
-                DBEventUtil.connectUpdated(this.mysqlConnect);
+                MysqlEventUtil.connectUpdated(this.mysqlConnect);
                 MessageBox.okToast(I18nHelper.operationSuccess());
                 this.closeWindow();
             } else {

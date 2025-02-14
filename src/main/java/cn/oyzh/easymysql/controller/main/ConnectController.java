@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.controller.main;
 
-import cn.oyzh.easymysql.event.DBEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeView;
 import cn.oyzh.fx.gui.svg.pane.SortSVGPane;
 import cn.oyzh.fx.plus.controller.SubStageController;
@@ -35,7 +35,7 @@ public class ConnectController extends SubStageController {
      */
     @FXML
     private void openTerminal() {
-        DBEventUtil.terminalOpen();
+        MysqlEventUtil.terminalOpen();
     }
 
     /**
@@ -59,7 +59,7 @@ public class ConnectController extends SubStageController {
     protected void bindListeners() {
         super.bindListeners();
         // redis树变化事件
-        this.tree.selectItemChanged(DBEventUtil::treeItemChanged);
+        this.tree.selectItemChanged(MysqlEventUtil::treeItemChanged);
         // 文件拖拽初始化
         this.stage.initDragFile(this.tree.getDragContent(), this.tree.getRoot()::dragFile);
         // 刷新触发事件
@@ -68,7 +68,7 @@ public class ConnectController extends SubStageController {
 
     @FXML
     private void addConnect() {
-        DBEventUtil.addConnect();
+        MysqlEventUtil.addConnect();
     }
 
     @FXML

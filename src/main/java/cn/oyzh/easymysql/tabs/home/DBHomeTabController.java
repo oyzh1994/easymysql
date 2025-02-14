@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs.home;
 
 import cn.oyzh.common.dto.Project;
-import cn.oyzh.easymysql.event.DBEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.gui.tabs.DynamicTabController;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.i18n.I18nHelper;
@@ -54,7 +54,7 @@ public class DBHomeTabController extends DynamicTabController {
      */
     @FXML
     private void addConnect() {
-        DBEventUtil.addConnect();
+        MysqlEventUtil.addConnect();
     }
 
     /**
@@ -62,7 +62,7 @@ public class DBHomeTabController extends DynamicTabController {
      */
     @FXML
     private void addGroup() {
-        DBEventUtil.addGroup();
+        MysqlEventUtil.addGroup();
     }
 
     /**
@@ -70,7 +70,7 @@ public class DBHomeTabController extends DynamicTabController {
      */
     @FXML
     private void openTerminal() {
-        DBEventUtil.terminalOpen();
+        MysqlEventUtil.terminalOpen();
     }
 
     /**
@@ -78,6 +78,6 @@ public class DBHomeTabController extends DynamicTabController {
      */
     @FXML
     private void changelog() {
-        DBEventUtil.changelog();
+        MysqlEventUtil.changelog();
     }
 }

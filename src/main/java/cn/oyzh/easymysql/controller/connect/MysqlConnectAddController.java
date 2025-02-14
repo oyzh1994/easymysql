@@ -5,7 +5,7 @@ import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlGroup;
 import cn.oyzh.easymysql.domain.MysqlSSHConfig;
-import cn.oyzh.easymysql.event.DBEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBTypeComboBox;
 import cn.oyzh.easymysql.store.MysqlConnectStore;
 import cn.oyzh.easymysql.util.DBConnectUtil;
@@ -244,7 +244,7 @@ public class MysqlConnectAddController extends StageController {
             // 保存数据
             boolean result = this.connectStore.replace(mysqlConnect);
             if (result) {
-                DBEventUtil.connectAdded(mysqlConnect);
+                MysqlEventUtil.connectAdded(mysqlConnect);
                 this.closeWindow();
             } else {
                 MessageBox.warn(I18nHelper.operationFail());

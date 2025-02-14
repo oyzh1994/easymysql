@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.easymysql.controller.connect.MysqlConnectAddController;
-import cn.oyzh.easymysql.event.TreeChildFilterEvent;
 import cn.oyzh.easymysql.event.connect.DBAddConnectEvent;
 import cn.oyzh.easymysql.event.connect.MysqlConnectAddedEvent;
 import cn.oyzh.easymysql.event.connect.MysqlConnectUpdatedEvent;
@@ -90,15 +89,15 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
 //        this.filter();
 //    }
 
-    /**
-     * 树节点过滤事件
-     *
-     * @param event 事件
-     */
-    @EventSubscribe
-    private void onTreeChildFilter(TreeChildFilterEvent event) {
-        this.filter();
-    }
+//    /**
+//     * 树节点过滤事件
+//     *
+//     * @param event 事件
+//     */
+//    @EventSubscribe
+//    private void onTreeChildFilter(TreeChildFilterEvent event) {
+//        this.filter();
+//    }
 
     /**
      * 连接修改事件

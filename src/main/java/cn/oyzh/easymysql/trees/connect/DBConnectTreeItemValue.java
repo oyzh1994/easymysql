@@ -13,16 +13,7 @@ import javafx.scene.paint.Color;
  */
 public class DBConnectTreeItemValue extends RichTreeItemValue {
 
-//    /**
-//     * 节点
-//     */
-//    private final DBConnectTreeItem item;
-
     public DBConnectTreeItemValue(DBConnectTreeItem item) {
-//        this.item = item;
-//        this.flushGraphic();
-//        this.flushGraphicColor();
-//        this.name(item.value().getName());
         super(item);
     }
 

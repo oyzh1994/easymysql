@@ -1,18 +1,14 @@
 package cn.oyzh.easymysql.controller;
 
 import cn.oyzh.common.SysConst;
-import cn.oyzh.common.dto.Project;
 import cn.oyzh.easymysql.controller.data.MysqlDataTransportController;
-import cn.oyzh.easymysql.event.DBEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.fx.plus.controller.SubStageController;
-import cn.oyzh.fx.plus.controls.svg.SVGLabel;
 import cn.oyzh.fx.plus.information.MessageBox;
-import cn.oyzh.fx.plus.node.NodeMutexes;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
-import javafx.stage.WindowEvent;
 
 /**
  * 主页头部业务
@@ -78,7 +74,7 @@ public class HeaderController2 extends SubStageController {
      */
     @FXML
     private void layout1() {
-        DBEventUtil.layout1();
+        MysqlEventUtil.layout1();
     }
 
     /**
@@ -86,7 +82,7 @@ public class HeaderController2 extends SubStageController {
      */
     @FXML
     private void layout2() {
-        DBEventUtil.layout2();
+        MysqlEventUtil.layout2();
     }
 
 }

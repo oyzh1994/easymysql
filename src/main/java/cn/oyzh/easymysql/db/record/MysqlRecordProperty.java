@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db.record;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.event.DBEventUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.exception.DBException;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
@@ -158,7 +158,7 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
     }
 
     public void vDelete() {
-        DBEventUtil.recordDelete();
+        MysqlEventUtil.recordDelete();
     }
 
     public void vSetToNull() {

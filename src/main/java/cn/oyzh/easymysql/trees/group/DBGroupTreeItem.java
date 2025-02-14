@@ -6,7 +6,6 @@ import cn.oyzh.easymysql.controller.connect.MysqlConnectAddController;
 import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlGroup;
-import cn.oyzh.easymysql.event.DBEventUtil;
 import cn.oyzh.easymysql.store.MysqlConnectStore;
 import cn.oyzh.easymysql.store.MysqlGroupStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
@@ -62,11 +61,11 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
         this.setValue(new DBGroupTreeItemValue(this));
         // 判断是否展开
         this.setExpanded(this.value.isExpand());
-        // 监听变化
-        super.addEventHandler(childrenModificationEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
-            DBEventUtil.treeChildChanged();
-            this.flushLocal();
-        });
+//        // 监听变化
+//        super.addEventHandler(childrenModificationEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
+//            DBEventUtil.treeChildChanged();
+//            this.flushLocal();
+//        });
         // 监听收缩变化
         super.addEventHandler(branchCollapsedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
             this.value.setExpand(false);
