@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.trees.table;
 
+import cn.oyzh.easymysql.fx.svg.glyph.TableSVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.i18n.I18nHelper;
@@ -30,7 +31,7 @@ public class MysqlTablesTreeItemValue extends RichTreeItemValue {
     @Override
     public SVGGlyph graphic() {
         if (this.graphic == null) {
-            this.graphic = new SVGGlyph("/font/table2.svg", 12);
+            this.graphic = new TableSVGGlyph("12");
             this.graphic.disableTheme();
 
         }
@@ -39,7 +40,6 @@ public class MysqlTablesTreeItemValue extends RichTreeItemValue {
 
     @Override
     public Color graphicColor() {
-        SVGGlyph glyph = this.graphic();
         if (!this.item.isChildEmpty()) {
             return Color.GREEN;
         }

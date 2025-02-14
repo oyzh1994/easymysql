@@ -5,7 +5,7 @@ import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
-import cn.oyzh.fx.gui.svg.glyph.ViewSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.database.ViewSVGGlyph;
 import javafx.scene.Cursor;
 import lombok.Getter;
 

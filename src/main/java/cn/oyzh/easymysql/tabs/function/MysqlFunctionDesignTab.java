@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.gui.svg.glyph.FunctionSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.database.FunctionSVGGlyph;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.event.Event;

@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.trees.procedure;
 
-import cn.oyzh.fx.gui.svg.glyph.ProcedureSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.database.ProcedureSVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.i18n.I18nHelper;
@@ -39,7 +39,6 @@ public class MysqlProceduresTreeItemValue extends RichTreeItemValue {
 
     @Override
     public Color graphicColor() {
-        SVGGlyph glyph = this.graphic();
         if (!this.item.isChildEmpty()) {
             return Color.GREEN;
         }
