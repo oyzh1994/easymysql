@@ -11,6 +11,7 @@ import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.StageAttribute;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
@@ -22,7 +23,6 @@ import javafx.stage.WindowEvent;
  * @since 2024/01/30
  */
 @StageAttribute(
-        title = "DB数据库编辑",
         modality = Modality.APPLICATION_MODAL,
         value = FXConst.FXML_PATH + "database/mysqlDatabaseUpdate.fxml"
 )
@@ -82,7 +82,7 @@ public class MysqlDatabaseUpdateController extends StageController {
                 this.database.setCollation(collation);
                 this.closeWindow();
             } else {
-                MessageBox.warn("修改数据库失败！");
+                MessageBox.warn(I18nHelper.operationFail());
             }
         } catch (Exception ex) {
             MessageBox.exception(ex);
@@ -116,5 +116,10 @@ public class MysqlDatabaseUpdateController extends StageController {
         super.onWindowShown(event);
         this.stage.switchOnTab();
         this.stage.hideOnEscape();
+    }
+
+    @Override
+    public String getViewTitle() {
+        return I18nHelper.updateDatabase();
     }
 }

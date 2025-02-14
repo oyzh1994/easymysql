@@ -3,54 +3,49 @@
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import cn.oyzh.fx.gui.label.AccentLabel?>
 <?import cn.oyzh.fx.gui.text.field.ReadOnlyTextField?>
 <?import cn.oyzh.fx.gui.button.CancelButton?>
+<?import cn.oyzh.fx.gui.label.InfoLabel?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.controller.database.MysqlDatabaseInfoController" realWidth="900" realHeight="300">
-    <FlexHBox flexWidth="100%" realHeight="50">
-        <AccentLabel realHeight="30" realWidth="85" text="%base.name">
+          fx:controller="cn.oyzh.easymysql.controller.database.MysqlDatabaseInfoController" realWidth="900"
+          realHeight="300">
+    <InfoLabel text="%base.name">
+        <VBox.margin>
+            <Insets left="30" top="10"/>
+        </VBox.margin>
+    </InfoLabel>
+    <ReadOnlyTextField fx:id="dbName" realHeight="30" flexWidth="100% - 180">
+        <VBox.margin>
+            <Insets left="30" top="5"/>
+        </VBox.margin>
+    </ReadOnlyTextField>
+    <InfoLabel realHeight="30" realWidth="85" text="%base.charset">
+        <VBox.margin>
+            <Insets left="30" top="10"/>
+        </VBox.margin>
+    </InfoLabel>
+    <ReadOnlyTextField fx:id="dbCharset" realHeight="30" flexWidth="100% - 180">
+        <VBox.margin>
+            <Insets left="30" top="5"/>
+        </VBox.margin>
+    </ReadOnlyTextField>
+    <AccentLabel realHeight="30" realWidth="85" text="%base.collation">
+        <VBox.margin>
+            <Insets left="30" top="10"/>
+        </VBox.margin>
+    </AccentLabel>
+    <ReadOnlyTextField fx:id="dbCollation"
+                       realHeight="30" flexWidth="100% - 180">
+        <VBox.margin>
+            <Insets left="30" top="5"/>
+        </VBox.margin>
+    </ReadOnlyTextField>
+    <FlexHBox flexWidth="100%">
+        <CancelButton text="%base.close">
             <HBox.margin>
-                <Insets left="20" top="10"/>
-            </HBox.margin>
-        </AccentLabel>
-        <ReadOnlyTextField fx:id="dbName"
-                           realHeight="30" flexWidth="100% - 140">
-            <HBox.margin>
-                <Insets left="10" top="10"/>
-            </HBox.margin>
-        </ReadOnlyTextField>
-    </FlexHBox>
-    <FlexHBox flexWidth="100%" realHeight="50">
-        <AccentLabel realHeight="30" realWidth="85" text="%base.charset">
-            <HBox.margin>
-                <Insets left="20" top="10"/>
-            </HBox.margin>
-        </AccentLabel>
-        <ReadOnlyTextField tipText="字符集" fx:id="dbCharset"
-                           realHeight="30" flexWidth="100% - 140">
-            <HBox.margin>
-                <Insets left="10" top="10"/>
-            </HBox.margin>
-        </ReadOnlyTextField>
-    </FlexHBox>
-    <FlexHBox flexWidth="100%" realHeight="50">
-        <AccentLabel realHeight="30" realWidth="85" text="%base.collation">
-            <HBox.margin>
-                <Insets left="20" top="10"/>
-            </HBox.margin>
-        </AccentLabel>
-        <ReadOnlyTextField tipText="排序方式" fx:id="dbCollation"
-                           realHeight="30" flexWidth="100% - 140">
-            <HBox.margin>
-                <Insets left="10" top="10"/>
-            </HBox.margin>
-        </ReadOnlyTextField>
-    </FlexHBox>
-    <FlexHBox flexWidth="100%" realHeight="50">
-        <CancelButton text="关闭">
-            <HBox.margin>
-                <Insets left="95" top="10"/>
+                <Insets left="30" top="15"/>
             </HBox.margin>
         </CancelButton>
     </FlexHBox>

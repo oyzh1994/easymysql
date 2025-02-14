@@ -5,61 +5,53 @@
 <?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
-<?import cn.oyzh.fx.gui.label.AccentLabel?>
+<?import javafx.scene.layout.VBox?>
 <?import cn.oyzh.fx.gui.text.field.ClearableTextField?>
 <?import cn.oyzh.fx.gui.button.SubmitButton?>
 <?import cn.oyzh.fx.gui.button.CancelButton?>
+<?import cn.oyzh.fx.gui.label.InfoLabel?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.database.MysqlDatabaseAddController" realWidth="750"
           realHeight="300">
-    <FlexHBox flexWidth="100%" realHeight="50">
-        <AccentLabel realHeight="30" realWidth="65" text="数据库名" styleClass="accent">
+    <InfoLabel text="%base.name">
+        <VBox.margin>
+            <Insets left="30" top="10"/>
+        </VBox.margin>
+    </InfoLabel>
+    <ClearableTextField require="true" fx:id="name" realHeight="30" flexWidth="100% - 180">
+        <VBox.margin>
+            <Insets left="30" top="5"/>
+        </VBox.margin>
+    </ClearableTextField>
+    <InfoLabel text="%base.charset">
+        <VBox.margin>
+            <Insets left="30" top="10"/>
+        </VBox.margin>
+    </InfoLabel>
+    <DBCharsetComboBox fx:id="charset" realHeight="30" flexWidth="100% - 180">
+        <VBox.margin>
+            <Insets left="30" top="5"/>
+        </VBox.margin>
+    </DBCharsetComboBox>
+    <InfoLabel text="%base.collation">
+        <VBox.margin>
+            <Insets left="30" top="10"/>
+        </VBox.margin>
+    </InfoLabel>
+    <DBCollationComboBox disable="true" fx:id="collation" realHeight="30" flexWidth="100% - 180">
+        <VBox.margin>
+            <Insets left="30" top="5"/>
+        </VBox.margin>
+    </DBCollationComboBox>
+    <FlexHBox flexWidth="100%">
+        <SubmitButton onAction="#add" text="%base.add">
             <HBox.margin>
-                <Insets left="20" top="10"/>
-            </HBox.margin>
-        </AccentLabel>
-        <ClearableTextField tipText="请输入数据库名称" maxLen="30" require="true" fx:id="name"
-                            realHeight="30" flexWidth="100% - 140">
-            <HBox.margin>
-                <Insets left="10" top="10"/>
-            </HBox.margin>
-        </ClearableTextField>
-    </FlexHBox>
-    <FlexHBox flexWidth="100%" realHeight="50">
-        <AccentLabel realHeight="30" realWidth="65" text="字符集">
-            <HBox.margin>
-                <Insets left="20" top="10"/>
-            </HBox.margin>
-        </AccentLabel>
-        <DBCharsetComboBox tipText="请选择字符集" fx:id="charset"
-                           realHeight="30" flexWidth="100% - 140">
-            <HBox.margin>
-                <Insets left="10" top="10"/>
-            </HBox.margin>
-        </DBCharsetComboBox>
-    </FlexHBox>
-    <FlexHBox flexWidth="100%" realHeight="50">
-        <AccentLabel realHeight="30" realWidth="65" text="排序规则">
-            <HBox.margin>
-                <Insets left="20" top="10"/>
-            </HBox.margin>
-        </AccentLabel>
-        <DBCollationComboBox disable="true" tipText="请选择排序方式" fx:id="collation"
-                             realHeight="30" flexWidth="100% - 140">
-            <HBox.margin>
-                <Insets left="10" top="10"/>
-            </HBox.margin>
-        </DBCollationComboBox>
-    </FlexHBox>
-    <FlexHBox flexWidth="100%" realHeight="50">
-        <SubmitButton onAction="#add" text="添加">
-            <HBox.margin>
-                <Insets left="95" top="10"/>
+                <Insets left="30" top="15"/>
             </HBox.margin>
         </SubmitButton>
         <CancelButton>
             <HBox.margin>
-                <Insets left="15" top="10"/>
+                <Insets left="15" top="15"/>
             </HBox.margin>
         </CancelButton>
     </FlexHBox>
