@@ -3,6 +3,7 @@ package cn.oyzh.easymysql.trees.view;
 import cn.oyzh.fx.gui.svg.glyph.ViewSVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.paint.Color;
 
 /**
@@ -13,13 +14,13 @@ import javafx.scene.paint.Color;
  */
 public class MysqlViewTypeTreeItemValue extends RichTreeItemValue {
 
-//    private final MysqlViewTypeTreeItem item;
-
     public MysqlViewTypeTreeItemValue(MysqlViewTypeTreeItem item) {
-//        this.item = item;
-//        this.flushGraphic();
-//        this.name(item.value());
         super(item);
+    }
+
+    @Override
+    public String name() {
+        return I18nHelper.view();
     }
 
     @Override

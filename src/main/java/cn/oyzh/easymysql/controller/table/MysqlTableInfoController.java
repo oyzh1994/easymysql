@@ -6,10 +6,13 @@ import cn.oyzh.fx.gui.text.area.ReadOnlyTextArea;
 import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
+import cn.oyzh.fx.plus.controls.FXGroup;
+import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.box.FlexHBox;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageAttribute;
 import cn.oyzh.fx.rich.richtextfx.control.FlexRichTextArea;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
@@ -21,9 +24,8 @@ import javafx.stage.WindowEvent;
  * @since 2024/01/30
  */
 @StageAttribute(
-        title = "DB表信息",
-        modality = Modality.WINDOW_MODAL,
-        value = FXConst.FXML_PATH + "mysql/views/mysqlTableInfo.fxml"
+        modality = Modality.APPLICATION_MODAL,
+        value = FXConst.FXML_PATH + "table/mysqlTableInfo.fxml"
 )
 public class MysqlTableInfoController extends StageController {
 
@@ -55,7 +57,7 @@ public class MysqlTableInfoController extends StageController {
      * 行格式组件
      */
     @FXML
-    private FlexHBox tableRowFormatBox;
+    private FXVBox tableRowFormatBox;
 
     /**
      * 行格式
@@ -67,7 +69,7 @@ public class MysqlTableInfoController extends StageController {
      * 自动递增组件
      */
     @FXML
-    private FlexHBox tableAutoIncrementBox;
+    private FXVBox tableAutoIncrementBox;
 
     /**
      * 自动递增
@@ -115,5 +117,10 @@ public class MysqlTableInfoController extends StageController {
         // 组件管理
         this.tableRowFormatBox.managedBindVisible();
         this.tableAutoIncrementBox.managedBindVisible();
+    }
+
+    @Override
+    public String getViewTitle() {
+        return I18nHelper.tableInfo();
     }
 }

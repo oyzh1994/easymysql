@@ -11,19 +11,9 @@ import lombok.experimental.Accessors;
  * @author oyzh
  * @since 2023/12/22
  */
-@Accessors(chain = true, fluent = true)
 public class MysqlQueryTreeItemValue extends RichTreeItemValue {
 
-//    /**
-//     * db树表节点
-//     */
-//    private final MysqlQueryTreeItem item;
-
     public MysqlQueryTreeItemValue(MysqlQueryTreeItem item) {
-//        this.item = item;
-//        this.flushGraphic();
-//        this.flushGraphicColor();
-//        this.flushText();
         super(item);
     }
 

@@ -1,7 +1,9 @@
 package cn.oyzh.easymysql.trees.query;
 
+import cn.oyzh.fx.gui.svg.glyph.QuerySVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.paint.Color;
 
 /**
@@ -12,12 +14,7 @@ import javafx.scene.paint.Color;
  */
 public class MysqlQueryTypeTreeItemValue extends RichTreeItemValue {
 
-//    private final MysqlQueryTypeTreeItem item;
-
     public MysqlQueryTypeTreeItemValue(MysqlQueryTypeTreeItem item) {
-//        this.item = item;
-//        this.flushGraphic();
-//        this.name(item.value());
         super(item);
     }
 
@@ -28,15 +25,14 @@ public class MysqlQueryTypeTreeItemValue extends RichTreeItemValue {
 
     @Override
     public String name() {
-        return this.item().value();
+        return I18nHelper.queries();
     }
 
     @Override
     public SVGGlyph graphic() {
         if (this.graphic == null) {
-            this.graphic = new SVGGlyph("/font/query2.svg", 12);
+            this.graphic = new QuerySVGGlyph("12");
             this.graphic.disableTheme();
-
         }
         return this.graphic;
     }

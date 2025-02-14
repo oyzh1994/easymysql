@@ -14,16 +14,8 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true, fluent = true)
 public class MysqlViewTreeItemValue extends RichTreeItemValue {
 
-//    /**
-//     * db树表节点
-//     */
-//    private final MysqlViewTreeItem item;
 
     public MysqlViewTreeItemValue(MysqlViewTreeItem item) {
-//        this.item = item;
-//        this.flushGraphic();
-//        this.flushGraphicColor();
-//        this.flushText();
         super(item);
     }
 
