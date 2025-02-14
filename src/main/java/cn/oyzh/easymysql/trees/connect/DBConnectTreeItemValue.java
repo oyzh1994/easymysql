@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.trees.connect;
 
+import cn.oyzh.easymysql.fx.svg.glyph.MysqlSVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import javafx.scene.paint.Color;
@@ -30,7 +31,7 @@ public class DBConnectTreeItemValue extends RichTreeItemValue {
     @Override
     public SVGGlyph graphic() {
         if (this.graphic == null) {
-            this.graphic = new SVGGlyph("/font/mysql.svg", "12");
+            this.graphic = new MysqlSVGGlyph("12");
             this.graphic.disableTheme();
         }
         return super.graphic();
@@ -39,7 +40,7 @@ public class DBConnectTreeItemValue extends RichTreeItemValue {
     @Override
     public Color graphicColor() {
         if (!this.item().isChildEmpty()) {
-          return Color.GREEN;
+            return Color.GREEN;
         }
         return super.graphicColor();
     }

@@ -7,6 +7,7 @@ import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
+import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.i18n.I18nHelper;
@@ -34,21 +35,16 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
     @Accessors(chain = true, fluent = true)
     private final MysqlFunction value;
 
-    /**
-     * 连接树节点
-     */
-    @Getter
-    @Accessors(chain = true, fluent = true)
-    protected MysqlFunctionTypeTreeItem parent;
-
-    public MysqlFunctionTreeItem(MysqlFunction function, MysqlFunctionTypeTreeItem parent) {
-        super(parent.getTreeView());
-        super.setFilterable(true);
-        this.parent = parent;
+    public MysqlFunctionTreeItem(MysqlFunction function, RichTreeView treeView) {
+        super(treeView);
         this.value = function;
+        super.setFilterable(true);
         this.setValue(new MysqlFunctionTreeItemValue(this));
-        // 监听展开
-        super.addEventHandler(branchExpandedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> this.flushLocal());
+    }
+
+    @Override
+    public MysqlFunctionTypeTreeItem parent() {
+        return (MysqlFunctionTypeTreeItem) super.parent();
     }
 
     /**
@@ -57,7 +53,7 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
      * @return db客户端
      */
     public DBClient client() {
-        return this.parent.client();
+        return this.parent().client();
     }
 
     /**
@@ -66,7 +62,7 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
      * @return redis信息
      */
     public MysqlConnect info() {
-        return this.parent.info();
+        return this.parent().info();
     }
 
     @Override
@@ -98,15 +94,15 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
     }
 
     public MysqlDatabaseTreeItem dbItem() {
-        return this.parent.dbItem();
+        return this.parent().parent();
     }
 
     public String dbName() {
-        return parent.dbName();
+        return this.parent().dbName();
     }
 
     public String infoName() {
-        return parent.infoName();
+        return this.parent().infoName();
     }
 
     @Override
@@ -118,22 +114,37 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
         return this.value.getName();
     }
 
-//    @Override
-//    public boolean supportFilter() {
-//        return true;
-//    }
-
     @Override
     public void reloadChild() {
+        this.clearChild();
+        this.setLoaded(false);
+        this.loadChild();
+    }
+
+    @Override
+    public void loadChild() {
         try {
+            this.setLoaded(true);
+            this.setLoading(true);
             MysqlFunction function = this.client().selectFunction(this.dbName(), this.functionName());
             if (function != null) {
                 this.value.copy(function);
             }
         } catch (Exception ex) {
+            this.setLoaded(false);
             ex.printStackTrace();
+            MessageBox.exception(ex);
+        } finally {
+            this.setLoading(false);
         }
     }
 
-
+    @Override
+    public void onPrimarySingleClick() {
+        if (!this.isLoaded()) {
+            super.onPrimarySingleClick();
+        } else {
+            super.onPrimarySingleClick();
+        }
+    }
 }

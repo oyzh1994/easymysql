@@ -7,6 +7,7 @@ import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
+import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.i18n.I18nHelper;
@@ -34,21 +35,18 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
     @Accessors(chain = true, fluent = true)
     private final MysqlEvent value;
 
-    /**
-     * 连接树节点
-     */
-    @Getter
-    @Accessors(chain = true, fluent = true)
-    protected MysqlEventTypeTreeItem parent;
-
-    public MysqlEventTreeItem(MysqlEvent event, MysqlEventTypeTreeItem parent) {
-        super(parent.getTreeView());
+    public MysqlEventTreeItem(MysqlEvent event, RichTreeView treeView) {
+        super(treeView);
         super.setFilterable(true);
-        this.parent = parent;
         this.value = event;
         this.setValue(new MysqlEventTreeItemValue(this));
         // 监听展开
         super.addEventHandler(branchExpandedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) e -> this.flushLocal());
+    }
+
+    @Override
+    public MysqlEventTypeTreeItem parent(){
+        return (MysqlEventTypeTreeItem) super.parent();
     }
 
     /**
@@ -57,7 +55,7 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
      * @return db客户端
      */
     public DBClient client() {
-        return this.parent.client();
+        return this.parent().client();
     }
 
     /**
@@ -66,7 +64,7 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
      * @return redis信息
      */
     public MysqlConnect info() {
-        return this.parent.info();
+        return this.parent().info();
     }
 
     @Override
@@ -98,15 +96,15 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
     }
 
     public MysqlDatabaseTreeItem dbItem() {
-        return this.parent.dbItem();
+        return this.parent().parent();
     }
 
     public String dbName() {
-        return parent.dbName();
+        return parent().dbName();
     }
 
     public String infoName() {
-        return parent.infoName();
+        return parent().infoName();
     }
 
     @Override

@@ -8,19 +8,9 @@ import lombok.experimental.Accessors;
  * @author oyzh
  * @since 2024/09/09
  */
-@Accessors(chain = true, fluent = true)
 public class MysqlEventTreeItemValue extends RichTreeItemValue {
 
-//    /**
-//     * db树表节点
-//     */
-//    private final MysqlEventTreeItem item;
-
     public MysqlEventTreeItemValue(MysqlEventTreeItem item) {
-//        this.item = item;
-//        this.flushGraphic();
-//        this.flushGraphicColor();
-//        this.flushText();
         super(item);
     }
 

@@ -82,8 +82,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
 
     @Override
     public DBConnectTreeItem parent() {
-        TreeItem<?> treeItem = super.parent();
-        return (DBConnectTreeItem)treeItem;
+        return (DBConnectTreeItem) super.parent();
     }
 
     public String dbName() {
@@ -178,12 +177,12 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      */
     private void initTypes() {
         List<TreeItem<?>> typeItems = new ArrayList<>();
-        typeItems.add(new MysqlTableTypeTreeItem(this));
-        typeItems.add(new MysqlViewTypeTreeItem(this));
-        typeItems.add(new MysqlFunctionTypeTreeItem(this));
-        typeItems.add(new MysqlProcedureTypeTreeItem(this));
-        typeItems.add(new MysqlEventTypeTreeItem(this));
-        typeItems.add(new MysqlQueryTypeTreeItem(this));
+        typeItems.add(new MysqlTableTypeTreeItem(this.getTreeView()));
+        typeItems.add(new MysqlViewTypeTreeItem(this.getTreeView()));
+        typeItems.add(new MysqlFunctionTypeTreeItem(this.getTreeView()));
+        typeItems.add(new MysqlProcedureTypeTreeItem(this.getTreeView()));
+        typeItems.add(new MysqlEventTypeTreeItem(this.getTreeView()));
+        typeItems.add(new MysqlQueryTypeTreeItem(this.getTreeView()));
         super.setChild(typeItems);
     }
 

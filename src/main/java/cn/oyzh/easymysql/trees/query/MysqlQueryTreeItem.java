@@ -8,7 +8,9 @@ import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.store.MysqlQueryStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.procedure.MysqlProcedureTypeTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
+import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.i18n.I18nHelper;
@@ -37,23 +39,16 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
     @Accessors(chain = true, fluent = true)
     private final MysqlQuery value;
 
-    /**
-     * 连接树节点
-     */
-    @Getter
-    @Accessors(chain = true, fluent = true)
-    protected MysqlQueryTypeTreeItem parent;
-
-    public MysqlQueryTreeItem(MysqlQuery query, MysqlQueryTypeTreeItem parent) {
-        super(parent.getTreeView());
+    public MysqlQueryTreeItem(MysqlQuery query, RichTreeView treeView) {
+        super(treeView);
         super.setFilterable(true);
-        this.parent = parent;
         this.value = query;
         this.setValue(new MysqlQueryTreeItemValue(this));
-        // 监听展开
-        super.addEventHandler(branchExpandedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
-            this.flushLocal();
-        });
+    }
+
+    @Override
+    public MysqlQueryTypeTreeItem parent(){
+        return (MysqlQueryTypeTreeItem) super.parent();
     }
 
     /**
@@ -62,7 +57,7 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
      * @return db客户端
      */
     public DBClient client() {
-        return this.parent.client();
+        return this.parent().client();
     }
 
     /**
@@ -71,9 +66,8 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
      * @return redis信息
      */
     public MysqlConnect info() {
-        return this.parent.info();
+        return this.parent().info();
     }
-
 
     @Override
     public List<MenuItem> getMenuItems() {
@@ -115,7 +109,6 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
         this.value.setName(name);
         // 修改名称
         if (MysqlQueryStore.INSTANCE.update(this.value)) {
-//            this.getValue().flushText();
             this.refresh();
         } else {
             this.value.setName(oldName);
@@ -124,11 +117,11 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
     }
 
     public MysqlDatabaseTreeItem dbItem() {
-        return this.parent.dbItem();
+        return this.parent().parent();
     }
 
     public String dbName() {
-        return parent.dbName();
+        return this.parent().dbName();
     }
 
     public String queryName() {
@@ -143,11 +136,4 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
     public MysqlConnect dbConnect() {
         return this.client().dbConnect();
     }
-
-//    @Override
-//    public boolean supportFilter() {
-//        return true;
-//    }
-
-
 }

@@ -10,6 +10,7 @@ import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
+import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.i18n.I18nHelper;
@@ -31,31 +32,15 @@ import java.util.List;
  */
 public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItemValue> {
 
-    /**
-     * 值
-     */
-    @Getter
-    @Accessors(fluent = true, chain = false)
-    private final String value;
-
-    /**
-     * 父节点
-     */
-    @Getter
-    @Accessors(chain = true, fluent = true)
-    private final MysqlDatabaseTreeItem dbItem;
-
-    public MysqlViewTypeTreeItem(MysqlDatabaseTreeItem dbItem) {
-        super(dbItem.getTreeView());
+    public MysqlViewTypeTreeItem(RichTreeView treeView) {
+        super(treeView);
         super.setFilterable(true);
-        this.dbItem = dbItem;
-        this.value = I18nHelper.view();
         this.setValue(new MysqlViewTypeTreeItemValue(this));
-        // 监听展开
-        super.addEventHandler(branchExpandedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
-            this.loadChild();
-            this.flushLocal();
-        });
+    }
+
+    @Override
+    public MysqlDatabaseTreeItem parent() {
+        return (MysqlDatabaseTreeItem) super.parent();
     }
 
     @Override
@@ -71,7 +56,7 @@ public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItemValue
     private void add() {
         MysqlView dbView = new MysqlView();
         dbView.setDbName(this.dbName());
-        MysqlEventUtil.designView(dbView, this.dbItem);
+        MysqlEventUtil.designView(dbView, this.parent());
     }
 
     @Override
@@ -79,111 +64,100 @@ public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItemValue
         return this.isVisible();
     }
 
-    /**
-     * 加载子节点
-     */
+    @Override
     public void loadChild() {
         if (!this.isWaiting() && !this.isLoaded() && !this.isLoading()) {
-            this.reloadChild();
-            this.expend();
+            this.setLoaded(true);
+            this.setLoading(true);
+            Task task = TaskBuilder.newBuilder()
+                    .onStart(() -> {
+                        List<MysqlView> views = this.client().views(this.dbName());
+                        // 无数据直接更新列表
+                        if (this.isChildEmpty()) {
+                            List<TreeItem<?>> list = new ArrayList<>();
+                            for (MysqlView view : views) {
+                                list.add(new MysqlViewTreeItem(view, this.getTreeView()));
+                            }
+                            this.setChild(list);
+                        } else {// 有数据则执行删除、新增、更新操作
+                            ObservableList children = this.richChildren();
+                            ObservableList<MysqlViewTreeItem> list = children;
+                            List<MysqlViewTreeItem> delList = new ArrayList<>();
+                            List<MysqlViewTreeItem> addList = new ArrayList<>();
+                            // 删除
+                            for (MysqlViewTreeItem item : list) {
+                                if (views.parallelStream().noneMatch(f -> f.compare(item.value()))) {
+                                    delList.add(item);
+                                }
+                            }
+                            // 新增
+                            for (MysqlView f : views) {
+                                if (list.parallelStream().noneMatch(item -> f.compare(item.value()))) {
+                                    addList.add(new MysqlViewTreeItem(f, this.getTreeView()));
+                                }
+                            }
+                            // 更新
+                            for (MysqlViewTreeItem item : list) {
+                                if (!addList.contains(item) && !delList.contains(item)) {
+                                    views.parallelStream().filter(f -> f.compare(item.value())).findFirst().ifPresent(f -> item.value().copy(f));
+                                }
+                            }
+                            list.removeAll(delList);
+                            list.addAll(addList);
+                        }
+                        this.expend();
+                    })
+                    .onError(ex -> {
+                        this.setLoaded(false);
+                        MessageBox.exception(ex);
+                    })
+                    .onSuccess(this::refresh)
+                    .onFinish(() -> this.setLoading(false))
+                    .build();
+            // 执行业务
+            this.startWaiting(task);
         }
     }
 
     @Override
     public void reloadChild() {
-        if (this.isLoading()) {
-            return;
-        }
-        this.setLoaded(true);
-        this.setLoading(true);
-        Task task = TaskBuilder.newBuilder()
-                .onStart(() -> {
-                    List<MysqlView> views = this.client().views(this.dbName());
-                    // 无数据直接更新列表
-                    if (this.isChildEmpty()) {
-                        List<TreeItem<?>> list = new ArrayList<>();
-                        for (MysqlView view : views) {
-                            list.add(new MysqlViewTreeItem(view, this));
-                        }
-                        this.setChild(list);
-                    } else {// 有数据则执行删除、新增、更新操作
-                        ObservableList children = this.richChildren();
-                        ObservableList<MysqlViewTreeItem> list = children;
-                        List<MysqlViewTreeItem> delList = new ArrayList<>();
-                        List<MysqlViewTreeItem> addList = new ArrayList<>();
-                        // 删除
-                        for (MysqlViewTreeItem item : list) {
-                            if (views.parallelStream().noneMatch(f -> f.compare(item.value()))) {
-                                delList.add(item);
-                            }
-                        }
-                        // 新增
-                        for (MysqlView f : views) {
-                            if (list.parallelStream().noneMatch(item -> f.compare(item.value()))) {
-                                addList.add(new MysqlViewTreeItem(f, this));
-                            }
-                        }
-                        // 更新
-                        for (MysqlViewTreeItem item : list) {
-                            if (!addList.contains(item) && !delList.contains(item)) {
-                                views.parallelStream().filter(f -> f.compare(item.value())).findFirst().ifPresent(f -> item.value().copy(f));
-                            }
-                        }
-                        list.removeAll(delList);
-                        list.addAll(addList);
-                    }
-                })
-                .onError(ex -> {
-                    this.setLoaded(false);
-                    MessageBox.exception(ex);
-                })
-                .onSuccess(this::flushValue)
-                .onFinish(() -> {
-                    this.setLoading(false);
-                    this.stopWaiting();
-                })
-                .build();
-        // 执行业务
-        this.startWaiting(task);
+        this.clearChild();
+        this.setLoaded(false);
+        this.loadChild();
     }
 
     public String dbName() {
-        return dbItem.dbName();
+        return this.parent().dbName();
     }
 
     public DBClient client() {
-        return dbItem.client();
-    }
-
-    /**
-     * 刷新值
-     */
-    private void flushValue() {
-//        this.getValue().flushGraphicColor();
-//        this.getValue().flushNum();
-        this.refresh();
+        return this.parent().client();
     }
 
     public Integer viewSize() {
-        return this.dbItem.viewSize();
+        return this.parent().viewSize();
     }
 
     public MysqlConnect info() {
-        return this.dbItem.info();
+        return this.parent().info();
     }
 
     public String infoName() {
-        return this.dbItem.infoName();
+        return this.parent().infoName();
     }
 
     @Override
     public void onPrimaryDoubleClick() {
-        this.loadChild();
+        if (!this.isLoaded()) {
+            this.loadChild();
+        } else {
+            super.onPrimaryDoubleClick();
+        }
     }
 
     @Override
     public synchronized void doFilter(RichTreeItemFilter itemFilter) {
         super.doFilter(itemFilter);
-        this.flushValue();
+        this.refresh();
     }
 }

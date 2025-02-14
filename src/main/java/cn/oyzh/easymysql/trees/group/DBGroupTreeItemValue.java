@@ -13,16 +13,9 @@ import lombok.experimental.Accessors;
  * @author oyzh
  * @since 2023/12/21
  */
-@Accessors(chain = true, fluent = true)
 public class DBGroupTreeItemValue extends RichTreeItemValue {
 
-//    private final DBGroupTreeItem item;
-
     public DBGroupTreeItemValue(DBGroupTreeItem item) {
-//        this.item = item;
-//        this.flushGraphic();
-//        this.flushGraphicColor();
-//        this.name(item.value().getName());
         super(item);
     }
 
@@ -41,7 +34,6 @@ public class DBGroupTreeItemValue extends RichTreeItemValue {
         if (this.graphic == null) {
             this.graphic = new GroupSVGGlyph("10");
             this.graphic.disableTheme();
-//            this.graphic(glyph);
         }
         return super.graphic();
     }

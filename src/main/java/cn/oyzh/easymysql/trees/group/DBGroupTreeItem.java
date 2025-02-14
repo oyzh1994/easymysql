@@ -61,11 +61,6 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
         this.setValue(new DBGroupTreeItemValue(this));
         // 判断是否展开
         this.setExpanded(this.value.isExpand());
-//        // 监听变化
-//        super.addEventHandler(childrenModificationEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
-//            DBEventUtil.treeChildChanged();
-//            this.flushLocal();
-//        });
         // 监听收缩变化
         super.addEventHandler(branchCollapsedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
             this.value.setExpand(false);
@@ -111,7 +106,6 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
         }
         // 修改名称
         if (this.groupStore.update(this.value)) {
-//            this.getValue().flushText();
             this.refresh();
         } else {
             MessageBox.warn(I18nHelper.operationFail());

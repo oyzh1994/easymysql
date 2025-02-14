@@ -27,8 +27,10 @@ import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.query.MysqlQueryTypeTreeItem;
 import cn.oyzh.easymysql.util.DBI18nHelper;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
+import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.fx.plus.window.StageAdapter;
@@ -59,30 +61,23 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     @Accessors(chain = true, fluent = true)
     private final MysqlTable value;
 
-    /**
-     * 连接树节点
-     */
-    @Getter
-    @Accessors(chain = true, fluent = true)
-    protected MysqlTableTypeTreeItem parent;
-
-    public MysqlTableTreeItem(MysqlTable table, MysqlTableTypeTreeItem parent) {
-        super(parent.getTreeView());
-        this.parent = parent;
+    public MysqlTableTreeItem(MysqlTable table, RichTreeView treeView) {
+        super(treeView);
         this.value = table;
         this.setValue(new MysqlTableTreeItemValue(this));
-        // 监听展开
-        super.addEventHandler(branchExpandedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
-            this.flushLocal();
-        });
+    }
+
+    @Override
+    public MysqlTableTypeTreeItem parent(){
+        return (MysqlTableTypeTreeItem) super.parent();
     }
 
     public DBClient client() {
-        return this.parent.client();
+        return this.parent().client();
     }
 
     public String dbName() {
-        return this.parent.dbName();
+        return this.parent().dbName();
     }
 
     public String tableName() {
@@ -95,33 +90,8 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
      * @return redis信息
      */
     public MysqlConnect info() {
-        return this.parent.info();
+        return this.parent().info();
     }
-
-    // public MysqlIndexes tableIndexes() {
-    //     // if (this.value.getIndexes() == null) {
-    //     this.value.setIndexes(new MysqlIndexes(this.indexes()));
-    //     // }
-    //     return this.value.indexes();
-    // }
-
-    // public MysqlColumns tableColumns() {
-    //     return new MysqlColumns(this.columns());
-    // }
-
-    // public MysqlTriggers tableTriggers() {
-    //     // if (this.value.getTriggers() == null) {
-    //     this.value.setTriggers(new MysqlTriggers(this.triggers()));
-    //     // }
-    //     return this.value.triggers();
-    // }
-    //
-    // public MysqlForeignKeys tableForeignKeys() {
-    //     // if (this.value.getForeignKeys() == null) {
-    //     this.value.setForeignKeys(new MysqlForeignKeys(this.foreignKeys()));
-    //     // }
-    //     return this.value.foreignKeys();
-    // }
 
     @Override
     public List<MenuItem> getMenuItems() {
@@ -243,7 +213,6 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
             // 修改名称
             this.dbItem().renameTable(oldName, tableName);
             this.value.setName(tableName);
-//            this.getValue().flushText();
             this.refresh();
             MysqlEventUtil.tableRenamed(this, this.dbItem());
         } catch (Exception ex) {
@@ -253,7 +222,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     public MysqlDatabaseTreeItem dbItem() {
-        return this.parent.dbItem();
+        return this.parent().parent();
     }
 
     public Paging<MysqlRecord> recordPage(long pageNo, long limit, List<MysqlRecordFilter> filters, List<MysqlColumn> columns) {
@@ -272,7 +241,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     public String infoName() {
-        return parent.infoName();
+        return parent().infoName();
     }
 
     public MysqlColumns columns() {
@@ -299,7 +268,6 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     public void onPrimaryDoubleClick() {
         MysqlEventUtil.tableOpen(this, this.dbItem());
     }
-
 
     private MysqlColumns columns;
 
@@ -328,7 +296,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     @Override
-    public void reloadChild() {
+    public void loadChild() {
         try {
             MysqlTableSelectParam param = new MysqlTableSelectParam();
             param.full(true);
@@ -338,10 +306,16 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
             if (table != null) {
                 this.value.copy(table);
             }
-            super.reloadChild();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void reloadChild() {
+        this.clearChild();
+        this.setLoaded(false);
+        this.loadChild();
     }
 
     public boolean hasPrimaryKey() {
@@ -350,11 +324,6 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         }
         return this.columns.primaryKeys().isEmpty();
     }
-
-//    @Override
-//    public boolean supportFilter() {
-//        return true;
-//    }
 
     public int insertRecord(MysqlRecordData recordData) {
         return this.insertRecord(recordData, null);

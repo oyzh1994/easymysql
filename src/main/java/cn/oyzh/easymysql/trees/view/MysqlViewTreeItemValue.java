@@ -14,7 +14,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true, fluent = true)
 public class MysqlViewTreeItemValue extends RichTreeItemValue {
 
-
     public MysqlViewTreeItemValue(MysqlViewTreeItem item) {
         super(item);
     }

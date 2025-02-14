@@ -58,29 +58,4 @@ public class MysqlViewTypeTreeItemValue extends RichTreeItemValue {
     public Color extraColor() {
         return Color.valueOf("#228B22");
     }
-
-//    /**
-//     * 刷新节点数量
-//     */
-//    public void flushNum() {
-//        try {
-//            Integer size = this.item.viewSize();
-//            // 寻找组件
-//            FXText text = (FXText) this.lookup("#num");
-//            if (size == null) {
-//                this.removeChild(text);
-//            } else {
-//                if (text == null) {
-//                    text = new FXText();
-//                    this.addChild(text);
-//                    text.setId("num");
-//                    text.setFill(Color.valueOf("#228B22"));
-//                    HBox.setMargin(text, new Insets(0, 0, 0, 3));
-//                }
-//                text.setTextExt("(" + size + ")");
-//            }
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//    }
 }

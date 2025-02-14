@@ -12,19 +12,9 @@ import lombok.experimental.Accessors;
  * @author oyzh
  * @since 2023/12/22
  */
-@Accessors(chain = true, fluent = true)
 public class MysqlFunctionTreeItemValue extends RichTreeItemValue {
 
-//    /**
-//     * db树表节点
-//     */
-//    private final MysqlFunctionTreeItem item;
-
     public MysqlFunctionTreeItemValue(MysqlFunctionTreeItem item) {
-//        this.item = item;
-//        this.flushGraphic();
-//        this.flushGraphicColor();
-//        this.flushText();
         super(item);
     }
 

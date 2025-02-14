@@ -18,7 +18,9 @@ import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.table.MysqlTableTypeTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
+import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.fx.plus.window.StageAdapter;
@@ -48,31 +50,25 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     @Accessors(chain = true, fluent = true)
     private final MysqlView value;
 
-    /**
-     * 连接树节点
-     */
-    @Getter
-    @Accessors(chain = true, fluent = true)
-    protected MysqlViewTypeTreeItem parent;
-
-    public MysqlViewTreeItem(MysqlView view, MysqlViewTypeTreeItem parent) {
-        super(parent.getTreeView());
+    public MysqlViewTreeItem(MysqlView view, RichTreeView treeView) {
+        super(treeView);
         super.setFilterable(true);
-        this.parent = parent;
         this.value = view;
         this.setValue(new MysqlViewTreeItemValue(this));
-        // 监听展开
-        super.addEventHandler(branchExpandedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
-            this.flushLocal();
-        });
     }
 
+    @Override
+    public MysqlViewTypeTreeItem parent(){
+        return (MysqlViewTypeTreeItem) super.parent();
+    }
+
+
     public DBClient client() {
-        return this.parent.client();
+        return this.parent().client();
     }
 
     public String dbName() {
-        return this.parent.dbName();
+        return this.parent().dbName();
     }
 
     /**
@@ -81,7 +77,7 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
      * @return redis信息
      */
     public MysqlConnect info() {
-        return this.parent.info();
+        return this.parent().info();
     }
 
     public MysqlColumns viewColumns() {
@@ -127,7 +123,7 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     }
 
     public MysqlDatabaseTreeItem dbItem() {
-        return this.parent.dbItem();
+        return this.parent().parent();
     }
 
     public Paging<MysqlRecord> recordPage(long pageNo, long limit, List<MysqlRecordFilter> filters, List<MysqlColumn> columns) {
@@ -146,7 +142,7 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     }
 
     public String infoName() {
-        return parent.infoName();
+        return this.parent().infoName();
     }
 
     public List<MysqlColumn> columns() {
@@ -178,11 +174,6 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         }
         return dbColumn;
     }
-
-//    @Override
-//    public boolean supportFilter() {
-//        return true;
-//    }
 
     public boolean isUpdatable() {
         return this.value.isUpdatable();
