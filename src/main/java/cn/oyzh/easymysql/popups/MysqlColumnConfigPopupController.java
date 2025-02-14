@@ -26,7 +26,7 @@ import javafx.stage.WindowEvent;
 @PopupAttribute(
         value = FXConst.POPUP_PATH + "dbColumnConfigPopup.fxml"
 )
-public class DBColumnConfigPopupController extends PopupController {
+public class MysqlColumnConfigPopupController extends PopupController {
 
     /**
      * 默认值组件

@@ -101,16 +101,4 @@
             </HBox.margin>
         </NumberTextField>
     </FlexHBox>
-    <!-- <FlexHBox flexWidth="100%" realHeight="25"> -->
-    <!--     <SubmitSVGGlyph onMousePrimaryClicked="#submit" sizeStr="15,11"> -->
-    <!--         <HBox.margin> -->
-    <!--             <Insets left="95" top="5"/> -->
-    <!--         </HBox.margin> -->
-    <!--     </SubmitSVGGlyph> -->
-    <!--     <CancelSVGGlyph onMousePrimaryClicked="#close" sizeStr="11"> -->
-    <!--         <HBox.margin> -->
-    <!--             <Insets left="30" top="5"/> -->
-    <!--         </HBox.margin> -->
-    <!--     </CancelSVGGlyph> -->
-    <!-- </FlexHBox> -->
 </FlexVBox>

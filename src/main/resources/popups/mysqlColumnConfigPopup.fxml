@@ -13,7 +13,7 @@
 <?import cn.oyzh.fx.gui.svg.glyph.SubmitSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.CancelSVGGlyph?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.popups.DBColumnConfigPopupController" realWidth="320"
+          fx:controller="cn.oyzh.easymysql.popups.MysqlColumnConfigPopupController" realWidth="320"
           realHeight="200">
     <FlexHBox flexWidth="100%" realHeight="30" fx:id="valueBox" managed="false" visible="false">
         <AccentLabel realHeight="25" realWidth="80" text="%base.value">

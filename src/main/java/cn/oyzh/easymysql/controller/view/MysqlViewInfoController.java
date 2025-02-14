@@ -7,6 +7,7 @@ import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.window.StageAttribute;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
@@ -18,9 +19,8 @@ import javafx.stage.WindowEvent;
  * @since 2024/01/30
  */
 @StageAttribute(
-        title = "DB视图信息",
-        modality = Modality.WINDOW_MODAL,
-        value = FXConst.FXML_PATH + "mysql/views/mysqlViewInfo.fxml"
+        modality = Modality.APPLICATION_MODAL,
+        value = FXConst.FXML_PATH + "view/mysqlViewInfo.fxml"
 )
 public class MysqlViewInfoController extends StageController {
 
@@ -39,10 +39,15 @@ public class MysqlViewInfoController extends StageController {
     @Override
     public void onWindowShown(WindowEvent event) {
         super.onWindowShown(event);
-        this.stage.hideOnEscape();
         MysqlViewTreeItem item = this.getWindowProp("item");
         MysqlView view = item.value();
         this.viewName.setText(view.getName());
         this.viewComment.setText(view.getComment());
+        this.stage.hideOnEscape();
+    }
+
+    @Override
+    public String getViewTitle() {
+        return I18nHelper.viewInfo();
     }
 }
