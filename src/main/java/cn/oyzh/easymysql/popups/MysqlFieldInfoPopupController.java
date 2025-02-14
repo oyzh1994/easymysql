@@ -28,9 +28,9 @@ import java.util.List;
  */
 @PopupAttribute(
         cssUrls = MysqlStyle.MAIN,
-        value = FXConst.POPUP_PATH + "dbFieldInfoPopup.fxml"
+        value = FXConst.POPUP_PATH + "mysqlFieldInfoPopup.fxml"
 )
-public class DBFieldInfoPopupController extends PopupController {
+public class MysqlFieldInfoPopupController extends PopupController {
 
     /**
      * 名称

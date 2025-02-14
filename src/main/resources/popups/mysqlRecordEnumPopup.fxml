@@ -7,7 +7,7 @@
 <?import cn.oyzh.fx.gui.svg.glyph.SubmitSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.CloseSVGGlyph?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.popups.DBRecordEnumPopupController" realWidth="320"
+          fx:controller="cn.oyzh.easymysql.popups.MysqlRecordEnumPopupController" realWidth="320"
           realHeight="200">
     <DBColumnListView flexWidth="100%" flexHeight="100% - 25" fx:id="listView">
     </DBColumnListView>

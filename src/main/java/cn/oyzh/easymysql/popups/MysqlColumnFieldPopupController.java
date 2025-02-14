@@ -1,8 +1,7 @@
 package cn.oyzh.easymysql.popups;
 
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.index.MysqlIndex;
-import cn.oyzh.easymysql.fx.table.DBIndexColumnListView;
+import cn.oyzh.easymysql.fx.table.DBColumnListView;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -20,9 +19,9 @@ import java.util.List;
  * @since 2024/07/12
  */
 @PopupAttribute(
-        value = FXConst.POPUP_PATH + "dbIndexFieldPopup.fxml"
+        value = FXConst.POPUP_PATH + "mysqlColumnFieldPopup.fxml"
 )
-public class DBIndexFieldPopupController extends PopupController {
+public class MysqlColumnFieldPopupController extends PopupController {
 
     /**
      * 提交事件
@@ -33,7 +32,7 @@ public class DBIndexFieldPopupController extends PopupController {
      * 值组件
      */
     @FXML
-    private DBIndexColumnListView listView;
+    private DBColumnListView listView;
 
     /**
      * 提交
@@ -59,23 +58,6 @@ public class DBIndexFieldPopupController extends PopupController {
     }
 
     /**
-     * 添加行
-     */
-    @FXML
-    private void addRow() {
-        this.listView.addColumn(new MysqlIndex.IndexColumn());
-        this.listView.selectLast();
-    }
-
-    /**
-     * 删除行
-     */
-    @FXML
-    private void deleteRow() {
-        this.listView.removeSelectedItem();
-    }
-
-    /**
      * 上移行
      */
     @FXML
@@ -95,8 +77,9 @@ public class DBIndexFieldPopupController extends PopupController {
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
         this.onSubmit = this.getWindowProp("onSubmit");
-        MysqlIndex dbIndex = this.getWindowProp("dbIndex");
-        List<MysqlColumn> columnList = this.getWindowProp("columnList");
-        this.listView.init(dbIndex, columnList);
+        List<MysqlColumn> columns = this.getWindowProp("columns");
+        List<String> selectedColumns = this.getWindowProp("selectedColumns");
+        this.listView.init(columns);
+        this.listView.select(selectedColumns);
     }
 }

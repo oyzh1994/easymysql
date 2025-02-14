@@ -20,11 +20,11 @@ import static javafx.stage.PopupWindow.AnchorLocation.CONTENT_TOP_LEFT;
  * @since 2024/08/06
  */
 @PopupAttribute(
-        value = FXConst.POPUP_PATH + "dbPageSettingPopup.fxml",
+        value = FXConst.POPUP_PATH + "mysqlPageSettingPopup.fxml",
         arrowLocation = BOTTOM_LEFT,
         anchorLocation = CONTENT_TOP_LEFT
 )
-public class DBPageSettingPopupController extends PopupController {
+public class MysqlPageSettingPopupController extends PopupController {
 
     /**
      * 每页限制

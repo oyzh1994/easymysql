@@ -8,7 +8,7 @@
 <?import cn.oyzh.fx.gui.text.field.NumberTextField?>
 <?import cn.oyzh.fx.gui.text.area.ReadOnlyTextArea?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.popups.DBFieldInfoPopupController" realWidth="360"
+          fx:controller="cn.oyzh.easymysql.popups.MysqlFieldInfoPopupController" realWidth="360"
           realHeight="240">
     <FlexHBox realHeight="30">
         <FlexLabel text="%base.name" realWidth="85">

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.table;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.oyzh.easymysql.popups.DBColumnEnumPopupController;
+import cn.oyzh.easymysql.popups.MysqlColumnEnumPopupController;
 import cn.oyzh.fx.gui.text.field.ChooseTextField;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.plus.controls.list.FlexListView;
@@ -35,7 +35,7 @@ public class DBEnumTextFiled extends ChooseTextField {
     private PopupAdapter popup;
 
     protected void initPopup() {
-        this.popup = PopupManager.parsePopup(DBColumnEnumPopupController.class);
+        this.popup = PopupManager.parsePopup(MysqlColumnEnumPopupController.class);
         this.popup.setProp("values", this.values);
         this.popup.setProp("onSubmit", (Runnable) () -> {
             FlexListView<ClearableTextField> listView = this.listView();

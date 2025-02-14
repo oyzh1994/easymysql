@@ -15,7 +15,7 @@ import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
-import cn.oyzh.easymysql.popups.DBPageSettingPopupController;
+import cn.oyzh.easymysql.popups.MysqlPageSettingPopupController;
 import cn.oyzh.easymysql.popups.MysqlTableRecordFilterPopupController;
 import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
@@ -424,7 +424,7 @@ public class MysqlViewRecordTabController extends DynamicTabController {
      */
     @FXML
     private void pageSetting() {
-        PopupAdapter popup = PopupManager.parsePopup(DBPageSettingPopupController.class);
+        PopupAdapter popup = PopupManager.parsePopup(MysqlPageSettingPopupController.class);
         popup.showPopup(this.pageBox.getSettingBtn());
         int limit = this.setting.getRecordPageLimit();
         popup.setSubmitHandler(o -> {

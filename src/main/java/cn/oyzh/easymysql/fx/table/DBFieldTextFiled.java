@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.fx.table;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.popups.DBColumnFieldPopupController;
+import cn.oyzh.easymysql.popups.MysqlColumnFieldPopupController;
 import cn.oyzh.fx.gui.text.field.ChooseTextField;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
@@ -38,7 +38,7 @@ public class DBFieldTextFiled extends ChooseTextField {
     private PopupAdapter popup;
 
     protected void initPopup() {
-        this.popup = PopupManager.parsePopup(DBColumnFieldPopupController.class);
+        this.popup = PopupManager.parsePopup(MysqlColumnFieldPopupController.class);
         this.popup.setProp("columns", this.columns);
         this.popup.setProp("selectedColumns", this.selectedColumns);
         this.popup.setProp("onSubmit", (Runnable) () -> {

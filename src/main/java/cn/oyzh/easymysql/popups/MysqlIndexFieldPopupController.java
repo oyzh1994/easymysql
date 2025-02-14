@@ -1,7 +1,8 @@
 package cn.oyzh.easymysql.popups;
 
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.fx.table.DBColumnListView;
+import cn.oyzh.easymysql.db.index.MysqlIndex;
+import cn.oyzh.easymysql.fx.table.DBIndexColumnListView;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -19,9 +20,9 @@ import java.util.List;
  * @since 2024/07/12
  */
 @PopupAttribute(
-        value = FXConst.POPUP_PATH + "dbColumnFieldPopup.fxml"
+        value = FXConst.POPUP_PATH + "mysqlIndexFieldPopup.fxml"
 )
-public class DBColumnFieldPopupController extends PopupController {
+public class MysqlIndexFieldPopupController extends PopupController {
 
     /**
      * 提交事件
@@ -32,7 +33,7 @@ public class DBColumnFieldPopupController extends PopupController {
      * 值组件
      */
     @FXML
-    private DBColumnListView listView;
+    private DBIndexColumnListView listView;
 
     /**
      * 提交
@@ -58,6 +59,23 @@ public class DBColumnFieldPopupController extends PopupController {
     }
 
     /**
+     * 添加行
+     */
+    @FXML
+    private void addRow() {
+        this.listView.addColumn(new MysqlIndex.IndexColumn());
+        this.listView.selectLast();
+    }
+
+    /**
+     * 删除行
+     */
+    @FXML
+    private void deleteRow() {
+        this.listView.removeSelectedItem();
+    }
+
+    /**
      * 上移行
      */
     @FXML
@@ -77,9 +95,8 @@ public class DBColumnFieldPopupController extends PopupController {
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
         this.onSubmit = this.getWindowProp("onSubmit");
-        List<MysqlColumn> columns = this.getWindowProp("columns");
-        List<String> selectedColumns = this.getWindowProp("selectedColumns");
-        this.listView.init(columns);
-        this.listView.select(selectedColumns);
+        MysqlIndex dbIndex = this.getWindowProp("dbIndex");
+        List<MysqlColumn> columnList = this.getWindowProp("columnList");
+        this.listView.init(dbIndex, columnList);
     }
 }

@@ -12,7 +12,7 @@
 <?import cn.oyzh.fx.gui.svg.glyph.MoveDownSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.DeleteSVGGlyph?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.popups.DBIndexFieldPopupController" realWidth="320"
+          fx:controller="cn.oyzh.easymysql.popups.MysqlIndexFieldPopupController" realWidth="320"
           realHeight="320">
     <FlexHBox realHeight="25">
         <FlexLabel text="%base.name" realWidth="150">

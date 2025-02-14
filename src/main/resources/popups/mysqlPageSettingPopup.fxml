@@ -8,7 +8,7 @@
 <?import cn.oyzh.fx.gui.text.field.NumberTextField?>
 <?import cn.oyzh.fx.gui.svg.glyph.CancelSVGGlyph?>
 <FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.popups.DBPageSettingPopupController" realWidth="280"
+          fx:controller="cn.oyzh.easymysql.popups.MysqlPageSettingPopupController" realWidth="280"
           realHeight="80">
     <FlexHBox flexWidth="100%" realHeight="30">
         <AccentLabel realHeight="25" realWidth="70" text="%base.pageLimit">

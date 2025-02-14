@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.fx.table;
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.index.MysqlIndex;
-import cn.oyzh.easymysql.popups.DBIndexFieldPopupController;
+import cn.oyzh.easymysql.popups.MysqlIndexFieldPopupController;
 import cn.oyzh.fx.gui.text.field.ChooseTextField;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
@@ -43,7 +43,7 @@ public class DBIndexFieldTextFiled extends ChooseTextField {
 
     protected void initPopup() {
         this.disable();
-        this.popup = PopupManager.parsePopup(DBIndexFieldPopupController.class);
+        this.popup = PopupManager.parsePopup(MysqlIndexFieldPopupController.class);
         this.popup.setProp("dbIndex", this.dbIndex);
         this.popup.setProp("columns", this.columns);
         this.popup.setProp("columnList", this.columnList);
