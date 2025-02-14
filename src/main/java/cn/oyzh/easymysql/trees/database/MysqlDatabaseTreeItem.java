@@ -77,6 +77,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
 
     public MysqlDatabaseTreeItem(DBDatabase database, RichTreeView treeView) {
         super(treeView);
+        super.setSortable(false);
         super.setFilterable(true);
         this.value = database;
         this.setValue(new MysqlDatabaseTreeItemValue(this));

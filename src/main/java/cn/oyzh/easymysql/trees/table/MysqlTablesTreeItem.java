@@ -92,6 +92,8 @@ public class MysqlTablesTreeItem extends DBTreeItem<MysqlTablesTreeItemValue> {
     @Override
     public void loadChild() {
         if (!this.isLoading() && !this.isLoaded()) {
+            this.setLoaded(true);
+            this.setLoading(true);
             Task task = TaskBuilder.newBuilder()
                     .onStart(() -> {
                         List<MysqlTable> tables = this.client().selectTables(this.dbName());
@@ -139,7 +141,6 @@ public class MysqlTablesTreeItem extends DBTreeItem<MysqlTablesTreeItemValue> {
                     .build();
             // 执行业务
             this.startWaiting(task);
-
         }
     }
 

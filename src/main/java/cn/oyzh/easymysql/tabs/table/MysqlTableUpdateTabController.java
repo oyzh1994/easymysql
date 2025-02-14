@@ -68,7 +68,7 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2024/08/07
  */
-public class MysqlTableDesignTabController extends ParentTabController {
+public class MysqlTableUpdateTabController extends ParentTabController {
 
     /**
      * 新增按钮
@@ -207,12 +207,6 @@ public class MysqlTableDesignTabController extends ParentTabController {
      */
     @FXML
     private FlexTableColumn<MysqlColumnControl, String> colComment;
-
-    // /**
-    //  * 字段配置
-    //  */
-    // @FXML
-    // private FlexTableColumn<MysqlColumnControl, String> colConfig;
 
     /**
      * 表索引组件
