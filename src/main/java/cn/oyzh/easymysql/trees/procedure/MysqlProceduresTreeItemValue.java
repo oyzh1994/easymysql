@@ -1,38 +1,38 @@
-package cn.oyzh.easymysql.trees.table;
+package cn.oyzh.easymysql.trees.procedure;
 
+import cn.oyzh.fx.gui.svg.glyph.ProcedureSVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.paint.Color;
 
 /**
- * db树表类型值
+ * db树视图类型值
  *
  * @author oyzh
- * @since 2023/12/08
+ * @since 2024/06/28
  */
-public class MysqlTableTypeTreeItemValue extends RichTreeItemValue {
+public class MysqlProceduresTreeItemValue extends RichTreeItemValue {
 
-    public MysqlTableTypeTreeItemValue(MysqlTableTypeTreeItem item) {
+    public MysqlProceduresTreeItemValue(MysqlProceduresTreeItem item) {
         super(item);
     }
 
     @Override
-    public MysqlTableTypeTreeItem item() {
-        return (MysqlTableTypeTreeItem) super.item();
+    public MysqlProceduresTreeItem item() {
+        return (MysqlProceduresTreeItem) super.item();
     }
 
     @Override
     public String name() {
-        return I18nHelper.table();
+        return I18nHelper.procedure();
     }
 
     @Override
     public SVGGlyph graphic() {
         if (this.graphic == null) {
-            this.graphic = new SVGGlyph("/font/table2.svg", 12);
+            this.graphic = new ProcedureSVGGlyph("12");
             this.graphic.disableTheme();
-
         }
         return this.graphic;
     }
@@ -48,9 +48,9 @@ public class MysqlTableTypeTreeItemValue extends RichTreeItemValue {
 
     @Override
     public String extra() {
-        Integer size = this.item().tableSize();
+        Integer size = this.item().procedureSize();
         if (size != null) {
-            return "(" + size + ")";
+            return " (" + size + ")";
         }
         return super.extra();
     }

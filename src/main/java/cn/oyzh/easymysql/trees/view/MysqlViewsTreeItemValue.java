@@ -1,6 +1,6 @@
-package cn.oyzh.easymysql.trees.procedure;
+package cn.oyzh.easymysql.trees.view;
 
-import cn.oyzh.fx.gui.svg.glyph.ProcedureSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.ViewSVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.i18n.I18nHelper;
@@ -12,43 +12,42 @@ import javafx.scene.paint.Color;
  * @author oyzh
  * @since 2024/06/28
  */
-public class MysqlProcedureTypeTreeItemValue extends RichTreeItemValue {
+public class MysqlViewsTreeItemValue extends RichTreeItemValue {
 
-    public MysqlProcedureTypeTreeItemValue(MysqlProcedureTypeTreeItem item) {
+    public MysqlViewsTreeItemValue(MysqlViewsTreeItem item) {
         super(item);
     }
 
     @Override
-    public MysqlProcedureTypeTreeItem item() {
-        return (MysqlProcedureTypeTreeItem) super.item();
+    public String name() {
+        return I18nHelper.view();
     }
 
     @Override
-    public String name() {
-        return I18nHelper.procedure();
+    protected MysqlViewsTreeItem item() {
+        return (MysqlViewsTreeItem) super.item();
     }
 
     @Override
     public SVGGlyph graphic() {
         if (this.graphic == null) {
-            this.graphic = new ProcedureSVGGlyph("12");
+            this.graphic = new ViewSVGGlyph("12");
             this.graphic.disableTheme();
         }
-        return this.graphic;
+        return super.graphic();
     }
 
     @Override
     public Color graphicColor() {
-        SVGGlyph glyph = this.graphic();
-        if (!this.item.isChildEmpty()) {
-            return Color.GREEN;
+        if (!this.item().isChildEmpty()) {
+           return Color.GREEN;
         }
         return super.graphicColor();
     }
 
     @Override
     public String extra() {
-        Integer size = this.item().procedureSize();
+        Integer size = this.item().viewSize();
         if (size != null) {
             return " (" + size + ")";
         }

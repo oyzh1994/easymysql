@@ -1,45 +1,43 @@
-package cn.oyzh.easymysql.trees.query;
+package cn.oyzh.easymysql.trees.event;
 
-import cn.oyzh.fx.gui.svg.glyph.QuerySVGGlyph;
+import cn.oyzh.easymysql.fx.svg.glyph.EventSVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.paint.Color;
 
 /**
- * db树表类型值
- *
  * @author oyzh
- * @since 2023/12/08
+ * @since 2024/09/09
  */
-public class MysqlQueryTypeTreeItemValue extends RichTreeItemValue {
+public class MysqlEventsTreeItemValue extends RichTreeItemValue {
 
-    public MysqlQueryTypeTreeItemValue(MysqlQueryTypeTreeItem item) {
+    public MysqlEventsTreeItemValue(MysqlEventsTreeItem item) {
         super(item);
     }
 
     @Override
-    public MysqlQueryTypeTreeItem item() {
-        return (MysqlQueryTypeTreeItem) super.item();
+    protected MysqlEventsTreeItem item() {
+        return (MysqlEventsTreeItem) super.item();
     }
 
     @Override
     public String name() {
-        return I18nHelper.queries();
+        return I18nHelper.event();
     }
 
     @Override
     public SVGGlyph graphic() {
         if (this.graphic == null) {
-            this.graphic = new QuerySVGGlyph("12");
+            this.graphic = new EventSVGGlyph("12");
             this.graphic.disableTheme();
         }
-        return this.graphic;
+        return super.graphic();
     }
 
     @Override
     public Color graphicColor() {
-        if (!this.item.isChildEmpty()) {
+        if (!this.item().isChildEmpty()) {
             return Color.GREEN;
         }
         return super.graphicColor();
@@ -47,7 +45,7 @@ public class MysqlQueryTypeTreeItemValue extends RichTreeItemValue {
 
     @Override
     public String extra() {
-        Integer size = this.item().querySize();
+        Integer size = this.item().eventSize();
         if (size != null) {
             return " (" + size + ")";
         }

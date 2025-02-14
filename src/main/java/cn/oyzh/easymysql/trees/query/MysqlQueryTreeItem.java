@@ -8,15 +8,12 @@ import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.store.MysqlQueryStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.easymysql.trees.procedure.MysqlProcedureTypeTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.i18n.I18nHelper;
-import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TreeItem;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
@@ -47,8 +44,8 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
     }
 
     @Override
-    public MysqlQueryTypeTreeItem parent(){
-        return (MysqlQueryTypeTreeItem) super.parent();
+    public MysqlQueriesTreeItem parent(){
+        return (MysqlQueriesTreeItem) super.parent();
     }
 
     /**

@@ -44,17 +44,17 @@ public class MysqlDatabaseTreeItemValue extends RichTreeItemValue {
         return super.graphicColor();
     }
 
-    @Override
-    public String extra() {
-        Integer tableSize = this.item().tableSize();
-        if (tableSize != null) {
-            return " (" + tableSize + ")";
-        }
-        return super.extra();
-    }
-
-    @Override
-    public Color extraColor() {
-        return Color.valueOf("#228B22");
-    }
+//    @Override
+//    public String extra() {
+//        Integer tableSize = this.item().tableSize();
+//        if (tableSize != null) {
+//            return " (" + tableSize + ")";
+//        }
+//        return super.extra();
+//    }
+//
+//    @Override
+//    public Color extraColor() {
+//        return Color.valueOf("#228B22");
+//    }
 }

@@ -11,9 +11,7 @@ import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.i18n.I18nHelper;
-import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TreeItem;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
@@ -43,8 +41,8 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
     }
 
     @Override
-    public MysqlFunctionTypeTreeItem parent() {
-        return (MysqlFunctionTypeTreeItem) super.parent();
+    public MysqlFunctionsTreeItem parent() {
+        return (MysqlFunctionsTreeItem) super.parent();
     }
 
     /**

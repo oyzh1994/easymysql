@@ -1,9 +1,9 @@
-package cn.oyzh.easymysql.trees.event;
+package cn.oyzh.easymysql.trees.view;
 
 import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
@@ -13,26 +13,25 @@ import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
 import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
-import cn.oyzh.i18n.I18nHelper;
 import javafx.collections.ObservableList;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * db树表类型节点
+ *
  * @author oyzh
- * @since 2024/09/09
+ * @since 2023/12/08
  */
-public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItemValue> {
+public class MysqlViewsTreeItem extends DBTreeItem<MysqlViewsTreeItemValue> {
 
-    public MysqlEventTypeTreeItem(RichTreeView treeView) {
+    public MysqlViewsTreeItem(RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
-        this.setValue(new MysqlEventTypeTreeItemValue(this));
+        this.setValue(new MysqlViewsTreeItemValue(this));
     }
 
     @Override
@@ -43,7 +42,7 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItemVal
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        FXMenuItem add = MenuItemHelper.addEvent("12", this::add);
+        FXMenuItem add = MenuItemHelper.addView("12", this::add);
         FXMenuItem reload = MenuItemHelper.refreshData("12", this::reloadChild);
         items.add(reload);
         items.add(add);
@@ -51,9 +50,9 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItemVal
     }
 
     private void add() {
-        MysqlEvent event = new MysqlEvent();
-        event.setDbName(this.dbName());
-        MysqlEventUtil.designEvent(event, this.parent());
+        MysqlView dbView = new MysqlView();
+        dbView.setDbName(this.dbName());
+        MysqlEventUtil.designView(dbView, this.parent());
     }
 
     @Override
@@ -68,40 +67,41 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItemVal
             this.setLoading(true);
             Task task = TaskBuilder.newBuilder()
                     .onStart(() -> {
-                        List<MysqlEvent> events = this.client().events(this.dbName());
+                        List<MysqlView> views = this.client().views(this.dbName());
                         // 无数据直接更新列表
                         if (this.isChildEmpty()) {
                             List<TreeItem<?>> list = new ArrayList<>();
-                            for (MysqlEvent event : events) {
-                                list.add(new MysqlEventTreeItem(event, this.getTreeView()));
+                            for (MysqlView view : views) {
+                                list.add(new MysqlViewTreeItem(view, this.getTreeView()));
                             }
                             this.setChild(list);
                         } else {// 有数据则执行删除、新增、更新操作
-                            ObservableList<MysqlEventTreeItem> list = (ObservableList) this.richChildren();
-                            List<MysqlEventTreeItem> delList = new ArrayList<>();
-                            List<MysqlEventTreeItem> addList = new ArrayList<>();
+                            ObservableList children = this.richChildren();
+                            ObservableList<MysqlViewTreeItem> list = children;
+                            List<MysqlViewTreeItem> delList = new ArrayList<>();
+                            List<MysqlViewTreeItem> addList = new ArrayList<>();
                             // 删除
-                            for (MysqlEventTreeItem item : list) {
-                                if (events.parallelStream().noneMatch(f -> f.compare(item.value()))) {
+                            for (MysqlViewTreeItem item : list) {
+                                if (views.parallelStream().noneMatch(f -> f.compare(item.value()))) {
                                     delList.add(item);
                                 }
                             }
                             // 新增
-                            for (MysqlEvent f : events) {
+                            for (MysqlView f : views) {
                                 if (list.parallelStream().noneMatch(item -> f.compare(item.value()))) {
-                                    addList.add(new MysqlEventTreeItem(f, this.getTreeView()));
+                                    addList.add(new MysqlViewTreeItem(f, this.getTreeView()));
                                 }
                             }
                             // 更新
-                            for (MysqlEventTreeItem item : list) {
+                            for (MysqlViewTreeItem item : list) {
                                 if (!addList.contains(item) && !delList.contains(item)) {
-                                    events.parallelStream().filter(f -> f.compare(item.value())).findFirst().ifPresent(f -> item.value().copy(f));
+                                    views.parallelStream().filter(f -> f.compare(item.value())).findFirst().ifPresent(f -> item.value().copy(f));
                                 }
                             }
                             list.removeAll(delList);
                             list.addAll(addList);
-                            this.expend();
                         }
+                        this.expend();
                     })
                     .onError(ex -> {
                         this.setLoaded(false);
@@ -117,9 +117,9 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItemVal
 
     @Override
     public void reloadChild() {
-       this.clearChild();
-       this.setLoaded(false);
-       this.loadChild();
+        this.clearChild();
+        this.setLoaded(false);
+        this.loadChild();
     }
 
     public String dbName() {
@@ -128,6 +128,10 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItemVal
 
     public DBClient client() {
         return this.parent().client();
+    }
+
+    public Integer viewSize() {
+        return this.parent().viewSize();
     }
 
     public MysqlConnect info() {
@@ -152,9 +156,4 @@ public class MysqlEventTypeTreeItem extends DBTreeItem<MysqlEventTypeTreeItemVal
         super.doFilter(itemFilter);
         this.refresh();
     }
-
-    public Integer eventSize() {
-        return this.client().eventSize(this.dbName());
-    }
-
 }

@@ -1,9 +1,9 @@
-package cn.oyzh.easymysql.trees.procedure;
+package cn.oyzh.easymysql.trees.function;
 
 import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
+import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
@@ -13,29 +13,25 @@ import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
 import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
-import cn.oyzh.i18n.I18nHelper;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * db树过程类型节点
+ * db树函数类型节点
  *
  * @author oyzh
  * @since 2024/06/29
  */
-public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTreeItemValue> {
+public class MysqlFunctionsTreeItem extends DBTreeItem<MysqlFunctionsTreeItemValue> {
 
-    public MysqlProcedureTypeTreeItem(RichTreeView treeView) {
+    public MysqlFunctionsTreeItem(RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
-        this.setValue(new MysqlProcedureTypeTreeItemValue(this));
+        this.setValue(new MysqlFunctionsTreeItemValue(this));
     }
 
     @Override
@@ -46,17 +42,17 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        FXMenuItem add = MenuItemHelper.addProcedure("12", this::add);
+        FXMenuItem add = MenuItemHelper.addFunction("12", this::add);
         FXMenuItem reload = MenuItemHelper.refreshData("12", this::reloadChild);
-        items.add(reload);
         items.add(add);
+        items.add(reload);
         return items;
     }
 
     private void add() {
-        MysqlProcedure procedure = new MysqlProcedure();
-        procedure.setDbName(this.dbName());
-        MysqlEventUtil.designProcedure(procedure, this.parent());
+        MysqlFunction function = new MysqlFunction();
+        function.setDbName(this.dbName());
+        MysqlEventUtil.designFunction(function, this.parent());
     }
 
     @Override
@@ -68,53 +64,54 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
      * 加载子节点
      */
     public void loadChild() {
-        if (!this.isWaiting() && !this.isLoaded() && !this.isLoading()) {
+        if (!this.isLoaded() && !this.isLoading()) {
             this.setLoaded(true);
             this.setLoading(true);
             Task task = TaskBuilder.newBuilder()
                     .onStart(() -> {
-                        List<MysqlProcedure> procedures = this.client().procedures(this.dbName());
+                        List<MysqlFunction> functions = this.client().functions(this.dbName());
                         // 无数据直接更新列表
                         if (this.isChildEmpty()) {
                             List<TreeItem<?>> list = new ArrayList<>();
-                            for (MysqlProcedure procedure : procedures) {
-                                list.add(new MysqlProcedureTreeItem(procedure, this.getTreeView()));
+                            for (MysqlFunction function : functions) {
+                                list.add(new MysqlFunctionTreeItem(function, this.getTreeView()));
                             }
                             this.setChild(list);
                         } else {// 有数据则执行删除、新增、更新操作
-                            ObservableList children = this.richChildren();
-                            ObservableList<MysqlProcedureTreeItem> list = children;
-                            List<MysqlProcedureTreeItem> delList = new ArrayList<>();
-                            List<MysqlProcedureTreeItem> addList = new ArrayList<>();
+                            ObservableList<MysqlFunctionTreeItem> list = (ObservableList) this.richChildren();
+                            List<MysqlFunctionTreeItem> delList = new ArrayList<>();
+                            List<MysqlFunctionTreeItem> addList = new ArrayList<>();
                             // 删除
-                            for (MysqlProcedureTreeItem item : list) {
-                                if (procedures.parallelStream().noneMatch(f -> f.compare(item.value()))) {
+                            for (MysqlFunctionTreeItem item : list) {
+                                if (functions.parallelStream().noneMatch(f -> f.compare(item.value()))) {
                                     delList.add(item);
                                 }
                             }
                             // 新增
-                            for (MysqlProcedure f : procedures) {
+                            for (MysqlFunction f : functions) {
                                 if (list.parallelStream().noneMatch(item -> f.compare(item.value()))) {
-                                    addList.add(new MysqlProcedureTreeItem(f, this.getTreeView()));
+                                    addList.add(new MysqlFunctionTreeItem(f, this.getTreeView()));
                                 }
                             }
                             // 更新
-                            for (MysqlProcedureTreeItem item : list) {
+                            for (MysqlFunctionTreeItem item : list) {
                                 if (!addList.contains(item) && !delList.contains(item)) {
-                                    procedures.parallelStream().filter(f -> f.compare(item.value())).findFirst().ifPresent(f -> item.value().copy(f));
+                                    functions.parallelStream().filter(f -> f.compare(item.value())).findFirst().ifPresent(f -> item.value().copy(f));
                                 }
                             }
                             list.removeAll(delList);
                             list.addAll(addList);
                         }
-                        this.expend();
                     })
                     .onError(ex -> {
                         this.setLoaded(false);
                         MessageBox.exception(ex);
                     })
                     .onSuccess(this::refresh)
-                    .onFinish(() -> this.setLoading(false))
+                    .onFinish(() -> {
+                        this.setLoading(false);
+                        this.stopWaiting();
+                    })
                     .build();
             // 执行业务
             this.startWaiting(task);
@@ -159,7 +156,7 @@ public class MysqlProcedureTypeTreeItem extends DBTreeItem<MysqlProcedureTypeTre
         this.refresh();
     }
 
-    public Integer procedureSize() {
-        return this.client().procedureSize(this.dbName(), null);
+    public Integer functionSize() {
+        return this.client().functionSize(this.dbName(), null);
     }
 }

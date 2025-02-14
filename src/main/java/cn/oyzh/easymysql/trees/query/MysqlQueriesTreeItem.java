@@ -12,12 +12,9 @@ import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
 import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
-import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import lombok.Getter;
 import lombok.NonNull;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +25,12 @@ import java.util.List;
  * @author oyzh
  * @since 2024/01/31
  */
-public class MysqlQueryTypeTreeItem extends DBTreeItem<MysqlQueryTypeTreeItemValue> {
+public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> {
 
-    public MysqlQueryTypeTreeItem(RichTreeView treeView) {
+    public MysqlQueriesTreeItem(RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
-        this.setValue(new MysqlQueryTypeTreeItemValue(this));
+        this.setValue(new MysqlQueriesTreeItemValue(this));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package cn.oyzh.easymysql.trees.database;
 
+import cn.oyzh.common.thread.Task;
+import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
 import cn.oyzh.easymysql.controller.data.MysqlRunSqlFileController;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseInfoController;
@@ -32,16 +34,16 @@ import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.event.MysqlEventTreeItem;
-import cn.oyzh.easymysql.trees.event.MysqlEventTypeTreeItem;
+import cn.oyzh.easymysql.trees.event.MysqlEventsTreeItem;
 import cn.oyzh.easymysql.trees.function.MysqlFunctionTreeItem;
-import cn.oyzh.easymysql.trees.function.MysqlFunctionTypeTreeItem;
+import cn.oyzh.easymysql.trees.function.MysqlFunctionsTreeItem;
 import cn.oyzh.easymysql.trees.procedure.MysqlProcedureTreeItem;
-import cn.oyzh.easymysql.trees.procedure.MysqlProcedureTypeTreeItem;
-import cn.oyzh.easymysql.trees.query.MysqlQueryTypeTreeItem;
+import cn.oyzh.easymysql.trees.procedure.MysqlProceduresTreeItem;
+import cn.oyzh.easymysql.trees.query.MysqlQueriesTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
-import cn.oyzh.easymysql.trees.table.MysqlTableTypeTreeItem;
+import cn.oyzh.easymysql.trees.table.MysqlTablesTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
-import cn.oyzh.easymysql.trees.view.MysqlViewTypeTreeItem;
+import cn.oyzh.easymysql.trees.view.MysqlViewsTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.gui.tree.view.RichTreeItem;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
@@ -172,18 +174,32 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         MysqlEventUtil.databaseClosed(this);
     }
 
-    /**
-     * 初始化类型
-     */
-    private void initTypes() {
-        List<TreeItem<?>> typeItems = new ArrayList<>();
-        typeItems.add(new MysqlTableTypeTreeItem(this.getTreeView()));
-        typeItems.add(new MysqlViewTypeTreeItem(this.getTreeView()));
-        typeItems.add(new MysqlFunctionTypeTreeItem(this.getTreeView()));
-        typeItems.add(new MysqlProcedureTypeTreeItem(this.getTreeView()));
-        typeItems.add(new MysqlEventTypeTreeItem(this.getTreeView()));
-        typeItems.add(new MysqlQueryTypeTreeItem(this.getTreeView()));
-        super.setChild(typeItems);
+    @Override
+    public void loadChild() {
+        if (!this.isLoading() && !this.isLoaded()) {
+            this.setLoaded(true);
+            this.setLoading(true);
+            Task task = TaskBuilder.newBuilder()
+                    .onStart(() -> {
+                        List<TreeItem<?>> typeItems = new ArrayList<>();
+                        typeItems.add(new MysqlTablesTreeItem(this.getTreeView()));
+                        typeItems.add(new MysqlViewsTreeItem(this.getTreeView()));
+                        typeItems.add(new MysqlFunctionsTreeItem(this.getTreeView()));
+                        typeItems.add(new MysqlProceduresTreeItem(this.getTreeView()));
+                        typeItems.add(new MysqlEventsTreeItem(this.getTreeView()));
+                        typeItems.add(new MysqlQueriesTreeItem(this.getTreeView()));
+                        super.setChild(typeItems);
+                    })
+                    .onSuccess(this::expend)
+                    .onError(ex -> {
+                        this.setLoaded(false);
+                        MessageBox.error(ex.getMessage());
+                    })
+                    .onFinish(() -> this.setLoading(false))
+                    .build();
+            super.startWaiting(task);
+        }
+
     }
 
     /**
@@ -191,9 +207,9 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      *
      * @return 表类型子节点
      */
-    public MysqlTableTypeTreeItem getTableTypeChild() {
+    public MysqlTablesTreeItem getTableTypeChild() {
         for (RichTreeItem<?> child : this.richChildren()) {
-            if (child instanceof MysqlTableTypeTreeItem treeItem) {
+            if (child instanceof MysqlTablesTreeItem treeItem) {
                 return treeItem;
             }
         }
@@ -220,9 +236,9 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      *
      * @return 查询类型子节点
      */
-    public MysqlQueryTypeTreeItem getQueryTypeChild() {
+    public MysqlQueriesTreeItem getQueryTypeChild() {
         for (RichTreeItem<?> child : this.richChildren()) {
-            if (child instanceof MysqlQueryTypeTreeItem treeItem) {
+            if (child instanceof MysqlQueriesTreeItem treeItem) {
                 return treeItem;
             }
         }
@@ -234,9 +250,9 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      *
      * @return 函数类型子节点
      */
-    public MysqlFunctionTypeTreeItem getFunctionTypeChild() {
+    public MysqlFunctionsTreeItem getFunctionTypeChild() {
         for (RichTreeItem<?> child : this.richChildren()) {
-            if (child instanceof MysqlFunctionTypeTreeItem treeItem) {
+            if (child instanceof MysqlFunctionsTreeItem treeItem) {
                 return treeItem;
             }
         }
@@ -263,9 +279,9 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      *
      * @return 过程类型子节点
      */
-    public MysqlProcedureTypeTreeItem getProcedureTypeChild() {
+    public MysqlProceduresTreeItem getProcedureTypeChild() {
         for (RichTreeItem<?> child : this.richChildren()) {
-            if (child instanceof MysqlProcedureTypeTreeItem treeItem) {
+            if (child instanceof MysqlProceduresTreeItem treeItem) {
                 return treeItem;
             }
         }
@@ -287,9 +303,9 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return list;
     }
 
-    public MysqlEventTypeTreeItem getEventTypeChild() {
+    public MysqlEventsTreeItem getEventTypeChild() {
         for (RichTreeItem<?> child : this.richChildren()) {
-            if (child instanceof MysqlEventTypeTreeItem treeItem) {
+            if (child instanceof MysqlEventsTreeItem treeItem) {
                 return treeItem;
             }
         }
@@ -311,9 +327,9 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      *
      * @return 查询类型子节点
      */
-    public MysqlViewTypeTreeItem getViewTypeChild() {
+    public MysqlViewsTreeItem getViewTypeChild() {
         for (RichTreeItem<?> child : this.richChildren()) {
-            if (child instanceof MysqlViewTypeTreeItem treeItem) {
+            if (child instanceof MysqlViewsTreeItem treeItem) {
                 return treeItem;
             }
         }
@@ -367,9 +383,10 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
 
     @Override
     public void onPrimaryDoubleClick() {
-        if (this.isChildEmpty()) {
-            this.initTypes();
-            this.expend();
+        if (!this.isLoaded()) {
+            this.loadChild();
+        } else {
+            super.onPrimaryDoubleClick();
         }
     }
 
@@ -530,13 +547,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     @Override
     public synchronized void doFilter(RichTreeItemFilter itemFilter) {
         super.doFilter(itemFilter);
-        this.flushValue();
-    }
-
-    /**
-     * 刷新值
-     */
-    private void flushValue() {
+        this.refresh();
     }
 
     public MysqlEvent selectEvent(String eventName) {

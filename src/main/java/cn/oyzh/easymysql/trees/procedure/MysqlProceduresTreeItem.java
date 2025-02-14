@@ -1,9 +1,9 @@
-package cn.oyzh.easymysql.trees.view;
+package cn.oyzh.easymysql.trees.procedure;
 
 import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
@@ -13,29 +13,25 @@ import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
 import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
-import cn.oyzh.i18n.I18nHelper;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * db树表类型节点
+ * db树过程类型节点
  *
  * @author oyzh
- * @since 2023/12/08
+ * @since 2024/06/29
  */
-public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItemValue> {
+public class MysqlProceduresTreeItem extends DBTreeItem<MysqlProceduresTreeItemValue> {
 
-    public MysqlViewTypeTreeItem(RichTreeView treeView) {
+    public MysqlProceduresTreeItem(RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
-        this.setValue(new MysqlViewTypeTreeItemValue(this));
+        this.setValue(new MysqlProceduresTreeItemValue(this));
     }
 
     @Override
@@ -46,7 +42,7 @@ public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItemValue
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        FXMenuItem add = MenuItemHelper.addView("12", this::add);
+        FXMenuItem add = MenuItemHelper.addProcedure("12", this::add);
         FXMenuItem reload = MenuItemHelper.refreshData("12", this::reloadChild);
         items.add(reload);
         items.add(add);
@@ -54,9 +50,9 @@ public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItemValue
     }
 
     private void add() {
-        MysqlView dbView = new MysqlView();
-        dbView.setDbName(this.dbName());
-        MysqlEventUtil.designView(dbView, this.parent());
+        MysqlProcedure procedure = new MysqlProcedure();
+        procedure.setDbName(this.dbName());
+        MysqlEventUtil.designProcedure(procedure, this.parent());
     }
 
     @Override
@@ -64,42 +60,44 @@ public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItemValue
         return this.isVisible();
     }
 
-    @Override
+    /**
+     * 加载子节点
+     */
     public void loadChild() {
         if (!this.isWaiting() && !this.isLoaded() && !this.isLoading()) {
             this.setLoaded(true);
             this.setLoading(true);
             Task task = TaskBuilder.newBuilder()
                     .onStart(() -> {
-                        List<MysqlView> views = this.client().views(this.dbName());
+                        List<MysqlProcedure> procedures = this.client().procedures(this.dbName());
                         // 无数据直接更新列表
                         if (this.isChildEmpty()) {
                             List<TreeItem<?>> list = new ArrayList<>();
-                            for (MysqlView view : views) {
-                                list.add(new MysqlViewTreeItem(view, this.getTreeView()));
+                            for (MysqlProcedure procedure : procedures) {
+                                list.add(new MysqlProcedureTreeItem(procedure, this.getTreeView()));
                             }
                             this.setChild(list);
                         } else {// 有数据则执行删除、新增、更新操作
                             ObservableList children = this.richChildren();
-                            ObservableList<MysqlViewTreeItem> list = children;
-                            List<MysqlViewTreeItem> delList = new ArrayList<>();
-                            List<MysqlViewTreeItem> addList = new ArrayList<>();
+                            ObservableList<MysqlProcedureTreeItem> list = children;
+                            List<MysqlProcedureTreeItem> delList = new ArrayList<>();
+                            List<MysqlProcedureTreeItem> addList = new ArrayList<>();
                             // 删除
-                            for (MysqlViewTreeItem item : list) {
-                                if (views.parallelStream().noneMatch(f -> f.compare(item.value()))) {
+                            for (MysqlProcedureTreeItem item : list) {
+                                if (procedures.parallelStream().noneMatch(f -> f.compare(item.value()))) {
                                     delList.add(item);
                                 }
                             }
                             // 新增
-                            for (MysqlView f : views) {
+                            for (MysqlProcedure f : procedures) {
                                 if (list.parallelStream().noneMatch(item -> f.compare(item.value()))) {
-                                    addList.add(new MysqlViewTreeItem(f, this.getTreeView()));
+                                    addList.add(new MysqlProcedureTreeItem(f, this.getTreeView()));
                                 }
                             }
                             // 更新
-                            for (MysqlViewTreeItem item : list) {
+                            for (MysqlProcedureTreeItem item : list) {
                                 if (!addList.contains(item) && !delList.contains(item)) {
-                                    views.parallelStream().filter(f -> f.compare(item.value())).findFirst().ifPresent(f -> item.value().copy(f));
+                                    procedures.parallelStream().filter(f -> f.compare(item.value())).findFirst().ifPresent(f -> item.value().copy(f));
                                 }
                             }
                             list.removeAll(delList);
@@ -134,10 +132,6 @@ public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItemValue
         return this.parent().client();
     }
 
-    public Integer viewSize() {
-        return this.parent().viewSize();
-    }
-
     public MysqlConnect info() {
         return this.parent().info();
     }
@@ -159,5 +153,9 @@ public class MysqlViewTypeTreeItem extends DBTreeItem<MysqlViewTypeTreeItemValue
     public synchronized void doFilter(RichTreeItemFilter itemFilter) {
         super.doFilter(itemFilter);
         this.refresh();
+    }
+
+    public Integer procedureSize() {
+        return this.client().procedureSize(this.dbName(), null);
     }
 }

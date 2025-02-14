@@ -17,13 +17,9 @@ import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
-import cn.oyzh.i18n.I18nHelper;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +30,12 @@ import java.util.List;
  * @author oyzh
  * @since 2023/12/08
  */
-public class MysqlTableTypeTreeItem extends DBTreeItem<MysqlTableTypeTreeItemValue> {
+public class MysqlTablesTreeItem extends DBTreeItem<MysqlTablesTreeItemValue> {
 
-    public MysqlTableTypeTreeItem(RichTreeView treeView) {
+    public MysqlTablesTreeItem(RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
-        this.setValue(new MysqlTableTypeTreeItemValue(this));
+        this.setValue(new MysqlTablesTreeItemValue(this));
     }
 
     @Override

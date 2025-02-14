@@ -45,8 +45,8 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
     }
 
     @Override
-    public MysqlEventTypeTreeItem parent(){
-        return (MysqlEventTypeTreeItem) super.parent();
+    public MysqlEventsTreeItem parent(){
+        return (MysqlEventsTreeItem) super.parent();
     }
 
     /**
@@ -115,10 +115,5 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
     public String eventName() {
         return this.value.getName();
     }
-
-//    @Override
-//    public boolean supportFilter() {
-//        return true;
-//    }
 
 }

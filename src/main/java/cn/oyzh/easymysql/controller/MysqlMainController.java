@@ -12,7 +12,7 @@ import cn.oyzh.easymysql.trees.DBTreeView;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.query.MysqlQueryTreeItem;
-import cn.oyzh.easymysql.trees.query.MysqlQueryTypeTreeItem;
+import cn.oyzh.easymysql.trees.query.MysqlQueriesTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.fx.gui.event.Layout1Event;
@@ -251,7 +251,7 @@ public class MysqlMainController extends ParentStageController {
             this.flushViewTitle(treeItem.dbConnect());
         } else if (event.data() instanceof MysqlQueryTreeItem treeItem) {
             this.flushViewTitle(treeItem.dbConnect());
-        } else if (event.data() instanceof MysqlQueryTypeTreeItem treeItem) {
+        } else if (event.data() instanceof MysqlQueriesTreeItem treeItem) {
             this.flushViewTitle(treeItem.dbConnect());
         } else {
             this.flushViewTitle(null);

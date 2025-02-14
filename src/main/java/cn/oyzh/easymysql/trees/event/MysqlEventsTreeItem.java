@@ -1,9 +1,9 @@
-package cn.oyzh.easymysql.trees.function;
+package cn.oyzh.easymysql.trees.event;
 
 import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.function.MysqlFunction;
+import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
@@ -21,17 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * db树函数类型节点
- *
  * @author oyzh
- * @since 2024/06/29
+ * @since 2024/09/09
  */
-public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeItemValue> {
+public class MysqlEventsTreeItem extends DBTreeItem<MysqlEventsTreeItemValue> {
 
-    public MysqlFunctionTypeTreeItem(RichTreeView treeView) {
+    public MysqlEventsTreeItem(RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
-        this.setValue(new MysqlFunctionTypeTreeItemValue(this));
+        this.setValue(new MysqlEventsTreeItemValue(this));
     }
 
     @Override
@@ -42,17 +40,17 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        FXMenuItem add = MenuItemHelper.addFunction("12", this::add);
+        FXMenuItem add = MenuItemHelper.addEvent("12", this::add);
         FXMenuItem reload = MenuItemHelper.refreshData("12", this::reloadChild);
-        items.add(add);
         items.add(reload);
+        items.add(add);
         return items;
     }
 
     private void add() {
-        MysqlFunction function = new MysqlFunction();
-        function.setDbName(this.dbName());
-        MysqlEventUtil.designFunction(function, this.parent());
+        MysqlEvent event = new MysqlEvent();
+        event.setDbName(this.dbName());
+        MysqlEventUtil.designEvent(event, this.parent());
     }
 
     @Override
@@ -60,47 +58,46 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
         return this.isVisible();
     }
 
-    /**
-     * 加载子节点
-     */
+    @Override
     public void loadChild() {
-        if (!this.isLoaded() && !this.isLoading()) {
+        if (!this.isWaiting() && !this.isLoaded() && !this.isLoading()) {
             this.setLoaded(true);
             this.setLoading(true);
             Task task = TaskBuilder.newBuilder()
                     .onStart(() -> {
-                        List<MysqlFunction> functions = this.client().functions(this.dbName());
+                        List<MysqlEvent> events = this.client().events(this.dbName());
                         // 无数据直接更新列表
                         if (this.isChildEmpty()) {
                             List<TreeItem<?>> list = new ArrayList<>();
-                            for (MysqlFunction function : functions) {
-                                list.add(new MysqlFunctionTreeItem(function, this.getTreeView()));
+                            for (MysqlEvent event : events) {
+                                list.add(new MysqlEventTreeItem(event, this.getTreeView()));
                             }
                             this.setChild(list);
                         } else {// 有数据则执行删除、新增、更新操作
-                            ObservableList<MysqlFunctionTreeItem> list = (ObservableList) this.richChildren();
-                            List<MysqlFunctionTreeItem> delList = new ArrayList<>();
-                            List<MysqlFunctionTreeItem> addList = new ArrayList<>();
+                            ObservableList<MysqlEventTreeItem> list = (ObservableList) this.richChildren();
+                            List<MysqlEventTreeItem> delList = new ArrayList<>();
+                            List<MysqlEventTreeItem> addList = new ArrayList<>();
                             // 删除
-                            for (MysqlFunctionTreeItem item : list) {
-                                if (functions.parallelStream().noneMatch(f -> f.compare(item.value()))) {
+                            for (MysqlEventTreeItem item : list) {
+                                if (events.parallelStream().noneMatch(f -> f.compare(item.value()))) {
                                     delList.add(item);
                                 }
                             }
                             // 新增
-                            for (MysqlFunction f : functions) {
+                            for (MysqlEvent f : events) {
                                 if (list.parallelStream().noneMatch(item -> f.compare(item.value()))) {
-                                    addList.add(new MysqlFunctionTreeItem(f, this.getTreeView()));
+                                    addList.add(new MysqlEventTreeItem(f, this.getTreeView()));
                                 }
                             }
                             // 更新
-                            for (MysqlFunctionTreeItem item : list) {
+                            for (MysqlEventTreeItem item : list) {
                                 if (!addList.contains(item) && !delList.contains(item)) {
-                                    functions.parallelStream().filter(f -> f.compare(item.value())).findFirst().ifPresent(f -> item.value().copy(f));
+                                    events.parallelStream().filter(f -> f.compare(item.value())).findFirst().ifPresent(f -> item.value().copy(f));
                                 }
                             }
                             list.removeAll(delList);
                             list.addAll(addList);
+                            this.expend();
                         }
                     })
                     .onError(ex -> {
@@ -108,10 +105,7 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
                         MessageBox.exception(ex);
                     })
                     .onSuccess(this::refresh)
-                    .onFinish(() -> {
-                        this.setLoading(false);
-                        this.stopWaiting();
-                    })
+                    .onFinish(() -> this.setLoading(false))
                     .build();
             // 执行业务
             this.startWaiting(task);
@@ -120,9 +114,9 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
 
     @Override
     public void reloadChild() {
-        this.clearChild();
-        this.setLoaded(false);
-        this.loadChild();
+       this.clearChild();
+       this.setLoaded(false);
+       this.loadChild();
     }
 
     public String dbName() {
@@ -156,7 +150,8 @@ public class MysqlFunctionTypeTreeItem extends DBTreeItem<MysqlFunctionTypeTreeI
         this.refresh();
     }
 
-    public Integer functionSize() {
-        return this.client().functionSize(this.dbName(), null);
+    public Integer eventSize() {
+        return this.client().eventSize(this.dbName());
     }
+
 }
