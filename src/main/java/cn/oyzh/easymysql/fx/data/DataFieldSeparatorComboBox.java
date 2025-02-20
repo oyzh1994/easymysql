@@ -1,13 +1,13 @@
 package cn.oyzh.easymysql.fx.data;
 
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 import cn.oyzh.i18n.I18nHelper;
 
 /**
  * @author oyzh
  * @since 2024/09/04
  */
-public class DataFieldSeparatorComboBox extends FlexComboBox<String> {
+public class DataFieldSeparatorComboBox extends FXComboBox<String> {
 
     {
         this.addItem(I18nHelper.semicolon() + "(;)");

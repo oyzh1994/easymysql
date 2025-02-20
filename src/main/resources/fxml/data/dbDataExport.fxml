@@ -6,17 +6,17 @@
 <?import cn.oyzh.easymysql.fx.data.DataFieldSeparatorComboBox?>
 <?import cn.oyzh.easymysql.fx.data.DataRecordSeparatorComboBox?>
 <?import cn.oyzh.easymysql.fx.data.DataTxtIdentifierComboBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
-<?import cn.oyzh.fx.plus.controls.button.FlexButton?>
+<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
+<?import cn.oyzh.fx.plus.controls.button.FXButton?>
 <?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXRadioButton?>
-<?import cn.oyzh.fx.plus.controls.table.FlexTableColumn?>
+<?import cn.oyzh.fx.plus.controls.table.FXTableColumn?>
 <?import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import cn.oyzh.fx.plus.controls.label.FlexLabel?>
+<?import cn.oyzh.fx.plus.controls.label.FXLabel?>
 <?import cn.oyzh.fx.gui.button.NextStepButton?>
 <?import cn.oyzh.fx.gui.button.CancelButton?>
 <?import cn.oyzh.fx.gui.button.PrevStepButton?>
@@ -25,15 +25,15 @@
 <?import cn.oyzh.fx.gui.button.ExportButton?>
 <?import cn.oyzh.fx.gui.button.StopButton?>
 <?import cn.oyzh.fx.gui.label.InfoLabel?>
-<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.data.MysqlDataExportController" realWidth="700" realHeight="650">
-    <FlexVBox fx:id="step1" flexHeight="100%" flexWidth="100%">
+    <FXVBox fx:id="step1" flexHeight="100%" flexWidth="100%">
         <InfoLabel text="%db.export.tip4">
             <VBox.margin>
                 <Insets left="30" top="10"/>
             </VBox.margin>
         </InfoLabel>
-        <FlexVBox flexHeight="100% - 100" flexWidth="100%">
+        <FXVBox flexHeight="100% - 100" flexWidth="100%">
             <fx:define>
                 <FXToggleGroup fx:id="fileType"/>
             </fx:define>
@@ -77,8 +77,8 @@
                     <Insets left="30" top="10"/>
                 </VBox.margin>
             </FXRadioButton>
-        </FlexVBox>
-        <FlexHBox flexWidth="100%">
+        </FXVBox>
+        <FXHBox flexWidth="100%">
             <NextStepButton onAction="#showStep2" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
                     <Insets left="30" top="15"/>
@@ -89,40 +89,40 @@
                     <Insets left="15" top="15"/>
                 </HBox.margin>
             </CancelButton>
-        </FlexHBox>
-    </FlexVBox>
-    <FlexVBox fx:id="step2" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
+        </FXHBox>
+    </FXVBox>
+    <FXVBox fx:id="step2" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
         <InfoLabel text="%db.export.tip5">
             <VBox.margin>
                 <Insets left="30" top="10"/>
             </VBox.margin>
         </InfoLabel>
-        <FlexVBox flexHeight="100% - 100" flexWidth="100%">
+        <FXVBox flexHeight="100% - 100" flexWidth="100%">
             <DataExportTableTableView fx:id="exportTableView" flexHeight="100% - 60" flexWidth="100% - 40">
                 <columns>
-                    <FlexTableColumn realWidth="50" fx:id="exportTableSelected"/>
-                    <FlexTableColumn flexWidth="35%" fx:id="exportTableName" text="%base.source" resizable="true"/>
-                    <FlexTableColumn flexWidth="65% - 65" fx:id="exportTableFilePath" text="%base.filePath"
+                    <FXTableColumn realWidth="50" fx:id="exportTableSelected"/>
+                    <FXTableColumn flexWidth="35%" fx:id="exportTableName" text="%base.source" resizable="true"/>
+                    <FXTableColumn flexWidth="65% - 65" fx:id="exportTableFilePath" text="%base.filePath"
                                      resizable="true"/>
                 </columns>
                 <VBox.margin>
                     <Insets left="30" top="10"/>
                 </VBox.margin>
             </DataExportTableTableView>
-            <FlexHBox flexWidth="100%" realHeight="50">
-                <FlexButton text="%base.selectAll" onAction="#selectAllTable" realHeight="30">
+            <FXHBox flexWidth="100%" realHeight="50">
+                <FXButton text="%base.selectAll" onAction="#selectAllTable" realHeight="30">
                     <HBox.margin>
                         <Insets left="30" top="10"/>
                     </HBox.margin>
-                </FlexButton>
-                <FlexButton text="%base.unselectAll" onAction="#unselectAllTable" realHeight="30">
+                </FXButton>
+                <FXButton text="%base.unselectAll" onAction="#unselectAllTable" realHeight="30">
                     <HBox.margin>
                         <Insets left="15" top="10"/>
                     </HBox.margin>
-                </FlexButton>
-            </FlexHBox>
-        </FlexVBox>
-        <FlexHBox flexWidth="100%">
+                </FXButton>
+            </FXHBox>
+        </FXVBox>
+        <FXHBox flexWidth="100%">
             <PrevStepButton onAction="#showStep1" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
                     <Insets left="30" top="15"/>
@@ -138,15 +138,15 @@
                     <Insets left="15" top="15"/>
                 </HBox.margin>
             </CancelButton>
-        </FlexHBox>
-    </FlexVBox>
-    <FlexVBox fx:id="step3" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
+        </FXHBox>
+    </FXVBox>
+    <FXVBox fx:id="step3" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
         <InfoLabel text="%db.export.tip6">
             <VBox.margin>
                 <Insets left="30" top="10"/>
             </VBox.margin>
         </InfoLabel>
-        <FlexVBox flexHeight="100% - 100" flexWidth="100%">
+        <FXVBox flexHeight="100% - 100" flexWidth="100%">
             <DataExportTableComboBox realHeight="30" flexWidth="100% - 140" fx:id="tableCombobox">
                 <VBox.margin>
                     <Insets left="30" top="10"/>
@@ -157,20 +157,20 @@
                     <Insets left="30" top="10"/>
                 </VBox.margin>
             </DataExportColumnListView>
-            <FlexHBox flexWidth="100%" realHeight="50">
-                <FlexButton text="%base.selectAll" onAction="#selectAllFiled" realHeight="30">
+            <FXHBox flexWidth="100%" realHeight="50">
+                <FXButton text="%base.selectAll" onAction="#selectAllFiled" realHeight="30">
                     <HBox.margin>
                         <Insets left="30" top="10"/>
                     </HBox.margin>
-                </FlexButton>
-                <FlexButton text="%base.unselectAll" onAction="#unselectAllField" realHeight="30">
+                </FXButton>
+                <FXButton text="%base.unselectAll" onAction="#unselectAllField" realHeight="30">
                     <HBox.margin>
                         <Insets left="15" top="10"/>
                     </HBox.margin>
-                </FlexButton>
-            </FlexHBox>
-        </FlexVBox>
-        <FlexHBox flexWidth="100%">
+                </FXButton>
+            </FXHBox>
+        </FXVBox>
+        <FXHBox flexWidth="100%">
             <PrevStepButton onAction="#showStep2" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
                     <Insets left="30" top="15"/>
@@ -186,15 +186,15 @@
                     <Insets left="15" top="15"/>
                 </HBox.margin>
             </CancelButton>
-        </FlexHBox>
-    </FlexVBox>
-    <FlexVBox fx:id="step4" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
+        </FXHBox>
+    </FXVBox>
+    <FXVBox fx:id="step4" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
         <InfoLabel text="%db.export.tip7">
             <VBox.margin>
                 <Insets left="30" top="10"/>
             </VBox.margin>
         </InfoLabel>
-        <FlexVBox flexHeight="100% - 100" flexWidth="100%">
+        <FXVBox flexHeight="100% - 100" flexWidth="100%">
             <FXCheckBox text="%db.export.tip10" fx:id="includeFields" selected="true" visible="false" managed="false"
                         groupId="includeFields">
                 <VBox.margin>
@@ -229,19 +229,19 @@
                     <Insets left="30" top="10"/>
                 </VBox.margin>
             </InfoLabel>
-            <FlexHBox realHeight="30" flexWidth="100%" groupId="dateFormat" managed="false" visible="false">
+            <FXHBox realHeight="30" flexWidth="100%" groupId="dateFormat" managed="false" visible="false">
                 <DataDateTextFiled realWidth="250" realHeight="30" promptText="%db.export.tip9"
                                    text="yyyy-MM-dd HH:mm:ss" fx:id="dateFormat">
                     <HBox.margin>
                         <Insets left="30" top="5"/>
                     </HBox.margin>
                 </DataDateTextFiled>
-                <FlexLabel fx:id="datePreview">
+                <FXLabel fx:id="datePreview">
                     <HBox.margin>
                         <Insets left="10" top="10"/>
                     </HBox.margin>
-                </FlexLabel>
-            </FlexHBox>
+                </FXLabel>
+            </FXHBox>
             <InfoLabel text="%base.recordSeparator" groupId="recordSeparator" managed="false" visible="false">
                 <VBox.margin>
                     <Insets left="30" top="10"/>
@@ -275,8 +275,8 @@
                     <Insets left="30" top="5"/>
                 </VBox.margin>
             </DataTxtIdentifierComboBox>
-        </FlexVBox>
-        <FlexHBox flexWidth="100%">
+        </FXVBox>
+        <FXHBox flexWidth="100%">
             <PrevStepButton onAction="#showStep3" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
                     <Insets left="30" top="15"/>
@@ -292,15 +292,15 @@
                     <Insets left="15" top="15"/>
                 </HBox.margin>
             </CancelButton>
-        </FlexHBox>
-    </FlexVBox>
-    <FlexVBox fx:id="step5" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
+        </FXHBox>
+    </FXVBox>
+    <FXVBox fx:id="step5" flexHeight="100%" flexWidth="100%" managed="false" visible="false">
         <InfoLabel text="%db.export.tip8">
             <VBox.margin>
                 <Insets left="30" top="10"/>
             </VBox.margin>
         </InfoLabel>
-        <FlexVBox flexWidth="100%" flexHeight="100% - 100">
+        <FXVBox flexWidth="100%" flexHeight="100% - 100">
             <MsgTextArea lineLimit="300" fx:id="exportMsg" flexWidth="100% - 80" flexHeight="100% - 50">
                 <VBox.margin>
                     <Insets left="30" top="10"/>
@@ -311,8 +311,8 @@
                     <Insets left="30" top="5"/>
                 </VBox.margin>
             </FXLabel>
-        </FlexVBox>
-        <FlexHBox flexWidth="100%">
+        </FXVBox>
+        <FXHBox flexWidth="100%">
             <PrevStepButton onAction="#showStep4" groupId="exec" realHeight="30" iconSizePercent="0.75">
                 <HBox.margin>
                     <Insets left="30" top="15"/>
@@ -334,6 +334,6 @@
                     <Insets left="15" top="15"/>
                 </HBox.margin>
             </CancelButton>
-        </FlexHBox>
-    </FlexVBox>
-</FlexVBox>
+        </FXHBox>
+    </FXVBox>
+</FXVBox>

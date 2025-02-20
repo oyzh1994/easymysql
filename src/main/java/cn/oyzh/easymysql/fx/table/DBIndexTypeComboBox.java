@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.table;
 
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * db索引类型选择框
@@ -8,7 +8,7 @@ import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
  * @author oyzh
  * @since 2024/01/24
  */
-public class DBIndexTypeComboBox extends FlexComboBox<String> {
+public class DBIndexTypeComboBox extends FXComboBox<String> {
 
     {
         this.addItem("NORMAL");

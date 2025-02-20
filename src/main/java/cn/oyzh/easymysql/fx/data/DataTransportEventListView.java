@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.fx.data;
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
-import cn.oyzh.fx.plus.controls.list.FlexListView;
+import cn.oyzh.fx.plus.controls.list.FXListView;
 import cn.oyzh.fx.plus.util.ListViewUtil;
 import lombok.Setter;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @author oyzh
  * @since 2024/09/05
  */
-public class DataTransportEventListView extends FlexListView<FXCheckBox> {
+public class DataTransportEventListView extends FXListView<FXCheckBox> {
 
     @Setter
     private Runnable selectedChanged;

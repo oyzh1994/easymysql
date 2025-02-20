@@ -11,10 +11,10 @@
 //import cn.oyzh.event.EventSubscribe;
 //import cn.oyzh.fx.gui.text.field.SearchTextField;
 //import cn.oyzh.fx.plus.controller.SubStageController;
-//import cn.oyzh.fx.plus.controls.box.FlexVBox;
+//import cn.oyzh.fx.plus.controls.box.FXVBox;
 //import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 //import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-//import cn.oyzh.fx.plus.controls.text.FlexText;
+//import cn.oyzh.fx.plus.controls.text.FXText;
 //import cn.oyzh.fx.plus.i18n.I18nHelper;
 //import cn.oyzh.fx.plus.information.MessageBox;
 //import com.google.common.eventbus.Subscribe;
@@ -51,7 +51,7 @@
 //     * 搜索-主面板
 //     */
 //    @FXML
-//    private FlexVBox searchMain;
+//    private FXVBox searchMain;
 //
 //    /**
 //     * 搜索-下一个
@@ -93,7 +93,7 @@
 //     * 搜索-搜索结果
 //     */
 //    @FXML
-//    private FlexText searchResult;
+//    private FXText searchResult;
 //
 //    /**
 //     * db树

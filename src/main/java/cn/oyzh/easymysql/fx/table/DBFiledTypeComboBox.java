@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.table;
 
 import cn.oyzh.easymysql.util.DBColumnUtil;
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * db字段类型选择框
@@ -9,7 +9,7 @@ import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
  * @author oyzh
  * @since 2024/07/03
  */
-public class DBFiledTypeComboBox extends FlexComboBox<String> {
+public class DBFiledTypeComboBox extends FXComboBox<String> {
 
     {
         this.setItem(DBColumnUtil.fields());

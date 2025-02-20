@@ -9,10 +9,10 @@
 //import cn.oyzh.fx.gui.text.field.NumberTextField;
 //import cn.oyzh.fx.plus.FXConst;
 //import cn.oyzh.fx.plus.controller.StageController;
-//import cn.oyzh.fx.plus.controls.box.FlexHBox;
+//import cn.oyzh.fx.plus.controls.box.FXHBox;
 //import cn.oyzh.fx.plus.controls.button.FXCheckBox;
-//import cn.oyzh.fx.plus.controls.picker.FlexColorPicker;
-//import cn.oyzh.fx.plus.controls.text.FlexSlider;
+//import cn.oyzh.fx.plus.controls.picker.FXColorPicker;
+//import cn.oyzh.fx.plus.controls.text.FXSlider;
 //import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
 //import cn.oyzh.fx.plus.font.FontFamilyComboBox;
 //import cn.oyzh.fx.plus.font.FontManager;
@@ -109,37 +109,37 @@
 //     * 背景色
 //     */
 //    @FXML
-//    private FlexColorPicker bgColor;
+//    private FXColorPicker bgColor;
 //
 //    /**
 //     * 前景色
 //     */
 //    @FXML
-//    private FlexColorPicker fgColor;
+//    private FXColorPicker fgColor;
 //
 //    /**
 //     * 强调色
 //     */
 //    @FXML
-//    private FlexColorPicker accentColor;
+//    private FXColorPicker accentColor;
 //
 //    /**
 //     * 背景色
 //     */
 //    @FXML
-//    private FlexHBox bgColorBox;
+//    private FXHBox bgColorBox;
 //
 //    /**
 //     * 前景色
 //     */
 //    @FXML
-//    private FlexHBox fgColorBox;
+//    private FXHBox fgColorBox;
 //
 //    /**
 //     * 强调色
 //     */
 //    @FXML
-//    private FlexHBox accentColorBox;
+//    private FXHBox accentColorBox;
 //
 //    /**
 //     * 字体大小
@@ -223,13 +223,13 @@
 //     * 窗口透明度
 //     */
 //    @FXML
-//    private FlexSlider opacity;
+//    private FXSlider opacity;
 //
 //    /**
 //     * 标题栏透明度
 //     */
 //    @FXML
-//    private FlexSlider titleBarOpacity;
+//    private FXSlider titleBarOpacity;
 //
 //    /**
 //     * 配置对象

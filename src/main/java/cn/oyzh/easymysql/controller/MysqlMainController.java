@@ -19,9 +19,9 @@ import cn.oyzh.fx.gui.event.Layout1Event;
 import cn.oyzh.fx.gui.event.Layout2Event;
 import cn.oyzh.fx.plus.controller.ParentStageController;
 import cn.oyzh.fx.plus.controller.SubStageController;
-import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
+import cn.oyzh.fx.plus.controls.tab.FXTabPane;
 import cn.oyzh.fx.plus.keyboard.KeyListener;
-import cn.oyzh.fx.plus.node.NodeResizeHelper;
+import cn.oyzh.fx.plus.node.NodeResizer;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.TreeItem;
@@ -59,7 +59,7 @@ public class MysqlMainController extends ParentStageController {
      * 左侧组件
      */
     @FXML
-    private FlexTabPane tabPaneLeft;
+    private FXTabPane tabPaneLeft;
 
     /**
      * db切换面板
@@ -224,7 +224,7 @@ public class MysqlMainController extends ParentStageController {
         // // 文件拖拽初始化
         // this.stage.initDragFile(this.tree.getDragContent(), this.tree.getRoot()::dragFile);
         // 拖动改变redis树大小处理
-        NodeResizeHelper resizeHelper = new NodeResizeHelper(this.tabPaneLeft, Cursor.DEFAULT, this::resizeMainLeft);
+        NodeResizer resizeHelper = new NodeResizer(this.tabPaneLeft, Cursor.DEFAULT, this::resizeMainLeft);
         resizeHelper.widthLimit(240f, 650f);
         // // 初始化拉伸事件
         // this.tree.setOnMouseMoved(resizeHelper.mouseMoved());

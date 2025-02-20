@@ -1,10 +1,10 @@
 <!--<?xml version="1.0" encoding="UTF-8"?>-->
 <!--<?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>-->
 <!--<?import cn.oyzh.fx.plus.controls.button.FXRadioButton?>-->
-<!--<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>-->
-<!--<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>-->
-<!--<?import cn.oyzh.fx.plus.controls.picker.FlexColorPicker?>-->
-<!--<?import cn.oyzh.fx.plus.controls.tab.FlexTabPane?>-->
+<!--<?import cn.oyzh.fx.plus.controls.box.FXHBox?>-->
+<!--<?import cn.oyzh.fx.plus.controls.box.FXVBox?>-->
+<!--<?import cn.oyzh.fx.plus.controls.picker.FXColorPicker?>-->
+<!--<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>-->
 <!--<?import cn.oyzh.fx.plus.controls.tab.FXTab?>-->
 <!--<?import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup?>-->
 <!--<?import cn.oyzh.fx.plus.font.FontFamilyComboBox?>-->
@@ -16,16 +16,16 @@
 <!--<?import javafx.scene.layout.HBox?>-->
 <!--<?import javafx.scene.layout.VBox?>-->
 <!--<?import cn.oyzh.fx.gui.label.AccentLabel?>-->
-<!--<?import cn.oyzh.fx.plus.controls.text.FlexSlider?>-->
+<!--<?import cn.oyzh.fx.plus.controls.text.FXSlider?>-->
 <!--<?import cn.oyzh.fx.gui.button.ResetButton?>-->
 <!--<?import cn.oyzh.fx.gui.button.SaveButton?>-->
 <!--<?import cn.oyzh.fx.gui.button.CancelButton?>-->
-<!--<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"-->
+<!--<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"-->
 <!--          fx:controller="cn.oyzh.easymysql.controller.SettingController" realWidth="500" realHeight="350">-->
-<!--    <FlexTabPane flexWidth="100%" flexHeight="100% - 60">-->
+<!--    <FXTabPane flexWidth="100%" flexHeight="100% - 60">-->
 <!--        <FXTab text="%base.window">-->
-<!--            <FlexVBox flexWidth="100%" flexHeight="100%">-->
-<!--                <FlexHBox flexWidth="100%" realHeight="50">-->
+<!--            <FXVBox flexWidth="100%" flexHeight="100%">-->
+<!--                <FXHBox flexWidth="100%" realHeight="50">-->
 <!--                    <AccentLabel text="%base.close" realHeight="30" realWidth="100">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="20" top="10"/>-->
@@ -55,8 +55,8 @@
 <!--                    <VBox.margin>-->
 <!--                        <Insets top="10"/>-->
 <!--                    </VBox.margin>-->
-<!--                </FlexHBox>-->
-<!--                <FlexHBox flexWidth="100%" realHeight="50">-->
+<!--                </FXHBox>-->
+<!--                <FXHBox flexWidth="100%" realHeight="50">-->
 <!--                    <AccentLabel text="%base.remember" realHeight="30" realWidth="100">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="20" top="10"/>-->
@@ -80,18 +80,18 @@
 <!--                    <VBox.margin>-->
 <!--                        <Insets top="10"/>-->
 <!--                    </VBox.margin>-->
-<!--                </FlexHBox>-->
-<!--                <FlexHBox flexWidth="100%" realHeight="50">-->
+<!--                </FXHBox>-->
+<!--                <FXHBox flexWidth="100%" realHeight="50">-->
 <!--                    <AccentLabel text="%base.opacity" realHeight="30" realWidth="100">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="20" top="10"/>-->
 <!--                        </HBox.margin>-->
 <!--                    </AccentLabel>-->
-<!--                    <FlexSlider realHeight="25" fx:id="opacity" min="40" value="100">-->
+<!--                    <FXSlider realHeight="25" fx:id="opacity" min="40" value="100">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="10" top="15"/>-->
 <!--                        </HBox.margin>-->
-<!--                    </FlexSlider>-->
+<!--                    </FXSlider>-->
 <!--                    <ResetButton prefWidth="80" realHeight="25" onAction="#resetOpacity">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="5" top="15"/>-->
@@ -100,12 +100,12 @@
 <!--                    <VBox.margin>-->
 <!--                        <Insets top="10"/>-->
 <!--                    </VBox.margin>-->
-<!--                </FlexHBox>-->
-<!--            </FlexVBox>-->
+<!--                </FXHBox>-->
+<!--            </FXVBox>-->
 <!--        </FXTab>-->
 <!--&lt;!&ndash;        <FXTab text="%base.label">&ndash;&gt;-->
-<!--&lt;!&ndash;            <FlexVBox flexWidth="100%" flexHeight="100%">&ndash;&gt;-->
-<!--&lt;!&ndash;                <FlexHBox flexWidth="100%" realHeight="50">&ndash;&gt;-->
+<!--&lt;!&ndash;            <FXVBox flexWidth="100%" flexHeight="100%">&ndash;&gt;-->
+<!--&lt;!&ndash;                <FXHBox flexWidth="100%" realHeight="50">&ndash;&gt;-->
 <!--&lt;!&ndash;                    <AccentLabel text="%base.strategy" realHeight="30" realWidth="100">&ndash;&gt;-->
 <!--&lt;!&ndash;                        <HBox.margin>&ndash;&gt;-->
 <!--&lt;!&ndash;                            <Insets left="20" top="10"/>&ndash;&gt;-->
@@ -119,8 +119,8 @@
 <!--&lt;!&ndash;                    <VBox.margin>&ndash;&gt;-->
 <!--&lt;!&ndash;                        <Insets top="10"/>&ndash;&gt;-->
 <!--&lt;!&ndash;                    </VBox.margin>&ndash;&gt;-->
-<!--&lt;!&ndash;                </FlexHBox>&ndash;&gt;-->
-<!--&lt;!&ndash;                <FlexHBox flexWidth="100%" realHeight="50">&ndash;&gt;-->
+<!--&lt;!&ndash;                </FXHBox>&ndash;&gt;-->
+<!--&lt;!&ndash;                <FXHBox flexWidth="100%" realHeight="50">&ndash;&gt;-->
 <!--&lt;!&ndash;                    <AccentLabel text="%base.limit" realHeight="30" realWidth="100">&ndash;&gt;-->
 <!--&lt;!&ndash;                        <HBox.margin>&ndash;&gt;-->
 <!--&lt;!&ndash;                            <Insets left="20" top="10"/>&ndash;&gt;-->
@@ -136,12 +136,12 @@
 <!--&lt;!&ndash;                    <VBox.margin>&ndash;&gt;-->
 <!--&lt;!&ndash;                        <Insets top="10"/>&ndash;&gt;-->
 <!--&lt;!&ndash;                    </VBox.margin>&ndash;&gt;-->
-<!--&lt;!&ndash;                </FlexHBox>&ndash;&gt;-->
-<!--&lt;!&ndash;            </FlexVBox>&ndash;&gt;-->
+<!--&lt;!&ndash;                </FXHBox>&ndash;&gt;-->
+<!--&lt;!&ndash;            </FXVBox>&ndash;&gt;-->
 <!--&lt;!&ndash;        </FXTab>&ndash;&gt;-->
 <!--        <FXTab text="%base.font">-->
-<!--            <FlexVBox flexWidth="100%" flexHeight="100%">-->
-<!--                <FlexHBox flexWidth="100%" realHeight="50">-->
+<!--            <FXVBox flexWidth="100%" flexHeight="100%">-->
+<!--                <FXHBox flexWidth="100%" realHeight="50">-->
 <!--                    <AccentLabel text="%base.fontName" realHeight="30" realWidth="100">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="20" top="10"/>-->
@@ -160,8 +160,8 @@
 <!--                    <VBox.margin>-->
 <!--                        <Insets top="10"/>-->
 <!--                    </VBox.margin>-->
-<!--                </FlexHBox>-->
-<!--                <FlexHBox flexWidth="100%" realHeight="50">-->
+<!--                </FXHBox>-->
+<!--                <FXHBox flexWidth="100%" realHeight="50">-->
 <!--                    <AccentLabel text="%base.fontSize" realHeight="30" realWidth="100">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="20" top="10"/>-->
@@ -180,8 +180,8 @@
 <!--                    <VBox.margin>-->
 <!--                        <Insets top="10"/>-->
 <!--                    </VBox.margin>-->
-<!--                </FlexHBox>-->
-<!--                <FlexHBox flexWidth="100%" realHeight="50">-->
+<!--                </FXHBox>-->
+<!--                <FXHBox flexWidth="100%" realHeight="50">-->
 <!--                    <AccentLabel text="%base.fontWeight" realHeight="30" realWidth="100">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="20" top="10"/>-->
@@ -200,12 +200,12 @@
 <!--                    <VBox.margin>-->
 <!--                        <Insets top="10"/>-->
 <!--                    </VBox.margin>-->
-<!--                </FlexHBox>-->
-<!--            </FlexVBox>-->
+<!--                </FXHBox>-->
+<!--            </FXVBox>-->
 <!--        </FXTab>-->
 <!--        <FXTab text="%base.theme">-->
-<!--            <FlexVBox flexWidth="100%" flexHeight="100%">-->
-<!--                <FlexHBox flexWidth="100%" realHeight="50">-->
+<!--            <FXVBox flexWidth="100%" flexHeight="100%">-->
+<!--                <FXHBox flexWidth="100%" realHeight="50">-->
 <!--                    <AccentLabel text="%base.themeName" realHeight="30" realWidth="100">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="20" top="10"/>-->
@@ -220,19 +220,19 @@
 <!--                    <VBox.margin>-->
 <!--                        <Insets top="10"/>-->
 <!--                    </VBox.margin>-->
-<!--                </FlexHBox>-->
-<!--                <FlexHBox flexWidth="100%" realHeight="50" fx:id="fgColorBox" disable="true">-->
+<!--                </FXHBox>-->
+<!--                <FXHBox flexWidth="100%" realHeight="50" fx:id="fgColorBox" disable="true">-->
 <!--                    <AccentLabel text="%base.fgColor" realHeight="30" realWidth="100">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="20" top="10"/>-->
 <!--                        </HBox.margin>-->
 <!--                    </AccentLabel>-->
-<!--                    <FlexColorPicker realHeight="30" flexWidth="100% - 225" tipText="%base.fgColorTip"-->
+<!--                    <FXColorPicker realHeight="30" flexWidth="100% - 225" tipText="%base.fgColorTip"-->
 <!--                                     fx:id="fgColor">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="10" top="10"/>-->
 <!--                        </HBox.margin>-->
-<!--                    </FlexColorPicker>-->
+<!--                    </FXColorPicker>-->
 <!--                    <ResetButton prefWidth="80" realHeight="25"-->
 <!--                                 onAction="#resetFgColor">-->
 <!--                        <HBox.margin>-->
@@ -242,19 +242,19 @@
 <!--                    <VBox.margin>-->
 <!--                        <Insets top="10"/>-->
 <!--                    </VBox.margin>-->
-<!--                </FlexHBox>-->
-<!--                <FlexHBox flexWidth="100%" realHeight="50" fx:id="bgColorBox" disable="true">-->
+<!--                </FXHBox>-->
+<!--                <FXHBox flexWidth="100%" realHeight="50" fx:id="bgColorBox" disable="true">-->
 <!--                    <AccentLabel text="%base.bgColor" realHeight="30" realWidth="100">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="20" top="10"/>-->
 <!--                        </HBox.margin>-->
 <!--                    </AccentLabel>-->
-<!--                    <FlexColorPicker realHeight="30" flexWidth="100% - 225" tipText="%base.bgColorTip"-->
+<!--                    <FXColorPicker realHeight="30" flexWidth="100% - 225" tipText="%base.bgColorTip"-->
 <!--                                     fx:id="bgColor">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="10" top="10"/>-->
 <!--                        </HBox.margin>-->
-<!--                    </FlexColorPicker>-->
+<!--                    </FXColorPicker>-->
 <!--                    <ResetButton prefWidth="80" realHeight="25"-->
 <!--                                 onAction="#resetBgColor">-->
 <!--                        <HBox.margin>-->
@@ -264,19 +264,19 @@
 <!--                    <VBox.margin>-->
 <!--                        <Insets top="10"/>-->
 <!--                    </VBox.margin>-->
-<!--                </FlexHBox>-->
-<!--                <FlexHBox flexWidth="100%" realHeight="50" fx:id="accentColorBox" disable="true">-->
+<!--                </FXHBox>-->
+<!--                <FXHBox flexWidth="100%" realHeight="50" fx:id="accentColorBox" disable="true">-->
 <!--                    <AccentLabel text="%base.accentColor" realHeight="30" realWidth="100">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="20" top="10"/>-->
 <!--                        </HBox.margin>-->
 <!--                    </AccentLabel>-->
-<!--                    <FlexColorPicker realHeight="30" flexWidth="100% - 225" tipText="%base.accentColorTip"-->
+<!--                    <FXColorPicker realHeight="30" flexWidth="100% - 225" tipText="%base.accentColorTip"-->
 <!--                                     fx:id="accentColor">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="10" top="10"/>-->
 <!--                        </HBox.margin>-->
-<!--                    </FlexColorPicker>-->
+<!--                    </FXColorPicker>-->
 <!--                    <ResetButton prefWidth="80" realHeight="25"-->
 <!--                                 onAction="#resetAccentColor">-->
 <!--                        <HBox.margin>-->
@@ -286,12 +286,12 @@
 <!--                    <VBox.margin>-->
 <!--                        <Insets top="10"/>-->
 <!--                    </VBox.margin>-->
-<!--                </FlexHBox>-->
-<!--            </FlexVBox>-->
+<!--                </FXHBox>-->
+<!--            </FXVBox>-->
 <!--        </FXTab>-->
 <!--        <FXTab text="%base.locale">-->
-<!--            <FlexVBox flexWidth="100%" flexHeight="100%">-->
-<!--                <FlexHBox flexWidth="100%" realHeight="50">-->
+<!--            <FXVBox flexWidth="100%" flexHeight="100%">-->
+<!--                <FXHBox flexWidth="100%" realHeight="50">-->
 <!--                    <AccentLabel text="%base.language" realHeight="30" realWidth="100">-->
 <!--                        <HBox.margin>-->
 <!--                            <Insets left="20" top="10"/>-->
@@ -311,11 +311,11 @@
 <!--                    <VBox.margin>-->
 <!--                        <Insets top="10"/>-->
 <!--                    </VBox.margin>-->
-<!--                </FlexHBox>-->
-<!--            </FlexVBox>-->
+<!--                </FXHBox>-->
+<!--            </FXVBox>-->
 <!--        </FXTab>-->
-<!--    </FlexTabPane>-->
-<!--    <FlexHBox flexWidth="100%" realHeight="50">-->
+<!--    </FXTabPane>-->
+<!--    <FXHBox flexWidth="100%" realHeight="50">-->
 <!--        <SaveButton onAction="#saveSetting">-->
 <!--            <HBox.margin>-->
 <!--                <Insets left="130" top="10"/>-->
@@ -326,5 +326,5 @@
 <!--                <Insets left="15" top="10"/>-->
 <!--            </HBox.margin>-->
 <!--        </CancelButton>-->
-<!--    </FlexHBox>-->
-<!--</FlexVBox>-->
+<!--    </FXHBox>-->
+<!--</FXVBox>-->

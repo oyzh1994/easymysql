@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.tabs.query;
 import cn.oyzh.easymysql.db.query.MysqlQueryResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.fx.gui.tabs.DynamicTabController;
-import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
+import cn.oyzh.fx.plus.controls.text.area.FXTextArea;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 
@@ -17,7 +17,7 @@ public class MysqlQueryInfoTabController extends DynamicTabController {
      * 根节点
      */
     @FXML
-    private FlexTextArea infoArea;
+    private FXTextArea infoArea;
 
     public void init(MysqlQueryResults<?> results) {
         this.infoArea.clear();

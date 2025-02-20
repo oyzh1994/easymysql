@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.db.foreignKey;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.cache.CacheHelper;
-import cn.oyzh.common.util.ObjectCopier;
+import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import javafx.beans.property.SimpleStringProperty;
 import lombok.EqualsAndHashCode;
@@ -94,7 +94,7 @@ public class MysqlForeignKey extends DBObjectStatus implements ObjectCopier<Mysq
         super.putOriginalData("name", name);
     }
 
-    // public FlexTextField getNameControl() {
+    // public FXTextField getNameControl() {
     //     try {
     //         ClearableTextField textField = new ClearableTextField();
     //         textField.setPromptText(I18nHelper.pleaseInputName());

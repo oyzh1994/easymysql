@@ -6,7 +6,7 @@ import cn.oyzh.easymysql.query.DBQueryUtil;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.rich.RichTextStyle;
-import cn.oyzh.fx.rich.richtextfx.control.FlexRichTextArea;
+import cn.oyzh.fx.rich.richtextfx.control.BaseRichTextArea;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  * @author oyzh
  * @since 2024/02/18
  */
-public class DBSqlTextArea extends FlexRichTextArea {
+public class DBSqlTextArea extends BaseRichTextArea {
 
     {
         this.showLineNum();

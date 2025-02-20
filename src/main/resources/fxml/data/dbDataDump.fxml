@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.data.DBDumpDataTypeComboBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -12,7 +12,7 @@
 <?import cn.oyzh.fx.gui.button.StopButton?>
 <?import cn.oyzh.fx.gui.button.CloseButton?>
 <?import cn.oyzh.fx.gui.label.InfoLabel?>
-<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.data.MysqlDataDumpController" realWidth="700" realHeight="550">
     <InfoLabel text="%base.connect">
         <VBox.margin>
@@ -34,7 +34,7 @@
             <Insets left="30" top="5"/>
         </VBox.margin>
     </ReadOnlyTextField>
-    <FlexVBox flexWidth="100%" fx:id="tableBox" managed="false" visible="false">
+    <FXVBox flexWidth="100%" fx:id="tableBox" managed="false" visible="false">
         <InfoLabel text="%base.table">
             <VBox.margin>
                 <Insets left="30" top="10"/>
@@ -45,7 +45,7 @@
                 <Insets left="30" top="5"/>
             </VBox.margin>
         </ReadOnlyTextField>
-    </FlexVBox>
+    </FXVBox>
     <InfoLabel text="%base.dataType">
         <VBox.margin>
             <Insets left="30" top="10"/>
@@ -71,7 +71,7 @@
             <Insets left="30" top="5"/>
         </VBox.margin>
     </FXLabel>
-    <FlexHBox flexWidth="100%">
+    <FXHBox flexWidth="100%">
         <DumpButton onAction="#doDump" groupId="exec" realHeight="30" iconSizePercent="0.75">
             <HBox.margin>
                 <Insets left="30" top="15"/>
@@ -87,5 +87,5 @@
                 <Insets left="15" top="15"/>
             </HBox.margin>
         </CloseButton>
-    </FlexHBox>
-</FlexVBox>
+    </FXHBox>
+</FXVBox>

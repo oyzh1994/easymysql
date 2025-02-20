@@ -9,7 +9,7 @@ import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageAttribute;
-import cn.oyzh.fx.rich.richtextfx.control.FlexRichTextArea;
+import cn.oyzh.fx.rich.richtextfx.control.BaseRichTextArea;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
@@ -85,7 +85,7 @@ public class MysqlTableInfoController extends StageController {
      * 定义
      */
     @FXML
-    private FlexRichTextArea tableDefinition;
+    private BaseRichTextArea tableDefinition;
 
     @Override
     public void onWindowShown(WindowEvent event) {

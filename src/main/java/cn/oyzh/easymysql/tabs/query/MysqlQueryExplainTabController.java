@@ -8,8 +8,8 @@ import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;
 import cn.oyzh.easymysql.util.DBRecordUtil;
 import cn.oyzh.fx.gui.tabs.DynamicTabController;
-import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
-import cn.oyzh.fx.plus.controls.text.FlexText;
+import cn.oyzh.fx.plus.controls.table.FXTableColumn;
+import cn.oyzh.fx.plus.controls.text.FXText;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
@@ -27,19 +27,19 @@ public class MysqlQueryExplainTabController extends DynamicTabController {
      * sql组件
      */
     @FXML
-    private FlexText sql;
+    private FXText sql;
 
     /**
      * 耗时组件
      */
     @FXML
-    private FlexText used;
+    private FXText used;
 
     /**
      * 计数组件
      */
     @FXML
-    private FlexText count;
+    private FXText count;
 
     /**
      * 数据表单组件
@@ -87,7 +87,7 @@ public class MysqlQueryExplainTabController extends DynamicTabController {
      */
     private void initColumns(List<MysqlColumn> columns) {
         // 数据列集合
-        List<FlexTableColumn<MysqlRecord, Object>> columnList = new ArrayList<>();
+        List<FXTableColumn<MysqlRecord, Object>> columnList = new ArrayList<>();
         DBStatusColumn<MysqlRecord> statusColumn = new DBStatusColumn<>();
         columnList.add(statusColumn);
         for (MysqlColumn column : columns) {

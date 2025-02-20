@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.table;
 
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * 行格式下拉框
@@ -8,7 +8,7 @@ import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
  * @author oyzh
  * @since 2024/07/17
  */
-public class DBRowFormatComboBox extends FlexComboBox<String> {
+public class DBRowFormatComboBox extends FXComboBox<String> {
 
     {
         this.addItem("COMPACT");

@@ -6,7 +6,7 @@ import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.fx.table.DBColumnComboBox;
 import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
 import cn.oyzh.easymysql.fx.table.DBJoinSymbolComboBox;
-import cn.oyzh.fx.plus.controls.box.FlexHBox;
+import cn.oyzh.fx.plus.controls.box.FXHBox;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.flex.FlexUtil;
 import cn.oyzh.fx.plus.util.TableViewUtil;
@@ -70,7 +70,7 @@ public class MysqlRecordFilter {
     /**
      * 值组件
      */
-    private FlexHBox valueBox;
+    private FXHBox valueBox;
 
     /**
      * 获取值
@@ -99,7 +99,7 @@ public class MysqlRecordFilter {
      */
     private void updateValueControl() {
         if (this.valueBox == null) {
-            this.valueBox = new FlexHBox();
+            this.valueBox = new FXHBox();
             FlexUtil.flexWidth(this.valueBox, "100%");
         }
         List<Node> nodes = MysqlConditionUtil.generateNode(this.column, this.condition);

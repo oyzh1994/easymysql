@@ -1,12 +1,12 @@
 package cn.oyzh.easymysql.fx.routine;
 
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * @author oyzh
  * @since 2024/08/09
  */
-public class DBCharacteristicCombobox extends FlexComboBox<String> {
+public class DBCharacteristicCombobox extends FXComboBox<String> {
 
     {
         this.addItem("LANGUAGE SQL");

@@ -1,7 +1,7 @@
 <!--<?xml version="1.0" encoding="UTF-8"?>-->
 <!--<?import javafx.geometry.Insets?>-->
 <!--<?import javafx.scene.layout.FlowPane?>-->
-<!--<?import cn.oyzh.fx.plus.controls.pane.FlexFlowPane?>-->
+<!--<?import cn.oyzh.fx.plus.controls.pane.FXFlowPane?>-->
 <!--<?import cn.oyzh.fx.gui.svg.label.SearchSVGLabel?>-->
 <!--<?import cn.oyzh.fx.gui.svg.label.TransportSVGLabel?>-->
 <!--<?import cn.oyzh.fx.gui.svg.label.SettingSVGLabel?>-->
@@ -9,7 +9,7 @@
 <!--<?import cn.oyzh.fx.gui.svg.label.CollapseSVGLabel?>-->
 <!--<?import cn.oyzh.fx.gui.svg.label.ExpandSVGLabel?>-->
 <!--<?import cn.oyzh.fx.gui.svg.label.QuitSVGLabel?>-->
-<!--<FlexFlowPane styleClass="root" xmlns:fx="http://javafx.com/fxml/1"-->
+<!--<FXFlowPane styleClass="root" xmlns:fx="http://javafx.com/fxml/1"-->
 <!--              fx:controller="cn.oyzh.easymysql.controller.HeaderController" flexWidth="100%" realHeight="30">-->
 <!--&lt;!&ndash;    <SearchSVGLabel onMousePrimaryClicked="#search" tipText="%base.searchTip5" size="14">&ndash;&gt;-->
 <!--&lt;!&ndash;        <FlowPane.margin>&ndash;&gt;-->
@@ -46,4 +46,4 @@
 <!--            <Insets left="10" top="5" bottom="5"/>-->
 <!--        </FlowPane.margin>-->
 <!--    </QuitSVGLabel>-->
-<!--</FlexFlowPane>-->
+<!--</FXFlowPane>-->

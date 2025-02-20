@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db.procedure;
 
-import cn.oyzh.common.util.ObjectCopier;
+import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineSchema;
 
 /**

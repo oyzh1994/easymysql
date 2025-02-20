@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.record.DBRecordTableView?>
-<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import cn.oyzh.fx.plus.controls.svg.SVGGlyph?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
@@ -12,12 +12,12 @@
 <?import cn.oyzh.fx.gui.svg.glyph.RefreshSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.FilterSVGGlyph?>
 <?import cn.oyzh.fx.gui.page.PageBox?>
-<FlexVBox xmlns="http://javafx.com/javafx"
+<FXVBox xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="cn.oyzh.easymysql.tabs.table.MysqlTableRecordTabController" fx:id="root" flexWidth="100%" flexHeight="100%">
     <DBRecordTableView fx:id="recordTable" flexHeight="100% - 40" flexWidth="100%" tableMenuButtonVisible="true">
     </DBRecordTableView>
-    <FlexHBox realHeight="40" flexWidth="100%">
+    <FXHBox realHeight="40" flexWidth="100%">
         <DeleteSVGGlyph groupId="action2" onMousePrimaryClicked="#deleteRecord" size="14">
             <HBox.margin>
                 <Insets left="10" top="10"/>
@@ -62,5 +62,5 @@
                 <Insets left="5" top="7"/>
             </HBox.margin>
         </PageBox>
-    </FlexHBox>
-</FlexVBox>
+    </FXHBox>
+</FXVBox>

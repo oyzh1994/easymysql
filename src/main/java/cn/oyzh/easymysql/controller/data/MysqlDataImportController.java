@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.controller.data;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
-import cn.oyzh.common.util.SystemUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.fx.data.DataDateTextFiled;
 import cn.oyzh.easymysql.fx.data.DataFieldSeparatorComboBox;
@@ -19,12 +19,12 @@ import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.box.FlexVBox;
+import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
-import cn.oyzh.fx.plus.controls.button.FlexButton;
+import cn.oyzh.fx.plus.controls.button.FXButton;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
-import cn.oyzh.fx.plus.controls.label.FlexLabel;
-import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
+import cn.oyzh.fx.plus.controls.label.FXLabel;
+import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
 import cn.oyzh.fx.plus.file.FileExtensionFilter;
@@ -61,37 +61,37 @@ public class MysqlDataImportController extends StageController {
      * 第一步
      */
     @FXML
-    private FlexVBox step1;
+    private FXVBox step1;
 
     /**
      * 第二步
      */
     @FXML
-    private FlexVBox step2;
+    private FXVBox step2;
 
     /**
      * 第三步
      */
     @FXML
-    private FlexVBox step3;
+    private FXVBox step3;
 
     /**
      * 第四步
      */
     @FXML
-    private FlexVBox step4;
+    private FXVBox step4;
 
     /**
      * 第五步
      */
     @FXML
-    private FlexVBox step5;
+    private FXVBox step5;
 
     /**
      * 第六步
      */
     @FXML
-    private FlexVBox step6;
+    private FXVBox step6;
 
     /**
      * 导入表组件
@@ -103,7 +103,7 @@ public class MysqlDataImportController extends StageController {
      * 导入表路径列
      */
     @FXML
-    private FlexTableColumn<DataImportFile, String> importFilePath;
+    private FXTableColumn<DataImportFile, String> importFilePath;
 
     /**
      *
@@ -132,7 +132,7 @@ public class MysqlDataImportController extends StageController {
      * 结束导入按钮
      */
     @FXML
-    private FlexButton stopImportBtn;
+    private FXButton stopImportBtn;
 
     /**
      * 导入状态
@@ -174,7 +174,7 @@ public class MysqlDataImportController extends StageController {
      * 日期预览
      */
     @FXML
-    private FlexLabel datePreview;
+    private FXLabel datePreview;
 
     /**
      * 日期格式

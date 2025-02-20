@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
-<?import cn.oyzh.fx.plus.controls.tab.FlexTabPane?>
+<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
+<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
 <?import cn.oyzh.fx.plus.controls.tab.FXTab?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import cn.oyzh.fx.rich.richtextfx.control.FlexRichTextArea?>
+<?import cn.oyzh.fx.rich.richtextfx.control.FXRichTextArea?>
 <?import cn.oyzh.fx.gui.label.AccentLabel?>
 <?import cn.oyzh.fx.gui.text.field.ReadOnlyTextField?>
 <?import cn.oyzh.fx.gui.text.area.ReadOnlyTextArea?>
@@ -16,11 +16,11 @@
 <?import javafx.scene.Group?>
 <?import cn.oyzh.fx.plus.controls.FXGroup?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
-<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.table.MysqlTableInfoController" realWidth="900" realHeight="600">
-    <FlexTabPane flexWidth="100%" flexHeight="100% - 50">
+    <FXTabPane flexWidth="100%" flexHeight="100% - 50">
         <FXTab text="%base.base">
-            <FlexVBox flexWidth="100%" flexHeight="100%">
+            <FXVBox flexWidth="100%" flexHeight="100%">
                 <InfoLabel text="%base.tableName">
                     <VBox.margin>
                         <Insets left="30" top="10"/>
@@ -102,23 +102,23 @@
                         <Insets left="30" top="5"/>
                     </VBox.margin>
                 </ReadOnlyTextArea>
-            </FlexVBox>
+            </FXVBox>
         </FXTab>
         <FXTab text="%base.ddl">
-            <FlexVBox flexHeight="100%" flexWidth="100%">
-                <FlexRichTextArea editable="false" fx:id="tableDefinition" flexHeight="100%" flexWidth="100% - 35">
+            <FXVBox flexHeight="100%" flexWidth="100%">
+                <FXRichTextArea editable="false" fx:id="tableDefinition" flexHeight="100%" flexWidth="100% - 35">
                     <VBox.margin>
                         <Insets left="30"/>
                     </VBox.margin>
-                </FlexRichTextArea>
-            </FlexVBox>
+                </FXRichTextArea>
+            </FXVBox>
         </FXTab>
-    </FlexTabPane>
-    <FlexHBox flexWidth="100%">
+    </FXTabPane>
+    <FXHBox flexWidth="100%">
         <CloseButton>
             <HBox.margin>
                 <Insets left="30" top="15"/>
             </HBox.margin>
         </CloseButton>
-    </FlexHBox>
-</FlexVBox>
+    </FXHBox>
+</FXVBox>

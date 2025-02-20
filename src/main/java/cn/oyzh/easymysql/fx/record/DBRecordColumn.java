@@ -6,10 +6,10 @@ import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.popups.MysqlFieldInfoPopupController;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
+import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.menu.FXContextMenu;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
-import cn.oyzh.fx.plus.util.MouseUtil;
+import cn.oyzh.fx.plus.mouse.MouseUtil;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
 import javafx.stage.PopupWindow;
@@ -18,7 +18,7 @@ import javafx.stage.PopupWindow;
  * @author oyzh
  * @since 2024/7/17
  */
-public class DBRecordColumn extends FlexTableColumn<MysqlRecord, Object> {
+public class DBRecordColumn extends FXTableColumn<MysqlRecord, Object> {
 
     public DBRecordColumn(MysqlColumn column) {
         this.setText(column.getName());

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.DBCharsetComboBox?>
 <?import cn.oyzh.easymysql.fx.DBCollationComboBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -10,7 +10,7 @@
 <?import cn.oyzh.fx.gui.button.SubmitButton?>
 <?import cn.oyzh.fx.gui.button.CancelButton?>
 <?import cn.oyzh.fx.gui.label.InfoLabel?>
-<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.database.MysqlDatabaseAddController" realWidth="750"
           realHeight="300">
     <InfoLabel text="%base.name">
@@ -43,7 +43,7 @@
             <Insets left="30" top="5"/>
         </VBox.margin>
     </DBCollationComboBox>
-    <FlexHBox flexWidth="100%">
+    <FXHBox flexWidth="100%">
         <SubmitButton onAction="#add" text="%base.add">
             <HBox.margin>
                 <Insets left="30" top="15"/>
@@ -54,5 +54,5 @@
                 <Insets left="15" top="15"/>
             </HBox.margin>
         </CancelButton>
-    </FlexHBox>
-</FlexVBox>
+    </FXHBox>
+</FXVBox>

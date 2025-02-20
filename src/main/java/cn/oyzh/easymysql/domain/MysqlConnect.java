@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.domain;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.common.util.ObjectComparator;
+import cn.oyzh.common.object.ObjectComparator;
 import cn.oyzh.store.jdbc.Column;
 import cn.oyzh.store.jdbc.PrimaryKey;
 import cn.oyzh.store.jdbc.Table;

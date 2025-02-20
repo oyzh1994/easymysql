@@ -18,11 +18,11 @@ import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.tabs.DynamicTabController;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
-import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
-import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
-import cn.oyzh.fx.plus.controls.table.FlexTableView;
-import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
-import cn.oyzh.fx.plus.controls.text.field.FlexTextField;
+import cn.oyzh.fx.plus.controls.tab.FXTabPane;
+import cn.oyzh.fx.plus.controls.table.FXTableColumn;
+import cn.oyzh.fx.plus.controls.table.FXTableView;
+import cn.oyzh.fx.plus.controls.text.area.FXTextArea;
+import cn.oyzh.fx.plus.controls.text.field.FXTextField;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.node.NodeUtil;
@@ -78,19 +78,19 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
      * 切换面板
      */
     @FXML
-    private FlexTabPane tabPane;
+    private FXTabPane tabPane;
 
     /**
      * 注释
      */
     @FXML
-    private FlexTextArea comment;
+    private FXTextArea comment;
 
     /**
      * 定义者
      */
     @FXML
-    private FlexTextField definer;
+    private FXTextField definer;
 
     /**
      * 安全性
@@ -108,49 +108,49 @@ public class MysqlFunctionDesignTabController extends DynamicTabController {
      * 参数表单
      */
     @FXML
-    private FlexTableView<MysqlRoutineParam> paramTable;
+    private FXTableView<MysqlRoutineParam> paramTable;
 
     /**
      * 参数类型
      */
     @FXML
-    private FlexTableColumn<MysqlRoutineParam, String> paramType;
+    private FXTableColumn<MysqlRoutineParam, String> paramType;
 
     /**
      * 参数长度
      */
     @FXML
-    private FlexTableColumn<MysqlRoutineParam, String> paramSize;
+    private FXTableColumn<MysqlRoutineParam, String> paramSize;
 
     /**
      * 参数值
      */
     @FXML
-    private FlexTableColumn<MysqlRoutineParam, String> paramValue;
+    private FXTableColumn<MysqlRoutineParam, String> paramValue;
 
     /**
      * 参数小数
      */
     @FXML
-    private FlexTableColumn<MysqlRoutineParam, String> paramDigits;
+    private FXTableColumn<MysqlRoutineParam, String> paramDigits;
 
     /**
      * 参数字符集
      */
     @FXML
-    private FlexTableColumn<MysqlRoutineParam, String> paramCharset;
+    private FXTableColumn<MysqlRoutineParam, String> paramCharset;
 
     /**
      * 参数排序
      */
     @FXML
-    private FlexTableColumn<MysqlRoutineParam, String> paramCollation;
+    private FXTableColumn<MysqlRoutineParam, String> paramCollation;
 
     /**
      * 参数名称
      */
     @FXML
-    private FlexTableColumn<MysqlRoutineParam, String> paramName;
+    private FXTableColumn<MysqlRoutineParam, String> paramName;
 
     /**
      * 返回值类型

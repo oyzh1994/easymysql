@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.controller.data;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
-import cn.oyzh.common.util.SystemUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
@@ -19,12 +19,12 @@ import cn.oyzh.easymysql.handler.export.DataExportHandler;
 import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.box.FlexVBox;
+import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
-import cn.oyzh.fx.plus.controls.button.FlexButton;
+import cn.oyzh.fx.plus.controls.button.FXButton;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
-import cn.oyzh.fx.plus.controls.label.FlexLabel;
-import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
+import cn.oyzh.fx.plus.controls.label.FXLabel;
+import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -60,31 +60,31 @@ public class MysqlDataExportController extends StageController {
      * 第一步
      */
     @FXML
-    private FlexVBox step1;
+    private FXVBox step1;
 
     /**
      * 第二步
      */
     @FXML
-    private FlexVBox step2;
+    private FXVBox step2;
 
     /**
      * 第三步
      */
     @FXML
-    private FlexVBox step3;
+    private FXVBox step3;
 
     /**
      * 第四步
      */
     @FXML
-    private FlexVBox step4;
+    private FXVBox step4;
 
     /**
      * 第五步
      */
     @FXML
-    private FlexVBox step5;
+    private FXVBox step5;
 
     /**
      * 导出表下拉框
@@ -108,19 +108,19 @@ public class MysqlDataExportController extends StageController {
      * 导出表已选择列
      */
     @FXML
-    private FlexTableColumn<DataExportTable, String> exportTableSelected;
+    private FXTableColumn<DataExportTable, String> exportTableSelected;
 
     /**
      * 导出表名称列
      */
     @FXML
-    private FlexTableColumn<DataExportTable, String> exportTableName;
+    private FXTableColumn<DataExportTable, String> exportTableName;
 
     /**
      * 导出表路径列
      */
     @FXML
-    private FlexTableColumn<DataExportTable, String> exportTableFilePath;
+    private FXTableColumn<DataExportTable, String> exportTableFilePath;
 
     /**
      * 文件类型
@@ -137,7 +137,7 @@ public class MysqlDataExportController extends StageController {
      * 日期预览
      */
     @FXML
-    private FlexLabel datePreview;
+    private FXLabel datePreview;
 
     /**
      * 日期格式
@@ -185,7 +185,7 @@ public class MysqlDataExportController extends StageController {
      * 结束导出按钮
      */
     @FXML
-    private FlexButton stopExportBtn;
+    private FXButton stopExportBtn;
 
     /**
      * 导出状态

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -9,7 +9,7 @@
 <?import cn.oyzh.fx.gui.text.area.ReadOnlyTextArea?>
 <?import cn.oyzh.fx.gui.button.CloseButton?>
 <?import cn.oyzh.fx.gui.label.InfoLabel?>
-<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.view.MysqlViewInfoController" realWidth="900" realHeight="450">
     <InfoLabel text="%base.viewName">
         <VBox.margin>
@@ -32,11 +32,11 @@
             <Insets left="30" top="5"/>
         </VBox.margin>
     </ReadOnlyTextArea>
-    <FlexHBox flexWidth="100%">
+    <FXHBox flexWidth="100%">
         <CloseButton>
             <HBox.margin>
                 <Insets left="30" top="15"/>
             </HBox.margin>
         </CloseButton>
-    </FlexHBox>
-</FlexVBox>
+    </FXHBox>
+</FXVBox>

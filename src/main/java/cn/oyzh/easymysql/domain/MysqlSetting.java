@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.domain;
 
 
-import cn.oyzh.fx.plus.domain.Setting;
+import cn.oyzh.fx.plus.domain.AppSetting;
 import cn.oyzh.store.jdbc.Column;
 import cn.oyzh.store.jdbc.Table;
 import lombok.EqualsAndHashCode;
@@ -16,7 +16,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(callSuper = true)
 @Table("t_setting")
-public class MysqlSetting extends Setting {
+public class MysqlSetting extends AppSetting {
 
     /**
      * 记录每页限制

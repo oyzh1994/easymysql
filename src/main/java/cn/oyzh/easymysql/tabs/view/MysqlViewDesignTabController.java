@@ -10,7 +10,7 @@ import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.tabs.DynamicTabController;
-import cn.oyzh.fx.plus.controls.text.field.FlexTextField;
+import cn.oyzh.fx.plus.controls.text.field.FXTextField;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.util.FXUtil;
@@ -49,7 +49,7 @@ public class MysqlViewDesignTabController extends DynamicTabController {
      * 定义者
      */
     @FXML
-    private FlexTextField definer;
+    private FXTextField definer;
 
     /**
      * 算法

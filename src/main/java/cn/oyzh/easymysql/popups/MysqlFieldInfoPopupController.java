@@ -7,7 +7,7 @@ import cn.oyzh.easymysql.util.DBNodeUtil;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
-import cn.oyzh.fx.plus.controls.box.FlexHBox;
+import cn.oyzh.fx.plus.controls.box.FXHBox;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupAttribute;
@@ -72,25 +72,25 @@ public class MysqlFieldInfoPopupController extends PopupController {
      * 长度组件
      */
     @FXML
-    private FlexHBox sizeBox;
+    private FXHBox sizeBox;
 
     /**
      * 标签组件
      */
     @FXML
-    private FlexHBox tagsBox;
+    private FXHBox tagsBox;
 
     /**
      * 值组件
      */
     @FXML
-    private FlexHBox valueBox;
+    private FXHBox valueBox;
 
     /**
      * 默认值值组件
      */
     @FXML
-    private FlexHBox defaultValueBox;
+    private FXHBox defaultValueBox;
 
     /**
      * 关闭

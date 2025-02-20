@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
-import cn.oyzh.fx.plus.controls.list.FlexListView;
+import cn.oyzh.fx.plus.controls.list.FXListView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.util.ControlUtil;
 import cn.oyzh.fx.plus.util.ListViewUtil;
@@ -39,7 +39,7 @@ public class MysqlColumnEnumPopupController extends PopupController {
      * 值组件
      */
     @FXML
-    private FlexListView<ClearableTextField> listView;
+    private FXListView<ClearableTextField> listView;
 
     /**
      * 提交

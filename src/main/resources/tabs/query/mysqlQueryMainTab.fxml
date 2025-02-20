@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.query.DBQueryTextArea?>
 <?import cn.oyzh.easymysql.tabs.query.MysqlQueryInfoTab?>
-<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
-<?import cn.oyzh.fx.plus.controls.tab.FlexTabPane?>
+<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
+<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.PrettySVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.RunSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.database.ExplainSVGGlyph?>
-<FlexVBox xmlns="http://javafx.com/javafx"
+<FXVBox xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="cn.oyzh.easymysql.tabs.query.MysqlQueryMainTabController" flexWidth="100%" flexHeight="100%"
           fx:id="root">
-    <FlexHBox realHeight="35" flexWidth="100%">
+    <FXHBox realHeight="35" flexWidth="100%">
         <SaveSVGGlyph onMousePrimaryClicked="#save" size="14">
             <HBox.margin>
                 <Insets left="10" top="10"/>
@@ -35,11 +35,11 @@
                 <Insets left="10" top="10"/>
             </HBox.margin>
         </ExplainSVGGlyph>
-    </FlexHBox>
+    </FXHBox>
     <DBQueryTextArea fontSize="12" fx:id="queryArea" flexHeight="100% - 35" flexWidth="100%"
                      onKeyPressed="#queryKeyPressed"/>
-    <FlexTabPane fx:id="resultTabPane" flexHeight="50% - 40" flexWidth="100%" visible="false" managed="false">
+    <FXTabPane fx:id="resultTabPane" flexHeight="50% - 40" flexWidth="100%" visible="false" managed="false">
         <MysqlQueryInfoTab fx:id="infoTab" text="%base.info">
         </MysqlQueryInfoTab>
-    </FlexTabPane>
-</FlexVBox>
+    </FXTabPane>
+</FXVBox>

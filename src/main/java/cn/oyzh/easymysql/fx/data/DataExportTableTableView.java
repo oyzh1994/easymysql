@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.data;
 
-import cn.oyzh.fx.plus.controls.table.FlexTableView;
+import cn.oyzh.fx.plus.controls.table.FXTableView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * @author oyzh
  * @since 2024/08/27
  */
-public class DataExportTableTableView extends FlexTableView<DataExportTable> {
+public class DataExportTableTableView extends FXTableView<DataExportTable> {
 
     public List<DataExportTable> getSelectedTables() {
         List<DataExportTable> exportTables = new ArrayList<>();

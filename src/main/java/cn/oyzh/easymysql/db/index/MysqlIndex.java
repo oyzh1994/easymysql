@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db.index;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.common.util.ObjectCopier;
+import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;

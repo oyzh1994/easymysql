@@ -15,8 +15,8 @@ import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.tab.FXTab;
-import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
-import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
+import cn.oyzh.fx.plus.controls.tab.FXTabPane;
+import cn.oyzh.fx.plus.controls.text.area.FXTextArea;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleSwitch;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
@@ -51,7 +51,7 @@ public class MysqlConnectUpdateController extends StageController {
      * tab组件
      */
     @FXML
-    private FlexTabPane tabPane;
+    private FXTabPane tabPane;
 
     /**
      * db信息
@@ -68,7 +68,7 @@ public class MysqlConnectUpdateController extends StageController {
      * 备注
      */
     @FXML
-    private FlexTextArea remark;
+    private FXTextArea remark;
 
     /**
      * 类型

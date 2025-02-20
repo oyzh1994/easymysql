@@ -11,9 +11,9 @@ import cn.oyzh.easymysql.query.DBQueryUtil;
 import cn.oyzh.easymysql.store.MysqlQueryStore;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.tabs.DynamicTabController;
-import cn.oyzh.fx.plus.controls.box.FlexVBox;
+import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.tab.FXTab;
-import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
+import cn.oyzh.fx.plus.controls.tab.FXTabPane;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.keyboard.KeyboardUtil;
 import cn.oyzh.i18n.I18nHelper;
@@ -60,13 +60,13 @@ public class MysqlQueryMainTabController extends DynamicTabController {
      * 结果文本域
      */
     @FXML
-    private FlexTabPane resultTabPane;
+    private FXTabPane resultTabPane;
 
     /**
      * 根节点
      */
     @FXML
-    private FlexVBox root;
+    private FXVBox root;
 
     /**
      * 结果信息tab

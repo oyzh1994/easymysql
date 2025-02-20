@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.fx;
 
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.listener.DBStatusListener;
-import cn.oyzh.fx.plus.controls.table.FlexTableView;
+import cn.oyzh.fx.plus.controls.table.FXTableView;
 import javafx.collections.ListChangeListener;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author oyzh
  * @since 2024/07/22
  */
-public class DBStatusTableView<S extends DBObjectStatus> extends FlexTableView<S> {
+public class DBStatusTableView<S extends DBObjectStatus> extends FXTableView<S> {
 
     @Getter
     private List<S> deleteItems;

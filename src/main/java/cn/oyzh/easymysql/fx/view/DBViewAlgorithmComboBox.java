@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.view;
 
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * db视图算法下拉框
@@ -8,7 +8,7 @@ import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
  * @author oyzh
  * @since 2024/08/07
  */
-public class DBViewAlgorithmComboBox extends FlexComboBox<String> {
+public class DBViewAlgorithmComboBox extends FXComboBox<String> {
 
     {
         this.addItem("UNDEFINED");

@@ -1,12 +1,12 @@
 package cn.oyzh.easymysql.fx.data;
 
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * @author oyzh
  * @since 2024/8/27
  */
-public class DataRecordLabelComboBox extends FlexComboBox<String> {
+public class DataRecordLabelComboBox extends FXComboBox<String> {
 
     {
         this.addItem("(Root)");

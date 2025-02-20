@@ -7,7 +7,7 @@ import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.fx.plus.keyboard.KeyboardUtil;
 import cn.oyzh.fx.rich.RichTextStyle;
-import cn.oyzh.fx.rich.richtextfx.control.FlexRichTextArea;
+import cn.oyzh.fx.rich.richtextfx.control.BaseRichTextArea;
 import javafx.scene.control.IndexRange;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  * @author oyzh
  * @since 2024/02/18
  */
-public class DBQueryTextArea extends FlexRichTextArea {
+public class DBQueryTextArea extends BaseRichTextArea {
 
     /**
      * 提示词组件

@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.db.column;
 
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.common.util.ObjectCopier;
+import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.util.DBColumnUtil;
 import javafx.beans.property.SimpleBooleanProperty;

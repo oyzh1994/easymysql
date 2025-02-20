@@ -1,13 +1,13 @@
 package cn.oyzh.easymysql.fx.data;
 
-import cn.oyzh.common.util.OSUtil;
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.common.system.OSUtil;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * @author oyzh
  * @since 2024/09/04
  */
-public class DataRecordSeparatorComboBox extends FlexComboBox<String> {
+public class DataRecordSeparatorComboBox extends FXComboBox<String> {
 
     {
         this.addItem("CRLF");

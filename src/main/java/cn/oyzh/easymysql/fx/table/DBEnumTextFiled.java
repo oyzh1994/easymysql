@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.popups.MysqlColumnEnumPopupController;
 import cn.oyzh.fx.gui.text.field.ChooseTextField;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
-import cn.oyzh.fx.plus.controls.list.FlexListView;
+import cn.oyzh.fx.plus.controls.list.FXListView;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
 import cn.oyzh.i18n.I18nHelper;
@@ -38,7 +38,7 @@ public class DBEnumTextFiled extends ChooseTextField {
         this.popup = PopupManager.parsePopup(MysqlColumnEnumPopupController.class);
         this.popup.setProp("values", this.values);
         this.popup.setProp("onSubmit", (Runnable) () -> {
-            FlexListView<ClearableTextField> listView = this.listView();
+            FXListView<ClearableTextField> listView = this.listView();
             if (listView != null) {
                 this.values = new ArrayList<>();
                 for (ClearableTextField item : listView.getItems()) {
@@ -64,16 +64,16 @@ public class DBEnumTextFiled extends ChooseTextField {
 
     public void setValues(List<String> values) {
         this.values = values;
-        FlexListView listView = this.listView();
+        FXListView listView = this.listView();
         if (listView != null) {
             listView.setItem(values);
         }
         this.initText();
     }
 
-    protected FlexListView<ClearableTextField> listView() {
+    protected FXListView<ClearableTextField> listView() {
         if (this.popup != null) {
-            return (FlexListView<ClearableTextField>) this.popup.content().lookup("#listView");
+            return (FXListView<ClearableTextField>) this.popup.content().lookup("#listView");
         }
         return null;
     }

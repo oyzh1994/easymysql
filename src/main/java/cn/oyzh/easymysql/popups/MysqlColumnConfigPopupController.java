@@ -9,7 +9,7 @@ import cn.oyzh.easymysql.fx.table.MysqlDefaultValueTextFiled;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
-import cn.oyzh.fx.plus.controls.box.FlexHBox;
+import cn.oyzh.fx.plus.controls.box.FXHBox;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.PopupAdapter;
@@ -32,7 +32,7 @@ public class MysqlColumnConfigPopupController extends PopupController {
      * 默认值组件
      */
     @FXML
-    private FlexHBox defaultValueBox;
+    private FXHBox defaultValueBox;
 
     /**
      * 默认值
@@ -44,7 +44,7 @@ public class MysqlColumnConfigPopupController extends PopupController {
      * 字段值组件
      */
     @FXML
-    private FlexHBox valueBox;
+    private FXHBox valueBox;
 
     /**
      * 字段值
@@ -56,7 +56,7 @@ public class MysqlColumnConfigPopupController extends PopupController {
      * 主键长度组件
      */
     @FXML
-    private FlexHBox primaryKeySizeBox;
+    private FXHBox primaryKeySizeBox;
 
     /**
      * 主键长度
@@ -68,7 +68,7 @@ public class MysqlColumnConfigPopupController extends PopupController {
      * 填充零组件
      */
     @FXML
-    private FlexHBox zeroFillBox;
+    private FXHBox zeroFillBox;
 
     /**
      * 填充零
@@ -80,7 +80,7 @@ public class MysqlColumnConfigPopupController extends PopupController {
      * 自动递增组件
      */
     @FXML
-    private FlexHBox autoIncrementBox;
+    private FXHBox autoIncrementBox;
 
     /**
      * 自动递增
@@ -92,7 +92,7 @@ public class MysqlColumnConfigPopupController extends PopupController {
      * 无符号组件
      */
     @FXML
-    private FlexHBox unsignedBox;
+    private FXHBox unsignedBox;
 
     /**
      * 无符号
@@ -104,7 +104,7 @@ public class MysqlColumnConfigPopupController extends PopupController {
      * 根据当前时间戳更新组件
      */
     @FXML
-    private FlexHBox currentTimestampBox;
+    private FXHBox currentTimestampBox;
 
     /**
      * 根据当前时间戳更新
@@ -116,7 +116,7 @@ public class MysqlColumnConfigPopupController extends PopupController {
      * 字符集组件
      */
     @FXML
-    private FlexHBox charsetBox;
+    private FXHBox charsetBox;
 
     /**
      * 字符集
@@ -128,7 +128,7 @@ public class MysqlColumnConfigPopupController extends PopupController {
      * 排序方式组件
      */
     @FXML
-    private FlexHBox collationBox;
+    private FXHBox collationBox;
 
     /**
      * 排序方式

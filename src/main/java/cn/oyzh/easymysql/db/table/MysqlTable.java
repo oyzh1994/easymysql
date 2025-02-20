@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.db.table;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.common.util.ObjectComparator;
-import cn.oyzh.common.util.ObjectCopier;
+import cn.oyzh.common.object.ObjectComparator;
+import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import javafx.beans.property.SimpleStringProperty;
 import lombok.EqualsAndHashCode;

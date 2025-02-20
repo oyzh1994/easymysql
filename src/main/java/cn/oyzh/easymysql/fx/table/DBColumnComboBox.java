@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.fx.table;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.fx.plus.SimpleStringConverter;
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
+import cn.oyzh.fx.plus.converter.SimpleStringConverter;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @author oyzh
  * @since 2024/01/16
  */
-public class DBColumnComboBox extends FlexComboBox<MysqlColumn> {
+public class DBColumnComboBox extends FXComboBox<MysqlColumn> {
 
     {
         this.setConverter(new SimpleStringConverter<>() {

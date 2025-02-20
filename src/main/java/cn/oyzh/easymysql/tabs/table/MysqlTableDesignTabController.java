@@ -38,11 +38,11 @@ import cn.oyzh.fx.gui.tabs.DynamicTab;
 import cn.oyzh.fx.gui.tabs.ParentTabController;
 import cn.oyzh.fx.gui.tabs.SubTabController;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
-import cn.oyzh.fx.plus.controls.box.FlexHBox;
+import cn.oyzh.fx.plus.controls.box.FXHBox;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
-import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
-import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
+import cn.oyzh.fx.plus.controls.tab.FXTabPane;
+import cn.oyzh.fx.plus.controls.table.FXTableColumn;
+import cn.oyzh.fx.plus.controls.text.area.FXTextArea;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.util.FXUtil;
@@ -98,7 +98,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 切换面板
      */
     @FXML
-    private FlexTabPane tabPane;
+    private FXTabPane tabPane;
 
     /**
      * 引擎
@@ -122,7 +122,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 行格式组件
      */
     @FXML
-    private FlexHBox tableRowFormatBox;
+    private FXHBox tableRowFormatBox;
 
     /**
      * 行格式
@@ -134,7 +134,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 自动递增组件
      */
     @FXML
-    private FlexHBox tableAutoIncrementBox;
+    private FXHBox tableAutoIncrementBox;
 
     /**
      * 自动递增
@@ -146,13 +146,13 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 注释
      */
     @FXML
-    private FlexTextArea tableComment;
+    private FXTextArea tableComment;
 
     /**
      * sql预览
      */
     @FXML
-    private FlexTextArea sqlPreview;
+    private FXTextArea sqlPreview;
 
     /**
      * 表字段组件
@@ -170,49 +170,49 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 字段名称列
      */
     @FXML
-    private FlexTableColumn<MysqlColumnControl, String> colName;
+    private FXTableColumn<MysqlColumnControl, String> colName;
 
     /**
      * 字段类型列
      */
     @FXML
-    private FlexTableColumn<MysqlColumnControl, String> colType;
+    private FXTableColumn<MysqlColumnControl, String> colType;
 
     /**
      * 字段长度
      */
     @FXML
-    private FlexTableColumn<MysqlColumnControl, Integer> colSize;
+    private FXTableColumn<MysqlColumnControl, Integer> colSize;
 
     /**
      * 字段小数点列
      */
     @FXML
-    private FlexTableColumn<MysqlColumnControl, Integer> colDigits;
+    private FXTableColumn<MysqlColumnControl, Integer> colDigits;
 
     /**
      * 字段是否主键列
      */
     @FXML
-    private FlexTableColumn<MysqlColumnControl, Boolean> colPrimaryKey;
+    private FXTableColumn<MysqlColumnControl, Boolean> colPrimaryKey;
 
     /**
      * 字段可为null列
      */
     @FXML
-    private FlexTableColumn<MysqlColumnControl, Boolean> colNullable;
+    private FXTableColumn<MysqlColumnControl, Boolean> colNullable;
 
     /**
      * 字段注释列
      */
     @FXML
-    private FlexTableColumn<MysqlColumnControl, String> colComment;
+    private FXTableColumn<MysqlColumnControl, String> colComment;
 
     // /**
     //  * 字段配置
     //  */
     // @FXML
-    // private FlexTableColumn<MysqlColumnControl, String> colConfig;
+    // private FXTableColumn<MysqlColumnControl, String> colConfig;
 
     /**
      * 表索引组件
@@ -254,7 +254,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 索引注释列
      */
     @FXML
-    private FlexTableColumn<MysqlIndexControl, String> indexComment;
+    private FXTableColumn<MysqlIndexControl, String> indexComment;
 
     /**
      * 表外键组件
@@ -296,19 +296,19 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 外键引用字段
      */
     @FXML
-    private FlexTableColumn<MysqlForeignKeyControl, String> foreignKeyPKColumn;
+    private FXTableColumn<MysqlForeignKeyControl, String> foreignKeyPKColumn;
 
     /**
      * 外键删除策略
      */
     @FXML
-    private FlexTableColumn<MysqlForeignKeyControl, String> foreignKeyDeletePolicy;
+    private FXTableColumn<MysqlForeignKeyControl, String> foreignKeyDeletePolicy;
 
     /**
      * 外键更新策略
      */
     @FXML
-    private FlexTableColumn<MysqlForeignKeyControl, String> foreignKeyUpdatePolicy;
+    private FXTableColumn<MysqlForeignKeyControl, String> foreignKeyUpdatePolicy;
 
     /**
      * db表
@@ -331,19 +331,19 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 触发器名称
      */
     @FXML
-    private FlexTableColumn<MysqlTriggerControl, String> triggerName;
+    private FXTableColumn<MysqlTriggerControl, String> triggerName;
 
     /**
      * 触发器策略
      */
     @FXML
-    private FlexTableColumn<MysqlTriggerControl, String> triggerPolicy;
+    private FXTableColumn<MysqlTriggerControl, String> triggerPolicy;
 
     /**
      * 触发器定义
      */
     @FXML
-    private FlexTableColumn<MysqlTriggerControl, String> triggerDefinition;
+    private FXTableColumn<MysqlTriggerControl, String> triggerDefinition;
 
     /**
      * 检查器组件
@@ -361,13 +361,13 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 检查器名称
      */
     @FXML
-    private FlexTableColumn<MysqlCheckControl, String> checkName;
+    private FXTableColumn<MysqlCheckControl, String> checkName;
 
     /**
      * 检查器子语句
      */
     @FXML
-    private FlexTableColumn<MysqlCheckControl, String> checkClause;
+    private FXTableColumn<MysqlCheckControl, String> checkClause;
 
     /**
      * db库节点

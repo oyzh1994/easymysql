@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.controller.data;
 
 import cn.hutool.core.io.FileUtil;
+import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
-import cn.oyzh.common.util.SystemUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.fx.data.DBDumpDataTypeComboBox;
@@ -11,8 +11,8 @@ import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.box.FlexVBox;
-import cn.oyzh.fx.plus.controls.button.FlexButton;
+import cn.oyzh.fx.plus.controls.box.FXVBox;
+import cn.oyzh.fx.plus.controls.button.FXButton;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
 import cn.oyzh.fx.plus.file.FileExtensionFilter;
@@ -65,7 +65,7 @@ public class MysqlDataDumpController extends StageController {
      * 结束转储按钮
      */
     @FXML
-    private FlexButton stopDumpBtn;
+    private FXButton stopDumpBtn;
 
     /**
      * 转储状态
@@ -95,7 +95,7 @@ public class MysqlDataDumpController extends StageController {
      * 表组件
      */
     @FXML
-    private FlexVBox tableBox;
+    private FXVBox tableBox;
 
     /**
      * 表

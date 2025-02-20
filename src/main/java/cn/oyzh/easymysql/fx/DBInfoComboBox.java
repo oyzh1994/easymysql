@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.fx;
 
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.store.MysqlConnectStore;
-import cn.oyzh.fx.plus.SimpleStringConverter;
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
+import cn.oyzh.fx.plus.converter.SimpleStringConverter;
 
 /**
  * db连接库选择框
@@ -11,7 +11,7 @@ import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
  * @author oyzh
  * @since 2024/09/05
  */
-public class DBInfoComboBox extends FlexComboBox<MysqlConnect> {
+public class DBInfoComboBox extends FXComboBox<MysqlConnect> {
 
     {
         this.setConverter(new SimpleStringConverter<>() {

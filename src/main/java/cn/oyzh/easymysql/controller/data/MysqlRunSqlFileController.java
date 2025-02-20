@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.controller.data;
 
+import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
-import cn.oyzh.common.util.SystemUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.handler.runfile.DataRunSqlFileHandler;
@@ -11,7 +11,7 @@ import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
-import cn.oyzh.fx.plus.controls.button.FlexButton;
+import cn.oyzh.fx.plus.controls.button.FXButton;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
 import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
@@ -56,7 +56,7 @@ public class MysqlRunSqlFileController extends StageController {
      * 结束运行sql按钮
      */
     @FXML
-    private FlexButton stopSqlFileBtn;
+    private FXButton stopSqlFileBtn;
 
     /**
      * 执行状态

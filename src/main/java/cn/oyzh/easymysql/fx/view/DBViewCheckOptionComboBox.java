@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.view;
 
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * db视图检查选项下拉框
@@ -8,7 +8,7 @@ import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
  * @author oyzh
  * @since 2024/08/07
  */
-public class DBViewCheckOptionComboBox extends FlexComboBox<String> {
+public class DBViewCheckOptionComboBox extends FXComboBox<String> {
 
     {
         this.addItem("NONE");

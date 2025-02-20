@@ -5,11 +5,11 @@
 <?import cn.oyzh.easymysql.fx.DBStatusTableView?>
 <?import cn.oyzh.easymysql.fx.table.DBEngineComboBox?>
 <?import cn.oyzh.easymysql.fx.table.DBRowFormatComboBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
-<?import cn.oyzh.fx.plus.controls.tab.FlexTabPane?>
+<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
+<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
 <?import cn.oyzh.fx.plus.controls.tab.FXTab?>
-<?import cn.oyzh.fx.plus.controls.table.FlexTableColumn?>
+<?import cn.oyzh.fx.plus.controls.table.FXTableColumn?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
@@ -19,10 +19,10 @@
 <?import cn.oyzh.fx.gui.svg.glyph.MoveUpSVGGlyph?>
 <?import cn.oyzh.fx.gui.label.AccentLabel?>
 <?import cn.oyzh.fx.gui.text.field.NumberTextField?>
-<?import cn.oyzh.fx.plus.controls.text.area.FlexTextArea?>
-<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<?import cn.oyzh.fx.plus.controls.text.area.FXTextArea?>
+<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.tabs.table.MysqlTableDesignTabController" flexWidth="100%" flexHeight="100%">
-    <FlexHBox realHeight="25" flexWidth="100%">
+    <FXHBox realHeight="25" flexWidth="100%">
         <SaveSVGGlyph fx:id="save" onMousePrimaryClicked="#save" size="14">
             <HBox.margin>
                 <Insets left="10" top="10"/>
@@ -48,39 +48,39 @@
                 <Insets left="10" top="10"/>
             </HBox.margin>
         </MoveDownSVGGlyph>
-    </FlexHBox>
-    <FlexTabPane fx:id="tabPane" flexWidth="100%" flexHeight="100% - 25">
+    </FXHBox>
+    <FXTabPane fx:id="tabPane" flexWidth="100%" flexHeight="100% - 25">
         <FXTab text="%base.fields" fx:id="columnTab">
-            <FlexVBox flexHeight="100% " flexWidth="100%">
+            <FXVBox flexHeight="100% " flexWidth="100%">
                 <DBStatusTableView fx:id="columnTable" flexHeight="100% - 200" flexWidth="100%">
                     <columns>
                         <DBStatusColumn fx:id="colStatus"/>
-                        <FlexTableColumn flexWidth="15%" fx:id="colName" text="%base.name" resizable="true"/>
-                        <FlexTableColumn flexWidth="15%" fx:id="colType" text="%base.type" resizable="true"/>
-                        <FlexTableColumn maxWidth="80" realWidth="80" fx:id="colSize" text="%base.length"/>
-                        <FlexTableColumn maxWidth="80" realWidth="80" fx:id="colDigits" text="%base.digits"/>
-                        <FlexTableColumn maxWidth="60" realWidth="60" fx:id="colPrimaryKey" text="%base.key"/>
-                        <FlexTableColumn maxWidth="80" realWidth="80" fx:id="colNullable" text="%base.nullable"/>
-                        <FlexTableColumn flexWidth="70% - 460" fx:id="colComment" text="%base.comment"
+                        <FXTableColumn flexWidth="15%" fx:id="colName" text="%base.name" resizable="true"/>
+                        <FXTableColumn flexWidth="15%" fx:id="colType" text="%base.type" resizable="true"/>
+                        <FXTableColumn maxWidth="80" realWidth="80" fx:id="colSize" text="%base.length"/>
+                        <FXTableColumn maxWidth="80" realWidth="80" fx:id="colDigits" text="%base.digits"/>
+                        <FXTableColumn maxWidth="60" realWidth="60" fx:id="colPrimaryKey" text="%base.key"/>
+                        <FXTableColumn maxWidth="80" realWidth="80" fx:id="colNullable" text="%base.nullable"/>
+                        <FXTableColumn flexWidth="70% - 460" fx:id="colComment" text="%base.comment"
                                          resizable="true"/>
-                        <!-- <FlexTableColumn realWidth="50" fx:id="colConfig" text="%base.config"/> -->
+                        <!-- <FXTableColumn realWidth="50" fx:id="colConfig" text="%base.config"/> -->
                     </columns>
                 </DBStatusTableView>
                 <fx:include fx:id="tableColumnExtra" source="./mysqlTableColumnExtra.fxml">
 
                 </fx:include>
-            </FlexVBox>
+            </FXVBox>
 
         </FXTab>
         <FXTab text="%base.indexes" fx:id="indexTab">
             <DBStatusTableView fx:id="indexTable" flexHeight="100%" flexWidth="100%">
                 <columns>
                     <DBStatusColumn fx:id="indexStatus"/>
-                    <FlexTableColumn flexWidth="20%" fx:id="indexName" text="%base.name" resizable="true"/>
-                    <FlexTableColumn flexWidth="30%" fx:id="indexColumn" text="%base.column" resizable="true"/>
-                    <FlexTableColumn realWidth="125" fx:id="indexType" text="%base.indexType"/>
-                    <FlexTableColumn realWidth="125" fx:id="indexMethod" text="%base.indexMethod"/>
-                    <FlexTableColumn flexWidth="50% - 283" fx:id="indexComment" text="%base.comment"
+                    <FXTableColumn flexWidth="20%" fx:id="indexName" text="%base.name" resizable="true"/>
+                    <FXTableColumn flexWidth="30%" fx:id="indexColumn" text="%base.column" resizable="true"/>
+                    <FXTableColumn realWidth="125" fx:id="indexType" text="%base.indexType"/>
+                    <FXTableColumn realWidth="125" fx:id="indexMethod" text="%base.indexMethod"/>
+                    <FXTableColumn flexWidth="50% - 283" fx:id="indexComment" text="%base.comment"
                                      resizable="true"/>
                 </columns>
             </DBStatusTableView>
@@ -89,17 +89,17 @@
             <DBStatusTableView fx:id="foreignKeyTable" flexHeight="100%" flexWidth="100%">
                 <columns>
                     <DBStatusColumn fx:id="foreignKeyStatus"/>
-                    <FlexTableColumn flexWidth="40% - 273" fx:id="foreignKeyName" text="%base.name"
+                    <FXTableColumn flexWidth="40% - 273" fx:id="foreignKeyName" text="%base.name"
                                      resizable="true"/>
-                    <FlexTableColumn flexWidth="18%" fx:id="foreignKeyColumn" text="%base.fields" resizable="true"/>
-                    <FlexTableColumn flexWidth="12%" fx:id="foreignKeyPKDatabase" text="%base.referencedSchema"
+                    <FXTableColumn flexWidth="18%" fx:id="foreignKeyColumn" text="%base.fields" resizable="true"/>
+                    <FXTableColumn flexWidth="12%" fx:id="foreignKeyPKDatabase" text="%base.referencedSchema"
                                      resizable="true"/>
-                    <FlexTableColumn flexWidth="12%" fx:id="foreignKeyPKTable" text="%base.referencedTable"
+                    <FXTableColumn flexWidth="12%" fx:id="foreignKeyPKTable" text="%base.referencedTable"
                                      resizable="true"/>
-                    <FlexTableColumn flexWidth="18%" fx:id="foreignKeyPKColumn" text="%base.referencedFields"
+                    <FXTableColumn flexWidth="18%" fx:id="foreignKeyPKColumn" text="%base.referencedFields"
                                      resizable="true"/>
-                    <FlexTableColumn realWidth="120" fx:id="foreignKeyDeletePolicy" text="%base.onDelete"/>
-                    <FlexTableColumn realWidth="120" fx:id="foreignKeyUpdatePolicy" text="%base.onUpdate"/>
+                    <FXTableColumn realWidth="120" fx:id="foreignKeyDeletePolicy" text="%base.onDelete"/>
+                    <FXTableColumn realWidth="120" fx:id="foreignKeyUpdatePolicy" text="%base.onUpdate"/>
                 </columns>
             </DBStatusTableView>
         </FXTab>
@@ -107,9 +107,9 @@
             <DBStatusTableView fx:id="triggerTable" flexHeight="100%" flexWidth="100%">
                 <columns>
                     <DBStatusColumn fx:id="triggerStatus"/>
-                    <FlexTableColumn flexWidth="45% - 283" fx:id="triggerName" text="%base.name" resizable="true"/>
-                    <FlexTableColumn realWidth="250" fx:id="triggerPolicy" text="%base.policy"/>
-                    <FlexTableColumn flexWidth="55%" fx:id="triggerDefinition" text="%base.definition"
+                    <FXTableColumn flexWidth="45% - 283" fx:id="triggerName" text="%base.name" resizable="true"/>
+                    <FXTableColumn realWidth="250" fx:id="triggerPolicy" text="%base.policy"/>
+                    <FXTableColumn flexWidth="55%" fx:id="triggerDefinition" text="%base.definition"
                                      resizable="true"/>
                 </columns>
             </DBStatusTableView>
@@ -118,15 +118,15 @@
             <DBStatusTableView fx:id="checkTable" flexHeight="100%" flexWidth="100%">
                 <columns>
                     <DBStatusColumn fx:id="checkStatus"/>
-                    <FlexTableColumn flexWidth="30%" fx:id="checkName" text="%base.name" resizable="true"/>
-                    <FlexTableColumn flexWidth="70% - 30" fx:id="checkClause" text="%base.clause"
+                    <FXTableColumn flexWidth="30%" fx:id="checkName" text="%base.name" resizable="true"/>
+                    <FXTableColumn flexWidth="70% - 30" fx:id="checkClause" text="%base.clause"
                                      resizable="true"/>
                 </columns>
             </DBStatusTableView>
         </FXTab>
         <FXTab text="%base.options">
-            <FlexVBox flexWidth="100%" flexHeight="100%">
-                <FlexHBox flexWidth="100%" realHeight="50">
+            <FXVBox flexWidth="100%" flexHeight="100%">
+                <FXHBox flexWidth="100%" realHeight="50">
                     <AccentLabel realHeight="30" realWidth="65" text="%base.engine">
                         <HBox.margin>
                             <Insets left="20" top="10"/>
@@ -138,8 +138,8 @@
                             <Insets left="10" top="10"/>
                         </HBox.margin>
                     </DBEngineComboBox>
-                </FlexHBox>
-                <FlexHBox flexWidth="100%" realHeight="50">
+                </FXHBox>
+                <FXHBox flexWidth="100%" realHeight="50">
                     <AccentLabel realHeight="30" realWidth="65" text="%base.charset">
                         <HBox.margin>
                             <Insets left="20" top="10"/>
@@ -151,8 +151,8 @@
                             <Insets left="10" top="10"/>
                         </HBox.margin>
                     </DBCharsetComboBox>
-                </FlexHBox>
-                <FlexHBox flexWidth="100%" realHeight="50">
+                </FXHBox>
+                <FXHBox flexWidth="100%" realHeight="50">
                     <AccentLabel realHeight="30" realWidth="65" text="%base.collation">
                         <HBox.margin>
                             <Insets left="20" top="10"/>
@@ -164,8 +164,8 @@
                             <Insets left="10" top="10"/>
                         </HBox.margin>
                     </DBCollationComboBox>
-                </FlexHBox>
-                <FlexHBox flexWidth="100%" realHeight="50" managed="false" visible="false" fx:id="tableRowFormatBox">
+                </FXHBox>
+                <FXHBox flexWidth="100%" realHeight="50" managed="false" visible="false" fx:id="tableRowFormatBox">
                     <AccentLabel realHeight="30" realWidth="65" text="%base.rowFormat">
                         <HBox.margin>
                             <Insets left="20" top="10"/>
@@ -177,8 +177,8 @@
                             <Insets left="10" top="10"/>
                         </HBox.margin>
                     </DBRowFormatComboBox>
-                </FlexHBox>
-                <FlexHBox flexWidth="100%" realHeight="50" managed="false" visible="false"
+                </FXHBox>
+                <FXHBox flexWidth="100%" realHeight="50" managed="false" visible="false"
                           fx:id="tableAutoIncrementBox">
                     <AccentLabel realHeight="30" realWidth="65" text="%base.autoIncrement">
                         <HBox.margin>
@@ -191,18 +191,18 @@
                             <Insets left="10" top="10"/>
                         </HBox.margin>
                     </NumberTextField>
-                </FlexHBox>
+                </FXHBox>
 
-            </FlexVBox>
+            </FXVBox>
         </FXTab>
         <FXTab text="%base.comment">
-            <FlexTextArea fx:id="tableComment" tipText="%base.comment" flexWidth="100%" flexHeight="100%"
+            <FXTextArea fx:id="tableComment" tipText="%base.comment" flexWidth="100%" flexHeight="100%"
                           maxLen="1024">
-            </FlexTextArea>
+            </FXTextArea>
         </FXTab>
         <FXTab text="%base.preview" fx:id="previewTab">
-            <FlexTextArea editable="false" fx:id="sqlPreview" flexWidth="100%" flexHeight="100%">
-            </FlexTextArea>
+            <FXTextArea editable="false" fx:id="sqlPreview" flexWidth="100%" flexHeight="100%">
+            </FXTextArea>
         </FXTab>
-    </FlexTabPane>
-</FlexVBox>
+    </FXTabPane>
+</FXVBox>

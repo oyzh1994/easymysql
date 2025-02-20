@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.table;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * 引擎下拉选择框
@@ -9,7 +9,7 @@ import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
  * @author oyzh
  * @since 2024/01/26
  */
-public class DBEngineComboBox extends FlexComboBox<String> {
+public class DBEngineComboBox extends FXComboBox<String> {
 
     public void init(DBClient client) {
         this.clearItems();

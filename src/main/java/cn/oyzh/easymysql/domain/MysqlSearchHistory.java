@@ -1,6 +1,6 @@
 //package cn.oyzh.easymysql.domain;
 //
-//import cn.oyzh.common.util.ObjectComparator;
+//import cn.oyzh.common.object.ObjectComparator;
 //import lombok.AllArgsConstructor;
 //import lombok.Data;
 //import lombok.NoArgsConstructor;

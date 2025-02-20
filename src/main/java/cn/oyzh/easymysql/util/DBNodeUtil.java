@@ -12,7 +12,7 @@ import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.gui.text.field.TimeTextField;
 import cn.oyzh.fx.gui.text.field.YearTextField;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
-import cn.oyzh.fx.plus.controls.text.field.FlexTextField;
+import cn.oyzh.fx.plus.controls.text.field.FXTextField;
 import cn.oyzh.fx.rich.richtextfx.control.RichTextAreaPane;
 import cn.oyzh.fx.rich.richtextfx.json.RichJsonTextAreaPane;
 import cn.oyzh.i18n.I18nHelper;
@@ -108,7 +108,7 @@ public class DBNodeUtil {
     public static Node generateNode(MysqlColumn column, boolean handlerDefaultValue) {
         Node node;
         if (column == null) {
-            node = new FlexTextField();
+            node = new FXTextField();
         } else if (column.supportJson()) {
             node = new RichJsonTextAreaPane();
 //        } else if (column.supportGeometry()) {

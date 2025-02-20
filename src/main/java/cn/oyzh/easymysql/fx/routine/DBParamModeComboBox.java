@@ -1,12 +1,12 @@
 package cn.oyzh.easymysql.fx.routine;
 
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * @author oyzh
  * @since 2024/06/26
  */
-public class DBParamModeComboBox extends FlexComboBox<String> {
+public class DBParamModeComboBox extends FXComboBox<String> {
 
     {
         this.addItem("IN");

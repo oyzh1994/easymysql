@@ -2,13 +2,13 @@ package cn.oyzh.easymysql.fx;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * @author oyzh
  * @since 2024/01/26
  */
-public class DBCollationComboBox extends FlexComboBox<String> {
+public class DBCollationComboBox extends FXComboBox<String> {
 
     public void init(String charset, DBClient client) {
         String aCharset = this.getProp("charset");

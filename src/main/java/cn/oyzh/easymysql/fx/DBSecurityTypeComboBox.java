@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx;
 
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * db安全类型下拉框
@@ -8,7 +8,7 @@ import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
  * @author oyzh
  * @since 2024/08/07
  */
-public class DBSecurityTypeComboBox extends FlexComboBox<String> {
+public class DBSecurityTypeComboBox extends FXComboBox<String> {
 
     {
         this.addItem("DEFINER");

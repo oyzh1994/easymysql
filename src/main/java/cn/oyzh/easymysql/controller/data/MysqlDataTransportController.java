@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.controller.data;
 
 import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
-import cn.oyzh.common.util.SystemUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
@@ -18,11 +18,11 @@ import cn.oyzh.easymysql.handler.transport.DataTransportHandler;
 import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.box.FlexVBox;
-import cn.oyzh.fx.plus.controls.button.FlexButton;
+import cn.oyzh.fx.plus.controls.box.FXVBox;
+import cn.oyzh.fx.plus.controls.button.FXButton;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
-import cn.oyzh.fx.plus.controls.label.FlexLabel;
-import cn.oyzh.fx.plus.controls.pane.FlexTitledPane;
+import cn.oyzh.fx.plus.controls.label.FXLabel;
+import cn.oyzh.fx.plus.controls.pane.FXTitledPane;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroup;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
@@ -54,19 +54,19 @@ public class MysqlDataTransportController extends StageController {
      * 第一步
      */
     @FXML
-    private FlexVBox step1;
+    private FXVBox step1;
 
     /**
      * 第二步
      */
     @FXML
-    private FlexVBox step2;
+    private FXVBox step2;
 
     /**
      * 第三步
      */
     @FXML
-    private FlexVBox step3;
+    private FXVBox step3;
 
     /**
      * 来源信息名称
@@ -120,37 +120,37 @@ public class MysqlDataTransportController extends StageController {
      * 来源主机
      */
     @FXML
-    private FlexLabel sourceHost;
+    private FXLabel sourceHost;
 
     /**
      * 目标主机
      */
     @FXML
-    private FlexLabel targetHost;
+    private FXLabel targetHost;
 
     /**
      * 来源服务版本
      */
     @FXML
-    private FlexLabel sourceVersion;
+    private FXLabel sourceVersion;
 
     /**
      * 目标服务版本
      */
     @FXML
-    private FlexLabel targetVersion;
+    private FXLabel targetVersion;
 
     /**
      * 来源服务类型
      */
     @FXML
-    private FlexLabel sourceType;
+    private FXLabel sourceType;
 
     /**
      * 目标服务类型
      */
     @FXML
-    private FlexLabel targetType;
+    private FXLabel targetType;
 
     /**
      * 来源客户端
@@ -166,7 +166,7 @@ public class MysqlDataTransportController extends StageController {
      * 结束传输按钮
      */
     @FXML
-    private FlexButton stopTransportBtn;
+    private FXButton stopTransportBtn;
 
     /**
      * 传输状态
@@ -184,37 +184,37 @@ public class MysqlDataTransportController extends StageController {
      * 表组件
      */
     @FXML
-    private FlexTitledPane tablePane;
+    private FXTitledPane tablePane;
 
     /**
      * 视图组件
      */
     @FXML
-    private FlexTitledPane viewPane;
+    private FXTitledPane viewPane;
 
     /**
      * 函数组件
      */
     @FXML
-    private FlexTitledPane functionPane;
+    private FXTitledPane functionPane;
 
     /**
      * 过程组件
      */
     @FXML
-    private FlexTitledPane procedurePane;
+    private FXTitledPane procedurePane;
 
     /**
      * 触发器组件
      */
     @FXML
-    private FlexTitledPane triggerPane;
+    private FXTitledPane triggerPane;
 
     /**
      * 事件组件
      */
     @FXML
-    private FlexTitledPane eventPane;
+    private FXTitledPane eventPane;
 
     /**
      * 表列表
@@ -589,12 +589,12 @@ public class MysqlDataTransportController extends StageController {
      * @param curr   当前面板
      * @param extend 是否展开
      */
-    private void flushPaneLayout(FlexTitledPane curr, boolean extend) {
+    private void flushPaneLayout(FXTitledPane curr, boolean extend) {
         if (extend) {
             curr.setFlexHeight("100% - 150");
             List<NodeGroup> groups = NodeGroupUtil.list(this.getStage(), "config");
             for (NodeGroup group : groups) {
-                FlexTitledPane pane = (FlexTitledPane) group;
+                FXTitledPane pane = (FXTitledPane) group;
                 if (pane != curr) {
                     pane.setExpanded(false);
                     pane.setFlexHeight("50");

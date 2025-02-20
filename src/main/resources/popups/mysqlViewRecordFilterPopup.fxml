@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.fx.plus.controls.box.FlexHBox?>
-<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
-<?import cn.oyzh.fx.plus.controls.table.FlexTableColumn?>
-<?import cn.oyzh.fx.plus.controls.table.FlexTableView?>
+<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
+<?import cn.oyzh.fx.plus.controls.table.FXTableColumn?>
+<?import cn.oyzh.fx.plus.controls.table.FXTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import cn.oyzh.fx.gui.svg.glyph.ApplySVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.AddFillSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.DeleteSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.CloseSVGGlyph?>
-<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.popups.MysqlViewRecordFilterPopupController" realWidth="800" realHeight="350">
-    <FlexTableView fx:id="filterTable" flexHeight="100% - 30" flexWidth="100%">
+    <FXTableView fx:id="filterTable" flexHeight="100% - 30" flexWidth="100%">
         <columns>
-            <FlexTableColumn realWidth="35" fx:id="enabled"/>
-            <FlexTableColumn flexWidth="20%" fx:id="column" text="%base.field" resizable="true"/>
-            <FlexTableColumn realWidth="130" fx:id="condition" text="%base.condition"/>
-            <FlexTableColumn flexWidth="80% - 257" fx:id="value" text="%base.value" resizable="true"/>
-            <FlexTableColumn realWidth="80" fx:id="joinSymbol" text="%base.connectionSymbol"/>
+            <FXTableColumn realWidth="35" fx:id="enabled"/>
+            <FXTableColumn flexWidth="20%" fx:id="column" text="%base.field" resizable="true"/>
+            <FXTableColumn realWidth="130" fx:id="condition" text="%base.condition"/>
+            <FXTableColumn flexWidth="80% - 257" fx:id="value" text="%base.value" resizable="true"/>
+            <FXTableColumn realWidth="80" fx:id="joinSymbol" text="%base.connectionSymbol"/>
         </columns>
-    </FlexTableView>
-    <FlexHBox realHeight="30" flexWidth="100%">
+    </FXTableView>
+    <FXHBox realHeight="30" flexWidth="100%">
         <ApplySVGGlyph onMousePrimaryClicked="#apply" sizeStr="16,13">
             <HBox.margin>
                 <Insets left="5" top="5"/>
@@ -41,5 +41,5 @@
                 <Insets left="15" top="5"/>
             </HBox.margin>
         </CloseSVGGlyph>
-    </FlexHBox>
-</FlexVBox>
+    </FXHBox>
+</FXVBox>

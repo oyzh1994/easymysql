@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
-import cn.oyzh.fx.plus.controls.list.FlexListView;
+import cn.oyzh.fx.plus.controls.list.FXListView;
 import cn.oyzh.fx.plus.util.ListViewUtil;
 import javafx.scene.control.CheckBox;
 
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @author oyzh
  * @since 2024/01/24
  */
-public class DBColumnListView extends FlexListView<FXCheckBox> {
+public class DBColumnListView extends FXListView<FXCheckBox> {
 
     public DBColumnListView() {
 

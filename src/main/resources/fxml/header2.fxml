@@ -6,11 +6,11 @@
 <?import cn.oyzh.fx.gui.svg.glyph.ToolsSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.TransportSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.label.AboutSVGLabel?>
-<?import cn.oyzh.fx.plus.controls.box.FlexVBox?>
-<?import cn.oyzh.fx.plus.controls.pane.FlexPane?>
+<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
+<?import cn.oyzh.fx.plus.controls.pane.FXPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.VBox?>
-<FlexVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.HeaderController2" flexWidth="100%" flexHeight="100%">
     <TransportSVGGlyph onMousePrimaryClicked="#transport" size="12">
         <VBox.margin>
@@ -37,9 +37,9 @@
             <Insets left="10" top="15"/>
         </VBox.margin>
     </Layout2SVGGlyph>
-    <FlexPane flexWidth="100%" flexHeight="100% - 254">
+    <FXPane flexWidth="100%" flexHeight="100% - 254">
 
-    </FlexPane>
+    </FXPane>
     <QuitSVGGlyph onMousePrimaryClicked="#quit" size="12">
         <VBox.margin>
             <Insets left="10" top="15"/>
@@ -50,4 +50,4 @@
             <Insets left="10" top="15"/>
         </VBox.margin>
     </SettingSVGGlyph>
-</FlexVBox>
+</FXVBox>

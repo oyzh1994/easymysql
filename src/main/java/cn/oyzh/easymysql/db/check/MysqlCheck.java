@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.check;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.common.util.ObjectCopier;
+import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

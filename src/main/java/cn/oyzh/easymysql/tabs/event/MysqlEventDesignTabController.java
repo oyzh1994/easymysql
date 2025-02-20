@@ -18,9 +18,9 @@ import cn.oyzh.fx.gui.text.field.DateTimeTextField;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.button.FXRadioButton;
-import cn.oyzh.fx.plus.controls.tab.FlexTabPane;
-import cn.oyzh.fx.plus.controls.text.area.FlexTextArea;
-import cn.oyzh.fx.plus.controls.text.field.FlexTextField;
+import cn.oyzh.fx.plus.controls.tab.FXTabPane;
+import cn.oyzh.fx.plus.controls.text.area.FXTextArea;
+import cn.oyzh.fx.plus.controls.text.field.FXTextField;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeUtil;
@@ -185,19 +185,19 @@ public class MysqlEventDesignTabController extends DynamicTabController {
      * 切换面板
      */
     @FXML
-    private FlexTabPane tabPane;
+    private FXTabPane tabPane;
 
     /**
      * 注释
      */
     @FXML
-    private FlexTextArea comment;
+    private FXTextArea comment;
 
     /**
      * 定义者
      */
     @FXML
-    private FlexTextField definer;
+    private FXTextField definer;
 
     /**
      * 状态

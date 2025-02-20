@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.fx;
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @author oyzh
  * @since 2024/01/25
  */
-public class DBDatabaseComboBox extends FlexComboBox<String> {
+public class DBDatabaseComboBox extends FXComboBox<String> {
 
     public void init(DBClient client) {
         this.init(client, null);

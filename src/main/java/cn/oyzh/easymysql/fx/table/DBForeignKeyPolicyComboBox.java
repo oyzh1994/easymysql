@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.table;
 
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
  * db删除策略选择框
@@ -8,7 +8,7 @@ import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
  * @author oyzh
  * @since 2024/01/25
  */
-public class DBForeignKeyPolicyComboBox extends FlexComboBox<String> {
+public class DBForeignKeyPolicyComboBox extends FXComboBox<String> {
 
     {
         this.addItem("CASCADE");

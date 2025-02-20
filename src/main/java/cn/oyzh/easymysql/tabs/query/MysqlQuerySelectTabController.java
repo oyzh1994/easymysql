@@ -19,10 +19,10 @@ import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.util.DBRecordUtil;
 import cn.oyzh.fx.gui.tabs.DynamicTab;
 import cn.oyzh.fx.gui.tabs.DynamicTabController;
-import cn.oyzh.fx.plus.controls.box.FlexVBox;
+import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
-import cn.oyzh.fx.plus.controls.text.FlexText;
+import cn.oyzh.fx.plus.controls.table.FXTableColumn;
+import cn.oyzh.fx.plus.controls.text.FXText;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.node.NodeUtil;
@@ -47,25 +47,25 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
      * 根节点
      */
     @FXML
-    private FlexVBox root;
+    private FXVBox root;
 
     /**
      * sql组件
      */
     @FXML
-    private FlexText sql;
+    private FXText sql;
 
     /**
      * 耗时组件
      */
     @FXML
-    private FlexText used;
+    private FXText used;
 
     /**
      * 计数组件
      */
     @FXML
-    private FlexText count;
+    private FXText count;
 
     /**
      * 数据表单组件
@@ -173,7 +173,7 @@ public class MysqlQuerySelectTabController extends DynamicTabController {
         // 设置字段列表
         this.columns = columns;
         // 数据列集合
-        List<FlexTableColumn<MysqlRecord, Object>> columnList = new ArrayList<>();
+        List<FXTableColumn<MysqlRecord, Object>> columnList = new ArrayList<>();
         DBStatusColumn<MysqlRecord> statusColumn = new DBStatusColumn<>();
         columnList.add(statusColumn);
         for (MysqlColumn column : columns) {

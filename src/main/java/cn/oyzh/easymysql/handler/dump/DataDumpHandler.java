@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.handler.dump;
 
 import cn.oyzh.common.date.DateHelper;
-import cn.oyzh.common.util.FastFileWriter;
+import cn.oyzh.common.file.FastFileWriter;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.domain.MysqlConnect;

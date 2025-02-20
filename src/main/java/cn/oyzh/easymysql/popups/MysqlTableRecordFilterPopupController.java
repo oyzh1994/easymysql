@@ -7,8 +7,8 @@ import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
-import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
-import cn.oyzh.fx.plus.controls.table.FlexTableView;
+import cn.oyzh.fx.plus.controls.table.FXTableColumn;
+import cn.oyzh.fx.plus.controls.table.FXTableView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupAttribute;
@@ -41,37 +41,37 @@ public class MysqlTableRecordFilterPopupController extends PopupController {
      * 表过滤条件表单
      */
     @FXML
-    private FlexTableView<MysqlRecordFilter> filterTable;
+    private FXTableView<MysqlRecordFilter> filterTable;
 
     /**
      * 字段列
      */
     @FXML
-    private FlexTableColumn<MysqlRecordFilter, DBConditionComboBox> column;
+    private FXTableColumn<MysqlRecordFilter, DBConditionComboBox> column;
 
     /**
      * 条件列
      */
     @FXML
-    private FlexTableColumn<MysqlRecordFilter, DBConditionComboBox> condition;
+    private FXTableColumn<MysqlRecordFilter, DBConditionComboBox> condition;
 
     /**
      * 值列
      */
     @FXML
-    private FlexTableColumn<MysqlRecordFilter, Node> value;
+    private FXTableColumn<MysqlRecordFilter, Node> value;
 
     /**
      * 启用列
      */
     @FXML
-    private FlexTableColumn<MysqlRecordFilter, CheckBox> enabled;
+    private FXTableColumn<MysqlRecordFilter, CheckBox> enabled;
 
     /**
      * 连接符列
      */
     @FXML
-    private FlexTableColumn<MysqlRecordFilter, ComboBox<String>> joinSymbol;
+    private FXTableColumn<MysqlRecordFilter, ComboBox<String>> joinSymbol;
 
     /**
      * db表节点

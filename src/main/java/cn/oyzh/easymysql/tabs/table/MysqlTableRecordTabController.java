@@ -26,9 +26,9 @@ import cn.oyzh.fx.gui.page.PageBox;
 import cn.oyzh.fx.gui.page.PageEvent;
 import cn.oyzh.fx.gui.tabs.DynamicTab;
 import cn.oyzh.fx.gui.tabs.DynamicTabController;
-import cn.oyzh.fx.plus.controls.box.FlexVBox;
+import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import cn.oyzh.fx.plus.controls.table.FlexTableColumn;
+import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.node.NodeUtil;
@@ -58,7 +58,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
      * 根节点
      */
     @FXML
-    private FlexVBox root;
+    private FXVBox root;
 
     /**
      * db树表节点
@@ -181,7 +181,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
         // 设置字段列表
         this.columns = columns;
         // 数据列集合
-        List<FlexTableColumn<MysqlRecord, Object>> columnList = new ArrayList<>();
+        List<FXTableColumn<MysqlRecord, Object>> columnList = new ArrayList<>();
         DBStatusColumn<MysqlRecord> statusColumn = new DBStatusColumn<>();
         columnList.add(statusColumn);
         for (MysqlColumn column : columns) {

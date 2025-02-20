@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.db.event;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.common.util.ObjectComparator;
-import cn.oyzh.common.util.ObjectCopier;
+import cn.oyzh.common.object.ObjectComparator;
+import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.util.DBUtil;
 import lombok.Getter;

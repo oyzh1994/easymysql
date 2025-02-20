@@ -1,14 +1,14 @@
 package cn.oyzh.easymysql.fx.info;
 
 import cn.hutool.core.util.StrUtil;
-import cn.oyzh.fx.plus.controls.combo.FlexComboBox;
+import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 import cn.oyzh.i18n.I18nHelper;
 
 /**
  * @author oyzh
  * @since 2024-09-06
  */
-public class ServiceTypeCombobox extends FlexComboBox<String> {
+public class ServiceTypeCombobox extends FXComboBox<String> {
 
     {
         this.addItem(I18nHelper.serviceName());
