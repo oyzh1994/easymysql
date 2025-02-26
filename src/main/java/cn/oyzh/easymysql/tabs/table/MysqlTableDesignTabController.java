@@ -34,7 +34,7 @@ import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
-import cn.oyzh.fx.gui.tabs.DynamicTab;
+import cn.oyzh.fx.gui.tabs.RichTab;
 import cn.oyzh.fx.gui.tabs.ParentTabController;
 import cn.oyzh.fx.gui.tabs.SubTabController;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
@@ -1036,7 +1036,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
     }
 
     @Override
-    public void onTabClose(DynamicTab tab, Event event) {
+    public void onTabClose(RichTab tab, Event event) {
         super.onTabClose(tab, event);
         CacheHelper.clear();
     }

@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.tabs;
 
 import cn.oyzh.common.thread.TaskManager;
 import cn.oyzh.easymysql.tabs.home.DBHomeTab;
-import cn.oyzh.fx.gui.tabs.DynamicTabPane;
+import cn.oyzh.fx.gui.tabs.RichTabPane;
 import cn.oyzh.fx.plus.event.FXEventListener;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Tab;
@@ -13,7 +13,7 @@ import javafx.scene.control.Tab;
  * @author oyzh
  * @since 2023/12/22
  */
-public class DBTabPane extends DynamicTabPane implements FXEventListener {
+public class DBTabPane extends RichTabPane implements FXEventListener {
 
     private final MysqlTabEventListener listener = new MysqlTabEventListener(this);
 

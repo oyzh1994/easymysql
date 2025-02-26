@@ -7,7 +7,7 @@ import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;
 import cn.oyzh.easymysql.util.DBRecordUtil;
-import cn.oyzh.fx.gui.tabs.DynamicTabController;
+import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.text.FXText;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -21,7 +21,7 @@ import java.util.List;
  * @author oyzh
  * @since 2024/08/16
  */
-public class MysqlQueryExplainTabController extends DynamicTabController {
+public class MysqlQueryExplainTabController extends RichTabController {
 
     /**
      * sql组件

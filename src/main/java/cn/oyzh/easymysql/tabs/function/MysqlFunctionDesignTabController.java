@@ -16,7 +16,7 @@ import cn.oyzh.easymysql.generator.routine.DBFunctionSqlGenerator;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.gui.tabs.DynamicTabController;
+import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.controls.tab.FXTabPane;
 import cn.oyzh.fx.plus.controls.table.FXTableColumn;
@@ -46,7 +46,7 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2024/07/08
  */
-public class MysqlFunctionDesignTabController extends DynamicTabController {
+public class MysqlFunctionDesignTabController extends RichTabController {
 
     /**
      * 函数

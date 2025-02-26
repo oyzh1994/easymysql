@@ -24,8 +24,8 @@ import cn.oyzh.easymysql.util.DBRecordUtil;
 import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.fx.gui.page.PageBox;
 import cn.oyzh.fx.gui.page.PageEvent;
-import cn.oyzh.fx.gui.tabs.DynamicTab;
-import cn.oyzh.fx.gui.tabs.DynamicTabController;
+import cn.oyzh.fx.gui.tabs.RichTab;
+import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.table.FXTableColumn;
@@ -52,7 +52,7 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2023/12/24
  */
-public class MysqlTableRecordTabController extends DynamicTabController {
+public class MysqlTableRecordTabController extends RichTabController {
 
     /**
      * 根节点
@@ -474,7 +474,7 @@ public class MysqlTableRecordTabController extends DynamicTabController {
     }
 
     @Override
-    public void onTabClose(DynamicTab tab, Event event) {
+    public void onTabClose(RichTab tab, Event event) {
         super.onTabClose(tab, event);
         DBStatusListenerManager.removeListener(this.changeListener);
     }

@@ -13,7 +13,7 @@ import cn.oyzh.easymysql.generator.routine.DBProcedureSqlGenerator;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.gui.tabs.DynamicTabController;
+import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.tab.FXTabPane;
 import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.table.FXTableView;
@@ -43,7 +43,7 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2024/07/08
  */
-public class MysqlProcedureDesignTabController extends DynamicTabController {
+public class MysqlProcedureDesignTabController extends RichTabController {
 
     /**
      * 过程

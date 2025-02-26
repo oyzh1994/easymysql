@@ -1,13 +1,13 @@
 package cn.oyzh.easymysql.tabs;
 
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.gui.tabs.DynamicTab;
+import cn.oyzh.fx.gui.tabs.RichTab;
 
 /**
  * @author oyzh
  * @since 2024-09-12
  */
-public abstract class MysqlTab extends DynamicTab {
+public abstract class MysqlTab extends RichTab {
 
     public static final String BASE_PATH = "/tabs/";
 

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs.home;
 
 import cn.oyzh.fx.gui.svg.glyph.HomeSVGGlyph;
-import cn.oyzh.fx.gui.tabs.DynamicTab;
+import cn.oyzh.fx.gui.tabs.RichTab;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
 import javafx.scene.Cursor;
@@ -12,7 +12,7 @@ import javafx.scene.Cursor;
  * @author oyzh
  * @since 2023/6/24
  */
-public class DBHomeTab extends DynamicTab {
+public class DBHomeTab extends RichTab {
 
     public DBHomeTab() {
         super();

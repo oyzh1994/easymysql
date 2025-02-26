@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.tabs.query;
 
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.easymysql.tabs.MysqlTab;
-import cn.oyzh.fx.gui.tabs.DynamicTab;
+import cn.oyzh.fx.gui.tabs.RichTab;
 
 /**
  * db查询信息tab
@@ -10,7 +10,7 @@ import cn.oyzh.fx.gui.tabs.DynamicTab;
  * @author oyzh
  * @since 2024/08/12
  */
-public class MysqlQueryInfoTab extends DynamicTab {
+public class MysqlQueryInfoTab extends RichTab {
 
     {
         this.setClosable(false);

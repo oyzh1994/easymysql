@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.tabs.home;
 
 import cn.oyzh.common.dto.Project;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
-import cn.oyzh.fx.gui.tabs.DynamicTabController;
+import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2023/6/24
  */
-public class DBHomeTabController extends DynamicTabController {
+public class DBHomeTabController extends RichTabController {
 
     /**
      * 软件信息

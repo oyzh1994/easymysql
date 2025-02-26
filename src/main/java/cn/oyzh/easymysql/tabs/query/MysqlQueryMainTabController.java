@@ -10,7 +10,7 @@ import cn.oyzh.easymysql.query.DBQueryTextArea;
 import cn.oyzh.easymysql.query.DBQueryUtil;
 import cn.oyzh.easymysql.store.MysqlQueryStore;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.gui.tabs.DynamicTabController;
+import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.tab.FXTab;
 import cn.oyzh.fx.plus.controls.tab.FXTabPane;
@@ -34,7 +34,7 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2024/02/18
  */
-public class MysqlQueryMainTabController extends DynamicTabController {
+public class MysqlQueryMainTabController extends RichTabController {
 
     /**
      * 查询对象

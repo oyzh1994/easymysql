@@ -13,7 +13,7 @@ import cn.oyzh.easymysql.generator.event.EventCreateSqlGenerator;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.gui.tabs.DynamicTabController;
+import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.gui.text.field.DateTimeTextField;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
@@ -39,7 +39,7 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2024/09/09
  */
-public class MysqlEventDesignTabController extends DynamicTabController {
+public class MysqlEventDesignTabController extends RichTabController {
 
     /**
      * 事件

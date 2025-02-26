@@ -9,7 +9,7 @@ import cn.oyzh.easymysql.fx.view.DBViewCheckOptionComboBox;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.fx.gui.tabs.DynamicTabController;
+import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.text.field.FXTextField;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeUtil;
@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * @author oyzh
  * @since 2024/06/28
  */
-public class MysqlViewDesignTabController extends DynamicTabController {
+public class MysqlViewDesignTabController extends RichTabController {
 
     /**
      * 视图对象
