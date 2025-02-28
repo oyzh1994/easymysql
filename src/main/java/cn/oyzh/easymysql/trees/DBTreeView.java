@@ -50,19 +50,19 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
         this.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.setCellFactory((Callback<TreeView<?>, TreeCell<?>>) param -> new DBTreeCell());
         super.setRoot(new DBRootTreeItem(this));
-        this.getRoot().expend();
+        this.root().expend();
     }
 
     @Override
-    public DBRootTreeItem getRoot() {
-        return (DBRootTreeItem) super.getRoot();
+    public DBRootTreeItem root() {
+        return (DBRootTreeItem) super.root();
     }
 
     /**
      * 关闭连接
      */
     public void closeConnects() {
-        for (DBConnectTreeItem treeItem : this.getRoot().getConnectedItems()) {
+        for (DBConnectTreeItem treeItem : this.root().getConnectedItems()) {
             ThreadUtil.startVirtual(treeItem::closeConnect);
         }
     }
@@ -107,7 +107,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
     @EventSubscribe
     private void onInfoUpdate(MysqlConnectUpdatedEvent event) {
         f1:
-        for (TreeItem<?> item : this.getRoot().unfilteredChildren()) {
+        for (TreeItem<?> item : this.root().unfilteredChildren()) {
             if (item instanceof DBConnectTreeItem connectTreeItem) {
                 if (connectTreeItem.value() == event.data()) {
                     connectTreeItem.value(event.data());
@@ -141,7 +141,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      */
     @EventSubscribe
     public void addGroup(DBAddGroupEvent event) {
-        this.getRoot().addGroup();
+        this.root().addGroup();
     }
 
     /**
@@ -151,7 +151,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      */
     @EventSubscribe
     private void infoAdded(MysqlConnectAddedEvent event) {
-        this.getRoot().addConnect(event.data());
+        this.root().addConnect(event.data());
     }
 
     /**
@@ -161,6 +161,6 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      */
     @EventSubscribe
     private void infoUpdated(MysqlConnectUpdatedEvent event) {
-        this.getRoot().infoUpdate(event.data());
+        this.root().infoUpdate(event.data());
     }
 }

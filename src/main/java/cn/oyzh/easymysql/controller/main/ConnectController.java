@@ -61,7 +61,7 @@ public class ConnectController extends SubStageController {
         // redis树变化事件
         this.tree.selectItemChanged(MysqlEventUtil::treeItemChanged);
         // 文件拖拽初始化
-        this.stage.initDragFile(this.tree.getDragContent(), this.tree.getRoot()::dragFile);
+        this.stage.initDragFile(this.tree.getDragContent(), this.tree.root()::dragFile);
         // 刷新触发事件
         KeyListener.listenReleased(this.tree, KeyCode.F5, keyEvent -> this.tree.reload());
     }
@@ -84,11 +84,11 @@ public class ConnectController extends SubStageController {
 
     @FXML
     private void importConnect() {
-        this.tree.getRoot().importConnect();
+        this.tree.root().importConnect();
     }
 
     @FXML
     private void exportConnect() {
-        this.tree.getRoot().exportConnect();
+        this.tree.root().exportConnect();
     }
 }
