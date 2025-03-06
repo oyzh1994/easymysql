@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.check;
 
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
-import cn.oyzh.fx.plus.util.TableViewUtil;
+import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.i18n.I18nHelper;
 import lombok.EqualsAndHashCode;
 

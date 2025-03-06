@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.fx.data;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.fx.gui.text.field.ChooseFileTextField;
-import cn.oyzh.fx.plus.util.TableViewUtil;
+import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import lombok.Setter;

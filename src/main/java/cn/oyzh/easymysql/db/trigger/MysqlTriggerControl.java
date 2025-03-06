@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.db.trigger;
 import cn.oyzh.easymysql.fx.table.DBTriggerPolicyComboBox;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.gui.text.field.EnlargeTextFiled;
-import cn.oyzh.fx.plus.util.TableViewUtil;
+import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.i18n.I18nHelper;
 import lombok.EqualsAndHashCode;
 

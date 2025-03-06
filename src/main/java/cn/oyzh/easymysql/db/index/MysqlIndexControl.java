@@ -6,7 +6,7 @@ import cn.oyzh.easymysql.fx.table.DBIndexFieldTextFiled;
 import cn.oyzh.easymysql.fx.table.DBIndexMethodComboBox;
 import cn.oyzh.easymysql.fx.table.DBIndexTypeComboBox;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
-import cn.oyzh.fx.plus.util.TableViewUtil;
+import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.i18n.I18nHelper;
 import lombok.EqualsAndHashCode;
 
