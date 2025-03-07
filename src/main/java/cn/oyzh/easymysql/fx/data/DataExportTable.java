@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.fx.gui.text.field.SaveFileTextField;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
+import cn.oyzh.fx.plus.file.FXChooser;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
 import cn.oyzh.fx.plus.file.FileExtensionFilter;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
@@ -189,7 +190,7 @@ public class DataExportTable {
 
     private void updateFilePath() {
         if (this.isSelected() || this.getFilePath() != null) {
-            this.setFilePath(FileChooserHelper.DESKTOP_DIR + File.separator + this.fileName());
+            this.setFilePath(FXChooser.DESKTOP_DIR + File.separator + this.fileName());
         }
     }
 }

@@ -26,6 +26,7 @@ import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
+import cn.oyzh.fx.plus.file.FXChooser;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
@@ -403,7 +404,7 @@ public class MysqlDataExportController extends StageController {
             }
         }
         for (DataExportTable exportTable : this.exportTableView.getItems()) {
-            exportTable.setExtension(FileChooserHelper.extensionFilter(button.getUserData().toString()));
+            exportTable.setExtension(FXChooser.extensionFilter(button.getUserData().toString()));
         }
         this.step1.disappear();
         this.step3.disappear();

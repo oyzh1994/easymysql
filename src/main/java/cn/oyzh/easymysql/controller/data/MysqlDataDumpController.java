@@ -14,6 +14,7 @@ import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.button.FXButton;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
+import cn.oyzh.fx.plus.file.FXChooser;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
 import cn.oyzh.fx.plus.file.FileExtensionFilter;
 import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
@@ -148,7 +149,7 @@ public class MysqlDataDumpController extends StageController {
                 name += ".structure";
             }
             name += ".sql";
-            FileExtensionFilter filter = FileChooserHelper.sqlExtensionFilter();
+            FileExtensionFilter filter = FXChooser.sqlExtensionFilter();
             this.dumpFile = FileChooserHelper.save(I18nHelper.saveFile(), name, List.of(filter), this.stage.stage());
             if (this.dumpFile != null) {
                 FileUtil.touch(this.dumpFile);

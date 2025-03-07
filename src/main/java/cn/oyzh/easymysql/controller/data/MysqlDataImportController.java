@@ -26,6 +26,7 @@ import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
+import cn.oyzh.fx.plus.file.FXChooser;
 import cn.oyzh.fx.plus.file.FileChooserHelper;
 import cn.oyzh.fx.plus.file.FileExtensionFilter;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -484,7 +485,7 @@ public class MysqlDataImportController extends StageController {
     @FXML
     private void addFile() {
         String fileType = this.fileType.selectedUserData();
-        FileExtensionFilter filter = FileChooserHelper.extensionFilter(fileType);
+        FileExtensionFilter filter = FXChooser.extensionFilter(fileType);
         File file = FileChooserHelper.choose(I18nHelper.pleaseSelectFile(), filter);
         if (file != null) {
             DataImportFile importFile = new DataImportFile();
