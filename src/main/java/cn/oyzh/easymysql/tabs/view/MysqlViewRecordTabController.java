@@ -175,7 +175,7 @@ public class MysqlViewRecordTabController extends RichTabController {
         try {
             this.pageData = this.item.recordPage(pageNo, this.setting.getRecordPageLimit(), this.enabledFilters(), this.columns);
             this.pageBox.setPaging(this.pageData);
-            this.initRecords(this.pageData.pageData());
+            this.initRecords(this.pageData.dataList());
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
