@@ -4,9 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,38 +14,31 @@ import java.util.List;
  * @author oyzh
  * @since 2024/08/19
  */
-@Getter
-@Accessors(chain = true, fluent = true)
 public abstract class MysqlQueryResult {
 
     /**
      * sql
      */
-    @Setter
     protected String sql;
 
     /**
      * 耗时，微妙
      */
-    @Setter
     protected long used;
 
     /**
      * 消息
      */
-    @Setter
     protected String msg;
 
     /**
      * 变更总数
      */
-    @Setter
     protected int updateCount;
 
     /**
      * 是否成功
      */
-    @Setter
     protected boolean success;
 
     /**
@@ -127,5 +117,61 @@ public abstract class MysqlQueryResult {
             return Collections.emptyList();
         }
         return this.columns;
+    }
+
+    public String getSql() {
+        return sql;
+    }
+
+    public void setSql(String sql) {
+        this.sql = sql;
+    }
+
+    public long getUsed() {
+        return used;
+    }
+
+    public void setUsed(long used) {
+        this.used = used;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public int getUpdateCount() {
+        return updateCount;
+    }
+
+    public void setUpdateCount(int updateCount) {
+        this.updateCount = updateCount;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public MysqlColumns getColumns() {
+        return columns;
+    }
+
+    public void setColumns(MysqlColumns columns) {
+        this.columns = columns;
+    }
+
+    public List<MysqlRecord> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<MysqlRecord> records) {
+        this.records = records;
     }
 }

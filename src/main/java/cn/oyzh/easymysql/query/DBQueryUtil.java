@@ -11,7 +11,6 @@ import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.util.DBUtil;
-import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +23,6 @@ import java.util.stream.Collectors;
  * @author oyzh
  * @since 2024/2/21
  */
-@UtilityClass
 public class DBQueryUtil {
 
     /**

@@ -6,8 +6,6 @@ import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import javafx.beans.property.SimpleStringProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,19 +16,16 @@ import java.util.List;
  * @author oyzh
  * @since 2024/01/25
  */
-@EqualsAndHashCode(callSuper = true)
 public class MysqlForeignKey extends DBObjectStatus implements ObjectCopier<MysqlForeignKey> {
 
     /**
      * 外键名称
      */
-    @Getter
     private String name;
 
     /**
      * 外键字段列表
      */
-    @Getter
     private List<String> columns;
 
     /**
@@ -46,19 +41,16 @@ public class MysqlForeignKey extends DBObjectStatus implements ObjectCopier<Mysq
     /**
      * 引用字段列表
      */
-    @Getter
     private List<String> primaryKeyColumns;
 
     /**
      * 外键删除策略
      */
-    @Getter
     private String deletePolicy;
 
     /**
      * 外键更新策略
      */
-    @Getter
     private String updatePolicy;
 
     public String originalName() {
@@ -284,5 +276,25 @@ public class MysqlForeignKey extends DBObjectStatus implements ObjectCopier<Mysq
     public boolean isInvalid() {
         return StrUtil.isBlank(this.name) || CollUtil.isNotEmpty(this.primaryKeyColumns) || CollUtil.isEmpty(this.columns)
                 || StrUtil.isBlank(this.getPrimaryKeyTable()) || StrUtil.isBlank(this.getPrimaryKeyDatabase());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getColumns() {
+        return columns;
+    }
+
+    public String getDeletePolicy() {
+        return deletePolicy;
+    }
+
+    public String getUpdatePolicy() {
+        return updatePolicy;
+    }
+
+    public List<String> getPrimaryKeyColumns() {
+        return primaryKeyColumns;
     }
 }

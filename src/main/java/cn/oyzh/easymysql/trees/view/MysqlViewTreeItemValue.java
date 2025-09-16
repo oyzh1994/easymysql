@@ -3,7 +3,6 @@ package cn.oyzh.easymysql.trees.view;
 import cn.oyzh.fx.gui.svg.glyph.database.ViewSVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
-import lombok.experimental.Accessors;
 
 /**
  * db树表节点值
@@ -11,7 +10,6 @@ import lombok.experimental.Accessors;
  * @author oyzh
  * @since 2023/12/22
  */
-@Accessors(chain = true, fluent = true)
 public class MysqlViewTreeItemValue extends RichTreeItemValue {
 
     public MysqlViewTreeItemValue(MysqlViewTreeItem item) {

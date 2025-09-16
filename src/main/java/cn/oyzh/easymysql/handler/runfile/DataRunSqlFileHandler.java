@@ -7,9 +7,6 @@ import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.handler.DataHandler;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,7 +21,6 @@ public abstract class DataRunSqlFileHandler extends DataHandler {
     /**
      * 库名称
      */
-    @Getter
     protected String dbName;
 
     /**
@@ -35,48 +31,31 @@ public abstract class DataRunSqlFileHandler extends DataHandler {
     /**
      * db客户端
      */
-    @Getter
-    @Accessors(fluent = true, chain = true)
     protected DBClient dbClient;
 
     /**
      * 连接信息
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected MysqlConnect dbInfo;
 
     /**
      * 插入限制
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected int insertLimit = 5000;
 
     /**
      * 批量限制
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected int batchLimit = 250;
 
     /**
      * 遇到错误时继续
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected boolean continueWithErrors = true;
 
     /**
      * 方言
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     private DBDialect dialect;
 
     public DataRunSqlFileHandler(DBClient dbClient, String dbName) {
@@ -173,9 +152,82 @@ public abstract class DataRunSqlFileHandler extends DataHandler {
             default -> null;
         };
         if (handler != null) {
-            handler.dialect(dbClient.dialect());
+            handler.setDialect(dbClient.dialect());
         }
         return handler;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public File getSqlFile() {
+        return sqlFile;
+    }
+
+    public void setSqlFile(File sqlFile) {
+        this.sqlFile = sqlFile;
+    }
+
+    public DBClient getDbClient() {
+        return dbClient;
+    }
+
+    public void setDbClient(DBClient dbClient) {
+        this.dbClient = dbClient;
+    }
+
+    public MysqlConnect getDbInfo() {
+        return dbInfo;
+    }
+
+    public DataRunSqlFileHandler setDbInfo(MysqlConnect dbInfo) {
+        this.dbInfo = dbInfo;
+        return this;
+    }
+
+    public int getInsertLimit() {
+        return insertLimit;
+    }
+
+    public void setInsertLimit(int insertLimit) {
+        this.insertLimit = insertLimit;
+    }
+
+    public int getBatchLimit() {
+        return batchLimit;
+    }
+
+    public void setBatchLimit(int batchLimit) {
+        this.batchLimit = batchLimit;
+    }
+
+    public boolean isContinueWithErrors() {
+        return continueWithErrors;
+    }
+
+    public void setContinueWithErrors(boolean continueWithErrors) {
+        this.continueWithErrors = continueWithErrors;
+    }
+
+    public DBDialect getDialect() {
+        return dialect;
+    }
+
+    public void setDialect(DBDialect dialect) {
+        this.dialect = dialect;
+    }
+
+    public List<String> getInsertList() {
+        return insertList;
+    }
+
+    public void setInsertList(List<String> insertList) {
+        this.insertList = insertList;
     }
 }
 

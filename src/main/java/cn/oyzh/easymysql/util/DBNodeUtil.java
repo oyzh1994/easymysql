@@ -1,6 +1,8 @@
 package cn.oyzh.easymysql.util;
 
 import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.fx.editor.tm4javafx.Editor;
+import cn.oyzh.fx.editor.tm4javafx.EditorFormatType;
 import cn.oyzh.fx.gui.text.field.BitTextField;
 import cn.oyzh.fx.gui.text.field.ChooseFileTextField;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
@@ -13,15 +15,12 @@ import cn.oyzh.fx.gui.text.field.TimeTextField;
 import cn.oyzh.fx.gui.text.field.YearTextField;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.controls.text.field.FXTextField;
-import cn.oyzh.fx.rich.richtextfx.control.RichTextAreaPane;
-import cn.oyzh.fx.rich.richtextfx.json.RichJsonTextAreaPane;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
-import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,6 @@ import java.util.List;
  * @author oyzh
  * @since 2023/12/27
  */
-@UtilityClass
 public class DBNodeUtil {
 
     public static Object getNodeVal(Node node) throws Exception {
@@ -61,10 +59,10 @@ public class DBNodeUtil {
             val = textField.getText();
         } else if (node instanceof TextArea textArea) {
             val = textArea.getText();
-        } else if (node instanceof RichJsonTextAreaPane textAreaPane) {
-            val = textAreaPane.getJsonStr();
-        } else if (node instanceof RichTextAreaPane<?> textAreaPane) {
-            val = textAreaPane.getText();
+        // } else if (node instanceof RichJsonTextAreaPane textAreaPane) {
+        //     val = textAreaPane.getJsonStr();
+        // } else if (node instanceof RichTextAreaPane<?> textAreaPane) {
+        //     val = textAreaPane.getText();
 //        } else if (node instanceof DBFieldValueComboBox comboBox) {
 //            val = comboBox.getFieldValue();
         } else if (node instanceof ComboBox<?> comboBox) {
@@ -90,10 +88,10 @@ public class DBNodeUtil {
             textField.setData(val);
         } else if (node instanceof TextField textField) {
             textField.setText(val.toString());
-        } else if (node instanceof RichJsonTextAreaPane textAreaPane) {
-            textAreaPane.setJsonStr(val.toString());
-        } else if (node instanceof RichTextAreaPane<?> textAreaPane) {
-            textAreaPane.setText(val.toString());
+        // } else if (node instanceof RichJsonTextAreaPane textAreaPane) {
+        //     textAreaPane.setJsonStr(val.toString());
+        // } else if (node instanceof RichTextAreaPane<?> textAreaPane) {
+        //     textAreaPane.setText(val.toString());
         } else if (node instanceof TextArea textArea) {
             textArea.setText(val.toString());
         } else if (node instanceof ComboBox comboBox) {
@@ -110,7 +108,10 @@ public class DBNodeUtil {
         if (column == null) {
             node = new FXTextField();
         } else if (column.supportJson()) {
-            node = new RichJsonTextAreaPane();
+            Editor editor = new Editor();
+            editor.setFormatType(EditorFormatType.JSON);
+            node = editor;
+
 //        } else if (column.supportGeometry()) {
 //            DBGeometryTextField filed = new DBGeometryTextField();
 //            filed.setExample(column.exampleValue());

@@ -12,8 +12,6 @@ import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.control.MenuItem;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +27,11 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItemVal
     /**
      * 当前值
      */
-    @Getter
-    @Accessors(chain = true, fluent = true)
     private final MysqlProcedure value;
+
+    public MysqlProcedure value() {
+        return value;
+    }
 
     public MysqlProcedureTreeItem(MysqlProcedure procedure, RichTreeView treeView) {
         super(treeView);

@@ -5,7 +5,6 @@ import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.list.FXListView;
 import cn.oyzh.fx.plus.util.ListViewUtil;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +15,15 @@ import java.util.List;
  */
 public class DataTransportProcedureListView extends FXListView<FXCheckBox> {
 
-    @Setter
     private Runnable selectedChanged;
+
+    public Runnable getSelectedChanged() {
+        return selectedChanged;
+    }
+
+    public void setSelectedChanged(Runnable selectedChanged) {
+        this.selectedChanged = selectedChanged;
+    }
 
     public void of(List<MysqlProcedure> procedures) {
         List<DataTransportProcedure> list = CollUtil.newArrayList();

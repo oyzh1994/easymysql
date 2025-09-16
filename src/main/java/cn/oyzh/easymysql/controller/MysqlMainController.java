@@ -224,11 +224,11 @@ public class MysqlMainController extends ParentStageController {
         // // 文件拖拽初始化
         // this.stage.initDragFile(this.tree.getDragContent(), this.tree.getRoot()::dragFile);
         // 拖动改变redis树大小处理
-        NodeResizer resizeHelper = new NodeResizer(this.tabPaneLeft, Cursor.DEFAULT, this::resizeMainLeft);
-        resizeHelper.widthLimit(240f, 650f);
-        // // 初始化拉伸事件
-        // this.tree.setOnMouseMoved(resizeHelper.mouseMoved());
-        resizeHelper.initResizeEvent();
+        // NodeResizer resizeHelper = new NodeResizer(this.tabPaneLeft, Cursor.DEFAULT, this::resizeMainLeft);
+        // resizeHelper.widthLimit(240f, 650f);
+        // // // 初始化拉伸事件
+        // // this.tree.setOnMouseMoved(resizeHelper.mouseMoved());
+        // resizeHelper.initResizeEvent();
 
         // 搜索触发事件
         // KeyListener.listenReleased(this.stage, new KeyHandler().keyCode(KeyCode.F).controlDown(true).handler(t1 -> RedisEventUtil.searchFire()));

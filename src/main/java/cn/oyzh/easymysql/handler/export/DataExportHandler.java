@@ -18,9 +18,6 @@ import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.fx.data.DataExportTable;
 import cn.oyzh.easymysql.handler.DataHandler;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +33,6 @@ public class DataExportHandler extends DataHandler {
     /**
      * 库名称
      */
-    @Getter
     private String dbName;
 
     /**
@@ -44,32 +40,21 @@ public class DataExportHandler extends DataHandler {
      * sql
      * json
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     private String fileType;
 
     /**
      * db客户端
      */
-    @Getter
-    @Accessors(fluent = true, chain = true)
     private DBClient dbClient;
 
     /**
      * 查询限制
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     private int queryLimit = 1000;
 
     /**
      * 导出表
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     private List<DataExportTable> tables;
 
     // /**
@@ -240,12 +225,12 @@ public class DataExportHandler extends DataHandler {
                     this.checkInterrupt();
                     long start1 = System.currentTimeMillis();
                     MysqlSelectRecordParam param = new MysqlSelectRecordParam();
-                    param.start(start);
-                    param.readonly(true);
-                    param.columns(columns);
-                    param.dbName(this.dbName);
-                    param.tableName(tableName);
-                    param.limit((long) this.queryLimit);
+                    param.setStart(start);
+                    param.setReadonly(true);
+                    param.setColumns(columns);
+                    param.setDbName(this.dbName);
+                    param.setTableName(tableName);
+                    param.setLimit((long) this.queryLimit);
                     List<MysqlRecord> records = this.dbClient.selectRecords(param);
                     if (CollUtil.isEmpty(records)) {
                         break;
@@ -569,34 +554,78 @@ public class DataExportHandler extends DataHandler {
      */
     public void dateFormat(String dateFormat) {
         if (StrUtil.isBlank(dateFormat)) {
-            this.config.dateFormat("yyyy-MM-dd HH:mm:ss");
+            this.config.setDateFormat("yyyy-MM-dd HH:mm:ss");
         } else {
-            this.config.dateFormat(dateFormat);
+            this.config.setDateFormat(dateFormat);
         }
     }
 
     public void recordSeparator(String recordSeparator) {
-        this.config.recordSeparator(recordSeparator);
+        this.config.setRecordSeparator(recordSeparator);
     }
 
     public void txtIdentifier(String txtIdentifier) {
-        this.config.txtIdentifier(txtIdentifier);
+        this.config.setTxtIdentifier(txtIdentifier);
     }
 
     public void fieldSeparator(String fieldSeparator) {
-        this.config.fieldSeparator(fieldSeparator);
+        this.config.setFieldSeparator(fieldSeparator);
     }
 
     public void includeFields(boolean includeFields) {
-        this.config.includeFields(includeFields);
+        this.config.setIncludeFields(includeFields);
     }
 
     public void fieldToAttr(boolean fieldToAttr) {
-        this.config.fieldToAttr(fieldToAttr);
+        this.config.setFieldToAttr(fieldToAttr);
     }
 
     public void earlyVersion(boolean earlyVersion) {
-        this.config.earlyVersion(earlyVersion);
+        this.config.setEarlyVersion(earlyVersion);
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public DBClient getDbClient() {
+        return dbClient;
+    }
+
+    public void setDbClient(DBClient dbClient) {
+        this.dbClient = dbClient;
+    }
+
+    public int getQueryLimit() {
+        return queryLimit;
+    }
+
+    public void setQueryLimit(int queryLimit) {
+        this.queryLimit = queryLimit;
+    }
+
+    public List<DataExportTable> getTables() {
+        return tables;
+    }
+
+    public void setTables(List<DataExportTable> tables) {
+        this.tables = tables;
+    }
+
+    public MysqlDataExportConfig getConfig() {
+        return config;
     }
 }
 

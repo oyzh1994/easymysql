@@ -3,7 +3,6 @@ package cn.oyzh.easymysql.db.check;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.i18n.I18nHelper;
-import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/09/11
  */
-@EqualsAndHashCode(callSuper = true)
 public class MysqlCheckControl extends MysqlCheck {
 
     public ClearableTextField getNameControl() {

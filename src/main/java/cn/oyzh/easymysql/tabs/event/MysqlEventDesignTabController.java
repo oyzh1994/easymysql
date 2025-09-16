@@ -28,8 +28,6 @@ import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,16 +42,20 @@ public class MysqlEventDesignTabController extends RichTabController {
     /**
      * 事件
      */
-    @Getter
-    @Accessors(fluent = true, chain = true)
     private MysqlEvent event;
+
+    public MysqlEvent getEvent() {
+        return event;
+    }
 
     /**
      * db数据库树节点
      */
-    @Getter
-    @Accessors(fluent = true, chain = true)
     private MysqlDatabaseTreeItem dbItem;
+
+    public MysqlDatabaseTreeItem getDbItem() {
+        return dbItem;
+    }
 
     /**
      * 定义
@@ -219,7 +221,6 @@ public class MysqlEventDesignTabController extends RichTabController {
     /**
      * 未保存标志位
      */
-    @Getter
     private boolean unsaved;
 
     /**
@@ -623,5 +624,13 @@ public class MysqlEventDesignTabController extends RichTabController {
                 this.preview.setText(sql);
             }
         });
+    }
+
+    public boolean isUnsaved() {
+        return unsaved;
+    }
+
+    public void setUnsaved(boolean unsaved) {
+        this.unsaved = unsaved;
     }
 }

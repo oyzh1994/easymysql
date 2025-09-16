@@ -11,9 +11,6 @@ import cn.oyzh.easymysql.fx.data.DataTransportTable;
 import cn.oyzh.easymysql.fx.data.DataTransportTrigger;
 import cn.oyzh.easymysql.fx.data.DataTransportView;
 import cn.oyzh.easymysql.handler.DataHandler;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,105 +24,66 @@ public abstract class DataTransportHandler extends DataHandler {
     /**
      * 来源客户端
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected DBClient sourceClient;
 
     /**
      * 目标客户端
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected DBClient targetClient;
 
     /**
      * 来源库
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected String sourceDatabase;
 
     /**
      * 目标库
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected String targetDatabase;
 
     /**
      * 查询限制
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected int selectLimit = 5000;
 
     /**
      * 批量限制
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected int batchLimit = 250;
 
     /**
      * 视图
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected List<DataTransportView> views;
 
     /**
      * 表
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected List<DataTransportTable> tables;
 
     /**
      * 触发器
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected List<DataTransportTrigger> triggers;
 
     /**
      * 函数
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected List<DataTransportFunction> functions;
 
     /**
      * 过程
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected List<DataTransportProcedure> procedures;
 
     /**
      * 事件
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected List<DataTransportEvent> events;
 
     /**
      * 方言
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     private DBDialect dialect;
 
     /**
@@ -205,9 +163,121 @@ public abstract class DataTransportHandler extends DataHandler {
             default -> null;
         };
         if (handler != null) {
-            handler.dialect(dialect);
+            handler.setDialect(dialect);
         }
         return handler;
+    }
+
+    public DBClient getSourceClient() {
+        return sourceClient;
+    }
+
+    public void setSourceClient(DBClient sourceClient) {
+        this.sourceClient = sourceClient;
+    }
+
+    public DBClient getTargetClient() {
+        return targetClient;
+    }
+
+    public void setTargetClient(DBClient targetClient) {
+        this.targetClient = targetClient;
+    }
+
+    public String getSourceDatabase() {
+        return sourceDatabase;
+    }
+
+    public void setSourceDatabase(String sourceDatabase) {
+        this.sourceDatabase = sourceDatabase;
+    }
+
+    public String getTargetDatabase() {
+        return targetDatabase;
+    }
+
+    public void setTargetDatabase(String targetDatabase) {
+        this.targetDatabase = targetDatabase;
+    }
+
+    public int getSelectLimit() {
+        return selectLimit;
+    }
+
+    public void setSelectLimit(int selectLimit) {
+        this.selectLimit = selectLimit;
+    }
+
+    public int getBatchLimit() {
+        return batchLimit;
+    }
+
+    public void setBatchLimit(int batchLimit) {
+        this.batchLimit = batchLimit;
+    }
+
+    public List<DataTransportView> getViews() {
+        return views;
+    }
+
+    public void setViews(List<DataTransportView> views) {
+        this.views = views;
+    }
+
+    public List<DataTransportTable> getTables() {
+        return tables;
+    }
+
+    public void setTables(List<DataTransportTable> tables) {
+        this.tables = tables;
+    }
+
+    public List<DataTransportTrigger> getTriggers() {
+        return triggers;
+    }
+
+    public void setTriggers(List<DataTransportTrigger> triggers) {
+        this.triggers = triggers;
+    }
+
+    public List<DataTransportFunction> getFunctions() {
+        return functions;
+    }
+
+    public void setFunctions(List<DataTransportFunction> functions) {
+        this.functions = functions;
+    }
+
+    public List<DataTransportProcedure> getProcedures() {
+        return procedures;
+    }
+
+    public void setProcedures(List<DataTransportProcedure> procedures) {
+        this.procedures = procedures;
+    }
+
+    public List<DataTransportEvent> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<DataTransportEvent> events) {
+        this.events = events;
+    }
+
+    public DBDialect getDialect() {
+        return dialect;
+    }
+
+    public void setDialect(DBDialect dialect) {
+        this.dialect = dialect;
+    }
+
+    public List<String> getInsertList() {
+        return insertList;
+    }
+
+    public void setInsertList(List<String> insertList) {
+        this.insertList = insertList;
     }
 }
 

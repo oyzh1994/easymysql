@@ -23,7 +23,7 @@ public class MysqlTableCreateSqlGenerator {
 
     public String generate(MysqlTableCreateParam param) {
         String dbName = param.dbName();
-        MysqlTable table = param.table();
+        MysqlTable table = param.getTable();
         String tableName = param.tableName();
         StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE ")
@@ -85,7 +85,7 @@ public class MysqlTableCreateSqlGenerator {
     }
 
     protected void triggerHandle(StringBuilder builder, MysqlTableCreateParam param) {
-        for (MysqlTrigger trigger : param.triggers()) {
+        for (MysqlTrigger trigger : param.getTriggers()) {
             builder.append("CREATE TRIGGER ")
                     .append(DBUtil.wrap(trigger.getName(), DBDialect.MYSQL))
                     .append(" ")
@@ -99,7 +99,7 @@ public class MysqlTableCreateSqlGenerator {
     }
 
     protected void columnHandle(StringBuilder builder, MysqlTableCreateParam param) {
-        for (MysqlColumn column : param.columns()) {
+        for (MysqlColumn column : param.getColumns()) {
             builder.append(DBUtil.wrap(column.getName(), DBDialect.MYSQL));
             // 字段类型
             builder.append(" ").append(column.getType());
@@ -170,7 +170,7 @@ public class MysqlTableCreateSqlGenerator {
     }
 
     protected void indexHandle(StringBuilder builder, MysqlTableCreateParam param) {
-        MysqlIndexes indexes = param.indexes();
+        MysqlIndexes indexes = param.getIndexes();
         for (MysqlIndex index : indexes) {
             // 新增索引
             builder.append(" ADD");
@@ -198,7 +198,7 @@ public class MysqlTableCreateSqlGenerator {
     }
 
     protected void foreignKeyHandle(StringBuilder builder, MysqlTableCreateParam param) {
-        MysqlForeignKeys foreignKeys = param.foreignKeys();
+        MysqlForeignKeys foreignKeys = param.getForeignKeys();
         for (MysqlForeignKey foreignKey : foreignKeys) {
             // 新增外键
             builder.append(" ADD CONSTRAINT ")
@@ -225,7 +225,7 @@ public class MysqlTableCreateSqlGenerator {
     }
 
     protected void checkHandle(StringBuilder builder, MysqlTableCreateParam table) {
-        MysqlChecks checks = table.checks();
+        MysqlChecks checks = table.getChecks();
         for (MysqlCheck check : checks) {
             builder.append(" ADD CONSTRAINT ")
                     .append(DBUtil.wrap(check.getName(), DBDialect.MYSQL))

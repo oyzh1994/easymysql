@@ -36,7 +36,7 @@ public class MysqlTableAlertSqlGenerator {
         this.sqlBuilder = new StringBuilder();
         String dbName = param.dbName();
         String tableName = param.tableName();
-        MysqlTable table = param.table();
+        MysqlTable table = param.getTable();
         if (param.hasForeignKey()) {
             this.foreignKeyHandle2(param);
         }
@@ -105,7 +105,7 @@ public class MysqlTableAlertSqlGenerator {
     }
 
     protected void triggerHandle(MysqlTableAlertParam param) {
-        MysqlTriggers triggers = param.triggers();
+        MysqlTriggers triggers = param.getTriggers();
         for (MysqlTrigger trigger : triggers) {
             if (MysqlTriggers.isDeleted(trigger) || MysqlTriggers.isChanged(trigger)) {
                 StringBuilder builder = new StringBuilder();
@@ -131,7 +131,7 @@ public class MysqlTableAlertSqlGenerator {
     }
 
     protected void columnHandle(StringBuilder builder, MysqlTableAlertParam param) {
-        for (MysqlColumn column : param.columns()) {
+        for (MysqlColumn column : param.getColumns()) {
             // 修改或者新增字段
             if (MysqlColumns.isChanged(column) || MysqlColumns.isCreated(column)) {
                 if (column.isCreated()) {
@@ -219,7 +219,7 @@ public class MysqlTableAlertSqlGenerator {
     }
 
     protected void primaryKeyHandle(StringBuilder builder, MysqlTableAlertParam table) {
-        if (table.existPrimaryKey()) {
+        if (table.isExistPrimaryKey()) {
             builder.append(" DROP PRIMARY KEY,");
         }
         List<MysqlColumn> keyList = table.primaryKeys();
@@ -247,7 +247,7 @@ public class MysqlTableAlertSqlGenerator {
     }
 
     protected void indexHandle(StringBuilder builder, MysqlTableAlertParam param) {
-        MysqlIndexes indexes = param.indexes();
+        MysqlIndexes indexes = param.getIndexes();
         for (MysqlIndex index : indexes) {
             // 索引删除、变更
             if (MysqlIndexes.isDeleted(index) || MysqlIndexes.isChanged(index)) {
@@ -292,7 +292,7 @@ public class MysqlTableAlertSqlGenerator {
     }
 
     protected void foreignKeyHandle1(StringBuilder builder, MysqlTableAlertParam table) {
-        MysqlForeignKeys foreignKeys = table.foreignKeys();
+        MysqlForeignKeys foreignKeys = table.getForeignKeys();
         if (!foreignKeys.hasCreated() && !foreignKeys.hasChanged()) {
             return;
         }
@@ -320,7 +320,7 @@ public class MysqlTableAlertSqlGenerator {
     }
 
     protected void foreignKeyHandle2(MysqlTableAlertParam param) {
-        MysqlForeignKeys foreignKeys = param.foreignKeys();
+        MysqlForeignKeys foreignKeys = param.getForeignKeys();
         if (!foreignKeys.hasChanged() && !foreignKeys.hasDeleted()) {
             return;
         }
@@ -341,7 +341,7 @@ public class MysqlTableAlertSqlGenerator {
     }
 
     protected void checkHandle(StringBuilder builder, MysqlTableAlertParam param) {
-        MysqlChecks checks = param.checks();
+        MysqlChecks checks = param.getChecks();
         for (MysqlCheck check : checks) {
             // 检查删除、变更
             if (MysqlChecks.isDeleted(check) || MysqlChecks.isChanged(check)) {

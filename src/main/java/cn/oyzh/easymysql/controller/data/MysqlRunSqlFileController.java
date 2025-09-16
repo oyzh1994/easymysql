@@ -9,12 +9,11 @@ import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.gui.text.field.ChooseFileTextField;
 import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
+import cn.oyzh.fx.plus.chooser.FXChooser;
 import cn.oyzh.fx.plus.controller.StageController;
-import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.button.FXButton;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
-import cn.oyzh.fx.plus.file.FXChooser;
-import cn.oyzh.fx.plus.file.FileChooserHelper;
 import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
@@ -141,9 +140,9 @@ public class MysqlRunSqlFileController extends StageController {
         // 生成sql处理器
         if (this.sqlFileHandler == null) {
             this.sqlFileHandler = DataRunSqlFileHandler.newHandler(this.dbClient, this.database.getText());
-            this.sqlFileHandler.dbInfo(this.dbInfo)
-                    .messageHandler(str -> this.execMsg.appendLine(str))
-                    .processedHandler(count -> {
+            this.sqlFileHandler.setDbInfo(this.dbInfo)
+                    .setMessageHandler(str -> this.execMsg.appendLine(str))
+                    .setProcessedHandler(count -> {
                         if (count > 0) {
                             this.counter.incrSuccess(count);
                         } else {
@@ -156,7 +155,7 @@ public class MysqlRunSqlFileController extends StageController {
         }
         // 设置参数
         this.sqlFileHandler.sqlFile(this.file.getFile())
-                .continueWithErrors(this.continueWithErrors.isSelected());
+                .setContinueWithErrors(this.continueWithErrors.isSelected());
         NodeGroupUtil.disable(this.stage, "exec");
         this.stage.appendTitle("===" + I18nHelper.execProcessing() + "===");
         // 执行sql
@@ -203,9 +202,9 @@ public class MysqlRunSqlFileController extends StageController {
     @Override
     public void onWindowShown(WindowEvent event) {
         super.onWindowShown(event);
-        this.dbInfo = this.getWindowProp("dbInfo");
-        this.dbClient = this.getWindowProp("dbClient");
-        String dbName = this.getWindowProp("dbName");
+        this.dbInfo = this.getProp("dbInfo");
+        this.dbClient = this.getProp("dbClient");
+        String dbName = this.getProp("dbName");
         this.database.setText(dbName);
         this.connect.setText(this.dbInfo.getName());
         this.stage.hideOnEscape();

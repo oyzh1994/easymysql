@@ -52,7 +52,7 @@ public class MysqlProcedureDesignTab extends MysqlTab {
     }
 
     public MysqlProcedure procedure() {
-        return this.controller().procedure();
+        return this.controller().getProcedure();
     }
 
     public String procedureName() {
@@ -61,7 +61,7 @@ public class MysqlProcedureDesignTab extends MysqlTab {
 
     @Override
     public MysqlDatabaseTreeItem dbItem() {
-        return this.controller().dbItem();
+        return this.controller().getDbItem();
     }
 
     /**

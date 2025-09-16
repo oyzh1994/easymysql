@@ -25,9 +25,6 @@ import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,15 +42,11 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
     /**
      * db信息
      */
-    @Getter
-    @Accessors(chain = true, fluent = true)
     private MysqlConnect value;
 
     /**
      * db客户端
      */
-    @Getter
-    @Accessors(chain = true, fluent = true)
     private DBClient client;
 
     /**
@@ -66,7 +59,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
      */
     private final MysqlConnectStore connectStore = MysqlConnectStore.INSTANCE;
 
-    public DBConnectTreeItem(@NonNull MysqlConnect value, @NonNull DBTreeView treeView) {
+    public DBConnectTreeItem( MysqlConnect value,  DBTreeView treeView) {
         super(treeView);
         this.value(value);
 //        // 监听键变化
@@ -262,10 +255,14 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
      *
      * @param value redis信息
      */
-    public void value(@NonNull MysqlConnect value) {
+    public void value( MysqlConnect value) {
         this.value = value;
         this.client = DBClientUtil.newClient(value);
         this.setValue(new DBConnectTreeItemValue(this));
+    }
+
+    public MysqlConnect value() {
+        return value;
     }
 
     /**
@@ -348,4 +345,8 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
         return this.value.getType();
     }
 
+
+    public DBClient getClient() {
+        return client;
+    }
 }

@@ -12,8 +12,6 @@ import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.control.MenuItem;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +27,6 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
     /**
      * 当前值
      */
-    @Getter
-    @Accessors(chain = true, fluent = true)
     private final MysqlFunction value;
 
     public MysqlFunctionTreeItem(MysqlFunction function, RichTreeView treeView) {
@@ -144,5 +140,9 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
         } else {
             super.onPrimarySingleClick();
         }
+    }
+
+    public MysqlFunction value() {
+        return value;
     }
 }

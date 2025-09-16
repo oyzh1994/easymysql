@@ -1,7 +1,6 @@
 package cn.oyzh.easymysql.db;
 
 import cn.oyzh.easymysql.domain.MysqlConnect;
-import lombok.experimental.UtilityClass;
 
 /**
  * db客户端封装
@@ -9,7 +8,6 @@ import lombok.experimental.UtilityClass;
  * @author oyzh
  * @since 2020/6/8
  */
-@UtilityClass
 public class DBClientUtil {
 
     public static DBClient newClient(MysqlConnect info) {

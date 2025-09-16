@@ -61,7 +61,6 @@ import cn.oyzh.fx.gui.event.Layout1Event;
 import cn.oyzh.fx.gui.event.Layout2Event;
 import cn.oyzh.fx.plus.changelog.ChangelogEvent;
 import javafx.scene.control.TreeItem;
-import lombok.experimental.UtilityClass;
 
 import java.util.List;
 
@@ -71,13 +70,12 @@ import java.util.List;
  * @author oyzh
  * @since 2023/11/20
  */
-@UtilityClass
 public class MysqlEventUtil {
 
     public static void tableOpen(MysqlTableTreeItem item, MysqlDatabaseTreeItem dbItem) {
         MysqlTableOpenEvent event = new MysqlTableOpenEvent();
         event.data(item);
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         EventUtil.post(event);
     }
 
@@ -94,7 +92,7 @@ public class MysqlEventUtil {
     public static void tableAlerted(String tableName, MysqlDatabaseTreeItem dbItem) {
         MysqlTableAlertedEvent event = new MysqlTableAlertedEvent();
         event.data(tableName);
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         EventUtil.post(event);
     }
 
@@ -107,7 +105,7 @@ public class MysqlEventUtil {
     public static void procedureAlerted(String procedureName, MysqlDatabaseTreeItem dbItem) {
         MysqlProcedureAlertedEvent event = new MysqlProcedureAlertedEvent();
         event.data(procedureName);
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         EventUtil.post(event);
     }
 
@@ -120,7 +118,7 @@ public class MysqlEventUtil {
     public static void eventAlerted(String eventName, MysqlDatabaseTreeItem dbItem) {
         MysqlEventAlertedEvent event = new MysqlEventAlertedEvent();
         event.data(eventName);
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         EventUtil.post(event);
     }
 
@@ -133,20 +131,20 @@ public class MysqlEventUtil {
     public static void functionAlerted(String functionName, MysqlDatabaseTreeItem dbItem) {
         MysqlFunctionAlertedEvent event = new MysqlFunctionAlertedEvent();
         event.data(functionName);
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         EventUtil.post(event);
     }
 
     public static void tableRenamed(MysqlTableTreeItem tableItem, MysqlDatabaseTreeItem dbItem) {
         MysqlTableRenamedEvent event = new MysqlTableRenamedEvent();
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         event.data(tableItem);
         EventUtil.post(event);
     }
 
     public static void tableCleared(MysqlTableTreeItem tableItem, MysqlDatabaseTreeItem dbItem) {
         MysqlTableClearedEvent event = new MysqlTableClearedEvent();
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         event.data(tableItem);
         EventUtil.post(event);
     }
@@ -154,27 +152,27 @@ public class MysqlEventUtil {
     public static void tableFiltered(MysqlTableTreeItem item, List<MysqlRecordFilter> filters) {
         MysqlTableFilteredEvent event = new MysqlTableFilteredEvent();
         event.data(item);
-        event.filters(filters);
+        event.setFilters(filters);
         EventUtil.post(event);
     }
 
     public static void viewFiltered(MysqlViewTreeItem item, List<MysqlRecordFilter> filters) {
         MysqlViewFilteredEvent event = new MysqlViewFilteredEvent();
         event.data(item);
-        event.filters(filters);
+        event.setFilters(filters);
         EventUtil.post(event);
     }
 
     public static void tableTruncated(MysqlTableTreeItem tableItem, MysqlDatabaseTreeItem dbItem) {
         MysqlTableTruncatedEvent event = new MysqlTableTruncatedEvent();
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         event.data(tableItem);
         EventUtil.post(event);
     }
 
     public static void tableDropped(MysqlTableTreeItem tableItem, MysqlDatabaseTreeItem dbItem) {
         MysqlTableDroppedEvent event = new MysqlTableDroppedEvent();
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         event.data(tableItem);
         EventUtil.post(event);
     }
@@ -188,14 +186,14 @@ public class MysqlEventUtil {
     public static void databaseAdded(DBConnectTreeItem connectItem, DBDatabase database) {
         MysqlDatabaseAddedEvent event = new MysqlDatabaseAddedEvent();
         event.data(database);
-        event.connectItem(connectItem);
+        event.setConnectItem(connectItem);
         EventUtil.post(event);
     }
 
     public static void databaseUpdated(DBConnectTreeItem connectItem, DBDatabase database) {
         MysqlDatabaseUpdatedEvent event = new MysqlDatabaseUpdatedEvent();
         event.data(database);
-        event.connectItem(connectItem);
+        event.setConnectItem(connectItem);
         EventUtil.post(event);
     }
 
@@ -214,7 +212,7 @@ public class MysqlEventUtil {
     public static void queryAdded(MysqlQuery query, MysqlDatabaseTreeItem item) {
         MysqlQueryAddedEvent event = new MysqlQueryAddedEvent();
         event.data(query);
-        event.item(item);
+        event.setDbItem(item);
         EventUtil.post(event);
     }
 
@@ -227,7 +225,7 @@ public class MysqlEventUtil {
     public static void queryOpen(MysqlQuery query, MysqlDatabaseTreeItem item) {
         MysqlQueryOpenEvent event = new MysqlQueryOpenEvent();
         event.data(query);
-        event.item(item);
+        event.setDbItem(item);
         EventUtil.post(event);
     }
 
@@ -240,35 +238,35 @@ public class MysqlEventUtil {
     public static void designFunction(MysqlFunction function, MysqlDatabaseTreeItem dbItem) {
         MysqlFunctionDesignEvent event = new MysqlFunctionDesignEvent();
         event.data(function);
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         EventUtil.post(event);
     }
 
     public static void designProcedure(MysqlProcedure procedure, MysqlDatabaseTreeItem dbItem) {
         MysqlProcedureDesignEvent event = new MysqlProcedureDesignEvent();
         event.data(procedure);
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         EventUtil.post(event);
     }
 
     public static void designEvent(MysqlEvent event, MysqlDatabaseTreeItem dbItem) {
         MysqlEventDesignEvent event1 = new MysqlEventDesignEvent();
         event1.data(event);
-        event1.dbItem(dbItem);
+        event1.setDbItem(dbItem);
         EventUtil.post(event1);
     }
 
     public static void viewAlerted(String viewName, MysqlDatabaseTreeItem dbItem) {
         MysqlViewAlertedEvent event = new MysqlViewAlertedEvent();
         event.data(viewName);
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         EventUtil.post(event);
     }
 
     public static void designView(MysqlView dbView, MysqlDatabaseTreeItem dbItem) {
         MysqlViewDesignEvent event = new MysqlViewDesignEvent();
         event.data(dbView);
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         EventUtil.post(event);
     }
 
@@ -287,7 +285,7 @@ public class MysqlEventUtil {
     public static void designTable(String tableName, MysqlDatabaseTreeItem dbItem) {
         MysqlTableDesignEvent event = new MysqlTableDesignEvent();
         event.data(tableName);
-        event.dbItem(dbItem);
+        event.setDbItem(dbItem);
         EventUtil.post(event);
     }
 

@@ -33,7 +33,7 @@ public class MysqlXmlTypeFileWriter extends MysqlTypeFileWriter {
     public MysqlXmlTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) throws FileNotFoundException {
         this.columns = columns;
         this.config = config;
-        this.writer = LineFileWriter.create(filePath, config.charset());
+        this.writer = LineFileWriter.create(filePath, config.getCharset());
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MysqlXmlTypeFileWriter extends MysqlTypeFileWriter {
     @Override
     public void writeObject(Map<String, Object> object) throws Exception {
         StringBuilder builder;
-        if (this.config.fieldToAttr()) {
+        if (this.config.isFieldToAttr()) {
             builder = new StringBuilder("  <RECORD ");
             for (Map.Entry<String, Object> entry : object.entrySet()) {
                 // 值处理

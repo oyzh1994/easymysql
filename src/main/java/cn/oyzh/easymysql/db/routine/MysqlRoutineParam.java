@@ -17,9 +17,6 @@ import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +25,11 @@ import java.util.List;
  * @author oyzh
  * @since 2024/7/1
  */
-@EqualsAndHashCode(callSuper = true)
 public class MysqlRoutineParam extends DBObjectStatus {
 
     /**
      * 名称
      */
-    @Getter
-    @Setter
     private String name;
 
     /**
@@ -46,29 +40,21 @@ public class MysqlRoutineParam extends DBObjectStatus {
     /**
      * 模式
      */
-    @Getter
-    @Setter
     private String mode;
 
     /**
      * 长度
      */
-    @Getter
-    @Setter
     private Integer size;
 
     /**
      * 小数位
      */
-    @Getter
-    @Setter
     private Integer digits;
 
     /**
      * 值
      */
-    @Getter
-    @Setter
     private String value;
 
     /**
@@ -79,8 +65,6 @@ public class MysqlRoutineParam extends DBObjectStatus {
     /**
      * 排序
      */
-    @Getter
-    @Setter
     private String collation;
 
     public String getType() {
@@ -350,5 +334,69 @@ public class MysqlRoutineParam extends DBObjectStatus {
 
     public boolean supportEnum() {
         return DBColumnUtil.supportEnum(this.getType());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTypeProperty() {
+        return typeProperty.get();
+    }
+
+    public StringProperty typePropertyProperty() {
+        return typeProperty;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public Integer getDigits() {
+        return digits;
+    }
+
+    public void setDigits(Integer digits) {
+        this.digits = digits;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getCharsetProperty() {
+        return charsetProperty.get();
+    }
+
+    public StringProperty charsetPropertyProperty() {
+        return charsetProperty;
+    }
+
+    public String getCollation() {
+        return collation;
+    }
+
+    public void setCollation(String collation) {
+        this.collation = collation;
     }
 }

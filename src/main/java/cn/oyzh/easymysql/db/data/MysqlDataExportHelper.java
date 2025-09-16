@@ -8,7 +8,6 @@ import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBUtil;
-import lombok.experimental.UtilityClass;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import java.util.Map;
  * @author oyzh
  * @since 2024/09/02
  */
-@UtilityClass
 public class MysqlDataExportHelper {
 
     /**
@@ -40,10 +38,10 @@ public class MysqlDataExportHelper {
         }
         if (column.isDateType() || column.supportTimestamp()) {
             if (value instanceof LocalDateTime date) {
-                return DateUtil.format(date, config.dateFormat());
+                return DateUtil.format(date, config.getDateFormat());
             }
             if (value instanceof Date date) {
-                return DateUtil.format(date, config.dateFormat());
+                return DateUtil.format(date, config.getDateFormat());
             }
         }
         if (column.supportJson()) {
@@ -91,10 +89,10 @@ public class MysqlDataExportHelper {
         }
         if (column.isDateType() || column.supportTimestamp()) {
             if (value instanceof LocalDateTime date) {
-                return DateUtil.format(date, config.dateFormat());
+                return DateUtil.format(date, config.getDateFormat());
             }
             if (value instanceof Date date) {
-                return DateUtil.format(date, config.dateFormat());
+                return DateUtil.format(date, config.getDateFormat());
             }
         }
         if (column.supportJson()) {
@@ -142,10 +140,10 @@ public class MysqlDataExportHelper {
         }
         if (column.isDateType() || column.supportTimestamp()) {
             if (value instanceof LocalDateTime date) {
-                return "\"" + DateUtil.format(date, config.dateFormat()) + "\"";
+                return "\"" + DateUtil.format(date, config.getDateFormat()) + "\"";
             }
             if (value instanceof Date date) {
-                return "\"" + DateUtil.format(date, config.dateFormat()) + "\"";
+                return "\"" + DateUtil.format(date, config.getDateFormat()) + "\"";
             }
         }
         if (column.supportBinary()) {
@@ -184,10 +182,10 @@ public class MysqlDataExportHelper {
         }
         if (column.isDateType() || column.supportTimestamp()) {
             if (value instanceof LocalDateTime date) {
-                return "'" + DateUtil.format(date, config.dateFormat()) + "'";
+                return "'" + DateUtil.format(date, config.getDateFormat()) + "'";
             }
             if (value instanceof Date date) {
-                return "'" + DateUtil.format(date, config.dateFormat()) + "'";
+                return "'" + DateUtil.format(date, config.getDateFormat()) + "'";
             }
         }
         if (column.supportJson()) {
@@ -233,10 +231,10 @@ public class MysqlDataExportHelper {
         }
         if (column.isDateType() || column.supportTimestamp()) {
             if (value instanceof LocalDateTime date) {
-                return DateUtil.format(date, config.dateFormat());
+                return DateUtil.format(date, config.getDateFormat());
             }
             if (value instanceof Date date) {
-                return DateUtil.format(date, config.dateFormat());
+                return DateUtil.format(date, config.getDateFormat());
             }
         }
         if (column.supportJson()) {
@@ -284,10 +282,10 @@ public class MysqlDataExportHelper {
         }
         if (column.isDateType() || column.supportTimestamp()) {
             if (value instanceof LocalDateTime date) {
-                return DateUtil.format(date, config.dateFormat());
+                return DateUtil.format(date, config.getDateFormat());
             }
             if (value instanceof Date date) {
-                return DateUtil.format(date, config.dateFormat());
+                return DateUtil.format(date, config.getDateFormat());
             }
         }
         if (column.supportJson()) {
@@ -331,7 +329,7 @@ public class MysqlDataExportHelper {
         final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName);
         for (MysqlRecord record : records) {
             StringBuilder sql = new StringBuilder(sqlBase);
-            if (config.includeFields()) {
+            if (config.isIncludeFields()) {
                 sql.append("(");
                 for (MysqlColumn dbColumn : columnList) {
                     sql.append(DBUtil.wrap(dbColumn.getName())).append(", ");

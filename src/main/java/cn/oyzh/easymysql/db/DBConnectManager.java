@@ -3,7 +3,6 @@ package cn.oyzh.easymysql.db;
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
-import lombok.NonNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +20,7 @@ public interface DBConnectManager {
      *
      * @param redisInfo 连接信息
      */
-    void addConnect(@NonNull MysqlConnect redisInfo);
+    void addConnect( MysqlConnect redisInfo);
 
     /**
      * 删除多个连接
@@ -41,14 +40,14 @@ public interface DBConnectManager {
      *
      * @param item 连接键
      */
-    void addConnectItem(@NonNull DBConnectTreeItem item);
+    void addConnectItem( DBConnectTreeItem item);
 
     /**
      * 添加多个连接键
      *
      * @param items 连接键列表
      */
-    void addConnectItems(@NonNull List<DBConnectTreeItem> items);
+    void addConnectItems( List<DBConnectTreeItem> items);
 
     /**
      * 删除连接键
@@ -56,7 +55,7 @@ public interface DBConnectManager {
      * @param item 连接键
      * @return 结果
      */
-    boolean delConnectItem(@NonNull DBConnectTreeItem item);
+    boolean delConnectItem( DBConnectTreeItem item);
 
     /**
      * 获取连接键

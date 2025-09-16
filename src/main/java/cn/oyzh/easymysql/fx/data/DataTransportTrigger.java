@@ -1,12 +1,9 @@
 package cn.oyzh.easymysql.fx.data;
 
-import lombok.Data;
-
 /**
  * @author oyzh
  * @since 2024-09-06
  */
-@Data
 public class DataTransportTrigger {
 
     /**
@@ -18,4 +15,20 @@ public class DataTransportTrigger {
      * 是否选中
      */
     private boolean selected = true;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 }

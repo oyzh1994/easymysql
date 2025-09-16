@@ -99,8 +99,8 @@ public class MysqlColumnEnumPopupController extends PopupController {
     @Override
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
-        this.onSubmit = this.getWindowProp("onSubmit");
-        List<String> values = this.getWindowProp("values");
+        this.onSubmit = this.getProp("onSubmit");
+        List<String> values = this.getProp("values");
         if (CollUtil.isNotEmpty(values)) {
             for (String value : values) {
                 this.listView.addItem(this.createNode(value));

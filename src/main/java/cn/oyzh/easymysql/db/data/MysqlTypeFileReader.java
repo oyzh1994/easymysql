@@ -13,19 +13,19 @@ import java.util.Map;
  */
 public abstract class MysqlTypeFileReader implements Closeable {
 
-    // public TypeFileReader(@NonNull String filePath) {
+    // public TypeFileReader( String filePath) {
     //     this(new File(filePath), StandardCharsets.UTF_8);
     // }
     //
-    // public TypeFileReader(@NonNull File file) {
+    // public TypeFileReader( File file) {
     //     this(file, StandardCharsets.UTF_8);
     // }
     //
-    // public TypeFileReader(@NonNull String filePath, Charset charset) {
+    // public TypeFileReader( String filePath, Charset charset) {
     //     this(new File(filePath), charset);
     // }
     //
-    // public TypeFileReader(@NonNull File file, Charset charset) {
+    // public TypeFileReader( File file, Charset charset) {
     // }
 
     protected void init() throws Exception {

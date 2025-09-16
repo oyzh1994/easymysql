@@ -39,7 +39,7 @@ public class MysqlViewInfoController extends StageController {
     @Override
     public void onWindowShown(WindowEvent event) {
         super.onWindowShown(event);
-        MysqlViewTreeItem item = this.getWindowProp("item");
+        MysqlViewTreeItem item = this.getProp("item");
         MysqlView view = item.value();
         this.viewName.setText(view.getName());
         this.viewComment.setText(view.getComment());

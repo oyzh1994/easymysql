@@ -50,7 +50,7 @@ public class MysqlEventDesignTab extends MysqlTab {
     }
 
     public MysqlEvent event() {
-        return this.controller().event();
+        return this.controller().getEvent();
     }
 
     public String eventName() {
@@ -59,7 +59,7 @@ public class MysqlEventDesignTab extends MysqlTab {
 
     @Override
     public MysqlDatabaseTreeItem dbItem() {
-        return this.controller().dbItem();
+        return this.controller().getDbItem();
     }
 
     /**

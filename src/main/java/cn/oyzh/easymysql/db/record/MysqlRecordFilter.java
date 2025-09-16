@@ -13,8 +13,6 @@ import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -29,42 +27,31 @@ public class MysqlRecordFilter {
     /**
      * 值
      */
-    @Getter
-    @Setter
     private Object value;
 
     /**
      * 是否已启用
      */
-    @Getter
-    @Setter
     private boolean enabled = true;
 
     /**
      * 连接符号
      */
-    @Getter
-    @Setter
     private String joinSymbol;
 
     /**
      * 条件
      */
-    @Getter
-    @Setter
     private MysqlCondition condition;
 
     /**
      * 字段
      */
-    @Getter
-    @Setter
     private MysqlColumn column;
 
     /**
      * 字段列表
      */
-    @Setter
     private List<MysqlColumn> columns;
 
     /**
@@ -205,5 +192,53 @@ public class MysqlRecordFilter {
      */
     public boolean isRequireCondition() {
         return this.condition.isRequireCondition();
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getJoinSymbol() {
+        return joinSymbol;
+    }
+
+    public void setJoinSymbol(String joinSymbol) {
+        this.joinSymbol = joinSymbol;
+    }
+
+    public MysqlCondition getCondition() {
+        return condition;
+    }
+
+    public void setCondition(MysqlCondition condition) {
+        this.condition = condition;
+    }
+
+    public MysqlColumn getColumn() {
+        return column;
+    }
+
+    public void setColumn(MysqlColumn column) {
+        this.column = column;
+    }
+
+    public List<MysqlColumn> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(List<MysqlColumn> columns) {
+        this.columns = columns;
     }
 }

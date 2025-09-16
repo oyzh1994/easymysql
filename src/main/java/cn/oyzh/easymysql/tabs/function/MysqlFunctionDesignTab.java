@@ -52,12 +52,12 @@ public class MysqlFunctionDesignTab extends MysqlTab {
     }
 
     public String functionName() {
-        return this.controller().function().getName();
+        return this.controller().getFunction().getName();
     }
 
     @Override
     public MysqlDatabaseTreeItem dbItem() {
-        return this.controller().dbItem();
+        return this.controller().getDbItem();
     }
 
     /**

@@ -12,7 +12,6 @@ import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.plus.controls.text.field.FXTextField;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.i18n.I18nHelper;
-import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/01/25
  */
-@EqualsAndHashCode(callSuper = true)
 public class MysqlForeignKeyControl extends MysqlForeignKey {
 
     public FXTextField getNameControl() {
@@ -158,5 +156,7 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
         }
         return controls;
     }
+
+
 
 }

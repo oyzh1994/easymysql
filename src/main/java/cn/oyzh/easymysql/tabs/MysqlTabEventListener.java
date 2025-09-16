@@ -112,7 +112,7 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlTableOpen(MysqlTableOpenEvent event) {
         try {
-            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
+            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.getDbItem(), event.tableName());
             if (tab == null) {
                 tab = new MysqlTableRecordTab();
                 this.addTab(tab);
@@ -132,7 +132,7 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlTableRenamed(MysqlTableRenamedEvent event) {
         try {
-            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
+            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.getDbItem(), event.tableName());
             if (tab != null) {
                 tab.flushTitle();
             }
@@ -149,7 +149,7 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlTableCleared(MysqlTableClearedEvent event) {
         try {
-            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
+            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.getDbItem(), event.tableName());
             if (tab != null) {
                 tab.reload();
             }
@@ -166,7 +166,7 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlTableTruncated(MysqlTableTruncatedEvent event) {
         try {
-            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
+            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.getDbItem(), event.tableName());
             if (tab != null) {
                 tab.reload();
             }
@@ -183,7 +183,7 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlTableDropped(MysqlTableDroppedEvent event) {
         try {
-            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
+            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.getDbItem(), event.tableName());
             if (tab != null) {
                 tab.closeTab();
             }
@@ -200,9 +200,9 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlTableFiltered(MysqlTableFilteredEvent event) {
         try {
-            MysqlTableRecordTab tableTab = this.getMysqlTableRecordTab(event.dbItem(), event.tableName());
+            MysqlTableRecordTab tableTab = this.getMysqlTableRecordTab(event.getDbItem(), event.tableName());
             if (tableTab != null) {
-                tableTab.setFilters(event.filters());
+                tableTab.setFilters(event.getFilters());
                 tableTab.reload();
             }
         } catch (Exception ex) {
@@ -218,7 +218,7 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlTableAlerted(MysqlTableAlertedEvent event) {
         try {
-            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.dbItem(), event.data());
+            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.getDbItem(), event.data());
             if (tab != null) {
                 tab.flush();
                 tab.reload();
@@ -245,7 +245,7 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlViewOpen(MysqlViewOpenEvent event) {
         try {
-            MysqlViewRecordTab tab = this.getMysqlViewRecordTab(event.dbItem(), event.viewName());
+            MysqlViewRecordTab tab = this.getMysqlViewRecordTab(event.getDbItem(), event.viewName());
             if (tab == null) {
                 tab = new MysqlViewRecordTab();
                 this.addTab(tab);
@@ -265,9 +265,9 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlViewFiltered(MysqlViewFilteredEvent event) {
         try {
-            MysqlViewRecordTab viewRecordTab = this.getMysqlViewRecordTab(event.dbItem(), event.viewName());
+            MysqlViewRecordTab viewRecordTab = this.getMysqlViewRecordTab(event.getDbItem(), event.viewName());
             if (viewRecordTab != null) {
-                viewRecordTab.setFilters(event.filters());
+                viewRecordTab.setFilters(event.getFilters());
                 viewRecordTab.reload();
             }
         } catch (Exception ex) {
@@ -330,7 +330,7 @@ public class MysqlTabEventListener implements EventListener {
             MysqlQueryMainTab tab = this.getMysqlQueryMainTab(event.queryId());
             if (tab == null) {
                 tab = new MysqlQueryMainTab();
-                tab.init(event.data(), event.item());
+                tab.init(event.data(), event.getDbItem());
                 this.addTab(tab);
             }
             this.select(tab);
@@ -366,10 +366,10 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlFunctionDesign(MysqlFunctionDesignEvent event) {
         try {
-            MysqlFunctionDesignTab tab = this.getMysqlFunctionTab(event.dbItem(), event.functionName());
+            MysqlFunctionDesignTab tab = this.getMysqlFunctionTab(event.getDbItem(), event.functionName());
             if (tab == null) {
                 tab = new MysqlFunctionDesignTab();
-                tab.init(event.data(), event.dbItem());
+                tab.init(event.data(), event.getDbItem());
                 this.addTab(tab);
             }
             this.select(tab);
@@ -395,10 +395,10 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlProcedureDesign(MysqlProcedureDesignEvent event) {
         try {
-            MysqlProcedureDesignTab tab = this.getMysqlProcedureTab(event.dbItem(), event.procedureName());
+            MysqlProcedureDesignTab tab = this.getMysqlProcedureTab(event.getDbItem(), event.procedureName());
             if (tab == null) {
                 tab = new MysqlProcedureDesignTab();
-                tab.init(event.data(), event.dbItem());
+                tab.init(event.data(), event.getDbItem());
                 this.addTab(tab);
             }
             this.select(tab);
@@ -424,10 +424,10 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlEventDesign(MysqlEventDesignEvent event) {
         try {
-            MysqlEventDesignTab tab = this.getMysqlEventTab(event.dbItem(), event.eventName());
+            MysqlEventDesignTab tab = this.getMysqlEventTab(event.getDbItem(), event.eventName());
             if (tab == null) {
                 tab = new MysqlEventDesignTab();
-                tab.init(event.data(), event.dbItem());
+                tab.init(event.data(), event.getDbItem());
                 this.addTab(tab);
             }
             this.select(tab);
@@ -453,10 +453,10 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlViewDesign(MysqlViewDesignEvent event) {
         try {
-            MysqlViewDesignTab tab = this.getMysqlViewDesignTab(event.dbItem(), event.viewName());
+            MysqlViewDesignTab tab = this.getMysqlViewDesignTab(event.getDbItem(), event.viewName());
             if (tab == null) {
                 tab = new MysqlViewDesignTab();
-                tab.init(event.data(), event.dbItem());
+                tab.init(event.data(), event.getDbItem());
                 this.addTab(tab);
             }
             this.select(tab);
@@ -482,10 +482,10 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlTableDesign(MysqlTableDesignEvent event) {
         try {
-            MysqlTableDesignTab tab = this.getMysqlTableDesignTab(event.dbItem(), event.data());
+            MysqlTableDesignTab tab = this.getMysqlTableDesignTab(event.getDbItem(), event.data());
             if (tab == null) {
                 tab = new MysqlTableDesignTab();
-                tab.init(event.data(), event.dbItem());
+                tab.init(event.data(), event.getDbItem());
                 this.addTab(tab);
             }
             this.select(tab);

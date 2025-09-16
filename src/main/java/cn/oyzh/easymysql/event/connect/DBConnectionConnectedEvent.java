@@ -17,6 +17,6 @@ public class DBConnectionConnectedEvent extends Event<DBClient> implements  Even
     }
 
     public MysqlConnect dbConnect() {
-        return this.data().dbConnect();
+        return this.data().getDbConnect();
     }
 }

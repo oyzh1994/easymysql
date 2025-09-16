@@ -5,7 +5,6 @@ import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import javafx.scene.Cursor;
-import lombok.Getter;
 
 /**
  * db查询tab
@@ -22,7 +21,6 @@ public class MysqlQueryMainTab extends MysqlTab {
     /**
      * 内容已变化
      */
-    @Getter
     private boolean contentChanged;
 
     public void setContentChanged(boolean contentChanged) {
@@ -60,7 +58,7 @@ public class MysqlQueryMainTab extends MysqlTab {
     }
 
     public MysqlQuery query() {
-        return this.controller().query();
+        return this.controller().getQuery();
     }
 
     public String queryId() {
@@ -69,7 +67,7 @@ public class MysqlQueryMainTab extends MysqlTab {
 
     @Override
     public MysqlDatabaseTreeItem dbItem() {
-        return this.controller().dbItem();
+        return this.controller().getDbItem();
     }
 
     /**

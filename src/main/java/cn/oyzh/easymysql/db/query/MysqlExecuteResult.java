@@ -3,9 +3,6 @@ package cn.oyzh.easymysql.db.query;
 import cn.oyzh.easymysql.db.DBHelper;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,14 +12,11 @@ import java.util.ArrayList;
  * @author oyzh
  * @since 2024/02/19
  */
-@Getter
-@Accessors(chain = true, fluent = true)
 public class MysqlExecuteResult extends MysqlQueryResult {
 
     /**
      * 是否全字段
      */
-    @Setter
     private boolean fullColumn;
 
     @Override
@@ -51,5 +45,13 @@ public class MysqlExecuteResult extends MysqlQueryResult {
             }
             this.records.add(record);
         }
+    }
+
+    public void setFullColumn(boolean fullColumn) {
+        this.fullColumn = fullColumn;
+    }
+
+    public boolean isFullColumn() {
+        return fullColumn;
     }
 }

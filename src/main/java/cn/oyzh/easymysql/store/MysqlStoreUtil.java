@@ -7,13 +7,11 @@ import cn.oyzh.i18n.I18nHelper;
 import cn.oyzh.store.jdbc.JdbcConst;
 import cn.oyzh.store.jdbc.JdbcDialect;
 import cn.oyzh.store.jdbc.JdbcManager;
-import lombok.experimental.UtilityClass;
 
 /**
  * @author oyzh
  * @since 2024-09-23
  */
-@UtilityClass
 public class MysqlStoreUtil {
 
     /**

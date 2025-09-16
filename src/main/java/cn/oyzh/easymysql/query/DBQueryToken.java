@@ -1,15 +1,11 @@
 package cn.oyzh.easymysql.query;
 
 import cn.hutool.core.util.StrUtil;
-import lombok.Data;
-import lombok.ToString;
 
 /**
  * @author oyzh
  * @since 2024/8/15
  */
-@Data
-@ToString
 public class DBQueryToken {
 
     /**
@@ -69,5 +65,37 @@ public class DBQueryToken {
 
     public boolean isPossibilityDatabase() {
         return '`' == this.token || ' ' == this.token;
+    }
+
+    public int getEndIndex() {
+        return endIndex;
+    }
+
+    public void setEndIndex(int endIndex) {
+        this.endIndex = endIndex;
+    }
+
+    public int getStartIndex() {
+        return startIndex;
+    }
+
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Character getToken() {
+        return token;
+    }
+
+    public void setToken(Character token) {
+        this.token = token;
     }
 }

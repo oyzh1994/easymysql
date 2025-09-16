@@ -53,8 +53,6 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.net.URL;
 import java.util.List;
@@ -365,15 +363,11 @@ public class MysqlTableUpdateTabController extends ParentTabController {
     /**
      * db库节点
      */
-    @Getter
-    @Accessors(fluent = true)
     private MysqlDatabaseTreeItem dbItem;
 
     /**
      * db库节点
      */
-    @Getter
-    @Accessors(fluent = true)
     private MysqlTableTreeItem tableItem;
 
     /**
@@ -384,7 +378,6 @@ public class MysqlTableUpdateTabController extends ParentTabController {
     /**
      * 未保存标志位
      */
-    @Getter
     private boolean unsaved;
 
     /**
@@ -1100,7 +1093,7 @@ public class MysqlTableUpdateTabController extends ParentTabController {
         this.triggerTable.setStatusListener(this.listener);
         this.foreignKeyTable.setStatusListener(this.listener);
 
-        this.columnTable.selectedIndexChanged((observable, oldValue, newValue) -> this.tableColumnExtraController.init(this.columnTable.getSelectedItem(), this.dbItem().client()));
+        this.columnTable.selectedIndexChanged((observable, oldValue, newValue) -> this.tableColumnExtraController.init(this.columnTable.getSelectedItem(), this.dbItem.client()));
     }
 
     @Override

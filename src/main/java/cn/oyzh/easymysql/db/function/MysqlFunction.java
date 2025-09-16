@@ -3,8 +3,6 @@ package cn.oyzh.easymysql.db.function;
 import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineSchema;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +11,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/06/29
  */
-@Setter
-@Getter
 public class MysqlFunction extends MysqlRoutineSchema implements ObjectCopier<MysqlFunction> {
 
     /**
@@ -48,5 +44,13 @@ public class MysqlFunction extends MysqlRoutineSchema implements ObjectCopier<My
         this.setReturnParam(function.getReturnParam());
         this.setSecurityType(function.getSecurityType());
         this.setCharacteristic(function.getCharacteristic());
+    }
+
+    public MysqlRoutineParam getReturnParam() {
+        return returnParam;
+    }
+
+    public void setReturnParam(MysqlRoutineParam returnParam) {
+        this.returnParam = returnParam;
     }
 }

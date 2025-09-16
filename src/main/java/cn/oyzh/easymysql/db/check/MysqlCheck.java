@@ -3,41 +3,31 @@ package cn.oyzh.easymysql.db.check;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author oyzh
  * @since 2024/09/11
  */
-@EqualsAndHashCode(callSuper = true)
 public class MysqlCheck extends DBObjectStatus implements ObjectCopier<MysqlCheck> {
 
     /**
      * 库名称
      */
-    @Getter
-    @Setter
     private String dbName;
 
     /**
      * 表名称
      */
-    @Getter
-    @Setter
     private String tableName;
 
     /**
      * 名称
      */
-    @Getter
     private String name;
 
     /**
      * 子语句
      */
-    @Getter
     private String clause;
 
     public MysqlCheck() {
@@ -82,5 +72,29 @@ public class MysqlCheck extends DBObjectStatus implements ObjectCopier<MysqlChec
 
     public boolean isInvalid() {
         return StrUtil.isBlank(this.name) || StrUtil.isBlank(this.clause);
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getClause() {
+        return clause;
     }
 }

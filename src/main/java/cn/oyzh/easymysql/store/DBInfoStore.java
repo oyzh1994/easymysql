@@ -73,7 +73,7 @@
 //    }
 //
 //    @Override
-//    public synchronized boolean add(@NonNull MysqlConnect dbInfo) {
+//    public synchronized boolean add( MysqlConnect dbInfo) {
 //        try {
 //            if (!this.infos.contains(dbInfo)) {
 //                if (StrUtil.isBlank(dbInfo.getId())) {
@@ -91,7 +91,7 @@
 //    }
 //
 //    @Override
-//    public synchronized boolean update(@NonNull MysqlConnect dbInfo) {
+//    public synchronized boolean update( MysqlConnect dbInfo) {
 //        try {
 //            // 更新数据
 //            if (this.infos.contains(dbInfo)) {
@@ -104,7 +104,7 @@
 //    }
 //
 //    @Override
-//    public synchronized boolean delete(@NonNull MysqlConnect dbInfo) {
+//    public synchronized boolean delete( MysqlConnect dbInfo) {
 //        try {
 //            // 删除数据
 //            if (this.infos.remove(dbInfo)) {

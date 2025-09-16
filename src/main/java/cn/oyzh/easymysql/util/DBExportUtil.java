@@ -1,7 +1,6 @@
 package cn.oyzh.easymysql.util;
 
 
-import lombok.experimental.UtilityClass;
 
 
 /**
@@ -10,7 +9,6 @@ import lombok.experimental.UtilityClass;
  * @author oyzh
  * @since 2024/08/26
  */
-@UtilityClass
 public class DBExportUtil {
 
 

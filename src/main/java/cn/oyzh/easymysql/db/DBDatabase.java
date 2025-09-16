@@ -2,8 +2,6 @@ package cn.oyzh.easymysql.db;
 
 import cn.hutool.core.util.StrUtil;
 import javafx.beans.property.SimpleStringProperty;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author oyzh
@@ -14,8 +12,6 @@ public class DBDatabase {
     /**
      * 库名称
      */
-    @Getter
-    @Setter
     private String name;
 
     /**
@@ -68,5 +64,13 @@ public class DBDatabase {
                 this.setCollation(null);
             }
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

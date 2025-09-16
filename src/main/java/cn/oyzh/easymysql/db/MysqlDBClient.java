@@ -69,7 +69,7 @@
 //  */
 // public class MysqlDBClient extends DBClient {
 //
-//     public MysqlDBClient(@NonNull MysqlInfo dbInfo) {
+//     public MysqlDBClient( MysqlInfo dbInfo) {
 //         super(dbInfo);
 //     }
 //

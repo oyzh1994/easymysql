@@ -86,7 +86,7 @@ public class MysqlDatabaseAddController extends StageController {
         // 字符集选中事件
         this.charset.selectedItemChanged((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                this.collation.init(newValue, this.connectItem.client());
+                this.collation.init(newValue, this.connectItem.getClient());
                 this.collation.select(0);
                 this.collation.enable();
             } else {
@@ -103,10 +103,10 @@ public class MysqlDatabaseAddController extends StageController {
 
     @Override
     public void onWindowShown(WindowEvent event) {
-        this.connectItem = this.getWindowProp("connectItem");
+        this.connectItem = this.getProp("connectItem");
 
         // 初始化字符集和排序
-        this.charset.init(this.connectItem.client());
+        this.charset.init(this.connectItem.getClient());
         this.charset.enable();
         this.collation.disable();
 

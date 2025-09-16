@@ -1,12 +1,10 @@
 package cn.oyzh.easymysql.dto;
 
 import cn.oyzh.common.dto.Project;
-import cn.oyzh.common.json.JSONObject;
 import cn.oyzh.common.json.JSONUtil;
 import cn.oyzh.common.log.JulLog;
 import cn.oyzh.easymysql.domain.MysqlConnect;
-import lombok.Getter;
-import lombok.NonNull;
+import com.alibaba.fastjson2.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +20,16 @@ public class MysqlInfoExport {
     /**
      * 导出程序版本号
      */
-    @Getter
     private String version;
 
     /**
      * 平台
      */
-    @Getter
     private String platform;
 
     /**
      * 导出连接数据
      */
-    @Getter
     private List<MysqlConnect> connects;
 
     /**
@@ -43,7 +38,7 @@ public class MysqlInfoExport {
      * @param dbInfos 连接列表
      * @return DBInfoExport
      */
-    public static MysqlInfoExport fromConnects(@NonNull List<MysqlConnect> dbInfos) {
+    public static MysqlInfoExport fromConnects( List<MysqlConnect> dbInfos) {
         MysqlInfoExport export = new MysqlInfoExport();
         Project project = Project.load();
         export.version = project.getVersion();
@@ -58,13 +53,13 @@ public class MysqlInfoExport {
      * @param json json字符串
      * @return RedisInfoExport
      */
-    public static MysqlInfoExport fromJSON(@NonNull String json) {
+    public static MysqlInfoExport fromJSON( String json) {
         JulLog.info("json: {}", json);
         JSONObject object = JSONUtil.parseObject(json);
         MysqlInfoExport export = new MysqlInfoExport();
         export.connects = new ArrayList<>();
         export.version = object.getString("version");
-        export.connects = object.getBeanList("connects", MysqlConnect.class);
+        export.connects = object.getList("connects", MysqlConnect.class);
         return export;
     }
 
@@ -75,5 +70,29 @@ public class MysqlInfoExport {
      */
     public String toJSONString() {
         return JSONUtil.toJson(this);
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public List<MysqlConnect> getConnects() {
+        return connects;
+    }
+
+    public void setConnects(List<MysqlConnect> connects) {
+        this.connects = connects;
     }
 }

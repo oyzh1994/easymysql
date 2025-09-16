@@ -1,7 +1,5 @@
 package cn.oyzh.easymysql.db;
 
-import lombok.Getter;
-import lombok.Setter;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,8 +18,6 @@ public class DBConnectionManager {
     /**
      * 服务连接
      */
-    @Setter
-    @Getter
     private Connection serverConnection;
 
     /**
@@ -79,5 +75,17 @@ public class DBConnectionManager {
             }
         }
         this.connections.clear();
+    }
+
+    public Connection getServerConnection() {
+        return serverConnection;
+    }
+
+    public void setServerConnection(Connection serverConnection) {
+        this.serverConnection = serverConnection;
+    }
+
+    public Map<String, Connection> getConnections() {
+        return connections;
     }
 }

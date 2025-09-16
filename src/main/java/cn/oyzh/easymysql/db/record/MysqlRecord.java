@@ -3,8 +3,6 @@ package cn.oyzh.easymysql.db.record;
 
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,13 +14,11 @@ import java.util.Set;
  * @author oyzh
  * @since 2023/12/20
  */
-@EqualsAndHashCode(callSuper = true)
 public class MysqlRecord extends DBObjectStatus {
 
     /**
      * 是否只读
      */
-    @Getter
     private boolean readonly;
 
     public MysqlRecord() {

@@ -6,9 +6,6 @@ import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.handler.DataHandler;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,15 +22,11 @@ public abstract class DataDumpHandler extends DataHandler {
      * 0 数据和结构
      * 1 仅结构
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected Byte dataType;
 
     /**
      * 库名称
      */
-    @Getter
     protected String dbName;
 
     /**
@@ -49,49 +42,32 @@ public abstract class DataDumpHandler extends DataHandler {
     /**
      * db客户端
      */
-    @Getter
-    @Accessors(fluent = true, chain = true)
     protected DBClient dbClient;
 
     /**
      * 1. 库
      * 2. 表
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected Byte dumpType;
 
     /**
      * 表名称
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected String tableName;
 
     /**
      * 连接信息
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected MysqlConnect dbInfo;
 
     /**
      * 查询限制
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     protected int queryLimit = 1000;
 
     /**
      * 方言
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     private DBDialect dialect;
 
     public DataDumpHandler(DBClient dbClient, String dbName) {
@@ -133,7 +109,7 @@ public abstract class DataDumpHandler extends DataHandler {
         header += "\n\n";
         header += " Source Server : " + this.dbInfo.getName();
         header += "\n";
-        header += " Source Server Type : " + this.dbClient().dialect().name();
+        header += " Source Server Type : " + this.dbClient.dialect().name();
         header += "\n";
         header += " Source Server Version : " + version;
         header += "\n";
@@ -141,7 +117,7 @@ public abstract class DataDumpHandler extends DataHandler {
         header += "\n";
         header += " Source Schema : " + this.dbName;
         header += "\n\n";
-        header += " Target Server Type : " + this.dbClient().dialect().name();
+        header += " Target Server Type : " + this.dbClient.dialect().name();
         header += "\n";
         header += " Target Server Version : " + version;
         header += "\n";
@@ -184,9 +160,93 @@ public abstract class DataDumpHandler extends DataHandler {
             default -> null;
         };
         if (handler != null) {
-            handler.dialect(dbClient.dialect());
+            handler.dialect=dbClient.dialect();
         }
         return handler;
+    }
+
+    public Byte getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(Byte dataType) {
+        this.dataType = dataType;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public File getDumpFile() {
+        return dumpFile;
+    }
+
+    public void setDumpFile(File dumpFile) {
+        this.dumpFile = dumpFile;
+    }
+
+    public FastFileWriter getFileWriter() {
+        return fileWriter;
+    }
+
+    public void setFileWriter(FastFileWriter fileWriter) {
+        this.fileWriter = fileWriter;
+    }
+
+    public DBClient getDbClient() {
+        return dbClient;
+    }
+
+    public void setDbClient(DBClient dbClient) {
+        this.dbClient = dbClient;
+    }
+
+    public Byte getDumpType() {
+        return dumpType;
+    }
+
+    public DataDumpHandler setDumpType(Byte dumpType) {
+        this.dumpType = dumpType;
+        return this;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public DataDumpHandler setTableName(String tableName) {
+        this.tableName = tableName;
+        return this;
+    }
+
+    public MysqlConnect getDbInfo() {
+        return dbInfo;
+    }
+
+    public DataDumpHandler setDbInfo(MysqlConnect dbInfo) {
+        this.dbInfo = dbInfo;
+        return this;
+    }
+
+    public int getQueryLimit() {
+        return queryLimit;
+    }
+
+    public DataDumpHandler setQueryLimit(int queryLimit) {
+        this.queryLimit = queryLimit;
+        return this;
+    }
+
+    public DBDialect getDialect() {
+        return dialect;
+    }
+
+    public void setDialect(DBDialect dialect) {
+        this.dialect = dialect;
     }
 }
 

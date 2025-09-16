@@ -7,10 +7,6 @@ import cn.oyzh.common.object.ObjectComparator;
 import cn.oyzh.store.jdbc.Column;
 import cn.oyzh.store.jdbc.PrimaryKey;
 import cn.oyzh.store.jdbc.Table;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,15 +18,12 @@ import java.util.List;
  * @author oyzh
  * @since 2020/3/6
  */
-@ToString
 @Table("t_connect")
 public class MysqlConnect implements Serializable, Comparable<MysqlConnect>, ObjectComparator<MysqlConnect> {
 
     /**
      * 数据id
      */
-    @Getter
-    @Setter
     @Column
     @PrimaryKey
     private String id;
@@ -38,102 +31,75 @@ public class MysqlConnect implements Serializable, Comparable<MysqlConnect>, Obj
     /**
      * 连接地址
      */
-    @Getter
-    @Setter
     @Column
     private String host;
 
     /**
      * 名称
      */
-    @Getter
-    @Setter
     @Column
     private String name;
 
     /**
      * 认证用户
      */
-    @Getter
-    @Setter
     @Column
     private String user;
 
     /**
      * 类型
      */
-    @Getter
-    @Setter
     @Column
     private String type;
 
     /**
      * 认证密码
      */
-    @Getter
-    @Setter
     @Column
     private String password;
 
     /**
      * 备注信息
      */
-    @Getter
-    @Setter
     @Column
     private String remark;
 
     /**
      * 只读模式
      */
-    @Setter
-    @Getter
     @Column
     private Boolean readonly;
 
     /**
      * 分组id
      */
-    @Getter
-    @Setter
     @Column
     private String groupId;
 
     /**
      * 收藏列表
      */
-    @Getter
-    @Setter
     private List<String> collects;
 
     /**
      * 连接超时时间
      */
-    @Setter
     @Column
     private Integer connectTimeOut;
 
     /**
      * 是否开启ssh转发
      */
-    @Setter
-    @Getter
     @Column
     private Boolean sshForward;
 
     /**
      * ssh信息
      */
-    @Setter
-    @Getter
     private MysqlSSHConfig sshConfig;
 
-    @Setter
-    @Getter
     private String sid;
 
-    @Setter
-    @Getter
     private String serviceName;
 
     /**
@@ -142,7 +108,7 @@ public class MysqlConnect implements Serializable, Comparable<MysqlConnect>, Obj
      * @param info db信息
      * @return 当前对象
      */
-    public MysqlConnect copy(@NonNull MysqlConnect info) {
+    public MysqlConnect copy( MysqlConnect info) {
         this.name = info.name;
         this.host = info.host;
         this.user = info.user;
@@ -182,7 +148,7 @@ public class MysqlConnect implements Serializable, Comparable<MysqlConnect>, Obj
      * @param path 路径
      * @return 结果
      */
-    public boolean isCollect(@NonNull String path) {
+    public boolean isCollect( String path) {
         return CollUtil.isNotEmpty(this.collects) && this.collects.contains(path);
     }
 
@@ -191,7 +157,7 @@ public class MysqlConnect implements Serializable, Comparable<MysqlConnect>, Obj
      *
      * @param path 路径
      */
-    public void addCollect(@NonNull String path) {
+    public void addCollect( String path) {
         if (this.collects == null) {
             this.collects = new ArrayList<>();
         }
@@ -206,7 +172,7 @@ public class MysqlConnect implements Serializable, Comparable<MysqlConnect>, Obj
      * @param path 路径
      * @return 结果
      */
-    public boolean removeCollect(@NonNull String path) {
+    public boolean removeCollect( String path) {
         if (this.collects != null) {
             return this.collects.remove(path);
         }
@@ -281,5 +247,121 @@ public class MysqlConnect implements Serializable, Comparable<MysqlConnect>, Obj
 
     public String checkServiceType() {
         return this.sid == null ? "sid" : "serviceName";
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Boolean getReadonly() {
+        return readonly;
+    }
+
+    public void setReadonly(Boolean readonly) {
+        this.readonly = readonly;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public List<String> getCollects() {
+        return collects;
+    }
+
+    public void setCollects(List<String> collects) {
+        this.collects = collects;
+    }
+
+    public void setConnectTimeOut(Integer connectTimeOut) {
+        this.connectTimeOut = connectTimeOut;
+    }
+
+    public Boolean getSshForward() {
+        return sshForward;
+    }
+
+    public void setSshForward(Boolean sshForward) {
+        this.sshForward = sshForward;
+    }
+
+    public MysqlSSHConfig getSshConfig() {
+        return sshConfig;
+    }
+
+    public void setSshConfig(MysqlSSHConfig sshConfig) {
+        this.sshConfig = sshConfig;
+    }
+
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 }

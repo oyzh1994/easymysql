@@ -7,8 +7,6 @@ import cn.oyzh.common.util.TextUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import lombok.experimental.UtilityClass;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +18,6 @@ import java.util.Map;
  * @author oyzh
  * @since 2024/08/26
  */
-@UtilityClass
 public class DBDataUtil {
 
     /**

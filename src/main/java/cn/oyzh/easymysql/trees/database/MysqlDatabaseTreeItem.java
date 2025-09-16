@@ -54,8 +54,6 @@ import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,9 +69,11 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     /**
      * 当前值
      */
-    @Getter
-    @Accessors(chain = true, fluent = true)
     private final DBDatabase value;
+
+    public DBDatabase value() {
+        return value;
+    }
 
     public MysqlDatabaseTreeItem(DBDatabase database, RichTreeView treeView) {
         super(treeView);
@@ -358,7 +358,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      * @return db客户端
      */
     public DBClient client() {
-        return this.parent().client();
+        return this.parent().getClient();
     }
 
     /**
@@ -393,12 +393,12 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
 
     public void createTable(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
         MysqlTableCreateParam param = new MysqlTableCreateParam();
-        param.table(table);
-        param.checks(checks);
-        param.columns(columns);
-        param.indexes(indexes);
-        param.triggers(triggers);
-        param.foreignKeys(foreignKeys);
+        param.setTable(table);
+        param.setChecks(checks);
+        param.setColumns(columns);
+        param.setIndexes(indexes);
+        param.setTriggers(triggers);
+        param.setForeignKeys(foreignKeys);
         this.client().createTable(param);
     }
 
@@ -408,24 +408,24 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
 
     public MysqlTableCreateParam createTableParam(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
         MysqlTableCreateParam param = new MysqlTableCreateParam();
-        param.table(table);
-        param.checks(checks);
-        param.columns(columns);
-        param.indexes(indexes);
-        param.triggers(triggers);
-        param.foreignKeys(foreignKeys);
+        param.setTable(table);
+        param.setChecks(checks);
+        param.setColumns(columns);
+        param.setIndexes(indexes);
+        param.setTriggers(triggers);
+        param.setForeignKeys(foreignKeys);
         return param;
     }
 
     public void alterTable(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
         MysqlTableAlertParam param = new MysqlTableAlertParam();
-        param.table(table);
-        param.checks(checks);
-        param.columns(columns);
-        param.indexes(indexes);
-        param.triggers(triggers);
-        param.foreignKeys(foreignKeys);
-        param.existPrimaryKey(this.existPrimaryKey(table.getName()));
+        param.setTable(table);
+        param.setChecks(checks);
+        param.setColumns(columns);
+        param.setIndexes(indexes);
+        param.setTriggers(triggers);
+        param.setForeignKeys(foreignKeys);
+        param.setExistPrimaryKey(this.existPrimaryKey(table.getName()));
         this.client().alertTable(param);
     }
 
@@ -435,13 +435,13 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
 
     public MysqlTableAlertParam alterTableParam(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
         MysqlTableAlertParam param = new MysqlTableAlertParam();
-        param.table(table);
-        param.checks(checks);
-        param.columns(columns);
-        param.indexes(indexes);
-        param.triggers(triggers);
-        param.foreignKeys(foreignKeys);
-        param.existPrimaryKey(this.existPrimaryKey(table.getName()));
+        param.setTable(table);
+        param.setChecks(checks);
+        param.setColumns(columns);
+        param.setIndexes(indexes);
+        param.setTriggers(triggers);
+        param.setForeignKeys(foreignKeys);
+        param.setExistPrimaryKey(this.existPrimaryKey(table.getName()));
         return param;
     }
 
@@ -451,8 +451,8 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
 
     public MysqlTable selectFullTable(String tableName) {
         MysqlTableSelectParam param = new MysqlTableSelectParam();
-        param.dbName(this.dbName());
-        param.tableName(tableName);
+        param.setDbName(this.dbName());
+        param.setTableName(tableName);
         return this.client().selectFullTable(param);
     }
 
@@ -589,8 +589,8 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
 
     public MysqlColumns columns(String tableName) {
         MysqlSelectColumnParam param = new MysqlSelectColumnParam();
-        param.dbName(this.dbName());
-        param.tableName(tableName);
+        param.setDbName(this.dbName());
+        param.setTableName(tableName);
         return this.client().selectColumns(param);
     }
 
@@ -607,6 +607,6 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     }
 
     public MysqlConnect dbConnect() {
-        return this.client().dbConnect();
+        return this.client().getDbConnect();
     }
 }

@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.util;
 
 import cn.oyzh.common.system.ProcessUtil;
 import cn.oyzh.fx.plus.window.StageManager;
-import lombok.experimental.UtilityClass;
 
 import java.io.IOException;
 
@@ -10,7 +9,6 @@ import java.io.IOException;
  * @author oyzh
  * @since 2024-12-18
  */
-@UtilityClass
 public class MysqlProcessUtil {
 
     /**

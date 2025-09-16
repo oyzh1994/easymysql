@@ -2,8 +2,6 @@ package cn.oyzh.easymysql.trees;
 
 import cn.oyzh.fx.gui.tree.view.RichTreeItem;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 树节点过滤器
@@ -16,8 +14,6 @@ public class DBTreeItemFilter implements RichTreeItemFilter {
     /**
      * 仅看收藏键
      */
-    @Setter
-    @Getter
     private boolean onlyCollect;
 
 //    /**
@@ -39,4 +35,12 @@ public class DBTreeItemFilter implements RichTreeItemFilter {
         return true;
     }
 
+
+    public boolean isOnlyCollect() {
+        return onlyCollect;
+    }
+
+    public void setOnlyCollect(boolean onlyCollect) {
+        this.onlyCollect = onlyCollect;
+    }
 }

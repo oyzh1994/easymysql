@@ -47,7 +47,7 @@ public class MysqlDatabaseInfoController extends StageController {
     public void onWindowShown(WindowEvent event) {
         super.onWindowShown(event);
         this.stage.hideOnEscape();
-        MysqlDatabaseTreeItem dbItem = this.getWindowProp("dbItem");
+        MysqlDatabaseTreeItem dbItem = this.getProp("dbItem");
         DBDatabase database = dbItem.value();
         this.dbName.setText(database.getName());
         this.dbCharset.setText(database.getCharset());

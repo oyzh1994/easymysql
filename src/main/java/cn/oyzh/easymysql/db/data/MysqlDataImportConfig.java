@@ -1,8 +1,6 @@
 package cn.oyzh.easymysql.db.data;
 
 import cn.hutool.core.util.StrUtil;
-import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.nio.charset.StandardCharsets;
 
@@ -10,8 +8,6 @@ import java.nio.charset.StandardCharsets;
  * @author oyzh
  * @since 2024/09/02
  */
-@Data
-@Accessors(chain = true, fluent = true)
 public class MysqlDataImportConfig {
 
     /**
@@ -80,5 +76,85 @@ public class MysqlDataImportConfig {
 
     public char txtIdentifierChar() {
         return this.txtIdentifier.charAt(0);
+    }
+
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public String getImportMode() {
+        return importMode;
+    }
+
+    public void setImportMode(String importMode) {
+        this.importMode = importMode;
+    }
+
+    public int getColumnIndex() {
+        return columnIndex;
+    }
+
+    public void setColumnIndex(int columnIndex) {
+        this.columnIndex = columnIndex;
+    }
+
+    public int getDataStartIndex() {
+        return dataStartIndex;
+    }
+
+    public void setDataStartIndex(int dataStartIndex) {
+        this.dataStartIndex = dataStartIndex;
+    }
+
+    public String getRecordLabel() {
+        return recordLabel;
+    }
+
+    public void setRecordLabel(String recordLabel) {
+        this.recordLabel = recordLabel;
+    }
+
+    public boolean isAttrToColumn() {
+        return attrToColumn;
+    }
+
+    public void setAttrToColumn(boolean attrToColumn) {
+        this.attrToColumn = attrToColumn;
+    }
+
+    public String getRecordSeparator() {
+        return recordSeparator;
+    }
+
+    public void setRecordSeparator(String recordSeparator) {
+        this.recordSeparator = recordSeparator;
+    }
+
+    public String getFieldSeparator() {
+        return fieldSeparator;
+    }
+
+    public void setFieldSeparator(String fieldSeparator) {
+        this.fieldSeparator = fieldSeparator;
+    }
+
+    public String getTxtIdentifier() {
+        return txtIdentifier;
+    }
+
+    public void setTxtIdentifier(String txtIdentifier) {
+        this.txtIdentifier = txtIdentifier;
+    }
+
+    public String getCharset() {
+        return charset;
+    }
+
+    public void setCharset(String charset) {
+        this.charset = charset;
     }
 }

@@ -17,8 +17,6 @@ import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,15 +32,11 @@ public class MysqlViewDesignTabController extends RichTabController {
     /**
      * 视图对象
      */
-    @Getter
-    @Accessors(fluent = true, chain = true)
     private MysqlView dbView;
 
     /**
      * db数据库树节点
      */
-    @Getter
-    @Accessors(fluent = true, chain = true)
     private MysqlDatabaseTreeItem dbItem;
 
     /**
@@ -83,7 +77,6 @@ public class MysqlViewDesignTabController extends RichTabController {
     /**
      * 未保存标志位
      */
-    @Getter
     private boolean unsaved;
 
     /**
@@ -247,5 +240,21 @@ public class MysqlViewDesignTabController extends RichTabController {
 
     public String viewName() {
         return this.dbView.getName();
+    }
+
+    public MysqlDatabaseTreeItem getDbItem() {
+        return dbItem;
+    }
+
+    public void setDbItem(MysqlDatabaseTreeItem dbItem) {
+        this.dbItem = dbItem;
+    }
+
+    public boolean isUnsaved() {
+        return unsaved;
+    }
+
+    public void setUnsaved(boolean unsaved) {
+        this.unsaved = unsaved;
     }
 }

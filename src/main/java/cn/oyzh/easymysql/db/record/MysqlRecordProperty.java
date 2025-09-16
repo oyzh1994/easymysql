@@ -15,7 +15,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
-import lombok.Getter;
 
 /**
  * db表记录属性
@@ -33,13 +32,11 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
     /**
      * 表字段
      */
-    @Getter
     private MysqlColumn column;
 
     /**
      * 原始数据
      */
-    @Getter
     private Object original;
 
     /**
@@ -186,5 +183,33 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
             textField.setPromptText("");
             NodeUtil.unFocus(this.node);
         }
+    }
+
+    public MysqlColumn getColumn() {
+        return column;
+    }
+
+    public void setColumn(MysqlColumn column) {
+        this.column = column;
+    }
+
+    public Object getOriginal() {
+        return original;
+    }
+
+    public void setOriginal(Object original) {
+        this.original = original;
+    }
+
+    public boolean isReadonly() {
+        return readonly;
+    }
+
+    public Node getNode() {
+        return node;
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
     }
 }

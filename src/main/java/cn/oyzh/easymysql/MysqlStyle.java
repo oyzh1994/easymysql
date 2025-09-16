@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql;
 
-import lombok.experimental.UtilityClass;
 
 /**
  * db样式文件常量对象
@@ -8,7 +7,6 @@ import lombok.experimental.UtilityClass;
  * @author oyzh
  * @since 2023/06/16
  */
-@UtilityClass
 public class MysqlStyle {
 
     /**

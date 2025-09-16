@@ -1,7 +1,6 @@
 package cn.oyzh.easymysql.db.record;
 
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import lombok.Data;
 
 import java.util.Objects;
 
@@ -9,7 +8,6 @@ import java.util.Objects;
  * @author oyzh
  * @since 2023/12/29
  */
-@Data
 public class MysqlRecordPrimaryKey {
 
     /**
@@ -67,5 +65,45 @@ public class MysqlRecordPrimaryKey {
             return false;
         }
         return !Objects.equals(this.originalData, this.data);
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public Object getReturnData() {
+        return returnData;
+    }
+
+    public void setReturnData(Object returnData) {
+        this.returnData = returnData;
+    }
+
+    public Object getOriginalData() {
+        return originalData;
+    }
+
+    public void setOriginalData(Object originalData) {
+        this.originalData = originalData;
+    }
+
+    public boolean isAutoIncrement() {
+        return autoIncrement;
+    }
+
+    public void setAutoIncrement(boolean autoIncrement) {
+        this.autoIncrement = autoIncrement;
     }
 }

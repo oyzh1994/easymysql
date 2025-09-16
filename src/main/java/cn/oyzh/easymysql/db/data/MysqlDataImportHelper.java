@@ -6,7 +6,6 @@ import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBUtil;
-import lombok.experimental.UtilityClass;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -18,7 +17,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/09/02
  */
-@UtilityClass
 public class MysqlDataImportHelper {
 
     /**
@@ -37,13 +35,13 @@ public class MysqlDataImportHelper {
         }
         if (column.isDateType()) {
             if (value instanceof CharSequence date) {
-                Date date1 = DateUtil.parse(date, config.dateFormat());
+                Date date1 = DateUtil.parse(date, config.getDateFormat());
                 return DateUtil.format(date1, "yyyy-MM-dd HH:mm:ss");
             }
         }
         if (column.supportTimestamp()) {
             if (value instanceof CharSequence date) {
-                LocalDateTime date1 = DateUtil.parseLocalDateTime(date, config.dateFormat());
+                LocalDateTime date1 = DateUtil.parseLocalDateTime(date, config.getDateFormat());
                 return DateUtil.format(date1, "yyyy-MM-dd HH:mm:ss");
             }
             if (value instanceof Date date) {

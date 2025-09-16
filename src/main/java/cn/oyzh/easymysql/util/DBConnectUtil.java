@@ -6,7 +6,6 @@ import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.window.StageAdapter;
-import lombok.experimental.UtilityClass;
 
 /**
  * db连接工具类
@@ -14,7 +13,6 @@ import lombok.experimental.UtilityClass;
  * @author oyzh
  * @since 2023/07/01
  */
-@UtilityClass
 public class DBConnectUtil {
 
     /**

@@ -6,7 +6,6 @@ import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.i18n.I18nHelper;
-import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/09/14
  */
-@EqualsAndHashCode(callSuper = true)
 public class MysqlColumnControl extends MysqlColumn {
 
     public ClearableTextField getNameControl() {

@@ -1,7 +1,6 @@
 package cn.oyzh.easymysql.db.data;
 
 import cn.oyzh.common.file.SkipAbleFileReader;
-import lombok.NonNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,13 +32,13 @@ public class MysqlTxtTypeFileReader extends MysqlTypeFileReader {
      */
     private SkipAbleFileReader reader;
 
-    public MysqlTxtTypeFileReader(@NonNull File file, MysqlDataImportConfig config) throws IOException {
+    public MysqlTxtTypeFileReader( File file, MysqlDataImportConfig config) throws IOException {
         // super(file, null);
         this.config = config;
-        this.reader = new SkipAbleFileReader(file, Charset.forName(config.charset()));
+        this.reader = new SkipAbleFileReader(file, Charset.forName(config.getCharset()));
         // 设置换行符
-        if (!Objects.equals(config.recordSeparator(), System.lineSeparator())) {
-            this.reader.lineBreak(config.recordSeparator());
+        if (!Objects.equals(config.getRecordSeparator(), System.lineSeparator())) {
+            this.reader.lineBreak(config.getRecordSeparator());
         }
         this.init();
     }
@@ -79,11 +78,11 @@ public class MysqlTxtTypeFileReader extends MysqlTypeFileReader {
 
     @Override
     protected void init() throws IOException {
-        this.reader.jumpLine(this.config.columnIndex());
+        this.reader.jumpLine(this.config.getColumnIndex());
         this.columns = new ArrayList<>();
         String line = this.reader.readLine();
         this.columns.addAll(this.parseLine(line, this.config.txtIdentifierChar(), this.config.fieldSeparatorChar()));
-        this.reader.jumpLine(this.config.dataStartIndex());
+        this.reader.jumpLine(this.config.getDataStartIndex());
     }
 
     @Override

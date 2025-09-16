@@ -13,8 +13,6 @@ import cn.oyzh.fx.plus.util.ControlUtil;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.paint.Color;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +37,6 @@ public class DBQueryPromptListView extends FXListView<FXHBox> {
     /**
      * 节点选中事件
      */
-    @Getter
-    @Setter
     private Runnable onItemPicked;
 
     @Override
@@ -242,5 +238,13 @@ public class DBQueryPromptListView extends FXListView<FXHBox> {
                 this.onItemPicked.run();
             }
         });
+    }
+
+    public Runnable getOnItemPicked() {
+        return onItemPicked;
+    }
+
+    public void setOnItemPicked(Runnable onItemPicked) {
+        this.onItemPicked = onItemPicked;
     }
 }

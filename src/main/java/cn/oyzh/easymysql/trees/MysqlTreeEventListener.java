@@ -46,7 +46,7 @@ public class MysqlTreeEventListener implements EventListener {
      */
     @EventSubscribe
     private void onQueryAdded(MysqlQueryAddedEvent event) {
-        event.item().getQueryTypeChild().addChild(event.data());
+        event.getDbItem().getQueryTypeChild().addChild(event.data());
     }
 
     /**
@@ -70,7 +70,7 @@ public class MysqlTreeEventListener implements EventListener {
     @EventSubscribe
     private void viewAlerted(MysqlViewAlertedEvent event) {
         String viewName = event.data();
-        for (MysqlViewTreeItem viewItem : event.dbItem().getViewChild()) {
+        for (MysqlViewTreeItem viewItem : event.getDbItem().getViewChild()) {
             if (StrUtil.equalsIgnoreCase(viewName, viewItem.viewName())) {
                 viewItem.reloadChild();
                 break;
@@ -100,7 +100,7 @@ public class MysqlTreeEventListener implements EventListener {
     @EventSubscribe
     private void onTableAlerted(MysqlTableAlertedEvent event) {
         String tableName = event.data();
-        for (MysqlTableTreeItem tableItem : event.dbItem().getTableChild()) {
+        for (MysqlTableTreeItem tableItem : event.getDbItem().getTableChild()) {
             if (StrUtil.equalsIgnoreCase(tableName, tableItem.tableName())) {
                 tableItem.reloadChild();
                 break;
@@ -129,7 +129,7 @@ public class MysqlTreeEventListener implements EventListener {
     @EventSubscribe
     private void onProcedureAlerted(MysqlProcedureAlertedEvent event) {
         String procedureName = event.data();
-        for (MysqlProcedureTreeItem procedureItem : event.dbItem().getProcedureChild()) {
+        for (MysqlProcedureTreeItem procedureItem : event.getDbItem().getProcedureChild()) {
             if (StrUtil.equalsIgnoreCase(procedureName, procedureItem.procedureName())) {
                 procedureItem.reloadChild();
                 break;
@@ -158,7 +158,7 @@ public class MysqlTreeEventListener implements EventListener {
     @EventSubscribe
     private void onFunctionAlerted(MysqlFunctionAlertedEvent event) {
         String functionName = event.data();
-        for (MysqlFunctionTreeItem functionItem : event.dbItem().getFunctionChild()) {
+        for (MysqlFunctionTreeItem functionItem : event.getDbItem().getFunctionChild()) {
             if (StrUtil.equalsIgnoreCase(functionName, functionItem.functionName())) {
                 functionItem.reloadChild();
                 break;
@@ -187,7 +187,7 @@ public class MysqlTreeEventListener implements EventListener {
     @EventSubscribe
     private void onEventAlerted(MysqlEventAlertedEvent event) {
         String functionName = event.data();
-        for (MysqlEventTreeItem eventTreeItem : event.dbItem().getEventChild()) {
+        for (MysqlEventTreeItem eventTreeItem : event.getDbItem().getEventChild()) {
             if (StrUtil.equalsIgnoreCase(functionName, eventTreeItem.eventName())) {
                 eventTreeItem.reloadChild();
                 break;
@@ -202,7 +202,7 @@ public class MysqlTreeEventListener implements EventListener {
      */
     @EventSubscribe
     private void onDatabaseAdded(MysqlDatabaseAddedEvent event) {
-        DBConnectTreeItem connectItem = event.connectItem();
+        DBConnectTreeItem connectItem = event.getConnectItem();
         if (connectItem != null) {
             connectItem.reloadChild();
         }

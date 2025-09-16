@@ -7,8 +7,6 @@ import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import javafx.scene.Cursor;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -27,11 +25,8 @@ public class MysqlTableRecordTab extends MysqlTab {
     /**
      * 标签打开时间
      */
-    @Getter
     private final long openedTime = System.currentTimeMillis();
 
-    @Getter
-    @Accessors(fluent = true, chain = true)
     private MysqlTableTreeItem item;
 
     @Override

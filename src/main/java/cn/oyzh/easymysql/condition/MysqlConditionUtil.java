@@ -7,7 +7,6 @@ import cn.oyzh.easymysql.util.DBNodeUtil;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import javafx.scene.Node;
-import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/6/26
  */
-@UtilityClass
 public class MysqlConditionUtil {
 
     /**

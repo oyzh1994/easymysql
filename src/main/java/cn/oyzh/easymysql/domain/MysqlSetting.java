@@ -4,8 +4,6 @@ package cn.oyzh.easymysql.domain;
 import cn.oyzh.fx.plus.domain.AppSetting;
 import cn.oyzh.store.jdbc.Column;
 import cn.oyzh.store.jdbc.Table;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 /**
  * db设置
@@ -13,8 +11,6 @@ import lombok.Getter;
  * @author oyzh
  * @since 2023/6/16
  */
-@Getter
-@EqualsAndHashCode(callSuper = true)
 @Table("t_setting")
 public class MysqlSetting extends AppSetting {
 

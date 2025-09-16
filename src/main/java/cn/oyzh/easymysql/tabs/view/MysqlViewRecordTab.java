@@ -7,7 +7,6 @@ import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.fx.gui.svg.glyph.database.ViewSVGGlyph;
 import javafx.scene.Cursor;
-import lombok.Getter;
 
 import java.util.List;
 
@@ -26,7 +25,6 @@ public class MysqlViewRecordTab extends MysqlTab {
     /**
      * 标签打开时间
      */
-    @Getter
     private final long openedTime = System.currentTimeMillis();
 
     @Override

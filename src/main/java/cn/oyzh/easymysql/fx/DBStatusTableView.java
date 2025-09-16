@@ -4,8 +4,6 @@ import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.fx.plus.controls.table.FXTableView;
 import javafx.collections.ListChangeListener;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -16,7 +14,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class DBStatusTableView<S extends DBObjectStatus> extends FXTableView<S> {
 
-    @Getter
     private List<S> deleteItems;
 
     public void reset() throws Exception {
@@ -30,8 +27,6 @@ public class DBStatusTableView<S extends DBObjectStatus> extends FXTableView<S> 
         }
     }
 
-    @Getter
-    @Setter
     private DBStatusListener statusListener;
 
     {
@@ -75,4 +70,19 @@ public class DBStatusTableView<S extends DBObjectStatus> extends FXTableView<S> 
     }
 
 
+    public List<S> getDeleteItems() {
+        return deleteItems;
+    }
+
+    public void setDeleteItems(List<S> deleteItems) {
+        this.deleteItems = deleteItems;
+    }
+
+    public DBStatusListener getStatusListener() {
+        return statusListener;
+    }
+
+    public void setStatusListener(DBStatusListener statusListener) {
+        this.statusListener = statusListener;
+    }
 }

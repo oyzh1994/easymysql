@@ -22,9 +22,6 @@ import cn.oyzh.i18n.I18nHelper;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +38,6 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
     /**
      * 分组对象
      */
-    @Getter
-    @Accessors(chain = true, fluent = true)
     private final MysqlGroup value;
 
     /**
@@ -55,7 +50,7 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
      */
     private final MysqlGroupStore groupStore = MysqlGroupStore.INSTANCE;
 
-    public DBGroupTreeItem(@NonNull MysqlGroup group, @NonNull DBTreeView treeView) {
+    public DBGroupTreeItem( MysqlGroup group,  DBTreeView treeView) {
         super(treeView);
         this.value = group;
         this.setValue(new DBGroupTreeItemValue(this));
@@ -157,12 +152,12 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
     }
 
     @Override
-    public void addConnect(@NonNull MysqlConnect DBInfo) {
+    public void addConnect( MysqlConnect DBInfo) {
         this.addConnectItem(new DBConnectTreeItem(DBInfo, this.getTreeView()));
     }
 
     @Override
-    public void addConnectItem(@NonNull DBConnectTreeItem item) {
+    public void addConnectItem( DBConnectTreeItem item) {
         if (!this.containsChild(item)) {
             if (!Objects.equals(item.value().getGroupId(), this.value.getGid())) {
                 item.value().setGroupId(this.value.getGid());
@@ -173,14 +168,14 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
     }
 
     @Override
-    public void addConnectItems(@NonNull List<DBConnectTreeItem> items) {
+    public void addConnectItems( List<DBConnectTreeItem> items) {
         if (CollUtil.isNotEmpty(items)) {
             this.addChild((List) items);
         }
     }
 
     @Override
-    public boolean delConnectItem(@NonNull DBConnectTreeItem item) {
+    public boolean delConnectItem( DBConnectTreeItem item) {
         // 删除连接
         if (this.connectStore.delete(item.value())) {
             this.removeChild(item);
@@ -219,5 +214,9 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
             connectTreeItem.remove();
             this.addConnectItem(connectTreeItem);
         }
+    }
+
+    public MysqlGroup value() {
+        return value;
     }
 }

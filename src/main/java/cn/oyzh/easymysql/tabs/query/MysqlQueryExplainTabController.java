@@ -70,9 +70,9 @@ public class MysqlQueryExplainTabController extends RichTabController {
             // 初始化字段
             this.initColumns(this.result.columnList());
             // 初始化数据
-            this.initRecords(this.result.records());
+            this.initRecords(this.result.getRecords());
             // 初始化sql信息
-            this.sql.setText(this.result.sql());
+            this.sql.setText(this.result.getSql());
             this.used.setText(I18nHelper.time() + ": " + this.result.getUsedMs() + "ms");
             this.count.setText(I18nHelper.totalData() + ": " + this.result.getCount());
         } catch (Exception ex) {

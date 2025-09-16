@@ -14,8 +14,6 @@ import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.control.MenuItem;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +30,11 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
     /**
      * 当前值
      */
-    @Getter
-    @Accessors(chain = true, fluent = true)
     private final MysqlQuery value;
+
+    public MysqlQuery value() {
+        return value;
+    }
 
     public MysqlQueryTreeItem(MysqlQuery query, RichTreeView treeView) {
         super(treeView);
@@ -131,6 +131,6 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
     }
 
     public MysqlConnect dbConnect() {
-        return this.client().dbConnect();
+        return this.client().getDbConnect();
     }
 }

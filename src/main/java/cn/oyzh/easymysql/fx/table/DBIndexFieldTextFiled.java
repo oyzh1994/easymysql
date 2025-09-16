@@ -8,7 +8,6 @@ import cn.oyzh.fx.gui.text.field.ChooseTextField;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
 import cn.oyzh.i18n.I18nHelper;
-import lombok.Getter;
 
 import java.util.List;
 
@@ -30,7 +29,6 @@ public class DBIndexFieldTextFiled extends ChooseTextField {
 
     private List<MysqlColumn> columnList;
 
-    @Getter
     private List<MysqlIndex.IndexColumn> columns;
 
     public DBIndexFieldTextFiled(MysqlIndex dbIndex, List<MysqlColumn> columnList, List<MysqlIndex.IndexColumn> columns) {
@@ -92,5 +90,9 @@ public class DBIndexFieldTextFiled extends ChooseTextField {
             return (DBIndexColumnListView) this.popup.content().lookup("#listView");
         }
         return null;
+    }
+
+    public List<MysqlIndex.IndexColumn> getColumns() {
+        return columns;
     }
 }

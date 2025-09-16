@@ -66,9 +66,9 @@ public class MysqlRecordEnumPopupController extends PopupController {
     @Override
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
-        this.onSubmit = this.getWindowProp("onSubmit");
-        List<String> values = this.getWindowProp("values");
-        List<String> allValues = this.getWindowProp("allValues");
+        this.onSubmit = this.getProp("onSubmit");
+        List<String> values = this.getProp("values");
+        List<String> allValues = this.getProp("allValues");
         for (String value : allValues) {
             FXCheckBox checkBox = new FXCheckBox(value);
             if (values.contains(value)) {

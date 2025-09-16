@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql.dto;
 
-import lombok.Data;
 
 /**
  * db连接
@@ -8,7 +7,6 @@ import lombok.Data;
  * @author oyzh
  * @since 2023/8/10
  */
-@Data
 public class MysqlConnect {
 
     /**
@@ -35,4 +33,44 @@ public class MysqlConnect {
      * db索引
      */
     private int db = 0;
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getDb() {
+        return db;
+    }
+
+    public void setDb(int db) {
+        this.db = db;
+    }
 }

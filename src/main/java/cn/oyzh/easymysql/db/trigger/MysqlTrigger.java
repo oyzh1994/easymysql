@@ -2,8 +2,6 @@ package cn.oyzh.easymysql.db.trigger;
 
 import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 /**
  * db表触发器
@@ -11,8 +9,6 @@ import lombok.Getter;
  * @author oyzh
  * @since 2024/07/10
  */
-@Getter
-@EqualsAndHashCode(callSuper = true)
 public class MysqlTrigger extends DBObjectStatus implements ObjectCopier<MysqlTrigger> {
 
     /**
@@ -122,5 +118,21 @@ public class MysqlTrigger extends DBObjectStatus implements ObjectCopier<MysqlTr
 
     public boolean isInvalid() {
         return false;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPolicy() {
+        return policy;
+    }
+
+    public String getDefinition() {
+        return definition;
+    }
+
+    public String getTableName() {
+        return tableName;
     }
 }

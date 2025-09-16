@@ -23,15 +23,15 @@ public class MysqlQueryInfoTabController extends RichTabController {
         this.infoArea.clear();
         if (results.isSuccess()) {
             for (MysqlQueryResult result : results.getResults()) {
-                this.infoArea.appendLine(result.sql());
-                if (result.success()) {
-                    if (result.updateCount() > 0) {
-                        this.infoArea.appendLine("> Affected rows: " + result.updateCount());
+                this.infoArea.appendLine(result.getSql());
+                if (result.isSuccess()) {
+                    if (result.getUpdateCount() > 0) {
+                        this.infoArea.appendLine("> Affected rows: " + result.getUpdateCount());
                     } else {
                         this.infoArea.appendLine("> OK");
                     }
                 } else {
-                    this.infoArea.appendLine("> " + result.msg());
+                    this.infoArea.appendLine("> " + result.getMsg());
                 }
                 this.infoArea.appendLine("> " + I18nHelper.time() + ": " + result.getUsedMs() + "ms");
                 this.infoArea.appendLine("");

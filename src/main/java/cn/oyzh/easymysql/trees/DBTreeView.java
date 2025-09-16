@@ -18,8 +18,6 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.util.Callback;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 /**
  * db树
@@ -32,12 +30,10 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
     /**
      * 搜索中标志位
      */
-    @Getter
-    @Accessors(chain = true, fluent = true)
     private volatile boolean searching;
 
     @Override
-    public DBTreeItemFilter itemFilter() {
+    public DBTreeItemFilter getItemFilter() {
         // 初始化过滤器
         if (this.itemFilter == null) {
             this.itemFilter = new DBTreeItemFilter();

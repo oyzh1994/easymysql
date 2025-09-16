@@ -33,7 +33,7 @@ public class MysqlHtmlTypeFileWriter extends MysqlTypeFileWriter {
     public MysqlHtmlTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) throws FileNotFoundException {
         this.columns = columns;
         this.config = config;
-        this.writer = LineFileWriter.create(filePath, config.charset());
+        this.writer = LineFileWriter.create(filePath, config.getCharset());
     }
 
     @Override

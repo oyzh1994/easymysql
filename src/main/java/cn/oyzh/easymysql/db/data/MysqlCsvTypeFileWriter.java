@@ -32,12 +32,14 @@ public class MysqlCsvTypeFileWriter extends MysqlTypeFileWriter {
     public MysqlCsvTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) throws FileNotFoundException {
         this.columns = columns;
         this.config = config;
-        this.writer = LineFileWriter.create(filePath, config.charset());
+        this.writer = LineFileWriter.create(filePath, config.getCharset());
     }
 
     @Override
     public void writeHeader() throws Exception {
-        this.writer.write(this.formatLine(this.columns.columnNames(), ",", this.config.txtIdentifier(), this.config.recordSeparator()));
+        this.writer.write(this.formatLine(this.columns.columnNames(), ",",
+                this.config.getTxtIdentifier(),
+                this.config.getRecordSeparator()));
     }
 
     @Override
@@ -49,7 +51,9 @@ public class MysqlCsvTypeFileWriter extends MysqlTypeFileWriter {
             Object val = this.parameterized(column, entry.getValue(), this.config);
             values[index] = val;
         }
-        this.writer.write(this.formatLine(values, ",", this.config.txtIdentifier(), this.config.recordSeparator()));
+        this.writer.write(this.formatLine(values, ",",
+                this.config.getTxtIdentifier(),
+                this.config.getRecordSeparator()));
     }
 
     @Override

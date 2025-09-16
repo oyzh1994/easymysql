@@ -37,12 +37,12 @@ public class MysqlJsonTypeFileWriter extends MysqlTypeFileWriter {
     public MysqlJsonTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) throws FileNotFoundException {
         this.columns = columns;
         this.config = config;
-        this.writer = LineFileWriter.create(filePath, config.charset());
+        this.writer = LineFileWriter.create(filePath, config.getCharset());
     }
 
     @Override
     public void writeHeader() throws Exception {
-        if (this.config.earlyVersion()) {
+        if (this.config.isEarlyVersion()) {
             this.writer.writeLine("{");
             this.writer.writeLine(" \"RECORDS\": [");
         } else {
@@ -52,7 +52,7 @@ public class MysqlJsonTypeFileWriter extends MysqlTypeFileWriter {
 
     @Override
     public void writeTrial() throws Exception {
-        if (this.config.earlyVersion()) {
+        if (this.config.isEarlyVersion()) {
             this.writer.write("\n]}");
         } else {
             this.writer.write("\n]");

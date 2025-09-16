@@ -103,7 +103,7 @@ public class MysqlFieldInfoPopupController extends PopupController {
     @Override
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
-        MysqlColumn column = this.getWindowProp("column");
+        MysqlColumn column = this.getProp("column");
         if (column.supportSize()) {
             if (column.getSize() != null) {
                 this.size.setValue(column.getSize());

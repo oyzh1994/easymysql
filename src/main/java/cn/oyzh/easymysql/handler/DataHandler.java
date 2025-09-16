@@ -1,8 +1,5 @@
 package cn.oyzh.easymysql.handler;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
@@ -21,17 +18,11 @@ public class DataHandler {
     /**
      * 消息处理
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     private Consumer<String> messageHandler;
 
     /**
      * 进度处理
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     private Consumer<Integer> processedHandler;
 
     /**
@@ -136,5 +127,30 @@ public class DataHandler {
         } else {
             this.processed(decr);
         }
+    }
+
+    public AtomicBoolean getInterrupt() {
+        return interrupt;
+    }
+
+    public void setInterrupt(AtomicBoolean interrupt) {
+        this.interrupt = interrupt;
+    }
+
+    public Consumer<String> getMessageHandler() {
+        return messageHandler;
+    }
+
+    public DataHandler setMessageHandler(Consumer<String> messageHandler) {
+        this.messageHandler = messageHandler;
+        return this;
+    }
+
+    public Consumer<Integer> getProcessedHandler() {
+        return processedHandler;
+    }
+
+    public void setProcessedHandler(Consumer<Integer> processedHandler) {
+        this.processedHandler = processedHandler;
     }
 }

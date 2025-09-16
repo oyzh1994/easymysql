@@ -3,10 +3,9 @@ package cn.oyzh.easymysql.fx.data;
 import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.fx.gui.text.field.SaveFileTextField;
+import cn.oyzh.fx.plus.chooser.FXChooser;
+import cn.oyzh.fx.plus.chooser.FileExtensionFilter;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
-import cn.oyzh.fx.plus.file.FXChooser;
-import cn.oyzh.fx.plus.file.FileChooserHelper;
-import cn.oyzh.fx.plus.file.FileExtensionFilter;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -14,8 +13,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,15 +28,11 @@ public class DataExportTable {
     /**
      * 表名称
      */
-    @Getter
-    @Setter
     private String name;
 
     /**
      * 字段列表
      */
-    @Getter
-    @Setter
     private List<DataExportColumn> columns;
 
     /**
@@ -192,5 +185,21 @@ public class DataExportTable {
         if (this.isSelected() || this.getFilePath() != null) {
             this.setFilePath(FXChooser.DESKTOP_DIR + File.separator + this.fileName());
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<DataExportColumn> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(List<DataExportColumn> columns) {
+        this.columns = columns;
     }
 }

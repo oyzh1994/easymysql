@@ -20,8 +20,6 @@ import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.input.KeyEvent;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -39,16 +37,20 @@ public class MysqlQueryMainTabController extends RichTabController {
     /**
      * 查询对象
      */
-    @Getter
-    @Accessors(fluent = true, chain = true)
     private MysqlQuery query;
+
+    public MysqlQuery getQuery() {
+        return query;
+    }
 
     /**
      * db数据库树节点
      */
-    @Getter
-    @Accessors(fluent = true, chain = true)
     private MysqlDatabaseTreeItem dbItem;
+
+    public MysqlDatabaseTreeItem getDbItem() {
+        return dbItem;
+    }
 
     /**
      * 查询文本域
@@ -153,7 +155,7 @@ public class MysqlQueryMainTabController extends RichTabController {
                 int index = 1;
                 this.initInfoTab(results);
                 for (MysqlExecuteResult result : results.getResults()) {
-                    if (result.success()) {
+                    if (result.isSuccess()) {
                         FXTab fxTab = this.initSelectTab(result, I18nHelper.result() + index++);
                         showType = 2;
                         this.resultTabPane.addTab(fxTab);
@@ -189,7 +191,7 @@ public class MysqlQueryMainTabController extends RichTabController {
                 int index = 1;
                 this.initInfoTab(results);
                 for (MysqlExplainResult result : results.getResults()) {
-                    if (result.success()) {
+                    if (result.isSuccess()) {
                         FXTab fxTab = this.initExplainTab(result, I18nHelper.explain() + index++);
                         showType = 2;
                         this.resultTabPane.addTab(fxTab);

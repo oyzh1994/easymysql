@@ -29,8 +29,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.net.URL;
 import java.util.List;
@@ -48,15 +46,15 @@ public class MysqlProcedureDesignTabController extends RichTabController {
     /**
      * 过程
      */
-    @Getter
-    @Accessors(fluent = true, chain = true)
     private MysqlProcedure procedure;
+
+    public MysqlProcedure getProcedure() {
+        return procedure;
+    }
 
     /**
      * db数据库树节点
      */
-    @Getter
-    @Accessors(fluent = true, chain = true)
     private MysqlDatabaseTreeItem dbItem;
 
     /**
@@ -163,7 +161,6 @@ public class MysqlProcedureDesignTabController extends RichTabController {
     /**
      * 未保存标志位
      */
-    @Getter
     private boolean unsaved;
 
     /**
@@ -447,5 +444,21 @@ public class MysqlProcedureDesignTabController extends RichTabController {
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
+    }
+
+    public MysqlDatabaseTreeItem getDbItem() {
+        return dbItem;
+    }
+
+    public void setDbItem(MysqlDatabaseTreeItem dbItem) {
+        this.dbItem = dbItem;
+    }
+
+    public boolean isUnsaved() {
+        return unsaved;
+    }
+
+    public void setUnsaved(boolean unsaved) {
+        this.unsaved = unsaved;
     }
 }

@@ -1,7 +1,5 @@
 package cn.oyzh.easymysql.db.data;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.nio.charset.StandardCharsets;
 
@@ -9,8 +7,6 @@ import java.nio.charset.StandardCharsets;
  * @author oyzh
  * @since 2024/09/02
  */
-@Data
-@Accessors(chain = true, fluent = true)
 public class MysqlDataExportConfig {
 
     /**
@@ -53,4 +49,67 @@ public class MysqlDataExportConfig {
      */
     private boolean earlyVersion;
 
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public boolean isFieldToAttr() {
+        return fieldToAttr;
+    }
+
+    public void setFieldToAttr(boolean fieldToAttr) {
+        this.fieldToAttr = fieldToAttr;
+    }
+
+    public boolean isIncludeFields() {
+        return includeFields;
+    }
+
+    public void setIncludeFields(boolean includeFields) {
+        this.includeFields = includeFields;
+    }
+
+    public String getRecordSeparator() {
+        return recordSeparator;
+    }
+
+    public void setRecordSeparator(String recordSeparator) {
+        this.recordSeparator = recordSeparator;
+    }
+
+    public String getFieldSeparator() {
+        return fieldSeparator;
+    }
+
+    public void setFieldSeparator(String fieldSeparator) {
+        this.fieldSeparator = fieldSeparator;
+    }
+
+    public String getTxtIdentifier() {
+        return txtIdentifier;
+    }
+
+    public void setTxtIdentifier(String txtIdentifier) {
+        this.txtIdentifier = txtIdentifier;
+    }
+
+    public String getCharset() {
+        return charset;
+    }
+
+    public void setCharset(String charset) {
+        this.charset = charset;
+    }
+
+    public boolean isEarlyVersion() {
+        return earlyVersion;
+    }
+
+    public void setEarlyVersion(boolean earlyVersion) {
+        this.earlyVersion = earlyVersion;
+    }
 }

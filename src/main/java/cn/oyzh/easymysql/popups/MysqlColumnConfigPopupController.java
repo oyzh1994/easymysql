@@ -212,8 +212,8 @@ public class MysqlColumnConfigPopupController extends PopupController {
     @Override
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
-        this.dbColumn = this.getWindowProp("dbColumn");
-        this.dbClient = this.getWindowProp("dbClient");
+        this.dbColumn = this.getProp("dbColumn");
+        this.dbClient = this.getProp("dbClient");
         // 值
         if (this.dbColumn.supportValue()) {
             this.valueBox.display();

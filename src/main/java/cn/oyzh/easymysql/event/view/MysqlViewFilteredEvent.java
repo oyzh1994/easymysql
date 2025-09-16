@@ -4,9 +4,6 @@ import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.event.Event;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -14,9 +11,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/06/26
  */
-@Data
-@Accessors(fluent = true)
-@EqualsAndHashCode(callSuper = true)
 public class MysqlViewFilteredEvent extends Event<MysqlViewTreeItem> {
 
     private List<MysqlRecordFilter> filters;
@@ -25,5 +19,21 @@ public class MysqlViewFilteredEvent extends Event<MysqlViewTreeItem> {
 
     public String viewName() {
         return this.data().viewName();
+    }
+
+    public List<MysqlRecordFilter> getFilters() {
+        return filters;
+    }
+
+    public void setFilters(List<MysqlRecordFilter> filters) {
+        this.filters = filters;
+    }
+
+    public MysqlDatabaseTreeItem getDbItem() {
+        return dbItem;
+    }
+
+    public void setDbItem(MysqlDatabaseTreeItem dbItem) {
+        this.dbItem = dbItem;
     }
 }

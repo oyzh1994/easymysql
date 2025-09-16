@@ -76,9 +76,9 @@ public class MysqlColumnFieldPopupController extends PopupController {
     @Override
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
-        this.onSubmit = this.getWindowProp("onSubmit");
-        List<MysqlColumn> columns = this.getWindowProp("columns");
-        List<String> selectedColumns = this.getWindowProp("selectedColumns");
+        this.onSubmit = this.getProp("onSubmit");
+        List<MysqlColumn> columns = this.getProp("columns");
+        List<String> selectedColumns = this.getProp("selectedColumns");
         this.listView.init(columns);
         this.listView.select(selectedColumns);
     }

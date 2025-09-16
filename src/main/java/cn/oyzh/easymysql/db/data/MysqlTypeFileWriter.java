@@ -39,10 +39,10 @@ public abstract class MysqlTypeFileWriter implements Closeable {
         }
         if (column.isDateType() || column.supportTimestamp()) {
             if (value instanceof LocalDateTime date) {
-                return DateUtil.format(date, config.dateFormat());
+                return DateUtil.format(date, config.getDateFormat());
             }
             if (value instanceof Date date) {
-                return DateUtil.format(date, config.dateFormat());
+                return DateUtil.format(date, config.getDateFormat());
             }
         }
         if (column.supportJson()) {

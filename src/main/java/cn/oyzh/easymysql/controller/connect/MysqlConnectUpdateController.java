@@ -26,7 +26,6 @@ import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
-import lombok.NonNull;
 
 /**
  * db信息修改业务
@@ -290,9 +289,9 @@ public class MysqlConnectUpdateController extends StageController {
     }
 
     @Override
-    public void onWindowShown(@NonNull WindowEvent event) {
+    public void onWindowShown( WindowEvent event) {
         super.onWindowShown(event);
-        this.mysqlConnect = this.getWindowProp("info");
+        this.mysqlConnect = this.getProp("info");
         this.name.setText(this.mysqlConnect.getName());
         this.user.setText(this.mysqlConnect.getUser());
         this.hostIp.setText(this.mysqlConnect.hostIp());

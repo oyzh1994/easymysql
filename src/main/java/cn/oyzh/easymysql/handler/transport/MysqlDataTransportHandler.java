@@ -94,11 +94,11 @@ public class MysqlDataTransportHandler extends DataTransportHandler {
         while (true) {
             this.checkInterrupt();
             MysqlSelectRecordParam param = new MysqlSelectRecordParam();
-            param.start(start);
-            param.readonly(true);
-            param.tableName(tableName);
-            param.dbName(this.sourceDatabase);
-            param.limit((long) this.selectLimit);
+            param.setStart(start);
+            param.setReadonly(true);
+            param.setTableName(tableName);
+            param.setDbName(this.sourceDatabase);
+            param.setLimit((long) this.selectLimit);
             List<MysqlRecord> records = this.sourceClient.selectRecords(param);
             if (CollUtil.isEmpty(records)) {
                 break;

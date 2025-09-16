@@ -10,13 +10,13 @@ import cn.oyzh.easymysql.handler.dump.DataDumpHandler;
 import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
+import cn.oyzh.fx.plus.chooser.FXChooser;
+import cn.oyzh.fx.plus.chooser.FileChooserHelper;
+import cn.oyzh.fx.plus.chooser.FileExtensionFilter;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.button.FXButton;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
-import cn.oyzh.fx.plus.file.FXChooser;
-import cn.oyzh.fx.plus.file.FileChooserHelper;
-import cn.oyzh.fx.plus.file.FileExtensionFilter;
 import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
@@ -175,10 +175,10 @@ public class MysqlDataDumpController extends StageController {
         // 生成转储处理器
         if (this.dumpHandler == null) {
             this.dumpHandler = DataDumpHandler.newHandler(this.dbClient, this.database.getText());
-            this.dumpHandler.dbInfo(this.dbInfo)
-                    .queryLimit(10_000)
-                    .messageHandler(str -> this.dumpMsg.appendLine(str))
-                    .processedHandler(count -> {
+            this.dumpHandler.setDbInfo(this.dbInfo)
+                    .setQueryLimit(10_000)
+                    .setMessageHandler(str -> this.dumpMsg.appendLine(str))
+                    .setProcessedHandler(count -> {
                         if (count > 0) {
                             this.counter.incrSuccess(count);
                         } else {
@@ -191,9 +191,9 @@ public class MysqlDataDumpController extends StageController {
         }
         // 设置参数
         this.dumpHandler.dumpFile(this.dumpFile)
-                .tableName(this.table.getText())
-                .dumpType((byte) this.dumpType)
-                .dataType((byte) this.dataType.getSelectedIndex());
+                .setTableName(this.table.getText())
+                .setDumpType((byte) this.dumpType)
+                .setDataType((byte) this.dataType.getSelectedIndex());
         NodeGroupUtil.disable(this.stage, "exec");
         this.stage.appendTitle("===" + I18nHelper.dumpProcessing() + "===");
         // 执行转储
@@ -240,11 +240,11 @@ public class MysqlDataDumpController extends StageController {
     @Override
     public void onWindowShown(WindowEvent event) {
         super.onWindowShown(event);
-        this.dbInfo = this.getWindowProp("dbInfo");
-        this.dbClient = this.getWindowProp("dbClient");
-        this.dumpType = this.getWindowProp("dumpType");
-        String dbName = this.getWindowProp("dbName");
-        String tableName = this.getWindowProp("tableName");
+        this.dbInfo = this.getProp("dbInfo");
+        this.dbClient = this.getProp("dbClient");
+        this.dumpType = this.getProp("dumpType");
+        String dbName = this.getProp("dbName");
+        String tableName = this.getProp("tableName");
         this.database.setText(dbName);
         this.connect.setText(this.dbInfo.getName());
         if (this.dumpType == 2) {

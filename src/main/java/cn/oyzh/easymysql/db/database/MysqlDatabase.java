@@ -1,7 +1,5 @@
 package cn.oyzh.easymysql.db.database;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * db连接
@@ -9,8 +7,6 @@ import lombok.experimental.Accessors;
  * @author oyzh
  * @since 2023/8/10
  */
-@Data
-@Accessors(chain = true, fluent = true)
 public class MysqlDatabase {
 
     /**
@@ -32,4 +28,36 @@ public class MysqlDatabase {
      * 密码
      */
     private String password;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

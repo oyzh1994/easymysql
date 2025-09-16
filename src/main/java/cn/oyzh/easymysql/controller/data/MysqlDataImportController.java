@@ -18,17 +18,16 @@ import cn.oyzh.easymysql.handler.imports.DataImportHandler;
 import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.FXConst;
+import cn.oyzh.fx.plus.chooser.FXChooser;
+import cn.oyzh.fx.plus.chooser.FileChooserHelper;
+import cn.oyzh.fx.plus.chooser.FileExtensionFilter;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
-import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.button.FXButton;
-import cn.oyzh.fx.plus.controls.label.FXLabel;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
-import cn.oyzh.fx.plus.file.FXChooser;
-import cn.oyzh.fx.plus.file.FileChooserHelper;
-import cn.oyzh.fx.plus.file.FileExtensionFilter;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.util.Counter;
@@ -240,8 +239,8 @@ public class MysqlDataImportController extends StageController {
         // 生成导入处理器
         if (this.importHandler == null) {
             this.importHandler = new DataImportHandler(this.dbClient, this.dbName);
-            this.importHandler.messageHandler(str -> this.importMsg.appendLine(str))
-                    .processedHandler(count -> {
+            this.importHandler.setMessageHandler(str -> this.importMsg.appendLine(str))
+                    .setProcessedHandler(count -> {
                         if (count > 0) {
                             this.counter.incrSuccess(count);
                         } else {
@@ -253,9 +252,9 @@ public class MysqlDataImportController extends StageController {
             this.importHandler.interrupt(false);
         }
         // 文件类型
-        this.importHandler.fileType(this.fileType.selectedUserData());
+        this.importHandler.setFileType(this.fileType.selectedUserData());
         // 文件
-        this.importHandler.files(this.importFileTableView.getItems());
+        this.importHandler.setFiles(this.importFileTableView.getItems());
         // 字段分隔符
         this.importHandler.fieldSeparator(this.fieldSeparator.value());
         // 记录分隔符
@@ -344,8 +343,8 @@ public class MysqlDataImportController extends StageController {
     @Override
     public void onWindowShown(WindowEvent event) {
         super.onWindowShown(event);
-        this.dbName = this.getWindowProp("dbName");
-        this.dbClient = this.getWindowProp("dbClient");
+        this.dbName = this.getProp("dbName");
+        this.dbClient = this.getProp("dbClient");
         this.stage.hideOnEscape();
     }
 

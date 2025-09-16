@@ -20,7 +20,6 @@ import cn.oyzh.fx.plus.menu.FXMenuItem;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TextField;
-import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +29,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/7/17
  */
-@UtilityClass
 public class DBRecordUtil {
 
     public static Node getNode(MysqlRecordProperty property, Object object, MysqlColumn column) {

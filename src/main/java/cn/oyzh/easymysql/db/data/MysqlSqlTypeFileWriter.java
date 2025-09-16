@@ -40,7 +40,7 @@ public class MysqlSqlTypeFileWriter extends MysqlTypeFileWriter {
     public MysqlSqlTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) throws FileNotFoundException {
         this.columns = columns;
         this.config = config;
-        this.writer = LineFileWriter.create(filePath, config.charset());
+        this.writer = LineFileWriter.create(filePath, config.getCharset());
     }
 
     @Override
@@ -49,7 +49,7 @@ public class MysqlSqlTypeFileWriter extends MysqlTypeFileWriter {
         List<MysqlColumn> columnList = this.columns.sortOfPosition();
         final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName);
         StringBuilder sql = new StringBuilder(sqlBase);
-        if (this.config.includeFields()) {
+        if (this.config.isIncludeFields()) {
             sql.append("(");
             for (MysqlColumn dbColumn : columnList) {
                 sql.append(DBUtil.wrap(dbColumn.getName())).append(", ");
@@ -89,10 +89,10 @@ public class MysqlSqlTypeFileWriter extends MysqlTypeFileWriter {
         }
         if (column.isDateType() || column.supportTimestamp()) {
             if (value instanceof LocalDateTime date) {
-                return "'" + DateUtil.format(date, config.dateFormat()) + "'";
+                return "'" + DateUtil.format(date, config.getDateFormat()) + "'";
             }
             if (value instanceof Date date) {
-                return "'" + DateUtil.format(date, config.dateFormat()) + "'";
+                return "'" + DateUtil.format(date, config.getDateFormat()) + "'";
             }
         }
         if (column.supportJson()) {

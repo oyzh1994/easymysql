@@ -6,7 +6,6 @@ import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.exception.DBException;
-import lombok.experimental.UtilityClass;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -30,7 +29,6 @@ import java.util.Objects;
  * @author oyzh
  * @since 2023/12/27
  */
-@UtilityClass
 public class DBUtil {
 
     public static boolean ENABLE_PRINT_METADATA = true;

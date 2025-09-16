@@ -5,7 +5,6 @@ import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.util.DBUtil;
-import lombok.experimental.UtilityClass;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +22,6 @@ import java.util.Map;
  * @author oyzh
  * @since 2024/7/1
  */
-@UtilityClass
 public class DBHelper {
 
     public static String getFunctionDefinition(Connection connection, String functionName) throws Exception {

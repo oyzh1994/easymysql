@@ -3,18 +3,20 @@ package cn.oyzh.easymysql.fx.table;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.fx.gui.text.field.SelectTextFiled;
 
+import java.util.Objects;
+
 /**
  * @author oyzh
  * @since 2024/7/12
  */
-public class MysqlDefaultValueTextFiled extends SelectTextFiled {
+public class MysqlDefaultValueTextFiled extends SelectTextFiled<String> {
 
     private boolean editableFlag;
 
     {
-        this.selectIndexChanged((observable, oldValue, newValue) -> {
+        this.selectedItemChanged(( newValue) -> {
             if (this.editableFlag) {
-                this.setEditable(newValue.intValue() == 0);
+                this.setEditable(Objects.equals(newValue, this.getItemList().getFirst()));
             }
         });
     }
@@ -25,12 +27,12 @@ public class MysqlDefaultValueTextFiled extends SelectTextFiled {
 
     public void init(MysqlColumn column, String defaultValue) {
         this.clear();
-        this.clearData();
+        this.clearItem();
         if (column.supportEnum()) {
             this.editableFlag = false;
             this.setEditable(false);
             this.setItemList(column.getValueList());
-            this.addData("NULL");
+            this.addItem("NULL");
             if (defaultValue != null) {
                 this.selectItem(defaultValue);
             } else {
@@ -38,9 +40,9 @@ public class MysqlDefaultValueTextFiled extends SelectTextFiled {
             }
         } else {
             this.editableFlag = true;
-            this.addData("");
-            this.addData("EMPTY STRING");
-            this.addData("NULL");
+            this.addItem("");
+            this.addItem("EMPTY STRING");
+            this.addItem("NULL");
             if (defaultValue != null) {
                 this.setEditable(true);
                 this.setText(defaultValue);

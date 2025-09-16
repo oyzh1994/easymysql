@@ -4,12 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +15,11 @@ import java.util.Objects;
  * @author oyzh
  * @since 2024/01/24
  */
-@EqualsAndHashCode(callSuper = true)
 public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlIndex> {
 
     /**
      * 索引顺序
      */
-    @Getter
-    @Setter
     private int seqIndex;
 
     /**
@@ -38,7 +29,6 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
      * 3. fulltext
      * 4. spatial
      */
-    @Getter
     private String type;
 
     /**
@@ -47,25 +37,21 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
      * 2. btree
      * 3. hash
      */
-    @Getter
     private String method;
 
     /**
      * 注释
      */
-    @Getter
     private String comment;
 
     /**
      * 名称
      */
-    @Getter
     private String name;
 
     /**
      * 字段列表
      */
-    @Getter
     private List<IndexColumn> columns;
 
     public String originalName() {
@@ -160,12 +146,38 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
         return StrUtil.isBlank(this.name) || StrUtil.isBlank(this.type) || CollUtil.isEmpty(this.columns);
     }
 
+
+    public int getSeqIndex() {
+        return seqIndex;
+    }
+
+    public void setSeqIndex(int seqIndex) {
+        this.seqIndex = seqIndex;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<IndexColumn> getColumns() {
+        return columns;
+    }
+
     /**
      * 索引字段
      */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class IndexColumn {
 
         /**
@@ -178,6 +190,14 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
          */
         private Integer subPart;
 
+        public IndexColumn(  ) {
+        }
+
+        public IndexColumn(String columnName, Integer subPart) {
+            this.columnName = columnName;
+            this.subPart = subPart;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (o == this) {
@@ -187,6 +207,22 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
                 return Objects.equals(column.subPart, this.subPart) && StrUtil.equals(this.columnName, column.columnName);
             }
             return false;
+        }
+
+        public String getColumnName() {
+            return columnName;
+        }
+
+        public void setColumnName(String columnName) {
+            this.columnName = columnName;
+        }
+
+        public Integer getSubPart() {
+            return subPart;
+        }
+
+        public void setSubPart(Integer subPart) {
+            this.subPart = subPart;
         }
     }
 }

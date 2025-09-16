@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.db.data;
 
 import cn.hutool.core.io.FileUtil;
 import com.alibaba.fastjson.JSONReader;
-import lombok.NonNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,9 +25,9 @@ public class MysqlJsonTypeFileReader extends MysqlTypeFileReader {
      */
     private MysqlDataImportConfig config;
 
-    public MysqlJsonTypeFileReader(@NonNull File file, MysqlDataImportConfig config) {
+    public MysqlJsonTypeFileReader( File file, MysqlDataImportConfig config) {
         this.config = config;
-        this.reader = new JSONReader(FileUtil.getReader(file, Charset.forName(config.charset())));
+        this.reader = new JSONReader(FileUtil.getReader(file, Charset.forName(config.getCharset())));
         this.init();
     }
 
@@ -36,12 +35,12 @@ public class MysqlJsonTypeFileReader extends MysqlTypeFileReader {
     protected void init() {
         // 初始化
         if (this.reader.hasNext()) {
-            if (this.config.recordLabel() == null) {
+            if (this.config.getRecordLabel() == null) {
                 this.reader.startArray();
             } else {
                 this.reader.startObject();
                 String key = this.reader.readString();
-                if (key.equalsIgnoreCase(this.config.recordLabel())) {
+                if (key.equalsIgnoreCase(this.config.getRecordLabel())) {
                     this.reader.startArray();
                 }
             }
@@ -58,7 +57,7 @@ public class MysqlJsonTypeFileReader extends MysqlTypeFileReader {
 
     @Override
     public void close() throws IOException {
-        if (this.config.recordLabel() == null) {
+        if (this.config.getRecordLabel() == null) {
             this.reader.endArray();
             this.reader.endArray();
         } else {

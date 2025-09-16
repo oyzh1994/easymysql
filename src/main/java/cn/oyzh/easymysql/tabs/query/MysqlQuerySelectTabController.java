@@ -17,7 +17,6 @@ import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.util.DBRecordUtil;
-import cn.oyzh.fx.gui.tabs.RichTab;
 import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
@@ -137,7 +136,7 @@ public class MysqlQuerySelectTabController extends RichTabController {
                 };
             }
             // 部分按钮显示处理
-            if (result.fullColumn()) {
+            if (result.isFullColumn()) {
                 this.add.display();
             }
             this.apply.display();
@@ -154,9 +153,9 @@ public class MysqlQuerySelectTabController extends RichTabController {
             // 初始化字段
             this.initColumns(this.result.columnList());
             // 初始化数据
-            this.initRecords(this.result.records());
+            this.initRecords(this.result.getRecords());
             // 初始化sql信息
-            this.sql.setText(this.result.sql());
+            this.sql.setText(this.result.getSql());
             this.used.setText(I18nHelper.time() + ": " + this.result.getUsedMs() + "ms");
             this.count.setText(I18nHelper.totalData() + ": " + this.result.getCount());
         } catch (Exception ex) {
@@ -220,16 +219,16 @@ public class MysqlQuerySelectTabController extends RichTabController {
         MysqlRecordData recordData = record.getRecordData();
         MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
         MysqlInsertRecordParam param = new MysqlInsertRecordParam();
-        param.record(recordData);
-        param.primaryKey(primaryKey);
-        param.dbName(this.result.dbName());
-        param.tableName(this.result.tableName());
+        param.setRecord(recordData);
+        param.setPrimaryKey(primaryKey);
+        param.setDbName(this.result.dbName());
+        param.setTableName(this.result.tableName());
         this.dbItem.client().insertRecord(param);
         if (primaryKey != null) {
             MysqlSelectRecordParam selectRecordParam = new MysqlSelectRecordParam();
-            selectRecordParam.primaryKey(primaryKey);
-            selectRecordParam.dbName(this.result.dbName());
-            selectRecordParam.tableName(this.result.tableName());
+            selectRecordParam.setPrimaryKey(primaryKey);
+            selectRecordParam.setDbName(this.result.dbName());
+            selectRecordParam.setTableName(this.result.tableName());
             // 处理回显
             record.copy(this.dbItem.client().selectRecord(selectRecordParam));
         }
@@ -244,8 +243,8 @@ public class MysqlQuerySelectTabController extends RichTabController {
         // 获取主键
         MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
         MysqlUpdateRecordParam param = new MysqlUpdateRecordParam();
-        param.dbName(this.result.dbName());
-        param.tableName(this.result.tableName());
+        param.setDbName(this.result.dbName());
+        param.setTableName(this.result.tableName());
         // 主键存在，则根据主键更新
         if (primaryKey != null) {
             // 记录数据
@@ -254,13 +253,13 @@ public class MysqlQuerySelectTabController extends RichTabController {
             if (!record.isColumnChanged(primaryKey.getColumnName())) {
                 recordData.remove(primaryKey.getColumnName());
             }
-            param.primaryKey(primaryKey);
+            param.setPrimaryKey(primaryKey);
             // 更新行
             this.dbItem.client().updateRecord(param);
             MysqlSelectRecordParam selectRecordParam = new MysqlSelectRecordParam();
-            selectRecordParam.primaryKey(primaryKey);
-            selectRecordParam.dbName(this.result.dbName());
-            selectRecordParam.tableName(this.result.tableName());
+            selectRecordParam.setPrimaryKey(primaryKey);
+            selectRecordParam.setDbName(this.result.dbName());
+            selectRecordParam.setTableName(this.result.tableName());
             // 处理回显
             record.copy(this.dbItem.selectRecord(selectRecordParam));
         } else {// 主键不存在，则根据所有字段更新
@@ -268,8 +267,8 @@ public class MysqlQuerySelectTabController extends RichTabController {
             MysqlRecordData changedRecordData = record.getChangedRecordData();
             // 原始数据
             MysqlRecordData originalRecordData = record.getOriginalRecordData();
-            param.record(originalRecordData);
-            param.updateRecord(changedRecordData);
+            param.setRecord(originalRecordData);
+            param.setUpdateRecord(changedRecordData);
             // 更新行
             this.dbItem.client().updateRecord(param);
         }
@@ -347,7 +346,7 @@ public class MysqlQuerySelectTabController extends RichTabController {
                 return;
             }
             // 执行查询
-            this.result = this.dbItem.executeSingleSql(this.result.sql());
+            this.result = this.dbItem.executeSingleSql(this.result.getSql());
             // 初始化数据
             this.initDataList();
             // 禁用组件
@@ -378,10 +377,10 @@ public class MysqlQuerySelectTabController extends RichTabController {
                 // 获取主键
                 MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
                 MysqlDeleteRecordParam param = new MysqlDeleteRecordParam();
-                param.dbName(this.result.dbName());
-                param.tableName(this.result.tableName());
-                param.primaryKey(primaryKey);
-                param.record(record.getOriginalRecordData());
+                param.setDbName(this.result.dbName());
+                param.setTableName(this.result.tableName());
+                param.setPrimaryKey(primaryKey);
+                param.setRecord(record.getOriginalRecordData());
                 success = this.dbItem.deleteRecord(param) == 1;
             }
             // 操作成功

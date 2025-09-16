@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.controller.table;
 
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
+import cn.oyzh.fx.editor.tm4javafx.Editor;
 import cn.oyzh.fx.gui.text.area.ReadOnlyTextArea;
 import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;
@@ -9,7 +10,6 @@ import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageAttribute;
-import cn.oyzh.fx.rich.richtextfx.control.BaseRichTextArea;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
@@ -85,11 +85,11 @@ public class MysqlTableInfoController extends StageController {
      * 定义
      */
     @FXML
-    private BaseRichTextArea tableDefinition;
+    private Editor tableDefinition;
 
     @Override
     public void onWindowShown(WindowEvent event) {
-        MysqlTableTreeItem tableItem = this.getWindowProp("tableItem");
+        MysqlTableTreeItem tableItem = this.getProp("tableItem");
         MysqlTable table = tableItem.value();
         this.tableName.setText(table.getName());
         this.tableEngine.setText(table.getEngine());

@@ -54,7 +54,7 @@
 //    }
 //
 //    @Override
-//    public boolean update(@NonNull MysqlSetting setting) {
+//    public boolean update( MysqlSetting setting) {
 //        return this.saveData(setting);
 //    }
 //}

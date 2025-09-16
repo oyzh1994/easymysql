@@ -5,9 +5,6 @@ import cn.oyzh.common.object.ObjectComparator;
 import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import javafx.beans.property.SimpleStringProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * db表
@@ -15,30 +12,23 @@ import lombok.Setter;
  * @author oyzh
  * @since 2024/01/16
  */
-@EqualsAndHashCode(callSuper = true)
 public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTable>, ObjectComparator<MysqlTable> {
 
-    @Getter
-    @Setter
     private boolean hasPrimaryKey;
 
     /**
      * 行格式
      */
-    @Getter
     private String rowFormat;
 
     /**
      * 自动递增值
      */
-    @Getter
     private Long autoIncrement;
 
     /**
      * 表创建定义
      */
-    @Getter
-    @Setter
     private String createDefinition;
 
     // /**
@@ -65,19 +55,16 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
     /**
      * 引擎
      */
-    @Getter
     private String engine;
 
     /**
      * 字符集
      */
-    @Getter
     private String charset;
 
     /**
      * 排序规则
      */
-    @Getter
     private String collation;
 
     // /**
@@ -251,15 +238,11 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
     /**
      * 库名称
      */
-    @Setter
-    @Getter
     private String dbName;
 
     /**
      * 模式名称
      */
-    @Setter
-    @Getter
     private String schema;
 
     // /**
@@ -379,6 +362,60 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
     public boolean isNew() {
         return StrUtil.isBlank(this.getName());
     }
+
+    public boolean isHasPrimaryKey() {
+        return hasPrimaryKey;
+    }
+
+    public void setHasPrimaryKey(boolean hasPrimaryKey) {
+        this.hasPrimaryKey = hasPrimaryKey;
+    }
+
+    public String getRowFormat() {
+        return rowFormat;
+    }
+
+    public Long getAutoIncrement() {
+        return autoIncrement;
+    }
+
+    public String getCreateDefinition() {
+        return createDefinition;
+    }
+
+    public void setCreateDefinition(String createDefinition) {
+        this.createDefinition = createDefinition;
+    }
+
+    public String getEngine() {
+        return engine;
+    }
+
+    public String getCharset() {
+        return charset;
+    }
+
+    public String getCollation() {
+        return collation;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getSchema() {
+        return schema;
+    }
+
+    public void setSchema(String schema) {
+        this.schema = schema;
+    }
+
+
 }
 
 

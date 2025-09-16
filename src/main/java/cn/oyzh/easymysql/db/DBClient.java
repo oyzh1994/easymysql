@@ -47,14 +47,10 @@ import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
 import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.easymysql.util.DBUtil;
-import cn.oyzh.ssh.SSHForwardConfig;
 import cn.oyzh.ssh.SSHForwarder;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -78,13 +74,11 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author oyzh
  * @since 2023/11/06
  */
-@Accessors(fluent = true, chain = true)
 public class DBClient {
 
     /**
      * db信息
      */
-    @Getter
     protected final MysqlConnect dbConnect;
 
     /**
@@ -232,11 +226,11 @@ public class DBClient {
         return this.state.getReadOnlyProperty();
     }
 
-    public DBClient(@NonNull MysqlConnect dbInfo) {
+    public DBClient( MysqlConnect dbInfo) {
         this.dbConnect = dbInfo;
-        if (dbInfo.isSSHForward()) {
-            this.sshForwarder = new SSHForwarder(dbInfo.getSshConfig());
-        }
+        // if (dbInfo.isSSHForward()) {
+        //     this.sshForwarder = new SSHForwarder(dbInfo.getSshConfig());
+        // }
         this.stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 switch (newValue) {
@@ -305,16 +299,16 @@ public class DBClient {
      */
     protected void initClient() {
         // 连接地址
-        String ip;
-        int port;
+        String ip = "";
+        int port = 0;
         // ssh端口转发
         if (this.dbConnect.isSSHForward()) {
-            SSHForwardConfig forwardInfo = new SSHForwardConfig();
-            forwardInfo.setHost(this.dbConnect.hostIp());
-            forwardInfo.setPort(this.dbConnect.hostPort());
-            // 连接信息
-            ip = "127.0.0.1";
-            port = this.sshForwarder.forward(forwardInfo);
+            // SSHForwardConfig forwardInfo = new SSHForwardConfig();
+            // forwardInfo.setHost(this.dbConnect.hostIp());
+            // forwardInfo.setPort(this.dbConnect.hostPort());
+            // // 连接信息
+            // ip = "127.0.0.1";
+            // port = this.sshForwarder.forward(forwardInfo);
         } else {// 直连
             // 连接信息
             ip = this.dbConnect.hostIp();
@@ -454,7 +448,7 @@ public class DBClient {
             Statement statement = connection.createStatement();
             for (String execSql : list) {
                 MysqlExecuteResult result = new MysqlExecuteResult();
-                result.sql(execSql);
+                result.setSql(execSql);
                 try {
                     long startTime = System.nanoTime();
                     boolean isQuery = statement.execute(execSql);
@@ -462,21 +456,21 @@ public class DBClient {
                         ResultSet resultSet = statement.getResultSet();
                         if (parser.isSingle() && parser.isSelect()) {
                             result.parseResult(resultSet, connection, false);
-                            result.fullColumn(parser.isFullColumn());
+                            result.setFullColumn(parser.isFullColumn());
                         } else {
                             result.parseResult(resultSet, connection);
                         }
                         DBUtil.close(resultSet);
-                        result.success(true);
+                        result.setSuccess(true);
                     } else {
                         int updateCount = statement.getUpdateCount();
-                        result.updateCount(updateCount);
-                        result.success(true);
+                        result.setUpdateCount(updateCount);
+                        result.setSuccess(true);
                     }
                     long endTime = System.nanoTime();
-                    result.used(endTime - startTime);
+                    result.setUsed(endTime - startTime);
                 } catch (SQLException ex) {
-                    result.msg(ex.toString());
+                    result.setMsg(ex.toString());
                 }
                 results.addResult(result);
             }
@@ -833,16 +827,16 @@ public class DBClient {
 
     public List<MysqlTable> selectTables(String dbName) {
         MysqlTableSelectParam param = new MysqlTableSelectParam();
-        param.dbName(dbName);
+        param.setDbName(dbName);
         return this.selectTables(param);
     }
 
     public List<MysqlTable> selectTables(MysqlTableSelectParam param) {
         try {
-            String dbName = param.dbName();
+            String dbName = param.getDbName();
             List<MysqlTable> tables = new ArrayList<>();
             Connection connection = this.connection(dbName);
-            if (param.full()) {
+            if (param.isFull()) {
                 String sql = "SELECT `AUTO_INCREMENT`, `ROW_FORMAT`, `TABLE_COLLATION`, `TABLE_NAME`, `TABLE_COMMENT`, `ENGINE` FROM information_schema.TABLES WHERE `TABLE_SCHEMA` = ? AND `TABLE_TYPE` != 'VIEW'";
                 DBUtil.printSql(sql);
                 PreparedStatement statement = connection.prepareStatement(sql);
@@ -897,8 +891,8 @@ public class DBClient {
 
     public MysqlColumns selectColumns(MysqlSelectColumnParam param) {
         try {
-            String dbName = param.dbName();
-            String tableName = param.tableName();
+            String dbName = param.getDbName();
+            String tableName = param.getTableName();
             MysqlColumns columns = new MysqlColumns();
             String sql = "SHOW FULL COLUMNS FROM " + DBUtil.wrap(dbName, tableName, this.dialect());
             PreparedStatement statement = this.connection().prepareStatement(sql);
@@ -941,18 +935,18 @@ public class DBClient {
 
     public List<MysqlRecord> selectRecords(MysqlSelectRecordParam param) {
         try {
-            Connection connection = this.connection(param.dbName(), param.schema());
+            Connection connection = this.connection(param.getDbName(), param.getSchema());
             StringBuilder builder = new StringBuilder("SELECT * FROM ");
-            builder.append(DBUtil.wrap(param.dbName(), param.tableName(), this.dialect()));
-            String filterCondition = MysqlConditionUtil.buildCondition(param.filters());
+            builder.append(DBUtil.wrap(param.getDbName(), param.getTableName(), this.dialect()));
+            String filterCondition = MysqlConditionUtil.buildCondition(param.getFilters());
             if (StrUtil.isNotBlank(filterCondition)) {
                 builder.append(" WHERE ").append(filterCondition);
             }
             if (param.hasPageControl()) {
                 builder.append(" LIMIT ")
-                        .append(param.start())
+                        .append(param.getStart())
                         .append(",")
-                        .append(param.limit());
+                        .append(param.getLimit());
             }
             String sql = builder.toString();
             DBUtil.printSql(sql);
@@ -961,13 +955,13 @@ public class DBClient {
             DBUtil.printMetaData(resultSet);
             List<MysqlRecord> records = new ArrayList<>();
             List<MysqlColumn> columns;
-            if (param.columns() != null) {
-                columns = param.columns();
+            if (param.getColumns() != null) {
+                columns = param.getColumns();
             } else {
                 columns = DBHelper.parseColumns(resultSet);
             }
             while (resultSet.next()) {
-                MysqlRecord record = new MysqlRecord(param.readonly());
+                MysqlRecord record = new MysqlRecord(param.isReadonly());
                 for (MysqlColumn column : columns) {
                     Object data = resultSet.getObject(column.getName());
                     // 获取几何值
@@ -989,10 +983,10 @@ public class DBClient {
     public long selectRecordCount(MysqlSelectRecordParam param) {
         long count = 0;
         try {
-            Connection connection = this.connection(param.dbName(), param.schema());
+            Connection connection = this.connection(param.getDbName(), param.getSchema());
             StringBuilder builder = new StringBuilder("SELECT COUNT(*) FROM");
-            builder.append(DBUtil.wrap(param.dbName(), param.tableName(), this.dialect()));
-            String filterCondition = MysqlConditionUtil.buildCondition(param.filters());
+            builder.append(DBUtil.wrap(param.getDbName(), param.getTableName(), this.dialect()));
+            String filterCondition = MysqlConditionUtil.buildCondition(param.getFilters());
             if (StrUtil.isNotBlank(filterCondition)) {
                 builder.append(" WHERE ").append(filterCondition);
             }
@@ -1013,21 +1007,21 @@ public class DBClient {
     }
 
     public int insertRecord(MysqlInsertRecordParam param) {
-        if (param == null || param.record() == null) {
+        if (param == null || param.getRecord() == null) {
             return 0;
         }
         try {
             StringBuilder builder = new StringBuilder();
             builder.append("INSERT INTO ")
-                    .append(DBUtil.wrap(param.dbName(), param.tableName(), this.dialect()))
+                    .append(DBUtil.wrap(param.getDbName(), param.getTableName(), this.dialect()))
                     .append("(");
-            for (String column : param.record().columns()) {
+            for (String column : param.getRecord().columns()) {
                 builder.append(DBUtil.wrap(column, this.dialect())).append(",");
             }
             builder.append(")");
             builder.append(" VALUES(");
-            for (String column : param.record().columns()) {
-                if (param.record().isTypeGeometry(column)) {
+            for (String column : param.getRecord().columns()) {
+                if (param.getRecord().isTypeGeometry(column)) {
                     builder.append("ST_GeomFromText(?),");
                 } else {
                     builder.append("?,");
@@ -1037,14 +1031,14 @@ public class DBClient {
             String sql = builder.toString();
             sql = sql.replaceAll(",\\)", ")");
             DBUtil.printSql(sql);
-            Connection connection = this.connection(param.dbName(), param.schema());
+            Connection connection = this.connection(param.getDbName(), param.getSchema());
             PreparedStatement statement = connection.prepareStatement(sql);
             int index = 1;
-            for (String colName : param.record().columns()) {
-                DBUtil.setVal(statement, param.record().value(colName), index++);
+            for (String colName : param.getRecord().columns()) {
+                DBUtil.setVal(statement, param.getRecord().value(colName), index++);
             }
             int count = statement.executeUpdate();
-            MysqlRecordPrimaryKey primaryKey = param.primaryKey();
+            MysqlRecordPrimaryKey primaryKey = param.getPrimaryKey();
             // 处理自动递增值
             if (primaryKey != null && primaryKey.shouldReturnData()) {
                 primaryKey.setReturnData(DBHelper.lastInsertId(connection));
@@ -1060,16 +1054,16 @@ public class DBClient {
     public int deleteRecord(MysqlDeleteRecordParam param) {
         try {
             int updateCount;
-            String dbName = param.dbName();
-            String schema = param.schema();
-            String tableName = param.tableName();
+            String dbName = param.getDbName();
+            String schema = param.getSchema();
+            String tableName = param.getTableName();
             Connection connection = this.connection(dbName, schema);
             StringBuilder builder = new StringBuilder();
             builder.append("DELETE FROM ")
                     .append(DBUtil.wrap(schema, tableName, this.dialect()))
                     .append(" WHERE ");
-            if (param.primaryKey() == null) {
-                MysqlRecordData recordData = param.record();
+            if (param.getPrimaryKey() == null) {
+                MysqlRecordData recordData = param.getRecord();
                 boolean first = true;
                 for (String colName : recordData.columns()) {
                     if (first) {
@@ -1085,12 +1079,12 @@ public class DBClient {
                 PreparedStatement statement = connection.prepareStatement(sql);
                 int index = 1;
                 // 设置参数
-                for (String colName : param.record().columns()) {
-                    DBUtil.setVal(statement, param.record().value(colName), index++);
+                for (String colName : param.getRecord().columns()) {
+                    DBUtil.setVal(statement, param.getRecord().value(colName), index++);
                 }
                 updateCount = DBUtil.executeUpdate(statement);
             } else {
-                MysqlRecordPrimaryKey primaryKey = param.primaryKey();
+                MysqlRecordPrimaryKey primaryKey = param.getPrimaryKey();
                 builder.append(DBUtil.wrap(primaryKey.getColumnName(), this.dialect()))
                         .append(" = ?");
                 String sql = builder.toString();
@@ -1110,10 +1104,10 @@ public class DBClient {
     public int updateRecord(MysqlUpdateRecordParam param) {
         try {
             int updateCount;
-            String dbName = param.dbName();
-            String schema = param.schema();
-            String tableName = param.tableName();
-            MysqlRecordData recordData = param.updateRecord();
+            String dbName = param.getDbName();
+            String schema = param.getSchema();
+            String tableName = param.getTableName();
+            MysqlRecordData recordData = param.getUpdateRecord();
             StringBuilder builder = new StringBuilder();
             builder.append("UPDATE ")
                     .append(DBUtil.wrap(schema, tableName, this.dialect()))
@@ -1128,8 +1122,8 @@ public class DBClient {
             builder.deleteCharAt(builder.length() - 1);
             builder.append(" WHERE ");
             Connection connection = this.connection(dbName, schema);
-            if (param.primaryKey() == null) {
-                MysqlRecordData originalRecordData = param.record();
+            if (param.getPrimaryKey() == null) {
+                MysqlRecordData originalRecordData = param.getRecord();
                 // 参数
                 boolean first = true;
                 for (String column : originalRecordData.columns()) {
@@ -1155,7 +1149,7 @@ public class DBClient {
                 updateCount = DBUtil.executeUpdate(statement);
                 DBUtil.close(statement);
             } else {
-                MysqlRecordPrimaryKey primaryKey = param.primaryKey();
+                MysqlRecordPrimaryKey primaryKey = param.getPrimaryKey();
                 builder.append(" WHERE ").append(DBUtil.wrap(primaryKey.getColumnName(), this.dialect())).append(" = ?");
                 String sql = builder.toString();
                 DBUtil.printInfo(sql, recordData);
@@ -1335,20 +1329,20 @@ public class DBClient {
 
     public MysqlTable selectTable(String dbName, String tableName) {
         MysqlTableSelectParam param = new MysqlTableSelectParam();
-        param.dbName(dbName);
-        param.tableName(tableName);
+        param.setDbName(dbName);
+        param.setTableName(tableName);
         return this.selectTable(param);
     }
 
     public MysqlTable selectTable(MysqlTableSelectParam param) {
         try {
-            String dbName = param.dbName();
-            String tableName = param.tableName();
+            String dbName = param.getDbName();
+            String tableName = param.getTableName();
             MysqlTable table = new MysqlTable();
             table.setDbName(dbName);
             table.setName(tableName);
             Connection connection = this.connection(dbName);
-            if (param.full()) {
+            if (param.isFull()) {
                 String sql = "SELECT `AUTO_INCREMENT`, `ROW_FORMAT`, `TABLE_COLLATION`, `TABLE_COMMENT`, `ENGINE` FROM information_schema.TABLES WHERE `TABLE_SCHEMA` = ? AND `TABLE_NAME` = ?  AND `TABLE_TYPE` = 'BASE TABLE'";
                 DBUtil.printSql(sql);
                 PreparedStatement statement = connection.prepareStatement(sql);
@@ -1392,8 +1386,8 @@ public class DBClient {
 
     public MysqlTable selectFullTable(MysqlTableSelectParam param) {
         try {
-            String dbName = param.dbName();
-            String tableName = param.tableName();
+            String dbName = param.getDbName();
+            String tableName = param.getTableName();
             MysqlTable table = new MysqlTable();
             table.setDbName(dbName);
             table.setName(tableName);
@@ -1877,7 +1871,7 @@ public class DBClient {
             if(StrUtil.isBlank(sql)){
                 return;
             }
-            String dbName = param.table().getDbName();
+            String dbName = param.getTable().getDbName();
             connection = this.connection(dbName);
             connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
@@ -2127,15 +2121,15 @@ public class DBClient {
                 MysqlExplainResult result = new MysqlExplainResult();
                 try {
                     execSql = "EXPLAIN " + execSql.stripLeading();
-                    result.sql(execSql);
+                    result.setSql(execSql);
                     long startTime = System.nanoTime();
                     ResultSet resultSet = statement.executeQuery(execSql);
                     result.parseResult(resultSet, connection);
-                    result.used(System.nanoTime() - startTime);
+                    result.setUsed(System.nanoTime() - startTime);
                     DBUtil.close(resultSet);
-                    result.success(true);
+                    result.setSuccess(true);
                 } catch (SQLException ex) {
-                    result.msg(ex.toString());
+                    result.setMsg(ex.toString());
                 }
                 results.addResult(result);
             }
@@ -2151,7 +2145,7 @@ public class DBClient {
     public MysqlExecuteResult executeSingleSql(String dbName, String sql) {
         Connection connection = null;
         MysqlExecuteResult result = new MysqlExecuteResult();
-        result.sql(sql);
+        result.setSql(sql);
         try {
             DBUtil.printSql(sql);
             DBSqlParser parser = DBSqlParser.getParser(sql, this.dialect());
@@ -2165,23 +2159,23 @@ public class DBClient {
                     ResultSet resultSet = statement.getResultSet();
                     if (parser.isSingle() && parser.isSelect()) {
                         result.parseResult(resultSet, connection, false);
-                        result.fullColumn(parser.isFullColumn());
+                        result.setFullColumn(parser.isFullColumn());
                     } else {
                         result.parseResult(resultSet, connection);
                     }
                     DBUtil.close(resultSet);
-                    result.success(true);
+                    result.setSuccess(true);
                 } else {
                     connection.setAutoCommit(false);
                     int updateCount = statement.getUpdateCount();
                     connection.commit();
-                    result.updateCount(updateCount);
-                    result.success(true);
+                    result.setUpdateCount(updateCount);
+                    result.setSuccess(true);
                 }
                 long endTime = System.nanoTime();
-                result.used(endTime - startTime);
+                result.setUsed(endTime - startTime);
             } catch (SQLException ex) {
-                result.msg(ex.getMessage());
+                result.setMsg(ex.getMessage());
             }
             DBUtil.close(statement);
         } catch (Exception ex) {
@@ -2516,10 +2510,10 @@ public class DBClient {
     public MysqlRecord selectRecord(MysqlSelectRecordParam param) {
         try {
 
-            String dbName = param.dbName();
-            String tableName = param.tableName();
+            String dbName = param.getDbName();
+            String tableName = param.getTableName();
             Connection connection = this.connection(dbName);
-            MysqlRecordPrimaryKey primaryKey = param.primaryKey();
+            MysqlRecordPrimaryKey primaryKey = param.getPrimaryKey();
             StringBuilder builder = new StringBuilder("SELECT * FROM ");
             builder.append(DBUtil.wrap(dbName, tableName, DBDialect.MYSQL))
                     .append(" WHERE ")
@@ -2586,5 +2580,9 @@ public class DBClient {
             ex.printStackTrace();
             throw new DBException(ex);
         }
+    }
+
+    public MysqlConnect getDbConnect() {
+        return dbConnect;
     }
 }

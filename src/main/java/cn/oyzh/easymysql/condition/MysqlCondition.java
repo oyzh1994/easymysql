@@ -1,7 +1,6 @@
 package cn.oyzh.easymysql.condition;
 
 import cn.oyzh.easymysql.util.DBUtil;
-import lombok.Data;
 
 /**
  * 条件
@@ -9,7 +8,6 @@ import lombok.Data;
  * @author oyzh
  * @since 2024/06/26
  */
-@Data
 public abstract class MysqlCondition {
 
     /**
@@ -51,5 +49,29 @@ public abstract class MysqlCondition {
             return condition == null ? this.getValue() : this.getValue() + " " +  DBUtil.wrapData(condition);
         }
         return this.getValue();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public boolean isRequireCondition() {
+        return requireCondition;
+    }
+
+    public void setRequireCondition(boolean requireCondition) {
+        this.requireCondition = requireCondition;
     }
 }

@@ -270,7 +270,7 @@ public class MysqlConnectAddController extends StageController {
     @Override
     public void onWindowShown(WindowEvent event) {
         super.onWindowShown(event);
-        this.group = this.getWindowProp("group");
+        this.group = this.getProp("group");
         this.stage.switchOnTab();
         this.stage.hideOnEscape();
     }

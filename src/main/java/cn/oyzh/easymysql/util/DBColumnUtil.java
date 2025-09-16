@@ -1,8 +1,6 @@
 package cn.oyzh.easymysql.util;
 
 import cn.hutool.core.util.StrUtil;
-import lombok.Data;
-import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,6 @@ import java.util.stream.Collectors;
  * @author oyzh
  * @since 2024/1/29
  */
-@UtilityClass
 public class DBColumnUtil {
 
     private static final List<DBColumnField> COLUMN_FIELD = new ArrayList<>();
@@ -291,8 +288,7 @@ public class DBColumnUtil {
         return COLUMN_FIELD.parallelStream().map(DBColumnField::getName).collect(Collectors.toList());
     }
 
-    @Data
-    private class DBColumnField {
+    private static class DBColumnField {
 
         private String name;
 
@@ -343,6 +339,182 @@ public class DBColumnUtil {
 
         public DBColumnField(String name) {
             this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Long getMaxValue() {
+            return maxValue;
+        }
+
+        public void setMaxValue(Long maxValue) {
+            this.maxValue = maxValue;
+        }
+
+        public Long getMinValue() {
+            return minValue;
+        }
+
+        public void setMinValue(Long minValue) {
+            this.minValue = minValue;
+        }
+
+        public Integer getSuggestSize() {
+            return suggestSize;
+        }
+
+        public void setSuggestSize(Integer suggestSize) {
+            this.suggestSize = suggestSize;
+        }
+
+        public boolean isSupportBit() {
+            return supportBit;
+        }
+
+        public void setSupportBit(boolean supportBit) {
+            this.supportBit = supportBit;
+        }
+
+        public String getExampleValue() {
+            return exampleValue;
+        }
+
+        public void setExampleValue(String exampleValue) {
+            this.exampleValue = exampleValue;
+        }
+
+        public boolean isSupportSize() {
+            return supportSize;
+        }
+
+        public void setSupportSize(boolean supportSize) {
+            this.supportSize = supportSize;
+        }
+
+        public boolean isSupportJson() {
+            return supportJson;
+        }
+
+        public void setSupportJson(boolean supportJson) {
+            this.supportJson = supportJson;
+        }
+
+        public boolean isSupportEnum() {
+            return supportEnum;
+        }
+
+        public void setSupportEnum(boolean supportEnum) {
+            this.supportEnum = supportEnum;
+        }
+
+        public boolean isSupportValue() {
+            return supportValue;
+        }
+
+        public void setSupportValue(boolean supportValue) {
+            this.supportValue = supportValue;
+        }
+
+        public boolean isSupportBinary() {
+            return supportBinary;
+        }
+
+        public void setSupportBinary(boolean supportBinary) {
+            this.supportBinary = supportBinary;
+        }
+
+        public boolean isSupportDigits() {
+            return supportDigits;
+        }
+
+        public void setSupportDigits(boolean supportDigits) {
+            this.supportDigits = supportDigits;
+        }
+
+        public boolean isSupportString() {
+            return supportString;
+        }
+
+        public void setSupportString(boolean supportString) {
+            this.supportString = supportString;
+        }
+
+        public boolean isSupportKeySize() {
+            return supportKeySize;
+        }
+
+        public void setSupportKeySize(boolean supportKeySize) {
+            this.supportKeySize = supportKeySize;
+        }
+
+        public boolean isSupportInteger() {
+            return supportInteger;
+        }
+
+        public void setSupportInteger(boolean supportInteger) {
+            this.supportInteger = supportInteger;
+        }
+
+        public boolean isSupportCharset() {
+            return supportCharset;
+        }
+
+        public void setSupportCharset(boolean supportCharset) {
+            this.supportCharset = supportCharset;
+        }
+
+        public boolean isSupportUnsigned() {
+            return supportUnsigned;
+        }
+
+        public void setSupportUnsigned(boolean supportUnsigned) {
+            this.supportUnsigned = supportUnsigned;
+        }
+
+        public boolean isSupportZeroFill() {
+            return supportZeroFill;
+        }
+
+        public void setSupportZeroFill(boolean supportZeroFill) {
+            this.supportZeroFill = supportZeroFill;
+        }
+
+        public boolean isSupportGeometry() {
+            return supportGeometry;
+        }
+
+        public void setSupportGeometry(boolean supportGeometry) {
+            this.supportGeometry = supportGeometry;
+        }
+
+        public boolean isSupportTimestamp() {
+            return supportTimestamp;
+        }
+
+        public void setSupportTimestamp(boolean supportTimestamp) {
+            this.supportTimestamp = supportTimestamp;
+        }
+
+        public boolean isSupportDefaultValue() {
+            return supportDefaultValue;
+        }
+
+        public void setSupportDefaultValue(boolean supportDefaultValue) {
+            this.supportDefaultValue = supportDefaultValue;
+        }
+
+        public boolean isSupportAutoIncrement() {
+            return supportAutoIncrement;
+        }
+
+        public void setSupportAutoIncrement(boolean supportAutoIncrement) {
+            this.supportAutoIncrement = supportAutoIncrement;
         }
     }
 

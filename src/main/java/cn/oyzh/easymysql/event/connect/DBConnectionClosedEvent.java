@@ -18,7 +18,7 @@ public class DBConnectionClosedEvent extends Event<DBClient> implements EventFor
     }
 
     public MysqlConnect dbConnect() {
-        return this.data().dbConnect();
+        return this.data().getDbConnect();
     }
 
     public boolean isMysqlType() {

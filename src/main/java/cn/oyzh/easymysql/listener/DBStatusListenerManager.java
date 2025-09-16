@@ -4,7 +4,6 @@ import javafx.beans.property.Property;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextInputControl;
-import org.fxmisc.richtext.GenericStyledArea;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,13 +33,15 @@ public class DBStatusListenerManager {
     }
 
     public static void bindListener(Object node, DBStatusListener listener) {
-        if (node instanceof GenericStyledArea<?, ?, ?> node1) {
-            node1.textProperty().addListener((observable, oldValue, newValue) -> {
-                if (listener != null) {
-                    listener.changed(observable, oldValue, newValue);
-                }
-            });
-        } else if (node instanceof TextInputControl node1) {
+        // if (node instanceof GenericStyledArea<?, ?, ?> node1) {
+        //     node1.textProperty().addListener((observable, oldValue, newValue) -> {
+        //         if (listener != null) {
+        //             listener.changed(observable, oldValue, newValue);
+        //         }
+        //     });
+        // }
+
+        if (node instanceof TextInputControl node1) {
             node1.textProperty().addListener((observable, oldValue, newValue) -> {
                 if (listener != null) {
                     listener.changed(observable, oldValue, newValue);

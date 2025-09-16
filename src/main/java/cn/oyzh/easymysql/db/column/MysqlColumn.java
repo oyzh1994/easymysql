@@ -6,9 +6,6 @@ import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.util.DBColumnUtil;
 import javafx.beans.property.SimpleBooleanProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,83 +17,66 @@ import java.util.Map;
  * @author oyzh
  * @since 2023/12/20
  */
-@EqualsAndHashCode(callSuper = true)
 public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlColumn> {
 
     /**
      * 库名称
      */
-    @Getter
-    @Setter
     private String dbName;
 
     /**
      * 模式名称
      */
-    @Getter
-    @Setter
     private String schema;
 
     /**
      * 表名称
      */
-    @Getter
-    @Setter
     private String tableName;
 
     /**
      * 字段大小
      */
-    @Getter
     private Integer size;
 
     /**
      * 字段类型
      */
-    @Getter
     private String type;
 
     /**
      * 字段值
      */
-    @Getter
     private String value;
 
     /**
      * 注释
      */
-    @Getter
     private String comment;
 
     /**
      * 可为null
      */
-    @Getter
     private Boolean nullable;
 
     /**
      * 无符号
      */
-    @Getter
     private Boolean unsigned;
 
     /**
      * 填充零
      */
-    @Getter
     private Boolean zeroFill;
 
     /**
      * 根据当前时间戳更新
      */
-    @Getter
     private Boolean updateOnCurrentTimestamp;
 
     /**
      * 字段位置
      */
-    @Getter
-    @Setter
     private Integer position;
 
     /**
@@ -107,43 +87,36 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     /**
      * 键长度
      */
-    @Getter
     private Integer primaryKeySize;
 
     /**
      * 默认值
      */
-    @Getter
     private Object defaultValue;
 
     /**
      * 小数位
      */
-    @Getter
     private Integer digits;
 
     /**
      * 自动递增
      */
-    @Getter
     private Boolean autoIncrement;
 
     /**
      * 名称
      */
-    @Getter
     private String name;
 
     /**
      * 字段字符集
      */
-    @Getter
     private String charset;
 
     /**
      * 字段排序规则
      */
-    @Getter
     private String collation;
 
     public MysqlColumn() {
@@ -678,4 +651,109 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     // public Integer getPrimaryKeySize() {
     //     return this.primaryKey == null ? null : this.primaryKey.getPrimaryKeySize();
     // }
+
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getSchema() {
+        return schema;
+    }
+
+    public void setSchema(String schema) {
+        this.schema = schema;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public Boolean getNullable() {
+        return nullable;
+    }
+
+    public Boolean getUnsigned() {
+        return unsigned;
+    }
+
+    public Boolean getZeroFill() {
+        return zeroFill;
+    }
+
+    public Boolean getUpdateOnCurrentTimestamp() {
+        return updateOnCurrentTimestamp;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    public boolean isPrimaryKeyProperty() {
+        return primaryKeyProperty.get();
+    }
+
+    public SimpleBooleanProperty primaryKeyPropertyProperty() {
+        return primaryKeyProperty;
+    }
+
+    public void setPrimaryKeyProperty(boolean primaryKeyProperty) {
+        this.primaryKeyProperty.set(primaryKeyProperty);
+    }
+
+    public Integer getPrimaryKeySize() {
+        return primaryKeySize;
+    }
+
+    public Object getDefaultValue() {
+        return defaultValue;
+    }
+
+    public Integer getDigits() {
+        return digits;
+    }
+
+    public Boolean getAutoIncrement() {
+        return autoIncrement;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCharset() {
+        return charset;
+    }
+
+    public String getCollation() {
+        return collation;
+    }
 }

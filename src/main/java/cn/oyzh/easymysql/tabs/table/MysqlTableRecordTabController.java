@@ -24,7 +24,6 @@ import cn.oyzh.easymysql.util.DBRecordUtil;
 import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.fx.gui.page.PageBox;
 import cn.oyzh.fx.gui.page.PageEvent;
-import cn.oyzh.fx.gui.tabs.RichTab;
 import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
@@ -39,7 +38,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import lombok.Setter;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -97,7 +95,6 @@ public class MysqlTableRecordTabController extends RichTabController {
     /**
      * 过滤列表
      */
-    @Setter
     private List<MysqlRecordFilter> filters;
 
     /**
@@ -154,7 +151,7 @@ public class MysqlTableRecordTabController extends RichTabController {
         try {
             this.pageData = this.item.recordPage(pageNo, this.setting.getRecordPageLimit(), this.enabledFilters(), this.columns);
             this.pageBox.setPaging(this.pageData);
-            this.initRecords(this.pageData.dataList());
+            this.initRecords(this.pageData.pageData());
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
@@ -507,5 +504,13 @@ public class MysqlTableRecordTabController extends RichTabController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public List<MysqlRecordFilter> getFilters() {
+        return filters;
+    }
+
+    public void setFilters(List<MysqlRecordFilter> filters) {
+        this.filters = filters;
     }
 }

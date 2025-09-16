@@ -112,8 +112,8 @@ public class MysqlViewRecordFilterPopupController extends PopupController {
     @Override
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
-        this.treeItem = this.getWindowProp("item");
-        List<MysqlRecordFilter> filters = this.getWindowProp("filters");
+        this.treeItem = this.getProp("item");
+        List<MysqlRecordFilter> filters = this.getProp("filters");
         this.filterTable.setItem(filters);
     }
 

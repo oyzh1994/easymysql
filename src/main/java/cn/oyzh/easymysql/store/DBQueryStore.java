@@ -63,7 +63,7 @@
 //    }
 //
 //    @Override
-//    public synchronized boolean add(@NonNull MysqlQuery query) {
+//    public synchronized boolean add( MysqlQuery query) {
 //        try {
 //            if (query.getId() == null) {
 //                query.setId(System.currentTimeMillis() + "");
@@ -82,7 +82,7 @@
 //    }
 //
 //    @Override
-//    public synchronized boolean update(@NonNull MysqlQuery query) {
+//    public synchronized boolean update( MysqlQuery query) {
 //        try {
 //            Optional<MysqlQuery> optional = this.queryList.parallelStream().filter(q -> q.compare(query)).findAny();
 //            // 更新数据
@@ -96,7 +96,7 @@
 //    }
 //
 //    @Override
-//    public synchronized boolean delete(@NonNull MysqlQuery query) {
+//    public synchronized boolean delete( MysqlQuery query) {
 //        try {
 //            // 删除数据
 //            if (this.queryList.remove(query)) {

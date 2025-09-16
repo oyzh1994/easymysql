@@ -94,12 +94,12 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
             this.checkInterrupt();
             long start1 = System.currentTimeMillis();
             MysqlSelectRecordParam param = new MysqlSelectRecordParam();
-            param.start(start);
-            param.readonly(true);
-            param.columns(columns);
-            param.dbName(this.dbName);
-            param.tableName(tableName);
-            param.limit((long) this.queryLimit);
+            param.setStart(start);
+            param.setReadonly(true);
+            param.setColumns(columns);
+            param.setDbName(this.dbName);
+            param.setTableName(tableName);
+            param.setLimit((long) this.queryLimit);
             List<MysqlRecord> records = this.dbClient.selectRecords(param);
             if (CollUtil.isEmpty(records)) {
                 break;

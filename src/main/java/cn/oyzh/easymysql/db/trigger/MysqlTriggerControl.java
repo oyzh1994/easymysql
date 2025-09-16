@@ -5,7 +5,6 @@ import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.gui.text.field.EnlargeTextFiled;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.i18n.I18nHelper;
-import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,6 @@ import java.util.List;
  * @author oyzh
  * @since 2024/09/14
  */
-@EqualsAndHashCode(callSuper = true)
 public class MysqlTriggerControl extends MysqlTrigger {
 
     public ClearableTextField getNameControl() {

@@ -65,7 +65,7 @@
 //     * @param groupName 分组名称
 //     * @return 结果
 //     */
-//    public synchronized MysqlGroup add(@NonNull String groupName) {
+//    public synchronized MysqlGroup add( String groupName) {
 //        MysqlGroup group = new MysqlGroup(UUID.fastUUID().toString(true), groupName, false);
 //        if (this.add(group)) {
 //            return group;
@@ -74,7 +74,7 @@
 //    }
 //
 //    @Override
-//    public synchronized boolean add(@NonNull MysqlGroup DBGroup) {
+//    public synchronized boolean add( MysqlGroup DBGroup) {
 //        try {
 //            if (!this.groups.contains(DBGroup)) {
 //                // 添加到集合
@@ -89,7 +89,7 @@
 //    }
 //
 //    @Override
-//    public synchronized boolean update(@NonNull MysqlGroup DBGroup) {
+//    public synchronized boolean update( MysqlGroup DBGroup) {
 //        try {
 //            // 更新数据
 //            if (this.groups.contains(DBGroup)) {
@@ -102,7 +102,7 @@
 //    }
 //
 //    @Override
-//    public synchronized boolean delete(@NonNull MysqlGroup DBGroup) {
+//    public synchronized boolean delete( MysqlGroup DBGroup) {
 //        try {
 //            // 删除数据
 //            if (this.groups.remove(DBGroup)) {

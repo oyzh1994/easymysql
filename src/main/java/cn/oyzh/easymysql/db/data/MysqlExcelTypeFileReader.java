@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.db.data;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.xls.WorkbookHelper;
-import lombok.NonNull;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -42,7 +41,7 @@ public class MysqlExcelTypeFileReader extends MysqlTypeFileReader {
      */
     private Integer currentRowIndex;
 
-    public MysqlExcelTypeFileReader(@NonNull File file, MysqlDataImportConfig config) throws Exception {
+    public MysqlExcelTypeFileReader( File file, MysqlDataImportConfig config) throws Exception {
         this.config = config;
         boolean isXlsx = StrUtil.endWithIgnoreCase(file.getName(), ".xlsx");
         this.workbook = WorkbookHelper.create(isXlsx, file);
@@ -52,11 +51,11 @@ public class MysqlExcelTypeFileReader extends MysqlTypeFileReader {
     @Override
     protected void init() throws Exception {
         this.columns = new ArrayList<>();
-        Row row = this.workbook.getSheetAt(0).getRow(this.config.columnIndex());
+        Row row = this.workbook.getSheetAt(0).getRow(this.config.getColumnIndex());
         for (Cell cell : row) {
             this.columns.add(cell.getStringCellValue());
         }
-        this.currentRowIndex = this.config.dataStartIndex();
+        this.currentRowIndex = this.config.getDataStartIndex();
     }
 
     @Override

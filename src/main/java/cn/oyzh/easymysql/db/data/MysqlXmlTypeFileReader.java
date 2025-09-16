@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql.db.data;
 
-import lombok.NonNull;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -29,9 +28,9 @@ public class MysqlXmlTypeFileReader extends MysqlTypeFileReader {
      */
     private MysqlDataImportConfig config;
 
-    public MysqlXmlTypeFileReader(@NonNull File file, MysqlDataImportConfig config) throws Exception {
+    public MysqlXmlTypeFileReader( File file, MysqlDataImportConfig config) throws Exception {
         this.config = config;
-        this.reader = XMLInputFactory.newInstance().createXMLEventReader(new FileInputStream(file), config.charset());
+        this.reader = XMLInputFactory.newInstance().createXMLEventReader(new FileInputStream(file), config.getCharset());
         this.init();
     }
 
@@ -59,7 +58,7 @@ public class MysqlXmlTypeFileReader extends MysqlTypeFileReader {
                 break;
             }
             // 属性读取为字段
-            if (this.config.attrToColumn()) {
+            if (this.config.isAttrToColumn()) {
                 // 读取开始
                 if (event.isStartElement() && !objStart) {
                     objStart = true;

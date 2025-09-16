@@ -1,8 +1,6 @@
 package cn.oyzh.easymysql.listener;
 
 import javafx.beans.value.ChangeListener;
-import lombok.Getter;
-import lombok.NonNull;
 
 import java.util.UUID;
 
@@ -12,7 +10,6 @@ import java.util.UUID;
  */
 public abstract class DBStatusListener implements ChangeListener<Object> {
 
-    @Getter
     private final String key;
 
     public DBStatusListener() {
@@ -20,16 +17,16 @@ public abstract class DBStatusListener implements ChangeListener<Object> {
         DBStatusListenerManager.addListener(this);
     }
 
-    public DBStatusListener(@NonNull String key) {
+    public DBStatusListener(String key) {
         this.key = key;
         DBStatusListenerManager.addListener(this);
     }
 
-    public DBStatusListener(@NonNull String dbName, @NonNull String tableName) {
+    public DBStatusListener( String dbName,  String tableName) {
         this(dbName + ":" + ":" + tableName);
     }
 
-    public DBStatusListener(@NonNull String dbName, @NonNull String schema, @NonNull String tableName) {
+    public DBStatusListener( String dbName,  String schema,  String tableName) {
         this(dbName + ":" + schema + ":" + tableName);
     }
 
@@ -37,5 +34,9 @@ public abstract class DBStatusListener implements ChangeListener<Object> {
     protected void finalize() throws Throwable {
         super.finalize();
         DBStatusListenerManager.removeListener(this);
+    }
+
+    public String getKey() {
+        return key;
     }
 }

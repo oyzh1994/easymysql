@@ -94,9 +94,9 @@ public class MysqlIndexFieldPopupController extends PopupController {
     @Override
     public void onWindowShowing(WindowEvent event) {
         super.onWindowShowing(event);
-        this.onSubmit = this.getWindowProp("onSubmit");
-        MysqlIndex dbIndex = this.getWindowProp("dbIndex");
-        List<MysqlColumn> columnList = this.getWindowProp("columnList");
+        this.onSubmit = this.getProp("onSubmit");
+        MysqlIndex dbIndex = this.getProp("dbIndex");
+        List<MysqlColumn> columnList = this.getProp("columnList");
         this.listView.init(dbIndex, columnList);
     }
 }

@@ -94,23 +94,23 @@ public class MysqlDatabaseUpdateController extends StageController {
         super.bindListeners();
         // 字符集选中事件
         this.charset.selectedItemChanged((observable, oldValue, newValue) -> {
-            this.collation.init(newValue, this.connectItem.client());
+            this.collation.init(newValue, this.connectItem.getClient());
             this.collation.select(0);
         });
     }
 
     @Override
     public void onWindowShown(WindowEvent event) {
-        this.database = this.getWindowProp("database");
-        this.connectItem = this.getWindowProp("connectItem");
+        this.database = this.getProp("database");
+        this.connectItem = this.getProp("connectItem");
 
         // 数据库名
         this.name.setText(this.database.getName());
 
         // 初始化字符集和排序
-        this.charset.init(this.connectItem.client());
+        this.charset.init(this.connectItem.getClient());
         this.charset.select(this.database.getCharset());
-        this.collation.init(this.database.getCharset(), this.connectItem.client());
+        this.collation.init(this.database.getCharset(), this.connectItem.getClient());
         this.collation.select(this.database.getCollation());
 
         super.onWindowShown(event);

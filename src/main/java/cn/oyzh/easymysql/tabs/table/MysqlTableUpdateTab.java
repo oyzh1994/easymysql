@@ -89,6 +89,6 @@ public class MysqlTableUpdateTab extends MysqlTab {
 
     @Override
     public MysqlDatabaseTreeItem dbItem() {
-        return this.controller().dbItem();
+        return this.controller().getDbItem();
     }
 }

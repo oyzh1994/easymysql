@@ -26,8 +26,6 @@ import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.control.MenuItem;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +41,11 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     /**
      * 当前值
      */
-    @Getter
-    @Accessors(chain = true, fluent = true)
     private final MysqlView value;
+
+    public MysqlView value() {
+        return value;
+    }
 
     public MysqlViewTreeItem(MysqlView view, RichTreeView treeView) {
         super(treeView);
@@ -125,12 +125,12 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
 
     public Paging<MysqlRecord> recordPage(long pageNo, long limit, List<MysqlRecordFilter> filters, List<MysqlColumn> columns) {
         MysqlSelectRecordParam param = new MysqlSelectRecordParam();
-        param.limit(limit);
-        param.filters(filters);
-        param.columns(columns);
-        param.start(pageNo * limit);
-        param.dbName(this.dbName());
-        param.tableName(this.viewName());
+        param.setLimit(limit);
+        param.setFilters(filters);
+        param.setColumns(columns);
+        param.setStart(pageNo * limit);
+        param.setDbName(this.dbName());
+        param.setTableName(this.viewName());
         List<MysqlRecord> records = this.client().viewRecords(this.dbName(), this.viewName(), pageNo * limit, limit, filters);
         long count = this.client().selectRecordCount(param);
         Paging<MysqlRecord> paging = new Paging<>(records, limit, count);
@@ -186,52 +186,52 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
 
     public int insertRecord(MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
         MysqlInsertRecordParam param = new MysqlInsertRecordParam();
-        param.record(recordData);
-        param.dbName(this.dbName());
-        param.primaryKey(primaryKey);
-        param.tableName(this.viewName());
+        param.setRecord(recordData);
+        param.setDbName(this.dbName());
+        param.setPrimaryKey(primaryKey);
+        param.setTableName(this.viewName());
         return this.client().insertRecord(param);
     }
 
     public int deleteRecord(MysqlRecordData recordData) {
         MysqlDeleteRecordParam param = new MysqlDeleteRecordParam();
-        param.record(recordData);
-        param.dbName(this.dbName());
-        param.tableName(this.viewName());
+        param.setRecord(recordData);
+        param.setDbName(this.dbName());
+        param.setTableName(this.viewName());
         return this.client().deleteRecord(param);
     }
 
     public int deleteRecord(MysqlRecordPrimaryKey primaryKey) {
         MysqlDeleteRecordParam param = new MysqlDeleteRecordParam();
-        param.dbName(this.dbName());
-        param.tableName(this.viewName());
-        param.primaryKey(primaryKey);
+        param.setDbName(this.dbName());
+        param.setTableName(this.viewName());
+        param.setPrimaryKey(primaryKey);
         return this.client().deleteRecord(param);
     }
 
     public MysqlRecord selectRecord(MysqlRecordPrimaryKey primaryKey) {
         MysqlSelectRecordParam param = new MysqlSelectRecordParam();
-        param.dbName(this.dbName());
-        param.tableName(this.viewName());
-        param.primaryKey(primaryKey);
+        param.setDbName(this.dbName());
+        param.setTableName(this.viewName());
+        param.setPrimaryKey(primaryKey);
         return this.client().selectRecord(param);
     }
 
     public int updateRecord(MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
         MysqlUpdateRecordParam param = new MysqlUpdateRecordParam();
-        param.dbName(this.dbName());
-        param.tableName(this.viewName());
-        param.primaryKey(primaryKey);
-        param.updateRecord(recordData);
+        param.setDbName(this.dbName());
+        param.setTableName(this.viewName());
+        param.setPrimaryKey(primaryKey);
+        param.setUpdateRecord(recordData);
         return this.client().updateRecord(param);
     }
 
     public int updateRecord(MysqlRecordData recordData, MysqlRecordData originalRecordData) {
         MysqlUpdateRecordParam param = new MysqlUpdateRecordParam();
-        param.dbName(this.dbName());
-        param.tableName(this.viewName());
-        param.updateRecord(recordData);
-        param.record(originalRecordData);
+        param.setDbName(this.dbName());
+        param.setTableName(this.viewName());
+        param.setUpdateRecord(recordData);
+        param.setRecord(originalRecordData);
         return this.client().updateRecord(param);
     }
 }

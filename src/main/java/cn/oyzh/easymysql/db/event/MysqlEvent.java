@@ -6,8 +6,6 @@ import cn.oyzh.common.object.ObjectComparator;
 import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.util.DBUtil;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 
@@ -20,8 +18,6 @@ public class MysqlEvent extends DBObjectStatus implements ObjectCopier<MysqlEven
     /**
      * 名称
      */
-    @Getter
-    @Setter
     private String name;
 
     /**
@@ -29,119 +25,86 @@ public class MysqlEvent extends DBObjectStatus implements ObjectCopier<MysqlEven
      * ONE TIME 单次
      * RECURRING 循环
      */
-    @Getter
-    @Setter
     private String type;
 
     /**
      * 定期-循环值
      */
-    @Getter
-    @Setter
     private Integer intervalValue;
 
     /**
      * 定期-循环类型
      */
-    @Getter
-    @Setter
     private String intervalField;
 
     /**
      * 状态
      */
-    @Getter
-    @Setter
     private String status;
 
     /**
      * 定义者
      */
-    @Getter
-    @Setter
     private String definer;
 
     /**
      * 单次-执行时间
      */
-    @Getter
-    @Setter
     private Object executeAt;
 
     /**
      * 定期-开始时间
      */
-    @Getter
-    @Setter
     private Object starts;
 
     /**
      * 定期-开始循环值
      */
-    @Getter
-    @Setter
     private Integer startIntervalValue;
 
     /**
      * 定期-开始循环类型
      */
-    @Getter
-    @Setter
     private String startIntervalField;
 
     /**
      * 定期-结束时间
      */
-    @Getter
-    @Setter
     private Object ends;
 
     /**
      * 定期-结束循环值
      */
-    @Getter
-    @Setter
     private Integer endIntervalValue;
 
     /**
      * 定期-结束循环类型
      */
-    @Getter
-    @Setter
     private String endIntervalField;
 
     /**
      * 数据库名称
      */
-    @Getter
-    @Setter
     private String dbName;
 
     /**
      * 注释
      */
-    @Getter
-    @Setter
     private String comment;
 
     /**
      * 定义
      */
-    @Getter
-    @Setter
     private String definition;
 
     /**
      * 完成时
      */
-    @Getter
-    @Setter
     private String onCompletion;
 
     /**
      * 创建定义
      */
-    @Getter
     private String createDefinition;
 
     @Override
@@ -223,5 +186,146 @@ public class MysqlEvent extends DBObjectStatus implements ObjectCopier<MysqlEven
 
     public boolean isPreserve() {
         return StrUtil.equalsIgnoreCase("PRESERVE", this.onCompletion);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getIntervalValue() {
+        return intervalValue;
+    }
+
+    public void setIntervalValue(Integer intervalValue) {
+        this.intervalValue = intervalValue;
+    }
+
+    public String getIntervalField() {
+        return intervalField;
+    }
+
+    public void setIntervalField(String intervalField) {
+        this.intervalField = intervalField;
+    }
+
+    @Override
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDefiner() {
+        return definer;
+    }
+
+    public void setDefiner(String definer) {
+        this.definer = definer;
+    }
+
+    public Object getExecuteAt() {
+        return executeAt;
+    }
+
+    public void setExecuteAt(Object executeAt) {
+        this.executeAt = executeAt;
+    }
+
+    public Object getStarts() {
+        return starts;
+    }
+
+    public void setStarts(Object starts) {
+        this.starts = starts;
+    }
+
+    public Integer getStartIntervalValue() {
+        return startIntervalValue;
+    }
+
+    public void setStartIntervalValue(Integer startIntervalValue) {
+        this.startIntervalValue = startIntervalValue;
+    }
+
+    public String getStartIntervalField() {
+        return startIntervalField;
+    }
+
+    public void setStartIntervalField(String startIntervalField) {
+        this.startIntervalField = startIntervalField;
+    }
+
+    public Object getEnds() {
+        return ends;
+    }
+
+    public void setEnds(Object ends) {
+        this.ends = ends;
+    }
+
+    public Integer getEndIntervalValue() {
+        return endIntervalValue;
+    }
+
+    public void setEndIntervalValue(Integer endIntervalValue) {
+        this.endIntervalValue = endIntervalValue;
+    }
+
+    public String getEndIntervalField() {
+        return endIntervalField;
+    }
+
+    public void setEndIntervalField(String endIntervalField) {
+        this.endIntervalField = endIntervalField;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getDefinition() {
+        return definition;
+    }
+
+    public void setDefinition(String definition) {
+        this.definition = definition;
+    }
+
+    public String getOnCompletion() {
+        return onCompletion;
+    }
+
+    public void setOnCompletion(String onCompletion) {
+        this.onCompletion = onCompletion;
+    }
+
+    public String getCreateDefinition() {
+        return createDefinition;
     }
 }

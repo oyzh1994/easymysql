@@ -278,10 +278,12 @@ public class MysqlDataTransportController extends StageController {
         this.transportMsg.clear();
         this.transportStatus.clear();
         // 生成传输处理器
-        if (this.transportHandler == null || this.transportHandler.dialect() != this.sourceClient.dialect()) {
+        if (this.transportHandler == null || this.transportHandler.getDialect() != this.sourceClient.dialect()) {
             this.transportHandler = DataTransportHandler.newHandler(this.sourceClient.dialect());
-            this.transportHandler.messageHandler(str -> this.transportMsg.appendLine(str))
-                    .processedHandler(count -> {
+
+
+            this.transportHandler.setMessageHandler(str -> this.transportMsg.appendLine(str))
+                    .setProcessedHandler(count -> {
                         if (count > 0) {
                             this.counter.incrSuccess(count);
                         } else {
@@ -293,25 +295,25 @@ public class MysqlDataTransportController extends StageController {
             this.transportHandler.interrupt(false);
         }
         // 来源客户端
-        this.transportHandler.sourceClient(this.sourceClient);
+        this.transportHandler.setSourceClient(this.sourceClient);
         // 目标客户端
-        this.transportHandler.targetClient(this.targetClient);
+        this.transportHandler.setTargetClient(this.targetClient);
         // 来源库
-        this.transportHandler.sourceDatabase(this.sourceDatabase.getSelectedItem());
+        this.transportHandler.setSourceDatabase(this.sourceDatabase.getSelectedItem());
         // 目标库
-        this.transportHandler.targetDatabase(this.targetDatabase.getSelectedItem());
+        this.transportHandler.setTargetDatabase(this.targetDatabase.getSelectedItem());
         // 视图
-        this.transportHandler.views(this.viewList.getSelectedViews());
+        this.transportHandler.setViews(this.viewList.getSelectedViews());
         // 事件
-        this.transportHandler.events(this.eventList.getSelectedEvents());
+        this.transportHandler.setEvents(this.eventList.getSelectedEvents());
         // 表
-        this.transportHandler.tables(this.tableList.getSelectedTables());
+        this.transportHandler.setTables(this.tableList.getSelectedTables());
         // 触发器
-        this.transportHandler.triggers(this.triggerList.getSelectedTriggers());
+        this.transportHandler.setTriggers(this.triggerList.getSelectedTriggers());
         // 函数
-        this.transportHandler.functions(this.functionList.getSelectedFunctions());
+        this.transportHandler.setFunctions(this.functionList.getSelectedFunctions());
         // 过程
-        this.transportHandler.procedures(this.procedureList.getSelectedProcedures());
+        this.transportHandler.setProcedures(this.procedureList.getSelectedProcedures());
         // 开始处理
         NodeGroupUtil.disable(this.stage, "exec");
         this.stage.appendTitle("===" + I18nHelper.transportInProgress() + "===");

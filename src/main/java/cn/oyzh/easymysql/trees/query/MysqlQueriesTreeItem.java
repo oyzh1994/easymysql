@@ -14,7 +14,6 @@ import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +86,7 @@ public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> 
         this.loadChild();
     }
 
-    public void addChild(@NonNull MysqlQuery query) {
+    public void addChild( MysqlQuery query) {
         this.addChild(new MysqlQueryTreeItem(query, this.getTreeView()));
     }
 

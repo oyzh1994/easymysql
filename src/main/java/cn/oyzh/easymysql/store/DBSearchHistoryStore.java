@@ -61,7 +61,7 @@
 //    }
 //
 //    @Override
-//    public synchronized boolean add(@NonNull MysqlSearchHistory history) {
+//    public synchronized boolean add( MysqlSearchHistory history) {
 //        try {
 //            // 历史列表
 //            List<MysqlSearchHistory> histories = this.load();
@@ -95,7 +95,7 @@
 //     * @param kw 关键词
 //     * @return 结果
 //     */
-//    public synchronized boolean addSearchHistory(@NonNull String kw) {
+//    public synchronized boolean addSearchHistory( String kw) {
 //        return this.add(new MysqlSearchHistory(kw, 1));
 //    }
 //
@@ -105,7 +105,7 @@
 //     * @param kw 关键词
 //     * @return 结果
 //     */
-//    public synchronized boolean addReplaceHistory(@NonNull String kw) {
+//    public synchronized boolean addReplaceHistory( String kw) {
 //        return this.add(new MysqlSearchHistory(kw, 2));
 //    }
 //

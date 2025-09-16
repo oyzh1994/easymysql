@@ -3,8 +3,6 @@ package cn.oyzh.easymysql.db.query;
 import cn.oyzh.easymysql.db.DBHelper;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,8 +13,6 @@ import java.util.ArrayList;
  * @author oyzh
  * @since 2024/08/16
  */
-@Getter
-@Accessors(chain = true, fluent = true)
 public class MysqlExplainResult extends MysqlQueryResult {
 
     @Override
@@ -33,4 +29,5 @@ public class MysqlExplainResult extends MysqlQueryResult {
             this.records.add(record);
         }
     }
+
 }

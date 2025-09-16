@@ -18,16 +18,14 @@ import cn.oyzh.easymysql.fx.data.DataTxtIdentifierComboBox;
 import cn.oyzh.easymysql.handler.export.DataExportHandler;
 import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.plus.FXConst;
+import cn.oyzh.fx.plus.chooser.FXChooser;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
-import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.button.FXButton;
-import cn.oyzh.fx.plus.controls.label.FXLabel;
+import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
-import cn.oyzh.fx.plus.file.FXChooser;
-import cn.oyzh.fx.plus.file.FileChooserHelper;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.util.Counter;
@@ -238,8 +236,8 @@ public class MysqlDataExportController extends StageController {
         // 生成导出处理器
         if (this.exportHandler == null) {
             this.exportHandler = new DataExportHandler(this.dbClient, this.dbName);
-            this.exportHandler.messageHandler(str -> this.exportMsg.appendLine(str))
-                    .processedHandler(count -> {
+            this.exportHandler.setMessageHandler(str -> this.exportMsg.appendLine(str))
+                    .setProcessedHandler(count -> {
                         if (count > 0) {
                             this.counter.incrSuccess(count);
                         } else {
@@ -251,12 +249,12 @@ public class MysqlDataExportController extends StageController {
             this.exportHandler.interrupt(false);
         }
         // 文件类型
-        this.exportHandler.fileType(this.fileType.selectedUserData());
+        this.exportHandler.setFileType(this.fileType.selectedUserData());
         // 表
-        this.exportHandler.tables(this.exportTableView.getSelectedTables());
+        this.exportHandler.setTables(this.exportTableView.getSelectedTables());
         // 根据不同类型设置不同分页策略
         if (!this.exportHandler.isExcelType()) {
-            this.exportHandler.queryLimit(10_000);
+            this.exportHandler.setQueryLimit(10_000);
         }
         // 日期格式
         this.exportHandler.dateFormat(this.dateFormat.getTextTrim());
@@ -343,9 +341,9 @@ public class MysqlDataExportController extends StageController {
     @Override
     public void onWindowShown(WindowEvent event) {
         super.onWindowShown(event);
-        this.dbName = this.getWindowProp("dbName");
-        this.dbClient = this.getWindowProp("dbClient");
-        this.tableName = this.getWindowProp("tableName");
+        this.dbName = this.getProp("dbName");
+        this.dbClient = this.getProp("dbClient");
+        this.tableName = this.getProp("tableName");
         this.stage.hideOnEscape();
     }
 

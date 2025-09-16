@@ -8,12 +8,8 @@ import cn.oyzh.fx.plus.thread.RenderService;
 import cn.oyzh.fx.plus.util.FXUtil;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
-import javafx.scene.control.IndexRange;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,8 +106,6 @@ public class DBQueryPromptPopup extends FXPopup {
     /**
      * 选中事件
      */
-    @Getter
-    @Setter
     protected Consumer<DBQueryPromptItem> onItemSelected;
 
     public DBQueryPromptPopup() {
@@ -178,7 +172,7 @@ public class DBQueryPromptPopup extends FXPopup {
      * @param area  文本域
      * @param event 键盘按键事件
      */
-    public void prompt(@NonNull DBQueryTextArea area, @NonNull KeyEvent event) {
+    public void prompt( DBQueryTextArea area,  KeyEvent event) {
         // 常规按键不处理
         if (this.isGeneralKeyEvent(event)) {
             this.hide();
@@ -218,7 +212,7 @@ public class DBQueryPromptPopup extends FXPopup {
             return;
         }
         // 光标位置
-        int cartPos = area.getCaretPosition();
+        int cartPos = area.caretPosition();
         // 文本内容
         String content = area.getText();
         // 获取token
@@ -274,8 +268,8 @@ public class DBQueryPromptPopup extends FXPopup {
     public void autoComplete(DBQueryTextArea area, DBQueryPromptItem item) {
         try {
             if (this.token != null) {
-                IndexRange range = new IndexRange(this.token.getStartIndex(), this.token.getEndIndex());
-                area.replaceText(range, item.wrapContent());
+                // IndexRange range = new IndexRange(this.token.getStartIndex(), this.token.getEndIndex());
+                area.replaceText(this.token.getStartIndex(), this.token.getEndIndex(), item.wrapContent());
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -335,5 +329,13 @@ public class DBQueryPromptPopup extends FXPopup {
             return true;
         }
         return false;
+    }
+
+    public Consumer<DBQueryPromptItem> getOnItemSelected() {
+        return onItemSelected;
+    }
+
+    public void setOnItemSelected(Consumer<DBQueryPromptItem> onItemSelected) {
+        this.onItemSelected = onItemSelected;
     }
 }

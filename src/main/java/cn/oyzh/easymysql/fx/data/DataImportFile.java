@@ -5,7 +5,6 @@ import cn.oyzh.fx.gui.text.field.ChooseFileTextField;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import lombok.Setter;
 
 import java.io.File;
 
@@ -23,7 +22,6 @@ public class DataImportFile {
     /**
      * 目标表名称
      */
-    @Setter
     private String targetTableName;
 
     public ObjectProperty<File> fileProperty() {
@@ -73,5 +71,9 @@ public class DataImportFile {
             return this.getTableName();
         }
         return this.targetTableName;
+    }
+
+    public void setTargetTableName(String targetTableName) {
+        this.targetTableName = targetTableName;
     }
 }

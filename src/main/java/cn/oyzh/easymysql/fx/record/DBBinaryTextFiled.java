@@ -2,8 +2,6 @@ package cn.oyzh.easymysql.fx.record;
 
 import cn.oyzh.common.util.NumberUtil;
 import cn.oyzh.fx.gui.text.field.ChooseFileTextField;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author oyzh
@@ -11,8 +9,6 @@ import lombok.Setter;
  */
 public class DBBinaryTextFiled extends ChooseFileTextField {
 
-    @Getter
-    @Setter
     private String columnType;
 
     public DBBinaryTextFiled(String columnType) {

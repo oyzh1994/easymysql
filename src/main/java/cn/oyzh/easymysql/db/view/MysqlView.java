@@ -8,8 +8,6 @@ import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import javafx.beans.property.SimpleStringProperty;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,36 +23,26 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
     /**
      * 定义者
      */
-    @Getter
-    @Setter
     private String definer;
 
     /**
      * 算法
      */
-    @Getter
-    @Setter
     private String algorithm;
 
     /**
      * 是否可变更
      */
-    @Getter
-    @Setter
     private boolean updatable;
 
     /**
      * 检查选项
      */
-    @Getter
-    @Setter
     private String checkOption;
 
     /**
      * 安全性
      */
-    @Getter
-    @Setter
     private String securityType;
 
     /**
@@ -97,22 +85,16 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
     /**
      * 库名称
      */
-    @Setter
-    @Getter
     private String dbName;
 
     /**
      * 模式名称
      */
-    @Setter
-    @Getter
     private String schema;
 
     /**
      * 表字段
      */
-    @Setter
-    @Getter
     protected MysqlColumns columns;
 
     /**
@@ -224,5 +206,81 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
 
     public boolean isNew() {
         return StrUtil.isBlank(this.getName());
+    }
+
+    public String getDefiner() {
+        return definer;
+    }
+
+    public void setDefiner(String definer) {
+        this.definer = definer;
+    }
+
+    public String getAlgorithm() {
+        return algorithm;
+    }
+
+    public void setAlgorithm(String algorithm) {
+        this.algorithm = algorithm;
+    }
+
+    public boolean isUpdatable() {
+        return updatable;
+    }
+
+    public void setUpdatable(boolean updatable) {
+        this.updatable = updatable;
+    }
+
+    public String getCheckOption() {
+        return checkOption;
+    }
+
+    public void setCheckOption(String checkOption) {
+        this.checkOption = checkOption;
+    }
+
+    public String getSecurityType() {
+        return securityType;
+    }
+
+    public void setSecurityType(String securityType) {
+        this.securityType = securityType;
+    }
+
+    public String getDefinitionProperty() {
+        return definitionProperty.get();
+    }
+
+    public SimpleStringProperty definitionPropertyProperty() {
+        return definitionProperty;
+    }
+
+    public void setDefinitionProperty(String definitionProperty) {
+        this.definitionProperty.set(definitionProperty);
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getSchema() {
+        return schema;
+    }
+
+    public void setSchema(String schema) {
+        this.schema = schema;
+    }
+
+    public MysqlColumns getColumns() {
+        return columns;
+    }
+
+    public void setColumns(MysqlColumns columns) {
+        this.columns = columns;
     }
 }

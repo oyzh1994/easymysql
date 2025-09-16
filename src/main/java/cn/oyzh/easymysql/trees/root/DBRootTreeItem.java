@@ -16,10 +16,10 @@ import cn.oyzh.easymysql.trees.DBTreeView;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.group.DBGroupTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
+import cn.oyzh.fx.plus.chooser.FXChooser;
+import cn.oyzh.fx.plus.chooser.FileChooserHelper;
+import cn.oyzh.fx.plus.chooser.FileExtensionFilter;
 import cn.oyzh.fx.plus.drag.DragNodeItem;
-import cn.oyzh.fx.plus.file.FXChooser;
-import cn.oyzh.fx.plus.file.FileChooserHelper;
-import cn.oyzh.fx.plus.file.FileExtensionFilter;
 import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
@@ -27,7 +27,6 @@ import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
-import lombok.NonNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      */
     private final MysqlGroupStore groupStore = MysqlGroupStore.INSTANCE;
 
-    public DBRootTreeItem(@NonNull DBTreeView treeView) {
+    public DBRootTreeItem( DBTreeView treeView) {
         super(treeView);
         this.setValue(new DBRootTreeItemValue());
         // 初始化子节点
@@ -297,7 +296,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     }
 
     @Override
-    public void addConnect(@NonNull MysqlConnect info) {
+    public void addConnect( MysqlConnect info) {
         DBGroupTreeItem groupItem = this.getGroupItem(info.getGroupId());
         if (groupItem == null) {
             super.addChild(new DBConnectTreeItem(info, this.getTreeView()));
@@ -307,7 +306,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     }
 
     @Override
-    public void addConnectItem(@NonNull DBConnectTreeItem item) {
+    public void addConnectItem( DBConnectTreeItem item) {
         if (!this.containsChild(item)) {
             if (item.value().getGroupId() != null) {
                 item.value().setGroupId(null);
@@ -319,7 +318,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     }
 
     @Override
-    public void addConnectItems(@NonNull List<DBConnectTreeItem> items) {
+    public void addConnectItems( List<DBConnectTreeItem> items) {
         if (CollUtil.isNotEmpty(items)) {
             this.addChild((List) items);
             this.expend();
@@ -327,7 +326,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     }
 
     @Override
-    public boolean delConnectItem(@NonNull DBConnectTreeItem item) {
+    public boolean delConnectItem( DBConnectTreeItem item) {
         // 删除连接
         if (this.connectStore.delete(item.value())) {
             this.removeChild(item);

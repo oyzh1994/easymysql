@@ -3,8 +3,6 @@ package cn.oyzh.easymysql.db.routine;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectComparator;
 import javafx.beans.property.SimpleStringProperty;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -19,43 +17,31 @@ public class MysqlRoutineSchema implements ObjectComparator<MysqlRoutineSchema> 
     /**
      * 参数列表
      */
-    @Setter
-    @Getter
     private List<MysqlRoutineParam> params;
 
     /**
      * 库名称
      */
-    @Setter
-    @Getter
     private String dbName;
 
     /**
      * 注释
      */
-    @Getter
-    @Setter
     private String comment;
 
     /**
      * 定义者
      */
-    @Getter
-    @Setter
     private String definer;
 
     /**
      * 安全性
      */
-    @Getter
-    @Setter
     private String securityType;
 
     /**
      * 特征
      */
-    @Getter
-    @Setter
     private String characteristic;
 
     /**
@@ -151,5 +137,53 @@ public class MysqlRoutineSchema implements ObjectComparator<MysqlRoutineSchema> 
 
     public boolean isNew() {
         return StrUtil.isBlank(this.getDefinition());
+    }
+
+    public List<MysqlRoutineParam> getParams() {
+        return params;
+    }
+
+    public void setParams(List<MysqlRoutineParam> params) {
+        this.params = params;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getDefiner() {
+        return definer;
+    }
+
+    public void setDefiner(String definer) {
+        this.definer = definer;
+    }
+
+    public String getSecurityType() {
+        return securityType;
+    }
+
+    public void setSecurityType(String securityType) {
+        this.securityType = securityType;
+    }
+
+    public String getCharacteristic() {
+        return characteristic;
+    }
+
+    public void setCharacteristic(String characteristic) {
+        this.characteristic = characteristic;
     }
 }

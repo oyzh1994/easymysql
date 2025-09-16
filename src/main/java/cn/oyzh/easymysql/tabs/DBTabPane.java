@@ -29,23 +29,23 @@ public class DBTabPane extends RichTabPane implements FXEventListener {
         return FXEventListener.super.unregister();
     }
 
-    @Override
-    protected void initTabPane() {
-        super.initTabPane();
-        this.initHomeTab();
-        // 监听tab
-        this.getTabs().addListener((ListChangeListener<? super Tab>) (c) -> {
-            while (c.next()) {
-                if (c.wasAdded() || c.wasRemoved()) {
-                    TaskManager.startDelay("db:homeTab:flush", this::flushHomeTab, 100);
-                    // if (c.wasAdded()) {
-                    //     TaskManager.startDelay("db:tableTab:flush", this::flushNodeTab, 100);
-                    // }
-                }
-            }
-        });
-//        new MysqlTabEventListener(this);
-    }
+//     @Override
+//     protected void initTabPane() {
+//         super.initTabPane();
+//         this.initHomeTab();
+//         // 监听tab
+//         this.getTabs().addListener((ListChangeListener<? super Tab>) (c) -> {
+//             while (c.next()) {
+//                 if (c.wasAdded() || c.wasRemoved()) {
+//                     TaskManager.startDelay("db:homeTab:flush", this::flushHomeTab, 100);
+//                     // if (c.wasAdded()) {
+//                     //     TaskManager.startDelay("db:tableTab:flush", this::flushNodeTab, 100);
+//                     // }
+//                 }
+//             }
+//         });
+// //        new MysqlTabEventListener(this);
+//     }
 
     /**
      * 刷新主页标签

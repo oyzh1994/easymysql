@@ -18,9 +18,6 @@ import cn.oyzh.easymysql.db.data.MysqlXmlTypeFileReader;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.fx.data.DataImportFile;
 import cn.oyzh.easymysql.handler.DataHandler;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -36,7 +33,6 @@ public class DataImportHandler extends DataHandler {
     /**
      * 库名称
      */
-    @Getter
     private String dbName;
 
     /**
@@ -46,40 +42,26 @@ public class DataImportHandler extends DataHandler {
      * csv
      * excel
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     private String fileType;
 
     /**
      * db客户端
      */
-    @Getter
-    @Accessors(fluent = true, chain = true)
     private DBClient dbClient;
 
     /**
      * 读取限制
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     private int readLimit = 1000;
 
     /**
      * 批量处理限制
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     private int batchLimit = 200;
 
     /**
      * 导入文件
      */
-    @Getter
-    @Setter
-    @Accessors(fluent = true, chain = true)
     private List<DataImportFile> files;
 
     /**
@@ -315,9 +297,9 @@ public class DataImportHandler extends DataHandler {
      */
     public void dateFormat(String dateFormat) {
         if (StrUtil.isBlank(dateFormat)) {
-            this.config.dateFormat("yyyy-MM-dd HH:mm:ss");
+            this.config.setDateFormat("yyyy-MM-dd HH:mm:ss");
         } else {
-            this.config.dateFormat(dateFormat);
+            this.config.setDateFormat(dateFormat);
         }
     }
 
@@ -327,7 +309,7 @@ public class DataImportHandler extends DataHandler {
      * @param importMode 导入模式
      */
     public void importMode(String importMode) {
-        this.config.importMode(importMode);
+        this.config.setImportMode(importMode);
     }
 
     /**
@@ -336,7 +318,7 @@ public class DataImportHandler extends DataHandler {
      * @param columnIndex 字段索引
      */
     public void columnIndex(int columnIndex) {
-        this.config.columnIndex(columnIndex);
+        this.config.setColumnIndex(columnIndex);
     }
 
     /**
@@ -345,7 +327,7 @@ public class DataImportHandler extends DataHandler {
      * @param dataStartIndex 数据起始索引
      */
     public void dataStartIndex(int dataStartIndex) {
-        this.config.dataStartIndex(dataStartIndex);
+        this.config.setDataStartIndex(dataStartIndex);
     }
 
     /**
@@ -354,7 +336,7 @@ public class DataImportHandler extends DataHandler {
      * @param recordLabel 字段标签
      */
     public void recordLabel(String recordLabel) {
-        this.config.recordLabel(recordLabel);
+        this.config.setRecordLabel(recordLabel);
     }
 
     /**
@@ -363,19 +345,79 @@ public class DataImportHandler extends DataHandler {
      * @param attrToColumn 属性作为字段
      */
     public void attrToColumn(boolean attrToColumn) {
-        this.config.attrToColumn(attrToColumn);
+        this.config.setAttrToColumn(attrToColumn);
     }
 
     public void recordSeparator(String recordSeparator) {
-        this.config.recordSeparator(recordSeparator);
+        this.config.setRecordSeparator(recordSeparator);
     }
 
     public void txtIdentifier(String txtIdentifier) {
-        this.config.txtIdentifier(txtIdentifier);
+        this.config.setTxtIdentifier(txtIdentifier);
     }
 
     public void fieldSeparator(String fieldSeparator) {
-        this.config.fieldSeparator(fieldSeparator);
+        this.config.setFieldSeparator(fieldSeparator);
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public DBClient getDbClient() {
+        return dbClient;
+    }
+
+    public void setDbClient(DBClient dbClient) {
+        this.dbClient = dbClient;
+    }
+
+    public int getReadLimit() {
+        return readLimit;
+    }
+
+    public void setReadLimit(int readLimit) {
+        this.readLimit = readLimit;
+    }
+
+    public int getBatchLimit() {
+        return batchLimit;
+    }
+
+    public void setBatchLimit(int batchLimit) {
+        this.batchLimit = batchLimit;
+    }
+
+    public List<DataImportFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<DataImportFile> files) {
+        this.files = files;
+    }
+
+    public MysqlDataImportConfig getConfig() {
+        return config;
+    }
+
+    public List<String> getInsertList() {
+        return insertList;
+    }
+
+    public void setInsertList(List<String> insertList) {
+        this.insertList = insertList;
     }
 }
 
