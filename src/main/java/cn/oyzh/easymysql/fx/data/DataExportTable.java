@@ -183,7 +183,7 @@ public class DataExportTable {
 
     private void updateFilePath() {
         if (this.isSelected() || this.getFilePath() != null) {
-            this.setFilePath(FXChooser.DESKTOP_DIR + File.separator + this.fileName());
+            this.setFilePath(FXChooser.getDesktopDirectory() + File.separator + this.fileName());
         }
     }
 
