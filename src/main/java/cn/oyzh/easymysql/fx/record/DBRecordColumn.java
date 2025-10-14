@@ -21,6 +21,7 @@ import javafx.stage.PopupWindow;
 public class DBRecordColumn extends FXTableColumn<MysqlRecord, Object> {
 
     public DBRecordColumn(MysqlColumn column) {
+        this.setReorderable(true);
         this.setText(column.getName());
         this.setCellValueFactory(p -> p.getValue().getProperty(column.getName()));
         SVGGlyph info = new SVGGlyph("/font/tableField.svg", "12");
