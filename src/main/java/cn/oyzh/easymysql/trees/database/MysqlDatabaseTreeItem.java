@@ -172,6 +172,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     public void closeDB() {
         this.clearChild();
         this.collapse();
+        this.setLoaded(false);
         MysqlEventUtil.databaseClosed(this);
     }
 

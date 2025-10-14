@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql.trees.function;
 
-import cn.oyzh.easymysql.trees.event.MysqlEventTreeItem;
 import cn.oyzh.fx.gui.svg.glyph.database.FunctionSVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
@@ -18,8 +17,8 @@ public class MysqlFunctionTreeItemValue extends RichTreeItemValue {
     }
 
     @Override
-    protected MysqlEventTreeItem item() {
-        return (MysqlEventTreeItem) super.item();
+    protected MysqlFunctionTreeItem item() {
+        return (MysqlFunctionTreeItem) super.item();
     }
 
     @Override
@@ -32,6 +31,6 @@ public class MysqlFunctionTreeItemValue extends RichTreeItemValue {
 
     @Override
     public String name() {
-        return this.item().eventName();
+        return this.item().functionName();
     }
 }

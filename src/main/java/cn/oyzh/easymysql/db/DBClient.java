@@ -226,7 +226,7 @@ public class DBClient {
         return this.state.getReadOnlyProperty();
     }
 
-    public DBClient( MysqlConnect dbInfo) {
+    public DBClient(MysqlConnect dbInfo) {
         this.dbConnect = dbInfo;
         // if (dbInfo.isSSHForward()) {
         //     this.sshForwarder = new SSHForwarder(dbInfo.getSshConfig());
@@ -1621,18 +1621,39 @@ public class DBClient {
             return null;
         }
         try {
+            // String sql = """
+            //         SELECT
+            //             CHECK_CLAUSE AS 'CLAUSE',
+            //             CONSTRAINT_NAME AS 'NAME',
+            //             TABLE_NAME AS 'TABLE_NAME',
+            //             CONSTRAINT_SCHEMA AS 'DB_NAME'
+            //         FROM
+            //             information_schema.CHECK_CONSTRAINTS
+            //         WHERE
+            //             CONSTRAINT_SCHEMA = ?
+            //         AND
+            //             TABLE_NAME = ?;
+            //         """;
             String sql = """
-                    SELECT
-                        CHECK_CLAUSE AS 'CLAUSE',
-                        CONSTRAINT_NAME AS 'NAME',
-                        TABLE_NAME AS 'TABLE_NAME',
-                        CONSTRAINT_SCHEMA AS 'DB_NAME'
-                    FROM 
-                        information_schema.CHECK_CONSTRAINTS
-                    WHERE  
-                        CONSTRAINT_SCHEMA = ?
-                    AND 
-                        TABLE_NAME = ?;
+                        SELECT
+                            tc.CONSTRAINT_SCHEMA AS 'DB_NAME',
+                            tc.CONSTRAINT_NAME AS 'NAME',
+                            tc.TABLE_NAME AS 'TABLE_NAME',
+                            cc.CHECK_CLAUSE as 'CLAUSE'
+                        FROM 
+                            INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc
+                        LEFT JOIN 
+                            INFORMATION_SCHEMA.CHECK_CONSTRAINTS cc
+                        ON 
+                            tc.CONSTRAINT_SCHEMA = cc.CONSTRAINT_SCHEMA
+                        AND 
+                            tc.CONSTRAINT_NAME = cc.CONSTRAINT_NAME
+                        WHERE 
+                            tc.CONSTRAINT_TYPE = 'CHECK'
+                        AND 
+                            tc.CONSTRAINT_SCHEMA = ?
+                        AND 
+                            tc.TABLE_NAME = ?;
                     """;
             PreparedStatement statement = this.connection().prepareStatement(sql);
             statement.setString(1, dbName);
@@ -1868,7 +1889,7 @@ public class DBClient {
         try {
             String sql = MysqlTableAlertSqlGenerator.generateSql(param);
             // 无变化
-            if(StrUtil.isBlank(sql)){
+            if (StrUtil.isBlank(sql)) {
                 return;
             }
             String dbName = param.getTable().getDbName();
