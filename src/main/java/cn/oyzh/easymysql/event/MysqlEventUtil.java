@@ -289,7 +289,6 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-
     /**
      * 连接关闭事件
      *

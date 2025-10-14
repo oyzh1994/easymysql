@@ -95,7 +95,10 @@ public class DBClient {
     protected final DBConnConfig connConfig = new DBConnConfig();
 
     private boolean isInvalid(Connection connection) throws SQLException {
-        return connection == null || connection.isClosed() || !connection.isValid(100);
+        if (connection == null || connection.isClosed()) {
+            return true;
+        }
+        return !connection.isValid(10);
     }
 
     public Connection connection() throws SQLException, ClassNotFoundException {

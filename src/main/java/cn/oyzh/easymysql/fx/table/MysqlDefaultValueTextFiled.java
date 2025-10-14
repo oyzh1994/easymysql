@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.fx.table;
 
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.fx.gui.text.field.SelectTextFiled;
 
@@ -16,7 +17,7 @@ public class MysqlDefaultValueTextFiled extends SelectTextFiled<String> {
     {
         this.selectedItemChanged(( newValue) -> {
             if (this.editableFlag) {
-                this.setEditable(Objects.equals(newValue, this.getItemList().getFirst()));
+                this.setEditable(Objects.equals(newValue, CollectionUtil.getFirst(this.getItemList())));
             }
         });
     }

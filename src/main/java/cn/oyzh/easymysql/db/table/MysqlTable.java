@@ -3,6 +3,7 @@ package cn.oyzh.easymysql.db.table;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectComparator;
 import cn.oyzh.common.object.ObjectCopier;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -133,11 +134,11 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
     // }
 
     public boolean hasCharset() {
-        return this.getCharset() != null;
+        return StringUtil.isNotBlank(this.charset);
     }
 
     public boolean hasCollation() {
-        return this.getCollation() != null;
+        return StringUtil.isNotBlank(this.collation);
     }
 
     public boolean hasEngine() {
