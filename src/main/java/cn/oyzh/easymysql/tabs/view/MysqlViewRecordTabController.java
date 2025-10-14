@@ -381,6 +381,10 @@ public class MysqlViewRecordTabController extends RichTabController {
             popup.setProp("item", this.item);
             popup.setProp("filters", this.filters);
             popup.showPopup(this.filter);
+            popup.setSubmitHandler(filters->{
+                this.setFilters((List<MysqlRecordFilter>) filters);
+                this.reload();
+            });
         } catch (Exception ex) {
             ex.printStackTrace();
         }

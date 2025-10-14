@@ -93,9 +93,13 @@ public class DBClient {
 
     protected final DBConnConfig connConfig = new DBConnConfig();
 
+    private boolean isInvalid(Connection connection) throws SQLException {
+        return connection == null || connection.isClosed() || !connection.isValid(100);
+    }
+
     public Connection connection() throws SQLException, ClassNotFoundException {
         Connection connection = this.connectionManager.getServerConnection();
-        if (connection == null || connection.isClosed()) {
+        if (this.isInvalid(connection)) {
             connection = this.initConnection(this.connConfig, null, this.dbConnect.getUser(), this.dbConnect.getPassword());
             this.connectionManager.setServerConnection(connection);
         }
@@ -104,7 +108,7 @@ public class DBClient {
 
     public Connection connection(String dbName) throws SQLException, ClassNotFoundException {
         Connection connection = this.connectionManager.getConnection(dbName);
-        if (connection == null || connection.isClosed()) {
+        if (this.isInvalid(connection)) {
             connection = this.initConnection(this.connConfig, dbName, this.dbConnect.getUser(), this.dbConnect.getPassword());
             this.connectionManager.addConnection(dbName, connection);
         }
@@ -117,7 +121,7 @@ public class DBClient {
             return this.connection(dbName);
         }
         Connection connection = this.connectionManager.getSchemaConnection(dbName, schema);
-        if (connection == null || connection.isClosed()) {
+        if (this.isInvalid(connection)) {
             connection = this.initConnection(this.connConfig, dbName, this.dbConnect.getUser(), this.dbConnect.getPassword());
             this.connectionManager.addSchemaConnection(dbName, schema, connection);
         }
@@ -127,7 +131,7 @@ public class DBClient {
 
     public Connection functionConnection(String dbName, String schema) throws SQLException, ClassNotFoundException {
         Connection connection = this.connectionManager.getFunctionConnection(dbName, schema);
-        if (connection == null || connection.isClosed()) {
+        if (this.isInvalid(connection)) {
             connection = this.initConnection(this.connConfig, dbName, this.dbConnect.getUser(), this.dbConnect.getPassword());
             this.connectionManager.addFunctionConnection(dbName, schema, connection);
         }
@@ -137,7 +141,7 @@ public class DBClient {
 
     public Connection procedureConnection(String dbName, String schema) throws SQLException, ClassNotFoundException {
         Connection connection = this.connectionManager.getProcedureConnection(dbName, schema);
-        if (connection == null || connection.isClosed()) {
+        if (this.isInvalid(connection)) {
             connection = this.initConnection(this.connConfig, dbName, this.dbConnect.getUser(), this.dbConnect.getPassword());
             this.connectionManager.addProcedureConnection(dbName, schema, connection);
         }
@@ -158,6 +162,12 @@ public class DBClient {
         if (dbName != null) {
             host += dbName;
         }
+        host = host +
+                "?autoReconnect=true" +
+                "&testWhileIdle=true" +
+                "&testOnBorrow=true" +
+                "&validationQuery=SELECT 1" +
+                "&tcpKeepAlive=true";
         // 创建数据库连接
         return DriverManager.getConnection(host, user, password);
     }
@@ -1110,7 +1120,7 @@ public class DBClient {
             MysqlRecordData recordData = param.getUpdateRecord();
             StringBuilder builder = new StringBuilder();
             builder.append("UPDATE ")
-                    .append(DBUtil.wrap(schema, tableName, this.dialect()))
+                    .append(DBUtil.wrap(dbName, tableName, this.dialect()))
                     .append(" SET ");
             for (String column : recordData.columns()) {
                 if (recordData.isTypeGeometry(column)) {
@@ -1150,7 +1160,7 @@ public class DBClient {
                 DBUtil.close(statement);
             } else {
                 MysqlRecordPrimaryKey primaryKey = param.getPrimaryKey();
-                builder.append(" WHERE ").append(DBUtil.wrap(primaryKey.getColumnName(), this.dialect())).append(" = ?");
+                builder.append(DBUtil.wrap(primaryKey.getColumnName(), this.dialect())).append(" = ?");
                 String sql = builder.toString();
                 DBUtil.printInfo(sql, recordData);
                 PreparedStatement statement = connection.prepareStatement(sql);

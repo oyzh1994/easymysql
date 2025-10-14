@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.popups;
 
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
-import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.fx.plus.FXConst;
@@ -89,7 +88,9 @@ public class MysqlTableRecordFilterPopupController extends PopupController {
     @FXML
     private void apply() {
         try {
-            MysqlEventUtil.tableFiltered(this.treeItem, this.filterTable.getItems());
+            // MysqlEventUtil.tableFiltered(this.treeItem, this.filterTable.getItems());
+            // this.setProp("filters", this.filterTable.getItems());
+            this.submit(this.filterTable.getItems());
             this.closeWindow();
         } catch (Exception ex) {
             MessageBox.exception(ex);

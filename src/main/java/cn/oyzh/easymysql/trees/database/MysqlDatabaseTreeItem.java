@@ -372,7 +372,12 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     }
 
     public Integer tableSize() {
-        return this.client().tableSize(this.dbName());
+        try {
+            return this.client().tableSize(this.dbName());
+        } catch (Exception ex) {
+            MessageBox.exception(ex);
+        }
+        return 0;
     }
 
     public Integer viewSize() {

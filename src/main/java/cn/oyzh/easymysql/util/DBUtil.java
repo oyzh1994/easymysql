@@ -203,6 +203,9 @@ public class DBUtil {
 
     @Deprecated
     public static String wrap(String name) {
+        if (name == null) {
+            return "";
+        }
         StringBuilder builder = new StringBuilder();
         if (!name.startsWith("`")) {
             builder.append("`");
