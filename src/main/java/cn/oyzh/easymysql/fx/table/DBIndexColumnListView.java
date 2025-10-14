@@ -60,7 +60,7 @@ public class DBIndexColumnListView extends FXListView<FXHBox> {
         textField.setRealHeight(25);
         textField.setRealWidth(145);
         textField.addClass("popover-item");
-        if (column.getSubPart() > 0) {
+        if (column.getSubPart() != null && column.getSubPart() > 0) {
             textField.setValue(column.getSubPart());
         }
         FXHBox hBox = new FXHBox(comboBox, textField);

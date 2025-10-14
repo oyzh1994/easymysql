@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.tabs.table;
 
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.fx.svg.glyph.TableSVGGlyph;
 import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
@@ -22,10 +23,10 @@ public class MysqlTableRecordTab extends MysqlTab {
         this.setClosable(true);
     }
 
-    /**
-     * 标签打开时间
-     */
-    private final long openedTime = System.currentTimeMillis();
+    // /**
+    //  * 标签打开时间
+    //  */
+    // private final long openedTime = System.currentTimeMillis();
 
     private MysqlTableTreeItem item;
 
@@ -38,7 +39,8 @@ public class MysqlTableRecordTab extends MysqlTab {
     public void flushGraphic() {
         SVGGlyph graphic = (SVGGlyph) this.getGraphic();
         if (graphic == null) {
-            graphic = new SVGGlyph("/font/table.svg", "13");
+            graphic = new TableSVGGlyph( "13");
+            // graphic = new SVGGlyph("/font/table.svg", "13");
             graphic.setCursor(Cursor.DEFAULT);
             this.setGraphic(graphic);
         }

@@ -44,6 +44,8 @@ public class MysqlIndexControl extends MysqlIndex {
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setType(newValue));
         TableViewUtil.rowOnCtrlS(comboBox);
         TableViewUtil.selectRowOnMouseClicked(comboBox);
+        // 初始化数据
+        this.setType(comboBox.getValue());
         return comboBox;
     }
 

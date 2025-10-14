@@ -46,6 +46,7 @@ import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
+import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -513,12 +514,19 @@ public class MysqlTableDesignTabController extends ParentTabController {
      */
     @FXML
     private void save() {
+        StageManager.showMask(this::doSave);
+    }
+
+    /**
+     * 执行保存
+     */
+    private void doSave() {
         try {
             // 字段检查
             for (MysqlColumn column : this.columnTable.getItems()) {
                 if (column.isInvalid()) {
-                    MessageBox.warn(I18nHelper.invalidData());
                     this.tabPane.selectTab("columnTab");
+                    MessageBox.warn(I18nHelper.invalidData());
                     return;
                 }
             }
@@ -526,8 +534,8 @@ public class MysqlTableDesignTabController extends ParentTabController {
             // 索引检查
             for (MysqlIndex index : this.indexTable.getItems()) {
                 if (index.isInvalid()) {
-                    MessageBox.warn(I18nHelper.invalidData());
                     this.tabPane.selectTab("indexTab");
+                    MessageBox.warn(I18nHelper.invalidData());
                     return;
                 }
             }
@@ -535,8 +543,8 @@ public class MysqlTableDesignTabController extends ParentTabController {
             // 外键检查
             for (MysqlForeignKey foreignKey : this.foreignKeyTable.getItems()) {
                 if (foreignKey.isInvalid()) {
-                    MessageBox.warn(I18nHelper.invalidData());
                     this.tabPane.selectTab("foreignKeyTab");
+                    MessageBox.warn(I18nHelper.invalidData());
                     return;
                 }
             }
@@ -544,8 +552,8 @@ public class MysqlTableDesignTabController extends ParentTabController {
             // 触发器检查
             for (MysqlTrigger trigger : this.triggerTable.getItems()) {
                 if (trigger.isInvalid()) {
-                    MessageBox.warn(I18nHelper.invalidData());
                     this.tabPane.selectTab("triggerTab");
+                    MessageBox.warn(I18nHelper.invalidData());
                     return;
                 }
             }
@@ -554,8 +562,8 @@ public class MysqlTableDesignTabController extends ParentTabController {
             if (this.dbItem.isSupportCheckFeature()) {
                 for (MysqlCheck check : this.checkTable.getItems()) {
                     if (check.isInvalid()) {
-                        MessageBox.warn(I18nHelper.invalidData());
                         this.tabPane.selectTab("checkTab");
+                        MessageBox.warn(I18nHelper.invalidData());
                         return;
                     }
                 }
@@ -572,7 +580,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 tableName = this.mysqlTable.getName();
             }
 
-            this.disableTab();
+            // this.disableTab();
 
             // 创建表
             if (this.newData) {
@@ -594,7 +602,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
         } catch (Exception ex) {
             MessageBox.exception(ex);
         } finally {
-            this.enableTab();
+            // this.enableTab();
             this.flushTab();
         }
     }

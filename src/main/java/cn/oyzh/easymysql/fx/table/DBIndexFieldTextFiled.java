@@ -73,7 +73,7 @@ public class DBIndexFieldTextFiled extends ChooseTextField {
             for (MysqlIndex.IndexColumn column : this.columns) {
                 builder.append(",");
                 builder.append(column.getColumnName());
-                if (column.getSubPart() > 0) {
+                if (column.getSubPart() != null && column.getSubPart() > 0) {
                     builder.append("(").append(column.getSubPart()).append(")");
                 }
             }

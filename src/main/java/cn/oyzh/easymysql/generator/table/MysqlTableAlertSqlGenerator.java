@@ -268,11 +268,13 @@ public class MysqlTableAlertSqlGenerator {
                         .append(" (");
                 for (MysqlIndex.IndexColumn column : index.getColumns()) {
                     builder.append(DBUtil.wrap(column.getColumnName(), DBDialect.MYSQL));
-                    if (column.getSubPart() > 0) {
+                    if (column.getSubPart() != null && column.getSubPart() > 0) {
                         builder.append("(").append(column.getSubPart()).append(")");
                     }
                     builder.append(",");
                 }
+                // 删除最后一个字符
+                StringUtil.deleteLast(builder);
                 builder.append(") ");
                 // 方法名称
                 if (index.methodName() != null) {

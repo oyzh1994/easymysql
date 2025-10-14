@@ -5,6 +5,7 @@ import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.information.MessageBox;
+import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.event.Event;
 import javafx.scene.Cursor;
@@ -65,8 +66,14 @@ public class MysqlTableDesignTab extends MysqlTab {
      * @param dbItem    db数据库树节点
      */
     public void init(String tableName, MysqlDatabaseTreeItem dbItem) throws Exception {
-        this.controller().init(tableName, dbItem);
-        this.flush();
+        StageManager.showMask(() -> {
+            try {
+                this.controller().init(tableName, dbItem);
+                this.flush();
+            } catch (Exception ex) {
+                MessageBox.exception(ex);
+            }
+        });
     }
 
     @Override
