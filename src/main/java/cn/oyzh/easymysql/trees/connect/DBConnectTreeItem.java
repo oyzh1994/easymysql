@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.common.thread.ThreadUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.controller.connect.MysqlConnectUpdateController;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseAddController;
 import cn.oyzh.easymysql.db.DBClient;
@@ -59,7 +60,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
      */
     private final MysqlConnectStore connectStore = MysqlConnectStore.INSTANCE;
 
-    public DBConnectTreeItem( MysqlConnect value,  DBTreeView treeView) {
+    public DBConnectTreeItem(MysqlConnect value, DBTreeView treeView) {
         super(treeView);
         this.value(value);
 //        // 监听键变化
@@ -115,7 +116,16 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
     private void addDatabase() {
         StageAdapter fxView = StageManager.parseStage(MysqlDatabaseAddController.class, this.window());
         fxView.setProp("connectItem", this);
-        fxView.display();
+        fxView.showAndWait();
+        String databaseName = fxView.getProp("databaseName");
+        if (StringUtil.isNotBlank(databaseName)) {
+            this.addDatabase(databaseName);
+        }
+    }
+
+    public void addDatabase(String databaseName) {
+        DBDatabase database = this.client.database(databaseName);
+        super.addChild(new MysqlDatabaseTreeItem(database, this.getTreeView()));
     }
 
     /**
@@ -255,7 +265,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
      *
      * @param value redis信息
      */
-    public void value( MysqlConnect value) {
+    public void value(MysqlConnect value) {
         this.value = value;
         this.client = DBClientUtil.newClient(value);
         this.setValue(new DBConnectTreeItemValue(this));

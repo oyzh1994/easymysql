@@ -3,6 +3,7 @@ package cn.oyzh.easymysql.db;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.log.JulLog;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.condition.MysqlConditionUtil;
 import cn.oyzh.easymysql.db.check.MysqlCheck;
 import cn.oyzh.easymysql.db.check.MysqlChecks;
@@ -1337,6 +1338,18 @@ public class DBClient {
         }
     }
 
+    public DBDatabase database(String dbName) {
+        try {
+            DBDatabase database = new DBDatabase();
+            database.setName(dbName);
+            database.setCharsetAndCollation(this.databaseCollation(dbName));
+            return database;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
+    }
+
     public MysqlTable selectTable(String dbName, String tableName) {
         MysqlTableSelectParam param = new MysqlTableSelectParam();
         param.setDbName(dbName);
@@ -2065,10 +2078,10 @@ public class DBClient {
         try {
             StringBuilder builder = new StringBuilder("CREATE DATABASE ");
             builder.append(DBUtil.wrap(database.getName(), this.dialect()));
-            if (database.getCharset() != null) {
+            if (StringUtil.isNotBlank(database.getCharset())) {
                 builder.append(" CHARACTER SET ").append(DBUtil.wrapData(database.getCharset()));
             }
-            if (database.getCollation() != null) {
+            if (StringUtil.isNotBlank(database.getCollation())) {
                 builder.append(" COLLATE ").append(DBUtil.wrapData(database.getCollation()));
             }
             String sql = builder.toString();

@@ -73,6 +73,7 @@ public class MysqlDatabaseAddController extends StageController {
                 database.setCollation(this.collation.getSelectedItem());
             }
             this.connectItem.createDatabase(database);
+            this.setProp("databaseName", dbName);
             MysqlEventUtil.databaseAdded(this.connectItem, database);
             this.closeWindow();
         } catch (Exception ex) {
