@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.controller.table;
 
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
-import cn.oyzh.fx.editor.tm4javafx.Editor;
+import cn.oyzh.fx.editor.incubator.Editor;
 import cn.oyzh.fx.gui.text.area.ReadOnlyTextArea;
 import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;

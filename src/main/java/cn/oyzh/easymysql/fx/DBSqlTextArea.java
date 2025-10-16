@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.fx;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.query.DBQueryUtil;
 import cn.oyzh.easymysql.sql.DBSqlParser;
-import cn.oyzh.fx.editor.tm4javafx.Editor;
+import cn.oyzh.fx.editor.incubator.Editor;
 
 import java.util.HashSet;
 import java.util.Set;

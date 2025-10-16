@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.record;
 
-import cn.oyzh.fx.editor.tm4javafx.Editor;
-import cn.oyzh.fx.editor.tm4javafx.EditorFormatType;
+import cn.oyzh.fx.editor.incubator.Editor;
+import cn.oyzh.fx.editor.incubator.EditorFormatType;
 import cn.oyzh.fx.gui.skin.ActionTextFieldSkin;
 import cn.oyzh.fx.gui.svg.glyph.CancelSVGGlyph;
 import cn.oyzh.fx.gui.svg.glyph.EnlargeSVGGlyph;

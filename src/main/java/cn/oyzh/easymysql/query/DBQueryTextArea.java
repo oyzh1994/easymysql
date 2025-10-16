@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.query;
 
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.sql.DBSqlParser;
-import cn.oyzh.fx.editor.tm4javafx.Editor;
+import cn.oyzh.fx.editor.incubator.Editor;
 import cn.oyzh.fx.plus.keyboard.KeyboardUtil;
 
 import java.util.concurrent.atomic.AtomicInteger;
