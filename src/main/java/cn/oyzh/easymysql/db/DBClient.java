@@ -1074,7 +1074,7 @@ public class DBClient {
             Connection connection = this.connection(dbName, schema);
             StringBuilder builder = new StringBuilder();
             builder.append("DELETE FROM ")
-                    .append(DBUtil.wrap(schema, tableName, this.dialect()))
+                    .append(DBUtil.wrap(dbName, tableName, this.dialect()))
                     .append(" WHERE ");
             if (param.getPrimaryKey() == null) {
                 MysqlRecordData recordData = param.getRecord();
@@ -1088,6 +1088,7 @@ public class DBClient {
                     builder.append(DBUtil.wrap(colName, this.dialect()))
                             .append(" = ?");
                 }
+                builder.append(" LIMIT 1");
                 String sql = builder.toString();
                 DBUtil.printSql(sql);
                 PreparedStatement statement = connection.prepareStatement(sql);
