@@ -253,6 +253,7 @@ public class MysqlQuerySelectTabController extends RichTabController {
             if (!record.isColumnChanged(primaryKey.getColumnName())) {
                 recordData.remove(primaryKey.getColumnName());
             }
+            param.setUpdateRecord(recordData);
             param.setPrimaryKey(primaryKey);
             // 更新行
             this.dbItem.client().updateRecord(param);
@@ -267,7 +268,7 @@ public class MysqlQuerySelectTabController extends RichTabController {
             MysqlRecordData changedRecordData = record.getChangedRecordData();
             // 原始数据
             MysqlRecordData originalRecordData = record.getOriginalRecordData();
-            param.setRecord(originalRecordData);
+            param.setUpdateRecord(originalRecordData);
             param.setUpdateRecord(changedRecordData);
             // 更新行
             this.dbItem.client().updateRecord(param);

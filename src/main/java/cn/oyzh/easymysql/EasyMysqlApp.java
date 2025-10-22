@@ -3,6 +3,7 @@ package cn.oyzh.easymysql;
 import cn.oyzh.common.SysConst;
 import cn.oyzh.common.dto.Project;
 import cn.oyzh.common.log.JulLog;
+import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.easymysql.controller.MainController;
 import cn.oyzh.easymysql.controller.SettingController2;
 import cn.oyzh.easymysql.domain.MysqlSetting;
@@ -97,6 +98,8 @@ public class EasyMysqlApp extends FXApplication {
     public void start(Stage primaryStage) {
         try {
             super.start(primaryStage);
+            // 开启定期gc
+            SystemUtil.gcInterval(60_000);
         } catch (Exception ex) {
             ex.printStackTrace();
             JulLog.warn("start error", ex);

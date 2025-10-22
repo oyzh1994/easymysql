@@ -403,7 +403,8 @@ public class DBHelper {
             dbColumn.setDigits(scale);
             dbColumn.setName(columnName);
             dbColumn.setSize(displaySize);
-            dbColumn.setDbName(schemaName);
+            dbColumn.setDbName(catalogName);
+            // dbColumn.setDbName(schemaName);
             dbColumn.setTableName(tableName);
             dbColumn.setType(columnTypeName);
             dbColumn.setNullable(nullable == 1);
