@@ -3,6 +3,7 @@ package cn.oyzh.easymysql.tabs.query;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
+import cn.oyzh.fx.gui.svg.glyph.QuerySVGGlyph;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import javafx.scene.Cursor;
 
@@ -37,7 +38,7 @@ public class MysqlQueryMainTab extends MysqlTab {
     public void flushGraphic() {
         SVGGlyph graphic = (SVGGlyph) this.getGraphic();
         if (graphic == null) {
-            graphic = new SVGGlyph("/font/query.svg", "13");
+            graphic = new QuerySVGGlyph("13");
             graphic.setCursor(Cursor.DEFAULT);
             this.setGraphic(graphic);
         }

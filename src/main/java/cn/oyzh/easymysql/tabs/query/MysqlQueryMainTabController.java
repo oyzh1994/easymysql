@@ -5,8 +5,7 @@ import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.easymysql.domain.MysqlQuery;
-import cn.oyzh.easymysql.event.MysqlEventUtil;
-import cn.oyzh.easymysql.query.DBQueryTextArea;
+import cn.oyzh.easymysql.query.DBQueryEditor;
 import cn.oyzh.easymysql.query.DBQueryUtil;
 import cn.oyzh.easymysql.store.MysqlQueryStore;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -56,7 +55,7 @@ public class MysqlQueryMainTabController extends RichTabController {
      * 查询文本域
      */
     @FXML
-    private DBQueryTextArea queryArea;
+    private DBQueryEditor queryArea;
 
     /**
      * 结果文本域
@@ -273,7 +272,8 @@ public class MysqlQueryMainTabController extends RichTabController {
             if (this.query.isNew()) {
                 result = MysqlQueryStore.INSTANCE.insert(this.query);
                 if (result) {
-                    MysqlEventUtil.queryAdded(this.query, this.dbItem);
+                    // MysqlEventUtil.queryAdded(this.query, this.dbItem);
+                    this.dbItem.getQueryTypeChild().addChild(this.query);
                 }
             } else {// 修改查询
                 result = MysqlQueryStore.INSTANCE.update(this.query);

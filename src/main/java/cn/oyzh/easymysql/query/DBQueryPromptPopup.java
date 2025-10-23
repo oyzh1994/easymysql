@@ -172,7 +172,7 @@ public class DBQueryPromptPopup extends FXPopup {
      * @param area  文本域
      * @param event 键盘按键事件
      */
-    public void prompt( DBQueryTextArea area,  KeyEvent event) {
+    public void prompt(DBQueryEditor area, KeyEvent event) {
         // 常规按键不处理
         if (this.isGeneralKeyEvent(event)) {
             this.hide();
@@ -212,7 +212,7 @@ public class DBQueryPromptPopup extends FXPopup {
             return;
         }
         // 光标位置
-        int cartPos = area.caretPosition();
+        int cartPos = area.getCaretPosition();
         // 文本内容
         String content = area.getText();
         // 获取token
@@ -243,7 +243,7 @@ public class DBQueryPromptPopup extends FXPopup {
      *
      * @param area 文本域
      */
-    private void show(DBQueryTextArea area) {
+    private void show(DBQueryEditor area) {
         RenderService.submitFXLater(() -> {
             Optional<Bounds> optional = area.getCaretBounds();
             // 显示提示词
@@ -262,14 +262,15 @@ public class DBQueryPromptPopup extends FXPopup {
     /**
      * 执行自动完成
      *
-     * @param area 文本域
-     * @param item 提示内容
+     * @param editor 编辑器
+     * @param item   提示内容
      */
-    public void autoComplete(DBQueryTextArea area, DBQueryPromptItem item) {
+    public void autoComplete(DBQueryEditor editor, DBQueryPromptItem item) {
         try {
             if (this.token != null) {
                 // IndexRange range = new IndexRange(this.token.getStartIndex(), this.token.getEndIndex());
-                area.replaceText(this.token.getStartIndex(), this.token.getEndIndex(), item.wrapContent());
+                editor.replaceText(this.token.getStartIndex(), this.token.getEndIndex(), item.wrapContent());
+                editor.positionCaret(this.token.getEndIndex() + item.getContent().length() - 1);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
