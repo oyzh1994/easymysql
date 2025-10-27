@@ -306,6 +306,7 @@ public class MysqlTableAlertSqlGenerator {
             for (String column : foreignKey.getColumns()) {
                 builder.append(DBUtil.wrap(column, DBDialect.MYSQL)).append(",");
             }
+            StringUtil.deleteLast(builder, ",");
             builder.append(")")
                     .append(" REFERENCES ")
                     .append(DBUtil.wrap(foreignKey.getPrimaryKeyDatabase(), foreignKey.getPrimaryKeyTable(), DBDialect.MYSQL))
@@ -313,12 +314,14 @@ public class MysqlTableAlertSqlGenerator {
             for (String column : foreignKey.getPrimaryKeyColumns()) {
                 builder.append(DBUtil.wrap(column, DBDialect.MYSQL)).append(",");
             }
+            StringUtil.deleteLast(builder, ",");
             builder.append(")")
                     .append(" ON DELETE ").append(foreignKey.getDeletePolicy())
                     .append(" ON UPDATE ").append(foreignKey.getUpdatePolicy());
             // 拼接,
             builder.append(",");
         }
+        StringUtil.deleteLast(builder, ",");
     }
 
     protected void foreignKeyHandle2(MysqlTableAlertParam param) {

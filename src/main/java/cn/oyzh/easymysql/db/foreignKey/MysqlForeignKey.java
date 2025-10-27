@@ -274,7 +274,7 @@ public class MysqlForeignKey extends DBObjectStatus implements ObjectCopier<Mysq
     }
 
     public boolean isInvalid() {
-        return StrUtil.isBlank(this.name) || CollUtil.isNotEmpty(this.primaryKeyColumns) || CollUtil.isEmpty(this.columns)
+        return StrUtil.isBlank(this.name) || CollUtil.isEmpty(this.primaryKeyColumns) || CollUtil.isEmpty(this.columns)
                 || StrUtil.isBlank(this.getPrimaryKeyTable()) || StrUtil.isBlank(this.getPrimaryKeyDatabase());
     }
 
