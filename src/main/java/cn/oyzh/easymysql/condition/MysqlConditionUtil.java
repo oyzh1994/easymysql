@@ -64,7 +64,10 @@ public class MysqlConditionUtil {
             MysqlRecordFilter filter = filters.get(i);
             String condition = filter.condition();
             if (StrUtil.isNotBlank(condition)) {
-                conditions.append(DBUtil.wrap(filter.column())).append(" ").append(condition).append(" ");
+                conditions.append(DBUtil.wrap(filter.column()))
+                        .append(" ")
+                        .append(condition)
+                        .append(" ");
             }
             if (i != filters.size() - 1) {
                 conditions.append(filter.getJoinSymbol()).append(" ");

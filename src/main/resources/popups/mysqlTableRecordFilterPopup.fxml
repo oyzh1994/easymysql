@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.fx.gui.svg.glyph.AddSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.Apply1SVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.CloseSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.DeleteSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import cn.oyzh.fx.plus.controls.table.FXTableColumn?>
 <?import cn.oyzh.fx.plus.controls.table.FXTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
-<?import cn.oyzh.fx.gui.svg.glyph.ApplySVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.AddFillSVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.DeleteSVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.CloseSVGGlyph?>
 <FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.popups.MysqlTableRecordFilterPopupController" realWidth="800" realHeight="350">
+        fx:controller="cn.oyzh.easymysql.popups.MysqlTableRecordFilterPopupController" realWidth="800" realHeight="350">
     <FXTableView fx:id="filterTable" flexHeight="100% - 30" flexWidth="100%">
         <columns>
             <FXTableColumn realWidth="35" fx:id="enabled"/>
@@ -21,16 +21,16 @@
         </columns>
     </FXTableView>
     <FXHBox realHeight="30" flexWidth="100%">
-        <ApplySVGGlyph onMousePrimaryClicked="#apply" sizeStr="16,13">
+        <Apply1SVGGlyph onMousePrimaryClicked="#apply" sizeStr="16,13">
             <HBox.margin>
                 <Insets left="5" top="5"/>
             </HBox.margin>
-        </ApplySVGGlyph>
-        <AddFillSVGGlyph onMousePrimaryClicked="#addFilter" size="14">
+        </Apply1SVGGlyph>
+        <AddSVGGlyph onMousePrimaryClicked="#addFilter" size="14">
             <HBox.margin>
                 <Insets left="15" top="5"/>
             </HBox.margin>
-        </AddFillSVGGlyph>
+        </AddSVGGlyph>
         <DeleteSVGGlyph onMousePrimaryClicked="#deleteFilter" size="14">
             <HBox.margin>
                 <Insets left="15" top="5"/>

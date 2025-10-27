@@ -164,6 +164,7 @@ public class MysqlRecordFilter {
         comboBox.selectFirstIfNull(this.joinSymbol);
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.joinSymbol = newValue);
         TableViewUtil.selectRowOnMouseClicked(comboBox);
+        this.setJoinSymbol(comboBox.getSelectedItem());
         return comboBox;
     }
 
