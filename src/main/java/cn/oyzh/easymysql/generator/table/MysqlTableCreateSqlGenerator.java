@@ -173,7 +173,6 @@ public class MysqlTableCreateSqlGenerator {
         MysqlIndexes indexes = param.getIndexes();
         for (MysqlIndex index : indexes) {
             // 新增索引
-            builder.append(" ADD");
             if (index.isUnique()) {
                 builder.append(" UNIQUE");
             }
@@ -182,13 +181,16 @@ public class MysqlTableCreateSqlGenerator {
                     .append(" (");
             for (MysqlIndex.IndexColumn column : index.getColumns()) {
                 builder.append(DBUtil.wrap(column.getColumnName(), DBDialect.MYSQL));
-                if (column.getSubPart() > 0) {
+                if (column.getSubPart() != null && column.getSubPart() > 0) {
                     builder.append("(").append(column.getSubPart()).append(")");
                 }
                 builder.append(",");
             }
             builder.append(") ");
-            builder.append(" USING ").append(index.getType());
+            // builder.append(" USING ").append(index.getType());
+            if (index.methodName() != null) {
+                builder.append(" USING ").append(index.methodName());
+            }
             if (index.getComment() != null) {
                 builder.append(" COMMENT ").append(DBUtil.wrapData(index.getComment()));
             }

@@ -162,7 +162,7 @@ public class DBUtil {
      * @param sql sql语句
      */
     public static void printSql(String sql) {
-        JulLog.info(sql);
+        JulLog.info("\n" + sql);
         // JulLog.info("printSql======================>");
     }
 
@@ -172,7 +172,7 @@ public class DBUtil {
      * @param sqlList sql列表
      */
     public static void printSql(List<String> sqlList) {
-        JulLog.info(Arrays.toString(sqlList.toArray()));
+        JulLog.info("\n" + Arrays.toString(sqlList.toArray()));
         // JulLog.info("printSql======================>");
     }
 
