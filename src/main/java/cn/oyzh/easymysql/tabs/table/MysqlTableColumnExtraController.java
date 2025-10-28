@@ -11,6 +11,7 @@ import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.controls.box.FXHBox;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.information.MessageBox;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 
 import java.net.URL;
@@ -226,12 +227,25 @@ public class MysqlTableColumnExtraController extends SubTabController {
      * @param dbClient 客户端
      */
     public void init(MysqlColumn column, DBClient dbClient) {
+        // 移除旧的监听器
+        if (this.column != null) {
+            this.column.typeProperty().removeListener(this::listenColumnTypeChanged);
+        }
         if (column == null) {
             return;
         }
-        this.ignoreChanged = true;
         this.column = column;
         this.dbClient = dbClient;
+        this.doInit();
+        column.typeProperty().addListener(this::listenColumnTypeChanged);
+    }
+
+    private void listenColumnTypeChanged(ObservableValue<? extends String> observableValue, String s, String s1) {
+        this.doInit();
+    }
+
+    public void doInit() {
+        this.ignoreChanged = true;
         // 值
         if (this.column.supportValue()) {
             this.valueBox.display();

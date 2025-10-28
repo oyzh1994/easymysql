@@ -6,6 +6,8 @@ import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.util.DBColumnUtil;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +44,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     /**
      * 字段类型
      */
-    private String type;
+    private StringProperty typeProperty = new SimpleStringProperty();
 
     /**
      * 字段值
@@ -136,7 +138,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public void setType(String type) {
-        this.type = type.toUpperCase();
+        this.typeProperty.set(type);
         super.putOriginalData("type", type);
     }
 
@@ -625,7 +627,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         if (column != null) {
             this.setSize(column.size);
             this.setName(column.name);
-            this.setType(column.type);
+            this.setType(column.getType());
             this.setValue(column.value);
             this.setDbName(column.dbName);
             this.setDigits(column.digits);
@@ -645,7 +647,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public boolean isInvalid() {
-        return StrUtil.isBlank(this.name) || StrUtil.isBlank(this.type);
+        return StrUtil.isBlank(this.name) || StrUtil.isBlank(this.getType());
     }
 
     // public Integer getPrimaryKeySize() {
@@ -682,7 +684,11 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public String getType() {
-        return type;
+        return typeProperty.get();
+    }
+
+    public StringProperty typeProperty() {
+        return typeProperty;
     }
 
     public String getValue() {
