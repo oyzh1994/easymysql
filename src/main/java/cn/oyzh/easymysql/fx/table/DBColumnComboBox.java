@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.table;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 import cn.oyzh.fx.plus.converter.SimpleStringConverter;
@@ -37,7 +37,7 @@ public class DBColumnComboBox extends FXComboBox<MysqlColumn> {
 
     public void select(String colName) {
         for (MysqlColumn object : this.getItems()) {
-            if (StrUtil.equalsIgnoreCase(colName, object.getName())) {
+            if (StringUtil.equalsIgnoreCase(colName, object.getName())) {
                 this.select(object);
                 break;
             }

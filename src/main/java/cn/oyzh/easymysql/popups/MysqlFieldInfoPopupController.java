@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.popups;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.MysqlStyle;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.util.DBNodeUtil;
@@ -119,7 +119,7 @@ public class MysqlFieldInfoPopupController extends PopupController {
             this.defaultValueBox.display();
         }
         List<FXLabel> tags = DBNodeUtil.generateTags(column);
-        if (CollUtil.isNotEmpty(tags)) {
+        if (CollectionUtil.isNotEmpty(tags)) {
             this.tagsBox.addChild(tags);
             this.tagsBox.display();
             boolean first = true;

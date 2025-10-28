@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db;
 
-import cn.hutool.core.util.BooleanUtil;
+import cn.oyzh.common.util.BooleanUtil;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 

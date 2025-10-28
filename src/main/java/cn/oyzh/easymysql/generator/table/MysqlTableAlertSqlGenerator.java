@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql.generator.table;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.DBObjectList;
@@ -339,7 +338,7 @@ public class MysqlTableAlertSqlGenerator {
         for (MysqlForeignKey foreignKey : foreignKeys.filterList(DBObjectList.TYPE_DELETED, DBObjectList.TYPE_CHANGED)) {
             String fkName = foreignKey.originalName();
             // 名称为null是临时数据
-            if (StrUtil.isNotBlank(fkName)) {
+            if (StringUtil.isNotBlank(fkName)) {
                 this.sqlBuilder.append(" DROP FOREIGN KEY ")
                         .append(DBUtil.wrap(foreignKey.originalName(), DBDialect.MYSQL))
                         .append(",");

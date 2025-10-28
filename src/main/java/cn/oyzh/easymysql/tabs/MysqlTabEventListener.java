@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.tabs;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.connect.DBConnectionClosedEvent;
 import cn.oyzh.easymysql.event.database.MysqlDatabaseClosedEvent;
@@ -97,7 +97,7 @@ public class MysqlTabEventListener implements EventListener {
 
     private MysqlTableRecordTab getMysqlTableRecordTab(MysqlDatabaseTreeItem dbItem, String tableName) {
         for (Tab tab : this.getTabs()) {
-            if (tab instanceof MysqlTableRecordTab tab1 && tab1.dbItem() == dbItem && StrUtil.equals(tableName, tab1.tableName())) {
+            if (tab instanceof MysqlTableRecordTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(tableName, tab1.tableName())) {
                 return tab1;
             }
         }
@@ -230,7 +230,7 @@ public class MysqlTabEventListener implements EventListener {
 
     private MysqlViewRecordTab getMysqlViewRecordTab(MysqlDatabaseTreeItem dbItem, String viewName) {
         for (Tab tab : this.getTabs()) {
-            if (tab instanceof MysqlViewRecordTab tab1 && tab1.dbItem() == dbItem && StrUtil.equals(tab1.viewName(), viewName)) {
+            if (tab instanceof MysqlViewRecordTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(tab1.viewName(), viewName)) {
                 return tab1;
             }
         }
@@ -277,7 +277,7 @@ public class MysqlTabEventListener implements EventListener {
 
     private MysqlQueryMainTab getMysqlQueryMainTab(String queryId) {
         for (Tab tab : this.getTabs()) {
-            if (tab instanceof MysqlQueryMainTab tab1 && StrUtil.equals(tab1.queryId(), queryId)) {
+            if (tab instanceof MysqlQueryMainTab tab1 && StringUtil.equals(tab1.queryId(), queryId)) {
                 return tab1;
             }
         }
@@ -351,7 +351,7 @@ public class MysqlTabEventListener implements EventListener {
 
     private MysqlFunctionDesignTab getMysqlFunctionTab(MysqlDatabaseTreeItem dbItem, String functionName) {
         for (Tab tab : this.getTabs()) {
-            if (tab instanceof MysqlFunctionDesignTab tab1 && tab1.dbItem() == dbItem && StrUtil.equals(functionName, tab1.functionName())) {
+            if (tab instanceof MysqlFunctionDesignTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(functionName, tab1.functionName())) {
                 return tab1;
             }
         }
@@ -380,7 +380,7 @@ public class MysqlTabEventListener implements EventListener {
 
     private MysqlProcedureDesignTab getMysqlProcedureTab(MysqlDatabaseTreeItem dbItem, String procedureName) {
         for (Tab tab : this.getTabs()) {
-            if (tab instanceof MysqlProcedureDesignTab tab1 && tab1.dbItem() == dbItem && StrUtil.equals(procedureName, tab1.procedureName())) {
+            if (tab instanceof MysqlProcedureDesignTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(procedureName, tab1.procedureName())) {
                 return tab1;
             }
         }
@@ -409,7 +409,7 @@ public class MysqlTabEventListener implements EventListener {
 
     private MysqlEventDesignTab getMysqlEventTab(MysqlDatabaseTreeItem dbItem, String eventName) {
         for (Tab tab : this.getTabs()) {
-            if (tab instanceof MysqlEventDesignTab tab1 && tab1.dbItem() == dbItem && StrUtil.equals(eventName, tab1.eventName())) {
+            if (tab instanceof MysqlEventDesignTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(eventName, tab1.eventName())) {
                 return tab1;
             }
         }
@@ -438,7 +438,7 @@ public class MysqlTabEventListener implements EventListener {
 
     private MysqlViewDesignTab getMysqlViewDesignTab(MysqlDatabaseTreeItem dbItem, String viewName) {
         for (Tab tab : this.getTabs()) {
-            if (tab instanceof MysqlViewDesignTab tab1 && tab1.dbItem() == dbItem && StrUtil.equals(viewName, tab1.viewName())) {
+            if (tab instanceof MysqlViewDesignTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(viewName, tab1.viewName())) {
                 return tab1;
             }
         }
@@ -467,7 +467,7 @@ public class MysqlTabEventListener implements EventListener {
 
     private MysqlTableDesignTab getMysqlTableDesignTab(MysqlDatabaseTreeItem dbItem, String tableName) {
         for (Tab tab : this.getTabs()) {
-            if (tab instanceof MysqlTableDesignTab tab1 && tab1.dbItem() == dbItem && StrUtil.equalsIgnoreCase(tableName, tab1.tableName())) {
+            if (tab instanceof MysqlTableDesignTab tab1 && tab1.dbItem() == dbItem && StringUtil.equalsIgnoreCase(tableName, tab1.tableName())) {
                 return tab1;
             }
         }

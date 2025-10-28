@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.tabs.query;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.db.query.MysqlExplainResult;
 import cn.oyzh.easymysql.db.query.MysqlQueryResults;
@@ -105,9 +105,9 @@ public class MysqlQueryMainTabController extends RichTabController {
         this.resultTabPane.selectedTabChanged((observable, oldValue, newValue) -> {
             FXTab tab1 = (FXTab) newValue;
             if (tab1 != null) {
-                if (StrUtil.equals(tab1.getId(), "infoTab")) {
+                if (StringUtil.equals(tab1.getId(), "infoTab")) {
                     this.showNode(1);
-                } else if (StrUtil.equals(tab1.getId(), "resultTab")) {
+                } else if (StringUtil.equals(tab1.getId(), "resultTab")) {
                     this.showNode(2);
                 }
             }

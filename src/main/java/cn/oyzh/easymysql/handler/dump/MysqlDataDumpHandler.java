@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.handler.dump;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.common.log.JulLog;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
@@ -55,7 +55,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
 
     protected void dumpTable() throws InterruptedException, IOException {
         List<MysqlTable> tables = this.dbClient.selectTables(this.dbName);
-        if (CollUtil.isNotEmpty(tables)) {
+        if (CollectionUtil.isNotEmpty(tables)) {
             for (MysqlTable table : tables) {
                 this.checkInterrupt();
                 this.dumpTable(table);
@@ -101,7 +101,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
             param.setTableName(tableName);
             param.setLimit((long) this.queryLimit);
             List<MysqlRecord> records = this.dbClient.selectRecords(param);
-            if (CollUtil.isEmpty(records)) {
+            if (CollectionUtil.isEmpty(records)) {
                 break;
             }
             long end1 = System.currentTimeMillis();
@@ -118,7 +118,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
 
     protected void dumpView() throws Exception {
         List<MysqlView> views = this.dbClient.views(this.dbName);
-        if (CollUtil.isNotEmpty(views)) {
+        if (CollectionUtil.isNotEmpty(views)) {
             for (MysqlView view : views) {
                 this.checkInterrupt();
                 this.message("Dumping View " + view.getName());
@@ -139,7 +139,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
 
     protected void dumpFunction() throws Exception {
         List<MysqlFunction> functions = this.dbClient.functions(this.dbName);
-        if (CollUtil.isNotEmpty(functions)) {
+        if (CollectionUtil.isNotEmpty(functions)) {
             for (MysqlFunction function : functions) {
                 this.checkInterrupt();
                 this.message("Dumping Function " + function.getName());
@@ -159,7 +159,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
 
     protected void dumpProcedure() throws Exception {
         List<MysqlProcedure> procedures = this.dbClient.procedures(this.dbName);
-        if (CollUtil.isNotEmpty(procedures)) {
+        if (CollectionUtil.isNotEmpty(procedures)) {
             for (MysqlProcedure procedure : procedures) {
                 this.checkInterrupt();
                 this.message("Dumping Procedure " + procedure.getName());
@@ -179,7 +179,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
 
     protected void dumpTrigger() throws Exception {
         List<MysqlTrigger> triggers = this.dbClient.triggers(this.dbName);
-        if (CollUtil.isNotEmpty(triggers)) {
+        if (CollectionUtil.isNotEmpty(triggers)) {
             for (MysqlTrigger trigger : triggers) {
                 this.message("Dumping Trigger " + trigger.getName());
                 String line0 = "";
@@ -198,7 +198,7 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
 
     protected void dumpEvent() throws Exception {
         List<MysqlEvent> events = this.dbClient.events(this.dbName);
-        if (CollUtil.isNotEmpty(events)) {
+        if (CollectionUtil.isNotEmpty(events)) {
             for (MysqlEvent event : events) {
                 this.message("Dumping Event " + event.getName());
                 String line0 = "";

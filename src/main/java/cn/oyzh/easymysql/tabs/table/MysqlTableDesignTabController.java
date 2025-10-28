@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.tabs.table;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.cache.CacheHelper;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.check.MysqlCheck;
 import cn.oyzh.easymysql.db.check.MysqlCheckControl;
 import cn.oyzh.easymysql.db.check.MysqlChecks;
@@ -420,32 +420,32 @@ public class MysqlTableDesignTabController extends ParentTabController {
 
         // 注释
         String comment = this.tableComment.getText();
-        if (!StrUtil.equals(comment, this.mysqlTable.getComment())) {
+        if (!StringUtil.equals(comment, this.mysqlTable.getComment())) {
             tempTable.setComment(comment);
         }
 
         // 引擎
         String engine = this.tableEngine.getSelectedItem();
-        if (!StrUtil.equalsIgnoreCase(engine, this.mysqlTable.getEngine())) {
+        if (!StringUtil.equalsIgnoreCase(engine, this.mysqlTable.getEngine())) {
             tempTable.setEngine(engine);
         }
 
         // 字符集
         String charset = this.tableCharset.getSelectedItem();
-        if (!StrUtil.equalsIgnoreCase(charset, this.mysqlTable.getCharset())) {
+        if (!StringUtil.equalsIgnoreCase(charset, this.mysqlTable.getCharset())) {
             tempTable.setCharset(charset);
         }
 
         // 排序
         String collation = this.tableCollation.getSelectedItem();
-        if (!StrUtil.equalsIgnoreCase(collation, this.mysqlTable.getCollation())) {
+        if (!StringUtil.equalsIgnoreCase(collation, this.mysqlTable.getCollation())) {
             tempTable.setCollation(collation);
         }
 
         // 行格式
         if (this.tableRowFormatBox.isVisible()) {
             String rowFormat = this.tableRowFormat.getValue();
-            if (!StrUtil.equalsIgnoreCase(rowFormat, this.mysqlTable.getRowFormat())) {
+            if (!StringUtil.equalsIgnoreCase(rowFormat, this.mysqlTable.getRowFormat())) {
                 tempTable.setRowFormat(rowFormat);
             }
         }
@@ -465,7 +465,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 columns.add(column);
             }
         }
-        if (CollUtil.isNotEmpty(this.columnTable.getDeleteItems())) {
+        if (CollectionUtil.isNotEmpty(this.columnTable.getDeleteItems())) {
             columns.addAll(this.columnTable.getDeleteItems());
         }
 
@@ -1055,7 +1055,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
         this.tableEngine.selectedItemChanged((observable, oldValue, newValue) -> {
             if (this.tableEngine.isInnoDB()) {
                 this.tableRowFormatBox.display();
-                if (StrUtil.isBlank(this.mysqlTable.getRowFormat())) {
+                if (StringUtil.isBlank(this.mysqlTable.getRowFormat())) {
                     this.tableRowFormat.select(this.mysqlTable.getRowFormat());
                 } else {
                     this.tableRowFormat.select(3);
@@ -1067,7 +1067,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
         // 表格下标监听
         this.tabPane.selectedTabChanged((observable, oldValue, newValue) -> {
             String tabId = newValue == null ? null : newValue.getId();
-            if (StrUtil.equalsAny(tabId, "columnTab", "indexTab", "foreignKeyTab", "triggerTab", "checkTab")) {
+            if (StringUtil.equalsAny(tabId, "columnTab", "indexTab", "foreignKeyTab", "triggerTab", "checkTab")) {
                 this.add.display();
                 if (this.newData) {
                     this.moveUp.display();
@@ -1079,7 +1079,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 }
             }
             // 预览
-            if (StrUtil.equals(tabId, "previewTab")) {
+            if (StringUtil.equals(tabId, "previewTab")) {
                 String sql;
                 if (this.newData) {
                     MysqlTableCreateParam param = this.initCreateParam();

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.handler.runfile;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.file.FileUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 
 import java.io.BufferedReader;
@@ -62,12 +62,12 @@ public class MysqlDataRunSqlFileHandler extends DataRunSqlFileHandler {
                         continue;
                     }
                     // 新增记录用批量处理
-                    if (StrUtil.startWithAnyIgnoreCase(line, "INSERT INTO ")) {
+                    if (StringUtil.startWithAnyIgnoreCase(line, "INSERT INTO ")) {
                         this.addInsertSql(line);
                         continue;
                     }
                     // 删除表、函数、过程、触发器、设置变量等
-                    if (StrUtil.startWithAnyIgnoreCase(line, "SET ", "DROP ")) {
+                    if (StringUtil.startWithAnyIgnoreCase(line, "SET ", "DROP ")) {
                         this.dbClient.executeSqlSimple(this.dbName, line);
                         this.processedIncr();
                         continue;
@@ -87,7 +87,7 @@ public class MysqlDataRunSqlFileHandler extends DataRunSqlFileHandler {
                         continue;
                     }
                     // 创建表、视图开始
-                    if (!createFlag2.get() && !createFlag1.get() && StrUtil.startWithIgnoreCase(line.stripLeading(), "CREATE ")) {
+                    if (!createFlag2.get() && !createFlag1.get() && StringUtil.startWithIgnoreCase(line.stripLeading(), "CREATE ")) {
                         // 单行结束
                         if (line.stripTrailing().endsWith(";")) {
                             this.dbClient.executeSqlSimple(this.dbName, line);

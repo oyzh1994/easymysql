@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.sql;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBDialect;
 import com.alibaba.druid.DbType;
 import com.alibaba.druid.sql.SQLUtils;
@@ -57,7 +57,7 @@ public class DruidSqlParser extends DBSqlParser {
                 return;
             }
             // 正常行
-            if (!commentFlag.get() && StrUtil.isNotBlank(line)) {
+            if (!commentFlag.get() && StringUtil.isNotBlank(line)) {
                 builder.append(line).append("\n");
             }
         });
@@ -83,14 +83,14 @@ public class DruidSqlParser extends DBSqlParser {
         if (this.select != null) {
             return this.select;
         }
-        if (CollUtil.isNotEmpty(this.sqlStatements)) {
+        if (CollectionUtil.isNotEmpty(this.sqlStatements)) {
             SQLStatement statement = this.sqlStatements.getFirst();
             SchemaStatVisitor visitor = new SchemaStatVisitor(this.dbType);
             statement.accept(visitor);
             Map<TableStat.Name, TableStat> tables = visitor.getTables();
-            if (CollUtil.isNotEmpty(tables)) {
-                TableStat stat = CollUtil.getFirst(tables.values());
-                return stat != null && StrUtil.equalsIgnoreCase("Select", stat.toString());
+            if (CollectionUtil.isNotEmpty(tables)) {
+                TableStat stat = CollectionUtil.getFirst(tables.values());
+                return stat != null && StringUtil.equalsIgnoreCase("Select", stat.toString());
             }
         }
         return false;
@@ -98,14 +98,14 @@ public class DruidSqlParser extends DBSqlParser {
 
     @Override
     public boolean isFullColumn() {
-        if (CollUtil.isNotEmpty(this.sqlStatements)) {
+        if (CollectionUtil.isNotEmpty(this.sqlStatements)) {
             SQLStatement statement = this.sqlStatements.getFirst();
             SchemaStatVisitor visitor = new SchemaStatVisitor(this.dbType);
             statement.accept(visitor);
             Collection<TableStat.Column> columns = visitor.getColumns();
-            if (CollUtil.isNotEmpty(columns)) {
+            if (CollectionUtil.isNotEmpty(columns)) {
                 for (TableStat.Column column : columns) {
-                    if (StrUtil.equals("*", column.getName())) {
+                    if (StringUtil.equals("*", column.getName())) {
                         return true;
                     }
                 }
@@ -119,7 +119,7 @@ public class DruidSqlParser extends DBSqlParser {
         String sqlContent = this.removeComment();
         List<String> sqlList = new ArrayList<>();
         // druid无法解析这个语句，直接返回
-        if (StrUtil.startWithIgnoreEquals(sqlContent, "SHOW VARIABLES LIKE")) {
+        if (StringUtil.startWithIgnoreCase(sqlContent, "SHOW VARIABLES LIKE")) {
             sqlList.add(sqlContent);
             this.single = true;
             this.select = true;

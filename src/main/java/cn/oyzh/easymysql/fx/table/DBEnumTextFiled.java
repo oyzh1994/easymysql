@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.table;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.popups.MysqlColumnEnumPopupController;
 import cn.oyzh.fx.gui.text.field.ChooseTextField;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
@@ -51,7 +51,7 @@ public class DBEnumTextFiled extends ChooseTextField {
     }
 
     public void initText() {
-        if (CollUtil.isEmpty(this.values)) {
+        if (CollectionUtil.isEmpty(this.values)) {
             this.setText("");
         } else {
             StringBuilder builder = new StringBuilder();

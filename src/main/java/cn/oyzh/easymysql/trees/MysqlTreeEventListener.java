@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.trees;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.event.database.MysqlDatabaseAddedEvent;
 import cn.oyzh.easymysql.event.event.MysqlEventAddedEvent;
 import cn.oyzh.easymysql.event.event.MysqlEventAlertedEvent;
@@ -68,7 +68,7 @@ public class MysqlTreeEventListener implements EventListener {
     private void viewAlerted(MysqlViewAlertedEvent event) {
         String viewName = event.data();
         for (MysqlViewTreeItem viewItem : event.getDbItem().getViewChild()) {
-            if (StrUtil.equalsIgnoreCase(viewName, viewItem.viewName())) {
+            if (StringUtil.equalsIgnoreCase(viewName, viewItem.viewName())) {
                 viewItem.reloadChild();
                 break;
             }
@@ -98,7 +98,7 @@ public class MysqlTreeEventListener implements EventListener {
     // private void onTableAlerted(MysqlTableAlertedEvent event) {
     //     String tableName = event.data();
     //     for (MysqlTableTreeItem tableItem : event.getDbItem().getTableChild()) {
-    //         if (StrUtil.equalsIgnoreCase(tableName, tableItem.tableName())) {
+    //         if (StringUtil.equalsIgnoreCase(tableName, tableItem.tableName())) {
     //             tableItem.reloadChild();
     //             break;
     //         }
@@ -127,7 +127,7 @@ public class MysqlTreeEventListener implements EventListener {
     private void onProcedureAlerted(MysqlProcedureAlertedEvent event) {
         String procedureName = event.data();
         for (MysqlProcedureTreeItem procedureItem : event.getDbItem().getProcedureChild()) {
-            if (StrUtil.equalsIgnoreCase(procedureName, procedureItem.procedureName())) {
+            if (StringUtil.equalsIgnoreCase(procedureName, procedureItem.procedureName())) {
                 procedureItem.reloadChild();
                 break;
             }
@@ -156,7 +156,7 @@ public class MysqlTreeEventListener implements EventListener {
     private void onFunctionAlerted(MysqlFunctionAlertedEvent event) {
         String functionName = event.data();
         for (MysqlFunctionTreeItem functionItem : event.getDbItem().getFunctionChild()) {
-            if (StrUtil.equalsIgnoreCase(functionName, functionItem.functionName())) {
+            if (StringUtil.equalsIgnoreCase(functionName, functionItem.functionName())) {
                 functionItem.reloadChild();
                 break;
             }
@@ -185,7 +185,7 @@ public class MysqlTreeEventListener implements EventListener {
     private void onEventAlerted(MysqlEventAlertedEvent event) {
         String functionName = event.data();
         for (MysqlEventTreeItem eventTreeItem : event.getDbItem().getEventChild()) {
-            if (StrUtil.equalsIgnoreCase(functionName, eventTreeItem.eventName())) {
+            if (StringUtil.equalsIgnoreCase(functionName, eventTreeItem.eventName())) {
                 eventTreeItem.reloadChild();
                 break;
             }

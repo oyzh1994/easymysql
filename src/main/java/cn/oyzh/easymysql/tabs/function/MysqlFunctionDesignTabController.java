@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs.function;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.cache.CacheHelper;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
@@ -311,10 +311,10 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             if (returnParam.getDigits() != null) {
                 this.returnDigits.setValue(returnParam.getDigits());
             }
-            if (StrUtil.isNotBlank(returnParam.getCharset())) {
+            if (StringUtil.isNotBlank(returnParam.getCharset())) {
                 this.returnCharset.setValue(returnParam.getCharset());
             }
-            if (StrUtil.isNotBlank(returnParam.getValue())) {
+            if (StringUtil.isNotBlank(returnParam.getValue())) {
                 this.returnValues.setValues(returnParam.getValueList());
             }
         }
@@ -481,7 +481,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             }
             if (newValue.intValue() == 4) {
                 MysqlFunction temp = this.tempData();
-                if (StrUtil.isBlank(temp.getName())) {
+                if (StringUtil.isBlank(temp.getName())) {
                     temp.setName("Unnamed_Function");
                 }
                 String sql = DBFunctionSqlGenerator.INSTANCE.generate(temp);

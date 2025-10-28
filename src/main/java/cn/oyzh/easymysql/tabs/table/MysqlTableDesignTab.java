@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.tabs.table;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
@@ -40,7 +40,7 @@ public class MysqlTableDesignTab extends MysqlTab {
     @Override
     public void flushTitle() {
         String name = this.tableName();
-        if (StrUtil.isBlank(name)) {
+        if (StringUtil.isBlank(name)) {
             name = I18nHelper.unnamedTable();
         }
         // 设置提示文本

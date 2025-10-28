@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.data;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.list.FXListView;
@@ -26,7 +26,7 @@ public class DataTransportFunctionListView extends FXListView<FXCheckBox> {
     }
 
     public void of(List<MysqlFunction> functions) {
-        List<DataTransportFunction> list = CollUtil.newArrayList();
+        List<DataTransportFunction> list = CollectionUtil.newArrayList();
         for (MysqlFunction function : functions) {
             DataTransportFunction obj = new DataTransportFunction();
             obj.setName(function.getName());
@@ -37,7 +37,7 @@ public class DataTransportFunctionListView extends FXListView<FXCheckBox> {
 
     public void init(List<DataTransportFunction> functions) {
         this.clearItems();
-        if (CollUtil.isNotEmpty(functions)) {
+        if (CollectionUtil.isNotEmpty(functions)) {
             for (DataTransportFunction function : functions) {
                 FXCheckBox checkBox = new FXCheckBox();
                 checkBox.setText(function.getName());

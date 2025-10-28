@@ -1,7 +1,8 @@
 package cn.oyzh.easymysql.db;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
+
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +32,7 @@ public abstract class DBObjectList<S extends DBObjectStatus> extends ArrayList<S
 
     public boolean isChanged() {
         for (S s : this) {
-            if (StrUtil.isNotBlank(s.getStatus())) {
+            if (StringUtil.isNotBlank(s.getStatus())) {
                 return true;
             }
         }
@@ -85,7 +86,7 @@ public abstract class DBObjectList<S extends DBObjectStatus> extends ArrayList<S
             } else if (type == TYPE_DELETED) {
                 list1 = this.deletedList();
             }
-            if (CollUtil.isNotEmpty(list1)) {
+            if (CollectionUtil.isNotEmpty(list1)) {
                 list.addAll(list1);
             }
         }

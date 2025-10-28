@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db.column;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBObjectList;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class MysqlColumns extends DBObjectList<MysqlColumn> {
     public MysqlColumn column(String name) {
         if (!this.isEmpty()) {
             for (MysqlColumn dbColumn : this) {
-                if (StrUtil.equalsAnyIgnoreCase(dbColumn.getName(), name)) {
+                if (StringUtil.equalsAnyIgnoreCase(dbColumn.getName(), name)) {
                     return dbColumn;
                 }
             }

@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.tabs.procedure;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -40,7 +40,7 @@ public class MysqlProcedureDesignTab extends MysqlTab {
     @Override
     public void flushTitle() {
         String name = this.procedureName();
-        if (StrUtil.isBlank(name)) {
+        if (StringUtil.isBlank(name)) {
             name = I18nHelper.unnamedProcedure();
         }
         // 设置提示文本

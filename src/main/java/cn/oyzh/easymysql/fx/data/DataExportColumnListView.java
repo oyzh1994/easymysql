@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.data;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.list.FXListView;
 import cn.oyzh.fx.plus.util.ListViewUtil;
@@ -15,7 +15,7 @@ public class DataExportColumnListView extends FXListView<FXCheckBox> {
 
     public void init(List<DataExportColumn> columns) {
         this.clearItems();
-        if (CollUtil.isNotEmpty(columns)) {
+        if (CollectionUtil.isNotEmpty(columns)) {
             for (DataExportColumn column : columns) {
                 FXCheckBox checkBox = new FXCheckBox();
                 checkBox.setSelected(column.isSelected());

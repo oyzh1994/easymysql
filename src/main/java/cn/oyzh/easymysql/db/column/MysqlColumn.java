@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.db.column;
 
-import cn.hutool.core.util.BooleanUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectCopier;
+import cn.oyzh.common.util.BooleanUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.util.DBColumnUtil;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -148,7 +148,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     public List<String> getValueList() {
         List<String> valueList = new ArrayList<>();
         if (this.getValue() != null) {
-            List<String> list = StrUtil.split(this.getValue(), ",");
+            List<String> list = StringUtil.split(this.getValue(), ",");
             for (String s : list) {
                 if (s.startsWith("'") && s.endsWith("'")) {
                     valueList.add(s.substring(1, s.length() - 1));
@@ -419,7 +419,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
 
     public boolean isColumnChanged() {
         for (Map.Entry<String, Object> entry : super.originalData().entrySet()) {
-            if (!StrUtil.equalsAny(entry.getKey(), "primaryKey", "primaryKeySize")) {
+            if (!StringUtil.equalsAny(entry.getKey(), "primaryKey", "primaryKeySize")) {
                 return true;
             }
         }
@@ -522,7 +522,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public void parseKey(String key) {
-        if (StrUtil.isEmpty(key)) {
+        if (StringUtil.isEmpty(key)) {
             return;
         }
         if ("pri".equalsIgnoreCase(key)) {
@@ -569,19 +569,19 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public void parseExtra(String extra) {
-        if (StrUtil.isEmpty(extra)) {
+        if (StringUtil.isEmpty(extra)) {
             return;
         }
-        if (StrUtil.containsIgnoreCase(extra, "auto_increment")) {
+        if (StringUtil.containsIgnoreCase(extra, "auto_increment")) {
             this.setAutoIncrement(true);
         }
-        if (StrUtil.containsIgnoreCase(extra, "on update CURRENT_TIMESTAMP")) {
+        if (StringUtil.containsIgnoreCase(extra, "on update CURRENT_TIMESTAMP")) {
             this.setUpdateOnCurrentTimestamp(true);
         }
     }
 
     public void parseCollation(String collation) {
-        if (StrUtil.isEmpty(collation)) {
+        if (StringUtil.isEmpty(collation)) {
             return;
         }
         this.setCollation(collation);
@@ -606,17 +606,17 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
             } else {
                 this.setSize(Integer.parseInt(sub1));
             }
-            if (StrUtil.containsIgnoreCase(columnType, "unsigned")) {
+            if (StringUtil.containsIgnoreCase(columnType, "unsigned")) {
                 this.setUnsigned(true);
             }
-            if (StrUtil.containsIgnoreCase(columnType, "zerofill")) {
+            if (StringUtil.containsIgnoreCase(columnType, "zerofill")) {
                 this.setZeroFill(true);
             }
         }
-        if (StrUtil.containsIgnoreCase(columnExtra, "auto_increment")) {
+        if (StringUtil.containsIgnoreCase(columnExtra, "auto_increment")) {
             this.setAutoIncrement(true);
         }
-        if (StrUtil.containsIgnoreCase(columnExtra, "on update CURRENT_TIMESTAMP")) {
+        if (StringUtil.containsIgnoreCase(columnExtra, "on update CURRENT_TIMESTAMP")) {
             this.setUpdateOnCurrentTimestamp(true);
         }
     }
@@ -650,7 +650,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public boolean isInvalid() {
-        return StrUtil.isBlank(this.name) || StrUtil.isBlank(this.getType());
+        return StringUtil.isBlank(this.name) || StringUtil.isBlank(this.getType());
     }
 
     // public Integer getPrimaryKeySize() {

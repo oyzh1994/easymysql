@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.tabs.event;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -38,7 +38,7 @@ public class MysqlEventDesignTab extends MysqlTab {
     @Override
     public void flushTitle() {
         String name = this.eventName();
-        if (StrUtil.isBlank(name)) {
+        if (StringUtil.isBlank(name)) {
             name = I18nHelper.unnamedEvent();
         }
         // 设置提示文本

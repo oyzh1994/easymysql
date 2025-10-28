@@ -1,9 +1,10 @@
 package cn.oyzh.easymysql.db.data;
 
-import cn.hutool.core.io.FileUtil;
+import cn.oyzh.common.file.FileUtil;
 import com.alibaba.fastjson.JSONReader;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class MysqlJsonTypeFileReader extends MysqlTypeFileReader {
      */
     private MysqlDataImportConfig config;
 
-    public MysqlJsonTypeFileReader( File file, MysqlDataImportConfig config) {
+    public MysqlJsonTypeFileReader( File file, MysqlDataImportConfig config) throws FileNotFoundException {
         this.config = config;
         this.reader = new JSONReader(FileUtil.getReader(file, Charset.forName(config.getCharset())));
         this.init();

@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.data;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.fx.gui.text.field.ChooseFileTextField;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import javafx.beans.property.ObjectProperty;
@@ -60,7 +60,7 @@ public class DataImportFile {
 
     public String getTableName() {
         String fileName = this.getFileName();
-        if (StrUtil.isBlank(fileName)) {
+        if (StringUtil.isBlank(fileName)) {
             return fileName;
         }
         return fileName.substring(0, fileName.lastIndexOf("."));

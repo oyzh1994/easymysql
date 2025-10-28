@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.data;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.fx.gui.text.field.SaveFileTextField;
 import cn.oyzh.fx.plus.chooser.FXChooser;
@@ -178,7 +178,7 @@ public class DataExportTable {
     }
 
     public boolean hasColumns() {
-        return CollUtil.isNotEmpty(this.columns);
+        return CollectionUtil.isNotEmpty(this.columns);
     }
 
     private void updateFilePath() {

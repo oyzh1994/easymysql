@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.util;
 
-import cn.hutool.core.util.StrUtil;
+
+import cn.oyzh.common.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -520,7 +521,7 @@ public class DBColumnUtil {
 
     public static boolean supportSize(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportSize;
             }
         }
@@ -529,7 +530,7 @@ public class DBColumnUtil {
 
     public static Integer suggestSize(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.suggestSize;
             }
         }
@@ -538,7 +539,7 @@ public class DBColumnUtil {
 
     public static boolean supportUnsigned(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportUnsigned;
             }
         }
@@ -547,7 +548,7 @@ public class DBColumnUtil {
 
     public static boolean supportJson(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportJson;
             }
         }
@@ -556,7 +557,7 @@ public class DBColumnUtil {
 
     public static boolean supportKeySize(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportKeySize;
             }
         }
@@ -565,7 +566,7 @@ public class DBColumnUtil {
 
     public static boolean supportString(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportString;
             }
         }
@@ -574,7 +575,7 @@ public class DBColumnUtil {
 
     public static boolean supportValue(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportValue;
             }
         }
@@ -583,7 +584,7 @@ public class DBColumnUtil {
 
     public static boolean supportZeroFill(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportZeroFill;
             }
         }
@@ -592,7 +593,7 @@ public class DBColumnUtil {
 
     public static boolean supportBit(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportBit;
             }
         }
@@ -601,7 +602,7 @@ public class DBColumnUtil {
 
     public static boolean supportBinary(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportBinary;
             }
         }
@@ -610,7 +611,7 @@ public class DBColumnUtil {
 
     public static boolean supportDigits(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportDigits;
             }
         }
@@ -619,7 +620,7 @@ public class DBColumnUtil {
 
     public static boolean supportDefaultValue(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportDefaultValue;
             }
         }
@@ -628,7 +629,7 @@ public class DBColumnUtil {
 
     public static boolean supportGeometry(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportGeometry;
             }
         }
@@ -637,7 +638,7 @@ public class DBColumnUtil {
 
     public static boolean supportEnum(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportEnum;
             }
         }
@@ -646,7 +647,7 @@ public class DBColumnUtil {
 
     public static boolean supportCharset(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportCharset;
             }
         }
@@ -655,7 +656,7 @@ public class DBColumnUtil {
 
     public static boolean supportTimestamp(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportTimestamp;
             }
         }
@@ -664,7 +665,7 @@ public class DBColumnUtil {
 
     public static boolean supportInteger(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportInteger;
             }
         }
@@ -673,7 +674,7 @@ public class DBColumnUtil {
 
     public static boolean supportAutoIncrement(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.supportAutoIncrement;
             }
         }
@@ -682,7 +683,7 @@ public class DBColumnUtil {
 
     public static Object exampleValue(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.exampleValue;
             }
         }
@@ -691,7 +692,7 @@ public class DBColumnUtil {
 
     public static Long minValue(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.minValue;
             }
         }
@@ -700,7 +701,7 @@ public class DBColumnUtil {
 
     public static Long maxValue(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
-            if (StrUtil.equalsIgnoreCase(value.name, type)) {
+            if (StringUtil.equalsIgnoreCase(value.name, type)) {
                 return value.maxValue;
             }
         }

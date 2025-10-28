@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db.table;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.check.MysqlChecks;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
@@ -33,7 +33,7 @@ public class MysqlTableCreateParam {
     }
 
     public boolean hasColumns() {
-        return CollUtil.isNotEmpty(this.columns);
+        return CollectionUtil.isNotEmpty(this.columns);
     }
 
     public List<MysqlColumn> primaryKeys() {
@@ -41,19 +41,19 @@ public class MysqlTableCreateParam {
     }
 
     public boolean hasIndex() {
-        return CollUtil.isNotEmpty(this.indexes);
+        return CollectionUtil.isNotEmpty(this.indexes);
     }
 
     public boolean hasForeignKey() {
-        return CollUtil.isNotEmpty(this.foreignKeys);
+        return CollectionUtil.isNotEmpty(this.foreignKeys);
     }
 
     public boolean hasCheck() {
-        return CollUtil.isNotEmpty(this.checks);
+        return CollectionUtil.isNotEmpty(this.checks);
     }
 
     public boolean hasTrigger() {
-        return CollUtil.isNotEmpty(this.triggers);
+        return CollectionUtil.isNotEmpty(this.triggers);
     }
 
     public String tableName() {

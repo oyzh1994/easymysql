@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.query;
 
-import cn.hutool.core.util.StrUtil;
+
+import cn.oyzh.common.util.StringUtil;
 
 /**
  * @author oyzh
@@ -31,11 +32,11 @@ public class DBQueryToken {
     private Character token;
 
     public boolean isEmpty() {
-        return StrUtil.isEmpty(this.content);
+        return StringUtil.isEmpty(this.content);
     }
 
     public boolean isNotEmpty() {
-        return StrUtil.isNotEmpty(this.content);
+        return StringUtil.isNotEmpty(this.content);
     }
 
     public boolean isPossibilityKeyword() {

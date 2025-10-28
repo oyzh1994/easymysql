@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.query;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.common.thread.TaskManager;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.fx.plus.controls.popup.FXPopup;
 import cn.oyzh.fx.plus.theme.ThemeManager;
 import cn.oyzh.fx.plus.thread.RenderService;
@@ -138,7 +138,7 @@ public class DBQueryPromptPopup extends FXPopup {
      * @return 列表组件
      */
     public DBQueryPromptListView listView() {
-        return (DBQueryPromptListView) CollUtil.getFirst(this.getContent());
+        return (DBQueryPromptListView) CollectionUtil.getFirst(this.getContent());
     }
 
     /**

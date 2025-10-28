@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.condition;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.util.DBUtil;
 
 import java.util.Collection;
@@ -25,7 +25,7 @@ public class MysqlBetweenCondition extends MysqlCondition {
             return this.getValue() + " " + DBUtil.wrapData(arr[0]) + " AND " + DBUtil.wrapData(arr[1]);
         }
         if (condition instanceof Collection coll) {
-            return this.getValue() + " " + DBUtil.wrapData(CollUtil.get(coll, 0)) + " AND " + DBUtil.wrapData(CollUtil.get(coll, 1));
+            return this.getValue() + " " + DBUtil.wrapData(CollectionUtil.get(coll, 0)) + " AND " + DBUtil.wrapData(CollectionUtil.get(coll, 1));
         }
         return super.wrapCondition(condition);
     }

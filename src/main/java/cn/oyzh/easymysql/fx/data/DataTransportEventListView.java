@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.data;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.list.FXListView;
@@ -18,7 +18,7 @@ public class DataTransportEventListView extends FXListView<FXCheckBox> {
     private Runnable selectedChanged;
 
     public void of(List<MysqlEvent> events) {
-        List<DataTransportEvent> list = CollUtil.newArrayList();
+        List<DataTransportEvent> list = CollectionUtil.newArrayList();
         for (MysqlEvent event : events) {
             DataTransportEvent obj = new DataTransportEvent();
             obj.setName(event.getName());
@@ -29,7 +29,7 @@ public class DataTransportEventListView extends FXListView<FXCheckBox> {
 
     public void init(List<DataTransportEvent> events) {
         this.clearItems();
-        if (CollUtil.isNotEmpty(events)) {
+        if (CollectionUtil.isNotEmpty(events)) {
             for (DataTransportEvent event : events) {
                 FXCheckBox checkBox = new FXCheckBox();
                 checkBox.setText(event.getName());

@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.util;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.record.MysqlRecordProperty;
 import cn.oyzh.easymysql.fx.record.DBBinaryTextFiled;
@@ -103,7 +103,7 @@ public class DBRecordUtil {
     public static String formatValue(Object object, MysqlColumn column) {
         String val = null;
         String columnType = column.getType();
-        if (StrUtil.isBlank(columnType)) {
+        if (StringUtil.isBlank(columnType)) {
             if (object instanceof CharSequence sequence) {
                 val = sequence.toString();
             } else if (object instanceof byte[] bytes) {

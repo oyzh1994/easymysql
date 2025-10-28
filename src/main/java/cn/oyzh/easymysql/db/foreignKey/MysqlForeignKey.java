@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.db.foreignKey;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.object.ObjectCopier;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -274,8 +274,8 @@ public class MysqlForeignKey extends DBObjectStatus implements ObjectCopier<Mysq
     }
 
     public boolean isInvalid() {
-        return StrUtil.isBlank(this.name) || CollUtil.isEmpty(this.primaryKeyColumns) || CollUtil.isEmpty(this.columns)
-                || StrUtil.isBlank(this.getPrimaryKeyTable()) || StrUtil.isBlank(this.getPrimaryKeyDatabase());
+        return StringUtil.isBlank(this.name) || CollectionUtil.isEmpty(this.primaryKeyColumns) || CollectionUtil.isEmpty(this.columns)
+                || StringUtil.isBlank(this.getPrimaryKeyTable()) || StringUtil.isBlank(this.getPrimaryKeyDatabase());
     }
 
     public String getName() {

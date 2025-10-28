@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.check;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectCopier;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 
 /**
@@ -71,7 +71,7 @@ public class MysqlCheck extends DBObjectStatus implements ObjectCopier<MysqlChec
     }
 
     public boolean isInvalid() {
-        return StrUtil.isBlank(this.name) || StrUtil.isBlank(this.clause);
+        return StringUtil.isBlank(this.name) || StringUtil.isBlank(this.clause);
     }
 
     public String getDbName() {

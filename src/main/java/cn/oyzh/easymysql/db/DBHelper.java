@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
@@ -152,7 +152,7 @@ public class DBHelper {
             String createDefinition = resultSet.getString("Create Procedure");
             String[] arr = createDefinition.split(" ");
             for (String string : arr) {
-                if (StrUtil.startWithIgnoreCase(string, "DEFINER=")) {
+                if (StringUtil.startWithIgnoreCase(string, "DEFINER=")) {
                     definer = string.substring(8);
                     break;
                 }
@@ -176,7 +176,7 @@ public class DBHelper {
         }
         DBUtil.close(resultSet);
         DBUtil.close(statement);
-        return StrUtil.equalsIgnoreCase(isUpdatable, "YES");
+        return StringUtil.equalsIgnoreCase(isUpdatable, "YES");
     }
 
     public static Map<String, String> getViewInfo(Connection connection, String dbName, String viewName) throws Exception {
@@ -208,10 +208,10 @@ public class DBHelper {
         String createView = showCreateView(connection, DBUtil.wrap(dbName, viewName));
         String[] arr = createView.split(" ");
         for (String string : arr) {
-            if (StrUtil.startWithIgnoreCase(string, "DEFINER=")) {
+            if (StringUtil.startWithIgnoreCase(string, "DEFINER=")) {
                 info.put("DEFINER", string.substring(8));
             }
-            if (StrUtil.startWithIgnoreCase(string, "ALGORITHM=")) {
+            if (StringUtil.startWithIgnoreCase(string, "ALGORITHM=")) {
                 info.put("ALGORITHM", string.substring(10));
             }
         }
@@ -282,11 +282,11 @@ public class DBHelper {
     }
 
     public static boolean isZeroFill(String showTableDefinition, String columnName) throws SQLException {
-        if (StrUtil.isNotBlank(showTableDefinition)) {
+        if (StringUtil.isNotBlank(showTableDefinition)) {
             String[] arr = showTableDefinition.split(",");
             for (String string : arr) {
                 string = string.replace("\n", "").trim();
-                if (StrUtil.startWithIgnoreCase(string, DBUtil.wrap(columnName)) && StrUtil.containsIgnoreCase(string, "zerofill")) {
+                if (StringUtil.startWithIgnoreCase(string, DBUtil.wrap(columnName)) && StringUtil.containsIgnoreCase(string, "zerofill")) {
                     return true;
                 }
             }
@@ -295,7 +295,7 @@ public class DBHelper {
     }
 
     public static Integer getKeySize(String showTableDefinition, String columnName) throws SQLException {
-        if (StrUtil.isNotBlank(showTableDefinition)) {
+        if (StringUtil.isNotBlank(showTableDefinition)) {
             String[] arr = showTableDefinition.split("PRIMARY KEY ");
             if (arr.length < 2) {
                 return null;
@@ -303,7 +303,7 @@ public class DBHelper {
             String str1 = arr[1].substring(0, arr[1].indexOf(" "));
             String[] arr1 = str1.split(",");
             for (String s : arr1) {
-                if (StrUtil.containsIgnoreCase(s, DBUtil.wrap(columnName))) {
+                if (StringUtil.containsIgnoreCase(s, DBUtil.wrap(columnName))) {
                     if (s.contains("(")) {
                         return Integer.parseInt(s.substring(s.indexOf("(") + 1, s.indexOf(")")));
                     }

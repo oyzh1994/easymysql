@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees.group;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.controller.connect.MysqlConnectAddController;
 import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.domain.MysqlConnect;
@@ -88,7 +88,7 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
             return;
         }
         // 检查名称
-        if (StrUtil.isBlank(groupName)) {
+        if (StringUtil.isBlank(groupName)) {
             return;
         }
         // 检查是否存在
@@ -169,7 +169,7 @@ public class DBGroupTreeItem extends DBTreeItem<DBGroupTreeItemValue> implements
 
     @Override
     public void addConnectItems( List<DBConnectTreeItem> items) {
-        if (CollUtil.isNotEmpty(items)) {
+        if (CollectionUtil.isNotEmpty(items)) {
             this.addChild((List) items);
         }
     }

@@ -1,7 +1,8 @@
 package cn.oyzh.easymysql.query;
 
-import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.StrUtil;
+
+import cn.oyzh.common.util.ArrayUtil;
+import cn.oyzh.common.util.StringUtil;
 
 /**
  * db查询文本域
@@ -15,7 +16,7 @@ public class DBQueryTokenAnalyzer {
 
     public DBQueryToken currentToken(String content, int currentIndex) {
         try {
-            if (StrUtil.isEmpty(content)) {
+            if (StringUtil.isEmpty(content)) {
                 return null;
             }
             if (currentIndex <= 0) {

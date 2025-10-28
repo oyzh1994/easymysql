@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.controller.data;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.date.DateUtil;
 import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.fx.data.DataDateTextFiled;
 import cn.oyzh.easymysql.fx.data.DataFieldSeparatorComboBox;
@@ -409,7 +409,7 @@ public class MysqlDataImportController extends StageController {
         // 文件类型
         String type = this.fileType.selectedUserData();
         // 显示对应组件
-        if (StrUtil.equalsIgnoreCase(type, "json")) {
+        if (StringUtil.equalsIgnoreCase(type, "json")) {
             NodeGroupUtil.display(this.getStage(), "recordLabel");
             NodeGroupUtil.disappear(this.getStage(), "attrToColumn");
             NodeGroupUtil.disappear(this.getStage(), "txtIdentifier");
@@ -417,7 +417,7 @@ public class MysqlDataImportController extends StageController {
             NodeGroupUtil.disappear(this.getStage(), "recordSeparator");
             NodeGroupUtil.disappear(this.getStage(), "columnIndex");
             NodeGroupUtil.disappear(this.getStage(), "dataStartIndex");
-        } else if (StrUtil.equalsIgnoreCase(type, "txt")) {
+        } else if (StringUtil.equalsIgnoreCase(type, "txt")) {
             NodeGroupUtil.display(this.getStage(), "txtIdentifier");
             NodeGroupUtil.display(this.getStage(), "fieldSeparator");
             NodeGroupUtil.display(this.getStage(), "recordSeparator");
@@ -425,7 +425,7 @@ public class MysqlDataImportController extends StageController {
             NodeGroupUtil.display(this.getStage(), "dataStartIndex");
             NodeGroupUtil.disappear(this.getStage(), "recordLabel");
             NodeGroupUtil.disappear(this.getStage(), "attrToColumn");
-        } else if (StrUtil.equalsIgnoreCase(type, "csv")) {
+        } else if (StringUtil.equalsIgnoreCase(type, "csv")) {
             NodeGroupUtil.display(this.getStage(), "txtIdentifier");
             NodeGroupUtil.display(this.getStage(), "recordSeparator");
             NodeGroupUtil.display(this.getStage(), "columnIndex");
@@ -433,7 +433,7 @@ public class MysqlDataImportController extends StageController {
             NodeGroupUtil.disappear(this.getStage(), "fieldSeparator");
             NodeGroupUtil.disappear(this.getStage(), "recordLabel");
             NodeGroupUtil.disappear(this.getStage(), "attrToColumn");
-        } else if (StrUtil.equalsIgnoreCase(type, "xml")) {
+        } else if (StringUtil.equalsIgnoreCase(type, "xml")) {
             NodeGroupUtil.display(this.getStage(), "attrToColumn");
             NodeGroupUtil.display(this.getStage(), "recordLabel");
             NodeGroupUtil.disappear(this.getStage(), "txtIdentifier");
@@ -441,7 +441,7 @@ public class MysqlDataImportController extends StageController {
             NodeGroupUtil.disappear(this.getStage(), "columnIndex");
             NodeGroupUtil.disappear(this.getStage(), "dataStartIndex");
             NodeGroupUtil.disappear(this.getStage(), "fieldSeparator");
-        } else if (StrUtil.equalsIgnoreCase(type, "excel")) {
+        } else if (StringUtil.equalsIgnoreCase(type, "excel")) {
             NodeGroupUtil.display(this.getStage(), "columnIndex");
             NodeGroupUtil.display(this.getStage(), "dataStartIndex");
             NodeGroupUtil.disappear(this.getStage(), "attrToColumn");

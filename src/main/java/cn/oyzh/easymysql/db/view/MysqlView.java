@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.db.view;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectComparator;
 import cn.oyzh.common.object.ObjectCopier;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
@@ -79,7 +79,7 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
     }
 
     public boolean hasCheckOption() {
-        return StrUtil.isNotBlank(this.checkOption) && !StrUtil.equalsIgnoreCase(this.checkOption, "NONE");
+        return StringUtil.isNotBlank(this.checkOption) && !StringUtil.equalsIgnoreCase(this.checkOption, "NONE");
     }
 
     /**
@@ -160,7 +160,7 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
     }
 
     public boolean hasPrimaryKey() {
-        return CollUtil.isNotEmpty(this.primaryKeys());
+        return CollectionUtil.isNotEmpty(this.primaryKeys());
     }
 
     public boolean hasColumns() {
@@ -186,10 +186,10 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
         if (view == this) {
             return true;
         }
-        if (!StrUtil.equals(this.getName(), view.getName())) {
+        if (!StringUtil.equals(this.getName(), view.getName())) {
             return false;
         }
-        return StrUtil.equals(this.getDbName(), view.getDbName());
+        return StringUtil.equals(this.getDbName(), view.getDbName());
     }
 
     public void removeColumn(MysqlColumn column) {
@@ -205,7 +205,7 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
      */
 
     public boolean isNew() {
-        return StrUtil.isBlank(this.getName());
+        return StringUtil.isBlank(this.getName());
     }
 
     public String getDefiner() {

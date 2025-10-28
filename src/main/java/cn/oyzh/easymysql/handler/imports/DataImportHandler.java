@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.handler.imports;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.log.JulLog;
 import cn.oyzh.common.thread.ThreadUtil;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
@@ -136,7 +136,7 @@ public class DataImportHandler extends DataHandler {
      */
     public void doImport() throws Exception {
         this.message("Import Starting");
-        if (CollUtil.isNotEmpty(this.files)) {
+        if (CollectionUtil.isNotEmpty(this.files)) {
             for (DataImportFile file : files) {
                 this.checkInterrupt();
                 this.importRecord(file);
@@ -167,7 +167,7 @@ public class DataImportHandler extends DataHandler {
                     this.checkInterrupt();
                     long start1 = System.currentTimeMillis();
                     List<MysqlRecord> records = this.readRecords(reader, this.readLimit);
-                    if (CollUtil.isEmpty(records)) {
+                    if (CollectionUtil.isEmpty(records)) {
                         break;
                     }
                     long end1 = System.currentTimeMillis();
@@ -241,7 +241,7 @@ public class DataImportHandler extends DataHandler {
      * @param sqlList 插入sql列表
      */
     private void addInsertSql(List<String> sqlList) {
-        if (CollUtil.isNotEmpty(sqlList)) {
+        if (CollectionUtil.isNotEmpty(sqlList)) {
             if (this.insertList == null) {
                 this.insertList = new ArrayList<>();
             }
@@ -256,12 +256,12 @@ public class DataImportHandler extends DataHandler {
      * 执行批量插入
      */
     private void doBatchInsert() {
-        if (CollUtil.isNotEmpty(this.insertList)) {
+        if (CollectionUtil.isNotEmpty(this.insertList)) {
             try {
                 if (this.insertList.size() <= this.batchLimit) {
                     this.doBatchInsert(this.insertList, false);
                 } else {
-                    List<List<String>> lists = CollUtil.split(this.insertList, this.batchLimit);
+                    List<List<String>> lists = CollectionUtil.split(this.insertList, this.batchLimit);
                     List<Runnable> tasks = new ArrayList<>();
                     for (List<String> list : lists) {
                         tasks.add(() -> this.doBatchInsert(list, true));
@@ -296,7 +296,7 @@ public class DataImportHandler extends DataHandler {
      * @param dateFormat 日期格式
      */
     public void dateFormat(String dateFormat) {
-        if (StrUtil.isBlank(dateFormat)) {
+        if (StringUtil.isBlank(dateFormat)) {
             this.config.setDateFormat("yyyy-MM-dd HH:mm:ss");
         } else {
             this.config.setDateFormat(dateFormat);

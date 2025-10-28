@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.domain;
 
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectComparator;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.fx.plus.domain.AppGroup;
 import cn.oyzh.store.jdbc.Table;
 
@@ -26,6 +26,6 @@ public class MysqlGroup extends AppGroup implements ObjectComparator<MysqlGroup>
         if (t1 == null) {
             return false;
         }
-        return StrUtil.equals(this.getName(), t1.getName());
+        return StringUtil.equals(this.getName(), t1.getName());
     }
 }

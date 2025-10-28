@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.record;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 
 import java.util.Collection;
@@ -29,7 +29,7 @@ public class MysqlRecordData {
     public MysqlColumn column(String column) {
         if (this.dataList != null) {
             for (MysqlColumn dbColumn : dataList.keySet()) {
-                if (StrUtil.equalsAnyIgnoreCase(column, dbColumn.getName())) {
+                if (StringUtil.equalsAnyIgnoreCase(column, dbColumn.getName())) {
                     return dbColumn;
                 }
             }
@@ -40,7 +40,7 @@ public class MysqlRecordData {
     public Object value(String column) {
         if (this.dataList != null) {
             for (Map.Entry<MysqlColumn, Object> entry : dataList.entrySet()) {
-                if (StrUtil.equalsAnyIgnoreCase(column, entry.getKey().getName())) {
+                if (StringUtil.equalsAnyIgnoreCase(column, entry.getKey().getName())) {
                     return entry.getValue();
                 }
             }
@@ -56,11 +56,11 @@ public class MysqlRecordData {
     }
 
     public boolean isEmpty() {
-        return CollUtil.isEmpty(this.dataList);
+        return CollectionUtil.isEmpty(this.dataList);
     }
 
     public boolean isTypeGeometry(String column) {
-        if (CollUtil.isEmpty(this.dataList)) {
+        if (CollectionUtil.isEmpty(this.dataList)) {
             return false;
         }
         MysqlColumn dbColumn = this.column(column);

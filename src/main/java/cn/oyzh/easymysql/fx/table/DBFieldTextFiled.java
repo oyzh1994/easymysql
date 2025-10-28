@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.table;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.popups.MysqlColumnFieldPopupController;
 import cn.oyzh.fx.gui.text.field.ChooseTextField;
@@ -75,8 +75,8 @@ public class DBFieldTextFiled extends ChooseTextField {
 
     protected void initText() {
         String text = "";
-        if (CollUtil.isNotEmpty(this.selectedColumns)) {
-            text = CollUtil.join(this.selectedColumns, ",");
+        if (CollectionUtil.isNotEmpty(this.selectedColumns)) {
+            text = CollectionUtil.join(this.selectedColumns, ",");
         }
         this.setText(text);
         this.setTipText(text);

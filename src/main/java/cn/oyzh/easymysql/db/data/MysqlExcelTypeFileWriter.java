@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db.data;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.common.xls.WorkbookHelper;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
@@ -49,7 +49,7 @@ public class MysqlExcelTypeFileWriter extends MysqlTypeFileWriter {
         this.columns = columns;
         this.config = config;
         this.filePath = filePath;
-        boolean isXlsx = StrUtil.endWithIgnoreCase(filePath, ".xlsx");
+        boolean isXlsx = StringUtil.endWithIgnoreCase(filePath, ".xlsx");
         this.workbook = WorkbookHelper.create(isXlsx);
     }
 

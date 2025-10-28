@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.query;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.thread.TaskManager;
 import cn.oyzh.common.util.NumberUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.fx.plus.keyboard.KeyboardUtil;
@@ -75,7 +75,7 @@ public class DBQueryEditor extends BaseRichTextArea {
             // 新内容
             StringBuilder textNew = new StringBuilder();
             // 无内容
-            if (StrUtil.isEmpty(text)) {
+            if (StringUtil.isEmpty(text)) {
                 textNew.append("-- ").append(System.lineSeparator());
                 changed.set(true);
                 fixedStart = fixedEnd = -3;

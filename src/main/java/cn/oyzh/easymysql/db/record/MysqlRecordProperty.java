@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db.record;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.exception.DBException;
@@ -161,7 +161,7 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
     public void vSetToNull() {
         if (this.node instanceof TextField textField) {
             // 如果内容为空，则直接设置变更
-            if (StrUtil.isEmpty(textField.getText())) {
+            if (StringUtil.isEmpty(textField.getText())) {
                 this.setChanged(true);
             } else {
                 textField.clear();
@@ -175,7 +175,7 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
     public void vSetToEmptyString() {
         if (this.node instanceof TextField textField) {
             // 如果内容为空，则直接设置变更
-            if (StrUtil.isEmpty(textField.getText())) {
+            if (StringUtil.isEmpty(textField.getText())) {
                 this.setChanged(true);
             } else {
                 textField.setText("");

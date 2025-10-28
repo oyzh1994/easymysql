@@ -1,8 +1,7 @@
 package cn.oyzh.easymysql.db;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.log.JulLog;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.condition.MysqlConditionUtil;
 import cn.oyzh.easymysql.db.check.MysqlCheck;
@@ -953,7 +952,7 @@ public class DBClient {
             StringBuilder builder = new StringBuilder("SELECT * FROM ");
             builder.append(DBUtil.wrap(param.getDbName(), param.getTableName(), this.dialect()));
             String filterCondition = MysqlConditionUtil.buildCondition(param.getFilters());
-            if (StrUtil.isNotBlank(filterCondition)) {
+            if (StringUtil.isNotBlank(filterCondition)) {
                 builder.append(" WHERE ").append(filterCondition);
             }
             if (param.hasPageControl()) {
@@ -1001,7 +1000,7 @@ public class DBClient {
             StringBuilder builder = new StringBuilder("SELECT COUNT(*) FROM");
             builder.append(DBUtil.wrap(param.getDbName(), param.getTableName(), this.dialect()));
             String filterCondition = MysqlConditionUtil.buildCondition(param.getFilters());
-            if (StrUtil.isNotBlank(filterCondition)) {
+            if (StringUtil.isNotBlank(filterCondition)) {
                 builder.append(" WHERE ").append(filterCondition);
             }
             String sql = builder.toString();
@@ -1475,7 +1474,7 @@ public class DBClient {
                 view.setDefinition(info.get("DEFINITION"));
                 view.setCheckOption(info.get("CHECK_OPTION"));
                 view.setSecurityType(info.get("SECURITY_TYPE"));
-                view.setUpdatable(StrUtil.equalsIgnoreCase("YES", info.get("UPDATABLE")));
+                view.setUpdatable(StringUtil.equalsIgnoreCase("YES", info.get("UPDATABLE")));
             }
             // 关闭连接和释放资源
             DBUtil.close(resultSet);
@@ -1513,7 +1512,7 @@ public class DBClient {
                 view.setDefinition(info.get("DEFINITION"));
                 view.setCheckOption(info.get("CHECK_OPTION"));
                 view.setSecurityType(info.get("SECURITY_TYPE"));
-                view.setUpdatable(StrUtil.equalsIgnoreCase("YES", info.get("UPDATABLE")));
+                view.setUpdatable(StringUtil.equalsIgnoreCase("YES", info.get("UPDATABLE")));
                 list.add(view);
             }
             // 关闭连接和释放资源
@@ -1556,13 +1555,13 @@ public class DBClient {
         try {
             Statement statement = this.connection(dbName).createStatement();
             String sql = "CREATE ";
-            if (StrUtil.isNotBlank(view.getAlgorithm())) {
+            if (StringUtil.isNotBlank(view.getAlgorithm())) {
                 sql += " ALGORITHM = " + view.getAlgorithm();
             }
-            if (StrUtil.isNotBlank(view.getDefiner())) {
+            if (StringUtil.isNotBlank(view.getDefiner())) {
                 sql += " DEFINER = " + view.getDefiner();
             }
-            if (StrUtil.isNotBlank(view.getSecurityType())) {
+            if (StringUtil.isNotBlank(view.getSecurityType())) {
                 sql += " SQL SECURITY " + view.getSecurityType();
             }
             sql = sql + " VIEW " + DBUtil.wrap(dbName, view.getName()) + " AS " + view.getDefinition();
@@ -1581,13 +1580,13 @@ public class DBClient {
         try {
             Statement statement = this.connection(dbName).createStatement();
             String sql = "CREATE OR REPLACE ";
-            if (StrUtil.isNotBlank(view.getAlgorithm())) {
+            if (StringUtil.isNotBlank(view.getAlgorithm())) {
                 sql += " ALGORITHM = " + view.getAlgorithm();
             }
-            if (StrUtil.isNotBlank(view.getDefiner())) {
+            if (StringUtil.isNotBlank(view.getDefiner())) {
                 sql += " DEFINER = " + view.getDefiner();
             }
-            if (StrUtil.isNotBlank(view.getSecurityType())) {
+            if (StringUtil.isNotBlank(view.getSecurityType())) {
                 sql += " SQL SECURITY " + view.getSecurityType();
             }
             sql = sql + " VIEW " + DBUtil.wrap(dbName, view.getName()) + " AS " + view.getDefinition();
@@ -1768,7 +1767,7 @@ public class DBClient {
 
     public List<MysqlColumn> viewColumns(String dbName, String viewName) {
         try {
-            if (StrUtil.isBlank(viewName)) {
+            if (StringUtil.isBlank(viewName)) {
                 return Collections.emptyList();
             }
             String sql = """
@@ -1842,7 +1841,7 @@ public class DBClient {
                 value.initStatus();
             }
             // 返回排序后的数据
-            return CollUtil.sort(columns.values(), Comparator.comparingInt(MysqlColumn::getPosition));
+            return CollectionUtil.sort(columns.values(), Comparator.comparingInt(MysqlColumn::getPosition));
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new DBException(ex);
@@ -1855,7 +1854,7 @@ public class DBClient {
             StringBuilder builder = new StringBuilder("SELECT * FROM ");
             builder.append(DBUtil.wrap(dbName, viewName));
             String filterCondition = MysqlConditionUtil.buildCondition(filters);
-            if (StrUtil.isNotBlank(filterCondition)) {
+            if (StringUtil.isNotBlank(filterCondition)) {
                 builder.append(" WHERE ").append(filterCondition);
             }
             if (start != null && limit != null) {
@@ -1916,7 +1915,7 @@ public class DBClient {
         try {
             String sql = MysqlTableAlertSqlGenerator.generateSql(param);
             // 无变化
-            if (StrUtil.isBlank(sql)) {
+            if (StringUtil.isBlank(sql)) {
                 return;
             }
             String dbName = param.getTable().getDbName();

@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 
@@ -28,7 +28,7 @@ public interface DBConnectManager {
      * @param redisInfos 连接列表
      */
     default void addConnects(List<MysqlConnect> redisInfos) {
-        if (CollUtil.isNotEmpty(redisInfos)) {
+        if (CollectionUtil.isNotEmpty(redisInfos)) {
             for (MysqlConnect redisInfo : redisInfos) {
                 this.addConnect(redisInfo);
             }

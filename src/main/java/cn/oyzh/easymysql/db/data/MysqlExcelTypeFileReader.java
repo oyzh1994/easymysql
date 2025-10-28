@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db.data;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.common.xls.WorkbookHelper;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -43,7 +43,7 @@ public class MysqlExcelTypeFileReader extends MysqlTypeFileReader {
 
     public MysqlExcelTypeFileReader( File file, MysqlDataImportConfig config) throws Exception {
         this.config = config;
-        boolean isXlsx = StrUtil.endWithIgnoreCase(file.getName(), ".xlsx");
+        boolean isXlsx = StringUtil.endWithIgnoreCase(file.getName(), ".xlsx");
         this.workbook = WorkbookHelper.create(isXlsx, file);
         this.init();
     }

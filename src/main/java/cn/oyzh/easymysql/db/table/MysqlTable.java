@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql.db.table;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectComparator;
 import cn.oyzh.common.object.ObjectCopier;
 import cn.oyzh.common.util.StringUtil;
@@ -146,7 +145,7 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
     }
 
     public void setCharsetAndCollation(String collation) {
-        if (StrUtil.isNotBlank(collation)) {
+        if (StringUtil.isNotBlank(collation)) {
             String charset = collation.split("_")[0];
             this.setCharset(charset);
             this.setCollation(collation);
@@ -209,7 +208,7 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
     }
 
     public boolean hasRowFormat() {
-        return StrUtil.isNotBlank(this.getRowFormat());
+        return StringUtil.isNotBlank(this.getRowFormat());
     }
 
     // public void removeIndex(MysqlIndex index) {
@@ -342,10 +341,10 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
         if (table == this) {
             return true;
         }
-        if (!StrUtil.equals(this.getName(), table.getName())) {
+        if (!StringUtil.equals(this.getName(), table.getName())) {
             return false;
         }
-        return StrUtil.equals(this.getDbName(), table.getDbName());
+        return StringUtil.equals(this.getDbName(), table.getDbName());
     }
 
     // public void removeColumn(MysqlColumn column) {
@@ -361,7 +360,7 @@ public class MysqlTable extends DBObjectStatus implements ObjectCopier<MysqlTabl
      */
 
     public boolean isNew() {
-        return StrUtil.isBlank(this.getName());
+        return StringUtil.isBlank(this.getName());
     }
 
     public boolean isHasPrimaryKey() {

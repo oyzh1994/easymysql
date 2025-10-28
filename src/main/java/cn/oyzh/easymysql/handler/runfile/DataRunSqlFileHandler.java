@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.handler.runfile;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.thread.ThreadUtil;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.domain.MysqlConnect;
@@ -90,7 +90,7 @@ public abstract class DataRunSqlFileHandler extends DataHandler {
      * @param sql 插入sql
      */
     protected void addInsertSql(String sql) {
-        if (StrUtil.isNotBlank(sql)) {
+        if (StringUtil.isNotBlank(sql)) {
             if (this.insertList == null) {
                 this.insertList = new ArrayList<>();
             }
@@ -105,12 +105,12 @@ public abstract class DataRunSqlFileHandler extends DataHandler {
      * 执行批量插入
      */
     protected void doBatchInsert() {
-        if (CollUtil.isNotEmpty(this.insertList)) {
+        if (CollectionUtil.isNotEmpty(this.insertList)) {
             try {
                 if (this.insertList.size() <= this.batchLimit) {
                     this.doBatchInsert(this.insertList, false);
                 } else {
-                    List<List<String>> lists = CollUtil.split(this.insertList, this.batchLimit);
+                    List<List<String>> lists = CollectionUtil.split(this.insertList, this.batchLimit);
                     List<Runnable> tasks = new ArrayList<>();
                     for (List<String> list : lists) {
                         tasks.add(() -> this.doBatchInsert(list, true));

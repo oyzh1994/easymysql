@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.routine;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectComparator;
+import cn.oyzh.common.util.StringUtil;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.List;
@@ -98,10 +98,10 @@ public class MysqlRoutineSchema implements ObjectComparator<MysqlRoutineSchema> 
 
     public void setCreateDefinition(String createDefinition) {
         this.createDefinitionProperty().setValue(createDefinition);
-        if (StrUtil.isNotBlank(createDefinition)) {
+        if (StringUtil.isNotBlank(createDefinition)) {
             String[] arr = createDefinition.split(" ");
             for (String string : arr) {
-                if (StrUtil.startWithIgnoreCase(string, "DEFINER=")) {
+                if (StringUtil.startWithIgnoreCase(string, "DEFINER=")) {
                     this.definer = string.substring(8);
                     break;
                 }
@@ -129,14 +129,14 @@ public class MysqlRoutineSchema implements ObjectComparator<MysqlRoutineSchema> 
         if (routine == this) {
             return true;
         }
-        if (!StrUtil.equals(this.getDbName(), routine.getDbName())) {
+        if (!StringUtil.equals(this.getDbName(), routine.getDbName())) {
             return false;
         }
-        return StrUtil.equals(this.getName(), routine.getName());
+        return StringUtil.equals(this.getName(), routine.getName());
     }
 
     public boolean isNew() {
-        return StrUtil.isBlank(this.getDefinition());
+        return StringUtil.isBlank(this.getDefinition());
     }
 
     public List<MysqlRoutineParam> getParams() {

@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.domain;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectComparator;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.store.jdbc.Column;
 import cn.oyzh.store.jdbc.PrimaryKey;
 import cn.oyzh.store.jdbc.Table;
@@ -67,7 +67,7 @@ public class MysqlQuery implements Serializable, Comparable<MysqlQuery>, ObjectC
         if (t1 == null) {
             return 1;
         }
-        return StrUtil.compare(t1.uid, this.uid, true);
+        return StringUtil.compare(t1.uid, this.uid, true);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class MysqlQuery implements Serializable, Comparable<MysqlQuery>, ObjectC
         if (t1 == null) {
             return false;
         }
-        return StrUtil.equals(this.uid, t1.uid);
+        return StringUtil.equals(this.uid, t1.uid);
     }
 
     public boolean isNew() {

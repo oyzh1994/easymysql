@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.table;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.index.MysqlIndex;
 import cn.oyzh.easymysql.popups.MysqlIndexFieldPopupController;
@@ -69,7 +69,7 @@ public class DBIndexFieldTextFiled extends ChooseTextField {
     protected void initText() {
         String text;
         StringBuilder builder = new StringBuilder();
-        if (CollUtil.isNotEmpty(this.columns)) {
+        if (CollectionUtil.isNotEmpty(this.columns)) {
             for (MysqlIndex.IndexColumn column : this.columns) {
                 builder.append(",");
                 builder.append(column.getColumnName());

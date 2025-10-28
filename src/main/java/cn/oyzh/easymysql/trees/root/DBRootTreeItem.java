@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.trees.root;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.file.FileNameUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.file.FileNameUtil;
+import cn.oyzh.common.file.FileUtil;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.controller.connect.MysqlConnectAddController;
 import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.domain.MysqlConnect;
@@ -70,7 +70,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     private void initChildes() {
         // 初始化分组
         List<MysqlGroup> groups = this.groupStore.load();
-        if (CollUtil.isNotEmpty(groups)) {
+        if (CollectionUtil.isNotEmpty(groups)) {
             List<TreeItem<?>> list = new ArrayList<>();
             for (MysqlGroup group : groups) {
                 list.add(new DBGroupTreeItem(group, this.getTreeView()));
@@ -79,7 +79,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
         }
         // 初始化连接
         List<MysqlConnect> infos = this.connectStore.load();
-        if (CollUtil.isNotEmpty(infos)) {
+        if (CollectionUtil.isNotEmpty(infos)) {
             this.addConnects(infos);
         }
     }
@@ -129,14 +129,14 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      * @param files 文件
      */
     public void dragFile(List<File> files) {
-        if (CollUtil.isEmpty(files)) {
+        if (CollectionUtil.isEmpty(files)) {
             return;
         }
         if (files.size() != 1) {
             MessageBox.warn(I18nHelper.onlySupportSingleFile());
             return;
         }
-        File file = CollUtil.getFirst(files);
+        File file = CollectionUtil.getFirst(files);
         // 解析文件
         this.parseConnect(file);
     }
@@ -180,7 +180,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
             String text = FileUtil.readUtf8String(file);
             MysqlInfoExport export = MysqlInfoExport.fromJSON(text);
             List<MysqlConnect> infos = export.getConnects();
-            if (CollUtil.isNotEmpty(infos)) {
+            if (CollectionUtil.isNotEmpty(infos)) {
                 for (MysqlConnect info : infos) {
                     if (this.connectStore.insert(info)) {
                         this.addConnect(info);
@@ -215,7 +215,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
         }
 
         // 不能为空
-        if (StrUtil.isBlank(groupName)) {
+        if (StringUtil.isBlank(groupName)) {
             MessageBox.warn(I18nHelper.nameCanNotEmpty());
             return;
         }
@@ -239,7 +239,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      * @param groupId 分组id
      */
     private DBGroupTreeItem getGroupItem(String groupId) {
-        if (StrUtil.isNotBlank(groupId)) {
+        if (StringUtil.isNotBlank(groupId)) {
             List<DBGroupTreeItem> items = this.getGroupItems();
             Optional<DBGroupTreeItem> groupTreeItem = items.parallelStream().filter(g -> Objects.equals(g.value().getGid(), groupId)).findAny();
             return groupTreeItem.orElse(null);
@@ -319,7 +319,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
 
     @Override
     public void addConnectItems( List<DBConnectTreeItem> items) {
-        if (CollUtil.isNotEmpty(items)) {
+        if (CollectionUtil.isNotEmpty(items)) {
             this.addChild((List) items);
             this.expend();
         }

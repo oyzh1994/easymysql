@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs.event;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.cache.CacheHelper;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBSqlTextArea;
@@ -430,17 +430,17 @@ public class MysqlEventDesignTabController extends RichTabController {
         temp.setDbName(this.event.getDbName());
 
         // 定义者
-        if (!StrUtil.equalsIgnoreCase(this.event.getDefiner(), this.definer.getTextTrim())) {
+        if (!StringUtil.equalsIgnoreCase(this.event.getDefiner(), this.definer.getTextTrim())) {
             temp.setDefiner(this.definer.getTextTrim());
         }
 
         // 注释
-        if (!StrUtil.equalsIgnoreCase(this.event.getComment(), this.comment.getTextTrim())) {
+        if (!StringUtil.equalsIgnoreCase(this.event.getComment(), this.comment.getTextTrim())) {
             temp.setComment(this.comment.getTextTrim());
         }
 
         // 定义
-        if (!StrUtil.equalsIgnoreCase(this.event.getDefinition(), this.definition.getTextTrim())) {
+        if (!StringUtil.equalsIgnoreCase(this.event.getDefinition(), this.definition.getTextTrim())) {
             temp.setDefinition(this.definition.getTextTrim());
         }
 
@@ -450,7 +450,7 @@ public class MysqlEventDesignTabController extends RichTabController {
         }
 
         // 完成时
-        if (!StrUtil.equalsIgnoreCase(this.event.getOnCompletion(), this.onCompletion.getSelectedItem())) {
+        if (!StringUtil.equalsIgnoreCase(this.event.getOnCompletion(), this.onCompletion.getSelectedItem())) {
             temp.setOnCompletion(this.onCompletion.getSelectedItem());
         }
 
@@ -615,7 +615,7 @@ public class MysqlEventDesignTabController extends RichTabController {
                 String sql;
                 MysqlEvent temp = this.tempData();
                 if (this.newData) {
-                    if (StrUtil.isBlank(temp.getName())) {
+                    if (StringUtil.isBlank(temp.getName())) {
                         temp.setName("Unnamed_Event");
                     }
                     sql = EventCreateSqlGenerator.generate(this.dbItem.dialect(), temp);

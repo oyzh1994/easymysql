@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db.query;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
@@ -52,7 +52,7 @@ public abstract class MysqlQueryResult {
     protected List<MysqlRecord> records;
 
     public boolean hasResult() {
-        if (CollUtil.isNotEmpty(this.records)) {
+        if (CollectionUtil.isNotEmpty(this.records)) {
             return true;
         }
         return this.columns == null || this.columns.isEmpty();

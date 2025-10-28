@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.handler.export;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.log.JulLog;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.data.MysqlCsvTypeFileWriter;
@@ -171,7 +171,7 @@ public class DataExportHandler extends DataHandler {
      */
     public void doExport() throws Exception {
         this.message("Export Starting");
-        if (CollUtil.isNotEmpty(this.tables)) {
+        if (CollectionUtil.isNotEmpty(this.tables)) {
             for (DataExportTable table : this.tables) {
                 this.checkInterrupt();
                 this.exportTable(table);
@@ -232,7 +232,7 @@ public class DataExportHandler extends DataHandler {
                     param.setTableName(tableName);
                     param.setLimit((long) this.queryLimit);
                     List<MysqlRecord> records = this.dbClient.selectRecords(param);
-                    if (CollUtil.isEmpty(records)) {
+                    if (CollectionUtil.isEmpty(records)) {
                         break;
                     }
                     long end1 = System.currentTimeMillis();
@@ -553,7 +553,7 @@ public class DataExportHandler extends DataHandler {
      * @param dateFormat 日期格式
      */
     public void dateFormat(String dateFormat) {
-        if (StrUtil.isBlank(dateFormat)) {
+        if (StringUtil.isBlank(dateFormat)) {
             this.config.setDateFormat("yyyy-MM-dd HH:mm:ss");
         } else {
             this.config.setDateFormat(dateFormat);

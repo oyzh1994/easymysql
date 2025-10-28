@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.condition;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.util.DBNodeUtil;
@@ -63,7 +63,7 @@ public class MysqlConditionUtil {
         for (int i = 0; i < filters.size(); i++) {
             MysqlRecordFilter filter = filters.get(i);
             String condition = filter.condition();
-            if (StrUtil.isNotBlank(condition)) {
+            if (StringUtil.isNotBlank(condition)) {
                 conditions.append(DBUtil.wrap(filter.column()))
                         .append(" ")
                         .append(condition)

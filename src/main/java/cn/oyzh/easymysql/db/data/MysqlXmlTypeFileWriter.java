@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.data;
 
-import cn.hutool.core.io.IoUtil;
 import cn.oyzh.common.file.LineFileWriter;
+import cn.oyzh.common.util.IOUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 
@@ -88,7 +88,7 @@ public class MysqlXmlTypeFileWriter extends MysqlTypeFileWriter {
 
     @Override
     public void close() throws IOException {
-        IoUtil.close(this.writer);
+        IOUtil.close(this.writer);
         this.writer = null;
         this.config = null;
         this.columns = null;

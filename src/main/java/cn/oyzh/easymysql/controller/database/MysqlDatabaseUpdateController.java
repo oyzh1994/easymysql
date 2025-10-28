@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.controller.database;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
@@ -66,12 +66,12 @@ public class MysqlDatabaseUpdateController extends StageController {
             database.setName(this.name.getText());
             // 字符集
             String charset = this.charset.getSelectedItem();
-            if (!StrUtil.equalsIgnoreCase(charset, this.database.getCharset())) {
+            if (!StringUtil.equalsIgnoreCase(charset, this.database.getCharset())) {
                 database.setCharset(charset);
             }
             // 排序规则
             String collation = this.collation.getSelectedItem();
-            if (!StrUtil.equalsIgnoreCase(charset, this.database.getCollation())) {
+            if (!StringUtil.equalsIgnoreCase(charset, this.database.getCollation())) {
                 database.setCollation(collation);
             }
             // 修改数据库

@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.popups;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
@@ -101,7 +101,7 @@ public class MysqlColumnEnumPopupController extends PopupController {
         super.onWindowShowing(event);
         this.onSubmit = this.getProp("onSubmit");
         List<String> values = this.getProp("values");
-        if (CollUtil.isNotEmpty(values)) {
+        if (CollectionUtil.isNotEmpty(values)) {
             for (String value : values) {
                 this.listView.addItem(this.createNode(value));
             }

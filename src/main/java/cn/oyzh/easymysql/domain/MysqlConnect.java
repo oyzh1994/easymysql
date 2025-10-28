@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.domain;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.BooleanUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectComparator;
+import cn.oyzh.common.util.BooleanUtil;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.store.jdbc.Column;
 import cn.oyzh.store.jdbc.PrimaryKey;
 import cn.oyzh.store.jdbc.Table;
@@ -149,7 +149,7 @@ public class MysqlConnect implements Serializable, Comparable<MysqlConnect>, Obj
      * @return 结果
      */
     public boolean isCollect( String path) {
-        return CollUtil.isNotEmpty(this.collects) && this.collects.contains(path);
+        return CollectionUtil.isNotEmpty(this.collects) && this.collects.contains(path);
     }
 
     /**
@@ -211,7 +211,7 @@ public class MysqlConnect implements Serializable, Comparable<MysqlConnect>, Obj
      * @return 连接ip
      */
     public String hostIp() {
-        if (StrUtil.isNotBlank(this.host) && this.host.contains(":")) {
+        if (StringUtil.isNotBlank(this.host) && this.host.contains(":")) {
             return this.host.split(":")[0];
         }
         return "";
@@ -224,7 +224,7 @@ public class MysqlConnect implements Serializable, Comparable<MysqlConnect>, Obj
      */
     public int hostPort() {
         try {
-            if (StrUtil.isNotBlank(this.host) && !this.host.contains(",") && this.host.contains(":")) {
+            if (StringUtil.isNotBlank(this.host) && !this.host.contains(",") && this.host.contains(":")) {
                 return Integer.parseInt(this.host.split(":")[1]);
             }
         } catch (Exception ex) {
@@ -238,7 +238,7 @@ public class MysqlConnect implements Serializable, Comparable<MysqlConnect>, Obj
         if (t1 == null) {
             return false;
         }
-        return StrUtil.equals(this.name, t1.name);
+        return StringUtil.equals(this.name, t1.name);
     }
 
     public String serviceName() {

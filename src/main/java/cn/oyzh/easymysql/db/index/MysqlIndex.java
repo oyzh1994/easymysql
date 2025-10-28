@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.db.index;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.object.ObjectCopier;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
     }
 
     public boolean isUnique() {
-        return StrUtil.equalsIgnoreCase(this.getMethod(), "UNIQUE");
+        return StringUtil.equalsIgnoreCase(this.getMethod(), "UNIQUE");
     }
 
     public void setColumns(List<IndexColumn> columns) {
@@ -95,22 +95,22 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
     }
 
     public void type(String type, int noneUnique) {
-        if (StrUtil.equalsIgnoreCase(type, "HASH") && noneUnique == 0) {
+        if (StringUtil.equalsIgnoreCase(type, "HASH") && noneUnique == 0) {
             this.setType("UNIQUE");
             this.setMethod("HASH");
-        } else if (StrUtil.equalsIgnoreCase(type, "HASH") && noneUnique == 1) {
+        } else if (StringUtil.equalsIgnoreCase(type, "HASH") && noneUnique == 1) {
             this.setType("NORMAL");
             this.setMethod("HASH");
-        } else if (StrUtil.equalsIgnoreCase(type, "BTREE") && noneUnique == 0) {
+        } else if (StringUtil.equalsIgnoreCase(type, "BTREE") && noneUnique == 0) {
             this.setType("UNIQUE");
             this.setMethod("BTREE");
-        } else if (StrUtil.equalsIgnoreCase(type, "BTREE") && noneUnique == 1) {
+        } else if (StringUtil.equalsIgnoreCase(type, "BTREE") && noneUnique == 1) {
             this.setType("NORMAL");
             this.setMethod("BTREE");
-        } else if (StrUtil.equalsIgnoreCase(type, "fulltext")) {
+        } else if (StringUtil.equalsIgnoreCase(type, "fulltext")) {
             this.setType("FULLTEXT");
             this.setMethod("");
-        } else if (StrUtil.equalsIgnoreCase(type, "spatial")) {
+        } else if (StringUtil.equalsIgnoreCase(type, "spatial")) {
             this.setType("SPATIAL");
             this.setMethod("");
         } else {
@@ -127,7 +127,7 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
     }
 
     public String methodName() {
-        return StrUtil.emptyToNull(this.method);
+        return StringUtil.emptyToNull(this.method);
     }
 
     @Override
@@ -143,7 +143,7 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
     }
 
     public boolean isInvalid() {
-        return StrUtil.isBlank(this.name) || StrUtil.isBlank(this.type) || CollUtil.isEmpty(this.columns);
+        return StringUtil.isBlank(this.name) || StringUtil.isBlank(this.type) || CollectionUtil.isEmpty(this.columns);
     }
 
 
@@ -204,7 +204,7 @@ public class MysqlIndex extends DBObjectStatus implements ObjectCopier<MysqlInde
                 return true;
             }
             if (o instanceof IndexColumn column) {
-                return Objects.equals(column.subPart, this.subPart) && StrUtil.equals(this.columnName, column.columnName);
+                return Objects.equals(column.subPart, this.subPart) && StringUtil.equals(this.columnName, column.columnName);
             }
             return false;
         }

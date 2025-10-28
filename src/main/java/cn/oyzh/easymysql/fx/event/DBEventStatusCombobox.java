@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.event;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
@@ -34,13 +34,13 @@ public class DBEventStatusCombobox extends FXComboBox<String> {
         if (val == null) {
             return false;
         }
-        if (StrUtil.equalsAnyIgnoreCase("ENABLE", "ENABLED") && this.getSelectedIndex() == 0) {
+        if (StringUtil.equalsAnyIgnoreCase("ENABLE", "ENABLED") && this.getSelectedIndex() == 0) {
             return true;
         }
-        if (StrUtil.equalsAnyIgnoreCase("DISABLE", "DISABLED") && this.getSelectedIndex() == 1) {
+        if (StringUtil.equalsAnyIgnoreCase("DISABLE", "DISABLED") && this.getSelectedIndex() == 1) {
             return true;
         }
-        if (StrUtil.equalsAnyIgnoreCase("DISABLE ON SLAVE", "SLAVESIDE_DISABLED") && this.getSelectedIndex() == 2) {
+        if (StringUtil.equalsAnyIgnoreCase("DISABLE ON SLAVE", "SLAVESIDE_DISABLED") && this.getSelectedIndex() == 2) {
             return true;
         }
         return false;

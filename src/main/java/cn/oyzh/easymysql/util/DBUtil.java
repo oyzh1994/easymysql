@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.util;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.log.JulLog;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.common.util.UUIDUtil;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
@@ -41,7 +41,7 @@ public class DBUtil {
      * @return 结果
      */
     public static boolean isInternalDatabase(String dbName) {
-        return StrUtil.equalsAnyIgnoreCase(dbName, "mysql", "information_schema", "performance_schema");
+        return StringUtil.equalsAnyIgnoreCase(dbName, "mysql", "information_schema", "performance_schema");
     }
 
     /**
@@ -55,7 +55,7 @@ public class DBUtil {
     public static boolean checkTableType(ResultSet resultSet, String dbName) throws SQLException {
         String tableCat = resultSet.getString("TABLE_CAT");
         String tableType = resultSet.getString("TABLE_TYPE");
-        return StrUtil.equalsIgnoreCase(tableCat, dbName) && !StrUtil.equalsIgnoreCase("VIEW", tableType);
+        return StringUtil.equalsIgnoreCase(tableCat, dbName) && !StringUtil.equalsIgnoreCase("VIEW", tableType);
     }
 
     /**
@@ -69,7 +69,7 @@ public class DBUtil {
     public static boolean checkViewType(ResultSet resultSet, String dbName) throws SQLException {
         String tableCat = resultSet.getString("TABLE_CAT");
         String tableType = resultSet.getString("TABLE_TYPE");
-        return StrUtil.equalsIgnoreCase(tableCat, dbName) && StrUtil.equalsIgnoreCase("VIEW", tableType);
+        return StringUtil.equalsIgnoreCase(tableCat, dbName) && StringUtil.equalsIgnoreCase("VIEW", tableType);
     }
 
     /**
@@ -96,7 +96,7 @@ public class DBUtil {
      */
     public static boolean checkProcedureType(ResultSet resultSet, String dbName) throws SQLException {
         String tableCat = resultSet.getString("PROCEDURE_CAT");
-        return StrUtil.equals(tableCat, dbName);
+        return StringUtil.equals(tableCat, dbName);
     }
 
     /**
@@ -109,7 +109,7 @@ public class DBUtil {
      */
     public static boolean checkFunctionType(ResultSet resultSet, String dbName) throws SQLException {
         String functionCat = resultSet.getString("FUNCTION_CAT");
-        return StrUtil.equalsIgnoreCase(functionCat, dbName);
+        return StringUtil.equalsIgnoreCase(functionCat, dbName);
     }
 
     /**
@@ -122,7 +122,7 @@ public class DBUtil {
      */
     public static boolean checkFunctionType(ResultSet resultSet, String dbName, String schema) throws SQLException {
         String functionCat = resultSet.getString("FUNCTION_CAT");
-        if (!StrUtil.equalsIgnoreCase(functionCat, dbName)) {
+        if (!StringUtil.equalsIgnoreCase(functionCat, dbName)) {
             return false;
         }
         if (schema == null) {
@@ -130,7 +130,7 @@ public class DBUtil {
         }
         String functionSchem = resultSet.getString("FUNCTION_SCHEM");
         if (functionSchem != null) {
-            return StrUtil.equalsIgnoreCase(functionSchem, schema);
+            return StringUtil.equalsIgnoreCase(functionSchem, schema);
         }
         return true;
     }
@@ -335,7 +335,7 @@ public class DBUtil {
             }
         }
         if (val instanceof byte[] b1 && nVal instanceof byte[] b2) {
-            if (StrUtil.equals(new String(b1), new String(b2))) {
+            if (StringUtil.equals(new String(b1), new String(b2))) {
                 return true;
             }
         }

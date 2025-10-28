@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.db;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -55,7 +55,7 @@ public class DBDatabase {
     }
 
     public void setCharsetAndCollation(String collation) {
-        if (StrUtil.isNotBlank(collation)) {
+        if (StringUtil.isNotBlank(collation)) {
             String charset = collation.split("_")[0];
             this.setCharset(charset);
             if (collation.contains("_")) {

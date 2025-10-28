@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.tabs.view;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -40,7 +40,7 @@ public class MysqlViewDesignTab extends MysqlTab {
     @Override
     public void flushTitle() {
         String name = this.viewName();
-        if (StrUtil.isBlank(name)) {
+        if (StringUtil.isBlank(name)) {
             name = I18nHelper.unnamedView();
         }
         // 设置提示文本

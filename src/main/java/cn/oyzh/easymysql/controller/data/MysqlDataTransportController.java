@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.controller.data;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
@@ -20,7 +20,6 @@ import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.button.FXButton;
-import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.controls.pane.FXTitledPane;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -512,8 +511,8 @@ public class MysqlDataTransportController extends StageController {
             MessageBox.warn(I18nHelper.pleaseSelectTargetDatabase());
             return;
         }
-        if (StrUtil.equalsIgnoreCase(sourceInfo.getName(), targetInfo.getName())
-                && StrUtil.equalsIgnoreCase(sourceDatabase, targetDatabase)) {
+        if (StringUtil.equalsIgnoreCase(sourceInfo.getName(), targetInfo.getName())
+                && StringUtil.equalsIgnoreCase(sourceDatabase, targetDatabase)) {
             this.targetDatabase.requestFocus();
             MessageBox.warn(I18nHelper.pleaseCheckDatabase());
             return;
@@ -564,22 +563,22 @@ public class MysqlDataTransportController extends StageController {
      * @param name 当前面板名称
      */
     private void flushPaneText(String name) {
-        if (StrUtil.equalsIgnoreCase(name, "view")) {
+        if (StringUtil.equalsIgnoreCase(name, "view")) {
             String viewTipText = "(" + this.viewList.getSelectedSize() + "/" + this.viewList.getItemSize() + ")";
             this.viewPane.appendText(viewTipText);
-        } else if (StrUtil.equalsIgnoreCase(name, "event")) {
+        } else if (StringUtil.equalsIgnoreCase(name, "event")) {
             String eventTipText = "(" + this.eventList.getSelectedSize() + "/" + this.eventList.getItemSize() + ")";
             this.eventPane.appendText(eventTipText);
-        } else if (StrUtil.equalsIgnoreCase(name, "table")) {
+        } else if (StringUtil.equalsIgnoreCase(name, "table")) {
             String tableTipText = "(" + this.tableList.getSelectedSize() + "/" + this.tableList.getItemSize() + ")";
             this.tablePane.appendText(tableTipText);
-        } else if (StrUtil.equalsIgnoreCase(name, "trigger")) {
+        } else if (StringUtil.equalsIgnoreCase(name, "trigger")) {
             String triggerTipText = "(" + this.triggerList.getSelectedSize() + "/" + this.triggerList.getItemSize() + ")";
             this.triggerPane.appendText(triggerTipText);
-        } else if (StrUtil.equalsIgnoreCase(name, "function")) {
+        } else if (StringUtil.equalsIgnoreCase(name, "function")) {
             String functionTipText = "(" + this.functionList.getSelectedSize() + "/" + this.functionList.getItemSize() + ")";
             this.functionPane.appendText(functionTipText);
-        } else if (StrUtil.equalsIgnoreCase(name, "procedure")) {
+        } else if (StringUtil.equalsIgnoreCase(name, "procedure")) {
             String procedureTipText = "(" + this.procedureList.getSelectedSize() + "/" + this.procedureList.getItemSize() + ")";
             this.procedurePane.appendText(procedureTipText);
         }

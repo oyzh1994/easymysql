@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
@@ -22,7 +22,7 @@ public class DBDatabaseComboBox extends FXComboBox<String> {
     public void init(DBClient client, String dbName) {
         this.clearItems();
         List<DBDatabase> databases = client.databases();
-        if (CollUtil.isNotEmpty(databases)) {
+        if (CollectionUtil.isNotEmpty(databases)) {
             this.setItem(databases.stream().map(DBDatabase::getName).toList());
         }
         if (dbName != null) {

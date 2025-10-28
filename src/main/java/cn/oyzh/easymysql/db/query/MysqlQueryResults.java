@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.query;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +24,11 @@ public class MysqlQueryResults<R extends MysqlQueryResult> {
     }
 
     public boolean isEmpty() {
-        return CollUtil.isEmpty(this.results);
+        return CollectionUtil.isEmpty(this.results);
     }
 
     public boolean isSuccess() {
-        return StrUtil.isEmpty(this.errMsg);
+        return StringUtil.isEmpty(this.errMsg);
     }
 
     public void parseError(Exception ex) {

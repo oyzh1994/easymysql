@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.db.data;
 
-import cn.hutool.core.util.StrUtil;
+
+import cn.oyzh.common.util.StringUtil;
 
 import java.nio.charset.StandardCharsets;
 
@@ -63,11 +64,11 @@ public class MysqlDataImportConfig {
     private String charset = StandardCharsets.UTF_8.displayName();
 
     public boolean isAppendMode() {
-        return StrUtil.equals(this.importMode, "1");
+        return StringUtil.equals(this.importMode, "1");
     }
 
     public boolean isCopyMode() {
-        return StrUtil.equals(this.importMode, "2");
+        return StringUtil.equals(this.importMode, "2");
     }
 
     public char fieldSeparatorChar() {

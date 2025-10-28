@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql.trees.connect;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.common.thread.ThreadUtil;
@@ -247,7 +246,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
             return;
         }
         // 检查名称
-        if (StrUtil.isBlank(connectName)) {
+        if (StringUtil.isBlank(connectName)) {
             MessageBox.warn(I18nHelper.contentCanNotEmpty());
             return;
         }

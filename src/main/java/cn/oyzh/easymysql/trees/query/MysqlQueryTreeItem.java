@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.trees.query;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlQuery;
@@ -98,7 +98,7 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
             return;
         }
         // 检查名称
-        if (StrUtil.isBlank(name)) {
+        if (StringUtil.isBlank(name)) {
             MessageBox.warn(I18nHelper.pleaseInputName());
             return;
         }

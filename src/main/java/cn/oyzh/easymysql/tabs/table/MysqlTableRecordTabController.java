@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs.table;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.common.dto.Paging;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.DBObjectList;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
@@ -164,7 +164,7 @@ public class MysqlTableRecordTabController extends RichTabController {
      * @return 已启用的表过滤条件
      */
     private List<MysqlRecordFilter> enabledFilters() {
-        if (CollUtil.isNotEmpty(this.filters)) {
+        if (CollectionUtil.isNotEmpty(this.filters)) {
             return this.filters.stream().filter(MysqlRecordFilter::isEnabled).toList();
         }
         return null;
@@ -349,7 +349,7 @@ public class MysqlTableRecordTabController extends RichTabController {
             // 判断是否缺少主键列
             this.missPrimaryKey.setVisible(!this.columns.hasPrimaryKey());
             // 设置过滤激活
-            this.filter.setActive(CollUtil.isNotEmpty(this.enabledFilters()));
+            this.filter.setActive(CollectionUtil.isNotEmpty(this.enabledFilters()));
             // 禁用组件
             this.apply.disable();
         } catch (Exception ex) {

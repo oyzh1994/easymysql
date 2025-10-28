@@ -74,12 +74,12 @@
             <artifactId>fx-rich</artifactId>
         </dependency>
 
-        <!-- 加密工具类库 -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-crypto</artifactId>
-            <version>${hutool.version}</version>
-        </dependency>
+        <!-- &lt;!&ndash; 加密工具类库 &ndash;&gt; -->
+        <!-- <dependency> -->
+        <!--     <groupId>cn.hutool</groupId> -->
+        <!--     <artifactId>hutool-crypto</artifactId> -->
+        <!--     <version>${hutool.version}</version> -->
+        <!-- </dependency> -->
 
         <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
         <dependency>

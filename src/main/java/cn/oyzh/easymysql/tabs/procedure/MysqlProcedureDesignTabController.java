@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs.procedure;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.cache.CacheHelper;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
@@ -379,7 +379,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
             }
             if (newValue.intValue() == 3) {
                 MysqlProcedure temp = this.tempData();
-                if (StrUtil.isBlank(temp.getName())) {
+                if (StringUtil.isBlank(temp.getName())) {
                     temp.setName("Unnamed_Procedure");
                 }
                 String sql = DBProcedureSqlGenerator.INSTANCE.generate(temp);

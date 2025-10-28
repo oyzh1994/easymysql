@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.handler.transport;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.oyzh.common.thread.ThreadUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.fx.data.DataTransportEvent;
@@ -102,7 +102,7 @@ public abstract class DataTransportHandler extends DataHandler {
      * @param sqlList sql列表
      */
     protected void addInsertSql(List<String> sqlList) {
-        if (CollUtil.isNotEmpty(sqlList)) {
+        if (CollectionUtil.isNotEmpty(sqlList)) {
             if (this.insertList == null) {
                 this.insertList = new ArrayList<>();
             }
@@ -117,12 +117,12 @@ public abstract class DataTransportHandler extends DataHandler {
      * 执行批量插入
      */
     protected void doBatchInsert() {
-        if (CollUtil.isNotEmpty(this.insertList)) {
+        if (CollectionUtil.isNotEmpty(this.insertList)) {
             try {
                 if (this.insertList.size() <= this.batchLimit) {
                     this.doBatchInsert(this.insertList, false);
                 } else {
-                    List<List<String>> lists = CollUtil.split(this.insertList, this.batchLimit);
+                    List<List<String>> lists = CollectionUtil.split(this.insertList, this.batchLimit);
                     List<Runnable> tasks = new ArrayList<>();
                     for (List<String> list : lists) {
                         tasks.add(() -> this.doBatchInsert(list, true));

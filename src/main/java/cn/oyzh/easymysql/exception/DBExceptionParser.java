@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.exception;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.ssh.SSHException;
 
 import java.util.function.Function;
@@ -35,7 +35,7 @@ public class DBExceptionParser implements Function<Throwable, String> {
         }
 
         if (e instanceof SSHException e1) {
-            if (StrUtil.contains(e.getMessage(), "Auth fail")) {
+            if (StringUtil.contains(e.getMessage(), "Auth fail")) {
                 return "ssh认证失败，请检查ssh用户名、密码是否正确";
             }
             return e1.getMessage();

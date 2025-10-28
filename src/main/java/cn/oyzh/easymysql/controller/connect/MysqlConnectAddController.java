@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql.controller.connect;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlGroup;
@@ -223,7 +222,7 @@ public class MysqlConnectAddController extends StageController {
             return;
         }
         // 名称未填，则直接以host为名称
-        if (StrUtil.isBlank(this.name.getTextTrim())) {
+        if (StringUtil.isBlank(this.name.getTextTrim())) {
             this.name.setText(host.replace(":", "_"));
         }
         try {

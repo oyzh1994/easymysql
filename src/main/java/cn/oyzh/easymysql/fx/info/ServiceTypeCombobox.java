@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.info;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 import cn.oyzh.i18n.I18nHelper;
 
@@ -16,7 +16,7 @@ public class ServiceTypeCombobox extends FXComboBox<String> {
     }
 
     public void init(String serviceType) {
-        if (StrUtil.equalsIgnoreCase("SID", serviceType)) {
+        if (StringUtil.equalsIgnoreCase("SID", serviceType)) {
             this.select(1);
         } else {
             this.select(0);

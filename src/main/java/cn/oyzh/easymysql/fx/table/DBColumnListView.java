@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.table;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.list.FXListView;
@@ -35,9 +35,9 @@ public class DBColumnListView extends FXListView<FXCheckBox> {
 
     public void init(List<MysqlColumn> columns, List<String> selectedColumns) {
         this.clearItems();
-        if (CollUtil.isNotEmpty(columns)) {
+        if (CollectionUtil.isNotEmpty(columns)) {
             for (MysqlColumn column : columns) {
-                boolean selected = CollUtil.contains(selectedColumns, column.getName());
+                boolean selected = CollectionUtil.contains(selectedColumns, column.getName());
                 FXCheckBox checkBox = new FXCheckBox();
                 checkBox.setSelected(selected);
                 checkBox.setText(column.getName());
@@ -63,11 +63,11 @@ public class DBColumnListView extends FXListView<FXCheckBox> {
     }
 
     public void select(Collection<String> columns) {
-        if (CollUtil.isNotEmpty(columns)) {
+        if (CollectionUtil.isNotEmpty(columns)) {
             for (FXCheckBox checkBox : this.getItems()) {
                 MysqlColumn column = checkBox.getProp("column");
                 for (String s : columns) {
-                    if (StrUtil.equalsIgnoreCase(s.trim(), column.getName())) {
+                    if (StringUtil.equalsIgnoreCase(s.trim(), column.getName())) {
                         checkBox.setSelected(true);
                         break;
                     }

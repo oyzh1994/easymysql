@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx;
 
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
@@ -12,7 +12,7 @@ public class DBCollationComboBox extends FXComboBox<String> {
 
     public void init(String charset, DBClient client) {
         String aCharset = this.getProp("charset");
-        if (!StrUtil.equalsIgnoreCase(charset, aCharset)) {
+        if (!StringUtil.equalsIgnoreCase(charset, aCharset)) {
             this.setProp("charset", charset);
             this.clearItems();
             for (String collation : client.collation(charset)) {

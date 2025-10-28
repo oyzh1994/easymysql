@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.db.event;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.date.DateUtil;
 import cn.oyzh.common.object.ObjectComparator;
 import cn.oyzh.common.object.ObjectCopier;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.util.DBUtil;
 
@@ -124,7 +124,7 @@ public class MysqlEvent extends DBObjectStatus implements ObjectCopier<MysqlEven
     }
 
     public boolean isNew() {
-        return StrUtil.isBlank(this.getDefinition());
+        return StringUtil.isBlank(this.getDefinition());
     }
 
     @Override
@@ -132,15 +132,15 @@ public class MysqlEvent extends DBObjectStatus implements ObjectCopier<MysqlEven
         if (value == null) {
             return false;
         }
-        return StrUtil.equalsIgnoreCase(this.dbName, value.dbName) && StrUtil.equalsIgnoreCase(this.name, value.name);
+        return StringUtil.equalsIgnoreCase(this.dbName, value.dbName) && StringUtil.equalsIgnoreCase(this.name, value.name);
     }
 
     public void setCreateDefinition(String createDefinition) {
         this.createDefinition = createDefinition;
-        if (StrUtil.isNotBlank(createDefinition)) {
+        if (StringUtil.isNotBlank(createDefinition)) {
             String[] arr = createDefinition.split(" ");
             for (String string : arr) {
-                if (StrUtil.startWithIgnoreCase(string, "DEFINER=")) {
+                if (StringUtil.startWithIgnoreCase(string, "DEFINER=")) {
                     this.definer = string.substring(8);
                     break;
                 }
@@ -149,11 +149,11 @@ public class MysqlEvent extends DBObjectStatus implements ObjectCopier<MysqlEven
     }
 
     public boolean isOnTimeType() {
-        return StrUtil.equalsIgnoreCase("ONE TIME", this.type);
+        return StringUtil.equalsIgnoreCase("ONE TIME", this.type);
     }
 
     public boolean isRecurringType() {
-        return StrUtil.equalsIgnoreCase("RECURRING", this.type);
+        return StringUtil.equalsIgnoreCase("RECURRING", this.type);
     }
 
     public Object executeAt() {
@@ -181,11 +181,11 @@ public class MysqlEvent extends DBObjectStatus implements ObjectCopier<MysqlEven
     }
 
     public boolean isEnable() {
-        return StrUtil.equalsIgnoreCase("ENABLE", this.status);
+        return StringUtil.equalsIgnoreCase("ENABLE", this.status);
     }
 
     public boolean isPreserve() {
-        return StrUtil.equalsIgnoreCase("PRESERVE", this.onCompletion);
+        return StringUtil.equalsIgnoreCase("PRESERVE", this.onCompletion);
     }
 
     public String getName() {

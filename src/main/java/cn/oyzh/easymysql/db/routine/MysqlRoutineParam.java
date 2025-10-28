@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.db.routine;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.cache.CacheHelper;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
@@ -189,7 +189,7 @@ public class MysqlRoutineParam extends DBObjectStatus {
     public List<String> getValueList() {
         List<String> valueList = new ArrayList<>();
         if (this.getValue() != null) {
-            List<String> list = StrUtil.split(this.getValue(), ",");
+            List<String> list = StringUtil.split(this.getValue(), ",");
             for (String s : list) {
                 if (s.startsWith("'") && s.endsWith("'")) {
                     valueList.add(s.substring(1, s.length() - 1));
@@ -269,7 +269,7 @@ public class MysqlRoutineParam extends DBObjectStatus {
     }
 
     public boolean isReturnParam() {
-        return StrUtil.isBlank(this.name) && StrUtil.isBlank(this.mode);
+        return StringUtil.isBlank(this.name) && StringUtil.isBlank(this.mode);
     }
 
     /**
@@ -279,7 +279,7 @@ public class MysqlRoutineParam extends DBObjectStatus {
      */
     public String getDefinition() {
         String definition = "";
-        if (StrUtil.isNotBlank(this.getName())) {
+        if (StringUtil.isNotBlank(this.getName())) {
             definition += DBUtil.wrap(this.getName());
         }
         definition += " " + this.getType();
@@ -297,10 +297,10 @@ public class MysqlRoutineParam extends DBObjectStatus {
         definition = definition.replaceFirst("\\(\\)", "");
         // 字符集、排序
         if (DBColumnUtil.supportCharset(this.getType())) {
-            if (StrUtil.isNotBlank(this.getCharset())) {
+            if (StringUtil.isNotBlank(this.getCharset())) {
                 definition += " CHARSET " + this.getCharset();
             }
-            if (StrUtil.isNotBlank(this.getCollation())) {
+            if (StringUtil.isNotBlank(this.getCollation())) {
                 definition += " COLLATE " + this.getCollation();
             }
         }

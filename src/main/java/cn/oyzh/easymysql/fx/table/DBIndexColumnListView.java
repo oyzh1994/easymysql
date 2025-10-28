@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.table;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.index.MysqlIndex;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
@@ -36,7 +36,7 @@ public class DBIndexColumnListView extends FXListView<FXHBox> {
     public void init(MysqlIndex dbIndex, List<MysqlColumn> columnList) {
         this.clearItems();
         this.columnNames = columnList.parallelStream().map(MysqlColumn::getName).collect(Collectors.toList());
-        if (CollUtil.isNotEmpty(dbIndex.getColumns())) {
+        if (CollectionUtil.isNotEmpty(dbIndex.getColumns())) {
             for (MysqlIndex.IndexColumn column : dbIndex.getColumns()) {
                 this.addColumn(column);
             }
@@ -49,7 +49,7 @@ public class DBIndexColumnListView extends FXListView<FXHBox> {
         comboBox.setRealHeight(25);
         comboBox.setItem(this.columnNames);
         comboBox.addClass("popover-item");
-        if (StrUtil.isNotBlank(column.getColumnName())) {
+        if (StringUtil.isNotBlank(column.getColumnName())) {
             comboBox.select(column.getColumnName());
         } else {
             comboBox.selectFirst();

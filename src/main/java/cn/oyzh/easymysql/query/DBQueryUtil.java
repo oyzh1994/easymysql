@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.query;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.thread.ThreadUtil;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
@@ -242,7 +242,7 @@ public class DBQueryUtil {
         if (!str.contains(text) && !text.contains(str)) {
             return 0.d;
         }
-        double corr = StrUtil.similar(str, text);
+        double corr = StringUtil.similarity(str, text);
         if (str.startsWith(text)) {
             corr += 0.3;
         } else if (str.contains(text)) {

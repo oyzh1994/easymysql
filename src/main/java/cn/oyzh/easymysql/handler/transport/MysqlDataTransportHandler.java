@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.handler.transport;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
@@ -28,32 +28,32 @@ public class MysqlDataTransportHandler extends DataTransportHandler {
         this.message("Transport Starting");
         try {
             this.targetClient.executeSqlSimple(this.targetDatabase, "SET FOREIGN_KEY_CHECKS = 0;");
-            if (CollUtil.isNotEmpty(this.tables)) {
+            if (CollectionUtil.isNotEmpty(this.tables)) {
                 for (DataTransportTable table : this.tables) {
                     this.transportTable(table.getName());
                 }
             }
-            if (CollUtil.isNotEmpty(this.views)) {
+            if (CollectionUtil.isNotEmpty(this.views)) {
                 for (DataTransportView view : this.views) {
                     this.transportView(view.getName());
                 }
             }
-            if (CollUtil.isNotEmpty(this.functions)) {
+            if (CollectionUtil.isNotEmpty(this.functions)) {
                 for (DataTransportFunction function : this.functions) {
                     this.transportFunction(function.getName());
                 }
             }
-            if (CollUtil.isNotEmpty(this.procedures)) {
+            if (CollectionUtil.isNotEmpty(this.procedures)) {
                 for (DataTransportProcedure procedure : this.procedures) {
                     this.transportProcedure(procedure.getName());
                 }
             }
-            if (CollUtil.isNotEmpty(this.triggers)) {
+            if (CollectionUtil.isNotEmpty(this.triggers)) {
                 for (DataTransportTrigger trigger : this.triggers) {
                     this.transportTrigger(trigger.getName());
                 }
             }
-            if (CollUtil.isNotEmpty(this.events)) {
+            if (CollectionUtil.isNotEmpty(this.events)) {
                 for (DataTransportEvent event : this.events) {
                     this.transportEvent(event.getName());
                 }
@@ -100,7 +100,7 @@ public class MysqlDataTransportHandler extends DataTransportHandler {
             param.setDbName(this.sourceDatabase);
             param.setLimit((long) this.selectLimit);
             List<MysqlRecord> records = this.sourceClient.selectRecords(param);
-            if (CollUtil.isEmpty(records)) {
+            if (CollectionUtil.isEmpty(records)) {
                 break;
             }
             List<String> list = DBDataUtil.toInsertSql(dbColumns, records);

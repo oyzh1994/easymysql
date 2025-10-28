@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees.table;
 
-import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.dto.Paging;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
 import cn.oyzh.easymysql.controller.data.MysqlDataExportController;
 import cn.oyzh.easymysql.controller.table.MysqlTableInfoController;
@@ -194,7 +194,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
                 return;
             }
             // 检查名称
-            if (StrUtil.isBlank(tableName)) {
+            if (StringUtil.isBlank(tableName)) {
                 MessageBox.warn(I18nHelper.pleaseInputContent());
                 return;
             }
