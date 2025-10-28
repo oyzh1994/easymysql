@@ -210,6 +210,8 @@ public class MysqlViewDesignTabController extends RichTabController {
                 this.dbItem.alertView(tempView);
                 MysqlEventUtil.viewAlerted(viewName, this.dbItem);
             }
+            // 刷新数据
+            this.dbItem.getViewTypeChild().reloadChild();
             // 重置保存标志位
             this.unsaved = false;
             // 查询视图信息

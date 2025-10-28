@@ -314,6 +314,8 @@ public class MysqlProcedureDesignTabController extends RichTabController {
                 this.dbItem.alertProcedure(tempProcedure);
                 MysqlEventUtil.procedureAlerted(procedureName, this.dbItem);
             }
+            // 刷新数据
+            this.dbItem.getProcedureTypeChild().reloadChild();
             // 更新保存标志位
             this.unsaved = false;
             // 重载表数据

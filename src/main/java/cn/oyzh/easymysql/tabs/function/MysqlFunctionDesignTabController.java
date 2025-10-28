@@ -369,6 +369,8 @@ public class MysqlFunctionDesignTabController extends RichTabController {
                 this.dbItem.alertFunction(tempFunction);
                 MysqlEventUtil.functionAlerted(functionName, this.dbItem);
             }
+            // 刷新数据
+            this.dbItem.getFunctionTypeChild().reloadChild();
             // 更新保存标志位
             this.unsaved = false;
             // 重载表数据
