@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.db.foreignKey;
 
 import cn.oyzh.common.cache.CacheHelper;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
@@ -8,8 +9,10 @@ import cn.oyzh.easymysql.fx.DBDatabaseComboBox;
 import cn.oyzh.easymysql.fx.table.DBFieldTextFiled;
 import cn.oyzh.easymysql.fx.table.DBForeignKeyPolicyComboBox;
 import cn.oyzh.easymysql.fx.table.DBTableComboBox;
+import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.plus.controls.text.field.FXTextField;
+import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.i18n.I18nHelper;
 
@@ -27,13 +30,17 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
         try {
             ClearableTextField textField = new ClearableTextField();
             textField.setPromptText(I18nHelper.pleaseInputName());
-            textField.addTextChangeListener((observable, oldValue, newValue) -> this.setName(newValue));
+            if (StringUtil.isEmpty(this.getName())) {
+                this.setName(DBUtil.genForeignKeyName());
+            }
             textField.setText(this.getName());
+            textField.addTextChangeListener((observable, oldValue, newValue) -> this.setName(newValue));
             TableViewUtil.rowOnCtrlS(textField);
             TableViewUtil.selectRowOnMouseClicked(textField);
             return textField;
         } catch (Exception ex) {
             ex.printStackTrace();
+            MessageBox.exception(ex);
         }
         return null;
     }
@@ -156,7 +163,6 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
         }
         return controls;
     }
-
 
 
 }

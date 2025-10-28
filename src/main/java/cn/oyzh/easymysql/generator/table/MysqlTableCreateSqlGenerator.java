@@ -203,8 +203,8 @@ public class MysqlTableCreateSqlGenerator {
         MysqlForeignKeys foreignKeys = param.getForeignKeys();
         for (MysqlForeignKey foreignKey : foreignKeys) {
             // 新增外键
-            builder.append(" ADD CONSTRAINT ")
-                    .append(DBUtil.wrap(foreignKey.originalName(), DBDialect.MYSQL))
+            builder.append(" CONSTRAINT ")
+                    .append(DBUtil.wrap(foreignKey.getName(), DBDialect.MYSQL))
                     .append(" FOREIGN KEY (");
             for (String column : foreignKey.getColumns()) {
                 builder.append(DBUtil.wrap(column, DBDialect.MYSQL)).append(",");
@@ -229,7 +229,7 @@ public class MysqlTableCreateSqlGenerator {
     protected void checkHandle(StringBuilder builder, MysqlTableCreateParam table) {
         MysqlChecks checks = table.getChecks();
         for (MysqlCheck check : checks) {
-            builder.append(" ADD CONSTRAINT ")
+            builder.append(" CONSTRAINT ")
                     .append(DBUtil.wrap(check.getName(), DBDialect.MYSQL))
                     .append(" CHECK (")
                     .append(check.getClause())

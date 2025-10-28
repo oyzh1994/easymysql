@@ -1,6 +1,8 @@
 package cn.oyzh.easymysql.db.trigger;
 
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.fx.table.DBTriggerPolicyComboBox;
+import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.gui.text.field.EnlargeTextFiled;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
@@ -18,10 +20,13 @@ public class MysqlTriggerControl extends MysqlTrigger {
     public ClearableTextField getNameControl() {
         ClearableTextField textField = new ClearableTextField();
         textField.setPromptText(I18nHelper.pleaseInputName());
+        if (StringUtil.isEmpty(this.getName())) {
+            this.setName(DBUtil.genTriggerName());
+        }
+        textField.setText(this.getName());
         textField.addTextChangeListener((observable, oldValue, newValue) -> {
             this.setName(newValue);
         });
-        textField.setText(this.getName());
         TableViewUtil.rowOnCtrlS(textField);
         TableViewUtil.selectRowOnMouseClicked(textField);
         return textField;

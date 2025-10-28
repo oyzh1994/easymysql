@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.util;
 
 import cn.hutool.core.util.StrUtil;
 import cn.oyzh.common.log.JulLog;
+import cn.oyzh.common.util.UUIDUtil;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
@@ -367,5 +368,41 @@ public class DBUtil {
         } else if (o != null) {
             o.close();
         }
+    }
+
+    /**
+     * 生成索引名称
+     *
+     * @return 索引名称
+     */
+    public static String genIndexName() {
+        return "index_" + UUIDUtil.uuidSimple().substring(0, 5);
+    }
+
+    /**
+     * 生成检查名称
+     *
+     * @return 检查名称
+     */
+    public static String genCheckName() {
+        return "check_" + UUIDUtil.uuidSimple().substring(0, 5);
+    }
+
+    /**
+     * 生成触发器名称
+     *
+     * @return 触发器名称
+     */
+    public static String genTriggerName() {
+        return "trigger_" + UUIDUtil.uuidSimple().substring(0, 5);
+    }
+
+    /**
+     * 生成外键名称
+     *
+     * @return 外键名称
+     */
+    public static String genForeignKeyName() {
+        return "fk_" + UUIDUtil.uuidSimple().substring(0, 5);
     }
 }
