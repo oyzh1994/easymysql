@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.record.DBRecordTableView?>
+<?import cn.oyzh.fx.gui.page.PageBox?>
+<?import cn.oyzh.fx.gui.svg.glyph.AddSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.Apply1SVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.DeleteSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.DiscardSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.FilterSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.RefreshSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
-<?import cn.oyzh.fx.gui.svg.glyph.DeleteSVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.AddFillSVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.ApplySVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.DiscardSVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.RefreshSVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.FilterSVGGlyph?>
-<?import cn.oyzh.fx.gui.page.PageBox?>
 <FXVBox xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="cn.oyzh.easymysql.tabs.view.MysqlViewRecordTabController" flexWidth="100%" flexHeight="100%"
-          fx:id="root">
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="cn.oyzh.easymysql.tabs.view.MysqlViewRecordTabController" flexWidth="100%" flexHeight="100%"
+        fx:id="root">
     <DBRecordTableView fx:id="recordTable" flexHeight="100% - 40" flexWidth="100%" tableMenuButtonVisible="true">
     </DBRecordTableView>
     <FXHBox realHeight="40" flexWidth="100%">
@@ -24,18 +24,18 @@
                 <Insets left="10" top="10"/>
             </HBox.margin>
         </DeleteSVGGlyph>
-        <AddFillSVGGlyph groupId="action2" onMousePrimaryClicked="#addRecord" size="14" fx:id="add" managed="false"
-                         visible="false">
+        <AddSVGGlyph groupId="action2" onMousePrimaryClicked="#addRecord" size="14" fx:id="add" managed="false"
+                     visible="false">
             <HBox.margin>
                 <Insets left="5" top="10"/>
             </HBox.margin>
-        </AddFillSVGGlyph>
-        <ApplySVGGlyph onMousePrimaryClicked="#apply" sizeStr="14,12" fx:id="apply" disable="true" managed="false"
-                       visible="false">
+        </AddSVGGlyph>
+        <Apply1SVGGlyph onMousePrimaryClicked="#apply" sizeStr="14,12" fx:id="apply" disable="true" managed="false"
+                        visible="false">
             <HBox.margin>
                 <Insets left="5" top="11"/>
             </HBox.margin>
-        </ApplySVGGlyph>
+        </Apply1SVGGlyph>
         <DiscardSVGGlyph onMousePrimaryClicked="#discard" sizeStr="11" fx:id="discard" disable="true" managed="false"
                          visible="false">
             <HBox.margin>
