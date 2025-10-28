@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.record.DBRecordTableView?>
+<?import cn.oyzh.fx.gui.svg.glyph.AddSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.Apply1SVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.DeleteSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.DiscardSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.RefreshSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import cn.oyzh.fx.plus.controls.text.FXText?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
-<?import cn.oyzh.fx.gui.svg.glyph.DeleteSVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.AddFillSVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.ApplySVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.DiscardSVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.RefreshSVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.AddSVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.Apply1SVGGlyph?>
 <FXVBox xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
         fx:controller="cn.oyzh.easymysql.tabs.query.MysqlQuerySelectTabController" flexWidth="100%" flexHeight="100%"

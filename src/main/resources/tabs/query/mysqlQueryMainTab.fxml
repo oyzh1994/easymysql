@@ -38,7 +38,7 @@
     </FXHBox>
     <DBQueryEditor fontSize="12" fx:id="queryArea" flexHeight="100% - 35" flexWidth="100%"
                    onKeyPressed="#queryKeyPressed"/>
-    <FXTabPane fx:id="resultTabPane" flexHeight="50% - 40" flexWidth="100%" visible="false" managed="false">
+    <FXTabPane fx:id="resultTabPane" flexHeight="70% - 40" flexWidth="100%" visible="false" managed="false">
         <MysqlQueryInfoTab fx:id="infoTab" text="%base.info">
         </MysqlQueryInfoTab>
     </FXTabPane>

@@ -15,6 +15,7 @@ import cn.oyzh.fx.plus.controls.tab.FXTab;
 import cn.oyzh.fx.plus.controls.tab.FXTabPane;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.keyboard.KeyboardUtil;
+import cn.oyzh.fx.plus.node.NodeHeightResizer;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
@@ -111,6 +112,26 @@ public class MysqlQueryMainTabController extends RichTabController {
                 }
             }
         });
+    }
+
+    @Override
+    public void onTabInit(FXTab tab) {
+        super.onTabInit(tab);
+        // 初始化拉伸事件
+        NodeHeightResizer.of(this.resultTabPane, this::onResultTabPaneResize, 150f, 650f);
+    }
+
+    /**
+     * 结果组件拉伸事件
+     *
+     * @param newHeight 新高度
+     */
+    private void onResultTabPaneResize(double newHeight) {
+        this.resultTabPane.setFlexHeight("");
+        this.resultTabPane.setRealHeight(newHeight);
+        this.resultTabPane.setFlexY("100% - " + newHeight);
+        double newSize = 35 + newHeight;
+        this.queryArea.setFlexHeight("100% - " + newSize);
     }
 
     /**
@@ -314,8 +335,8 @@ public class MysqlQueryMainTabController extends RichTabController {
             this.queryArea.setFlexHeight("100% - 35");
             this.resultTabPane.disappear();
         } else if (type == 1 || type == 2) {
-            this.queryArea.setFlexHeight("50% - 35");
-            this.resultTabPane.setFlexHeight("50%");
+            this.queryArea.setFlexHeight("30% - 35");
+            this.resultTabPane.setFlexHeight("70%");
             this.resultTabPane.display();
         }
         this.root.autosize();
