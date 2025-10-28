@@ -247,6 +247,9 @@ public class MysqlTableAlertSqlGenerator {
     }
 
     protected void indexHandle(StringBuilder builder, MysqlTableAlertParam param) {
+        if(!builder.toString().endsWith(",")){
+            builder.append(",");
+        }
         MysqlIndexes indexes = param.getIndexes();
         for (MysqlIndex index : indexes) {
             // 索引删除、变更
@@ -346,6 +349,9 @@ public class MysqlTableAlertSqlGenerator {
     }
 
     protected void checkHandle(StringBuilder builder, MysqlTableAlertParam param) {
+        if(!builder.toString().endsWith(",")){
+            builder.append(",");
+        }
         MysqlChecks checks = param.getChecks();
         for (MysqlCheck check : checks) {
             // 检查删除、变更
@@ -364,6 +370,7 @@ public class MysqlTableAlertSqlGenerator {
                 // 拼接,
                 builder.append(",");
             }
+            StringUtil.deleteLast(builder, ",");
         }
     }
 

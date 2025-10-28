@@ -34,7 +34,7 @@
     </fx:define>
     <FXTabPane flexHeight="100% - 25" flexWidth="100%" fx:id="tabPane">
         <FXTab text="%base.definition">
-            <DBSqlTextArea showLine="true" fontSize="12" fx:id="definition" flexWidth="100%" flexHeight="100%"/>
+            <DBSqlTextArea fontSize="12" fx:id="definition" flexWidth="100%" flexHeight="100%"/>
         </FXTab>
         <FXTab text="%base.plan">
             <FXVBox flexHeight="100%" flexWidth="100%">
@@ -208,7 +208,7 @@
             </FXVBox>
         </FXTab>
         <FXTab text="%base.preview">
-            <DBSqlTextArea editable="false" showLine="true" fontSize="12" fx:id="preview" flexWidth="100%"
+            <DBSqlTextArea editable="false" fontSize="12" fx:id="preview" flexWidth="100%"
                            flexHeight="100%"/>
         </FXTab>
     </FXTabPane>

@@ -44,8 +44,8 @@ public class MysqlProceduresTreeItem extends DBTreeItem<MysqlProceduresTreeItemV
         List<MenuItem> items = new ArrayList<>();
         FXMenuItem add = MenuItemHelper.addProcedure("12", this::add);
         FXMenuItem reload = MenuItemHelper.refreshData("12", this::reloadChild);
-        items.add(reload);
         items.add(add);
+        items.add(reload);
         return items;
     }
 
