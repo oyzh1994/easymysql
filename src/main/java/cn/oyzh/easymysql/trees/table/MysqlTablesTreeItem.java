@@ -137,7 +137,7 @@ public class MysqlTablesTreeItem extends DBTreeItem<MysqlTablesTreeItemValue> {
                         MessageBox.exception(ex);
                     })
                     .onSuccess(this::refresh)
-                    .onFinish(()->this.setLoading(false))
+                    .onFinish(() -> this.setLoading(false))
                     .build();
             // 执行业务
             this.startWaiting(task);
@@ -184,5 +184,9 @@ public class MysqlTablesTreeItem extends DBTreeItem<MysqlTablesTreeItemValue> {
     public synchronized void doFilter(RichTreeItemFilter itemFilter) {
         super.doFilter(itemFilter);
         this.refresh();
+    }
+
+    public void addTable(MysqlTable table) {
+        this.addChild(new MysqlTableTreeItem(table, this.getTreeView()));
     }
 }

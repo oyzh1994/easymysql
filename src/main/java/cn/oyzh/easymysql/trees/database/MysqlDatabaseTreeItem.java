@@ -530,6 +530,10 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return this.client().view(this.dbName(), viewName);
     }
 
+    public MysqlTable selectTable(String tableName) {
+        return this.client().selectTable(this.dbName(), tableName);
+    }
+
     public void createView(MysqlView view) {
         this.client().createView(this.dbName(), view);
     }

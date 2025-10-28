@@ -9,8 +9,6 @@ import cn.oyzh.easymysql.event.function.MysqlFunctionAlertedEvent;
 import cn.oyzh.easymysql.event.procedure.MysqlProcedureAddedEvent;
 import cn.oyzh.easymysql.event.procedure.MysqlProcedureAlertedEvent;
 import cn.oyzh.easymysql.event.query.MysqlQueryAddedEvent;
-import cn.oyzh.easymysql.event.table.MysqlTableAddedEvent;
-import cn.oyzh.easymysql.event.table.MysqlTableAlertedEvent;
 import cn.oyzh.easymysql.event.view.MysqlViewAddedEvent;
 import cn.oyzh.easymysql.event.view.MysqlViewAlertedEvent;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
@@ -18,7 +16,6 @@ import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.event.MysqlEventTreeItem;
 import cn.oyzh.easymysql.trees.function.MysqlFunctionTreeItem;
 import cn.oyzh.easymysql.trees.procedure.MysqlProcedureTreeItem;
-import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.event.EventListener;
 import cn.oyzh.event.EventSubscribe;
@@ -79,34 +76,34 @@ public class MysqlTreeEventListener implements EventListener {
     }
 
 
-    /**
-     * 表添加事件
-     *
-     * @param event 事件
-     */
-    @EventSubscribe
-    private void onTableAdded(MysqlTableAddedEvent event) {
-        MysqlDatabaseTreeItem dbItem = event.data();
-        if (dbItem != null) {
-            dbItem.getTableTypeChild().reloadChild();
-        }
-    }
+    // /**
+    //  * 表添加事件
+    //  *
+    //  * @param event 事件
+    //  */
+    // @EventSubscribe
+    // private void onTableAdded(MysqlTableAddedEvent event) {
+    //     MysqlDatabaseTreeItem dbItem = event.data();
+    //     if (dbItem != null) {
+    //         dbItem.getTableTypeChild().reloadChild();
+    //     }
+    // }
 
-    /**
-     * 表修改事件
-     *
-     * @param event 事件
-     */
-    @EventSubscribe
-    private void onTableAlerted(MysqlTableAlertedEvent event) {
-        String tableName = event.data();
-        for (MysqlTableTreeItem tableItem : event.getDbItem().getTableChild()) {
-            if (StrUtil.equalsIgnoreCase(tableName, tableItem.tableName())) {
-                tableItem.reloadChild();
-                break;
-            }
-        }
-    }
+    // /**
+    //  * 表修改事件
+    //  *
+    //  * @param event 事件
+    //  */
+    // @EventSubscribe
+    // private void onTableAlerted(MysqlTableAlertedEvent event) {
+    //     String tableName = event.data();
+    //     for (MysqlTableTreeItem tableItem : event.getDbItem().getTableChild()) {
+    //         if (StrUtil.equalsIgnoreCase(tableName, tableItem.tableName())) {
+    //             tableItem.reloadChild();
+    //             break;
+    //         }
+    //     }
+    // }
 
     /**
      * 过程添加事件
