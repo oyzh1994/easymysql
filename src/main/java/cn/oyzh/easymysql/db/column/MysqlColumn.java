@@ -138,6 +138,9 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public void setType(String type) {
+        if (type != null) {
+            type = type.toUpperCase();
+        }
         this.typeProperty.set(type);
         super.putOriginalData("type", type);
     }
