@@ -32,6 +32,7 @@ import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
+import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -353,6 +354,13 @@ public class MysqlViewRecordTabController extends RichTabController {
      */
     @FXML
     public void reload() {
+        StageManager.showMask(this::doReload);
+    }
+
+    /**
+     * 刷新记录，实际业务
+     */
+    public void doReload() {
         try {
             // 检查是否有未保存的数据
             if (this.apply.isEnable() && !MessageBox.confirm(I18nHelper.unsavedAndContinue())) {
@@ -381,7 +389,7 @@ public class MysqlViewRecordTabController extends RichTabController {
             popup.setProp("item", this.item);
             popup.setProp("filters", this.filters);
             popup.showPopup(this.filter);
-            popup.setSubmitHandler(filters->{
+            popup.setSubmitHandler(filters -> {
                 this.setFilters((List<MysqlRecordFilter>) filters);
                 this.reload();
             });
