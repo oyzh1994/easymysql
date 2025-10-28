@@ -253,6 +253,9 @@ public class MysqlQuerySelectTabController extends RichTabController {
             if (!record.isColumnChanged(primaryKey.getColumnName())) {
                 recordData.remove(primaryKey.getColumnName());
             }
+            if (recordData.isEmpty()) {
+                return;
+            }
             param.setUpdateRecord(recordData);
             param.setPrimaryKey(primaryKey);
             // 更新行
