@@ -5,7 +5,6 @@ import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.table.MysqlTable;
@@ -216,13 +215,13 @@ public class DBQueryUtil {
                             DB_PROCEDURES.addAll(procedures);
                         }
                     }
-                    // 更新字段索引
-                    for (MysqlTable dbTable : DB_TABLES) {
-                        if (!DBUtil.isInternalDatabase(dbTable.getDbName())) {
-                            List<MysqlColumn> columns = client.selectColumns(new MysqlSelectColumnParam(dbTable.getDbName(), dbTable.getName()));
-                            DB_COLUMNS.addAll(columns);
-                        }
-                    }
+                    // // 更新字段索引
+                    // for (MysqlTable dbTable : DB_TABLES) {
+                    //     if (!DBUtil.isInternalDatabase(dbTable.getDbName())) {
+                    //         List<MysqlColumn> columns = client.selectColumns(new MysqlSelectColumnParam(dbTable.getDbName(), dbTable.getName()));
+                    //         DB_COLUMNS.addAll(columns);
+                    //     }
+                    // }
                     indexStatus = 2;
                 } catch (Exception ex) {
                     ex.printStackTrace();
