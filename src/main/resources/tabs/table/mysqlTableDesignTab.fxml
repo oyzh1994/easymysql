@@ -20,8 +20,9 @@
 <?import cn.oyzh.fx.gui.label.AccentLabel?>
 <?import cn.oyzh.fx.gui.text.field.NumberTextField?>
 <?import cn.oyzh.fx.plus.controls.text.area.FXTextArea?>
+<?import cn.oyzh.easymysql.fx.DBSqlTextArea?>
 <FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.tabs.table.MysqlTableDesignTabController" flexWidth="100%" flexHeight="100%">
+        fx:controller="cn.oyzh.easymysql.tabs.table.MysqlTableDesignTabController" flexWidth="100%" flexHeight="100%">
     <FXHBox realHeight="25" flexWidth="100%">
         <SaveSVGGlyph fx:id="save" onMousePrimaryClicked="#save" size="14">
             <HBox.margin>
@@ -201,8 +202,8 @@
             </FXTextArea>
         </FXTab>
         <FXTab text="%base.preview" fx:id="previewTab">
-            <FXTextArea editable="false" fx:id="sqlPreview" flexWidth="100%" flexHeight="100%">
-            </FXTextArea>
+            <DBSqlTextArea editable="false" fx:id="sqlPreview" flexWidth="100%" flexHeight="100%">
+            </DBSqlTextArea>
         </FXTab>
     </FXTabPane>
 </FXVBox>

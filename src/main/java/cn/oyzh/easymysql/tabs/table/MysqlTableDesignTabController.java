@@ -24,6 +24,7 @@ import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
+import cn.oyzh.easymysql.fx.DBSqlTextArea;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.DBStatusTableView;
 import cn.oyzh.easymysql.fx.table.DBEngineComboBox;
@@ -44,8 +45,8 @@ import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.text.area.FXTextArea;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeUtil;
-import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
+import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
@@ -150,7 +151,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * sql预览
      */
     @FXML
-    private FXTextArea sqlPreview;
+    private DBSqlTextArea sqlPreview;
 
     /**
      * 表字段组件
@@ -601,6 +602,8 @@ public class MysqlTableDesignTabController extends ParentTabController {
             this.initInfo(tableName);
             // 重置表格
             this.resetTable();
+            // 初始化预览
+            this.initPreview();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         } finally {
@@ -1080,18 +1083,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             }
             // 预览
             if (StringUtil.equals(tabId, "previewTab")) {
-                String sql;
-                if (this.newData) {
-                    MysqlTableCreateParam param = this.initCreateParam();
-                    if (param.tableName() == null) {
-                        param.setTableName(I18nHelper.unnamedTable());
-                    }
-                    sql = MysqlTableCreateSqlGenerator.generateSql(param);
-                } else {
-                    MysqlTableAlertParam param = this.initAlertParam();
-                    sql = MysqlTableAlertSqlGenerator.generateSql(param);
-                }
-                this.sqlPreview.setText(sql);
+                this.initPreview();
             }
         });
         // 初始化监听器
@@ -1110,6 +1102,24 @@ public class MysqlTableDesignTabController extends ParentTabController {
         this.foreignKeyTable.setStatusListener(this.listener);
 
         this.columnTable.selectedIndexChanged((observable, oldValue, newValue) -> this.tableColumnExtraController.init(this.columnTable.getSelectedItem(), this.dbItem.client()));
+    }
+
+    /**
+     * 初始化预览
+     */
+    private void initPreview() {
+        String sql;
+        if (this.newData) {
+            MysqlTableCreateParam param = this.initCreateParam();
+            if (param.tableName() == null) {
+                param.setTableName(I18nHelper.unnamedTable());
+            }
+            sql = MysqlTableCreateSqlGenerator.generateSql(param);
+        } else {
+            MysqlTableAlertParam param = this.initAlertParam();
+            sql = MysqlTableAlertSqlGenerator.generateSql(param);
+        }
+        this.sqlPreview.setText(sql);
     }
 
     @Override
