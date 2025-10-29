@@ -33,8 +33,8 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
             if (StringUtil.isEmpty(this.getName())) {
                 this.setName(DBUtil.genForeignKeyName());
             }
-            textField.setText(this.getName());
             textField.addTextChangeListener((observable, oldValue, newValue) -> this.setName(newValue));
+            textField.setText(this.getName());
             TableViewUtil.rowOnCtrlS(textField);
             TableViewUtil.selectRowOnMouseClicked(textField);
             return textField;

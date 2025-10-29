@@ -23,10 +23,10 @@ public class MysqlTriggerControl extends MysqlTrigger {
         if (StringUtil.isEmpty(this.getName())) {
             this.setName(DBUtil.genTriggerName());
         }
-        textField.setText(this.getName());
         textField.addTextChangeListener((observable, oldValue, newValue) -> {
             this.setName(newValue);
         });
+        textField.setText(this.getName());
         TableViewUtil.rowOnCtrlS(textField);
         TableViewUtil.selectRowOnMouseClicked(textField);
         return textField;
@@ -46,8 +46,8 @@ public class MysqlTriggerControl extends MysqlTrigger {
     public EnlargeTextFiled getDefinitionControl() {
         EnlargeTextFiled textField = new EnlargeTextFiled();
         textField.setPromptText(I18nHelper.pleaseInputContent());
-        textField.setText(this.getDefinition());
         textField.addTextChangeListener((observable, oldValue, newValue) -> this.setDefinition(newValue));
+        textField.setText(this.getDefinition());
         TableViewUtil.rowOnCtrlS(textField);
         TableViewUtil.selectRowOnMouseClicked(textField);
         return textField;

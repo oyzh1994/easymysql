@@ -37,7 +37,7 @@ public class MysqlTableAlertSqlGenerator {
         String tableName = param.tableName();
         MysqlTable table = param.getTable();
         if (param.hasForeignKey()) {
-            this.foreignKeyHandle2(param);
+            this.foreignKeyHandle2(this.sqlBuilder, param);
         }
         this.sqlBuilder.append("ALTER TABLE ")
                 .append(DBUtil.wrap(dbName, tableName, DBDialect.MYSQL))
@@ -326,15 +326,14 @@ public class MysqlTableAlertSqlGenerator {
         StringUtil.deleteLast(builder, ",");
     }
 
-    protected void foreignKeyHandle2(MysqlAlertTableParam param) {
+    protected void foreignKeyHandle2(StringBuilder builder, MysqlAlertTableParam param) {
         MysqlForeignKeys foreignKeys = param.getForeignKeys();
         if (!foreignKeys.hasChanged() && !foreignKeys.hasDeleted()) {
             return;
         }
-        StringBuilder builder = new StringBuilder();
+        // StringBuilder builder = new StringBuilder();
         builder.append("ALTER TABLE ")
-                .append(DBUtil.wrap(param.dbName(), param.tableName(), DBDialect.MYSQL))
-                .append(" ");
+                .append(DBUtil.wrap(param.dbName(), param.tableName(), DBDialect.MYSQL));
         for (MysqlForeignKey foreignKey : foreignKeys.filterList(DBObjectList.TYPE_DELETED, DBObjectList.TYPE_CHANGED)) {
             String fkName = foreignKey.originalName();
             // 名称为null是临时数据
@@ -344,11 +343,12 @@ public class MysqlTableAlertSqlGenerator {
                         .append(",");
             }
         }
+        StringUtil.deleteLast(builder, ",");
         builder.append(";");
     }
 
     protected void checkHandle(StringBuilder builder, MysqlAlertTableParam param) {
-        if(!builder.toString().endsWith(",")){
+        if (!builder.toString().endsWith(",")) {
             builder.append(",");
         }
         MysqlChecks checks = param.getChecks();
