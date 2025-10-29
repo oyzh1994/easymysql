@@ -4,7 +4,7 @@ import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
-import cn.oyzh.easymysql.fx.DBSqlTextArea;
+import cn.oyzh.easymysql.fx.DBEditor;
 import cn.oyzh.easymysql.fx.event.DBEventIntervalTypeCombobox;
 import cn.oyzh.easymysql.fx.event.DBEventOnCompletionCombobox;
 import cn.oyzh.easymysql.fx.event.DBEventStatusCombobox;
@@ -61,13 +61,13 @@ public class MysqlEventDesignTabController extends RichTabController {
      * 定义
      */
     @FXML
-    private DBSqlTextArea definition;
+    private DBEditor definition;
 
     /**
      * 预览
      */
     @FXML
-    private DBSqlTextArea preview;
+    private DBEditor preview;
 
     /**
      * 计划类型

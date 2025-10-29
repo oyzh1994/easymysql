@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.DBCharsetComboBox?>
 <?import cn.oyzh.easymysql.fx.DBCollationComboBox?>
+<?import cn.oyzh.easymysql.fx.DBEditor?>
 <?import cn.oyzh.easymysql.fx.DBStatusColumn?>
 <?import cn.oyzh.easymysql.fx.DBStatusTableView?>
 <?import cn.oyzh.easymysql.fx.table.DBEngineComboBox?>
 <?import cn.oyzh.easymysql.fx.table.DBRowFormatComboBox?>
-<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
-<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
-<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
-<?import cn.oyzh.fx.plus.controls.tab.FXTab?>
-<?import cn.oyzh.fx.plus.controls.table.FXTableColumn?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.HBox?>
-<?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
+<?import cn.oyzh.fx.gui.label.AccentLabel?>
 <?import cn.oyzh.fx.gui.svg.glyph.AddSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.DeleteSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.MoveDownSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.MoveUpSVGGlyph?>
-<?import cn.oyzh.fx.gui.label.AccentLabel?>
+<?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
 <?import cn.oyzh.fx.gui.text.field.NumberTextField?>
+<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
+<?import cn.oyzh.fx.plus.controls.tab.FXTab?>
+<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
+<?import cn.oyzh.fx.plus.controls.table.FXTableColumn?>
 <?import cn.oyzh.fx.plus.controls.text.area.FXTextArea?>
-<?import cn.oyzh.easymysql.fx.DBSqlTextArea?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
 <FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="cn.oyzh.easymysql.tabs.table.MysqlTableDesignTabController" flexWidth="100%" flexHeight="100%">
     <FXHBox realHeight="25" flexWidth="100%">
@@ -202,8 +202,8 @@
             </FXTextArea>
         </FXTab>
         <FXTab text="%base.preview" fx:id="previewTab">
-            <DBSqlTextArea editable="false" fx:id="sqlPreview" flexWidth="100%" flexHeight="100%">
-            </DBSqlTextArea>
+            <DBEditor editable="false" fx:id="sqlPreview" flexWidth="100%" flexHeight="100%">
+            </DBEditor>
         </FXTab>
     </FXTabPane>
 </FXVBox>

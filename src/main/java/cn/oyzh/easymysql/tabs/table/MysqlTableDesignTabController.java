@@ -24,7 +24,7 @@ import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
-import cn.oyzh.easymysql.fx.DBSqlTextArea;
+import cn.oyzh.easymysql.fx.DBEditor;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.DBStatusTableView;
 import cn.oyzh.easymysql.fx.table.DBEngineComboBox;
@@ -151,7 +151,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * sql预览
      */
     @FXML
-    private DBSqlTextArea sqlPreview;
+    private DBEditor sqlPreview;
 
     /**
      * 表字段组件

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.DBCharsetComboBox?>
+<?import cn.oyzh.easymysql.fx.DBEditor?>
 <?import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox?>
-<?import cn.oyzh.easymysql.fx.DBSqlTextArea?>
 <?import cn.oyzh.easymysql.fx.routine.DBCharacteristicCombobox?>
 <?import cn.oyzh.easymysql.fx.table.DBEnumTextFiled?>
 <?import cn.oyzh.easymysql.fx.table.DBFiledTypeComboBox?>
@@ -54,7 +54,7 @@
     </FXHBox>
     <FXTabPane flexHeight="100% - 25" flexWidth="100%" fx:id="tabPane">
         <FXTab text="%base.definition">
-            <DBSqlTextArea fontSize="12" fx:id="definition" flexWidth="100%" flexHeight="100%"/>
+            <DBEditor fontSize="12" fx:id="definition" flexWidth="100%" flexHeight="100%"/>
         </FXTab>
         <FXTab text="%base.params" >
             <FXTableView fx:id="paramTable" flexHeight="100%" flexWidth="100%">
@@ -189,7 +189,7 @@
             </FXVBox>
         </FXTab>
         <FXTab text="%base.preview" fx:id="previewTab">
-            <DBSqlTextArea editable="false" fontSize="12" fx:id="preview" flexWidth="100%" flexHeight="100%"/>
+            <DBEditor editable="false" fontSize="12" fx:id="preview" flexWidth="100%" flexHeight="100%"/>
         </FXTab>
     </FXTabPane>
 </FXVBox>

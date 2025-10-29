@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.easymysql.fx.DBSqlTextArea?>
+<?import cn.oyzh.easymysql.fx.DBEditor?>
 <?import cn.oyzh.easymysql.fx.event.DBEventIntervalTypeCombobox?>
 <?import cn.oyzh.easymysql.fx.event.DBEventOnCompletionCombobox?>
 <?import cn.oyzh.easymysql.fx.event.DBEventStatusCombobox?>
+<?import cn.oyzh.fx.gui.label.AccentLabel?>
+<?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
+<?import cn.oyzh.fx.gui.text.field.ClearableTextField?>
+<?import cn.oyzh.fx.gui.text.field.DateTimeTextField?>
+<?import cn.oyzh.fx.gui.text.field.NumberTextField?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXRadioButton?>
-<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
 <?import cn.oyzh.fx.plus.controls.tab.FXTab?>
+<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
+<?import cn.oyzh.fx.plus.controls.text.area.FXTextArea?>
 <?import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
-<?import cn.oyzh.fx.gui.text.field.DateTimeTextField?>
-<?import cn.oyzh.fx.gui.text.field.NumberTextField?>
-<?import cn.oyzh.fx.gui.label.AccentLabel?>
-<?import cn.oyzh.fx.gui.text.field.ClearableTextField?>
-<?import cn.oyzh.fx.plus.controls.text.area.FXTextArea?>
 <FXVBox xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="cn.oyzh.easymysql.tabs.event.MysqlEventDesignTabController" flexWidth="100%" flexHeight="100%">
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="cn.oyzh.easymysql.tabs.event.MysqlEventDesignTabController" flexWidth="100%" flexHeight="100%">
     <FXHBox realHeight="25" flexWidth="100%">
         <SaveSVGGlyph onMousePrimaryClicked="#save" size="14">
             <HBox.margin>
@@ -34,7 +34,7 @@
     </fx:define>
     <FXTabPane flexHeight="100% - 25" flexWidth="100%" fx:id="tabPane">
         <FXTab text="%base.definition">
-            <DBSqlTextArea fontSize="12" fx:id="definition" flexWidth="100%" flexHeight="100%"/>
+            <DBEditor fontSize="12" fx:id="definition" flexWidth="100%" flexHeight="100%"/>
         </FXTab>
         <FXTab text="%base.plan">
             <FXVBox flexHeight="100%" flexWidth="100%">
@@ -208,8 +208,8 @@
             </FXVBox>
         </FXTab>
         <FXTab text="%base.preview">
-            <DBSqlTextArea editable="false" fontSize="12" fx:id="preview" flexWidth="100%"
-                           flexHeight="100%"/>
+            <DBEditor editable="false" fontSize="12" fx:id="preview" flexWidth="100%"
+                      flexHeight="100%"/>
         </FXTab>
     </FXTabPane>
 </FXVBox>

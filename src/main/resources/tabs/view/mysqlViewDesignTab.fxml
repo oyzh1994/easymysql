@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.easymysql.fx.DBSqlTextArea?>
+<?import cn.oyzh.easymysql.fx.DBEditor?>
+<?import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox?>
+<?import cn.oyzh.easymysql.fx.view.DBViewAlgorithmComboBox?>
+<?import cn.oyzh.easymysql.fx.view.DBViewCheckOptionComboBox?>
+<?import cn.oyzh.fx.gui.label.AccentLabel?>
+<?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
-<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
 <?import cn.oyzh.fx.plus.controls.tab.FXTab?>
+<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
+<?import cn.oyzh.fx.plus.controls.text.field.FXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
-<?import cn.oyzh.easymysql.fx.view.DBViewAlgorithmComboBox?>
-<?import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox?>
-<?import cn.oyzh.easymysql.fx.view.DBViewCheckOptionComboBox?>
-<?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
-<?import cn.oyzh.fx.gui.label.AccentLabel?>
-<?import cn.oyzh.fx.plus.controls.text.field.FXTextField?>
 <FXVBox xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="cn.oyzh.easymysql.tabs.view.MysqlViewDesignTabController" flexWidth="100%" flexHeight="100%">
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="cn.oyzh.easymysql.tabs.view.MysqlViewDesignTabController" flexWidth="100%" flexHeight="100%">
     <FXHBox realHeight="25" flexWidth="100%">
         <SaveSVGGlyph fx:id="save" onMousePrimaryClicked="#save" size="14">
             <HBox.margin>
@@ -24,7 +24,7 @@
     </FXHBox>
     <FXTabPane flexWidth="100%" flexHeight="100% - 25">
         <FXTab text="%base.definition">
-            <DBSqlTextArea fontSize="12" fx:id="definition" flexHeight="100%" flexWidth="100%"/>
+            <DBEditor fontSize="12" fx:id="definition" flexHeight="100%" flexWidth="100%"/>
         </FXTab>
         <FXTab text="%base.advanced">
             <FXVBox flexHeight="100%" flexWidth="100%">

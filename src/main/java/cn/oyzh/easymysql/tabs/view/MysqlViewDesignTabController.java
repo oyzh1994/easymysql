@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.tabs.view;
 
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.fx.DBEditor;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
-import cn.oyzh.easymysql.fx.DBSqlTextArea;
 import cn.oyzh.easymysql.fx.view.DBViewAlgorithmComboBox;
 import cn.oyzh.easymysql.fx.view.DBViewCheckOptionComboBox;
 import cn.oyzh.easymysql.listener.DBStatusListener;
@@ -67,7 +67,7 @@ public class MysqlViewDesignTabController extends RichTabController {
      * 定义
      */
     @FXML
-    private DBSqlTextArea definition;
+    private DBEditor definition;
 
     /**
      * 数据监听器

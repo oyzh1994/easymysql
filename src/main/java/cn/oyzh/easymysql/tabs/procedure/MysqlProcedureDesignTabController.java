@@ -6,8 +6,8 @@ import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.fx.DBEditor;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
-import cn.oyzh.easymysql.fx.DBSqlTextArea;
 import cn.oyzh.easymysql.fx.routine.DBCharacteristicCombobox;
 import cn.oyzh.easymysql.generator.routine.DBProcedureSqlGenerator;
 import cn.oyzh.easymysql.listener.DBStatusListener;
@@ -22,8 +22,8 @@ import cn.oyzh.fx.plus.controls.text.field.FXTextField;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.node.NodeUtil;
-import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
+import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -61,13 +61,13 @@ public class MysqlProcedureDesignTabController extends RichTabController {
      * 定义
      */
     @FXML
-    private DBSqlTextArea definition;
+    private DBEditor definition;
 
     /**
      * 预览
      */
     @FXML
-    private DBSqlTextArea preview;
+    private DBEditor preview;
 
     /**
      * 切换面板
