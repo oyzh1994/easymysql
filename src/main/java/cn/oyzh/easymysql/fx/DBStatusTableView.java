@@ -69,7 +69,6 @@ public class DBStatusTableView<S extends DBObjectStatus> extends FXTableView<S> 
         });
     }
 
-
     public List<S> getDeleteItems() {
         return deleteItems;
     }

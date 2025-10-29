@@ -320,6 +320,11 @@ public class MysqlTableDesignTabController extends ParentTabController {
     @FXML
     private DBStatusTableView<MysqlTriggerControl> triggerTable;
 
+    // /**
+    //  * 删除的触发器
+    //  */
+    // private final List<MysqlTrigger> deletedTriggers = new ArrayList<>();
+
     /**
      * 触发器状态
      */
@@ -402,14 +407,14 @@ public class MysqlTableDesignTabController extends ParentTabController {
     private MysqlTableColumnExtraController tableColumnExtraController;
 
     private MysqlCreateTableParam initCreateParam() {
-        return (MysqlCreateTableParam) this.initParam((byte) 1);
+        return (MysqlCreateTableParam) this.initParam(true);
     }
 
     private MysqlAlertTableParam initAlertParam() {
-        return (MysqlAlertTableParam) this.initParam((byte) 2);
+        return (MysqlAlertTableParam) this.initParam(false);
     }
 
-    private Object initParam(byte type) {
+    private Object initParam(boolean isCreate) {
         MysqlTable tempTable = new MysqlTable();
         // 数据库
         tempTable.setDbName(this.mysqlTable.getDbName());
@@ -477,6 +482,9 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 indexes.add(index);
             }
         }
+        if (CollectionUtil.isNotEmpty(this.indexTable.getDeleteItems())) {
+            indexes.addAll(this.indexTable.getDeleteItems());
+        }
 
         // 外键处理
         MysqlForeignKeys foreignKeys = new MysqlForeignKeys();
@@ -485,6 +493,9 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 foreignKeys.add(foreignKey);
             }
         }
+        if (CollectionUtil.isNotEmpty(this.foreignKeyTable.getDeleteItems())) {
+            foreignKeys.addAll(this.foreignKeyTable.getDeleteItems());
+        }
 
         // 触发器处理
         MysqlTriggers triggers = new MysqlTriggers();
@@ -492,6 +503,9 @@ public class MysqlTableDesignTabController extends ParentTabController {
             if (!trigger.isInvalid()) {
                 triggers.add(trigger);
             }
+        }
+        if (CollectionUtil.isNotEmpty(this.triggerTable.getDeleteItems())) {
+            triggers.addAll(this.triggerTable.getDeleteItems());
         }
 
         // 检查处理
@@ -503,8 +517,11 @@ public class MysqlTableDesignTabController extends ParentTabController {
                     checks.add(check);
                 }
             }
+            if (CollectionUtil.isNotEmpty(this.checkTable.getDeleteItems())) {
+                checks.addAll(this.checkTable.getDeleteItems());
+            }
         }
-        if (type == 1) {
+        if (isCreate) {
             return this.dbItem.createTableParam(tempTable, columns, indexes, foreignKeys, triggers, checks);
         }
         return this.dbItem.alterTableParam(tempTable, columns, indexes, foreignKeys, triggers, checks);
@@ -622,9 +639,26 @@ public class MysqlTableDesignTabController extends ParentTabController {
         }
     }
 
+    /**
+     * 重置表单组件
+     *
+     * @throws Exception 异常
+     */
     protected void resetTable() throws Exception {
+        this.indexTable.reset();
+        this.checkTable.reset();
         this.columnTable.reset();
+        this.triggerTable.reset();
+        this.foreignKeyTable.reset();
     }
+
+    // protected void resetAllTable() throws Exception {
+    //     this.indexTable.reset();
+    //     this.checkTable.reset();
+    //     this.columnTable.reset();
+    //     this.triggerTable.reset();
+    //     this.foreignKeyTable.reset();
+    // }
 
     /**
      * 初始化信息
@@ -772,20 +806,35 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 删除索引
      */
     private void deleteIndex() {
+        // try {
+        //     MysqlIndex index = this.indexTable.getSelectedItem();
+        //     if (index == null) {
+        //         return;
+        //     }
+        //     // 从table移除数据
+        //     if (index.isCreated()) {
+        //         this.indexTable.removeItem(index);
+        //         return;
+        //     }
+        //     // 删除数据
+        //     if (MessageBox.confirm(I18nHelper.deleteIndex() + " " + index.getName())) {
+        //         index.setDeleted(true);
+        //     }
+        // } catch (Exception ex) {
+        //     MessageBox.exception(ex);
+        // }
         try {
             MysqlIndex index = this.indexTable.getSelectedItem();
             if (index == null) {
                 return;
             }
-            // 从table移除数据
-            if (index.isCreated()) {
-                this.indexTable.removeItem(index);
+            // 确认操作
+            if (!index.isCreated() && !MessageBox.confirm(I18nHelper.deleteIndex() + " " + index.getName())) {
                 return;
             }
-            // 删除数据
-            if (MessageBox.confirm(I18nHelper.deleteIndex() + " " + index.getName())) {
-                index.setDeleted(true);
-            }
+            // 从table移除数据
+            this.indexTable.removeItem(index);
+            index.setDeleted(true);
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
@@ -827,20 +876,36 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 删除外键
      */
     private void deleteForeignKey() {
+        // try {
+        //     MysqlForeignKey foreignKey = this.foreignKeyTable.getSelectedItem();
+        //     if (foreignKey == null) {
+        //         return;
+        //     }
+        //     // 从table移除数据
+        //     if (foreignKey.isCreated()) {
+        //         this.foreignKeyTable.removeItem(foreignKey);
+        //         return;
+        //     }
+        //     // 删除数据
+        //     if (MessageBox.confirm(I18nHelper.deleteForeignKey() + " " + foreignKey.getName())) {
+        //         foreignKey.setDeleted(true);
+        //         this.foreignKeyTable.removeItem(foreignKey);
+        //     }
+        // } catch (Exception ex) {
+        //     MessageBox.exception(ex);
+        // }
         try {
             MysqlForeignKey foreignKey = this.foreignKeyTable.getSelectedItem();
             if (foreignKey == null) {
                 return;
             }
-            // 从table移除数据
-            if (foreignKey.isCreated()) {
-                this.foreignKeyTable.removeItem(foreignKey);
+            // 确认操作
+            if (!foreignKey.isCreated() && !MessageBox.confirm(I18nHelper.deleteForeignKey() + " " + foreignKey.getName())) {
                 return;
             }
-            // 删除数据
-            if (MessageBox.confirm(I18nHelper.deleteForeignKey() + " " + foreignKey.getName())) {
-                foreignKey.setDeleted(true);
-            }
+            // 从table移除数据
+            this.foreignKeyTable.removeItem(foreignKey);
+            foreignKey.setDeleted(true);
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
@@ -882,20 +947,38 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 删除触发器
      */
     private void deleteTrigger() {
+        // try {
+        //     MysqlTrigger trigger = this.triggerTable.getSelectedItem();
+        //     if (trigger == null) {
+        //         return;
+        //     }
+        //     // 从table移除数据
+        //     if (trigger.isCreated()) {
+        //         this.triggerTable.removeItem(trigger);
+        //         return;
+        //     }
+        //     // 删除数据
+        //     if (MessageBox.confirm(I18nHelper.deleteTrigger() + " " + trigger.getName())) {
+        //         trigger.setDeleted(true);
+        //         this.save();
+        //         // this.triggerTable.removeItem(trigger);
+        //         // this.deletedTriggers.add(trigger);
+        //     }
+        // } catch (Exception ex) {
+        //     MessageBox.exception(ex);
+        // }
         try {
             MysqlTrigger trigger = this.triggerTable.getSelectedItem();
             if (trigger == null) {
                 return;
             }
-            // 从table移除数据
-            if (trigger.isCreated()) {
-                this.triggerTable.removeItem(trigger);
+            // 确认操作
+            if (!trigger.isCreated() && !MessageBox.confirm(I18nHelper.deleteTrigger() + " " + trigger.getName())) {
                 return;
             }
-            // 删除数据
-            if (MessageBox.confirm(I18nHelper.deleteTrigger() + " " + trigger.getName())) {
-                trigger.setDeleted(true);
-            }
+            // 从table移除数据
+            this.triggerTable.removeItem(trigger);
+            trigger.setDeleted(true);
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
@@ -937,20 +1020,36 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 删除检查
      */
     private void deleteCheck() {
+        // try {
+        //     MysqlCheck check = this.checkTable.getSelectedItem();
+        //     if (check == null) {
+        //         return;
+        //     }
+        //     // 从table移除数据
+        //     if (check.isCreated()) {
+        //         this.checkTable.removeItem(check);
+        //         return;
+        //     }
+        //     // 删除数据
+        //     if (MessageBox.confirm(I18nHelper.deleteCheck() + " " + check.getName())) {
+        //         check.setDeleted(true);
+        //         this.save();
+        //     }
+        // } catch (Exception ex) {
+        //     MessageBox.exception(ex);
+        // }
         try {
             MysqlCheck check = this.checkTable.getSelectedItem();
             if (check == null) {
                 return;
             }
-            // 从table移除数据
-            if (check.isCreated()) {
-                this.checkTable.removeItem(check);
+            // 确认操作
+            if (!check.isCreated() && !MessageBox.confirm(I18nHelper.deleteCheck() + " " + check.getName())) {
                 return;
             }
-            // 删除数据
-            if (MessageBox.confirm(I18nHelper.deleteCheck() + " " + check.getName())) {
-                check.setDeleted(true);
-            }
+            // 从table移除数据
+            this.checkTable.removeItem(check);
+            check.setDeleted(true);
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
