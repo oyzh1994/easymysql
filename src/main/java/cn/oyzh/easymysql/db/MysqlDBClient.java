@@ -25,7 +25,7 @@
 // import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
 // import cn.oyzh.easymysql.db.index.MysqlIndex;
 // import cn.oyzh.easymysql.db.table.MysqlTable;
-// import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
+// import cn.oyzh.easymysql.db.table.MysqlAlertTableParam;
 // import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 // import cn.oyzh.easymysql.db.view.MysqlView;
 // import cn.oyzh.easymysql.domain.MysqlInfo;
@@ -1217,7 +1217,7 @@
 //     }
 //
 //     @Override
-//     public void alertTable(MysqlTableAlertParam param) {
+//     public void alertTable(MysqlAlertTableParam param) {
 //         Connection connection = null;
 //         try {
 //             String dbName = param.table().getDbName();

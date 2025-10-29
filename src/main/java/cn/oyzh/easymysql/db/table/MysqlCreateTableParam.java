@@ -14,7 +14,7 @@ import java.util.List;
  * @author oyzh
  * @since 2024-09-14
  */
-public class MysqlTableAlertParam {
+public class MysqlCreateTableParam {
 
     private MysqlTable table;
 
@@ -27,13 +27,6 @@ public class MysqlTableAlertParam {
     private MysqlTriggers triggers;
 
     private MysqlForeignKeys foreignKeys;
-
-    // private MysqlPrimaryKeys primaryKeys;
-
-    /**
-     * 是否存在主键
-     */
-    private boolean existPrimaryKey;
 
     public String dbName() {
         return this.table.getDbName();
@@ -63,37 +56,6 @@ public class MysqlTableAlertParam {
         return CollectionUtil.isNotEmpty(this.triggers);
     }
 
-    public boolean primaryKeyChanged() {
-        if (this.hasColumns()) {
-            for (MysqlColumn column : columns) {
-                if (column.isPrimaryKeyChanged()) {
-                    return true;
-                }
-                if (column.isCreated() && column.isPrimaryKey()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean columnChanged() {
-        if (this.hasColumns()) {
-            for (MysqlColumn column : this.columns) {
-                if (column.isDeleted()) {
-                    return true;
-                }
-                if (column.isCreated()) {
-                    return true;
-                }
-                if (column.isColumnChanged()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public String tableName() {
         return this.table.getName();
     }
@@ -101,7 +63,6 @@ public class MysqlTableAlertParam {
     public void setTableName(String tableName) {
         this.table.setName(tableName);
     }
-
 
     public MysqlTable getTable() {
         return table;
@@ -149,13 +110,5 @@ public class MysqlTableAlertParam {
 
     public void setForeignKeys(MysqlForeignKeys foreignKeys) {
         this.foreignKeys = foreignKeys;
-    }
-
-    public boolean isExistPrimaryKey() {
-        return existPrimaryKey;
-    }
-
-    public void setExistPrimaryKey(boolean existPrimaryKey) {
-        this.existPrimaryKey = existPrimaryKey;
     }
 }

@@ -15,9 +15,9 @@ import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.index.MysqlIndex;
 import cn.oyzh.easymysql.db.index.MysqlIndexControl;
 import cn.oyzh.easymysql.db.index.MysqlIndexes;
+import cn.oyzh.easymysql.db.table.MysqlAlertTableParam;
+import cn.oyzh.easymysql.db.table.MysqlCreateTableParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
-import cn.oyzh.easymysql.db.table.MysqlTableCreateParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggerControl;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
@@ -401,12 +401,12 @@ public class MysqlTableDesignTabController extends ParentTabController {
     @FXML
     private MysqlTableColumnExtraController tableColumnExtraController;
 
-    private MysqlTableCreateParam initCreateParam() {
-        return (MysqlTableCreateParam) this.initParam((byte) 1);
+    private MysqlCreateTableParam initCreateParam() {
+        return (MysqlCreateTableParam) this.initParam((byte) 1);
     }
 
-    private MysqlTableAlertParam initAlertParam() {
-        return (MysqlTableAlertParam) this.initParam((byte) 2);
+    private MysqlAlertTableParam initAlertParam() {
+        return (MysqlAlertTableParam) this.initParam((byte) 2);
     }
 
     private Object initParam(byte type) {
@@ -585,13 +585,13 @@ public class MysqlTableDesignTabController extends ParentTabController {
 
             // 创建表
             if (this.newData) {
-                MysqlTableCreateParam param = this.initCreateParam();
+                MysqlCreateTableParam param = this.initCreateParam();
                 param.setTableName(tableName);
                 this.dbItem.createTable(param);
                 // MysqlTable table = this.dbItem.selectTable(tableName);
                 MysqlEventUtil.tableAdded(this.dbItem);
             } else {// 修改表
-                MysqlTableAlertParam param = this.initAlertParam();
+                MysqlAlertTableParam param = this.initAlertParam();
                 this.dbItem.alterTable(param);
                 MysqlEventUtil.tableAlerted(tableName, this.dbItem);
             }
@@ -1110,13 +1110,13 @@ public class MysqlTableDesignTabController extends ParentTabController {
     private void initPreview() {
         String sql;
         if (this.newData) {
-            MysqlTableCreateParam param = this.initCreateParam();
+            MysqlCreateTableParam param = this.initCreateParam();
             if (param.tableName() == null) {
                 param.setTableName(I18nHelper.unnamedTable());
             }
             sql = MysqlTableCreateSqlGenerator.generateSql(param);
         } else {
-            MysqlTableAlertParam param = this.initAlertParam();
+            MysqlAlertTableParam param = this.initAlertParam();
             sql = MysqlTableAlertSqlGenerator.generateSql(param);
         }
         this.sqlPreview.setText(sql);

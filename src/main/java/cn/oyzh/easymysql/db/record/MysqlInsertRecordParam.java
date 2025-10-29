@@ -16,7 +16,6 @@ public class MysqlInsertRecordParam {
 
     private MysqlRecordPrimaryKey primaryKey;
 
-
     public String getDbName() {
         return dbName;
     }

@@ -11,8 +11,8 @@ import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
 import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.index.MysqlIndex;
 import cn.oyzh.easymysql.db.index.MysqlIndexes;
+import cn.oyzh.easymysql.db.table.MysqlAlertTableParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.util.DBUtil;
@@ -30,7 +30,7 @@ public class MysqlTableAlertSqlGenerator {
 
     private StringBuilder sqlBuilder;
 
-    public String generate(MysqlTableAlertParam param) {
+    public String generate(MysqlAlertTableParam param) {
         this.sqlList = new ArrayList<>();
         this.sqlBuilder = new StringBuilder();
         String dbName = param.dbName();
@@ -103,7 +103,7 @@ public class MysqlTableAlertSqlGenerator {
         return builder.toString().trim();
     }
 
-    protected void triggerHandle(MysqlTableAlertParam param) {
+    protected void triggerHandle(MysqlAlertTableParam param) {
         MysqlTriggers triggers = param.getTriggers();
         for (MysqlTrigger trigger : triggers) {
             if (MysqlTriggers.isDeleted(trigger) || MysqlTriggers.isChanged(trigger)) {
@@ -129,7 +129,7 @@ public class MysqlTableAlertSqlGenerator {
         }
     }
 
-    protected void columnHandle(StringBuilder builder, MysqlTableAlertParam param) {
+    protected void columnHandle(StringBuilder builder, MysqlAlertTableParam param) {
         for (MysqlColumn column : param.getColumns()) {
             // 修改或者新增字段
             if (MysqlColumns.isChanged(column) || MysqlColumns.isCreated(column)) {
@@ -217,7 +217,7 @@ public class MysqlTableAlertSqlGenerator {
         StringUtil.deleteLast(builder, ",");
     }
 
-    protected void primaryKeyHandle(StringBuilder builder, MysqlTableAlertParam table) {
+    protected void primaryKeyHandle(StringBuilder builder, MysqlAlertTableParam table) {
         if (table.isExistPrimaryKey()) {
             builder.append(" DROP PRIMARY KEY,");
         }
@@ -245,10 +245,10 @@ public class MysqlTableAlertSqlGenerator {
         StringUtil.deleteLast(builder, ",");
     }
 
-    protected void indexHandle(StringBuilder builder, MysqlTableAlertParam param) {
-        if(!builder.toString().endsWith(",")){
-            builder.append(",");
-        }
+    protected void indexHandle(StringBuilder builder, MysqlAlertTableParam param) {
+        // if(!builder.toString().endsWith(",")){
+        //     builder.append(",");
+        // }
         MysqlIndexes indexes = param.getIndexes();
         for (MysqlIndex index : indexes) {
             // 索引删除、变更
@@ -295,7 +295,7 @@ public class MysqlTableAlertSqlGenerator {
         // }
     }
 
-    protected void foreignKeyHandle1(StringBuilder builder, MysqlTableAlertParam table) {
+    protected void foreignKeyHandle1(StringBuilder builder, MysqlAlertTableParam table) {
         MysqlForeignKeys foreignKeys = table.getForeignKeys();
         if (!foreignKeys.hasCreated() && !foreignKeys.hasChanged()) {
             return;
@@ -326,7 +326,7 @@ public class MysqlTableAlertSqlGenerator {
         StringUtil.deleteLast(builder, ",");
     }
 
-    protected void foreignKeyHandle2(MysqlTableAlertParam param) {
+    protected void foreignKeyHandle2(MysqlAlertTableParam param) {
         MysqlForeignKeys foreignKeys = param.getForeignKeys();
         if (!foreignKeys.hasChanged() && !foreignKeys.hasDeleted()) {
             return;
@@ -347,7 +347,7 @@ public class MysqlTableAlertSqlGenerator {
         builder.append(";");
     }
 
-    protected void checkHandle(StringBuilder builder, MysqlTableAlertParam param) {
+    protected void checkHandle(StringBuilder builder, MysqlAlertTableParam param) {
         if(!builder.toString().endsWith(",")){
             builder.append(",");
         }
@@ -373,7 +373,7 @@ public class MysqlTableAlertSqlGenerator {
         }
     }
 
-    public static String generateSql(MysqlTableAlertParam param) {
+    public static String generateSql(MysqlAlertTableParam param) {
         return new MysqlTableAlertSqlGenerator().generate(param);
     }
 }

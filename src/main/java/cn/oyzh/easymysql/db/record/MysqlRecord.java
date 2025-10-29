@@ -145,7 +145,7 @@ public class MysqlRecord extends DBObjectStatus {
     }
 
     @Override
-    public void clearStatus() throws Exception {
+    public void clearStatus()   {
         for (MysqlRecordProperty property : this.properties.values()) {
             property.setChanged(false);
             property.updateOriginal();

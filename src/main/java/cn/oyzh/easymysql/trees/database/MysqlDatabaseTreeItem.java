@@ -23,10 +23,10 @@ import cn.oyzh.easymysql.db.query.MysqlQueryResults;
 import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
+import cn.oyzh.easymysql.db.table.MysqlAlertTableParam;
+import cn.oyzh.easymysql.db.table.MysqlCreateTableParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
-import cn.oyzh.easymysql.db.table.MysqlTableCreateParam;
-import cn.oyzh.easymysql.db.table.MysqlTableSelectParam;
+import cn.oyzh.easymysql.db.table.MysqlSelectTableParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlConnect;
@@ -398,7 +398,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     }
 
     public void createTable(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
-        MysqlTableCreateParam param = new MysqlTableCreateParam();
+        MysqlCreateTableParam param = new MysqlCreateTableParam();
         param.setTable(table);
         param.setChecks(checks);
         param.setColumns(columns);
@@ -408,12 +408,12 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         this.client().createTable(param);
     }
 
-    public void createTable(MysqlTableCreateParam param) {
+    public void createTable(MysqlCreateTableParam param) {
         this.client().createTable(param);
     }
 
-    public MysqlTableCreateParam createTableParam(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
-        MysqlTableCreateParam param = new MysqlTableCreateParam();
+    public MysqlCreateTableParam createTableParam(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
+        MysqlCreateTableParam param = new MysqlCreateTableParam();
         param.setTable(table);
         param.setChecks(checks);
         param.setColumns(columns);
@@ -424,7 +424,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     }
 
     public void alterTable(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
-        MysqlTableAlertParam param = new MysqlTableAlertParam();
+        MysqlAlertTableParam param = new MysqlAlertTableParam();
         param.setTable(table);
         param.setChecks(checks);
         param.setColumns(columns);
@@ -435,12 +435,12 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         this.client().alertTable(param);
     }
 
-    public void alterTable(MysqlTableAlertParam param) {
+    public void alterTable(MysqlAlertTableParam param) {
         this.client().alertTable(param);
     }
 
-    public MysqlTableAlertParam alterTableParam(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
-        MysqlTableAlertParam param = new MysqlTableAlertParam();
+    public MysqlAlertTableParam alterTableParam(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
+        MysqlAlertTableParam param = new MysqlAlertTableParam();
         param.setTable(table);
         param.setChecks(checks);
         param.setColumns(columns);
@@ -456,7 +456,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     }
 
     public MysqlTable selectFullTable(String tableName) {
-        MysqlTableSelectParam param = new MysqlTableSelectParam();
+        MysqlSelectTableParam param = new MysqlSelectTableParam();
         param.setDbName(this.dbName());
         param.setTableName(tableName);
         return this.client().selectFullTable(param);
@@ -618,5 +618,9 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
 
     public MysqlConnect dbConnect() {
         return this.client().getDbConnect();
+    }
+
+    public void cloneTable(String tableName, boolean includeRecord) {
+        this.client().cloneTable(this.dbName(), tableName, includeRecord);
     }
 }

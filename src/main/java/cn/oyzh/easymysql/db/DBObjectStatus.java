@@ -106,7 +106,7 @@ public class DBObjectStatus {
         return this.originalData().get(key);
     }
 
-    protected void clearOriginalData( ) {
+    protected void clearOriginalData() {
         if (this.originalData != null) {
             this.originalData().clear();
         }
@@ -147,7 +147,7 @@ public class DBObjectStatus {
         return this.createdProperty != null && this.createdProperty.get();
     }
 
-    public void clearStatus() throws Exception {
+    public void clearStatus() {
         this.setChanged(false);
         this.setCreated(false);
         this.setDeleted(false);

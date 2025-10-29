@@ -44,7 +44,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     /**
      * 字段类型
      */
-    private StringProperty typeProperty = new SimpleStringProperty();
+    private final StringProperty typeProperty = new SimpleStringProperty();
 
     /**
      * 字段值

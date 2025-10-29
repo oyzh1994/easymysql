@@ -2,7 +2,7 @@
 //
 // import cn.oyzh.easymysql.db.DBDialect;
 // import cn.oyzh.easymysql.db.table.MysqlTable;
-// import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
+// import cn.oyzh.easymysql.db.table.MysqlAlertTableParam;
 // import lombok.Getter;
 //
 // /**
@@ -19,9 +19,9 @@
 //         this.dialect = dialect;
 //     }
 //
-//     public abstract String generate(MysqlTableAlertParam table);
+//     public abstract String generate(MysqlAlertTableParam table);
 //
-//     public static String generate(DBDialect dialect, MysqlTableAlertParam table) {
+//     public static String generate(DBDialect dialect, MysqlAlertTableParam table) {
 //         return switch (dialect) {
 //             case MYSQL -> new MysqlTableAlertSqlGenerator().generate(table);
 //             default -> null;

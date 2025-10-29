@@ -1,11 +1,16 @@
 package cn.oyzh.easymysql.util;
 
 import cn.oyzh.common.log.JulLog;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.common.util.UUIDUtil;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
+import cn.oyzh.easymysql.db.record.MysqlInsertRecordParam;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
+import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.exception.DBException;
 
 import java.sql.Connection;
@@ -404,5 +409,61 @@ public class DBUtil {
      */
     public static String genForeignKeyName() {
         return "fk_" + UUIDUtil.uuidSimple().substring(0, 5);
+    }
+
+    /**
+     * 生成复制名称
+     *
+     * @return 复制名称
+     */
+    public static String genCopyName() {
+        return "_copy_" + UUIDUtil.uuidSimple().substring(0, 5);
+    }
+
+    /**
+     * 生成克隆名称
+     *
+     * @return 复制名称
+     */
+    public static String genCloneName() {
+        return "_clone_" + UUIDUtil.uuidSimple().substring(0, 5);
+    }
+
+    /**
+     * 转换为插入记录
+     *
+     * @param columns 字段列表
+     * @param record  记录
+     */
+    public static MysqlInsertRecordParam toInsertRecord(MysqlColumns columns, MysqlRecord record) {
+        MysqlColumn column = columns.getFirst();
+        MysqlRecordData recordData = record.getRecordData();
+        MysqlRecordPrimaryKey primaryKey = initPrimaryKey(columns, record);
+        MysqlInsertRecordParam insertRecordParam = new MysqlInsertRecordParam();
+        insertRecordParam.setRecord(recordData);
+        insertRecordParam.setPrimaryKey(primaryKey);
+        insertRecordParam.setDbName(column.getDbName());
+        insertRecordParam.setTableName(column.getTableName());
+        return insertRecordParam;
+    }
+
+    /**
+     * 初始化主键
+     *
+     * @param columns 字段列表
+     * @param record  记录
+     * @return 主键
+     */
+    public static MysqlRecordPrimaryKey initPrimaryKey(MysqlColumns columns, MysqlRecord record) {
+        if (columns == null || columns.isEmpty()) {
+            return null;
+        }
+        MysqlColumn column = CollectionUtil.getFirst(columns.primaryKeys());
+        if (column == null) {
+            return null;
+        }
+        MysqlRecordPrimaryKey pk = new MysqlRecordPrimaryKey();
+        pk.init(column, record);
+        return pk;
     }
 }

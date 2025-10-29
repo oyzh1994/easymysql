@@ -16,8 +16,8 @@
 // import cn.oyzh.easymysql.db.index.MysqlIndexControl;
 // import cn.oyzh.easymysql.db.index.MysqlIndexes;
 // import cn.oyzh.easymysql.db.table.MysqlTable;
-// import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
-// import cn.oyzh.easymysql.db.table.MysqlTableCreateParam;
+// import cn.oyzh.easymysql.db.table.MysqlAlertTableParam;
+// import cn.oyzh.easymysql.db.table.MysqlCreateTableParam;
 // import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 // import cn.oyzh.easymysql.db.trigger.MysqlTriggerControl;
 // import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
@@ -393,12 +393,12 @@
 //     @FXML
 //     private MysqlTableColumnExtraController tableColumnExtraController;
 //
-//     private MysqlTableCreateParam initCreateParam() {
-//         return (MysqlTableCreateParam) this.initParam((byte) 1);
+//     private MysqlCreateTableParam initCreateParam() {
+//         return (MysqlCreateTableParam) this.initParam((byte) 1);
 //     }
 //
-//     private MysqlTableAlertParam initAlertParam() {
-//         return (MysqlTableAlertParam) this.initParam((byte) 2);
+//     private MysqlAlertTableParam initAlertParam() {
+//         return (MysqlAlertTableParam) this.initParam((byte) 2);
 //     }
 //
 //     private Object initParam(byte type) {
@@ -570,12 +570,12 @@
 //
 //             // 创建表
 //             if (this.newData) {
-//                 MysqlTableCreateParam param = this.initCreateParam();
+//                 MysqlCreateTableParam param = this.initCreateParam();
 //                 param.setTableName(tableName);
 //                 this.dbItem.createTable(param);
 //                 MysqlEventUtil.tableAdded(this.dbItem);
 //             } else {// 修改表
-//                 MysqlTableAlertParam param = this.initAlertParam();
+//                 MysqlAlertTableParam param = this.initAlertParam();
 //                 this.dbItem.alterTable(param);
 //                 MysqlEventUtil.tableAlerted(tableName, this.dbItem);
 //             }
@@ -1066,13 +1066,13 @@
 //             if (StrUtil.equals(tabId, "previewTab")) {
 //                 String sql;
 //                 if (this.newData) {
-//                     MysqlTableCreateParam param = this.initCreateParam();
+//                     MysqlCreateTableParam param = this.initCreateParam();
 //                     if (param.tableName() == null) {
 //                         param.setTableName(I18nHelper.unnamedTable());
 //                     }
 //                     sql = MysqlTableCreateSqlGenerator.generateSql(param);
 //                 } else {
-//                     MysqlTableAlertParam param = this.initAlertParam();
+//                     MysqlAlertTableParam param = this.initAlertParam();
 //                     sql = MysqlTableAlertSqlGenerator.generateSql(param);
 //                 }
 //                 this.sqlPreview.setText(sql);

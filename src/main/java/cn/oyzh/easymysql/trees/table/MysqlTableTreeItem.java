@@ -20,8 +20,8 @@ import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
+import cn.oyzh.easymysql.db.table.MysqlSelectTableParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.db.table.MysqlTableSelectParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
@@ -29,12 +29,14 @@ import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.util.DBI18nHelper;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
+import cn.oyzh.fx.gui.svg.glyph.CopySVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
 import java.util.ArrayList;
@@ -61,7 +63,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     @Override
-    public MysqlTablesTreeItem parent(){
+    public MysqlTablesTreeItem parent() {
         return (MysqlTablesTreeItem) super.parent();
     }
 
@@ -90,24 +92,55 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
         FXMenuItem openTable = MenuItemHelper.openTable("12", this::onPrimaryDoubleClick);
-        FXMenuItem updateTable = MenuItemHelper.designTable("12", this::designTable);
-        FXMenuItem renameTable = MenuItemHelper.renameTable("12", this::rename);
-        FXMenuItem clearTable = MenuItemHelper.clearTable("12", this::clearTable);
-        FXMenuItem truncateTable = MenuItemHelper.truncateTable("12", this::truncateTable);
-        FXMenuItem dropTable = MenuItemHelper.deleteTable("12", this::dropTable);
-        FXMenuItem dumpTable = MenuItemHelper.dumpData("12", this::dump);
-        FXMenuItem exportTable = MenuItemHelper.exportData("12", this::export);
-        FXMenuItem tableInfo = MenuItemHelper.tableInfo("12", this::tableInfo);
         items.add(openTable);
+        FXMenuItem updateTable = MenuItemHelper.designTable("12", this::designTable);
         items.add(updateTable);
+        FXMenuItem renameTable = MenuItemHelper.renameTable("12", this::rename);
         items.add(renameTable);
+        FXMenuItem clearTable = MenuItemHelper.clearTable("12", this::clearTable);
         items.add(clearTable);
+        FXMenuItem truncateTable = MenuItemHelper.truncateTable("12", this::truncateTable);
         items.add(truncateTable);
+        FXMenuItem dropTable = MenuItemHelper.deleteTable("12", this::dropTable);
         items.add(dropTable);
+        items.add(MenuItemHelper.separator());
+        FXMenuItem dumpTable = MenuItemHelper.dumpData("12", this::dump);
         items.add(dumpTable);
+        FXMenuItem exportTable = MenuItemHelper.exportData("12", this::export);
         items.add(exportTable);
+        FXMenuItem tableInfo = MenuItemHelper.tableInfo("12", this::tableInfo);
         items.add(tableInfo);
+
+        // 克隆表
+        Menu cloneTable = MenuItemHelper.menu(I18nHelper.cloneTable(), new CopySVGGlyph("12"));
+        MenuItem clone1 = MenuItemHelper.menuItem(DBI18nHelper.tableTip3(), () -> this.cloneTable(true));
+        MenuItem clone2 = MenuItemHelper.menuItem(DBI18nHelper.tableTip4(), () -> this.cloneTable(false));
+        cloneTable.getItems().addAll(clone1, clone2);
+
+        items.add(cloneTable);
         return items;
+    }
+
+    /**
+     * 克隆表
+     *
+     * @param includeRecord 是否包含记录
+     */
+    private void cloneTable(boolean includeRecord) {
+        StageManager.showMask(() -> this.doCloneTable(includeRecord));
+    }
+
+    /**
+     * 执行克隆表
+     * @param includeRecord 是否包含记录
+     */
+    private void doCloneTable(boolean includeRecord) {
+        try {
+            this.dbItem().cloneTable(this.tableName(), includeRecord);
+            this.dbItem().getTableTypeChild().reloadChild();
+        } catch (Exception ex) {
+            MessageBox.exception(ex);
+        }
     }
 
     /**
@@ -215,6 +248,9 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     public MysqlDatabaseTreeItem dbItem() {
+        if (this.parent() == null) {
+            return null;
+        }
         return this.parent().parent();
     }
 
@@ -291,7 +327,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     @Override
     public void loadChild() {
         try {
-            MysqlTableSelectParam param = new MysqlTableSelectParam();
+            MysqlSelectTableParam param = new MysqlSelectTableParam();
             param.setFull(true);
             param.setDbName(this.dbName());
             param.setTableName(this.tableName());

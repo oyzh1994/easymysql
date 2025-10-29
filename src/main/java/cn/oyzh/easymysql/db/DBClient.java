@@ -28,10 +28,10 @@ import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
+import cn.oyzh.easymysql.db.table.MysqlAlertTableParam;
+import cn.oyzh.easymysql.db.table.MysqlCreateTableParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.db.table.MysqlTableAlertParam;
-import cn.oyzh.easymysql.db.table.MysqlTableCreateParam;
-import cn.oyzh.easymysql.db.table.MysqlTableSelectParam;
+import cn.oyzh.easymysql.db.table.MysqlSelectTableParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
@@ -839,12 +839,12 @@ public class DBClient {
     public static final String[] VIEW_TYPES = new String[]{"VIEW"};
 
     public List<MysqlTable> selectTables(String dbName) {
-        MysqlTableSelectParam param = new MysqlTableSelectParam();
+        MysqlSelectTableParam param = new MysqlSelectTableParam();
         param.setDbName(dbName);
         return this.selectTables(param);
     }
 
-    public List<MysqlTable> selectTables(MysqlTableSelectParam param) {
+    public List<MysqlTable> selectTables(MysqlSelectTableParam param) {
         try {
             String dbName = param.getDbName();
             List<MysqlTable> tables = new ArrayList<>();
@@ -1354,13 +1354,13 @@ public class DBClient {
     }
 
     public MysqlTable selectTable(String dbName, String tableName) {
-        MysqlTableSelectParam param = new MysqlTableSelectParam();
+        MysqlSelectTableParam param = new MysqlSelectTableParam();
         param.setDbName(dbName);
         param.setTableName(tableName);
         return this.selectTable(param);
     }
 
-    public MysqlTable selectTable(MysqlTableSelectParam param) {
+    public MysqlTable selectTable(MysqlSelectTableParam param) {
         try {
             String dbName = param.getDbName();
             String tableName = param.getTableName();
@@ -1410,7 +1410,7 @@ public class DBClient {
         }
     }
 
-    public MysqlTable selectFullTable(MysqlTableSelectParam param) {
+    public MysqlTable selectFullTable(MysqlSelectTableParam param) {
         try {
             String dbName = param.getDbName();
             String tableName = param.getTableName();
@@ -1888,7 +1888,7 @@ public class DBClient {
         }
     }
 
-    public void createTable(MysqlTableCreateParam param) {
+    public void createTable(MysqlCreateTableParam param) {
         Connection connection = null;
         try {
             String dbName = param.dbName();
@@ -1910,7 +1910,7 @@ public class DBClient {
         }
     }
 
-    public void alertTable(MysqlTableAlertParam param) {
+    public void alertTable(MysqlAlertTableParam param) {
         Connection connection = null;
         try {
             String sql = MysqlTableAlertSqlGenerator.generateSql(param);
@@ -2631,5 +2631,138 @@ public class DBClient {
 
     public MysqlConnect getDbConnect() {
         return dbConnect;
+    }
+
+    /**
+     * 克隆表
+     *
+     * @param dbName        数据库
+     * @param tableName     表名称
+     * @param includeRecord 是否包含数据
+     */
+    public void cloneTable(String dbName, String tableName, boolean includeRecord) {
+        // // 查询表
+        // MysqlSelectTableParam selectTableParam = new MysqlSelectTableParam();
+        // selectTableParam.setFull(true);
+        // selectTableParam.setDbName(dbName);
+        // selectTableParam.setTableName(tableName);
+        // MysqlTable table = this.selectTable(selectTableParam);
+        // 查询检查
+        MysqlChecks checks = this.checks(dbName, tableName);
+        // // 查询索引
+        // MysqlIndexes indexes = this.indexes(dbName, tableName);
+        // 查询触发器
+        MysqlTriggers triggers = this.triggers(dbName, tableName);
+        // 查询外键
+        MysqlForeignKeys foreignKeys = this.foreignKeys(dbName, tableName);
+        // // 查询字段
+        // MysqlSelectColumnParam selectColumnParam = new MysqlSelectColumnParam();
+        // selectColumnParam.setDbName(dbName);
+        // selectColumnParam.setTableName(tableName);
+        // MysqlColumns columns = this.selectColumns(selectColumnParam);
+        if (checks != null) {
+            for (MysqlCheck check : checks) {
+                check.setName(check.getName() + DBUtil.genCloneName());
+                check.clearStatus();
+                check.clearOriginalData();
+                check.setCreated(true);
+            }
+        }
+        if (triggers != null) {
+            for (MysqlTrigger trigger : triggers) {
+                trigger.setName(trigger.getName() + DBUtil.genCloneName());
+                trigger.clearStatus();
+                trigger.clearOriginalData();
+                trigger.setCreated(true);
+            }
+        }
+        // if (indexes != null) {
+        //     for (MysqlIndex index : indexes) {
+        //         index.setName(index.getName() + DBUtil.genCloneName());
+        //     }
+        // }
+        if (foreignKeys != null) {
+            for (MysqlForeignKey foreignKey : foreignKeys) {
+                foreignKey.setName(foreignKey.getName() + DBUtil.genCloneName());
+                foreignKey.clearStatus();
+                foreignKey.clearOriginalData();
+                foreignKey.setCreated(true);
+            }
+        }
+        // table.setName(table.getName() + DBUtil.genCloneName());
+        // // 创建表
+        // MysqlCreateTableParam createTableParam = new MysqlCreateTableParam();
+        // createTableParam.setTable(table);
+        // createTableParam.setChecks(checks);
+        // createTableParam.setIndexes(indexes);
+        // createTableParam.setColumns(columns);
+        // createTableParam.setTriggers(triggers);
+        // createTableParam.setForeignKeys(foreignKeys);
+        // this.createTable(createTableParam);
+        // // 复制记录
+        // if (includeRecord) {
+        //     // 开始位置
+        //     long start = 0;
+        //     // 限制行
+        //     long limit = 1000;
+        //     while (true) {
+        //         // 查询记录
+        //         MysqlSelectRecordParam selectRecordParam = new MysqlSelectRecordParam();
+        //         selectRecordParam.setDbName(dbName);
+        //         selectRecordParam.setTableName(tableName);
+        //         selectRecordParam.setStart(start);
+        //         selectRecordParam.setLimit(limit);
+        //         List<MysqlRecord> records = this.selectRecords(selectRecordParam);
+        //         // 插入记录
+        //         if (CollectionUtil.isNotEmpty(records)) {
+        //             for (MysqlRecord record : records) {
+        //                 MysqlInsertRecordParam insertRecordParam = DBUtil.toInsertRecord(columns, record);
+        //                 this.insertRecord(insertRecordParam);
+        //             }
+        //         }
+        //         // 查询结束
+        //         if (CollectionUtil.size(records) != limit) {
+        //             break;
+        //         }
+        //         start += limit;
+        //     }
+        // }
+
+        try {
+            String newTableName = tableName + DBUtil.genCloneName();
+            Connection connection = this.connection(dbName);
+
+            // 克隆基本的表结构
+            String sql = "CREATE TABLE " + DBUtil.wrap(dbName, newTableName, this.dialect())
+                    + " LIKE " + DBUtil.wrap(dbName, tableName, this.dialect());
+            DBUtil.printSql(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            DBUtil.close(stmt);
+            MysqlTable table = new MysqlTable();
+            table.setDbName(dbName);
+            table.setName(newTableName);
+
+            // 克隆表结构的检查、外键、触发器
+            MysqlAlertTableParam alertTableParam = new MysqlAlertTableParam();
+            alertTableParam.setTable(table);
+            alertTableParam.setChecks(checks);
+            alertTableParam.setTriggers(triggers);
+            alertTableParam.setForeignKeys(foreignKeys);
+            this.alertTable(alertTableParam);
+
+            // 克隆数据
+            if (includeRecord) {
+                sql = "INSERT INTO " + DBUtil.wrap(dbName, newTableName, this.dialect())
+                        + " SELECT * FROM " + DBUtil.wrap(dbName, tableName, this.dialect());
+                DBUtil.printSql(sql);
+                stmt = connection.prepareStatement(sql);
+                stmt.execute();
+                DBUtil.close(stmt);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
     }
 }

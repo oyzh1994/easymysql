@@ -135,10 +135,14 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
         this.setToNullFlag = false;
     }
 
-    public void updateOriginal() throws Exception {
-        if (this.node != null) {
-            super.set(DBNodeUtil.getNodeVal(this.node));
-            this.original = super.get();
+    public void updateOriginal() {
+        try {
+            if (this.node != null) {
+                super.set(DBNodeUtil.getNodeVal(this.node));
+                this.original = super.get();
+            }
+        } catch (Exception ex) {
+            throw new DBException(ex);
         }
     }
 

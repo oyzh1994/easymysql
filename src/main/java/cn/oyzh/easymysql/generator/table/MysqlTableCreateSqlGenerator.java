@@ -8,8 +8,8 @@ import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
 import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeys;
 import cn.oyzh.easymysql.db.index.MysqlIndex;
 import cn.oyzh.easymysql.db.index.MysqlIndexes;
+import cn.oyzh.easymysql.db.table.MysqlCreateTableParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.db.table.MysqlTableCreateParam;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.util.DBUtil;
 
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class MysqlTableCreateSqlGenerator {
 
-    public String generate(MysqlTableCreateParam param) {
+    public String generate(MysqlCreateTableParam param) {
         String dbName = param.dbName();
         MysqlTable table = param.getTable();
         String tableName = param.tableName();
@@ -84,7 +84,7 @@ public class MysqlTableCreateSqlGenerator {
         return sql;
     }
 
-    protected void triggerHandle(StringBuilder builder, MysqlTableCreateParam param) {
+    protected void triggerHandle(StringBuilder builder, MysqlCreateTableParam param) {
         for (MysqlTrigger trigger : param.getTriggers()) {
             builder.append("CREATE TRIGGER ")
                     .append(DBUtil.wrap(trigger.getName(), DBDialect.MYSQL))
@@ -98,7 +98,7 @@ public class MysqlTableCreateSqlGenerator {
         }
     }
 
-    protected void columnHandle(StringBuilder builder, MysqlTableCreateParam param) {
+    protected void columnHandle(StringBuilder builder, MysqlCreateTableParam param) {
         for (MysqlColumn column : param.getColumns()) {
             builder.append(DBUtil.wrap(column.getName(), DBDialect.MYSQL));
             // 字段类型
@@ -157,7 +157,7 @@ public class MysqlTableCreateSqlGenerator {
         }
     }
 
-    protected void primaryKeyHandle(StringBuilder builder, MysqlTableCreateParam param) {
+    protected void primaryKeyHandle(StringBuilder builder, MysqlCreateTableParam param) {
         List<MysqlColumn> keyList = param.primaryKeys();
         if (!keyList.isEmpty()) {
             builder.append(" PRIMARY KEY (");
@@ -169,7 +169,7 @@ public class MysqlTableCreateSqlGenerator {
         }
     }
 
-    protected void indexHandle(StringBuilder builder, MysqlTableCreateParam param) {
+    protected void indexHandle(StringBuilder builder, MysqlCreateTableParam param) {
         MysqlIndexes indexes = param.getIndexes();
         for (MysqlIndex index : indexes) {
             // 新增索引
@@ -199,7 +199,7 @@ public class MysqlTableCreateSqlGenerator {
         }
     }
 
-    protected void foreignKeyHandle(StringBuilder builder, MysqlTableCreateParam param) {
+    protected void foreignKeyHandle(StringBuilder builder, MysqlCreateTableParam param) {
         MysqlForeignKeys foreignKeys = param.getForeignKeys();
         for (MysqlForeignKey foreignKey : foreignKeys) {
             // 新增外键
@@ -226,7 +226,7 @@ public class MysqlTableCreateSqlGenerator {
         }
     }
 
-    protected void checkHandle(StringBuilder builder, MysqlTableCreateParam table) {
+    protected void checkHandle(StringBuilder builder, MysqlCreateTableParam table) {
         MysqlChecks checks = table.getChecks();
         for (MysqlCheck check : checks) {
             builder.append(" CONSTRAINT ")
@@ -239,7 +239,7 @@ public class MysqlTableCreateSqlGenerator {
         }
     }
 
-    public static String generateSql(MysqlTableCreateParam param) {
+    public static String generateSql(MysqlCreateTableParam param) {
         return new MysqlTableCreateSqlGenerator().generate(param);
     }
 }

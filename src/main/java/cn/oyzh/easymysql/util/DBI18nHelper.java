@@ -8,10 +8,16 @@ import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
  */
 public class DBI18nHelper {
 
-    public static final String TABLE_TIP2 = "db.table.tip2";
-
     public static String tableTip2() {
-        return I18nResourceBundle.i18nString(TABLE_TIP2);
+        return I18nResourceBundle.i18nString("db.table.tip2");
+    }
+
+    public static String tableTip3() {
+        return I18nResourceBundle.i18nString("db.table.tip3");
+    }
+
+    public static String tableTip4() {
+        return I18nResourceBundle.i18nString("db.table.tip4");
     }
 
 }

@@ -4,7 +4,7 @@ package cn.oyzh.easymysql.db.table;
  * @author oyzh
  * @since 2024-09-14
  */
-public class MysqlTableSelectParam {
+public class MysqlSelectTableParam {
 
     private boolean full;
 
