@@ -2021,6 +2021,31 @@ public class DBClient {
         }
     }
 
+    /**
+     * 重命名事件
+     *
+     * @param dbName       库名称
+     * @param oldEventName 事件名称
+     * @param newEventName 新事件名称
+     */
+    public void renameEvent(String dbName, String oldEventName, String newEventName) {
+        try {
+            StringBuilder builder = new StringBuilder("ALTER EVENT ");
+            builder.append(DBUtil.wrap(dbName, oldEventName, this.dialect()))
+                    .append(" RENAME TO ")
+                    .append(DBUtil.wrap(dbName, newEventName, this.dialect()));
+            String sql = builder.toString();
+            Connection connection = this.connection(dbName);
+            Statement statement = connection.createStatement();
+            DBUtil.printSql(sql);
+            statement.execute(sql);
+            DBUtil.close(statement);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DBException(ex);
+        }
+    }
+
     public void clearTable(String dbName, String tableName) {
         try {
             Statement statement = this.connection(dbName).createStatement();

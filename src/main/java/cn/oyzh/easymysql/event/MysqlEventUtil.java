@@ -22,6 +22,7 @@ import cn.oyzh.easymysql.event.database.MysqlDatabaseUpdatedEvent;
 import cn.oyzh.easymysql.event.event.MysqlEventAddedEvent;
 import cn.oyzh.easymysql.event.event.MysqlEventAlertedEvent;
 import cn.oyzh.easymysql.event.event.MysqlEventDesignEvent;
+import cn.oyzh.easymysql.event.event.MysqlEventRenamedEvent;
 import cn.oyzh.easymysql.event.function.MysqlFunctionAddedEvent;
 import cn.oyzh.easymysql.event.function.MysqlFunctionAlertedEvent;
 import cn.oyzh.easymysql.event.function.MysqlFunctionDesignEvent;
@@ -54,6 +55,7 @@ import cn.oyzh.easymysql.event.view.MysqlViewOpenEvent;
 import cn.oyzh.easymysql.event.view.MysqlViewRenamedEvent;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
+import cn.oyzh.easymysql.trees.event.MysqlEventTreeItem;
 import cn.oyzh.easymysql.trees.query.MysqlQueryTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
@@ -145,6 +147,13 @@ public class MysqlEventUtil {
 
     public static void viewRenamed(MysqlViewTreeItem viewItem, MysqlDatabaseTreeItem dbItem) {
         MysqlViewRenamedEvent event = new MysqlViewRenamedEvent();
+        event.setDbItem(dbItem);
+        event.data(viewItem);
+        EventUtil.post(event);
+    }
+
+    public static void eventRenamed(MysqlEventTreeItem viewItem, MysqlDatabaseTreeItem dbItem) {
+        MysqlEventRenamedEvent event = new MysqlEventRenamedEvent();
         event.setDbItem(dbItem);
         event.data(viewItem);
         EventUtil.post(event);

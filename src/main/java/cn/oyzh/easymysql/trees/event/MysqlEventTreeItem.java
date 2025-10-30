@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.trees.event;
 
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.domain.MysqlConnect;
@@ -17,6 +18,7 @@ import javafx.scene.control.TreeItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * db树事件节点
@@ -70,11 +72,15 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
+        FXMenuItem open = MenuItemHelper.openEvent("12", this::onPrimaryDoubleClick);
+        items.add(open);
+        FXMenuItem renameEvent = MenuItemHelper.renameEvent("12", this::rename);
+        items.add(renameEvent);
         FXMenuItem design = MenuItemHelper.designEvent("12", this::onPrimaryDoubleClick);
-        FXMenuItem delete = MenuItemHelper.deleteEvent("12", this::delete);
-        FXMenuItem info = MenuItemHelper.eventInfo("12", this::eventInfo);
         items.add(design);
+        FXMenuItem delete = MenuItemHelper.deleteEvent("12", this::delete);
         items.add(delete);
+        FXMenuItem info = MenuItemHelper.eventInfo("12", this::eventInfo);
         items.add(info);
         return items;
     }
@@ -116,4 +122,28 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
         return this.value.getName();
     }
 
+    @Override
+    public void rename() {
+        try {
+            String newName = MessageBox.prompt(I18nHelper.pleaseInputName(), this.eventName());
+            // 名称为null或者跟当前名称相同，则忽略
+            if (newName == null || Objects.equals(newName, this.eventName())) {
+                return;
+            }
+            // 检查名称
+            if (StringUtil.isBlank(newName)) {
+                MessageBox.warn(I18nHelper.pleaseInputContent());
+                return;
+            }
+            String oldName = this.eventName();
+            // 修改名称
+            this.dbItem().renameEvent(oldName, newName);
+            this.value.setName(newName);
+            this.refresh();
+            MysqlEventUtil.eventRenamed(this, this.dbItem());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            MessageBox.exception(ex);
+        }
+    }
 }

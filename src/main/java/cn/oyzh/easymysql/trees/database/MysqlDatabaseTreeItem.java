@@ -475,6 +475,16 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         this.client().renameTable(this.dbName(), oldTableName, newTableName);
     }
 
+    /**
+     * 重命名事件
+     *
+     * @param oldEventName 事件名称
+     * @param newEventName 新事件名称
+     */
+    public void renameEvent(String oldEventName, String newEventName) {
+        this.client().renameEvent(this.dbName(), oldEventName, newEventName);
+    }
+
     public void clearTable(String tableName) {
         this.client().clearTable(this.dbName(), tableName);
     }
