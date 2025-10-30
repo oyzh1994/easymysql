@@ -45,9 +45,9 @@ public class MysqlProcedureDesignTab extends MysqlTab {
         }
         // 设置提示文本
         if (this.isUnsaved()) {
-            this.setText("* " + this.dbItem().dbName() + "-" + name);
+            this.setText("* " + name + "@" + this.dbName() + "(" + this.connectName() + ")");
         } else {
-            this.setText(this.dbItem().dbName() + "-" + name);
+            this.setText(name + "@" + this.dbName() + "(" + this.connectName() + ")");
         }
     }
 
@@ -62,6 +62,14 @@ public class MysqlProcedureDesignTab extends MysqlTab {
     @Override
     public MysqlDatabaseTreeItem dbItem() {
         return this.controller().getDbItem();
+    }
+
+    public String dbName() {
+        return this.dbItem().dbName();
+    }
+
+    public String connectName() {
+        return this.dbItem().connectName();
     }
 
     /**

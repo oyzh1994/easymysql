@@ -14,7 +14,7 @@
 
     <properties>
         <mysql.version>9.4.0</mysql.version>
-        <durid.version>1.2.27</durid.version>
+        <druid.version>1.2.27</druid.version>
     </properties>
 
     <dependencies>
@@ -92,7 +92,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>${durid.version}</version>
+            <version>${druid.version}</version>
         </dependency>
 
         <!-- Apache POI -->
