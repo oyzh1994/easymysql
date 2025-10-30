@@ -421,6 +421,39 @@ public class DBClient {
             ex.printStackTrace();
             throw new DBException(ex);
         }
+        // int size = 0;
+        // try {
+        //     Connection connection = this.connection(dbName);
+        //     String sql = """
+        //             SELECT
+        //                 COUNT(*)
+        //             FROM
+        //                 information_schema.TABLES
+        //             WHERE
+        //                 TABLE_SCHEMA = ?
+        //             AND
+        //                 TABLE_TYPE = 'BASE TABLE'
+        //             OR
+        //                 TABLE_TYPE = 'TABLE'
+        //             OR
+        //                 TABLE_TYPE = 'SYSTEM VIEW'
+        //             OR
+        //                 TABLE_TYPE = 'SYSTEM TABLE'
+        //             """;
+        //     DBUtil.printSql(sql);
+        //     PreparedStatement statement = connection.prepareStatement(sql);
+        //     statement.setString(1, dbName);
+        //     ResultSet resultSet = statement.executeQuery();
+        //     DBUtil.printMetaData(resultSet);
+        //     if (resultSet.next()) {
+        //         size = resultSet.getInt(1);
+        //     }
+        //     DBUtil.close(resultSet);
+        // } catch (Exception ex) {
+        //     ex.printStackTrace();
+        //     throw new DBException(ex);
+        // }
+        // return size;
     }
 
     /**
@@ -522,15 +555,16 @@ public class DBClient {
         try {
             Connection connection = this.procedureConnection(dbName, schema);
             String sql = """
-                    SELECT 
+                    SELECT
                         COUNT(*)
-                    FROM 
+                    FROM
                         information_schema.ROUTINES
-                    WHERE 
+                    WHERE
                         ROUTINE_SCHEMA = ?
-                    AND 
+                    AND
                         ROUTINE_TYPE = 'PROCEDURE';
                     """;
+            DBUtil.printSql(sql);
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, dbName);
             ResultSet resultSet = statement.executeQuery();
@@ -568,15 +602,16 @@ public class DBClient {
         try {
             Connection connection = this.functionConnection(dbName, schema);
             String sql = """
-                    SELECT 
+                    SELECT
                         COUNT(*)
-                    FROM 
+                    FROM
                         information_schema.ROUTINES
-                    WHERE 
+                    WHERE
                         ROUTINE_SCHEMA = ?
-                    AND 
+                    AND
                         ROUTINE_TYPE = 'FUNCTION';
                     """;
+            DBUtil.printSql(sql);
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, dbName);
             ResultSet resultSet = statement.executeQuery();
@@ -886,7 +921,7 @@ public class DBClient {
         return this.isSupportFeature(DBFeature.EVENT);
     }
 
-    public static final String[] TABLE_TYPES = new String[]{"TABLE", "SYSTEM TABLE", "GLOBAL TEMPORARY", "LOCAL TEMPORARY", "ALIAS", "SYNONYM"};
+    public static final String[] TABLE_TYPES = new String[]{"TABLE", "SYSTEM TABLE", "SYSTEM VIEW", "GLOBAL TEMPORARY", "LOCAL TEMPORARY", "ALIAS", "SYNONYM"};
 
     public static final String[] VIEW_TYPES = new String[]{"VIEW"};
 
@@ -1241,6 +1276,7 @@ public class DBClient {
         try {
             Connection connection = this.connection(dbName);
             String sql = "SHOW CREATE TABLE " + DBUtil.wrap(tableName);
+            DBUtil.printSql(sql);
             Statement stmt = connection.createStatement();
             ResultSet resultSet = stmt.executeQuery(sql);
             String createDefinition = "";
@@ -1260,6 +1296,7 @@ public class DBClient {
         try {
             Connection connection = this.connection(dbName);
             String sql = "SHOW CREATE VIEW " + DBUtil.wrap(viewName);
+            DBUtil.printSql(sql);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             String createDefinition = "";
@@ -1279,6 +1316,7 @@ public class DBClient {
         try {
             Connection connection = this.connection(dbName);
             String sql = "SHOW CREATE FUNCTION " + DBUtil.wrap(functionName);
+            DBUtil.printSql(sql);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             String createDefinition = "";
@@ -1298,6 +1336,7 @@ public class DBClient {
         try {
             Connection connection = this.connection(dbName);
             String sql = "SHOW CREATE PROCEDURE " + DBUtil.wrap(procedureName);
+            DBUtil.printSql(sql);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             String createDefinition = "";
@@ -1317,6 +1356,7 @@ public class DBClient {
         try {
             Connection connection = this.connection(dbName);
             String sql = "SHOW CREATE TRIGGER " + DBUtil.wrap(triggerName);
+            DBUtil.printSql(sql);
             Statement statement = connection.createStatement();
             // 执行SQL查询并获取结果集
             ResultSet resultSet = statement.executeQuery(sql);
@@ -1337,6 +1377,7 @@ public class DBClient {
         try {
             Connection connection = this.connection(dbName);
             String sql = "SHOW CREATE EVENT " + DBUtil.wrap(eventName);
+            DBUtil.printSql(sql);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             String createDefinition = "";
@@ -1359,8 +1400,10 @@ public class DBClient {
         try {
             List<String> engines = new ArrayList<>();
             String sql = "SELECT ENGINE FROM information_schema.ENGINES WHERE SUPPORT = 'YES' OR SUPPORT = 'DEFAULT'";
+            DBUtil.printSql(sql);
             Statement statement = this.connection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
+            DBUtil.printMetaData(resultSet);
             while (resultSet.next()) {
                 engines.add(resultSet.getString(1));
             }
@@ -1733,6 +1776,7 @@ public class DBClient {
                         AND 
                             tc.TABLE_NAME = ?;
                     """;
+            DBUtil.printSql(sql);
             PreparedStatement statement = this.connection().prepareStatement(sql);
             statement.setString(1, dbName);
             statement.setString(2, tableName);
@@ -1782,6 +1826,7 @@ public class DBClient {
                     AND 
                         a.REFERENCED_TABLE_NAME IS NOT NULL;
                     """;
+            DBUtil.printSql(sql);
             PreparedStatement statement = this.connection().prepareStatement(sql);
             statement.setString(1, dbName);
             statement.setString(2, tableName);
@@ -1841,6 +1886,7 @@ public class DBClient {
                     AND
                         a.TABLE_NAME = ?
                     """;
+            DBUtil.printSql(sql);
             PreparedStatement statement = this.connection().prepareStatement(sql);
             statement.setString(1, dbName);
             statement.setString(2, viewName);
@@ -1877,8 +1923,10 @@ public class DBClient {
             DBUtil.close(statement);
 
             sql = "SELECT * FROM " + DBUtil.wrap(dbName, viewName) + " LIMIT 1";
+            DBUtil.printSql(sql);
             PreparedStatement statement1 = this.connection().prepareStatement(sql);
             ResultSet resultSet1 = statement1.executeQuery();
+            DBUtil.printMetaData(resultSet1);
             MysqlColumns dbColumns = DBHelper.parseColumns(resultSet1);
             DBUtil.close(resultSet1);
             DBUtil.close(statement1);
@@ -2095,6 +2143,7 @@ public class DBClient {
             String sql = "SELECT CHARACTER_SET_NAME FROM INFORMATION_SCHEMA.CHARACTER_SETS;";
             DBUtil.printSql(sql);
             ResultSet resultSet = statement.executeQuery(sql);
+            DBUtil.printMetaData(resultSet);
             while (resultSet.next()) {
                 charsets.add(resultSet.getString(1));
             }
@@ -2123,6 +2172,7 @@ public class DBClient {
             PreparedStatement statement = this.connection().prepareStatement(sql);
             statement.setString(1, charset);
             ResultSet resultSet = statement.executeQuery();
+            DBUtil.printMetaData(resultSet);
             List<String> list = new ArrayList<>();
             while (resultSet.next()) {
                 list.add(resultSet.getString(1));
@@ -2209,6 +2259,7 @@ public class DBClient {
             PreparedStatement statement = this.connection().prepareStatement(sql);
             statement.setString(1, dbName);
             ResultSet resultSet = statement.executeQuery();
+            DBUtil.printMetaData(resultSet);
             while (resultSet.next()) {
                 collation = resultSet.getString(1);
             }
@@ -2336,6 +2387,7 @@ public class DBClient {
             connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
             for (String sql : sqlList) {
+                DBUtil.printSql(sql);
                 statement.addBatch(sql);
             }
             int[] results = statement.executeBatch();
@@ -2698,6 +2750,7 @@ public class DBClient {
             String sql = "SHOW INDEX FROM " + DBUtil.wrap(dbName, tableName, this.dialect()) + " WHERE Key_name = 'PRIMARY'";
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
+            DBUtil.printMetaData(resultSet);
             boolean exist = resultSet.next();
             DBUtil.close(resultSet);
             DBUtil.close(stmt);

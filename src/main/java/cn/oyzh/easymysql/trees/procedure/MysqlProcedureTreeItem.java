@@ -66,11 +66,13 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItemVal
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
+        // FXMenuItem open = MenuItemHelper.openProcedure("12", this::onPrimaryDoubleClick);
+        // items.add(open);
         FXMenuItem design = MenuItemHelper.designProcedure("12", this::onPrimaryDoubleClick);
-        FXMenuItem delete = MenuItemHelper.deleteProcedure("12", this::delete);
-        FXMenuItem info = MenuItemHelper.procedureInfo("12", this::procedureInfo);
         items.add(design);
+        FXMenuItem delete = MenuItemHelper.deleteProcedure("12", this::delete);
         items.add(delete);
+        FXMenuItem info = MenuItemHelper.procedureInfo("12", this::procedureInfo);
         items.add(info);
         return items;
     }

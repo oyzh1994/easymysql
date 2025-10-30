@@ -72,8 +72,8 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        FXMenuItem open = MenuItemHelper.openEvent("12", this::onPrimaryDoubleClick);
-        items.add(open);
+        // FXMenuItem open = MenuItemHelper.openEvent("12", this::onPrimaryDoubleClick);
+        // items.add(open);
         FXMenuItem renameEvent = MenuItemHelper.renameEvent("12", this::rename);
         items.add(renameEvent);
         FXMenuItem design = MenuItemHelper.designEvent("12", this::onPrimaryDoubleClick);

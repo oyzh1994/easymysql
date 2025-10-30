@@ -102,7 +102,8 @@ public class DBUtil {
     @Deprecated
     public static boolean checkProcedureType(ResultSet resultSet, String dbName) throws SQLException {
         String tableCat = resultSet.getString("PROCEDURE_CAT");
-        return StringUtil.equals(tableCat, dbName);
+        String type = resultSet.getString("PROCEDURE_TYPE");
+        return StringUtil.equals(tableCat, dbName) && "1".equals(type);
     }
 
     /**
@@ -116,7 +117,8 @@ public class DBUtil {
     @Deprecated
     public static boolean checkFunctionType(ResultSet resultSet, String dbName) throws SQLException {
         String functionCat = resultSet.getString("FUNCTION_CAT");
-        return StringUtil.equalsIgnoreCase(functionCat, dbName);
+        String type = resultSet.getString("FUNCTION_TYPE");
+        return StringUtil.equalsIgnoreCase(functionCat, dbName) && "1".equals(type);
     }
 
     /**
