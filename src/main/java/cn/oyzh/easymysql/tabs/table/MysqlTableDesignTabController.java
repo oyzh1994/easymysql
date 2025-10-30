@@ -1219,7 +1219,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             MysqlAlertTableParam param = this.initAlertParam();
             sql = MysqlTableAlertSqlGenerator.generateSql(param);
         }
-        this.sqlPreview.setText(sql);
+        this.sqlPreview.text(sql);
     }
 
     @Override

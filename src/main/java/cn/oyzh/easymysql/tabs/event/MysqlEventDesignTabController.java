@@ -25,6 +25,7 @@ import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.util.FXUtil;
+import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -373,6 +374,13 @@ public class MysqlEventDesignTabController extends RichTabController {
      */
     @FXML
     private void save() {
+        StageManager.showMask(this::doSave);
+    }
+
+    /**
+     * 执行保存
+     */
+    private void doSave() {
         try {
             // 创建临时对象
             MysqlEvent temp = this.tempData();
@@ -389,7 +397,7 @@ public class MysqlEventDesignTabController extends RichTabController {
                 eventName = temp.getName();
             }
 
-            this.disableTab();
+            // this.disableTab();
 
             // 创建事件
             if (this.newData) {
@@ -410,10 +418,12 @@ public class MysqlEventDesignTabController extends RichTabController {
             this.event = this.dbItem.selectEvent(eventName);
             // 刷新tab
             this.initInfo();
+            // 初始化预览
+            this.initPreview();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         } finally {
-            this.enableTab();
+            // this.enableTab();
             this.flushTab();
         }
     }
@@ -614,19 +624,37 @@ public class MysqlEventDesignTabController extends RichTabController {
         // 切换面板监听
         this.tabPane.selectedIndexChanged((observable, oldValue, newValue) -> {
             if (newValue.intValue() == 3) {
-                String sql;
-                MysqlEvent temp = this.tempData();
-                if (this.newData) {
-                    if (StringUtil.isBlank(temp.getName())) {
-                        temp.setName("Unnamed_Event");
-                    }
-                    sql = EventCreateSqlGenerator.generate(this.dbItem.dialect(), temp);
-                } else {
-                    sql = EventAlertSqlGenerator.generate(this.dbItem.dialect(), temp);
-                }
-                this.preview.setText(sql);
+                // String sql;
+                // MysqlEvent temp = this.tempData();
+                // if (this.newData) {
+                //     if (StringUtil.isBlank(temp.getName())) {
+                //         temp.setName("Unnamed_Event");
+                //     }
+                //     sql = EventCreateSqlGenerator.generate(this.dbItem.dialect(), temp);
+                // } else {
+                //     sql = EventAlertSqlGenerator.generate(this.dbItem.dialect(), temp);
+                // }
+                // this.preview.setText(sql);
+                this.initPreview();
             }
         });
+    }
+
+    /**
+     * 初始化预览
+     */
+    private void initPreview() {
+        String sql;
+        MysqlEvent temp = this.tempData();
+        if (this.newData) {
+            if (StringUtil.isBlank(temp.getName())) {
+                temp.setName("Unnamed_Event");
+            }
+            sql = EventCreateSqlGenerator.generate(this.dbItem.dialect(), temp);
+        } else {
+            sql = EventAlertSqlGenerator.generate(this.dbItem.dialect(), temp);
+        }
+        this.preview.text(sql);
     }
 
     public boolean isUnsaved() {

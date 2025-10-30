@@ -24,6 +24,7 @@ import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.fx.plus.util.FXUtil;
+import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -287,6 +288,13 @@ public class MysqlProcedureDesignTabController extends RichTabController {
      */
     @FXML
     private void save() {
+        StageManager.showMask(this::doSave);
+    }
+
+    /**
+     * 执行保存
+     */
+    private void doSave() {
         try {
             // 创建临时对象
             MysqlProcedure tempProcedure = this.tempData();
@@ -303,7 +311,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
                 procedureName = tempProcedure.getName();
             }
 
-            this.disableTab();
+            // this.disableTab();
 
             // 创建过程
             if (this.newData) {
@@ -324,12 +332,15 @@ public class MysqlProcedureDesignTabController extends RichTabController {
             this.procedure = this.dbItem.selectProcedure(procedureName);
             // 刷新tab
             this.initInfo();
+            // 初始化预览
+            this.initPreview();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         } finally {
-            this.enableTab();
+            // this.enableTab();
             this.flushTab();
         }
+
     }
 
     /**
@@ -380,14 +391,27 @@ public class MysqlProcedureDesignTabController extends RichTabController {
                 NodeGroupUtil.disappear(this.getTab(), "param");
             }
             if (newValue.intValue() == 3) {
-                MysqlProcedure temp = this.tempData();
-                if (StringUtil.isBlank(temp.getName())) {
-                    temp.setName("Unnamed_Procedure");
-                }
-                String sql = DBProcedureSqlGenerator.INSTANCE.generate(temp);
-                this.preview.setText(sql);
+                // MysqlProcedure temp = this.tempData();
+                // if (StringUtil.isBlank(temp.getName())) {
+                //     temp.setName("Unnamed_Procedure");
+                // }
+                // String sql = DBProcedureSqlGenerator.INSTANCE.generate(temp);
+                // this.preview.setText(sql);
+                this.initPreview();
             }
         });
+    }
+
+    /**
+     * 初始化预览
+     */
+    private void initPreview() {
+        MysqlProcedure temp = this.tempData();
+        if (StringUtil.isBlank(temp.getName())) {
+            temp.setName("Unnamed_Procedure");
+        }
+        String sql = DBProcedureSqlGenerator.INSTANCE.generate(temp);
+        this.preview.setText(sql);
     }
 
     /**

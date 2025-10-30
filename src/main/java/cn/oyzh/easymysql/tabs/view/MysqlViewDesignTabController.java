@@ -14,6 +14,7 @@ import cn.oyzh.fx.plus.controls.text.field.FXTextField;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.util.FXUtil;
+import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -173,6 +174,13 @@ public class MysqlViewDesignTabController extends RichTabController {
      */
     @FXML
     private void save() {
+        StageManager.showMask(this::doSave);
+    }
+
+    /**
+     * 执行保存
+     */
+    private void doSave() {
         try {
             // 创建临时对象
             MysqlView tempView = new MysqlView();
@@ -198,7 +206,7 @@ public class MysqlViewDesignTabController extends RichTabController {
             tempView.setCheckOption(this.checkOption.getSelectedItem());
             tempView.setSecurityType(this.securityType.getSelectedItem());
 
-            this.disableTab();
+            // this.disableTab();
 
             // 创建视图
             if (this.newData) {
@@ -223,7 +231,7 @@ public class MysqlViewDesignTabController extends RichTabController {
         } catch (Exception ex) {
             MessageBox.exception(ex);
         } finally {
-            this.enableTab();
+            // this.enableTab();
             this.flushTab();
         }
     }

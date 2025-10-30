@@ -97,8 +97,8 @@ public class MysqlEventsTreeItem extends DBTreeItem<MysqlEventsTreeItemValue> {
                             }
                             list.removeAll(delList);
                             list.addAll(addList);
-                            this.expend();
                         }
+                        this.expend();
                     })
                     .onError(ex -> {
                         this.setLoaded(false);
@@ -114,9 +114,9 @@ public class MysqlEventsTreeItem extends DBTreeItem<MysqlEventsTreeItemValue> {
 
     @Override
     public void reloadChild() {
-       this.clearChild();
-       this.setLoaded(false);
-       this.loadChild();
+        this.clearChild();
+        this.setLoaded(false);
+        this.loadChild();
     }
 
     public String dbName() {

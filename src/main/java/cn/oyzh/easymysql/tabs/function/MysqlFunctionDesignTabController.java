@@ -28,6 +28,7 @@ import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.fx.plus.util.FXUtil;
+import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -342,6 +343,13 @@ public class MysqlFunctionDesignTabController extends RichTabController {
      */
     @FXML
     private void save() {
+        StageManager.showMask(this::doSave);
+    }
+
+    /**
+     * 执行保存
+     */
+    private void doSave() {
         try {
             // 创建临时对象
             MysqlFunction tempFunction = this.tempData();
@@ -358,7 +366,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
                 functionName = tempFunction.getName();
             }
 
-            this.disableTab();
+            // this.disableTab();
 
             // 创建函数
             if (this.newData) {
@@ -379,10 +387,12 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             this.function = this.dbItem.selectFunction(functionName);
             // 刷新tab
             this.initInfo();
+            // 初始化预览
+            this.initPreview();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         } finally {
-            this.enableTab();
+            // this.enableTab();
             this.flushTab();
         }
     }
@@ -482,14 +492,27 @@ public class MysqlFunctionDesignTabController extends RichTabController {
                 NodeGroupUtil.disappear(this.getTab(), "param");
             }
             if (newValue.intValue() == 4) {
-                MysqlFunction temp = this.tempData();
-                if (StringUtil.isBlank(temp.getName())) {
-                    temp.setName("Unnamed_Function");
-                }
-                String sql = DBFunctionSqlGenerator.INSTANCE.generate(temp);
-                this.preview.setText(sql);
+                // MysqlFunction temp = this.tempData();
+                // if (StringUtil.isBlank(temp.getName())) {
+                //     temp.setName("Unnamed_Function");
+                // }
+                // String sql = DBFunctionSqlGenerator.INSTANCE.generate(temp);
+                // this.preview.setText(sql);
+                this.initPreview();
             }
         });
+    }
+
+    /**
+     * 初始化预览
+     */
+    private void initPreview() {
+        MysqlFunction temp = this.tempData();
+        if (StringUtil.isBlank(temp.getName())) {
+            temp.setName("Unnamed_Function");
+        }
+        String sql = DBFunctionSqlGenerator.INSTANCE.generate(temp);
+        this.preview.text(sql);
     }
 
     /**
