@@ -308,14 +308,16 @@ public class MysqlProcedureDesignTabController extends RichTabController {
             // 创建过程
             if (this.newData) {
                 this.dbItem.createProcedure(tempProcedure);
+                MysqlProcedure procedure = this.dbItem.selectProcedure(procedureName);
+                this.dbItem.getProcedureTypeChild().addProcedure(procedure);
                 MysqlEventUtil.procedureAdded(this.dbItem);
                 this.initDBListener();
             } else {// 修改过程
                 this.dbItem.alertProcedure(tempProcedure);
                 MysqlEventUtil.procedureAlerted(procedureName, this.dbItem);
             }
-            // 刷新数据
-            this.dbItem.getProcedureTypeChild().reloadChild();
+            // // 刷新数据
+            // this.dbItem.getProcedureTypeChild().reloadChild();
             // 更新保存标志位
             this.unsaved = false;
             // 重载表数据

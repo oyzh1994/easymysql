@@ -154,4 +154,7 @@ public class MysqlEventsTreeItem extends DBTreeItem<MysqlEventsTreeItemValue> {
         return this.client().eventSize(this.dbName());
     }
 
+    public void addEvent(MysqlEvent event) {
+        this.addChild(new MysqlEventTreeItem(event, this.getTreeView()));
+    }
 }

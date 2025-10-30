@@ -158,4 +158,8 @@ public class MysqlProceduresTreeItem extends DBTreeItem<MysqlProceduresTreeItemV
     public Integer procedureSize() {
         return this.client().procedureSize(this.dbName(), null);
     }
+
+    public void addProcedure(MysqlProcedure procedure) {
+        this.addChild(new MysqlProcedureTreeItem(procedure, this.getTreeView()));
+    }
 }

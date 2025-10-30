@@ -363,14 +363,16 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             // 创建函数
             if (this.newData) {
                 this.dbItem.createFunction(tempFunction);
+                MysqlFunction function = this.dbItem.selectFunction(functionName);
+                this.dbItem.getFunctionTypeChild().addFunction(function);
                 MysqlEventUtil.functionAdded(this.dbItem);
                 this.initDBListener();
             } else {// 修改过程
                 this.dbItem.alertFunction(tempFunction);
                 MysqlEventUtil.functionAlerted(functionName, this.dbItem);
             }
-            // 刷新数据
-            this.dbItem.getFunctionTypeChild().reloadChild();
+            // // 刷新数据
+            // this.dbItem.getFunctionTypeChild().reloadChild();
             // 更新保存标志位
             this.unsaved = false;
             // 重载表数据

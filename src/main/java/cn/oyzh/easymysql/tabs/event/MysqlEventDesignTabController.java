@@ -394,14 +394,16 @@ public class MysqlEventDesignTabController extends RichTabController {
             // 创建事件
             if (this.newData) {
                 this.dbItem.createEvent(temp);
+                MysqlEvent event = this.dbItem.selectEvent(eventName);
+                this.dbItem.getEventTypeChild().addEvent(event);
                 MysqlEventUtil.eventAdded(this.dbItem);
                 this.initDBListener();
             } else {// 修改事件
                 this.dbItem.alertEvent(temp);
                 MysqlEventUtil.eventAlerted(eventName, this.dbItem);
             }
-            // 刷新数据
-            this.dbItem.getEventTypeChild().reloadChild();
+            // // 刷新数据
+            // this.dbItem.getEventTypeChild().reloadChild();
             // 更新保存标志位
             this.unsaved = false;
             // 重载数据

@@ -102,6 +102,7 @@ public class MysqlFunctionsTreeItem extends DBTreeItem<MysqlFunctionsTreeItemVal
                             list.removeAll(delList);
                             list.addAll(addList);
                         }
+                        this.expend();
                     })
                     .onError(ex -> {
                         this.setLoaded(false);
@@ -158,5 +159,9 @@ public class MysqlFunctionsTreeItem extends DBTreeItem<MysqlFunctionsTreeItemVal
 
     public Integer functionSize() {
         return this.client().functionSize(this.dbName(), null);
+    }
+
+    public void addFunction(MysqlFunction function) {
+        this.addChild(new MysqlFunctionTreeItem(function, this.getTreeView()));
     }
 }
