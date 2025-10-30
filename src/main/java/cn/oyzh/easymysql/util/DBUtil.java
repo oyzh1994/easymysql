@@ -99,6 +99,7 @@ public class DBUtil {
      * @return 结果
      * @throws SQLException 异常
      */
+    @Deprecated
     public static boolean checkProcedureType(ResultSet resultSet, String dbName) throws SQLException {
         String tableCat = resultSet.getString("PROCEDURE_CAT");
         return StringUtil.equals(tableCat, dbName);
@@ -112,6 +113,7 @@ public class DBUtil {
      * @return 结果
      * @throws SQLException 异常
      */
+    @Deprecated
     public static boolean checkFunctionType(ResultSet resultSet, String dbName) throws SQLException {
         String functionCat = resultSet.getString("FUNCTION_CAT");
         return StringUtil.equalsIgnoreCase(functionCat, dbName);

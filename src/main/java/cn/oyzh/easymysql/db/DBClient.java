@@ -501,16 +501,42 @@ public class DBClient {
     }
 
     public int procedureSize(String dbName, String schema) {
+        // int size = 0;
+        // try {
+        //     Connection connection = this.procedureConnection(dbName, schema);
+        //     DatabaseMetaData metaData = connection.getMetaData();
+        //     ResultSet resultSet = metaData.getProcedures(dbName, schema, "%");
+        //     DBUtil.printMetaData(resultSet);
+        //     while (resultSet.next()) {
+        //         if (DBUtil.checkProcedureType(resultSet, dbName)) {
+        //             size++;
+        //         }
+        //     }
+        //     DBUtil.close(resultSet);
+        // } catch (Exception ex) {
+        //     ex.printStackTrace();
+        //     throw new DBException(ex);
+        // }
+        // return size;
         int size = 0;
         try {
             Connection connection = this.procedureConnection(dbName, schema);
-            DatabaseMetaData metaData = connection.getMetaData();
-            ResultSet resultSet = metaData.getProcedures(dbName, schema, "%");
+            String sql = """
+                    SELECT 
+                        COUNT(*)
+                    FROM 
+                        information_schema.ROUTINES
+                    WHERE 
+                        ROUTINE_SCHEMA = ?
+                    AND 
+                        ROUTINE_TYPE = 'PROCEDURE';
+                    """;
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, dbName);
+            ResultSet resultSet = statement.executeQuery();
             DBUtil.printMetaData(resultSet);
-            while (resultSet.next()) {
-                if (DBUtil.checkProcedureType(resultSet, dbName)) {
-                    size++;
-                }
+            if (resultSet.next()) {
+                size = resultSet.getInt(1);
             }
             DBUtil.close(resultSet);
         } catch (Exception ex) {
@@ -521,16 +547,42 @@ public class DBClient {
     }
 
     public int functionSize(String dbName, String schema) {
+        // int size = 0;
+        // try {
+        //     Connection connection = this.functionConnection(dbName, schema);
+        //     DatabaseMetaData metaData = connection.getMetaData();
+        //     ResultSet resultSet = metaData.getFunctions(dbName, schema, "%");
+        //     DBUtil.printMetaData(resultSet);
+        //     if (resultSet.next()) {
+        //         if (DBUtil.checkFunctionType(resultSet, dbName)) {
+        //             size++;
+        //         }
+        //     }
+        //     DBUtil.close(resultSet);
+        // } catch (Exception ex) {
+        //     ex.printStackTrace();
+        //     throw new DBException(ex);
+        // }
+        // return size;
         int size = 0;
         try {
             Connection connection = this.functionConnection(dbName, schema);
-            DatabaseMetaData metaData = connection.getMetaData();
-            ResultSet resultSet = metaData.getFunctions(dbName, schema, "%");
+            String sql = """
+                    SELECT 
+                        COUNT(*)
+                    FROM 
+                        information_schema.ROUTINES
+                    WHERE 
+                        ROUTINE_SCHEMA = ?
+                    AND 
+                        ROUTINE_TYPE = 'FUNCTION';
+                    """;
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, dbName);
+            ResultSet resultSet = statement.executeQuery();
             DBUtil.printMetaData(resultSet);
-            while (resultSet.next()) {
-                if (DBUtil.checkFunctionType(resultSet, dbName)) {
-                    size++;
-                }
+            if (resultSet.next()) {
+                size = resultSet.getInt(1);
             }
             DBUtil.close(resultSet);
         } catch (Exception ex) {
