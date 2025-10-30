@@ -237,9 +237,10 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-    public static void viewOpen(MysqlViewTreeItem item) {
+    public static void viewOpen(MysqlViewTreeItem item, MysqlDatabaseTreeItem dbItem) {
         MysqlViewOpenEvent event = new MysqlViewOpenEvent();
         event.data(item);
+        event.setDbItem(dbItem);
         EventUtil.post(event);
     }
 

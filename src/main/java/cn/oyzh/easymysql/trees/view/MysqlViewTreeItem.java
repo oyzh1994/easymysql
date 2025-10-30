@@ -57,7 +57,7 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     }
 
     @Override
-    public MysqlViewsTreeItem parent(){
+    public MysqlViewsTreeItem parent() {
         return (MysqlViewsTreeItem) super.parent();
     }
 
@@ -152,7 +152,7 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
 
     @Override
     public void onPrimaryDoubleClick() {
-        MysqlEventUtil.viewOpen(this);
+        MysqlEventUtil.viewOpen(this, this.dbItem());
     }
 
     /**

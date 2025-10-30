@@ -230,14 +230,14 @@ public class MysqlTabEventListener implements EventListener {
         }
     }
 
-    private MysqlViewRecordTab getMysqlViewRecordTab(MysqlDatabaseTreeItem dbItem, String viewName) {
-        for (Tab tab : this.getTabs()) {
-            if (tab instanceof MysqlViewRecordTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(tab1.viewName(), viewName)) {
-                return tab1;
-            }
-        }
-        return null;
-    }
+    // private MysqlViewRecordTab getMysqlViewRecordTab(MysqlDatabaseTreeItem dbItem, String viewName) {
+    //     for (Tab tab : this.getTabs()) {
+    //         if (tab instanceof MysqlViewRecordTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(tab1.viewName(), viewName)) {
+    //             return tab1;
+    //         }
+    //     }
+    //     return null;
+    // }
 
     /**
      * 视图打开事件
@@ -247,7 +247,7 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlViewOpen(MysqlViewOpenEvent event) {
         try {
-            MysqlViewRecordTab tab = this.getMysqlViewRecordTab(event.getDbItem(), event.viewName());
+            MysqlViewRecordTab tab = this.getViewRecordTab(event.getDbItem(), event.viewName());
             if (tab == null) {
                 tab = new MysqlViewRecordTab();
                 this.addTab(tab);
@@ -267,7 +267,7 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlViewFiltered(MysqlViewFilteredEvent event) {
         try {
-            MysqlViewRecordTab viewRecordTab = this.getMysqlViewRecordTab(event.getDbItem(), event.viewName());
+            MysqlViewRecordTab viewRecordTab = this.getViewRecordTab(event.getDbItem(), event.viewName());
             if (viewRecordTab != null) {
                 viewRecordTab.setFilters(event.getFilters());
                 viewRecordTab.reload();
