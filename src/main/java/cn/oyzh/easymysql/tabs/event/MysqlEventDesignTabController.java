@@ -321,6 +321,7 @@ public class MysqlEventDesignTabController extends RichTabController {
         this.definition.setText(this.event.getDefinition());
         this.definition.forgetHistory();
         this.definition.setDialect(this.dbItem.dialect());
+        this.onCompletion.select(this.event.getOnCompletion());
 
         // 清理旧设置
         this.onetime.clear();
