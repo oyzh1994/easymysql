@@ -218,9 +218,9 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     @Override
     public void rename() {
         try {
-            if (!MessageBox.confirm(DBI18nHelper.tableTip2())) {
-                return;
-            }
+            // if (!MessageBox.confirm(DBI18nHelper.tableTip2())) {
+            //     return;
+            // }
             String tableName = MessageBox.prompt(I18nHelper.pleaseInputName(), this.value.getName());
             // 名称为null或者跟当前名称相同，则忽略
             if (tableName == null || Objects.equals(tableName, this.value.getName())) {
@@ -231,10 +231,10 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
                 MessageBox.warn(I18nHelper.pleaseInputContent());
                 return;
             }
-            if (this.dbItem().existTable(tableName)) {
-                MessageBox.warn(I18nHelper.table() + " " + tableName + I18nHelper.alreadyExists());
-                return;
-            }
+            // if (this.dbItem().existTable(tableName)) {
+            //     MessageBox.warn(I18nHelper.table() + " " + tableName + I18nHelper.alreadyExists());
+            //     return;
+            // }
             String oldName = this.value.getName();
             // 修改名称
             this.dbItem().renameTable(oldName, tableName);

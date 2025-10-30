@@ -462,6 +462,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return this.client().selectFullTable(param);
     }
 
+    @Deprecated
     public boolean existTable(String tableName) {
         return this.client().existTable(this.dbName(), tableName);
     }

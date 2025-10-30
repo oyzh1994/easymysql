@@ -1936,11 +1936,13 @@ public class DBClient {
         }
     }
 
+    @Deprecated
     public boolean existTable(String dbName, String tableName) {
         boolean result;
         try {
             DatabaseMetaData metaData = this.connection(dbName).getMetaData();
             ResultSet resultSet = metaData.getTables(null, dbName, tableName, TABLE_TYPES);
+            DBUtil.printMetaData(resultSet);
             result = resultSet.next();
             DBUtil.close(resultSet);
         } catch (Exception ex) {
