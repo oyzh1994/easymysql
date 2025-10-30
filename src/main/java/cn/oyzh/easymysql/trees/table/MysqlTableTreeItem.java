@@ -132,6 +132,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
 
     /**
      * 执行克隆表
+     *
      * @param includeRecord 是否包含记录
      */
     private void doCloneTable(boolean includeRecord) {

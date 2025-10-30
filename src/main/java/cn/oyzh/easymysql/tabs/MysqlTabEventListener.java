@@ -18,6 +18,7 @@ import cn.oyzh.easymysql.event.table.MysqlTableFilteredEvent;
 import cn.oyzh.easymysql.event.table.MysqlTableOpenEvent;
 import cn.oyzh.easymysql.event.table.MysqlTableRenamedEvent;
 import cn.oyzh.easymysql.event.table.MysqlTableTruncatedEvent;
+import cn.oyzh.easymysql.event.view.MysqlViewAlertedEvent;
 import cn.oyzh.easymysql.event.view.MysqlViewDesignEvent;
 import cn.oyzh.easymysql.event.view.MysqlViewFilteredEvent;
 import cn.oyzh.easymysql.event.view.MysqlViewOpenEvent;
@@ -502,5 +503,32 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onConnectionClosed(DBConnectionClosedEvent event) {
         this.removeTab(this.getMysqlTabs());
+    }
+
+    private MysqlViewRecordTab getViewRecordTab(MysqlDatabaseTreeItem dbItem, String viewName) {
+        for (Tab tab : this.getTabs()) {
+            if (tab instanceof MysqlViewRecordTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(viewName, tab1.viewName())) {
+                return tab1;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 视图变更事件
+     *
+     * @param event 事件
+     */
+    @EventSubscribe
+    private void viewAlerted(MysqlViewAlertedEvent event) {
+        try {
+            MysqlViewRecordTab tab = this.getViewRecordTab(event.getDbItem(), event.data());
+            if (tab != null) {
+                tab.flush();
+                tab.reload();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

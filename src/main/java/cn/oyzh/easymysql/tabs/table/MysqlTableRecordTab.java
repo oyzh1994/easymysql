@@ -28,7 +28,7 @@ public class MysqlTableRecordTab extends MysqlTab {
     //  */
     // private final long openedTime = System.currentTimeMillis();
 
-    private MysqlTableTreeItem item;
+    // private MysqlTableTreeItem item;
 
     @Override
     protected String url() {
@@ -39,7 +39,7 @@ public class MysqlTableRecordTab extends MysqlTab {
     public void flushGraphic() {
         SVGGlyph graphic = (SVGGlyph) this.getGraphic();
         if (graphic == null) {
-            graphic = new TableSVGGlyph( "13");
+            graphic = new TableSVGGlyph("13");
             // graphic = new SVGGlyph("/font/table.svg", "13");
             graphic.setCursor(Cursor.DEFAULT);
             this.setGraphic(graphic);
@@ -49,7 +49,7 @@ public class MysqlTableRecordTab extends MysqlTab {
     @Override
     public void flushTitle() {
         // 设置提示文本
-        this.setText(this.item.infoName() + "-" + this.item.dbName() + "-" + this.item.tableName());
+        this.setText(this.item().tableName() + "@" + this.item().dbName() + "(" + this.item().infoName() + ")");
     }
 
     /**
@@ -58,7 +58,7 @@ public class MysqlTableRecordTab extends MysqlTab {
      * @param item 树键
      */
     public boolean init(MysqlTableTreeItem item) {
-        this.item = item;
+        // this.item = item;
         this.controller().init(item);
         // 刷新tab
         this.flush();
@@ -77,23 +77,27 @@ public class MysqlTableRecordTab extends MysqlTab {
     }
 
     public DBClient client() {
-        return this.item.client();
+        return this.item().client();
     }
 
     public void setFilters(List<MysqlRecordFilter> filters) {
         this.controller().setFilters(filters);
     }
 
+    public MysqlTableTreeItem item(){
+        return this.controller().getItem();
+    }
+    
     public String tableName() {
-        return this.item.tableName();
+        return this.item().tableName();
     }
 
     @Override
     public MysqlDatabaseTreeItem dbItem() {
-        return this.item.dbItem();
+        return this.item().dbItem();
     }
 
     public String dbName() {
-        return this.item.dbName();
+        return this.item().dbName();
     }
 }

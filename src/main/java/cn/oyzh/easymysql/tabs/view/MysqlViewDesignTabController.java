@@ -203,6 +203,8 @@ public class MysqlViewDesignTabController extends RichTabController {
             // 创建视图
             if (this.newData) {
                 this.dbItem.createView(tempView);
+                MysqlView view = this.dbItem.selectView(viewName);
+                this.dbItem.getViewTypeChild().addView(view);
                 MysqlEventUtil.viewAdded(this.dbItem);
                 // 初始化监听器
                 this.initDBListener();
@@ -210,8 +212,8 @@ public class MysqlViewDesignTabController extends RichTabController {
                 this.dbItem.alertView(tempView);
                 MysqlEventUtil.viewAlerted(viewName, this.dbItem);
             }
-            // 刷新数据
-            this.dbItem.getViewTypeChild().reloadChild();
+            // // 刷新数据
+            // this.dbItem.getViewTypeChild().reloadChild();
             // 重置保存标志位
             this.unsaved = false;
             // 查询视图信息

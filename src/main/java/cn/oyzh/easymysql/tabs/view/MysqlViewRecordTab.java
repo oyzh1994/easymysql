@@ -44,7 +44,7 @@ public class MysqlViewRecordTab extends MysqlTab {
 
     @Override
     public void flushTitle() {
-        this.setText(this.item().infoName() + "-" + this.item().dbName() + "-" + this.item().viewName());
+        this.setText(this.item().viewName() + "@" + this.item().dbName() + "(" + this.item().infoName() + ")");
     }
 
     /**

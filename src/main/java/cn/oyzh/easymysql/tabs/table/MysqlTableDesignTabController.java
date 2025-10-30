@@ -605,14 +605,15 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 MysqlCreateTableParam param = this.initCreateParam();
                 param.setTableName(tableName);
                 this.dbItem.createTable(param);
-                // MysqlTable table = this.dbItem.selectTable(tableName);
+                MysqlTable table = this.dbItem.selectTable(tableName);
+                this.dbItem.getTableTypeChild().addTable(table);
                 MysqlEventUtil.tableAdded(this.dbItem);
             } else {// 修改表
                 MysqlAlertTableParam param = this.initAlertParam();
                 this.dbItem.alterTable(param);
                 MysqlEventUtil.tableAlerted(tableName, this.dbItem);
             }
-            this.dbItem.getTableTypeChild().reloadChild();
+            // this.dbItem.getTableTypeChild().reloadChild();
             // 判断结果
             this.unsaved = false;
             // 初始化信息

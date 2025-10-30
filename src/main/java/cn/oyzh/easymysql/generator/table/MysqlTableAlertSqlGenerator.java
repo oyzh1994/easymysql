@@ -218,6 +218,9 @@ public class MysqlTableAlertSqlGenerator {
     }
 
     protected void primaryKeyHandle(StringBuilder builder, MysqlAlertTableParam table) {
+        if(!builder.toString().endsWith(",")){
+            builder.append(",");
+        }
         if (table.isExistPrimaryKey()) {
             builder.append(" DROP PRIMARY KEY,");
         }
@@ -299,6 +302,9 @@ public class MysqlTableAlertSqlGenerator {
         MysqlForeignKeys foreignKeys = table.getForeignKeys();
         if (!foreignKeys.hasCreated() && !foreignKeys.hasChanged()) {
             return;
+        }
+        if(!builder.toString().endsWith(",")){
+            builder.append(",");
         }
         for (MysqlForeignKey foreignKey : foreignKeys.filterList(DBObjectList.TYPE_CHANGED, DBObjectList.TYPE_CREATED)) {
             // 新增外键

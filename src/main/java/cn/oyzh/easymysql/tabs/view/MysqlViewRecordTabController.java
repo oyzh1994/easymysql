@@ -35,6 +35,8 @@ import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
 import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.Event;
@@ -62,10 +64,10 @@ public class MysqlViewRecordTabController extends RichTabController {
     /**
      * db树视图节点
      */
-    private MysqlViewTreeItem item;
+    private ObjectProperty<MysqlViewTreeItem> itemProperty;
 
     public MysqlViewTreeItem getItem() {
-        return item;
+        return itemProperty.get();
     }
 
     /**
@@ -149,11 +151,21 @@ public class MysqlViewRecordTabController extends RichTabController {
      * @param item db树视图节点
      */
     public void init(MysqlViewTreeItem item) {
-        this.item = item;
+        this.itemProperty = new SimpleObjectProperty<>(item);
+        this.itemProperty.addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                this.closeTab();
+            }
+        });
+        item.parentProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                this.closeTab();
+            }
+        });
         this.reload();
         if (item.isUpdatable()) {
             if (this.changeListener == null) {
-                this.changeListener = new DBStatusListener(this.item.dbName() + ":" + this.item.viewName()) {
+                this.changeListener = new DBStatusListener(this.getItem().dbName() + ":" + this.getItem().viewName()) {
                     @Override
                     public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
                         apply.enable();
@@ -175,7 +187,7 @@ public class MysqlViewRecordTabController extends RichTabController {
      */
     private void initDataList(long pageNo) {
         try {
-            this.pageData = this.item.recordPage(pageNo, this.setting.getRecordPageLimit(), this.enabledFilters(), this.columns);
+            this.pageData = this.getItem().recordPage(pageNo, this.setting.getRecordPageLimit(), this.enabledFilters(), this.columns);
             this.pageBox.setPaging(this.pageData);
             this.initRecords(this.pageData.dataList());
         } catch (Exception ex) {
@@ -251,11 +263,11 @@ public class MysqlViewRecordTabController extends RichTabController {
         MysqlRecordData recordData = record.getRecordData();
         MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
         if (primaryKey != null) {
-            this.item.insertRecord(recordData, primaryKey);
+            this.getItem().insertRecord(recordData, primaryKey);
             // 处理回显
-            record.copy(this.item.selectRecord(primaryKey));
+            record.copy(this.getItem().selectRecord(primaryKey));
         } else {
-            this.item.insertRecord(recordData);
+            this.getItem().insertRecord(recordData);
         }
     }
 
@@ -276,16 +288,16 @@ public class MysqlViewRecordTabController extends RichTabController {
                 recordData.remove(primaryKey.getColumnName());
             }
             // 更新行
-            this.item.updateRecord(recordData, primaryKey);
+            this.getItem().updateRecord(recordData, primaryKey);
             // 处理回显
-            record.copy(this.item.selectRecord(primaryKey));
+            record.copy(this.getItem().selectRecord(primaryKey));
         } else {// 主键不存在，则根据所有字段更新
             // 变更数据
             MysqlRecordData changedRecordData = record.getChangedRecordData();
             // 原始数据
             MysqlRecordData originalRecordData = record.getOriginalRecordData();
             // 更新行
-            this.item.updateRecord(changedRecordData, originalRecordData);
+            this.getItem().updateRecord(changedRecordData, originalRecordData);
         }
     }
 
@@ -296,7 +308,7 @@ public class MysqlViewRecordTabController extends RichTabController {
      * @return 主键
      */
     private MysqlRecordPrimaryKey initPrimaryKey(MysqlRecord record) {
-        MysqlColumn primaryKeyColumn = this.item.getPrimaryKey();
+        MysqlColumn primaryKeyColumn = this.getItem().getPrimaryKey();
         if (primaryKeyColumn != null) {
             MysqlRecordPrimaryKey primaryKey = new MysqlRecordPrimaryKey();
             primaryKey.init(primaryKeyColumn, record);
@@ -368,7 +380,7 @@ public class MysqlViewRecordTabController extends RichTabController {
                 return;
             }
             // 初始化字段
-            this.initColumns(this.item.viewColumns());
+            this.initColumns(this.getItem().viewColumns());
             // 初始化数据
             this.initDataList(0);
             // 设置过滤激活
@@ -387,7 +399,7 @@ public class MysqlViewRecordTabController extends RichTabController {
     private void filter() {
         try {
             PopupAdapter popup = PopupManager.parsePopup(MysqlTableRecordFilterPopupController.class);
-            popup.setProp("item", this.item);
+            popup.setProp("item", this.getItem());
             popup.setProp("filters", this.filters);
             popup.showPopup(this.filter);
             popup.setSubmitHandler(filters -> {
@@ -484,12 +496,12 @@ public class MysqlViewRecordTabController extends RichTabController {
                 MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
                 // 主键存在，则根据主键删除
                 if (primaryKey != null) {
-                    success = this.item.deleteRecord(primaryKey) == 1;
+                    success = this.getItem().deleteRecord(primaryKey) == 1;
                 } else {// 主键不存在，则根据所有字段更新
                     // 所有字段数据
                     MysqlRecordData recordData = record.getOriginalRecordData();
                     // 删除行
-                    success = this.item.deleteRecord(recordData) == 1;
+                    success = this.getItem().deleteRecord(recordData) == 1;
                 }
             }
             // 操作成功
