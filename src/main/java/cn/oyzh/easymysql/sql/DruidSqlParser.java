@@ -118,8 +118,11 @@ public class DruidSqlParser extends DBSqlParser {
     public List<String> parseSql() {
         String sqlContent = this.removeComment();
         List<String> sqlList = new ArrayList<>();
-        // druid无法解析这个语句，直接返回
-        if (StringUtil.startWithIgnoreCase(sqlContent, "SHOW VARIABLES LIKE")) {
+        // druid无法解析这些语句，直接返回
+        if (StringUtil.startWithAnyIgnoreCase(sqlContent,
+                "SHOW VARIABLES LIKE",
+                "SHOW CREATE EVENT"
+        )) {
             sqlList.add(sqlContent);
             this.single = true;
             this.select = true;

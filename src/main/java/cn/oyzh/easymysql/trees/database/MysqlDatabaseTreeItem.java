@@ -388,6 +388,10 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return this.info().getName();
     }
 
+    public String connectName() {
+        return this.info().getName();
+    }
+
     @Override
     public void onPrimaryDoubleClick() {
         if (!this.isLoaded()) {

@@ -18,11 +18,11 @@ public class DBEventStatusCombobox extends FXComboBox<String> {
     @Override
     public void select(String val) {
         if (val != null) {
-            if (val.equals("ENABLED")) {
-                this.select(0);
-            } else if (val.equals("DISABLED")) {
+            if (StringUtil.equalsIgnoreCase(val, "ENABLED")) {
+                this.selectFirst();
+            } else if (StringUtil.equalsIgnoreCase(val, "DISABLED")) {
                 this.select(1);
-            } else if (val.equals("SLAVESIDE_DISABLED")) {
+            } else if (StringUtil.equalsIgnoreCase(val, "SLAVESIDE_DISABLED")) {
                 this.select(2);
             } else {
                 super.select(val.toUpperCase());

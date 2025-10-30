@@ -48,13 +48,13 @@ public class MysqlQueryMainTab extends MysqlTab {
     public void flushTitle() {
         String queryName = this.query().getName();
         if (queryName == null) {
-            queryName = "新建查询-无标题";
+            queryName = "新建查询";
         }
         // 设置提示文本
         if (this.contentChanged) {
-            this.setText("* " + this.dbItem().dbName() + "-" + queryName);
+            this.setText("* " + queryName + "@" + this.dbName() + "(" + this.connectName() + ")");
         } else {
-            this.setText(this.dbItem().dbName() + "-" + queryName);
+            this.setText(queryName + "@" + this.dbName() + "(" + this.connectName() + ")");
         }
     }
 
@@ -70,6 +70,15 @@ public class MysqlQueryMainTab extends MysqlTab {
     public MysqlDatabaseTreeItem dbItem() {
         return this.controller().getDbItem();
     }
+
+    public String dbName() {
+        return this.dbItem().dbName();
+    }
+
+    public String connectName() {
+        return this.dbItem().connectName();
+    }
+
 
     /**
      * 初始化
