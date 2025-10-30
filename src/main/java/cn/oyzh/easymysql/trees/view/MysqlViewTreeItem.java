@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.trees.view;
 
 import cn.oyzh.common.dto.Paging;
+import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.controller.view.MysqlViewInfoController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
@@ -29,6 +30,7 @@ import javafx.scene.control.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * db树视图节点
@@ -86,13 +88,15 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
         FXMenuItem open = MenuItemHelper.openView("12", this::onPrimaryDoubleClick);
-        FXMenuItem info = MenuItemHelper.viewInfo("12", this::viewInfo);
-        FXMenuItem design = MenuItemHelper.designView("12", this::designView);
-        FXMenuItem delete = MenuItemHelper.deleteView("12", this::delete);
         items.add(open);
+        FXMenuItem design = MenuItemHelper.designView("12", this::designView);
         items.add(design);
-        items.add(delete);
+        FXMenuItem renameView = MenuItemHelper.renameView("12", this::rename);
+        items.add(renameView);
+        FXMenuItem info = MenuItemHelper.viewInfo("12", this::viewInfo);
         items.add(info);
+        FXMenuItem delete = MenuItemHelper.deleteView("12", this::delete);
+        items.add(delete);
         return items;
     }
 
@@ -233,5 +237,30 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         param.setUpdateRecord(recordData);
         param.setRecord(originalRecordData);
         return this.client().updateRecord(param);
+    }
+
+    @Override
+    public void rename() {
+        try {
+            String viewName = MessageBox.prompt(I18nHelper.pleaseInputName(), this.viewName());
+            // 名称为null或者跟当前名称相同，则忽略
+            if (viewName == null || Objects.equals(viewName, this.viewName())) {
+                return;
+            }
+            // 检查名称
+            if (StringUtil.isBlank(viewName)) {
+                MessageBox.warn(I18nHelper.pleaseInputContent());
+                return;
+            }
+            String oldName = this.viewName();
+            // 修改名称
+            this.dbItem().renameTable(oldName, viewName);
+            this.value.setName(viewName);
+            this.refresh();
+            MysqlEventUtil.viewRenamed(this, this.dbItem());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            MessageBox.exception(ex);
+        }
     }
 }

@@ -22,6 +22,7 @@ import cn.oyzh.easymysql.event.view.MysqlViewAlertedEvent;
 import cn.oyzh.easymysql.event.view.MysqlViewDesignEvent;
 import cn.oyzh.easymysql.event.view.MysqlViewFilteredEvent;
 import cn.oyzh.easymysql.event.view.MysqlViewOpenEvent;
+import cn.oyzh.easymysql.event.view.MysqlViewRenamedEvent;
 import cn.oyzh.easymysql.tabs.event.MysqlEventDesignTab;
 import cn.oyzh.easymysql.tabs.function.MysqlFunctionDesignTab;
 import cn.oyzh.easymysql.tabs.procedure.MysqlProcedureDesignTab;
@@ -526,6 +527,23 @@ public class MysqlTabEventListener implements EventListener {
             if (tab != null) {
                 tab.flush();
                 tab.reload();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * 视图重命名事件
+     *
+     * @param event 事件
+     */
+    @EventSubscribe
+    private void onViewRenamed(MysqlViewRenamedEvent event) {
+        try {
+            MysqlViewRecordTab tab = this.getViewRecordTab(event.getDbItem(), event.viewName());
+            if (tab != null) {
+                tab.flushTitle();
             }
         } catch (Exception ex) {
             ex.printStackTrace();
