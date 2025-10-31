@@ -73,6 +73,7 @@ public class MysqlRoutineParam extends DBObjectStatus {
 
     public void setType(String type) {
         this.typeProperty.set(type);
+        this.putOriginalData("type", type);
     }
 
     public String getCharset() {
@@ -80,7 +81,11 @@ public class MysqlRoutineParam extends DBObjectStatus {
     }
 
     public void setCharset(String charset) {
+        if (charset != null) {
+            charset = charset.toUpperCase();
+        }
         this.charsetProperty.set(charset);
+        this.putOriginalData("charset", charset);
     }
 
     /**
@@ -93,7 +98,8 @@ public class MysqlRoutineParam extends DBObjectStatus {
         textField.setFlexWidth("100% - 10");
         textField.setPromptText(I18nHelper.pleaseInputContent());
         textField.addTextChangeListener((observable, oldValue, newValue) -> this.setName(newValue));
-        textField.setText(this.name);
+        textField.setText(this.getName());
+        TableViewUtil.rowOnCtrlS(textField);
         TableViewUtil.selectRowOnMouseClicked(textField);
         return textField;
     }
@@ -111,30 +117,38 @@ public class MysqlRoutineParam extends DBObjectStatus {
         return comboBox;
     }
 
+    private DBCharsetComboBox charsetControl;
+
     /**
      * 获取字符集组件
      *
      * @return 字符集组件
      */
     public DBCharsetComboBox getCharsetControl() {
+        if (this.charsetControl != null) {
+            return this.charsetControl;
+        }
         DBClient dbClient = CacheHelper.get("dbClient");
         DBCharsetComboBox comboBox = new DBCharsetComboBox();
+        this.charsetControl = comboBox;
         comboBox.init(dbClient);
-        comboBox.select(this.getCharset());
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setCharset(newValue));
-        Runnable func = () -> {
-            if (DBColumnUtil.supportCharset(this.getType())) {
-                comboBox.enable();
-            } else {
-                comboBox.disable();
-                comboBox.clearSelection();
-            }
-        };
-        this.typeProperty.addListener((observable, oldValue, newValue) -> func.run());
-        func.run();
+        comboBox.select(this.getCharset());
+        // Runnable func = () -> {
+        //     if (DBColumnUtil.supportCharset(this.getType())) {
+        //         comboBox.enable();
+        //     } else {
+        //         comboBox.disable();
+        //         comboBox.clearSelection();
+        //     }
+        // };
+        // this.typeProperty.addListener((observable, oldValue, newValue) -> func.run());
+        // func.run();
         TableViewUtil.selectRowOnMouseClicked(comboBox);
         return comboBox;
     }
+
+    private NumberTextField digitsControl;
 
     /**
      * 获取小数位组件
@@ -142,24 +156,30 @@ public class MysqlRoutineParam extends DBObjectStatus {
      * @return 小数位组件
      */
     public NumberTextField getDigitsControl() {
+        if (this.digitsControl != null) {
+            return this.digitsControl;
+        }
         NumberTextField textField = new NumberTextField();
+        this.digitsControl = textField;
         textField.setFlexWidth("100% - 12");
         textField.addTextChangeListener((observable, oldValue, newValue) -> this.setDigits(textField.getIntValue()));
-        textField.setValue(this.digits);
-        Runnable func = () -> {
-            if (DBColumnUtil.supportDigits(this.getType())) {
-                textField.enable();
-            } else {
-                textField.disable();
-                textField.clear();
-            }
-        };
-        this.typeProperty.addListener((observable, oldValue, newValue) -> func.run());
-        func.run();
+        textField.setValue(this.getDigits());
+        // Runnable func = () -> {
+        //     if (DBColumnUtil.supportDigits(this.getType())) {
+        //         textField.enable();
+        //     } else {
+        //         textField.disable();
+        //         textField.clear();
+        //     }
+        // };
+        // this.typeProperty.addListener((observable, oldValue, newValue) -> func.run());
+        // func.run();
         TableViewUtil.rowOnCtrlS(textField);
         TableViewUtil.selectRowOnMouseClicked(textField);
         return textField;
     }
+
+    private NumberTextField sizeControl;
 
     /**
      * 获取字段长度组件
@@ -167,20 +187,24 @@ public class MysqlRoutineParam extends DBObjectStatus {
      * @return 字段长度组件
      */
     public NumberTextField getSizeControl() {
+        if (this.sizeControl != null) {
+            return this.sizeControl;
+        }
         NumberTextField textField = new NumberTextField();
+        this.sizeControl = textField;
         textField.setFlexWidth("100% - 12");
-        textField.setValue(this.size);
         textField.addTextChangeListener((observable, oldValue, newValue) -> this.setSize(textField.getIntValue()));
-        Runnable func = () -> {
-            if (DBColumnUtil.supportSize(this.getType())) {
-                textField.enable();
-            } else {
-                textField.disable();
-                textField.clear();
-            }
-        };
-        this.typeProperty.addListener((observable, oldValue, newValue) -> func.run());
-        func.run();
+        textField.setValue(this.getSize());
+        // Runnable func = () -> {
+        //     if (DBColumnUtil.supportSize(this.getType())) {
+        //         textField.enable();
+        //     } else {
+        //         textField.disable();
+        //         textField.clear();
+        //     }
+        // };
+        // this.typeProperty.addListener((observable, oldValue, newValue) -> func.run());
+        // func.run();
         TableViewUtil.rowOnCtrlS(textField);
         TableViewUtil.selectRowOnMouseClicked(textField);
         return textField;
@@ -201,30 +225,28 @@ public class MysqlRoutineParam extends DBObjectStatus {
         return valueList;
     }
 
+    private DBEnumTextFiled valueControl;
+
     /**
      * 获取值组件
      *
      * @return 值组件
      */
     public DBEnumTextFiled getValueControl() {
+        if (this.valueControl != null) {
+            return this.valueControl;
+        }
         DBEnumTextFiled textField = new DBEnumTextFiled();
+        this.valueControl = textField;
         textField.setFlexWidth("100% - 12");
-        textField.setValues(this.getValueList());
         textField.addTextChangeListener((observable, oldValue, newValue) -> this.setValue(textField.getTextTrim()));
-        Runnable func = () -> {
-            if (DBColumnUtil.supportValue(this.getType())) {
-                textField.enable();
-            } else {
-                textField.disable();
-                textField.clear();
-            }
-        };
-        this.typeProperty.addListener((observable, oldValue, newValue) -> func.run());
-        func.run();
+        textField.setValues(this.getValueList());
         TableViewUtil.rowOnCtrlS(textField);
         TableViewUtil.selectRowOnMouseClicked(textField);
         return textField;
     }
+
+    private DBCollationComboBox collationControl;
 
     /**
      * 获取排序组件
@@ -232,25 +254,19 @@ public class MysqlRoutineParam extends DBObjectStatus {
      * @return 排序组件
      */
     public DBCollationComboBox getCollationControl() {
+        if (this.collationControl != null) {
+            return collationControl;
+        }
         DBClient dbClient = CacheHelper.get("dbClient");
         DBCollationComboBox comboBox = new DBCollationComboBox();
+        this.collationControl = comboBox;
         comboBox.init(this.getCharset(), dbClient);
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setCollation(newValue));
-        comboBox.select(this.collation);
-        this.charsetProperty.addListener((observable, oldValue, newValue) -> {
-            comboBox.init(newValue, dbClient);
-            comboBox.selectFirst();
-        });
-        Runnable func = () -> {
-            if (DBColumnUtil.supportCharset(this.getType())) {
-                comboBox.enable();
-            } else {
-                comboBox.disable();
-                comboBox.clearSelection();
-            }
-        };
-        this.typeProperty.addListener((observable, oldValue, newValue) -> func.run());
-        func.run();
+        comboBox.select(this.getCollation());
+        // this.charsetProperty.addListener((observable, oldValue, newValue) -> {
+        //     comboBox.init(newValue, dbClient);
+        //     comboBox.selectFirst();
+        // });
         TableViewUtil.selectRowOnMouseClicked(comboBox);
         return comboBox;
     }
@@ -308,13 +324,13 @@ public class MysqlRoutineParam extends DBObjectStatus {
     }
 
     public void setDtdIdentifier(String dtdIdentifier) {
+        String type;
         if (!dtdIdentifier.contains("(") && !dtdIdentifier.contains(" ")) {
-            this.setType(dtdIdentifier.toUpperCase());
+            type = dtdIdentifier;
         } else if (!dtdIdentifier.contains("(")) {
-            this.setType(dtdIdentifier.toUpperCase());
+            type = dtdIdentifier;
         } else {
-            String type = dtdIdentifier.substring(0, dtdIdentifier.indexOf("("));
-            this.setType(type.toUpperCase());
+            type = dtdIdentifier.substring(0, dtdIdentifier.indexOf("("));
             String sub1 = dtdIdentifier.substring(dtdIdentifier.indexOf("(") + 1, dtdIdentifier.lastIndexOf(")"));
             if (this.supportEnum()) {
                 this.setValue(sub1);
@@ -326,6 +342,7 @@ public class MysqlRoutineParam extends DBObjectStatus {
                 this.setSize(Integer.parseInt(sub1));
             }
         }
+        this.setType(type.toUpperCase());
     }
 
     public boolean supportDigits() {
@@ -342,13 +359,10 @@ public class MysqlRoutineParam extends DBObjectStatus {
 
     public void setName(String name) {
         this.name = name;
+        this.putOriginalData("name", name);
     }
 
-    public String getTypeProperty() {
-        return typeProperty.get();
-    }
-
-    public StringProperty typePropertyProperty() {
+    public StringProperty typeProperty() {
         return typeProperty;
     }
 
@@ -358,6 +372,7 @@ public class MysqlRoutineParam extends DBObjectStatus {
 
     public void setMode(String mode) {
         this.mode = mode;
+        this.putOriginalData("mode", mode);
     }
 
     public Integer getSize() {
@@ -366,6 +381,7 @@ public class MysqlRoutineParam extends DBObjectStatus {
 
     public void setSize(Integer size) {
         this.size = size;
+        this.putOriginalData("size", size);
     }
 
     public Integer getDigits() {
@@ -374,6 +390,7 @@ public class MysqlRoutineParam extends DBObjectStatus {
 
     public void setDigits(Integer digits) {
         this.digits = digits;
+        this.putOriginalData("digits", digits);
     }
 
     public String getValue() {
@@ -382,13 +399,10 @@ public class MysqlRoutineParam extends DBObjectStatus {
 
     public void setValue(String value) {
         this.value = value;
+        this.putOriginalData("value", value);
     }
 
-    public String getCharsetProperty() {
-        return charsetProperty.get();
-    }
-
-    public StringProperty charsetPropertyProperty() {
+    public StringProperty charsetProperty() {
         return charsetProperty;
     }
 
@@ -397,6 +411,51 @@ public class MysqlRoutineParam extends DBObjectStatus {
     }
 
     public void setCollation(String collation) {
+        if (collation != null) {
+            collation = collation.toUpperCase();
+        }
         this.collation = collation;
+        this.putOriginalData("collation", collation);
+    }
+
+    {
+        // 类型变更
+        this.typeProperty.addListener((observable, oldValue, newValue) -> {
+            if (DBColumnUtil.supportCharset(this.getType())) {
+                this.getCharsetControl().enable();
+                this.getCollationControl().enable();
+            } else {
+                this.getCharsetControl().disable();
+                this.getCharsetControl().clearSelection();
+                this.getCollationControl().disable();
+                this.getCollationControl().clearSelection();
+            }
+            if (DBColumnUtil.supportDigits(this.getType())) {
+                this.getDigitsControl().enable();
+            } else {
+                this.getDigitsControl().disable();
+                this.getDigitsControl().clear();
+            }
+            if (DBColumnUtil.supportSize(this.getType())) {
+                this.getSizeControl().enable();
+            } else {
+                this.getSizeControl().disable();
+                this.getSizeControl().clear();
+            }
+            if (DBColumnUtil.supportValue(this.getType())) {
+                this.getValueControl().enable();
+            } else {
+                this.getValueControl().disable();
+                this.getValueControl().clear();
+            }
+        });
+
+        // 字符集变更
+        this.charsetProperty.addListener((observable, oldValue, newValue) -> {
+            DBClient dbClient = CacheHelper.get("dbClient");
+            this.getCollationControl().init(newValue, dbClient);
+            this.getCollationControl().select(this.getCollation());
+        });
+
     }
 }

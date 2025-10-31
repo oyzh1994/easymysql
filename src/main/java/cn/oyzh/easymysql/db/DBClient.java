@@ -635,6 +635,7 @@ public class DBClient {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
             sql = DBFunctionSqlGenerator.INSTANCE.generate(function);
+            DBUtil.printSql(sql);
             statement.executeUpdate(sql);
             DBUtil.close(statement);
         } catch (Exception ex) {

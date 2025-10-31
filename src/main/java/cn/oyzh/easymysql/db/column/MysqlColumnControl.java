@@ -63,8 +63,8 @@ public class MysqlColumnControl extends MysqlColumn {
 
     public DBFiledTypeComboBox getTypeControl() {
         DBFiledTypeComboBox comboBox = new DBFiledTypeComboBox();
-        comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setType(newValue));
         comboBox.selectFirstIfNull(this.getType());
+        comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setType(newValue));
         TableViewUtil.rowOnCtrlS(comboBox);
         TableViewUtil.selectRowOnMouseClicked(comboBox);
         return comboBox;

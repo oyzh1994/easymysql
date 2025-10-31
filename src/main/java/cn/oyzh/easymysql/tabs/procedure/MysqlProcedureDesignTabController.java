@@ -8,6 +8,7 @@ import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBEditor;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
+import cn.oyzh.easymysql.fx.DBStatusTableView;
 import cn.oyzh.easymysql.fx.routine.DBCharacteristicCombobox;
 import cn.oyzh.easymysql.generator.routine.DBProcedureSqlGenerator;
 import cn.oyzh.easymysql.listener.DBStatusListener;
@@ -15,7 +16,6 @@ import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.tab.FXTabPane;
-import cn.oyzh.fx.plus.controls.table.FXTableView;
 import cn.oyzh.fx.plus.controls.text.area.FXTextArea;
 import cn.oyzh.fx.plus.controls.text.field.FXTextField;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -102,7 +102,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
      * 参数表单
      */
     @FXML
-    private FXTableView<MysqlRoutineParam> paramTable;
+    private DBStatusTableView<MysqlRoutineParam> paramTable;
 
     // /**
     //  * 参数类型
@@ -223,7 +223,6 @@ public class MysqlProcedureDesignTabController extends RichTabController {
 
         // 初始化信息
         // this.initInfo();
-        // this.initInfo();
         FXUtil.runWait(this::initInfo);
 
         // 监听组件
@@ -233,7 +232,8 @@ public class MysqlProcedureDesignTabController extends RichTabController {
         DBStatusListenerManager.bindListener(this.definition, this.listener);
         DBStatusListenerManager.bindListener(this.securityType, this.listener);
         DBStatusListenerManager.bindListener(this.characteristic, this.listener);
-        this.paramTable.itemList().addListener(this.listChangeListener);
+        // this.paramTable.itemList().addListener(this.listChangeListener);
+        this.paramTable.setStatusListener(this.listener);
     }
 
     /**
@@ -343,7 +343,10 @@ public class MysqlProcedureDesignTabController extends RichTabController {
             // 重载表数据
             this.procedure = this.dbItem.selectProcedure(procedureName);
             // 刷新tab
-            this.initInfo();
+            // this.initInfo();
+            FXUtil.runWait(this::initInfo);
+            // 重置表格
+            this.paramTable.reset();
             // 初始化预览
             this.initPreview();
         } catch (Exception ex) {
@@ -385,6 +388,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
         NodeUtil.nodeOnCtrlS(this.definer, this::save);
         NodeUtil.nodeOnCtrlS(this.comment, this::save);
         NodeUtil.nodeOnCtrlS(this.definition, this::save);
+        this.paramTable.setCtrlSAction(this::save);
         // // 绑定属性
         // this.paramName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
         // this.paramMode.setCellValueFactory(new PropertyValueFactory<>("modeControl"));
@@ -436,7 +440,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
             param.setCreated(true);
             this.paramTable.addItem(param);
             this.paramTable.selectLast();
-            // this.tabPane.refresh();
+            this.tabPane.refresh();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
@@ -462,7 +466,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
                     param.setDeleted(true);
                 }
             }
-            // this.tabPane.refresh();
+            this.tabPane.refresh();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }

@@ -41,9 +41,9 @@ public class MysqlEventsTreeItem extends DBTreeItem<MysqlEventsTreeItemValue> {
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
         FXMenuItem add = MenuItemHelper.addEvent("12", this::add);
+        items.add(add);
         FXMenuItem reload = MenuItemHelper.refreshData("12", this::reloadChild);
         items.add(reload);
-        items.add(add);
         return items;
     }
 

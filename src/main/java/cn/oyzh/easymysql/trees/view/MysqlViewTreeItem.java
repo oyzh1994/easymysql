@@ -2,7 +2,6 @@ package cn.oyzh.easymysql.trees.view;
 
 import cn.oyzh.common.dto.Paging;
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.controller.view.MysqlViewInfoController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
@@ -23,8 +22,6 @@ import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
-import cn.oyzh.fx.plus.window.StageAdapter;
-import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.control.MenuItem;
 
@@ -93,18 +90,18 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         items.add(design);
         FXMenuItem renameView = MenuItemHelper.renameView("12", this::rename);
         items.add(renameView);
-        FXMenuItem info = MenuItemHelper.viewInfo("12", this::viewInfo);
-        items.add(info);
+        // FXMenuItem info = MenuItemHelper.viewInfo("12", this::viewInfo);
+        // items.add(info);
         FXMenuItem delete = MenuItemHelper.deleteView("12", this::delete);
         items.add(delete);
         return items;
     }
 
-    private void viewInfo() {
-        StageAdapter fxView = StageManager.parseStage(MysqlViewInfoController.class, this.window());
-        fxView.setProp("item", this);
-        fxView.display();
-    }
+    // private void viewInfo() {
+    //     StageAdapter fxView = StageManager.parseStage(MysqlViewInfoController.class, this.window());
+    //     fxView.setProp("item", this);
+    //     fxView.display();
+    // }
 
     private void designView() {
         MysqlEventUtil.designView(this.value, this.dbItem());

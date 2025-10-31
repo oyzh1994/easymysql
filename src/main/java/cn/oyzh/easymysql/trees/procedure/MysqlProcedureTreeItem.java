@@ -72,13 +72,13 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItemVal
         items.add(design);
         FXMenuItem delete = MenuItemHelper.deleteProcedure("12", this::delete);
         items.add(delete);
-        FXMenuItem info = MenuItemHelper.procedureInfo("12", this::procedureInfo);
-        items.add(info);
+        // FXMenuItem info = MenuItemHelper.procedureInfo("12", this::procedureInfo);
+        // items.add(info);
         return items;
     }
 
-    private void procedureInfo() {
-    }
+    // private void procedureInfo() {
+    // }
 
     @Override
     public void delete() {

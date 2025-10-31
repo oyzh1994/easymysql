@@ -2,6 +2,7 @@
 <?import cn.oyzh.easymysql.fx.DBEditor?>
 <?import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox?>
 <?import cn.oyzh.easymysql.fx.DBStatusColumn?>
+<?import cn.oyzh.easymysql.fx.DBStatusTableView?>
 <?import cn.oyzh.easymysql.fx.routine.DBCharacteristicCombobox?>
 <?import cn.oyzh.fx.gui.label.AccentLabel?>
 <?import cn.oyzh.fx.gui.svg.glyph.AddSVGGlyph?>
@@ -15,7 +16,6 @@
 <?import cn.oyzh.fx.plus.controls.tab.FXTab?>
 <?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
 <?import cn.oyzh.fx.plus.controls.table.FXTableColumn?>
-<?import cn.oyzh.fx.plus.controls.table.FXTableView?>
 <?import cn.oyzh.fx.plus.controls.text.area.FXTextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
@@ -56,7 +56,7 @@
             <DBEditor fontSize="12" fx:id="definition" flexWidth="100%" flexHeight="100%"/>
         </FXTab>
         <FXTab text="%base.params">
-            <FXTableView fx:id="paramTable" flexHeight="100%" flexWidth="100%">
+            <DBStatusTableView fx:id="paramTable" flexHeight="100%" flexWidth="100%">
                 <columns>
                     <DBStatusColumn/>
                     <FXTableColumn flexWidth="100% - 775" valueName="nameControl" text="%base.paramName"
@@ -70,7 +70,7 @@
                                    resizable="false"/>
                     <FXTableColumn realWidth="120" valueName="valueControl" text="%base.value" resizable="true"/>
                 </columns>
-            </FXTableView>
+            </DBStatusTableView>
         </FXTab>
         <FXTab text="%base.advanced">
             <FXVBox flexHeight="100%" flexWidth="100%">

@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.db;
 
+import cn.oyzh.common.log.JulLog;
 import cn.oyzh.common.util.BooleanUtil;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -91,6 +92,7 @@ public class DBObjectStatus {
     }
 
     protected void putOriginalData(String key, Object value) {
+        JulLog.info("putOriginalData: key={}, value={}", key, value);
         if (this.originalData().containsKey(key)) {
             Object val = this.getOriginalData(key);
             this.setChangedFlag(key, !Objects.equals(val, value));

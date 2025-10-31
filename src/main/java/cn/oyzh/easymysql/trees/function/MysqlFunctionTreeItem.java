@@ -68,13 +68,13 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
         items.add(design);
         FXMenuItem delete = MenuItemHelper.deleteFunction("12", this::delete);
         items.add(delete);
-        FXMenuItem info = MenuItemHelper.functionInfo("12", this::functionInfo);
-        items.add(info);
+        // FXMenuItem info = MenuItemHelper.functionInfo("12", this::functionInfo);
+        // items.add(info);
         return items;
     }
 
-    private void functionInfo() {
-    }
+    // private void functionInfo() {
+    // }
 
     @Override
     public void delete() {

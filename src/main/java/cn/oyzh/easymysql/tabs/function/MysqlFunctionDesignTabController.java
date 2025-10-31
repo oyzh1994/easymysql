@@ -9,6 +9,7 @@ import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBEditor;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
+import cn.oyzh.easymysql.fx.DBStatusTableView;
 import cn.oyzh.easymysql.fx.routine.DBCharacteristicCombobox;
 import cn.oyzh.easymysql.fx.table.DBEnumTextFiled;
 import cn.oyzh.easymysql.fx.table.DBFiledTypeComboBox;
@@ -19,7 +20,6 @@ import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.controls.tab.FXTabPane;
-import cn.oyzh.fx.plus.controls.table.FXTableView;
 import cn.oyzh.fx.plus.controls.text.area.FXTextArea;
 import cn.oyzh.fx.plus.controls.text.field.FXTextField;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -105,7 +105,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
      * 参数表单
      */
     @FXML
-    private FXTableView<MysqlRoutineParam> paramTable;
+    private DBStatusTableView<MysqlRoutineParam> paramTable;
 
     // /**
     //  * 参数类型
@@ -267,7 +267,8 @@ public class MysqlFunctionDesignTabController extends RichTabController {
         DBStatusListenerManager.bindListener(this.returnValues, this.listener);
         DBStatusListenerManager.bindListener(this.returnCharset, this.listener);
         DBStatusListenerManager.bindListener(this.characteristic, this.listener);
-        this.paramTable.itemList().addListener(this.listChangeListener);
+        this.paramTable.setStatusListener(this.listener);
+        // this.paramTable.itemList().addListener(this.listChangeListener);
     }
 
     /**
@@ -397,7 +398,10 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             // 重载表数据
             this.function = this.dbItem.selectFunction(functionName);
             // 刷新tab
-            this.initInfo();
+            // this.initInfo();
+            FXUtil.runWait(this::initInfo);
+            // 重置表格
+            this.paramTable.reset();
             // 初始化预览
             this.initPreview();
         } catch (Exception ex) {
@@ -462,6 +466,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
         NodeUtil.nodeOnCtrlS(this.securityType, this::save);
         NodeUtil.nodeOnCtrlS(this.returnCharset, this::save);
         NodeUtil.nodeOnCtrlS(this.characteristic, this::save);
+        this.paramTable.setCtrlSAction(this::save);
         // 绑定属性
         // this.paramName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
         // this.paramType.setCellValueFactory(new PropertyValueFactory<>("typeControl"));
@@ -536,7 +541,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             param.setCreated(true);
             this.paramTable.addItem(param);
             this.paramTable.selectLast();
-            // this.tabPane.refresh();
+            this.tabPane.refresh();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
@@ -562,7 +567,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
                     param.setDeleted(true);
                 }
             }
-            // this.tabPane.refresh();
+            this.tabPane.refresh();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
