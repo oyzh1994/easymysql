@@ -3,6 +3,7 @@
 <?import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox?>
 <?import cn.oyzh.easymysql.fx.DBStatusColumn?>
 <?import cn.oyzh.easymysql.fx.DBStatusTableView?>
+<?import cn.oyzh.easymysql.fx.DesignTabPane?>
 <?import cn.oyzh.easymysql.fx.routine.DBCharacteristicCombobox?>
 <?import cn.oyzh.fx.gui.label.AccentLabel?>
 <?import cn.oyzh.fx.gui.svg.glyph.AddSVGGlyph?>
@@ -14,7 +15,6 @@
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import cn.oyzh.fx.plus.controls.tab.FXTab?>
-<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
 <?import cn.oyzh.fx.plus.controls.table.FXTableColumn?>
 <?import cn.oyzh.fx.plus.controls.text.area.FXTextArea?>
 <?import javafx.geometry.Insets?>
@@ -51,7 +51,7 @@
             </HBox.margin>
         </MoveDownSVGGlyph>
     </FXHBox>
-    <FXTabPane flexHeight="100% - 25" flexWidth="100%" fx:id="tabPane">
+    <DesignTabPane flexHeight="100% - 25" flexWidth="100%" fx:id="tabPane">
         <FXTab text="%base.definition">
             <DBEditor fontSize="12" fx:id="definition" flexWidth="100%" flexHeight="100%"/>
         </FXTab>
@@ -127,5 +127,5 @@
         <FXTab text="%base.preview" fx:id="previewTab">
             <DBEditor editable="false" fontSize="12" fx:id="preview" flexWidth="100%" flexHeight="100%"/>
         </FXTab>
-    </FXTabPane>
+    </DesignTabPane>
 </FXVBox>

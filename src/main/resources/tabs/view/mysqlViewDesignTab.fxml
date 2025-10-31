@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.DBEditor?>
 <?import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox?>
+<?import cn.oyzh.easymysql.fx.DesignTabPane?>
 <?import cn.oyzh.easymysql.fx.view.DBViewAlgorithmComboBox?>
 <?import cn.oyzh.easymysql.fx.view.DBViewCheckOptionComboBox?>
 <?import cn.oyzh.fx.gui.label.AccentLabel?>
@@ -8,7 +9,6 @@
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import cn.oyzh.fx.plus.controls.tab.FXTab?>
-<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
 <?import cn.oyzh.fx.plus.controls.text.field.FXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
@@ -22,7 +22,7 @@
             </HBox.margin>
         </SaveSVGGlyph>
     </FXHBox>
-    <FXTabPane flexWidth="100%" flexHeight="100% - 25">
+    <DesignTabPane flexWidth="100%" flexHeight="100% - 25">
         <FXTab text="%base.definition">
             <DBEditor fontSize="12" fx:id="definition" flexHeight="100%" flexWidth="100%"/>
         </FXTab>
@@ -78,6 +78,6 @@
                 </FXHBox>
             </FXVBox>
         </FXTab>
-    </FXTabPane>
+    </DesignTabPane>
 </FXVBox>
 

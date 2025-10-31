@@ -740,9 +740,9 @@ public class DBTabPane extends RichTabPane implements FXEventListener {
     // }
     // // TODO mariadb结束
 
-    @Override
-    public void initNode() {
-        super.initNode();
-       this.setupSelectCountListener();
-    }
+    // @Override
+    // public void initNode() {
+    //     super.initNode();
+    //    this.setupSelectCountListener();
+    // }
 }

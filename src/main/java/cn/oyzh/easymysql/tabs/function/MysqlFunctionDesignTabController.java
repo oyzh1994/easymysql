@@ -541,7 +541,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             param.setCreated(true);
             this.paramTable.addItem(param);
             this.paramTable.selectLast();
-            this.tabPane.refresh();
+            // this.tabPane.refresh();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
@@ -567,7 +567,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
                     param.setDeleted(true);
                 }
             }
-            this.tabPane.refresh();
+            // this.tabPane.refresh();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
