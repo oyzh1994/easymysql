@@ -11,6 +11,9 @@ import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 public class DBCollationComboBox extends FXComboBox<String> {
 
     public void init(String charset, DBClient client) {
+        if (charset == null) {
+            return;
+        }
         String aCharset = this.getProp("charset");
         if (!StringUtil.equalsIgnoreCase(charset, aCharset)) {
             this.setProp("charset", charset);

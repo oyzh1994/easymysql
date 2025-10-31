@@ -15,7 +15,6 @@ import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.tab.FXTabPane;
-import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.table.FXTableView;
 import cn.oyzh.fx.plus.controls.text.area.FXTextArea;
 import cn.oyzh.fx.plus.controls.text.field.FXTextField;
@@ -29,7 +28,6 @@ import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.List;
@@ -106,53 +104,53 @@ public class MysqlProcedureDesignTabController extends RichTabController {
     @FXML
     private FXTableView<MysqlRoutineParam> paramTable;
 
-    /**
-     * 参数类型
-     */
-    @FXML
-    private FXTableColumn<MysqlRoutineParam, String> paramType;
-
-    /**
-     * 参数长度
-     */
-    @FXML
-    private FXTableColumn<MysqlRoutineParam, String> paramSize;
-
-    /**
-     * 参数值
-     */
-    @FXML
-    private FXTableColumn<MysqlRoutineParam, String> paramValue;
-
-    /**
-     * 参数小数
-     */
-    @FXML
-    private FXTableColumn<MysqlRoutineParam, String> paramDigits;
-
-    /**
-     * 参数字符集
-     */
-    @FXML
-    private FXTableColumn<MysqlRoutineParam, String> paramCharset;
-
-    /**
-     * 参数排序
-     */
-    @FXML
-    private FXTableColumn<MysqlRoutineParam, String> paramCollation;
-
-    /**
-     * 参数名称
-     */
-    @FXML
-    private FXTableColumn<MysqlRoutineParam, String> paramName;
-
-    /**
-     * 参数模式
-     */
-    @FXML
-    private FXTableColumn<MysqlRoutineParam, String> paramMode;
+    // /**
+    //  * 参数类型
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRoutineParam, String> paramType;
+    //
+    // /**
+    //  * 参数长度
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRoutineParam, String> paramSize;
+    //
+    // /**
+    //  * 参数值
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRoutineParam, String> paramValue;
+    //
+    // /**
+    //  * 参数小数
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRoutineParam, String> paramDigits;
+    //
+    // /**
+    //  * 参数字符集
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRoutineParam, String> paramCharset;
+    //
+    // /**
+    //  * 参数排序
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRoutineParam, String> paramCollation;
+    //
+    // /**
+    //  * 参数名称
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRoutineParam, String> paramName;
+    //
+    // /**
+    //  * 参数模式
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRoutineParam, String> paramMode;
 
     /**
      * 数据监听器
@@ -373,15 +371,15 @@ public class MysqlProcedureDesignTabController extends RichTabController {
         NodeUtil.nodeOnCtrlS(this.definer, this::save);
         NodeUtil.nodeOnCtrlS(this.comment, this::save);
         NodeUtil.nodeOnCtrlS(this.definition, this::save);
-        // 绑定属性
-        this.paramName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
-        this.paramMode.setCellValueFactory(new PropertyValueFactory<>("modeControl"));
-        this.paramType.setCellValueFactory(new PropertyValueFactory<>("typeControl"));
-        this.paramSize.setCellValueFactory(new PropertyValueFactory<>("sizeControl"));
-        this.paramValue.setCellValueFactory(new PropertyValueFactory<>("valueControl"));
-        this.paramDigits.setCellValueFactory(new PropertyValueFactory<>("digitsControl"));
-        this.paramCharset.setCellValueFactory(new PropertyValueFactory<>("charsetControl"));
-        this.paramCollation.setCellValueFactory(new PropertyValueFactory<>("collationControl"));
+        // // 绑定属性
+        // this.paramName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
+        // this.paramMode.setCellValueFactory(new PropertyValueFactory<>("modeControl"));
+        // this.paramType.setCellValueFactory(new PropertyValueFactory<>("typeControl"));
+        // this.paramSize.setCellValueFactory(new PropertyValueFactory<>("sizeControl"));
+        // this.paramValue.setCellValueFactory(new PropertyValueFactory<>("valueControl"));
+        // this.paramDigits.setCellValueFactory(new PropertyValueFactory<>("digitsControl"));
+        // this.paramCharset.setCellValueFactory(new PropertyValueFactory<>("charsetControl"));
+        // this.paramCollation.setCellValueFactory(new PropertyValueFactory<>("collationControl"));
 
         // 切换面板监听
         this.tabPane.selectedIndexChanged((observable, oldValue, newValue) -> {
@@ -419,10 +417,15 @@ public class MysqlProcedureDesignTabController extends RichTabController {
      */
     @FXML
     private void addParam() {
-        MysqlRoutineParam param = new MysqlRoutineParam();
-        param.setCreated(true);
-        this.paramTable.addItem(param);
-        this.paramTable.selectLast();
+        try {
+            MysqlRoutineParam param = new MysqlRoutineParam();
+            param.setCreated(true);
+            this.paramTable.addItem(param);
+            this.paramTable.selectLast();
+            this.tabPane.refresh();
+        } catch (Exception ex) {
+            MessageBox.exception(ex);
+        }
     }
 
     /**

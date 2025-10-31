@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import cn.oyzh.easymysql.fx.DBEditor?>
 <?import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox?>
+<?import cn.oyzh.easymysql.fx.DBStatusColumn?>
 <?import cn.oyzh.easymysql.fx.routine.DBCharacteristicCombobox?>
-<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
-<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
-<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
-<?import cn.oyzh.fx.plus.controls.tab.FXTab?>
-<?import cn.oyzh.fx.plus.controls.table.FXTableColumn?>
-<?import cn.oyzh.fx.plus.controls.table.FXTableView?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.HBox?>
-<?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
+<?import cn.oyzh.fx.gui.label.AccentLabel?>
+<?import cn.oyzh.fx.gui.svg.glyph.AddSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.DeleteSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.MoveDownSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.MoveUpSVGGlyph?>
-<?import cn.oyzh.fx.gui.svg.glyph.AddFillSVGGlyph?>
-<?import cn.oyzh.fx.gui.label.AccentLabel?>
+<?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
 <?import cn.oyzh.fx.gui.text.field.ClearableTextField?>
+<?import cn.oyzh.fx.plus.controls.box.FXHBox?>
+<?import cn.oyzh.fx.plus.controls.box.FXVBox?>
+<?import cn.oyzh.fx.plus.controls.tab.FXTab?>
+<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
+<?import cn.oyzh.fx.plus.controls.table.FXTableColumn?>
+<?import cn.oyzh.fx.plus.controls.table.FXTableView?>
 <?import cn.oyzh.fx.plus.controls.text.area.FXTextArea?>
-<?import cn.oyzh.easymysql.fx.DBEditor?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
 <FXVBox xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
         fx:controller="cn.oyzh.easymysql.tabs.procedure.MysqlProcedureDesignTabController" flexWidth="100%"
@@ -28,11 +29,11 @@
                 <Insets left="10" top="10"/>
             </HBox.margin>
         </SaveSVGGlyph>
-        <AddFillSVGGlyph onMousePrimaryClicked="#addParam" size="14" groupId="param" visible="false" managed="false">
+        <AddSVGGlyph onMousePrimaryClicked="#addParam" size="14" groupId="param" visible="false" managed="false">
             <HBox.margin>
                 <Insets left="10" top="10"/>
             </HBox.margin>
-        </AddFillSVGGlyph>
+        </AddSVGGlyph>
         <DeleteSVGGlyph onMousePrimaryClicked="#deleteParam" size="14" groupId="param" visible="false" managed="false">
             <HBox.margin>
                 <Insets left="10" top="10"/>
@@ -57,15 +58,17 @@
         <FXTab text="%base.params">
             <FXTableView fx:id="paramTable" flexHeight="100%" flexWidth="100%">
                 <columns>
-                    <FXTableColumn flexWidth="100% - 735" fx:id="paramName" text="%base.paramName"
-                                     resizable="true"/>
-                    <FXTableColumn realWidth="150" fx:id="paramType" text="%base.type" resizable="false"/>
-                    <FXTableColumn realWidth="80" fx:id="paramMode" text="%base.mode" resizable="false"/>
-                    <FXTableColumn realWidth="80" fx:id="paramSize" text="%base.length" resizable="false"/>
-                    <FXTableColumn realWidth="80" fx:id="paramDigits" text="%base.digits" resizable="false"/>
-                    <FXTableColumn realWidth="100" fx:id="paramCharset" text="%base.charset" resizable="false"/>
-                    <FXTableColumn realWidth="120" fx:id="paramCollation" text="%base.collation" resizable="false"/>
-                    <FXTableColumn realWidth="120" fx:id="paramValue" text="%base.value" resizable="true"/>
+                    <DBStatusColumn/>
+                    <FXTableColumn flexWidth="100% - 760" valueName="nameControl" text="%base.paramName"
+                                   resizable="true"/>
+                    <FXTableColumn realWidth="150" valueName="typeControl" text="%base.type" resizable="false"/>
+                    <FXTableColumn realWidth="80" valueName="modeControl" text="%base.mode" resizable="false"/>
+                    <FXTableColumn realWidth="80" valueName="sizeControl" text="%base.length" resizable="false"/>
+                    <FXTableColumn realWidth="80" valueName="digitsControl" text="%base.digits" resizable="false"/>
+                    <FXTableColumn realWidth="100" valueName="charsetControl" text="%base.charset" resizable="false"/>
+                    <FXTableColumn realWidth="120" valueName="collationControl" text="%base.collation"
+                                   resizable="false"/>
+                    <FXTableColumn realWidth="120" valueName="valueControl" text="%base.value" resizable="true"/>
                 </columns>
             </FXTableView>
         </FXTab>
@@ -95,7 +98,7 @@
                         </HBox.margin>
                     </ClearableTextField>
                 </FXHBox>
-                <FXHBox realHeight="50" flexWidth="100%" >
+                <FXHBox realHeight="50" flexWidth="100%">
                     <AccentLabel realWidth="85" text="%base.securityType" realHeight="25">
                         <HBox.margin>
                             <Insets left="20" top="12"/>

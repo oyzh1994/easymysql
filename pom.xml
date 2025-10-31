@@ -68,11 +68,11 @@
             <artifactId>fx-editor</artifactId>
         </dependency>
 
-        <!-- fx-终端模块 -->
-        <dependency>
-            <groupId>io.github.oyzh1994</groupId>
-            <artifactId>fx-rich</artifactId>
-        </dependency>
+        <!-- &lt;!&ndash; fx-终端模块 &ndash;&gt; -->
+        <!-- <dependency> -->
+        <!--     <groupId>io.github.oyzh1994</groupId> -->
+        <!--     <artifactId>fx-rich</artifactId> -->
+        <!-- </dependency> -->
 
         <!-- &lt;!&ndash; 加密工具类库 &ndash;&gt; -->
         <!-- <dependency> -->

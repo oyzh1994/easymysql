@@ -2157,16 +2157,16 @@ public class DBClient {
     }
 
     public List<String> collation(String charset) {
-        Map<String, List<String>> collations = this.getProperty("collation");
-        if (collations == null) {
-            collations = new HashMap<>();
-            this.putProperty("collations", collations);
-        }
-        charset = charset.toUpperCase();
-        if (collations.containsKey(charset)) {
-            return collations.get(charset.toUpperCase());
-        }
         try {
+            Map<String, List<String>> collations = this.getProperty("collation");
+            if (collations == null) {
+                collations = new HashMap<>();
+                this.putProperty("collations", collations);
+            }
+            charset = charset.toUpperCase();
+            if (collations.containsKey(charset)) {
+                return collations.get(charset.toUpperCase());
+            }
             String sql = "SELECT COLLATION_NAME FROM INFORMATION_SCHEMA.COLLATIONS WHERE CHARACTER_SET_NAME = ?;";
             DBUtil.printSql(sql);
             PreparedStatement statement = this.connection().prepareStatement(sql);

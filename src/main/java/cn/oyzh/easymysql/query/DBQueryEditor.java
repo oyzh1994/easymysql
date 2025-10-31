@@ -1,22 +1,18 @@
 package cn.oyzh.easymysql.query;
 
-import cn.oyzh.common.thread.TaskManager;
 import cn.oyzh.common.util.NumberUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.sql.DBSqlParser;
+import cn.oyzh.fx.editor.incubator.Editor;
+import cn.oyzh.fx.editor.incubator.EditorFormatType;
 import cn.oyzh.fx.plus.keyboard.KeyboardUtil;
-import cn.oyzh.fx.rich.RichTextStyle;
-import cn.oyzh.fx.rich.richtextfx.control.BaseRichTextArea;
 import javafx.scene.control.IndexRange;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -25,7 +21,7 @@ import java.util.regex.Pattern;
  * @author oyzh
  * @since 2024/02/18
  */
-public class DBQueryEditor extends BaseRichTextArea {
+public class DBQueryEditor extends Editor {
 
     /**
      * 提示词组件
@@ -59,7 +55,7 @@ public class DBQueryEditor extends BaseRichTextArea {
     private void doComment() {
         try {
             // 选区
-            IndexRange range = this.getSelection();
+            IndexRange range = this.getSelectionRange();
             if (range == null) {
                 return;
             }
@@ -136,7 +132,7 @@ public class DBQueryEditor extends BaseRichTextArea {
         String sql = this.getText();
         String prettySql = DBSqlParser.prettySql(sql, this.dialect);
         this.setText(prettySql);
-        this.initTextStyle();
+        // this.initTextStyle();
     }
 
     /**
@@ -174,34 +170,34 @@ public class DBQueryEditor extends BaseRichTextArea {
      */
     private final AtomicInteger styleFlag = new AtomicInteger();
 
-    @Override
-    public synchronized void initTextStyle() {
-        // 生成标志位
-        int styleFlagVal = this.styleFlag.incrementAndGet();
-        Runnable task = () -> {
-            try {
-                if (this.styleFlag.get() == styleFlagVal) {
-                    this.clearTextStyle();
-                    String text = this.getText();
-                    if (!text.isEmpty()) {
-                        List<RichTextStyle> styles = new ArrayList<>();
-                        Matcher matcher1 = sqlSymbolPattern().matcher(text);
-                        Matcher matcher2 = sqlCommentPattern().matcher(text);
-                        while (matcher1.find()) {
-                            styles.add(new RichTextStyle(matcher1.start(), matcher1.end(), "-fx-fill: #4169E1;"));
-                        }
-                        while (matcher2.find()) {
-                            styles.add(new RichTextStyle(matcher2.start(), matcher2.end(), "-fx-fill: #999999;"));
-                        }
-                        this.setStyles(styles);
-                    }
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        };
-        TaskManager.startDelay("query:initTextStyle:" + this.hashCode(), task::run, 150);
-    }
+    // @Override
+    // public synchronized void initTextStyle() {
+    //     // 生成标志位
+    //     int styleFlagVal = this.styleFlag.incrementAndGet();
+    //     Runnable task = () -> {
+    //         try {
+    //             if (this.styleFlag.get() == styleFlagVal) {
+    //                 this.clearTextStyle();
+    //                 String text = this.getText();
+    //                 if (!text.isEmpty()) {
+    //                     List<RichTextStyle> styles = new ArrayList<>();
+    //                     Matcher matcher1 = sqlSymbolPattern().matcher(text);
+    //                     Matcher matcher2 = sqlCommentPattern().matcher(text);
+    //                     while (matcher1.find()) {
+    //                         styles.add(new RichTextStyle(matcher1.start(), matcher1.end(), "-fx-fill: #4169E1;"));
+    //                     }
+    //                     while (matcher2.find()) {
+    //                         styles.add(new RichTextStyle(matcher2.start(), matcher2.end(), "-fx-fill: #999999;"));
+    //                     }
+    //                     this.setStyles(styles);
+    //                 }
+    //             }
+    //         } catch (Exception ex) {
+    //             ex.printStackTrace();
+    //         }
+    //     };
+    //     TaskManager.startDelay("query:initTextStyle:" + this.hashCode(), task::run, 150);
+    // }
 
 
     // @Override
@@ -215,5 +211,11 @@ public class DBQueryEditor extends BaseRichTextArea {
 
     public void setDialect(DBDialect dialect) {
         this.dialect = dialect;
+    }
+
+    @Override
+    public void initNode() {
+        super.initNode();
+        super.setFormatType(EditorFormatType.SQL);
     }
 }
