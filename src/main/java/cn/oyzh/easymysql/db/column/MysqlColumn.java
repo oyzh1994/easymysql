@@ -650,7 +650,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public boolean isInvalid() {
-        return StringUtil.isBlank(this.name) || StringUtil.isBlank(this.getType());
+        return StringUtil.isBlank(this.getName()) || StringUtil.isBlank(this.getType());
     }
 
     // public Integer getPrimaryKeySize() {

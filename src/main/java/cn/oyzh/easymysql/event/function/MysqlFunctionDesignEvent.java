@@ -15,6 +15,7 @@ public class MysqlFunctionDesignEvent extends Event<MysqlFunction> {
     public String functionName() {
         return this.data().getName();
     }
+
     public MysqlDatabaseTreeItem getDbItem() {
         return dbItem;
     }

@@ -1,10 +1,8 @@
 package cn.oyzh.easymysql.tabs;
 
-import cn.oyzh.common.thread.TaskManager;
 import cn.oyzh.easymysql.tabs.home.DBHomeTab;
 import cn.oyzh.fx.gui.tabs.RichTabPane;
 import cn.oyzh.fx.plus.event.FXEventListener;
-import javafx.collections.ListChangeListener;
 import javafx.scene.control.Tab;
 
 /**
@@ -741,4 +739,10 @@ public class DBTabPane extends RichTabPane implements FXEventListener {
     //     }
     // }
     // // TODO mariadb结束
+
+    @Override
+    public void initNode() {
+        super.initNode();
+       this.setupSelectCountListener();
+    }
 }

@@ -41,9 +41,9 @@ public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> 
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
         FXMenuItem addQuery = MenuItemHelper.addQuery("12", this::addQuery);
+        items.add(addQuery);
         FXMenuItem reload = MenuItemHelper.refreshData("12", this::reloadChild);
         items.add(reload);
-        items.add(addQuery);
         return items;
     }
 

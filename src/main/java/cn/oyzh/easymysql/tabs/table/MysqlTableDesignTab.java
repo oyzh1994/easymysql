@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.tabs.table;
 
 import cn.oyzh.common.util.StringUtil;
+import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
@@ -62,13 +63,13 @@ public class MysqlTableDesignTab extends MysqlTab {
     /**
      * 初始化
      *
-     * @param tableName db表
+     * @param table 表
      * @param dbItem    db数据库树节点
      */
-    public void init(String tableName, MysqlDatabaseTreeItem dbItem) throws Exception {
+    public void init(MysqlTable table, MysqlDatabaseTreeItem dbItem) throws Exception {
         StageManager.showMask(() -> {
             try {
-                this.controller().init(tableName, dbItem);
+                this.controller().init(table, dbItem);
                 this.flush();
             } catch (Exception ex) {
                 MessageBox.exception(ex);

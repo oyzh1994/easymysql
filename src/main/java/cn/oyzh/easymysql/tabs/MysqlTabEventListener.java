@@ -484,7 +484,7 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlTableDesign(MysqlTableDesignEvent event) {
         try {
-            MysqlTableDesignTab tab = this.getMysqlTableDesignTab(event.getDbItem(), event.data());
+            MysqlTableDesignTab tab = this.getMysqlTableDesignTab(event.getDbItem(), event.tableName());
             if (tab == null) {
                 tab = new MysqlTableDesignTab();
                 tab.init(event.data(), event.getDbItem());

@@ -81,7 +81,9 @@ public class MysqlTablesTreeItem extends DBTreeItem<MysqlTablesTreeItemValue> {
     }
 
     private void addTable() {
-        MysqlEventUtil.designTable(null, this.parent());
+        MysqlTable table = new MysqlTable();
+        table.setDbName(this.dbName());
+        MysqlEventUtil.designTable(table, this.parent());
     }
 
     @Override

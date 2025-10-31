@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.event.table;
 
+import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.event.Event;
 
@@ -7,7 +8,7 @@ import cn.oyzh.event.Event;
  * @author oyzh
  * @since 2024/08/07
  */
-public class MysqlTableDesignEvent extends Event<String> {
+public class MysqlTableDesignEvent extends Event<MysqlTable> {
 
     private MysqlDatabaseTreeItem dbItem;
 
@@ -21,5 +22,9 @@ public class MysqlTableDesignEvent extends Event<String> {
 
     public void setDbItem(MysqlDatabaseTreeItem dbItem) {
         this.dbItem = dbItem;
+    }
+
+    public String tableName() {
+        return this.data().getName();
     }
 }

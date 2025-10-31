@@ -539,7 +539,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             for (MysqlColumn column : this.columnTable.getItems()) {
                 if (column.isInvalid()) {
                     this.tabPane.selectTab("columnTab");
-                    MessageBox.warn(I18nHelper.invalidData());
+                    MessageBox.warn(I18nHelper.invalidColumn());
                     return;
                 }
             }
@@ -548,7 +548,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             for (MysqlIndex index : this.indexTable.getItems()) {
                 if (index.isInvalid()) {
                     this.tabPane.selectTab("indexTab");
-                    MessageBox.warn(I18nHelper.invalidData());
+                    MessageBox.warn(I18nHelper.invalidIndex());
                     return;
                 }
             }
@@ -557,7 +557,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             for (MysqlForeignKey foreignKey : this.foreignKeyTable.getItems()) {
                 if (foreignKey.isInvalid()) {
                     this.tabPane.selectTab("foreignKeyTab");
-                    MessageBox.warn(I18nHelper.invalidData());
+                    MessageBox.warn(I18nHelper.invalidForeignKey());
                     return;
                 }
             }
@@ -566,7 +566,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             for (MysqlTrigger trigger : this.triggerTable.getItems()) {
                 if (trigger.isInvalid()) {
                     this.tabPane.selectTab("triggerTab");
-                    MessageBox.warn(I18nHelper.invalidData());
+                    MessageBox.warn(I18nHelper.invalidTrigger());
                     return;
                 }
             }
@@ -576,7 +576,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 for (MysqlCheck check : this.checkTable.getItems()) {
                     if (check.isInvalid()) {
                         this.tabPane.selectTab("checkTab");
-                        MessageBox.warn(I18nHelper.invalidData());
+                        MessageBox.warn(I18nHelper.invalidCheck());
                         return;
                     }
                 }
@@ -595,12 +595,13 @@ public class MysqlTableDesignTabController extends ParentTabController {
 
             // this.disableTab();
 
+            MysqlTable table = this.mysqlTable;
             // 创建表
             if (this.newData) {
                 MysqlCreateTableParam param = this.initCreateParam();
                 param.setTableName(tableName);
                 this.dbItem.createTable(param);
-                MysqlTable table = this.dbItem.selectTable(tableName);
+                table = this.dbItem.selectTable(tableName);
                 this.dbItem.getTableTypeChild().addTable(table);
                 MysqlEventUtil.tableAdded(this.dbItem);
             } else {// 修改表
@@ -612,7 +613,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             // 判断结果
             this.unsaved = false;
             // 初始化信息
-            this.initInfo(tableName);
+            this.initInfo(table);
             // 重置表格
             this.resetTable();
             // 初始化预览
@@ -659,19 +660,21 @@ public class MysqlTableDesignTabController extends ParentTabController {
     /**
      * 初始化信息
      */
-    protected void initInfo(String tableName) {
+    protected void initInfo(MysqlTable table) {
         // 更新初始化标志位
         this.initiating = true;
+        this.mysqlTable = table;
+        this.newData = table.isNew();
         // 新数据
-        if (tableName == null) {
-            this.newData = true;
+        if (table.isNew()) {
+            // this.newData = true;
             this.mysqlTable = new MysqlTable();
             this.mysqlTable.setDbName(this.dbItem.dbName());
-            this.mysqlTable.setName(I18nHelper.unnamedTable());
+            // this.mysqlTable.setName(I18nHelper.unnamedTable());
             this.initNew();
         } else {// 已有数据
-            this.newData = false;
-            this.mysqlTable = this.dbItem.selectFullTable(tableName);
+            // this.newData = false;
+            this.mysqlTable = this.dbItem.selectFullTable(table.getName());
             this.initNormal();
         }
         // 标记为结束
@@ -1241,10 +1244,10 @@ public class MysqlTableDesignTabController extends ParentTabController {
     /**
      * 执行初始化
      *
-     * @param tableName 表信息
-     * @param dbItem    db库树节点
+     * @param table  表信息
+     * @param dbItem db库树节点
      */
-    public void init(String tableName, MysqlDatabaseTreeItem dbItem) throws Exception {
+    public void init(MysqlTable table, MysqlDatabaseTreeItem dbItem) throws Exception {
         // 获取对象
         this.dbItem = dbItem;
         // 初始化引擎
@@ -1255,7 +1258,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
         CacheHelper.set("dbClient", this.dbItem.client());
 
         // 初始化信息
-        this.initInfo(tableName);
+        this.initInfo(table);
 
         // // 初始化监听器
         // this.initDBListener();

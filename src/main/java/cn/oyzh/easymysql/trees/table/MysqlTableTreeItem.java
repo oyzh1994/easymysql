@@ -172,7 +172,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
 
     private void designTable() {
         this.reloadChild();
-        MysqlEventUtil.designTable(this.tableName(), this.dbItem());
+        MysqlEventUtil.designTable(this.value, this.dbItem());
     }
 
     private void truncateTable() {
