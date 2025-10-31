@@ -230,8 +230,19 @@ public class MysqlFunctionDesignTabController extends RichTabController {
      * @param dbItem   db库树节点
      */
     public void init(MysqlFunction function, MysqlDatabaseTreeItem dbItem) {
-        this.function = function;
         this.dbItem = dbItem;
+        this.function = function;
+        StageManager.showMask(this::doInit);
+    }
+
+    /**
+     * 执行初始化
+     */
+    private void doInit(){
+        // 查询最新数据
+        if (!this.function.isNew()) {
+            this.function = this.dbItem.selectFunction(function.getName());
+        }
 
         // 初始化字符集列表
         this.returnCharset.init(this.dbItem.client());
@@ -549,6 +560,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
                     param.setDeleted(true);
                 }
             }
+            this.tabPane.refresh();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }

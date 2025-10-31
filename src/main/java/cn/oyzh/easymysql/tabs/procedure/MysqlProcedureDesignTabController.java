@@ -203,8 +203,20 @@ public class MysqlProcedureDesignTabController extends RichTabController {
      * @param dbItem    db库树节点
      */
     public void init(MysqlProcedure procedure, MysqlDatabaseTreeItem dbItem) {
-        this.procedure = procedure;
         this.dbItem = dbItem;
+        this.procedure = procedure;
+        StageManager.showMask(this::doInit);
+    }
+
+    /**
+     * 执行初始化
+     *
+     */
+    private void doInit() {
+        // 查询最新数据
+        if (!this.procedure.isNew()) {
+            this.procedure = this.dbItem.selectProcedure(procedure.getName());
+        }
 
         // 初始化监听器
         this.initDBListener();
@@ -448,6 +460,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
                     param.setDeleted(true);
                 }
             }
+            this.tabPane.refresh();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
