@@ -251,7 +251,9 @@ public class MysqlFunctionDesignTabController extends RichTabController {
         this.initDBListener();
 
         // 初始化信息
-        this.initInfo();
+
+        FXUtil.runWait(this::initInfo);
+        // this.initInfo();
 
         // 监听组件
         CacheHelper.set("dbClient", this.dbItem.client());
@@ -534,7 +536,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             param.setCreated(true);
             this.paramTable.addItem(param);
             this.paramTable.selectLast();
-            this.tabPane.refresh();
+            // this.tabPane.refresh();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
@@ -560,7 +562,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
                     param.setDeleted(true);
                 }
             }
-            this.tabPane.refresh();
+            // this.tabPane.refresh();
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }

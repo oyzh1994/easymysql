@@ -25,7 +25,6 @@ import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
 import cn.oyzh.easymysql.fx.DBEditor;
-import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.DBStatusTableView;
 import cn.oyzh.easymysql.fx.table.DBEngineComboBox;
 import cn.oyzh.easymysql.fx.table.DBRowFormatComboBox;
@@ -34,16 +33,14 @@ import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
-import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.fx.gui.tabs.ParentTabController;
 import cn.oyzh.fx.gui.tabs.SubTabController;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.controls.box.FXHBox;
-import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.fx.plus.controls.tab.FXTabPane;
-import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.text.area.FXTextArea;
 import cn.oyzh.fx.plus.information.MessageBox;
+import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.fx.plus.util.FXUtil;
@@ -53,8 +50,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.List;
@@ -69,29 +64,29 @@ import java.util.ResourceBundle;
  */
 public class MysqlTableDesignTabController extends ParentTabController {
 
-    /**
-     * 新增按钮
-     */
-    @FXML
-    private SVGGlyph add;
-
-    /**
-     * 删除按钮
-     */
-    @FXML
-    private SVGGlyph delete;
-
-    /**
-     * 上移按钮
-     */
-    @FXML
-    private SVGGlyph moveUp;
-
-    /**
-     * 下移按钮
-     */
-    @FXML
-    private SVGGlyph moveDown;
+    // /**
+    //  * 新增按钮
+    //  */
+    // @FXML
+    // private SVGGlyph add;
+    //
+    // /**
+    //  * 删除按钮
+    //  */
+    // @FXML
+    // private SVGGlyph delete;
+    //
+    // /**
+    //  * 上移按钮
+    //  */
+    // @FXML
+    // private SVGGlyph moveUp;
+    //
+    // /**
+    //  * 下移按钮
+    //  */
+    // @FXML
+    // private SVGGlyph moveDown;
 
     /**
      * 切换面板
@@ -159,53 +154,53 @@ public class MysqlTableDesignTabController extends ParentTabController {
     @FXML
     private DBStatusTableView<MysqlColumnControl> columnTable;
 
-    /**
-     * 字段状态列
-     */
-    @FXML
-    private DBStatusColumn<MysqlColumnControl> colStatus;
-
-    /**
-     * 字段名称列
-     */
-    @FXML
-    private FXTableColumn<MysqlColumnControl, String> colName;
-
-    /**
-     * 字段类型列
-     */
-    @FXML
-    private FXTableColumn<MysqlColumnControl, String> colType;
-
-    /**
-     * 字段长度
-     */
-    @FXML
-    private FXTableColumn<MysqlColumnControl, Integer> colSize;
-
-    /**
-     * 字段小数点列
-     */
-    @FXML
-    private FXTableColumn<MysqlColumnControl, Integer> colDigits;
-
-    /**
-     * 字段是否主键列
-     */
-    @FXML
-    private FXTableColumn<MysqlColumnControl, Boolean> colPrimaryKey;
-
-    /**
-     * 字段可为null列
-     */
-    @FXML
-    private FXTableColumn<MysqlColumnControl, Boolean> colNullable;
-
-    /**
-     * 字段注释列
-     */
-    @FXML
-    private FXTableColumn<MysqlColumnControl, String> colComment;
+    // /**
+    //  * 字段状态列
+    //  */
+    // @FXML
+    // private DBStatusColumn<MysqlColumnControl> colStatus;
+    //
+    // /**
+    //  * 字段名称列
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlColumnControl, String> colName;
+    //
+    // /**
+    //  * 字段类型列
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlColumnControl, String> colType;
+    //
+    // /**
+    //  * 字段长度
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlColumnControl, Integer> colSize;
+    //
+    // /**
+    //  * 字段小数点列
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlColumnControl, Integer> colDigits;
+    //
+    // /**
+    //  * 字段是否主键列
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlColumnControl, Boolean> colPrimaryKey;
+    //
+    // /**
+    //  * 字段可为null列
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlColumnControl, Boolean> colNullable;
+    //
+    // /**
+    //  * 字段注释列
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlColumnControl, String> colComment;
 
     // /**
     //  * 字段配置
@@ -219,41 +214,41 @@ public class MysqlTableDesignTabController extends ParentTabController {
     @FXML
     private DBStatusTableView<MysqlIndexControl> indexTable;
 
-    /**
-     * 索引状态列
-     */
-    @FXML
-    private DBStatusColumn<MysqlIndexControl> indexStatus;
-
-    /**
-     * 索引名称列
-     */
-    @FXML
-    private TableColumn<MysqlIndexControl, String> indexName;
-
-    /**
-     * 索引字段列
-     */
-    @FXML
-    private TableColumn<MysqlIndexControl, String> indexColumn;
-
-    /**
-     * 索引类型列
-     */
-    @FXML
-    private TableColumn<MysqlIndexControl, String> indexType;
-
-    /**
-     * 索引方法列
-     */
-    @FXML
-    private TableColumn<MysqlIndexControl, String> indexMethod;
-
-    /**
-     * 索引注释列
-     */
-    @FXML
-    private FXTableColumn<MysqlIndexControl, String> indexComment;
+    // /**
+    //  * 索引状态列
+    //  */
+    // @FXML
+    // private DBStatusColumn<MysqlIndexControl> indexStatus;
+    //
+    // /**
+    //  * 索引名称列
+    //  */
+    // @FXML
+    // private TableColumn<MysqlIndexControl, String> indexName;
+    //
+    // /**
+    //  * 索引字段列
+    //  */
+    // @FXML
+    // private TableColumn<MysqlIndexControl, String> indexColumn;
+    //
+    // /**
+    //  * 索引类型列
+    //  */
+    // @FXML
+    // private TableColumn<MysqlIndexControl, String> indexType;
+    //
+    // /**
+    //  * 索引方法列
+    //  */
+    // @FXML
+    // private TableColumn<MysqlIndexControl, String> indexMethod;
+    //
+    // /**
+    //  * 索引注释列
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlIndexControl, String> indexComment;
 
     /**
      * 表外键组件
@@ -261,53 +256,53 @@ public class MysqlTableDesignTabController extends ParentTabController {
     @FXML
     private DBStatusTableView<MysqlForeignKeyControl> foreignKeyTable;
 
-    /**
-     * 外键状态列
-     */
-    @FXML
-    private DBStatusColumn<MysqlForeignKeyControl> foreignKeyStatus;
-
-    /**
-     * 外键名称列
-     */
-    @FXML
-    private TableColumn<MysqlForeignKeyControl, String> foreignKeyName;
-
-    /**
-     * 外键字段列
-     */
-    @FXML
-    private TableColumn<MysqlForeignKeyControl, String> foreignKeyColumn;
-
-    /**
-     * 外键引用库
-     */
-    @FXML
-    private TableColumn<MysqlForeignKeyControl, String> foreignKeyPKDatabase;
-
-    /**
-     * 外键引用表
-     */
-    @FXML
-    private TableColumn<MysqlForeignKeyControl, String> foreignKeyPKTable;
-
-    /**
-     * 外键引用字段
-     */
-    @FXML
-    private FXTableColumn<MysqlForeignKeyControl, String> foreignKeyPKColumn;
-
-    /**
-     * 外键删除策略
-     */
-    @FXML
-    private FXTableColumn<MysqlForeignKeyControl, String> foreignKeyDeletePolicy;
-
-    /**
-     * 外键更新策略
-     */
-    @FXML
-    private FXTableColumn<MysqlForeignKeyControl, String> foreignKeyUpdatePolicy;
+    // /**
+    //  * 外键状态列
+    //  */
+    // @FXML
+    // private DBStatusColumn<MysqlForeignKeyControl> foreignKeyStatus;
+    //
+    // /**
+    //  * 外键名称列
+    //  */
+    // @FXML
+    // private TableColumn<MysqlForeignKeyControl, String> foreignKeyName;
+    //
+    // /**
+    //  * 外键字段列
+    //  */
+    // @FXML
+    // private TableColumn<MysqlForeignKeyControl, String> foreignKeyColumn;
+    //
+    // /**
+    //  * 外键引用库
+    //  */
+    // @FXML
+    // private TableColumn<MysqlForeignKeyControl, String> foreignKeyPKDatabase;
+    //
+    // /**
+    //  * 外键引用表
+    //  */
+    // @FXML
+    // private TableColumn<MysqlForeignKeyControl, String> foreignKeyPKTable;
+    //
+    // /**
+    //  * 外键引用字段
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlForeignKeyControl, String> foreignKeyPKColumn;
+    //
+    // /**
+    //  * 外键删除策略
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlForeignKeyControl, String> foreignKeyDeletePolicy;
+    //
+    // /**
+    //  * 外键更新策略
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlForeignKeyControl, String> foreignKeyUpdatePolicy;
 
     /**
      * db表
@@ -325,29 +320,29 @@ public class MysqlTableDesignTabController extends ParentTabController {
     //  */
     // private final List<MysqlTrigger> deletedTriggers = new ArrayList<>();
 
-    /**
-     * 触发器状态
-     */
-    @FXML
-    private DBStatusColumn<MysqlTriggerControl> triggerStatus;
-
-    /**
-     * 触发器名称
-     */
-    @FXML
-    private FXTableColumn<MysqlTriggerControl, String> triggerName;
-
-    /**
-     * 触发器策略
-     */
-    @FXML
-    private FXTableColumn<MysqlTriggerControl, String> triggerPolicy;
-
-    /**
-     * 触发器定义
-     */
-    @FXML
-    private FXTableColumn<MysqlTriggerControl, String> triggerDefinition;
+    // /**
+    //  * 触发器状态
+    //  */
+    // @FXML
+    // private DBStatusColumn<MysqlTriggerControl> triggerStatus;
+    //
+    // /**
+    //  * 触发器名称
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlTriggerControl, String> triggerName;
+    //
+    // /**
+    //  * 触发器策略
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlTriggerControl, String> triggerPolicy;
+    //
+    // /**
+    //  * 触发器定义
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlTriggerControl, String> triggerDefinition;
 
     /**
      * 检查器组件
@@ -355,33 +350,33 @@ public class MysqlTableDesignTabController extends ParentTabController {
     @FXML
     private DBStatusTableView<MysqlCheckControl> checkTable;
 
-    /**
-     * 检查器状态
-     */
-    @FXML
-    private DBStatusColumn<MysqlCheckControl> checkStatus;
-
-    /**
-     * 检查器名称
-     */
-    @FXML
-    private FXTableColumn<MysqlCheckControl, String> checkName;
-
-    /**
-     * 检查器子语句
-     */
-    @FXML
-    private FXTableColumn<MysqlCheckControl, String> checkClause;
+    // /**
+    //  * 检查器状态
+    //  */
+    // @FXML
+    // private DBStatusColumn<MysqlCheckControl> checkStatus;
+    //
+    // /**
+    //  * 检查器名称
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlCheckControl, String> checkName;
+    //
+    // /**
+    //  * 检查器子语句
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlCheckControl, String> checkClause;
 
     /**
      * db库节点
      */
     private MysqlDatabaseTreeItem dbItem;
 
-    /**
-     * db库节点
-     */
-    private MysqlTableTreeItem tableItem;
+    // /**
+    //  * db库节点
+    //  */
+    // private MysqlTableTreeItem tableItem;
 
     /**
      * 数据监听器
@@ -687,6 +682,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 初始化信息
      */
     protected void initNew() {
+        NodeGroupUtil.display(this.getTab(), "action2");
         // 重载表数据
         this.tableEngine.select("innoDB");
         // 字符集
@@ -699,7 +695,8 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 初始化信息
      */
     protected void initNormal() {
-        this.moveUp.disappear();
+        // this.moveUp.disappear();
+        NodeGroupUtil.disappear(this.getTab(), "action2");
 
         // 基本信息
         this.tableEngine.select(this.mysqlTable.getEngine());
@@ -1082,40 +1079,40 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 初始化列表控件
      */
     private void initTable() {
-        // 字段
-        this.colName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
-        this.colType.setCellValueFactory(new PropertyValueFactory<>("typeControl"));
-        this.colSize.setCellValueFactory(new PropertyValueFactory<>("sizeControl"));
-        this.colDigits.setCellValueFactory(new PropertyValueFactory<>("digitsControl"));
-        this.colComment.setCellValueFactory(new PropertyValueFactory<>("commentControl"));
-        this.colNullable.setCellValueFactory(new PropertyValueFactory<>("nullableControl"));
-        this.colPrimaryKey.setCellValueFactory(new PropertyValueFactory<>("primaryKeyControl"));
+        // // 字段
+        // this.colName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
+        // this.colType.setCellValueFactory(new PropertyValueFactory<>("typeControl"));
+        // this.colSize.setCellValueFactory(new PropertyValueFactory<>("sizeControl"));
+        // this.colDigits.setCellValueFactory(new PropertyValueFactory<>("digitsControl"));
+        // this.colComment.setCellValueFactory(new PropertyValueFactory<>("commentControl"));
+        // this.colNullable.setCellValueFactory(new PropertyValueFactory<>("nullableControl"));
+        // this.colPrimaryKey.setCellValueFactory(new PropertyValueFactory<>("primaryKeyControl"));
         // this.colConfig.setCellValueFactory(new PropertyValueFactory<>("configControl"));
 
-        // 索引
-        this.indexName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
-        this.indexColumn.setCellValueFactory(new PropertyValueFactory<>("columnControl"));
-        this.indexType.setCellValueFactory(new PropertyValueFactory<>("typeControl"));
-        this.indexMethod.setCellValueFactory(new PropertyValueFactory<>("methodControl"));
-        this.indexComment.setCellValueFactory(new PropertyValueFactory<>("commentControl"));
+        // // 索引
+        // this.indexName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
+        // this.indexColumn.setCellValueFactory(new PropertyValueFactory<>("columnControl"));
+        // this.indexType.setCellValueFactory(new PropertyValueFactory<>("typeControl"));
+        // this.indexMethod.setCellValueFactory(new PropertyValueFactory<>("methodControl"));
+        // this.indexComment.setCellValueFactory(new PropertyValueFactory<>("commentControl"));
 
-        // 外键
-        this.foreignKeyName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
-        this.foreignKeyColumn.setCellValueFactory(new PropertyValueFactory<>("columnControl"));
-        this.foreignKeyPKTable.setCellValueFactory(new PropertyValueFactory<>("primaryKeyTableControl"));
-        this.foreignKeyDeletePolicy.setCellValueFactory(new PropertyValueFactory<>("deletePolicyControl"));
-        this.foreignKeyUpdatePolicy.setCellValueFactory(new PropertyValueFactory<>("updatePolicyControl"));
-        this.foreignKeyPKColumn.setCellValueFactory(new PropertyValueFactory<>("primaryKeyColumnControl"));
-        this.foreignKeyPKDatabase.setCellValueFactory(new PropertyValueFactory<>("primaryKeyDatabaseControl"));
+        // // 外键
+        // this.foreignKeyName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
+        // this.foreignKeyColumn.setCellValueFactory(new PropertyValueFactory<>("columnControl"));
+        // this.foreignKeyPKTable.setCellValueFactory(new PropertyValueFactory<>("primaryKeyTableControl"));
+        // this.foreignKeyDeletePolicy.setCellValueFactory(new PropertyValueFactory<>("deletePolicyControl"));
+        // this.foreignKeyUpdatePolicy.setCellValueFactory(new PropertyValueFactory<>("updatePolicyControl"));
+        // this.foreignKeyPKColumn.setCellValueFactory(new PropertyValueFactory<>("primaryKeyColumnControl"));
+        // this.foreignKeyPKDatabase.setCellValueFactory(new PropertyValueFactory<>("primaryKeyDatabaseControl"));
 
-        // 触发器
-        this.triggerName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
-        this.triggerPolicy.setCellValueFactory(new PropertyValueFactory<>("policyControl"));
-        this.triggerDefinition.setCellValueFactory(new PropertyValueFactory<>("definitionControl"));
+        // // 触发器
+        // this.triggerName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
+        // this.triggerPolicy.setCellValueFactory(new PropertyValueFactory<>("policyControl"));
+        // this.triggerDefinition.setCellValueFactory(new PropertyValueFactory<>("definitionControl"));
 
-        // 触发器
-        this.checkName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
-        this.checkClause.setCellValueFactory(new PropertyValueFactory<>("clauseControl"));
+        // // 触发器
+        // this.checkName.setCellValueFactory(new PropertyValueFactory<>("nameControl"));
+        // this.checkClause.setCellValueFactory(new PropertyValueFactory<>("clauseControl"));
 
         // 表单保存事件
         this.indexTable.setCtrlSAction(this::save);
@@ -1168,23 +1165,28 @@ public class MysqlTableDesignTabController extends ParentTabController {
             }
         });
         // 表格下标监听
-        this.tabPane.selectedTabChanged((observable, oldValue, newValue) -> {
+        this.tabPane.selectedItemChanged((observable, oldValue, newValue) -> {
             String tabId = newValue == null ? null : newValue.getId();
             if (StringUtil.equalsAny(tabId, "columnTab", "indexTab", "foreignKeyTab", "triggerTab", "checkTab")) {
-                this.add.display();
+                // this.add.display();
+                NodeGroupUtil.display(this.getTab(), "action1");
                 if (this.newData) {
-                    this.moveUp.display();
+                    // this.moveUp.display();
+                    NodeGroupUtil.display(this.getTab(), "action2");
                 }
             } else {
-                this.add.disappear();
+                // this.add.disappear();
+                NodeGroupUtil.disappear(this.getTab(), "action1");
                 if (this.newData) {
-                    this.moveUp.disappear();
+                    // this.moveUp.disappear();
+                    NodeGroupUtil.disappear(this.getTab(), "action2");
                 }
             }
             // 预览
             if (StringUtil.equals(tabId, "previewTab")) {
                 this.initPreview();
             }
+            // this.tabPane.applyCss();
         });
         // 初始化监听器
         this.listener = new DBStatusListener() {
@@ -1227,11 +1229,11 @@ public class MysqlTableDesignTabController extends ParentTabController {
         super.initialize(location, resourceBundle);
         // 初始化表单
         this.initTable();
-        // 组件管理
-        this.delete.visibleProperty().bind(this.add.visibleProperty());
-        this.delete.managedProperty().bind(this.add.managedProperty());
-        this.moveDown.visibleProperty().bind(this.moveUp.visibleProperty());
-        this.moveDown.managedProperty().bind(this.moveUp.managedProperty());
+        // // 组件管理
+        // this.delete.visibleProperty().bind(this.add.visibleProperty());
+        // this.delete.managedProperty().bind(this.add.managedProperty());
+        // this.moveDown.visibleProperty().bind(this.moveUp.visibleProperty());
+        // this.moveDown.managedProperty().bind(this.moveUp.managedProperty());
         this.tableRowFormat.managedBindVisible();
         this.tableAutoIncrementBox.managedBindVisible();
     }

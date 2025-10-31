@@ -102,7 +102,7 @@ public class MysqlQueryMainTabController extends RichTabController {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
-        this.resultTabPane.selectedTabChanged((observable, oldValue, newValue) -> {
+        this.resultTabPane.selectedItemChanged((observable, oldValue, newValue) -> {
             FXTab tab1 = (FXTab) newValue;
             if (tab1 != null) {
                 if (StringUtil.equals(tab1.getId(), "infoTab")) {
