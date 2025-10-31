@@ -222,7 +222,9 @@ public class MysqlProcedureDesignTabController extends RichTabController {
         this.initDBListener();
 
         // 初始化信息
-        this.initInfo();
+        // this.initInfo();
+        // this.initInfo();
+        FXUtil.runWait(this::initInfo);
 
         // 监听组件
         CacheHelper.set("dbClient", this.dbItem.client());
