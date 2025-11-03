@@ -501,13 +501,12 @@ public class DBClient {
                     boolean isQuery = statement.execute(execSql);
                     if (isQuery) {
                         ResultSet resultSet = statement.getResultSet();
-                        if (parser.isSingle() && parser.isSelect()) {
-                            result.parseResult(resultSet, connection, false);
+                        if (parser.isSingle()) {
                             result.setFullColumn(parser.isFullColumn());
                         } else {
                             result.setFullColumn(DBUtil.isFullColumn(execSql, this.dbType()));
-                            result.parseResult(resultSet, connection, false);
                         }
+                        result.parseResult(resultSet, connection, !parser.isSelect());
                         DBUtil.close(resultSet);
                         result.setSuccess(true);
                     } else {
@@ -2337,13 +2336,12 @@ public class DBClient {
                 boolean isQuery = statement.execute(execSql);
                 if (isQuery) {
                     ResultSet resultSet = statement.getResultSet();
-                    if (parser.isSingle() && parser.isSelect()) {
-                        result.parseResult(resultSet, connection, false);
+                    if (parser.isSingle()) {
                         result.setFullColumn(parser.isFullColumn());
                     } else {
                         result.setFullColumn(DBUtil.isFullColumn(execSql, this.dbType()));
-                        result.parseResult(resultSet, connection, false);
                     }
+                    result.parseResult(resultSet, connection, !parser.isSelect());
                     DBUtil.close(resultSet);
                     result.setSuccess(true);
                 } else {

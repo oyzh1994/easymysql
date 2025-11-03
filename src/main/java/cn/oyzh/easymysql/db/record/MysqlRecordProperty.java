@@ -35,6 +35,11 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
     private MysqlColumn column;
 
     /**
+     * 表记录
+     */
+    private final MysqlRecord record;
+
+    /**
      * 原始数据
      */
     private Object original;
@@ -49,12 +54,13 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
      */
     private final boolean readonly;
 
-    public MysqlRecordProperty(MysqlColumn column, Object value) {
-        this(column, value, false);
-    }
+    // public MysqlRecordProperty(MysqlColumn column, Object value) {
+    //     this(column, value, false);
+    // }
 
-    public MysqlRecordProperty(MysqlColumn column, Object value, boolean readonly) {
+    public MysqlRecordProperty(MysqlRecord record, MysqlColumn column, Object value, boolean readonly) {
         super(value);
+        this.record = record;
         this.column = column;
         if (!readonly) {
             this.original = value;
@@ -159,7 +165,7 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
     }
 
     public void vDelete() {
-        MysqlEventUtil.recordDelete();
+        MysqlEventUtil.recordDelete(this.record);
     }
 
     public void vSetToNull() {

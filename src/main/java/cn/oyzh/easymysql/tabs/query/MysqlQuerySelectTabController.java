@@ -10,6 +10,7 @@ import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
+import cn.oyzh.easymysql.event.record.RecordDeleteEvent;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordTableView;
@@ -17,6 +18,7 @@ import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.util.DBRecordUtil;
+import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
@@ -365,8 +367,48 @@ public class MysqlQuerySelectTabController extends RichTabController {
      */
     @FXML
     private void deleteRecord() {
+        // try {
+        //     MysqlRecord record = this.recordTable.getSelectedItem();
+        //     if (record == null) {
+        //         return;
+        //     }
+        //     if (!MessageBox.confirm(I18nHelper.deleteRecord() + "?")) {
+        //         return;
+        //     }
+        //     // 如果是新增的数据，直接删除
+        //     boolean success;
+        //     if (record.isCreated()) {
+        //         success = true;
+        //     } else {
+        //         // 获取主键
+        //         MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
+        //         MysqlDeleteRecordParam param = new MysqlDeleteRecordParam();
+        //         param.setDbName(this.result.dbName());
+        //         param.setTableName(this.result.tableName());
+        //         param.setPrimaryKey(primaryKey);
+        //         param.setRecord(record.getOriginalRecordData());
+        //         success = this.dbItem.deleteRecord(param) == 1;
+        //     }
+        //     // 操作成功
+        //     if (success) {
+        //         this.recordTable.removeItem(record);
+        //     } else {// 操作失败
+        //         MessageBox.warnToast(I18nHelper.operationFail());
+        //     }
+        // } catch (Exception ex) {
+        //     MessageBox.exception(ex);
+        // }
+        MysqlRecord record = this.recordTable.getSelectedItem();
+        this.doDeleteRecord(record);
+    }
+
+    /**
+     * 删除表记录
+     *
+     * @param record 表记录
+     */
+    private void doDeleteRecord(MysqlRecord record) {
         try {
-            MysqlRecord record = this.recordTable.getSelectedItem();
             if (record == null) {
                 return;
             }
@@ -433,6 +475,16 @@ public class MysqlQuerySelectTabController extends RichTabController {
             NodeUtil.nodeOnCtrlS(this.root, this::apply);
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除记录
+     */
+    @EventSubscribe
+    private void deleteRecord(RecordDeleteEvent event) {
+        if (this.recordTable.hasRecord(event.data())) {
+            this.doDeleteRecord(event.data());
         }
     }
 }

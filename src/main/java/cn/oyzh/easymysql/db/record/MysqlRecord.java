@@ -61,7 +61,7 @@ public class MysqlRecord extends DBObjectStatus {
     public MysqlRecordProperty putValue(MysqlColumn column, Object value) {
         MysqlRecordProperty property = this.getProperty(column.getName());
         if (property == null) {
-            property = new MysqlRecordProperty(column, value, this.readonly);
+            property = new MysqlRecordProperty(this, column, value, this.readonly);
             property.changedProperty().addListener((observable, oldValue, newValue) -> this.updateStatus());
             this.properties.put(column.getName(), property);
         } else {
@@ -102,13 +102,23 @@ public class MysqlRecord extends DBObjectStatus {
     }
 
     /**
-     * 获取属性
+     * 获取记录属性
      *
      * @param key 键
      * @return 属性
      */
     public MysqlRecordProperty getProperty(String key) {
         return this.properties.get(key);
+    }
+
+    /**
+     * 是否存在记录属性
+     *
+     * @param recordProperty 记录属性
+     * @return 属性
+     */
+    public boolean hasProperty(MysqlRecordProperty recordProperty) {
+        return this.properties.containsValue(recordProperty);
     }
 
     /**
@@ -145,7 +155,7 @@ public class MysqlRecord extends DBObjectStatus {
     }
 
     @Override
-    public void clearStatus()   {
+    public void clearStatus() {
         for (MysqlRecordProperty property : this.properties.values()) {
             property.setChanged(false);
             property.updateOriginal();

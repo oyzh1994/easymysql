@@ -5,6 +5,7 @@ import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.event.MysqlEvent;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
+import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.view.MysqlView;
@@ -366,8 +367,10 @@ public class MysqlEventUtil {
 //        EventUtil.postDelay(new TreeChildChangedEvent(), 100);
 //    }
 
-    public static void recordDelete() {
-        EventUtil.post(new RecordDeleteEvent());
+    public static void recordDelete(MysqlRecord record) {
+        RecordDeleteEvent event = new RecordDeleteEvent();
+        event.data(record);
+        EventUtil.post(event);
     }
 
     /**

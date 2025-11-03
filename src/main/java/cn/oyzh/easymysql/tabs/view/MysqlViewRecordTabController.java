@@ -224,7 +224,7 @@ public class MysqlViewRecordTabController extends RichTabController {
             tableColumn.setPrefWidth(DBRecordUtil.suitableColumnWidth(column.getType()));
             columnList.add(tableColumn);
         }
-        FXUtil.runWait(()-> this.recordTable.getColumns().setAll(columnList));
+        FXUtil.runWait(() -> this.recordTable.getColumns().setAll(columnList));
     }
 
     /**
@@ -471,7 +471,9 @@ public class MysqlViewRecordTabController extends RichTabController {
      */
     @EventSubscribe
     private void deleteRecord(RecordDeleteEvent event) {
-        this.deleteRecord();
+        if (this.recordTable.hasRecord(event.data())) {
+            this.doDeleteRecord(event.data());
+        }
     }
 
     /**
@@ -479,8 +481,51 @@ public class MysqlViewRecordTabController extends RichTabController {
      */
     @FXML
     private void deleteRecord() {
+        // try {
+        // MysqlRecord record = this.recordTable.getSelectedItem();
+        //     if (record == null) {
+        //         return;
+        //     }
+        //     if (!MessageBox.confirm(I18nHelper.deleteRecord() + "?")) {
+        //         return;
+        //     }
+        //     // 如果是新增的数据，直接删除
+        //     boolean success;
+        //     if (record.isCreated()) {
+        //         success = true;
+        //     } else {
+        //         // 获取主键
+        //         MysqlRecordPrimaryKey primaryKey = this.initPrimaryKey(record);
+        //         // 主键存在，则根据主键删除
+        //         if (primaryKey != null) {
+        //             success = this.getItem().deleteRecord(primaryKey) == 1;
+        //         } else {// 主键不存在，则根据所有字段更新
+        //             // 所有字段数据
+        //             MysqlRecordData recordData = record.getOriginalRecordData();
+        //             // 删除行
+        //             success = this.getItem().deleteRecord(recordData) == 1;
+        //         }
+        //     }
+        //     // 操作成功
+        //     if (success) {
+        //         this.recordTable.removeItem(record);
+        //     } else {// 操作失败
+        //         MessageBox.warnToast(I18nHelper.operationFail());
+        //     }
+        // } catch (Exception ex) {
+        //     MessageBox.exception(ex);
+        // }
+        MysqlRecord record = this.recordTable.getSelectedItem();
+        this.doDeleteRecord(record);
+    }
+
+    /**
+     * 删除表记录
+     *
+     * @param record 表记录
+     */
+    private void doDeleteRecord(MysqlRecord record) {
         try {
-            MysqlRecord record = this.recordTable.getSelectedItem();
             if (record == null) {
                 return;
             }
