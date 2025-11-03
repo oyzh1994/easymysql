@@ -6,14 +6,17 @@ import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.fx.editor.incubator.Editor;
 import cn.oyzh.fx.editor.incubator.EditorFormatType;
+import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.plus.keyboard.KeyboardUtil;
+import cn.oyzh.fx.plus.menu.FXMenuItem;
 import javafx.scene.control.IndexRange;
+import javafx.scene.control.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.regex.Pattern;
 
 /**
  * db查询文本域
@@ -34,7 +37,7 @@ public class DBQueryEditor extends Editor {
     private DBDialect dialect;
 
     {
-        this.showLineNum();
+        // this.showLineNum();
         this.setOnMouseReleased(e -> this.promptPopup.hide());
         // this.addTextChangeListener((observable, oldValue, newValue) -> this.initTextStyle());
         this.promptPopup.setOnItemSelected(item -> this.promptPopup.autoComplete(this, item));
@@ -135,40 +138,40 @@ public class DBQueryEditor extends Editor {
         // this.initTextStyle();
     }
 
-    /**
-     * sql关键字正则模式
-     */
-    private static Pattern Sql_Symbol_Pattern;
-
-    private static Pattern sqlSymbolPattern() {
-        if (Sql_Symbol_Pattern == null) {
-            StringBuilder keywords = new StringBuilder();
-            for (String keyword : DBQueryUtil.getKeywords()) {
-                keywords.append("|").append(keyword);
-            }
-            String regex = "(?i)\\b(" + keywords.substring(1) + ")\\b";
-            Sql_Symbol_Pattern = Pattern.compile(regex);
-        }
-        return Sql_Symbol_Pattern;
-    }
-
-    /**
-     * sql注释正则模式
-     */
-    private static Pattern Sql_Comment_Pattern;
-
-    private static Pattern sqlCommentPattern() {
-        if (Sql_Comment_Pattern == null) {
-            String regex = "#(?:[^\r\n]*|$)|-- (?:[^\r\n]*|$)|/\\*[\\s\\S]*?\\*/";
-            Sql_Comment_Pattern = Pattern.compile(regex);
-        }
-        return Sql_Comment_Pattern;
-    }
-
-    /**
-     * 样式标志位
-     */
-    private final AtomicInteger styleFlag = new AtomicInteger();
+    // /**
+    //  * sql关键字正则模式
+    //  */
+    // private static Pattern Sql_Symbol_Pattern;
+    //
+    // private static Pattern sqlSymbolPattern() {
+    //     if (Sql_Symbol_Pattern == null) {
+    //         StringBuilder keywords = new StringBuilder();
+    //         for (String keyword : DBQueryUtil.getKeywords()) {
+    //             keywords.append("|").append(keyword);
+    //         }
+    //         String regex = "(?i)\\b(" + keywords.substring(1) + ")\\b";
+    //         Sql_Symbol_Pattern = Pattern.compile(regex);
+    //     }
+    //     return Sql_Symbol_Pattern;
+    // }
+    //
+    // /**
+    //  * sql注释正则模式
+    //  */
+    // private static Pattern Sql_Comment_Pattern;
+    //
+    // private static Pattern sqlCommentPattern() {
+    //     if (Sql_Comment_Pattern == null) {
+    //         String regex = "#(?:[^\r\n]*|$)|-- (?:[^\r\n]*|$)|/\\*[\\s\\S]*?\\*/";
+    //         Sql_Comment_Pattern = Pattern.compile(regex);
+    //     }
+    //     return Sql_Comment_Pattern;
+    // }
+    //
+    // /**
+    //  * 样式标志位
+    //  */
+    // private final AtomicInteger styleFlag = new AtomicInteger();
 
     // @Override
     // public synchronized void initTextStyle() {
@@ -217,5 +220,37 @@ public class DBQueryEditor extends Editor {
     public void initNode() {
         super.initNode();
         super.setFormatType(EditorFormatType.SQL);
+    }
+
+    @Override
+    public List<? extends MenuItem> getMenuItems() {
+        List<MenuItem> menuItems = new ArrayList<>();
+        if (this.isSelectedText()) {
+            FXMenuItem menuItem = MenuItemHelper.runSelected(this::run);
+            menuItems.add(menuItem);
+        }
+        if (!menuItems.isEmpty()) {
+            menuItems.add(MenuItemHelper.separator());
+        }
+        menuItems.addAll(super.getMenuItems());
+        return menuItems;
+    }
+
+    /**
+     * 运行回调
+     */
+    private Runnable runCallback;
+
+    public void setRunCallback(Runnable runCallback) {
+        this.runCallback = runCallback;
+    }
+
+    /**
+     * 运行
+     */
+    protected void run() {
+        if (runCallback != null) {
+            runCallback.run();
+        }
     }
 }

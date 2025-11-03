@@ -16,6 +16,7 @@ import cn.oyzh.fx.plus.controls.tab.FXTabPane;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.keyboard.KeyboardUtil;
 import cn.oyzh.fx.plus.node.NodeHeightResizer;
+import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
@@ -103,15 +104,15 @@ public class MysqlQueryMainTabController extends RichTabController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
         this.resultTabPane.selectedItemChanged((observable, oldValue, newValue) -> {
-            FXTab tab1 = (FXTab) newValue;
-            if (tab1 != null) {
-                if (StringUtil.equals(tab1.getId(), "infoTab")) {
+            if (newValue != null) {
+                if (StringUtil.equals(newValue.getId(), "infoTab")) {
                     this.showNode(1);
-                } else if (StringUtil.equals(tab1.getId(), "resultTab")) {
+                } else if (StringUtil.equals(newValue.getId(), "resultTab")) {
                     this.showNode(2);
                 }
             }
         });
+        this.queryArea.setRunCallback(this::run);
     }
 
     @Override
@@ -164,8 +165,21 @@ public class MysqlQueryMainTabController extends RichTabController {
      */
     @FXML
     private void run() {
+        String sql;
+        if (this.queryArea.isSelectedText()) {
+            sql = this.queryArea.getSelectedText();
+        } else {
+            sql = this.queryArea.getTextTrim();
+        }
+        StageManager.showMask(() -> this.doRun(sql));
+    }
+
+    /**
+     * 执行运行
+     * @param sql sql
+     */
+    private void doRun(String sql) {
         try {
-            String sql = this.queryArea.getTextTrim();
             this.resultTabPane.disable();
             MysqlQueryResults<MysqlExecuteResult> results = this.dbItem.executeSql(sql);
             this.clearTabs();

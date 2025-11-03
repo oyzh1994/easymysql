@@ -419,43 +419,44 @@ public class MysqlRoutineParam extends DBObjectStatus {
     }
 
     {
-        // 类型变更
-        this.typeProperty.addListener((observable, oldValue, newValue) -> {
-            if (DBColumnUtil.supportCharset(this.getType())) {
-                this.getCharsetControl().enable();
-                this.getCollationControl().enable();
-            } else {
-                this.getCharsetControl().disable();
-                this.getCharsetControl().clearSelection();
-                this.getCollationControl().disable();
-                this.getCollationControl().clearSelection();
-            }
-            if (DBColumnUtil.supportDigits(this.getType())) {
-                this.getDigitsControl().enable();
-            } else {
-                this.getDigitsControl().disable();
-                this.getDigitsControl().clear();
-            }
-            if (DBColumnUtil.supportSize(this.getType())) {
-                this.getSizeControl().enable();
-            } else {
-                this.getSizeControl().disable();
-                this.getSizeControl().clear();
-            }
-            if (DBColumnUtil.supportValue(this.getType())) {
-                this.getValueControl().enable();
-            } else {
-                this.getValueControl().disable();
-                this.getValueControl().clear();
-            }
-        });
+        DBClient dbClient = CacheHelper.get("dbClient");
+        if (dbClient != null) {
+            // 类型变更
+            this.typeProperty.addListener((observable, oldValue, newValue) -> {
+                if (DBColumnUtil.supportCharset(this.getType())) {
+                    this.getCharsetControl().enable();
+                    this.getCollationControl().enable();
+                } else {
+                    this.getCharsetControl().disable();
+                    this.getCharsetControl().clearSelection();
+                    this.getCollationControl().disable();
+                    this.getCollationControl().clearSelection();
+                }
+                if (DBColumnUtil.supportDigits(this.getType())) {
+                    this.getDigitsControl().enable();
+                } else {
+                    this.getDigitsControl().disable();
+                    this.getDigitsControl().clear();
+                }
+                if (DBColumnUtil.supportSize(this.getType())) {
+                    this.getSizeControl().enable();
+                } else {
+                    this.getSizeControl().disable();
+                    this.getSizeControl().clear();
+                }
+                if (DBColumnUtil.supportValue(this.getType())) {
+                    this.getValueControl().enable();
+                } else {
+                    this.getValueControl().disable();
+                    this.getValueControl().clear();
+                }
+            });
 
-        // 字符集变更
-        this.charsetProperty.addListener((observable, oldValue, newValue) -> {
-            DBClient dbClient = CacheHelper.get("dbClient");
-            this.getCollationControl().init(newValue, dbClient);
-            this.getCollationControl().select(this.getCollation());
-        });
-
+            // 字符集变更
+            this.charsetProperty.addListener((observable, oldValue, newValue) -> {
+                this.getCollationControl().init(newValue, dbClient);
+                this.getCollationControl().select(this.getCollation());
+            });
+        }
     }
 }
