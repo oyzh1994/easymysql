@@ -3,6 +3,7 @@ package cn.oyzh.easymysql.sql;
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBDialect;
+import cn.oyzh.easymysql.util.DBUtil;
 import com.alibaba.druid.DbType;
 import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.sql.ast.SQLStatement;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author oyzh
@@ -36,32 +36,33 @@ public class DruidSqlParser extends DBSqlParser {
 
     @Override
     public String removeComment() {
-        StringBuilder builder = new StringBuilder();
-        AtomicBoolean commentFlag = new AtomicBoolean(false);
-        this.sqlContent.lines().forEach(line -> {
-            // 单行注释1
-            if (line.stripLeading().startsWith("-- ")) {
-                return;
-            }
-            // 单行注释2
-            if (line.stripLeading().startsWith("#")) {
-                return;
-            }
-            // 多行注释开始
-            if (line.stripLeading().startsWith("/*")) {
-                commentFlag.set(true);
-            }
-            // 多行注释结束
-            if (line.stripTrailing().endsWith("*/")) {
-                commentFlag.set(false);
-                return;
-            }
-            // 正常行
-            if (!commentFlag.get() && StringUtil.isNotBlank(line)) {
-                builder.append(line).append("\n");
-            }
-        });
-        return builder.toString();
+        // StringBuilder builder = new StringBuilder();
+        // AtomicBoolean commentFlag = new AtomicBoolean(false);
+        // this.sqlContent.lines().forEach(line -> {
+        //     // 单行注释1
+        //     if (line.stripLeading().startsWith("-- ")) {
+        //         return;
+        //     }
+        //     // 单行注释2
+        //     if (line.stripLeading().startsWith("#")) {
+        //         return;
+        //     }
+        //     // 多行注释开始
+        //     if (line.stripLeading().startsWith("/*")) {
+        //         commentFlag.set(true);
+        //     }
+        //     // 多行注释结束
+        //     if (line.stripTrailing().endsWith("*/")) {
+        //         commentFlag.set(false);
+        //         return;
+        //     }
+        //     // 正常行
+        //     if (!commentFlag.get() && StringUtil.isNotBlank(line)) {
+        //         builder.append(line).append("\n");
+        //     }
+        // });
+        // return builder.toString();
+        return DBUtil.removeComment(this.sqlContent);
     }
 
     private Boolean single;

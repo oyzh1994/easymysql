@@ -1,5 +1,7 @@
 package cn.oyzh.easymysql.trees.query;
 
+import cn.oyzh.common.thread.Task;
+import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlQuery;
@@ -59,23 +61,25 @@ public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> 
     @Override
     public void loadChild() {
         if (!this.isLoading() && !this.isLoaded()) {
-            try {
-                this.setLoaded(true);
-                this.setLoading(true);
-                List<MysqlQuery> dbQueries = MysqlQueryStore.INSTANCE.list(this.info().getId(), this.dbName());
-                List<TreeItem<?>> list = new ArrayList<>();
-                for (MysqlQuery query : dbQueries) {
-                    list.add(new MysqlQueryTreeItem(query, this.getTreeView()));
-                }
-                this.setChild(list);
-                this.expend();
-            } catch (Exception ex) {
-                this.setLoaded(false);
-                ex.printStackTrace();
-                MessageBox.exception(ex);
-            } finally {
-                this.setLoading(false);
-            }
+            Task task = TaskBuilder.newBuilder()
+                    .onStart(() -> {
+                        this.setLoaded(true);
+                        this.setLoading(true);
+                        List<MysqlQuery> dbQueries = MysqlQueryStore.INSTANCE.list(this.info().getId(), this.dbName());
+                        List<TreeItem<?>> list = new ArrayList<>();
+                        for (MysqlQuery query : dbQueries) {
+                            list.add(new MysqlQueryTreeItem(query, this.getTreeView()));
+                        }
+                        this.setChild(list);
+                    })
+                    .onFinish(() -> this.setLoading(false))
+                    .onSuccess(this::expend)
+                    .onError(ex -> {
+                        this.setLoaded(false);
+                        MessageBox.exception(ex);
+                    })
+                    .build();
+            this.startWaiting(task);
         }
     }
 
@@ -86,7 +90,7 @@ public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> 
         this.loadChild();
     }
 
-    public void addChild( MysqlQuery query) {
+    public void addChild(MysqlQuery query) {
         this.addChild(new MysqlQueryTreeItem(query, this.getTreeView()));
     }
 

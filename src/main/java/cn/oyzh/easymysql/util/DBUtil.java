@@ -12,6 +12,12 @@ import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.exception.DBException;
+import com.alibaba.druid.DbType;
+import com.alibaba.druid.sql.SQLUtils;
+import com.alibaba.druid.sql.ast.SQLStatement;
+import com.alibaba.druid.sql.parser.SQLParserFeature;
+import com.alibaba.druid.sql.visitor.SchemaStatVisitor;
+import com.alibaba.druid.stat.TableStat;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -25,9 +31,11 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * db工具类
@@ -469,5 +477,71 @@ public class DBUtil {
         MysqlRecordPrimaryKey pk = new MysqlRecordPrimaryKey();
         pk.init(column, record);
         return pk;
+    }
+
+    /**
+     * 移除注释
+     *
+     * @param sql sql
+     * @return 结果
+     */
+    public static String removeComment(String sql) {
+        StringBuilder builder = new StringBuilder();
+        AtomicBoolean commentFlag = new AtomicBoolean(false);
+        sql.lines().forEach(line -> {
+            // 单行注释1
+            if (line.stripLeading().startsWith("-- ")) {
+                return;
+            }
+            // 单行注释2
+            if (line.stripLeading().startsWith("#")) {
+                return;
+            }
+            // 多行注释开始
+            if (line.stripLeading().startsWith("/*")) {
+                commentFlag.set(true);
+            }
+            // 多行注释结束
+            if (line.stripTrailing().endsWith("*/")) {
+                commentFlag.set(false);
+                return;
+            }
+            // 正常行
+            if (!commentFlag.get() && StringUtil.isNotBlank(line)) {
+                builder.append(line).append("\n");
+            }
+        });
+        return builder.toString();
+    }
+
+    /**
+     * 是否查询全部字段
+     *
+     * @param sql    sql
+     * @param dbType 数据库类型
+     * @return 结果
+     */
+    public static boolean isFullColumn(String sql, DbType dbType) {
+        sql = removeComment(sql);
+        // druid无法解析这些语句，直接返回
+        if (StringUtil.startWithAnyIgnoreCase(sql,
+                "SHOW VARIABLES LIKE",
+                "SHOW CREATE EVENT"
+        )) {
+            return false;
+        }
+        List<SQLStatement> sqlStatements = SQLUtils.parseStatements(sql, dbType, SQLParserFeature.SkipComments);
+        SQLStatement statement = sqlStatements.getFirst();
+        SchemaStatVisitor visitor = new SchemaStatVisitor(dbType);
+        statement.accept(visitor);
+        Collection<TableStat.Column> columns = visitor.getColumns();
+        if (CollectionUtil.isNotEmpty(columns)) {
+            for (TableStat.Column column : columns) {
+                if (StringUtil.equals("*", column.getName())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

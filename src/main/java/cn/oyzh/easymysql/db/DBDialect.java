@@ -1,6 +1,8 @@
 package cn.oyzh.easymysql.db;
 
 
+import com.alibaba.druid.DbType;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,10 +16,20 @@ import java.util.List;
 public enum DBDialect {
     MYSQL;
 
+    public DbType dbType() {
+        switch (this) {
+            case MYSQL:
+                return DbType.mysql;
+            default:
+                return DbType.mysql;
+        }
+    }
+
     public static List<DBDialect> valueList() {
         List<DBDialect> list = new ArrayList<>();
         Collections.addAll(list, values());
         return list;
     }
+
 
 }

@@ -48,6 +48,7 @@ import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.ssh.SSHForwarder;
+import com.alibaba.druid.DbType;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
@@ -504,6 +505,7 @@ public class DBClient {
                             result.parseResult(resultSet, connection, false);
                             result.setFullColumn(parser.isFullColumn());
                         } else {
+                            result.setFullColumn(DBUtil.isFullColumn(execSql, this.dbType()));
                             result.parseResult(resultSet, connection);
                         }
                         DBUtil.close(resultSet);
@@ -2339,6 +2341,7 @@ public class DBClient {
                         result.parseResult(resultSet, connection, false);
                         result.setFullColumn(parser.isFullColumn());
                     } else {
+                        result.setFullColumn(DBUtil.isFullColumn(execSql, this.dbType()));
                         result.parseResult(resultSet, connection);
                     }
                     DBUtil.close(resultSet);
@@ -2407,6 +2410,10 @@ public class DBClient {
 
         }
         return result;
+    }
+
+    public DbType dbType() {
+        return DBDialect.MYSQL.dbType();
     }
 
     public DBDialect dialect() {
