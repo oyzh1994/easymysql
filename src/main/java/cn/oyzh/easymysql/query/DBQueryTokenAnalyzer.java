@@ -30,28 +30,36 @@ public class DBQueryTokenAnalyzer {
             content = content.substring(0, currentIndex);
             // 当前位置
             int tokenIndex = 0;
+            // token类型
             Character tokenType = null;
             char[] chars = ArrayUtil.reverse(content.toCharArray());
             for (int i = 0; i < chars.length; i++) {
                 char c = chars[i];
-                // 遇到换行符则停止
-                if (c == '\n') {
-                    return null;
-                }
                 // 寻找操作符
-                if (c == ' ' || c == '`' || c == '.') {
+                if (c == '\n' || c == ' ' || c == '`' || c == '.') {
                     tokenType = c;
                     tokenIndex = chars.length - i - 1;
                     break;
                 }
             }
+            // 特殊类型，默认为关键字
             if (tokenType == null) {
-                return null;
+                tokenType = '\0';
             }
-            String tokenContent = content.substring(tokenIndex);
+            String tokenContent;
+            if (tokenType != '\0') {
+                tokenContent = content.substring(tokenIndex + 1);
+            } else {
+                tokenContent = content.substring(tokenIndex);
+            }
             token.setToken(tokenType);
-            token.setEndIndex(currentIndex);
-            token.setStartIndex(tokenIndex + 1);
+            if (tokenType != '\0') {
+                token.setStartIndex(tokenIndex + 1);
+                token.setEndIndex(currentIndex);
+            } else {
+                token.setStartIndex(tokenIndex);
+                token.setEndIndex(currentIndex);
+            }
             token.setContent(tokenContent.trim());
             return token;
         } catch (Exception ex) {

@@ -267,7 +267,7 @@ public class DBQueryUtil {
         // 当前提示词
         String text = token.getContent().toUpperCase();
         // 提示词列表
-        final List<DBQueryPromptItem> items = new CopyOnWriteArrayList();
+        final List<DBQueryPromptItem> items = new CopyOnWriteArrayList<>();
         // 任务列表
         List<Runnable> tasks = new ArrayList<>();
         // 关键字

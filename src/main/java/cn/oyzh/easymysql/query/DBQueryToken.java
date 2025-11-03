@@ -40,7 +40,7 @@ public class DBQueryToken {
     }
 
     public boolean isPossibilityKeyword() {
-        return ' ' == this.token;
+        return ' ' == this.token || '\n' == this.token || '\0' == this.token;
     }
 
     public boolean isPossibilityTable() {
