@@ -506,7 +506,7 @@ public class DBClient {
                             result.setFullColumn(parser.isFullColumn());
                         } else {
                             result.setFullColumn(DBUtil.isFullColumn(execSql, this.dbType()));
-                            result.parseResult(resultSet, connection);
+                            result.parseResult(resultSet, connection, false);
                         }
                         DBUtil.close(resultSet);
                         result.setSuccess(true);
@@ -2342,7 +2342,7 @@ public class DBClient {
                         result.setFullColumn(parser.isFullColumn());
                     } else {
                         result.setFullColumn(DBUtil.isFullColumn(execSql, this.dbType()));
-                        result.parseResult(resultSet, connection);
+                        result.parseResult(resultSet, connection, false);
                     }
                     DBUtil.close(resultSet);
                     result.setSuccess(true);

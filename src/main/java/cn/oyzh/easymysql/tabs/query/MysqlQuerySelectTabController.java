@@ -125,7 +125,6 @@ public class MysqlQuerySelectTabController extends RichTabController {
     public void init(MysqlExecuteResult result, MysqlDatabaseTreeItem dbItem) {
         this.result = result;
         this.dbItem = dbItem;
-        this.initDataList();
         if (result.isUpdatable()) {
             if (this.changeListener == null) {
                 this.changeListener = new DBStatusListener(this.result.dbName() + ":" + this.result.tableName()) {
@@ -143,6 +142,7 @@ public class MysqlQuerySelectTabController extends RichTabController {
             this.delete.display();
             this.discard.display();
         }
+        this.initDataList();
     }
 
     /**
