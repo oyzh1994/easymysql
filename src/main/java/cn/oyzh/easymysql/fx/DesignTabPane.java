@@ -12,6 +12,7 @@ public class DesignTabPane extends FXTabPane {
     @Override
     public void initNode() {
         super.initNode();
-        this.setupSelectCountListener();
+        // this.setupSelectCountListener();
+        this.setupRefreshListener();
     }
 }

@@ -332,9 +332,9 @@ public class MysqlRoutineParam extends DBObjectStatus {
         } else {
             type = dtdIdentifier.substring(0, dtdIdentifier.indexOf("("));
             String sub1 = dtdIdentifier.substring(dtdIdentifier.indexOf("(") + 1, dtdIdentifier.lastIndexOf(")"));
-            if (this.supportEnum()) {
+            if (DBColumnUtil.supportEnum(type)) {
                 this.setValue(sub1);
-            } else if (this.supportDigits() && sub1.contains(",")) {
+            } else if (DBColumnUtil.supportDigits(type) && sub1.contains(",")) {
                 String[] arr = sub1.split(",");
                 this.setSize(Integer.parseInt(arr[0]));
                 this.setDigits(Integer.parseInt(arr[1]));
@@ -345,13 +345,13 @@ public class MysqlRoutineParam extends DBObjectStatus {
         this.setType(type.toUpperCase());
     }
 
-    public boolean supportDigits() {
-        return DBColumnUtil.supportDigits(this.getType());
-    }
-
-    public boolean supportEnum() {
-        return DBColumnUtil.supportEnum(this.getType());
-    }
+    // public boolean supportDigits() {
+    //     return DBColumnUtil.supportDigits(this.getType());
+    // }
+    //
+    // public boolean supportEnum() {
+    //     return DBColumnUtil.supportEnum(this.getType());
+    // }
 
     public String getName() {
         return name;

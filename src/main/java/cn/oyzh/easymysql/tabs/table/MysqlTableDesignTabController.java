@@ -1189,7 +1189,6 @@ public class MysqlTableDesignTabController extends ParentTabController {
             if (StringUtil.equals(tabId, "previewTab")) {
                 this.initPreview();
             }
-            // this.tabPane.applyCss();
         });
         // 初始化监听器
         this.listener = new DBStatusListener() {
