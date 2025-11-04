@@ -21,6 +21,11 @@ public class MysqlRecordPrimaryKey {
     private String columnName;
 
     /**
+     * 字段
+     */
+    private MysqlColumn column;
+
+    /**
      * 自动递增的返回值
      */
     private Object returnData;
@@ -36,6 +41,7 @@ public class MysqlRecordPrimaryKey {
     private boolean autoIncrement;
 
     public void init(MysqlColumn column, MysqlRecord record) {
+        this.column = column;
         this.columnName = column.getName();
         this.autoIncrement = column.isAutoIncrement();
         this.data = record.getValue(this.columnName);
@@ -105,5 +111,9 @@ public class MysqlRecordPrimaryKey {
 
     public void setAutoIncrement(boolean autoIncrement) {
         this.autoIncrement = autoIncrement;
+    }
+
+    public MysqlColumn getColumn() {
+        return column;
     }
 }

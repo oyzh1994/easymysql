@@ -212,6 +212,15 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
         ClipboardUtil.copy(sql);
     }
 
+    /**
+     * 复制为update语句
+     */
+    public void vCopyAsUpdateSql() {
+        MysqlColumns columns = this.record.getColumns();
+        String sql = DBDataUtil.toUpdateSql(columns, this.record);
+        ClipboardUtil.copy(sql);
+    }
+
     public void vSetToNull() {
         if (this.node instanceof TextField textField) {
             // 如果内容为空，则直接设置变更

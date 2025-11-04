@@ -67,7 +67,7 @@ public class MysqlDataImportHelper {
         List<String> insertSql = new ArrayList<>();
         for (MysqlRecord record : records) {
             StringBuilder sql = new StringBuilder("INSERT INTO ");
-            sql.append(DBUtil.wrap(columns.getTableName(), DBDialect.MYSQL));
+            sql.append(DBUtil.wrap(columns.tableName(), DBDialect.MYSQL));
             sql.append("(");
             for (MysqlColumn column : columns) {
                 sql.append(DBUtil.wrap(column.getName(), DBDialect.MYSQL)).append(", ");

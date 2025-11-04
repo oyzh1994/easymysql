@@ -74,9 +74,16 @@ public class MysqlColumns extends DBObjectList<MysqlColumn> {
                 .collect(Collectors.toList());
     }
 
-    public String getTableName() {
+    public String tableName() {
         for (MysqlColumn dbColumn : this) {
             return dbColumn.getTableName();
+        }
+        return null;
+    }
+
+    public String dbName() {
+        for (MysqlColumn dbColumn : this) {
+            return dbColumn.getDbName();
         }
         return null;
     }

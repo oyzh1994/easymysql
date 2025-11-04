@@ -484,6 +484,10 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
         return DBColumnUtil.isDateType(this.getType());
     }
 
+    public boolean isGeometryType() {
+        return DBColumnUtil.isGeometryType(this.getType());
+    }
+
     public boolean isTimeType() {
         return DBColumnUtil.isTimeType(this.getType());
     }

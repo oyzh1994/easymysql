@@ -9,6 +9,7 @@ import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
+import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -402,7 +403,7 @@ public class DBDataUtil {
      */
     public static List<String> toInsertSql(MysqlColumns columns, List<MysqlRecord> records, boolean includeFields) {
         List<String> list = new ArrayList<>();
-        String tableName = columns.getTableName();
+        String tableName = columns.tableName();
         List<MysqlColumn> columnList = columns.sortOfPosition();
         final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName, DBDialect.MYSQL);
         for (MysqlRecord record : records) {
@@ -430,6 +431,63 @@ public class DBDataUtil {
             list.add(sql.toString());
         }
         return list;
+    }
+
+    /**
+     * 转换为修改sql
+     *
+     * @param columns 字段列表
+     * @param record  记录
+     * @return 修改sql
+     */
+    public static String toUpdateSql(MysqlColumns columns, MysqlRecord record) {
+        MysqlRecordPrimaryKey primaryKey = DBUtil.initPrimaryKey(columns, record);
+        String tableName = columns.tableName();
+        StringBuilder builder = new StringBuilder();
+        builder.append("UPDATE ")
+                .append(DBUtil.wrap(columns.dbName(), tableName, DBDialect.MYSQL))
+                .append(" SET ");
+        for (MysqlColumn column : columns) {
+            if (primaryKey != null && column == primaryKey.getColumn()) {
+                continue;
+            }
+            Object value = record.getValue(column.getName());
+            value = parameterizedForSql(column, value);
+            builder.append(DBUtil.wrap(column.getName(), DBDialect.MYSQL));
+            builder.append(" = ");
+            if (column.isGeometryType()) {
+                builder.append(" ST_GeomFromText(").append(value).append(")");
+            } else {
+                builder.append(value);
+            }
+            builder.append(", ");
+        }
+        builder.deleteCharAt(builder.length() - 2);
+        builder.append(" WHERE ");
+        if (primaryKey == null) {
+            // 参数
+            boolean first = true;
+            for (MysqlColumn column : columns) {
+                if (first) {
+                    first = false;
+                } else {
+                    builder.append(" AND ");
+                }
+                builder.append(DBUtil.wrap(column.getName(), DBDialect.MYSQL));
+                builder.append(" = ");
+                Object value = record.getValue(column.getName());
+                value = parameterizedForSql(column, value);
+                builder.append(value);
+            }
+            builder.append(" LIMIT 1");
+        } else {
+            builder.append(DBUtil.wrap(primaryKey.getColumnName(), DBDialect.MYSQL));
+            builder.append(" = ");
+            Object value = parameterizedForSql(primaryKey.getColumn(), primaryKey.getData());
+            builder.append(value);
+        }
+        builder.append(";");
+        return builder.toString();
     }
 
     /**

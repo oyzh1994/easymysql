@@ -1249,6 +1249,7 @@ public class DBClient {
                 for (String colName : originalRecordData.columns()) {
                     DBUtil.setVal(statement, originalRecordData.value(colName), index++);
                 }
+                builder.append(" LIMIT 1");
                 updateCount = DBUtil.executeUpdate(statement);
                 DBUtil.close(statement);
             } else {

@@ -46,7 +46,7 @@ public class MysqlSqlTypeFileWriter extends MysqlTypeFileWriter {
 
     @Override
     public void writeObject(Map<String, Object> object) throws Exception {
-        String tableName = this.columns.getTableName();
+        String tableName = this.columns.tableName();
         List<MysqlColumn> columnList = this.columns.sortOfPosition();
         final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName, DBDialect.MYSQL);
         StringBuilder sql = new StringBuilder(sqlBase);

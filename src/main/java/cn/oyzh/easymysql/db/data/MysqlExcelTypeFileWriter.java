@@ -58,7 +58,7 @@ public class MysqlExcelTypeFileWriter extends MysqlTypeFileWriter {
         // 重置行索引
         this.xlsRowIndex = 1;
         // 创建一个新的工作表sheet
-        Sheet sheet = this.workbook.createSheet(columns.getTableName());
+        Sheet sheet = this.workbook.createSheet(columns.tableName());
         // 创建列名行
         Row headerRow = sheet.createRow(0);
         // 写入列名

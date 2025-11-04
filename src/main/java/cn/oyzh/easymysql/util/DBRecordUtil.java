@@ -211,6 +211,8 @@ public class DBRecordUtil {
         menuItems.add(setToEmptyString);
         FXMenuItem copyAsInsertStatement = MenuItemHelper.copyAsInsertStatement(property::vCopyAsInsertSql);
         menuItems.add(copyAsInsertStatement);
+        FXMenuItem copyAsUpdateStatement = MenuItemHelper.copyAsUpdateStatement(property::vCopyAsUpdateSql);
+        menuItems.add(copyAsUpdateStatement);
         // menuItems.add(delete);
         return menuItems;
     }
