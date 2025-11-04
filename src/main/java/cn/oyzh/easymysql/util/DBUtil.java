@@ -219,21 +219,21 @@ public class DBUtil {
         printData(data);
     }
 
-    @Deprecated
-    public static String wrap(String name) {
-        if (name == null) {
-            return "";
-        }
-        StringBuilder builder = new StringBuilder();
-        if (!name.startsWith("`")) {
-            builder.append("`");
-        }
-        builder.append(name);
-        if (!name.endsWith("`")) {
-            builder.append("`");
-        }
-        return builder.toString();
-    }
+    // @Deprecated
+    // public static String wrap(String name) {
+    //     if (name == null) {
+    //         return "";
+    //     }
+    //     StringBuilder builder = new StringBuilder();
+    //     if (!name.startsWith("`")) {
+    //         builder.append("`");
+    //     }
+    //     builder.append(name);
+    //     if (!name.endsWith("`")) {
+    //         builder.append("`");
+    //     }
+    //     return builder.toString();
+    // }
 
     public static String wrap(String name, DBDialect dialect) {
         StringBuilder builder = new StringBuilder();
@@ -249,14 +249,14 @@ public class DBUtil {
         return builder.toString();
     }
 
-    @Deprecated
-    public static String wrap(String dbName, String tableName) {
-        return wrap(dbName) + "." + wrap(tableName);
-    }
+    // @Deprecated
+    // public static String wrap(String dbName, String tableName) {
+    //     return wrap(dbName) + "." + wrap(tableName);
+    // }
 
     public static String wrap(String dbName, String tableName, DBDialect dialect) {
         if (dialect == DBDialect.MYSQL) {
-            return wrap(dbName) + "." + wrap(tableName);
+            return wrap(dbName, dialect) + "." + wrap(tableName, dialect);
         }
         return null;
     }
@@ -442,12 +442,12 @@ public class DBUtil {
     }
 
     /**
-     * 转换为插入记录
+     * 转换为插入参数
      *
      * @param columns 字段列表
      * @param record  记录
      */
-    public static MysqlInsertRecordParam toInsertRecord(MysqlColumns columns, MysqlRecord record) {
+    public static MysqlInsertRecordParam toInsertRecordParam(MysqlColumns columns, MysqlRecord record) {
         MysqlColumn column = columns.getFirst();
         MysqlRecordData recordData = record.getRecordData();
         MysqlRecordPrimaryKey primaryKey = initPrimaryKey(columns, record);

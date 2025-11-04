@@ -4,6 +4,7 @@ import cn.oyzh.common.date.DateUtil;
 import cn.oyzh.common.file.LineFileWriter;
 import cn.oyzh.common.util.HexUtil;
 import cn.oyzh.common.util.TextUtil;
+import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.util.DBDataUtil;
@@ -47,12 +48,12 @@ public class MysqlSqlTypeFileWriter extends MysqlTypeFileWriter {
     public void writeObject(Map<String, Object> object) throws Exception {
         String tableName = this.columns.getTableName();
         List<MysqlColumn> columnList = this.columns.sortOfPosition();
-        final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName);
+        final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName, DBDialect.MYSQL);
         StringBuilder sql = new StringBuilder(sqlBase);
         if (this.config.isIncludeFields()) {
             sql.append("(");
             for (MysqlColumn dbColumn : columnList) {
-                sql.append(DBUtil.wrap(dbColumn.getName())).append(", ");
+                sql.append(DBUtil.wrap(dbColumn.getName(), DBDialect.MYSQL)).append(", ");
             }
             if (sql.toString().endsWith(", ")) {
                 sql.delete(sql.length() - 2, sql.length());

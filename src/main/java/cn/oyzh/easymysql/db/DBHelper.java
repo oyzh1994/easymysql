@@ -25,7 +25,7 @@ import java.util.Map;
 public class DBHelper {
 
     public static String getFunctionDefinition(Connection connection, String functionName) throws Exception {
-        String sql = "SHOW CREATE FUNCTION " + DBUtil.wrap(functionName);
+        String sql = "SHOW CREATE FUNCTION " + DBUtil.wrap(functionName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
         // 执行SQL查询并获取结果集
         ResultSet resultSet = statement.executeQuery(sql);
@@ -39,7 +39,7 @@ public class DBHelper {
     }
 
     public static String showCreateProcedure(Connection connection, String procedureName) throws Exception {
-        String sql = "SHOW CREATE PROCEDURE " + DBUtil.wrap(procedureName);
+        String sql = "SHOW CREATE PROCEDURE " + DBUtil.wrap(procedureName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
         // 执行SQL查询并获取结果集
         ResultSet resultSet = statement.executeQuery(sql);
@@ -53,7 +53,7 @@ public class DBHelper {
     }
 
     public static String showCreateTrigger(Connection connection, String triggerName) throws Exception {
-        String sql = "SHOW CREATE TRIGGER " + DBUtil.wrap(triggerName);
+        String sql = "SHOW CREATE TRIGGER " + DBUtil.wrap(triggerName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
         // 执行SQL查询并获取结果集
         ResultSet resultSet = statement.executeQuery(sql);
@@ -67,7 +67,7 @@ public class DBHelper {
     }
 
     public static String showCreateFunction(Connection connection, String functionName) throws Exception {
-        String sql = "SHOW CREATE FUNCTION " + DBUtil.wrap(functionName);
+        String sql = "SHOW CREATE FUNCTION " + DBUtil.wrap(functionName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
         // 执行SQL查询并获取结果集
         ResultSet resultSet = statement.executeQuery(sql);
@@ -81,7 +81,7 @@ public class DBHelper {
     }
 
     public static String showCreateEvent(Connection connection, String eventName) throws Exception {
-        String sql = "SHOW CREATE EVENT " + DBUtil.wrap(eventName);
+        String sql = "SHOW CREATE EVENT " + DBUtil.wrap(eventName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
         // 执行SQL查询并获取结果集
         ResultSet resultSet = statement.executeQuery(sql);
@@ -143,7 +143,7 @@ public class DBHelper {
     }
 
     public static String getProcedureDefiner(Connection connection, String procedureName) throws Exception {
-        String sql = "SHOW CREATE PROCEDURE " + DBUtil.wrap(procedureName);
+        String sql = "SHOW CREATE PROCEDURE " + DBUtil.wrap(procedureName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
         // 执行SQL查询并获取结果集
         ResultSet resultSet = statement.executeQuery(sql);
@@ -205,7 +205,7 @@ public class DBHelper {
             info.put("CHECK_OPTION", resultSet.getString("CHECK_OPTION"));
             info.put("SECURITY_TYPE", resultSet.getString("SECURITY_TYPE"));
         }
-        String createView = showCreateView(connection, DBUtil.wrap(dbName, viewName));
+        String createView = showCreateView(connection, DBUtil.wrap(dbName, viewName, DBDialect.MYSQL));
         String[] arr = createView.split(" ");
         for (String string : arr) {
             if (StringUtil.startWithIgnoreCase(string, "DEFINER=")) {
@@ -256,7 +256,7 @@ public class DBHelper {
     }
 
     public static String showCreateTable(Connection connection, String tableName) throws Exception {
-        String sql = "SHOW CREATE TABLE " + DBUtil.wrap(tableName);
+        String sql = "SHOW CREATE TABLE " + DBUtil.wrap(tableName, DBDialect.MYSQL);
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(sql);
         String definition = "";
@@ -286,7 +286,7 @@ public class DBHelper {
             String[] arr = showTableDefinition.split(",");
             for (String string : arr) {
                 string = string.replace("\n", "").trim();
-                if (StringUtil.startWithIgnoreCase(string, DBUtil.wrap(columnName)) && StringUtil.containsIgnoreCase(string, "zerofill")) {
+                if (StringUtil.startWithIgnoreCase(string, DBUtil.wrap(columnName, DBDialect.MYSQL)) && StringUtil.containsIgnoreCase(string, "zerofill")) {
                     return true;
                 }
             }
@@ -303,7 +303,7 @@ public class DBHelper {
             String str1 = arr[1].substring(0, arr[1].indexOf(" "));
             String[] arr1 = str1.split(",");
             for (String s : arr1) {
-                if (StringUtil.containsIgnoreCase(s, DBUtil.wrap(columnName))) {
+                if (StringUtil.containsIgnoreCase(s, DBUtil.wrap(columnName, DBDialect.MYSQL))) {
                     if (s.contains("(")) {
                         return Integer.parseInt(s.substring(s.indexOf("(") + 1, s.indexOf(")")));
                     }
@@ -416,7 +416,7 @@ public class DBHelper {
     }
 
     public static String showCreateView(Connection connection, String viewName) throws Exception {
-        String sql = "SHOW CREATE VIEW " + DBUtil.wrap(viewName);
+        String sql = "SHOW CREATE VIEW " + DBUtil.wrap(viewName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
         // 执行SQL查询并获取结果集
         ResultSet resultSet = statement.executeQuery(sql);

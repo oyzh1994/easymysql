@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.generator.routine;
 
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.StringUtil;
+import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.util.DBUtil;
@@ -24,7 +25,7 @@ public class DBProcedureSqlGenerator {
         if (StringUtil.isNotBlank(procedure.getDefiner())) {
             sql += " DEFINER = " + procedure.getDefiner();
         }
-        sql += " PROCEDURE " + DBUtil.wrap(procedure.getName());
+        sql += " PROCEDURE " + DBUtil.wrap(procedure.getName(), DBDialect.MYSQL);
         // 参数
         sql += " (";
         List<MysqlRoutineParam> params = procedure.getParams();

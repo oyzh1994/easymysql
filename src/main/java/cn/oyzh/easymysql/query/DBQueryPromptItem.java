@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.query;
 
+import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.util.DBUtil;
 
 /**
@@ -102,7 +103,7 @@ public class DBQueryPromptItem {
 
     public String wrapContent( ) {
         if(this.isColumnType()){
-            return DBUtil.wrap(this.content);
+            return DBUtil.wrap(this.content, DBDialect.MYSQL);
         }
         return this.content;
     }

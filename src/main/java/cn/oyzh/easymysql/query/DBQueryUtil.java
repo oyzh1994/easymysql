@@ -4,6 +4,7 @@ import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
+import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
@@ -368,7 +369,7 @@ public class DBQueryUtil {
                     item.setType((byte) 3);
                     item.setCorrelation(corr);
                     item.setContent(column.getName());
-                    item.setExtContent(DBUtil.wrap(column.getDbName(), column.getTableName()));
+                    item.setExtContent(DBUtil.wrap(column.getDbName(), column.getTableName(), DBDialect.MYSQL));
                     items.add(item);
                 }
             }));

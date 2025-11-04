@@ -742,7 +742,7 @@ public class DBClient {
 
     public void dropEvent(String dbName, MysqlEvent event) {
         try {
-            String sql = "DROP EVENT " + DBUtil.wrap(event.getDbName(), event.getName());
+            String sql = "DROP EVENT " + DBUtil.wrap(event.getDbName(), event.getName(), this.dialect());
             DBUtil.printSql(sql);
             Statement statement = this.connection(dbName).createStatement();
             statement.executeUpdate(sql);
@@ -1277,7 +1277,7 @@ public class DBClient {
     public String showCreateTable(String dbName, String tableName) {
         try {
             Connection connection = this.connection(dbName);
-            String sql = "SHOW CREATE TABLE " + DBUtil.wrap(tableName);
+            String sql = "SHOW CREATE TABLE " + DBUtil.wrap(tableName, this.dialect());
             DBUtil.printSql(sql);
             Statement stmt = connection.createStatement();
             ResultSet resultSet = stmt.executeQuery(sql);
@@ -1297,7 +1297,7 @@ public class DBClient {
     public String showCreateView(String dbName, String viewName) {
         try {
             Connection connection = this.connection(dbName);
-            String sql = "SHOW CREATE VIEW " + DBUtil.wrap(viewName);
+            String sql = "SHOW CREATE VIEW " + DBUtil.wrap(viewName, this.dialect());
             DBUtil.printSql(sql);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -1317,7 +1317,7 @@ public class DBClient {
     public String showCreateFunction(String dbName, String functionName) {
         try {
             Connection connection = this.connection(dbName);
-            String sql = "SHOW CREATE FUNCTION " + DBUtil.wrap(functionName);
+            String sql = "SHOW CREATE FUNCTION " + DBUtil.wrap(functionName, this.dialect());
             DBUtil.printSql(sql);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -1337,7 +1337,7 @@ public class DBClient {
     public String showCreateProcedure(String dbName, String procedureName) {
         try {
             Connection connection = this.connection(dbName);
-            String sql = "SHOW CREATE PROCEDURE " + DBUtil.wrap(procedureName);
+            String sql = "SHOW CREATE PROCEDURE " + DBUtil.wrap(procedureName, this.dialect());
             DBUtil.printSql(sql);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -1357,7 +1357,7 @@ public class DBClient {
     public String showCreateTrigger(String dbName, String triggerName) {
         try {
             Connection connection = this.connection(dbName);
-            String sql = "SHOW CREATE TRIGGER " + DBUtil.wrap(triggerName);
+            String sql = "SHOW CREATE TRIGGER " + DBUtil.wrap(triggerName, this.dialect());
             DBUtil.printSql(sql);
             Statement statement = connection.createStatement();
             // 执行SQL查询并获取结果集
@@ -1378,7 +1378,7 @@ public class DBClient {
     public String showCreateEvent(String dbName, String eventName) {
         try {
             Connection connection = this.connection(dbName);
-            String sql = "SHOW CREATE EVENT " + DBUtil.wrap(eventName);
+            String sql = "SHOW CREATE EVENT " + DBUtil.wrap(eventName, this.dialect());
             DBUtil.printSql(sql);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -1624,7 +1624,7 @@ public class DBClient {
 
     public void dropView(String dbName, MysqlView view) {
         try {
-            String sql = "DROP VIEW IF EXISTS " + DBUtil.wrap(view.getDbName(), view.getName());
+            String sql = "DROP VIEW IF EXISTS " + DBUtil.wrap(view.getDbName(), view.getName(), this.dialect());
             Statement statement = this.connection(dbName).createStatement();
             DBUtil.printSql(sql);
             statement.executeUpdate(sql);
@@ -1661,7 +1661,7 @@ public class DBClient {
             if (StringUtil.isNotBlank(view.getSecurityType())) {
                 sql += " SQL SECURITY " + view.getSecurityType();
             }
-            sql = sql + " VIEW " + DBUtil.wrap(dbName, view.getName()) + " AS " + view.getDefinition();
+            sql = sql + " VIEW " + DBUtil.wrap(dbName, view.getName(), this.dialect()) + " AS " + view.getDefinition();
             if (view.hasCheckOption()) {
                 sql += " WITH " + view.getCheckOption() + " CHECK OPTION";
             }
@@ -1686,7 +1686,7 @@ public class DBClient {
             if (StringUtil.isNotBlank(view.getSecurityType())) {
                 sql += " SQL SECURITY " + view.getSecurityType();
             }
-            sql = sql + " VIEW " + DBUtil.wrap(dbName, view.getName()) + " AS " + view.getDefinition();
+            sql = sql + " VIEW " + DBUtil.wrap(dbName, view.getName(), this.dialect()) + " AS " + view.getDefinition();
             if (view.hasCheckOption()) {
                 sql += " WITH " + view.getCheckOption() + " CHECK OPTION";
             }
@@ -1702,7 +1702,7 @@ public class DBClient {
         try {
             Connection connection = this.connection();
             Statement statement = connection.createStatement();
-            String sql = "SHOW INDEX FROM " + DBUtil.wrap(dbName, tableName);
+            String sql = "SHOW INDEX FROM " + DBUtil.wrap(dbName, tableName, this.dialect());
             DBUtil.printSql(sql);
             ResultSet resultSet = statement.executeQuery(sql);
             // 打印元数据
@@ -1924,7 +1924,7 @@ public class DBClient {
             DBUtil.close(resultSet);
             DBUtil.close(statement);
 
-            sql = "SELECT * FROM " + DBUtil.wrap(dbName, viewName) + " LIMIT 1";
+            sql = "SELECT * FROM " + DBUtil.wrap(dbName, viewName, this.dialect()) + " LIMIT 1";
             DBUtil.printSql(sql);
             PreparedStatement statement1 = this.connection().prepareStatement(sql);
             ResultSet resultSet1 = statement1.executeQuery();
@@ -1954,7 +1954,7 @@ public class DBClient {
         try {
             Connection connection = this.connection(dbName);
             StringBuilder builder = new StringBuilder("SELECT * FROM ");
-            builder.append(DBUtil.wrap(dbName, viewName));
+            builder.append(DBUtil.wrap(dbName, viewName, this.dialect()));
             String filterCondition = MysqlConditionUtil.buildCondition(filters);
             if (StringUtil.isNotBlank(filterCondition)) {
                 builder.append(" WHERE ").append(filterCondition);
@@ -2235,7 +2235,7 @@ public class DBClient {
             if (database.getCharset() == null && database.getCollation() == null) {
                 return true;
             }
-            StringBuilder builder = new StringBuilder("ALTER DATABASE ").append(DBUtil.wrap(database.getName()));
+            StringBuilder builder = new StringBuilder("ALTER DATABASE ").append(DBUtil.wrap(database.getName(), this.dialect()));
             if (database.getCharset() != null) {
                 builder.append(" CHARACTER SET ").append(DBUtil.wrapData(database.getCharset()));
             }
@@ -2275,7 +2275,7 @@ public class DBClient {
 
     public boolean dropDatabase(String dbName) {
         try {
-            String sql = "DROP DATABASE " + DBUtil.wrap(dbName);
+            String sql = "DROP DATABASE " + DBUtil.wrap(dbName, this.dialect());
             DBUtil.printSql(sql);
             Statement statement = this.connection().createStatement();
             statement.executeUpdate(sql);
@@ -2572,7 +2572,7 @@ public class DBClient {
 
     public void dropProcedure(String dbName, MysqlProcedure routine) {
         try {
-            String sql = "DROP PROCEDURE IF EXISTS " + DBUtil.wrap(dbName, routine.getName());
+            String sql = "DROP PROCEDURE IF EXISTS " + DBUtil.wrap(dbName, routine.getName(), this.dialect());
             DBUtil.printSql(sql);
             Statement statement = this.connection(dbName).createStatement();
             statement.executeUpdate(sql);
@@ -2598,7 +2598,7 @@ public class DBClient {
 
     public void alertProcedure(String dbName, MysqlProcedure procedure) {
         try {
-            String sql = "DROP PROCEDURE IF EXISTS " + DBUtil.wrap(dbName, procedure.getName());
+            String sql = "DROP PROCEDURE IF EXISTS " + DBUtil.wrap(dbName, procedure.getName(), this.dialect());
             DBUtil.printSql(sql);
             Statement statement = this.connection(dbName).createStatement();
             statement.executeUpdate(sql);
@@ -2616,7 +2616,7 @@ public class DBClient {
 
     public void dropFunction(String dbName, MysqlFunction function) {
         try {
-            String sql = "DROP function IF EXISTS " + DBUtil.wrap(dbName, function.getName());
+            String sql = "DROP function IF EXISTS " + DBUtil.wrap(dbName, function.getName(), this.dialect());
             DBUtil.printSql(sql);
             Statement statement = this.connection(dbName).createStatement();
             statement.executeUpdate(sql);
@@ -2699,9 +2699,9 @@ public class DBClient {
             Connection connection = this.connection(dbName);
             MysqlRecordPrimaryKey primaryKey = param.getPrimaryKey();
             StringBuilder builder = new StringBuilder("SELECT * FROM ");
-            builder.append(DBUtil.wrap(dbName, tableName, DBDialect.MYSQL))
+            builder.append(DBUtil.wrap(dbName, tableName, this.dialect()))
                     .append(" WHERE ")
-                    .append(DBUtil.wrap(primaryKey.getColumnName(), DBDialect.MYSQL))
+                    .append(DBUtil.wrap(primaryKey.getColumnName(), this.dialect()))
                     .append(" = ?");
             String sql = builder.toString();
             DBUtil.printSql(sql);

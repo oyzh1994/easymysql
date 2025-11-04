@@ -3,6 +3,7 @@ package cn.oyzh.easymysql.db.data;
 import cn.oyzh.common.date.DateUtil;
 import cn.oyzh.common.util.HexUtil;
 import cn.oyzh.common.util.TextUtil;
+import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
@@ -326,13 +327,13 @@ public class MysqlDataExportHelper {
         List<String> list = new ArrayList<>();
         String tableName = columns.getTableName();
         List<MysqlColumn> columnList = columns.sortOfPosition();
-        final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName);
+        final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName, DBDialect.MYSQL);
         for (MysqlRecord record : records) {
             StringBuilder sql = new StringBuilder(sqlBase);
             if (config.isIncludeFields()) {
                 sql.append("(");
                 for (MysqlColumn dbColumn : columnList) {
-                    sql.append(DBUtil.wrap(dbColumn.getName())).append(", ");
+                    sql.append(DBUtil.wrap(dbColumn.getName(), DBDialect.MYSQL)).append(", ");
                 }
                 if (sql.toString().endsWith(", ")) {
                     sql.delete(sql.length() - 2, sql.length());

@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.db.data;
 
 import cn.oyzh.common.date.DateUtil;
+import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
@@ -66,10 +67,10 @@ public class MysqlDataImportHelper {
         List<String> insertSql = new ArrayList<>();
         for (MysqlRecord record : records) {
             StringBuilder sql = new StringBuilder("INSERT INTO ");
-            sql.append(DBUtil.wrap(columns.getTableName()));
+            sql.append(DBUtil.wrap(columns.getTableName(), DBDialect.MYSQL));
             sql.append("(");
             for (MysqlColumn column : columns) {
-                sql.append(DBUtil.wrap(column.getName())).append(", ");
+                sql.append(DBUtil.wrap(column.getName(), DBDialect.MYSQL)).append(", ");
             }
             sql.deleteCharAt(sql.length() - 2);
             sql.append(") VALUES (");

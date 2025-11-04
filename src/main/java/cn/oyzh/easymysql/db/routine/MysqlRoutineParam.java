@@ -3,6 +3,7 @@ package cn.oyzh.easymysql.db.routine;
 import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
@@ -296,7 +297,7 @@ public class MysqlRoutineParam extends DBObjectStatus {
     public String getDefinition() {
         String definition = "";
         if (StringUtil.isNotBlank(this.getName())) {
-            definition += DBUtil.wrap(this.getName());
+            definition += DBUtil.wrap(this.getName(), DBDialect.MYSQL);
         }
         definition += " " + this.getType();
         definition += " (";

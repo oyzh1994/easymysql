@@ -27,7 +27,7 @@ public class MysqlEventCreateSqlGenerator extends EventCreateSqlGenerator {
             sql += " DEFINER = " + event.getDefiner();
         }
         // 名称
-        sql += " EVENT " + DBUtil.wrap(event.getDbName(), event.getName());
+        sql += " EVENT " + DBUtil.wrap(event.getDbName(), event.getName(), DBDialect.MYSQL);
         // 执行时间
         sql += "\nON SCHEDULE ";
         if (event.isOnTimeType()) {

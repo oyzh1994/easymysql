@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.generator.routine;
 
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.StringUtil;
+import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.util.DBUtil;
@@ -24,7 +25,7 @@ public class DBFunctionSqlGenerator {
         if (StringUtil.isNotBlank(function.getDefiner())) {
             sql += " DEFINER = " + function.getDefiner();
         }
-        sql += " FUNCTION " + DBUtil.wrap(function.getName());
+        sql += " FUNCTION " + DBUtil.wrap(function.getName(), DBDialect.MYSQL);
         // 参数
         sql += " (";
         List<MysqlRoutineParam> params = function.getParams();
