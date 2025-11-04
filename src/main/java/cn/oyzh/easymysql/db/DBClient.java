@@ -1175,10 +1175,10 @@ public class DBClient {
                     }
                     if (recordData.hasValue(colName)) {
                         builder.append(DBUtil.wrap(colName, this.dialect()))
-                                .append(" IS NULL");
+                                .append(" = ?");
                     } else {
                         builder.append(DBUtil.wrap(colName, this.dialect()))
-                                .append(" = ?");
+                                .append(" IS NULL");
                     }
                 }
                 builder.append(" LIMIT 1");
