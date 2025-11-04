@@ -232,9 +232,9 @@ public class MysqlRecord extends DBObjectStatus {
             MysqlRecordProperty property = this.getProperty(column);
             if (property != null) {
                 Object val = property.getOriginal();
-                if (val != null) {
+                // if (val != null) {
                     recordData.put(property.getColumn(), val);
-                }
+                // }
             }
         }
         return recordData;

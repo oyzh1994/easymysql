@@ -719,7 +719,7 @@ public class MysqlColumn extends DBObjectStatus implements ObjectCopier<MysqlCol
     }
 
     public Integer getPosition() {
-        return position;
+        return position == null ? 0 : position;
     }
 
     public void setPosition(Integer position) {
