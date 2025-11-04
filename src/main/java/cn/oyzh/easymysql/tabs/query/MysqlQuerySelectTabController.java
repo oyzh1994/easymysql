@@ -467,8 +467,8 @@ public class MysqlQuerySelectTabController extends RichTabController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             super.initialize(url, resourceBundle);
-            this.add.managedBindVisible();
-            this.delete.managedBindVisible();
+            // this.add.managedBindVisible();
+            // this.delete.managedBindVisible();
             this.discard.disableProperty().bind(this.apply.disableProperty());
             this.apply.disabledProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue) {

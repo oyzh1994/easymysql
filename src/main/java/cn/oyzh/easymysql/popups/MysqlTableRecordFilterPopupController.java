@@ -2,20 +2,13 @@ package cn.oyzh.easymysql.popups;
 
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
-import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
-import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.table.FXTableView;
 import cn.oyzh.fx.plus.information.MessageBox;
-import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupAttribute;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.WindowEvent;
 
 import java.util.List;
@@ -42,35 +35,35 @@ public class MysqlTableRecordFilterPopupController extends PopupController {
     @FXML
     private FXTableView<MysqlRecordFilter> filterTable;
 
-    /**
-     * 字段列
-     */
-    @FXML
-    private FXTableColumn<MysqlRecordFilter, DBConditionComboBox> column;
-
-    /**
-     * 条件列
-     */
-    @FXML
-    private FXTableColumn<MysqlRecordFilter, DBConditionComboBox> condition;
-
-    /**
-     * 值列
-     */
-    @FXML
-    private FXTableColumn<MysqlRecordFilter, Node> value;
-
-    /**
-     * 启用列
-     */
-    @FXML
-    private FXTableColumn<MysqlRecordFilter, CheckBox> enabled;
-
-    /**
-     * 连接符列
-     */
-    @FXML
-    private FXTableColumn<MysqlRecordFilter, ComboBox<String>> joinSymbol;
+    // /**
+    //  * 字段列
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRecordFilter, DBConditionComboBox> column;
+    //
+    // /**
+    //  * 条件列
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRecordFilter, DBConditionComboBox> condition;
+    //
+    // /**
+    //  * 值列
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRecordFilter, Node> value;
+    //
+    // /**
+    //  * 启用列
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRecordFilter, CheckBox> enabled;
+    //
+    // /**
+    //  * 连接符列
+    //  */
+    // @FXML
+    // private FXTableColumn<MysqlRecordFilter, ComboBox<String>> joinSymbol;
 
     /**
      * db表节点
@@ -124,23 +117,23 @@ public class MysqlTableRecordFilterPopupController extends PopupController {
         this.columnList = null;
     }
 
-    /**
-     * 初始化列表控件
-     */
-    private void initTable() {
-        this.value.setCellValueFactory(new PropertyValueFactory<>("valueControl"));
-        this.column.setCellValueFactory(new PropertyValueFactory<>("columnControl"));
-        this.enabled.setCellValueFactory(new PropertyValueFactory<>("enabledControl"));
-        this.condition.setCellValueFactory(new PropertyValueFactory<>("conditionControl"));
-        this.joinSymbol.setCellValueFactory(new PropertyValueFactory<>("joinSymbolControl"));
-    }
+    // /**
+    //  * 初始化列表控件
+    //  */
+    // private void initTable() {
+    //     this.value.setCellValueFactory(new PropertyValueFactory<>("valueControl"));
+    //     this.column.setCellValueFactory(new PropertyValueFactory<>("columnControl"));
+    //     this.enabled.setCellValueFactory(new PropertyValueFactory<>("enabledControl"));
+    //     this.condition.setCellValueFactory(new PropertyValueFactory<>("conditionControl"));
+    //     this.joinSymbol.setCellValueFactory(new PropertyValueFactory<>("joinSymbolControl"));
+    // }
 
-    @Override
-    public void onPopupInitialize(PopupAdapter window) {
-        super.onPopupInitialize(window);
-        // 初始化表单
-        this.initTable();
-    }
+    // @Override
+    // public void onPopupInitialize(PopupAdapter window) {
+    //     super.onPopupInitialize(window);
+    //     // 初始化表单
+    //     this.initTable();
+    // }
 
     /**
      * 添加过滤条件

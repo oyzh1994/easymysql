@@ -16,7 +16,7 @@ import cn.oyzh.easymysql.fx.record.DBRecordTableView;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.popups.MysqlPageSettingPopupController;
-import cn.oyzh.easymysql.popups.MysqlTableRecordFilterPopupController;
+import cn.oyzh.easymysql.popups.MysqlViewRecordFilterPopupController;
 import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.util.DBRecordUtil;
@@ -398,7 +398,7 @@ public class MysqlViewRecordTabController extends RichTabController {
     @FXML
     private void filter() {
         try {
-            PopupAdapter popup = PopupManager.parsePopup(MysqlTableRecordFilterPopupController.class);
+            PopupAdapter popup = PopupManager.parsePopup(MysqlViewRecordFilterPopupController.class);
             popup.setProp("item", this.getItem());
             popup.setProp("filters", this.filters);
             popup.showPopup(this.filter);
