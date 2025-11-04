@@ -210,7 +210,7 @@ public class DataImportHandler extends DataHandler {
         List<MysqlRecord> records = new ArrayList<>();
         List<Map<String, Object>> list = reader.readObjects(count);
         for (Map<String, Object> objectMap : list) {
-            MysqlRecord record = new MysqlRecord();
+            MysqlRecord record = new MysqlRecord(null);
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 record.putValue(entry.getKey(), entry.getValue());
             }

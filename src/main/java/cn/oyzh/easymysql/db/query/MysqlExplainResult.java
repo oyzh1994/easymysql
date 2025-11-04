@@ -21,7 +21,7 @@ public class MysqlExplainResult extends MysqlQueryResult {
         this.records = new ArrayList<>();
         while (resultSet.next()) {
             int colIndex = 1;
-            MysqlRecord record = new MysqlRecord(readonly);
+            MysqlRecord record = new MysqlRecord(this.columns, readonly);
             for (MysqlColumn dbColumn : this.columns) {
                 Object data = resultSet.getObject(colIndex++);
                 record.putValue(dbColumn, data);

@@ -210,7 +210,7 @@ public class MysqlQuerySelectTabController extends RichTabController {
      */
     @FXML
     private void addRecord() {
-        MysqlRecord record = new MysqlRecord();
+        MysqlRecord record = new MysqlRecord(this.columns);
         record.setCreated(true);
         for (MysqlColumn column : this.columns) {
             Object val = null;

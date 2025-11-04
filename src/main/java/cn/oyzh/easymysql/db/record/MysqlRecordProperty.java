@@ -17,8 +17,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
-import java.util.Set;
-
 /**
  * db表记录属性
  *
@@ -36,6 +34,11 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
      * 表字段
      */
     private MysqlColumn column;
+
+    // /**
+    //  * 表字段列表
+    //  */
+    // private MysqlColumns columns;
 
     /**
      * 表记录
@@ -63,13 +66,24 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
 
     public MysqlRecordProperty(MysqlRecord record, MysqlColumn column, Object value, boolean readonly) {
         super(value);
-        this.record = record;
         this.column = column;
+        this.record = record;
+        // this.columns = columns;
         if (!readonly) {
             this.original = value;
         }
         this.readonly = readonly;
     }
+
+    // public MysqlRecordProperty(MysqlRecord record, MysqlColumn column, Object value, boolean readonly) {
+    //     super(value);
+    //     this.record = record;
+    //     this.column = column;
+    //     if (!readonly) {
+    //         this.original = value;
+    //     }
+    //     this.readonly = readonly;
+    // }
 
     @Override
     public Object get() {
@@ -170,30 +184,30 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
     // public void vDelete() {
     //     MysqlEventUtil.recordDelete(this.record);
     // }
-
-    /**
-     * 转换为字段列表
-     *
-     * @return 字段列表
-     */
-    private MysqlColumns toColumns() {
-        Set<String> cols = this.record.columns();
-        MysqlColumns columns = new MysqlColumns();
-        int pos = 0;
-        for (String col : cols) {
-            MysqlColumn column = new MysqlColumn(col);
-            column.setPosition(pos++);
-            column.setTableName(this.column.getTableName());
-            columns.add(column);
-        }
-        return columns;
-    }
+    //
+    // /**
+    //  * 转换为字段列表
+    //  *
+    //  * @return 字段列表
+    //  */
+    // private MysqlColumns toColumns() {
+    //     Set<String> cols = this.record.columns();
+    //     MysqlColumns columns = new MysqlColumns();
+    //     int pos = 0;
+    //     for (String col : cols) {
+    //         MysqlColumn column = new MysqlColumn(col);
+    //         column.setPosition(pos++);
+    //         column.setTableName(this.column.getTableName());
+    //         columns.add(column);
+    //     }
+    //     return columns;
+    // }
 
     /**
      * 复制为insert语句
      */
     public void vCopyAsInsertSql() {
-        MysqlColumns columns = this.toColumns();
+        MysqlColumns columns = this.record.getColumns();
         String sql = DBDataUtil.toInsertSql(columns, this.record, true);
         ClipboardUtil.copy(sql);
     }

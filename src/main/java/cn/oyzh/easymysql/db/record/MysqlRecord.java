@@ -3,8 +3,10 @@ package cn.oyzh.easymysql.db.record;
 
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,14 +21,29 @@ public class MysqlRecord extends DBObjectStatus {
     /**
      * 是否只读
      */
-    private boolean readonly;
+    private final boolean readonly;
 
-    public MysqlRecord() {
+    private final MysqlColumns columns;
 
+    public MysqlRecord(MysqlColumns columns) {
+        this(columns, false);
     }
 
-    public MysqlRecord(boolean readonly) {
+    public MysqlRecord(List<MysqlColumn> columns) {
+        this(new MysqlColumns(columns), false);
+    }
+
+    public MysqlRecord(List<MysqlColumn> columns, boolean readonly) {
+        this(new MysqlColumns(columns), readonly);
+    }
+
+    public MysqlRecord(MysqlColumns columns, boolean readonly) {
+        this.columns = columns;
         this.readonly = readonly;
+    }
+
+    public MysqlColumns getColumns() {
+        return columns;
     }
 
     /**

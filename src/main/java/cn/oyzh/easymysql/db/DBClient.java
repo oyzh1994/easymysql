@@ -1063,7 +1063,7 @@ public class DBClient {
                 columns = DBHelper.parseColumns(resultSet);
             }
             while (resultSet.next()) {
-                MysqlRecord record = new MysqlRecord(param.isReadonly());
+                MysqlRecord record = new MysqlRecord(columns, param.isReadonly());
                 for (MysqlColumn column : columns) {
                     Object data = resultSet.getObject(column.getName());
                     // 获取几何值
@@ -1971,7 +1971,7 @@ public class DBClient {
             boolean updatable = DBHelper.isViewUpdatable(connection, dbName, viewName);
             MysqlColumns columns = DBHelper.parseColumns(resultSet);
             while (resultSet.next()) {
-                MysqlRecord record = new MysqlRecord(!updatable);
+                MysqlRecord record = new MysqlRecord(columns, !updatable);
                 for (MysqlColumn column : columns) {
                     Object data = resultSet.getObject(column.getName());
                     // 获取几何值
@@ -2709,8 +2709,8 @@ public class DBClient {
             statement.setObject(1, primaryKey.data());
             ResultSet resultSet = statement.executeQuery();
             DBUtil.printMetaData(resultSet);
-            MysqlRecord record = new MysqlRecord();
             MysqlColumns columns = DBHelper.parseColumns(resultSet);
+            MysqlRecord record = new MysqlRecord(columns);
             while (resultSet.next()) {
                 for (MysqlColumn column : columns) {
                     Object data = resultSet.getObject(column.getName());
