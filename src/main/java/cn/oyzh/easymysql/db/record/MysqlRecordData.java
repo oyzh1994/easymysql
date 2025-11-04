@@ -26,6 +26,11 @@ public class MysqlRecordData {
         return this.dataList.keySet().stream().map(MysqlColumn::getName).collect(Collectors.toSet());
     }
 
+    public Set<String> notNullColumns() {
+        Set<String> columns = this.columns();
+        return columns.parallelStream().filter(this::hasValue).collect(Collectors.toSet());
+    }
+
     public MysqlColumn column(String column) {
         if (this.dataList != null) {
             for (MysqlColumn dbColumn : dataList.keySet()) {
@@ -35,6 +40,10 @@ public class MysqlRecordData {
             }
         }
         return null;
+    }
+
+    public boolean hasValue(String column) {
+        return this.value(column) != null;
     }
 
     public Object value(String column) {

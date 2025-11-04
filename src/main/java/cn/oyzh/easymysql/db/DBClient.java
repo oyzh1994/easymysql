@@ -1173,8 +1173,13 @@ public class DBClient {
                     } else {
                         builder.append(" AND ");
                     }
-                    builder.append(DBUtil.wrap(colName, this.dialect()))
-                            .append(" = ?");
+                    if (recordData.hasValue(colName)) {
+                        builder.append(DBUtil.wrap(colName, this.dialect()))
+                                .append(" IS NULL");
+                    } else {
+                        builder.append(DBUtil.wrap(colName, this.dialect()))
+                                .append(" = ?");
+                    }
                 }
                 builder.append(" LIMIT 1");
                 String sql = builder.toString();
@@ -1182,8 +1187,8 @@ public class DBClient {
                 PreparedStatement statement = connection.prepareStatement(sql);
                 int index = 1;
                 // 设置参数
-                for (String colName : param.getRecord().columns()) {
-                    DBUtil.setVal(statement, param.getRecord().value(colName), index++);
+                for (String colName : recordData.notNullColumns()) {
+                    DBUtil.setVal(statement, recordData.value(colName), index++);
                 }
                 updateCount = DBUtil.executeUpdate(statement);
             } else {
