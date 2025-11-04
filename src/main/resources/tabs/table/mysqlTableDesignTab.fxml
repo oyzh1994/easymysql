@@ -70,11 +70,8 @@
                         <!-- <FXTableColumn realWidth="50" fx:id="colConfig" text="%base.config"/> -->
                     </columns>
                 </DBStatusTableView>
-                <fx:include fx:id="tableColumnExtra" source="./mysqlTableColumnExtra.fxml">
-
-                </fx:include>
+                <fx:include fx:id="tableColumnExtra" source="mysqlTableColumnExtra.fxml"/>
             </FXVBox>
-
         </FXTab>
         <FXTab text="%base.indexes" fx:id="indexTab">
             <DBStatusTableView fx:id="indexTable" flexHeight="100%" flexWidth="100%">

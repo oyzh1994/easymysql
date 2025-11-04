@@ -43,4 +43,10 @@ public class DBRecordTableView extends FXTableView<MysqlRecord> {
         }
         return false;
     }
+
+    @Override
+    public void initNode() {
+        super.initNode();
+        super.setHeaderHeight(45);
+    }
 }

@@ -5,15 +5,21 @@ import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.popups.MysqlFieldInfoPopupController;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
-import cn.oyzh.fx.gui.svg.glyph.database.ColumnSVGGlyph;
+import cn.oyzh.fx.plus.controls.box.FXVBox;
+import cn.oyzh.fx.plus.controls.label.FXLabel;
 import cn.oyzh.fx.plus.controls.table.FXTableColumn;
+import cn.oyzh.fx.plus.font.FontUtil;
 import cn.oyzh.fx.plus.menu.FXContextMenu;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.fx.plus.mouse.MouseUtil;
 import cn.oyzh.fx.plus.util.ClipboardUtil;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
+import javafx.scene.control.OverrunStyle;
+import javafx.scene.paint.Color;
+import javafx.scene.text.FontWeight;
 import javafx.stage.PopupWindow;
+
 
 /**
  * @author oyzh
@@ -23,15 +29,37 @@ public class DBRecordColumn extends FXTableColumn<MysqlRecord, Object> {
 
     public DBRecordColumn(MysqlColumn column) {
         this.setReorderable(true);
-        this.setText(column.getName());
+        // this.setText(column.getName() + "\n" + column.getType() + "\n" + column.getComment());
         this.setCellValueFactory(p -> p.getValue().getProperty(column.getName()));
-        ColumnSVGGlyph svgGlyph = new ColumnSVGGlyph("12");
+        // ColumnSVGGlyph svgGlyph = new ColumnSVGGlyph("12");
         // SVGGlyph info = new SVGGlyph("/font/tableField.svg", "12");
         // svgGlyph.setOnMousePrimaryClicked(event -> {
         //     this.showColumnInfo(column);
         //     event.consume();
         // });
-        this.setGraphic(svgGlyph);
+        // this.setGraphic(svgGlyph);
+
+        // 字段名称
+        FXLabel colName = new FXLabel(column.getName());
+        colName.setTextOverrun(OverrunStyle.ELLIPSIS);
+        colName.setFont(FontUtil.newFontByWeight(colName.getFont(), FontWeight.BOLD));
+
+        // 字段类型
+        FXLabel colType = new FXLabel(column.getType());
+        colType.setTextOverrun(OverrunStyle.ELLIPSIS);
+        colType.setTextFill(Color.GREEN);
+
+        // 字段注释
+        FXLabel colComment = new FXLabel(column.getComment());
+        colComment.setTextOverrun(OverrunStyle.ELLIPSIS);
+        colComment.setTextFill(Color.GRAY);
+
+        FXVBox vBox = new FXVBox();
+        vBox.addChild(colName);
+        vBox.addChild(colType);
+        vBox.addChild(colComment);
+        this.setGraphic(vBox);
+
         FXContextMenu menu = new FXContextMenu();
         FXMenuItem fieldInfo = MenuItemHelper.columnInfo(() -> this.showColumnInfo(column));
         menu.addItem(fieldInfo);
