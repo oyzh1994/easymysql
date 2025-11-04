@@ -11,6 +11,7 @@ import cn.oyzh.easymysql.db.function.MysqlFunction;
 import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
+import cn.oyzh.easymysql.db.table.MysqlSelectTableParam;
 import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.db.view.MysqlView;
@@ -45,7 +46,11 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
             this.dumpTrigger();
             this.dumpEvent();
         } else if (this.dumpType == 2) {
-            MysqlTable table = this.dbClient.selectTable(this.dbName, this.tableName);
+            MysqlSelectTableParam selectTableParam = new MysqlSelectTableParam();
+            selectTableParam.setFull(true);
+            selectTableParam.setDbName(this.dbName);
+            selectTableParam.setTableName(this.tableName);
+            MysqlTable table = this.dbClient.selectFullTable(selectTableParam);
             this.dumpTable(table);
         }
         this.writeTail();
@@ -55,7 +60,10 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
     }
 
     protected void dumpTable() throws InterruptedException, IOException {
-        List<MysqlTable> tables = this.dbClient.selectTables(this.dbName);
+        MysqlSelectTableParam selectTableParam = new MysqlSelectTableParam();
+        selectTableParam.setFull(true);
+        selectTableParam.setDbName(this.dbName);
+        List<MysqlTable> tables = this.dbClient.selectTables(selectTableParam);
         if (CollectionUtil.isNotEmpty(tables)) {
             for (MysqlTable table : tables) {
                 this.checkInterrupt();

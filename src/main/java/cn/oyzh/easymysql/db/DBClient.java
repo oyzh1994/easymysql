@@ -167,11 +167,13 @@ public class DBClient {
             host += dbName;
         }
         host = host +
-                "?autoReconnect=true" +
+                "?testOnBorrow=true" +
+                "&tcpKeepAlive=true" +
+                "&autoReconnect=true" +
                 "&testWhileIdle=true" +
-                "&testOnBorrow=true" +
                 "&validationQuery=SELECT 1" +
-                "&tcpKeepAlive=true";
+                "&zeroDateTimeBehavior=convertToNull"
+        ;
         // 创建数据库连接
         return DriverManager.getConnection(host, user, password);
     }

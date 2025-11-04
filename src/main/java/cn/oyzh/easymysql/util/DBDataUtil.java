@@ -245,6 +245,9 @@ public class DBDataUtil {
             return "0x" + HexUtil.encodeHexStr(bytes, false);
         }
         if (column.supportBit()) {
+            if (value instanceof Boolean b) {
+                return b ? "1" : "0";
+            }
             byte[] bytes = (byte[]) value;
             if (bytes.length == 0) {
                 return "NULL";
