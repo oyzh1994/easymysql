@@ -552,7 +552,7 @@ public class MysqlTableRecordTabController extends RichTabController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             super.initialize(url, resourceBundle);
-            this.missPrimaryKey.managedBindVisible();
+            // this.missPrimaryKey.managedBindVisible();
             this.missPrimaryKey.disableTheme();
             this.discard.disableProperty().bind(this.apply.disableProperty());
             this.apply.disabledProperty().addListener((observable, oldValue, newValue) -> {

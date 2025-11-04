@@ -98,7 +98,7 @@ public class MysqlColumns extends DBObjectList<MysqlColumn> {
 
     public boolean hasPrimaryKey() {
         for (MysqlColumn column : this) {
-            if (column.isPrimaryKey()) {
+            if (column.isPrimaryKey() || column.isAutoIncrement()) {
                 return true;
             }
         }

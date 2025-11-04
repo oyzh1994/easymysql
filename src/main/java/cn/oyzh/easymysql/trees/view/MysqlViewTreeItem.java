@@ -143,8 +143,8 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         return this.parent().infoName();
     }
 
-    public List<MysqlColumn> columns() {
-        return this.client().viewColumns(this.dbName(), this.viewName());
+    public MysqlColumns columns() {
+        return new MysqlColumns(this.client().viewColumns(this.dbName(), this.viewName()));
     }
 
     @Override

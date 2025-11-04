@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.record.DBRecordTableView?>
+<?import cn.oyzh.easymysql.fx.svg.glyph.WarningSVGGlyph?>
 <?import cn.oyzh.fx.gui.page.PageBox?>
-<?import cn.oyzh.fx.gui.svg.glyph.AddFillSVGGlyph?>
+<?import cn.oyzh.fx.gui.svg.glyph.AddSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.Apply1SVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.DeleteSVGGlyph?>
 <?import cn.oyzh.fx.gui.svg.glyph.DiscardSVGGlyph?>
@@ -9,13 +10,12 @@
 <?import cn.oyzh.fx.gui.svg.glyph.RefreshSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
-<?import cn.oyzh.fx.plus.controls.svg.SVGGlyph?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
-<?import cn.oyzh.fx.gui.svg.glyph.AddSVGGlyph?>
 <FXVBox xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
-        fx:controller="cn.oyzh.easymysql.tabs.table.MysqlTableRecordTabController" fx:id="root" flexWidth="100%" flexHeight="100%">
+        fx:controller="cn.oyzh.easymysql.tabs.table.MysqlTableRecordTabController" fx:id="root" flexWidth="100%"
+        flexHeight="100%">
     <DBRecordTableView fx:id="recordTable" flexHeight="100% - 40" flexWidth="100%" tableMenuButtonVisible="true">
     </DBRecordTableView>
     <FXHBox realHeight="40" flexWidth="100%">
@@ -44,12 +44,12 @@
                 <Insets left="5" top="10"/>
             </HBox.margin>
         </RefreshSVGGlyph>
-        <SVGGlyph url="/font/warning.svg" color="orange" visible="false" managed="false" size="14"
-                  fx:id="missPrimaryKey" tipText="%db.table.tip1">
+        <WarningSVGGlyph color="orange" visible="false" managed="false" size="14"
+                         fx:id="missPrimaryKey" managedBindVisible="true" tipText="%db.table.tip1">
             <HBox.margin>
                 <Insets left="5" top="10"/>
             </HBox.margin>
-        </SVGGlyph>
+        </WarningSVGGlyph>
         <FilterSVGGlyph groupId="action2" fx:id="filter" onMousePrimaryClicked="#filter" size="14">
             <HBox.margin>
                 <Insets left="5" top="10"/>

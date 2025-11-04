@@ -4,6 +4,7 @@ import cn.oyzh.common.dto.Paging;
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.DBObjectList;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlRecordData;
 import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
@@ -66,10 +67,6 @@ public class MysqlViewRecordTabController extends RichTabController {
      */
     private ObjectProperty<MysqlViewTreeItem> itemProperty;
 
-    public MysqlViewTreeItem getItem() {
-        return itemProperty.get();
-    }
-
     /**
      * 分页数据
      */
@@ -80,6 +77,12 @@ public class MysqlViewRecordTabController extends RichTabController {
      */
     @FXML
     private SVGGlyph filter;
+
+    /**
+     * 缺少主键警告
+     */
+    @FXML
+    private SVGGlyph missPrimaryKey;
 
     /**
      * 数据分页组件
@@ -98,25 +101,17 @@ public class MysqlViewRecordTabController extends RichTabController {
      */
     private List<MysqlRecordFilter> filters;
 
-    public List<MysqlRecordFilter> getFilters() {
-        return filters;
-    }
-
-    public void setFilters(List<MysqlRecordFilter> filters) {
-        this.filters = filters;
-    }
-
-    /**
-     * 新增
-     */
-    @FXML
-    private SVGGlyph add;
-
-    /**
-     * 删除
-     */
-    @FXML
-    private SVGGlyph delete;
+    // /**
+    //  * 新增
+    //  */
+    // @FXML
+    // private SVGGlyph add;
+    //
+    // /**
+    //  * 删除
+    //  */
+    // @FXML
+    // private SVGGlyph delete;
 
     /**
      * 应用
@@ -138,7 +133,7 @@ public class MysqlViewRecordTabController extends RichTabController {
     /**
      * 字段列表
      */
-    private List<MysqlColumn> columns;
+    private MysqlColumns columns;
 
     /**
      * 设置
@@ -173,11 +168,17 @@ public class MysqlViewRecordTabController extends RichTabController {
                 };
             }
             // 部分按钮显示处理
-            this.add.display();
             this.apply.display();
-            this.delete.display();
-            this.discard.display();
+            NodeGroupUtil.display(this.getTab(), "action2");
+            // this.add.display();
+            // this.apply.display();
+            // this.delete.display();
+            // this.discard.display();
         }
+    }
+
+    public MysqlViewTreeItem getItem() {
+        return this.itemProperty.get();
     }
 
     /**
@@ -212,7 +213,7 @@ public class MysqlViewRecordTabController extends RichTabController {
      *
      * @param columns 列数据
      */
-    private void initColumns(List<MysqlColumn> columns) {
+    private void initColumns(MysqlColumns columns) {
         // 设置字段列表
         this.columns = columns;
         // 数据列集合
@@ -373,16 +374,18 @@ public class MysqlViewRecordTabController extends RichTabController {
     /**
      * 刷新记录，实际业务
      */
-    public void doReload() {
+    private void doReload() {
         try {
             // 检查是否有未保存的数据
             if (this.apply.isEnable() && !MessageBox.confirm(I18nHelper.unsavedAndContinue())) {
                 return;
             }
             // 初始化字段
-            this.initColumns(this.getItem().viewColumns());
+            this.initColumns(this.getItem().columns());
             // 初始化数据
             this.initDataList(0);
+            // 判断是否缺少主键列
+            this.missPrimaryKey.setVisible(!this.columns.hasPrimaryKey());
             // 设置过滤激活
             this.filter.setActive(CollectionUtil.isNotEmpty(this.enabledFilters()));
             // 禁用组件
@@ -520,9 +523,9 @@ public class MysqlViewRecordTabController extends RichTabController {
     }
 
     /**
-     * 删除表记录
+     * 删除记录
      *
-     * @param record 表记录
+     * @param record 记录
      */
     private void doDeleteRecord(MysqlRecord record) {
         try {
@@ -570,8 +573,9 @@ public class MysqlViewRecordTabController extends RichTabController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             super.initialize(url, resourceBundle);
-            this.add.managedBindVisible();
-            this.delete.managedBindVisible();
+            // this.add.managedBindVisible();
+            // this.delete.managedBindVisible();
+            this.missPrimaryKey.disableTheme();
             this.discard.disableProperty().bind(this.apply.disableProperty());
             this.apply.disabledProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue) {
@@ -596,5 +600,13 @@ public class MysqlViewRecordTabController extends RichTabController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public List<MysqlRecordFilter> getFilters() {
+        return filters;
+    }
+
+    public void setFilters(List<MysqlRecordFilter> filters) {
+        this.filters = filters;
     }
 }
