@@ -43,7 +43,7 @@ public class DBRecordUtil {
             textField.setValue(object);
             node = textField;
         } else if (column.supportEnum()) {
-            SelectTextFiled textField = new SelectTextFiled();
+            SelectTextFiled<String> textField = new SelectTextFiled<>();
             textField.setEditable(false);
             textField.setItemList(column.getValueList());
             textField.setValue(object);
@@ -201,15 +201,17 @@ public class DBRecordUtil {
     public static List<FXMenuItem> getColumnMenuItem(MysqlRecordProperty property) {
         List<FXMenuItem> menuItems = new ArrayList<>();
         FXMenuItem copy = MenuItemHelper.copy(property::vCopy);
-        FXMenuItem paste = MenuItemHelper.paste(property::vPaste);
-        FXMenuItem delete = MenuItemHelper.deleteRecord(property::vDelete);
-        FXMenuItem setToNull = MenuItemHelper.setToNull(property::vSetToNull);
-        FXMenuItem setToEmptyString = MenuItemHelper.setToEmptyString(property::vSetToEmptyString);
         menuItems.add(copy);
+        FXMenuItem paste = MenuItemHelper.paste(property::vPaste);
         menuItems.add(paste);
+        // FXMenuItem delete = MenuItemHelper.deleteRecord(property::vDelete);
+        FXMenuItem setToNull = MenuItemHelper.setToNull(property::vSetToNull);
         menuItems.add(setToNull);
+        FXMenuItem setToEmptyString = MenuItemHelper.setToEmptyString(property::vSetToEmptyString);
         menuItems.add(setToEmptyString);
-        menuItems.add(delete);
+        FXMenuItem copyAsInsertStatement = MenuItemHelper.copyAsInsertStatement(property::vCopyAsInsertSql);
+        menuItems.add(copyAsInsertStatement);
+        // menuItems.add(delete);
         return menuItems;
     }
 }

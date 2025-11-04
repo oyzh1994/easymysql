@@ -2,19 +2,22 @@ package cn.oyzh.easymysql.db.record;
 
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.exception.DBException;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
+import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBNodeUtil;
 import cn.oyzh.easymysql.util.DBRecordUtil;
 import cn.oyzh.fx.plus.node.NodeUtil;
-import cn.oyzh.fx.plus.util.ClipboardUtil;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
+import cn.oyzh.fx.plus.util.ClipboardUtil;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+
+import java.util.Set;
 
 /**
  * db表记录属性
@@ -164,8 +167,35 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
         ClipboardUtil.paste(this.node);
     }
 
-    public void vDelete() {
-        MysqlEventUtil.recordDelete(this.record);
+    // public void vDelete() {
+    //     MysqlEventUtil.recordDelete(this.record);
+    // }
+
+    /**
+     * 转换为字段列表
+     *
+     * @return 字段列表
+     */
+    private MysqlColumns toColumns() {
+        Set<String> cols = this.record.columns();
+        MysqlColumns columns = new MysqlColumns();
+        int pos = 0;
+        for (String col : cols) {
+            MysqlColumn column = new MysqlColumn(col);
+            column.setPosition(pos++);
+            column.setTableName(this.column.getTableName());
+            columns.add(column);
+        }
+        return columns;
+    }
+
+    /**
+     * 复制为insert语句
+     */
+    public void vCopyAsInsertSql() {
+        MysqlColumns columns = this.toColumns();
+        String sql = DBDataUtil.toInsertSql(columns, this.record, true);
+        ClipboardUtil.copy(sql);
     }
 
     public void vSetToNull() {

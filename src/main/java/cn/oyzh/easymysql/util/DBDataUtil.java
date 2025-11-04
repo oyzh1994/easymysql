@@ -2,8 +2,10 @@ package cn.oyzh.easymysql.util;
 
 import cn.oyzh.common.date.DateHelper;
 import cn.oyzh.common.date.DateUtil;
+import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.HexUtil;
 import cn.oyzh.common.util.TextUtil;
+import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.column.MysqlColumn;
 import cn.oyzh.easymysql.db.column.MysqlColumns;
 import cn.oyzh.easymysql.db.record.MysqlRecord;
@@ -369,6 +371,19 @@ public class DBDataUtil {
     /**
      * 转换为插入sql
      *
+     * @param columns       字段列表
+     * @param record        记录
+     * @param includeFields 包含字段
+     * @return 插入sql
+     */
+    public static String toInsertSql(MysqlColumns columns, MysqlRecord record, boolean includeFields) {
+        List<String> list = toInsertSql(columns, List.of(record), includeFields);
+        return CollectionUtil.getFirst(list);
+    }
+
+    /**
+     * 转换为插入sql
+     *
      * @param columns 字段列表
      * @param records 记录
      * @return 插入sql
@@ -389,13 +404,13 @@ public class DBDataUtil {
         List<String> list = new ArrayList<>();
         String tableName = columns.getTableName();
         List<MysqlColumn> columnList = columns.sortOfPosition();
-        final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName);
+        final String sqlBase = "INSERT INTO " + DBUtil.wrap(tableName, DBDialect.MYSQL);
         for (MysqlRecord record : records) {
             StringBuilder sql = new StringBuilder(sqlBase);
             if (includeFields) {
                 sql.append("(");
                 for (MysqlColumn dbColumn : columnList) {
-                    sql.append(DBUtil.wrap(dbColumn.getName())).append(", ");
+                    sql.append(DBUtil.wrap(dbColumn.getName(), DBDialect.MYSQL)).append(", ");
                 }
                 if (sql.toString().endsWith(", ")) {
                     sql.delete(sql.length() - 2, sql.length());
