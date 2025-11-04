@@ -148,7 +148,7 @@ public class MysqlDataDumpController extends StageController {
             } else {
                 name += ".structure";
             }
-            name += ".sql";
+            // name += ".sql";
             FileExtensionFilter filter = FXChooser.sqlExtensionFilter();
             this.dumpFile = FileChooserHelper.save(I18nHelper.saveFile(), name, List.of(filter), this.stage.stage());
             if (this.dumpFile != null) {
@@ -281,5 +281,13 @@ public class MysqlDataDumpController extends StageController {
     public void onStageInitialize(StageAdapter stage) {
         super.onStageInitialize(stage);
         this.tableBox.managedBindVisible();
+    }
+
+    @Override
+    protected void bindListeners() {
+        super.bindListeners();
+        this.dataType.selectedItemChanged((observableValue, s, t1) -> {
+            this.dumpFile = null;
+        });
     }
 }
