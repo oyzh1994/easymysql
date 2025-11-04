@@ -31,7 +31,6 @@ import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.node.NodeUtil;
-import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.plus.window.PopupAdapter;
 import cn.oyzh.fx.plus.window.PopupManager;
 import cn.oyzh.fx.plus.window.StageManager;
@@ -222,10 +221,11 @@ public class MysqlViewRecordTabController extends RichTabController {
         columnList.add(statusColumn);
         for (MysqlColumn column : columns) {
             DBRecordColumn tableColumn = new DBRecordColumn(column);
-            tableColumn.setPrefWidth(DBRecordUtil.suitableColumnWidth(column.getType()));
+            tableColumn.setPrefWidth(DBRecordUtil.suitableColumnWidth(column.getName()));
             columnList.add(tableColumn);
         }
-        FXUtil.runWait(() -> this.recordTable.getColumns().setAll(columnList));
+        // FXUtil.runWait(() -> this.recordTable.getColumns().setAll(columnList));
+        this.recordTable.setColumns(columnList);
     }
 
     /**

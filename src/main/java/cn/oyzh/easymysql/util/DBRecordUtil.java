@@ -16,6 +16,7 @@ import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.gui.text.field.SelectTextFiled;
 import cn.oyzh.fx.gui.text.field.TimeTextField;
 import cn.oyzh.fx.gui.text.field.YearTextField;
+import cn.oyzh.fx.plus.font.FontUtil;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
@@ -149,47 +150,51 @@ public class DBRecordUtil {
         return "(Null)";
     }
 
-    public static double suitableColumnWidth(String columnType) {
-        if (DBColumnUtil.isGeometryType(columnType)) {
-            return 120;
-        }
-        if (DBColumnUtil.isPointType(columnType)) {
-            return 110;
-        }
-        if (DBColumnUtil.isMultiPointType(columnType)) {
-            return 200;
-        }
-        if (DBColumnUtil.isPolygonType(columnType)) {
-            return 220;
-        }
-        if (DBColumnUtil.isMultiPolygonType(columnType)) {
-            return 420;
-        }
-        if (DBColumnUtil.isLineStringType(columnType)) {
-            return 180;
-        }
-        if (DBColumnUtil.isMultiLineStringType(columnType)) {
-            return 320;
-        }
-        if (DBColumnUtil.isGeomCollectionType(columnType)) {
-            return 600;
-        }
-        if (DBColumnUtil.isYearType(columnType)) {
-            return 80;
-        }
-        if (DBColumnUtil.supportJson(columnType)) {
-            return 150;
-        }
-        if (DBColumnUtil.supportTimestamp(columnType)) {
-            return 160;
-        }
-        if (DBColumnUtil.supportBinary(columnType)) {
-            return 140;
-        }
-        if (DBColumnUtil.isDateType(columnType)) {
-            return 110;
-        }
-        return 100;
+    // public static double suitableColumnWidth(String columnType) {
+    //     if (DBColumnUtil.isGeometryType(columnType)) {
+    //         return 120;
+    //     }
+    //     if (DBColumnUtil.isPointType(columnType)) {
+    //         return 110;
+    //     }
+    //     if (DBColumnUtil.isMultiPointType(columnType)) {
+    //         return 200;
+    //     }
+    //     if (DBColumnUtil.isPolygonType(columnType)) {
+    //         return 220;
+    //     }
+    //     if (DBColumnUtil.isMultiPolygonType(columnType)) {
+    //         return 420;
+    //     }
+    //     if (DBColumnUtil.isLineStringType(columnType)) {
+    //         return 180;
+    //     }
+    //     if (DBColumnUtil.isMultiLineStringType(columnType)) {
+    //         return 320;
+    //     }
+    //     if (DBColumnUtil.isGeomCollectionType(columnType)) {
+    //         return 600;
+    //     }
+    //     if (DBColumnUtil.isYearType(columnType)) {
+    //         return 80;
+    //     }
+    //     if (DBColumnUtil.supportJson(columnType)) {
+    //         return 150;
+    //     }
+    //     if (DBColumnUtil.supportTimestamp(columnType)) {
+    //         return 160;
+    //     }
+    //     if (DBColumnUtil.supportBinary(columnType)) {
+    //         return 140;
+    //     }
+    //     if (DBColumnUtil.isDateType(columnType)) {
+    //         return 110;
+    //     }
+    //     return 100;
+    // }
+
+    public static double suitableColumnWidth(String columnName) {
+        return FontUtil.stringWidth(columnName) + 30;
     }
 
     public static ContextMenu getColumnContextMenu(MysqlRecordProperty property) {
