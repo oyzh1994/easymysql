@@ -27,7 +27,7 @@
 <?import cn.oyzh.fx.gui.button.ImportButton?>
 <?import cn.oyzh.fx.gui.button.StopButton?>
 <?import cn.oyzh.fx.gui.label.InfoLabel?>
-<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<FXVBox xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.data.MysqlDataImportController" realWidth="700" realHeight="650">
     <FXVBox fx:id="step1" flexHeight="100%" flexWidth="100%">
         <InfoLabel text="%db.import.tip1">
@@ -87,7 +87,7 @@
         <FXVBox flexHeight="100% - 100" flexWidth="100%">
             <DataImportFileTableView fx:id="importFileTableView" flexHeight="100% - 60" flexWidth="100% - 40">
                 <columns>
-                    <FXTableColumn flexWidth="100% -10" fx:id="importFilePath" text="%base.filePath"
+                    <FXTableColumn flexWidth="100% -10" valueName="filePathControl" text="%base.filePath"
                                      resizable="false"/>
                 </columns>
                 <VBox.margin>

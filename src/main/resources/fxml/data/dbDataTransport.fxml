@@ -22,7 +22,7 @@
 <?import cn.oyzh.fx.gui.button.StopButton?>
 <?import cn.oyzh.fx.gui.button.TransportButton?>
 <?import cn.oyzh.fx.gui.svg.glyph.database.DatabaseSVGGlyph?>
-<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<FXVBox xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.data.MysqlDataTransportController" realWidth="800" realHeight="600">
     <FXHBox flexWidth="100%" realHeight="100">
         <FXHBox flexHeight="100%" flexWidth="50% - 20" nodeOrientation="RIGHT_TO_LEFT">

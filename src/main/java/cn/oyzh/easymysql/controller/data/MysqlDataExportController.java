@@ -24,7 +24,6 @@ import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.button.FXButton;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
-import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
@@ -35,7 +34,6 @@ import cn.oyzh.fx.plus.window.StageAttribute;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
 
@@ -103,23 +101,23 @@ public class MysqlDataExportController extends StageController {
     @FXML
     private DataExportTableTableView exportTableView;
 
-    /**
-     * 导出表已选择列
-     */
-    @FXML
-    private FXTableColumn<DataExportTable, String> exportTableSelected;
-
-    /**
-     * 导出表名称列
-     */
-    @FXML
-    private FXTableColumn<DataExportTable, String> exportTableName;
-
-    /**
-     * 导出表路径列
-     */
-    @FXML
-    private FXTableColumn<DataExportTable, String> exportTableFilePath;
+    // /**
+    //  * 导出表已选择列
+    //  */
+    // @FXML
+    // private FXTableColumn<DataExportTable, String> exportTableSelected;
+    //
+    // /**
+    //  * 导出表名称列
+    //  */
+    // @FXML
+    // private FXTableColumn<DataExportTable, String> exportTableName;
+    //
+    // /**
+    //  * 导出表路径列
+    //  */
+    // @FXML
+    // private FXTableColumn<DataExportTable, String> exportTableFilePath;
 
     /**
      * 文件类型
@@ -316,9 +314,9 @@ public class MysqlDataExportController extends StageController {
     @Override
     protected void bindListeners() {
         super.bindListeners();
-        this.exportTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        this.exportTableSelected.setCellValueFactory(new PropertyValueFactory<>("selectedControl"));
-        this.exportTableFilePath.setCellValueFactory(new PropertyValueFactory<>("filePathControl"));
+        // this.exportTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        // this.exportTableSelected.setCellValueFactory(new PropertyValueFactory<>("selectedControl"));
+        // this.exportTableFilePath.setCellValueFactory(new PropertyValueFactory<>("filePathControl"));
         this.tableCombobox.selectedItemChanged((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 this.tableColumns.init(newValue.getColumns());

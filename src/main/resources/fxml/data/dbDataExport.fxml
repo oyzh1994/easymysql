@@ -25,8 +25,8 @@
 <?import cn.oyzh.fx.gui.button.ExportButton?>
 <?import cn.oyzh.fx.gui.button.StopButton?>
 <?import cn.oyzh.fx.gui.label.InfoLabel?>
-<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.controller.data.MysqlDataExportController" realWidth="700" realHeight="650">
+<FXVBox xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="cn.oyzh.easymysql.controller.data.MysqlDataExportController" realWidth="700" realHeight="650">
     <FXVBox fx:id="step1" flexHeight="100%" flexWidth="100%">
         <InfoLabel text="%db.export.tip4">
             <VBox.margin>
@@ -100,10 +100,10 @@
         <FXVBox flexHeight="100% - 100" flexWidth="100%">
             <DataExportTableTableView fx:id="exportTableView" flexHeight="100% - 60" flexWidth="100% - 40">
                 <columns>
-                    <FXTableColumn realWidth="50" fx:id="exportTableSelected"/>
-                    <FXTableColumn flexWidth="35%" fx:id="exportTableName" text="%base.source" resizable="true"/>
-                    <FXTableColumn flexWidth="65% - 65" fx:id="exportTableFilePath" text="%base.filePath"
-                                     resizable="true"/>
+                    <FXTableColumn realWidth="50" valueName="selectedControl"/>
+                    <FXTableColumn flexWidth="35%" valueName="name" text="%base.source" resizable="true"/>
+                    <FXTableColumn flexWidth="65% - 65" valueName="filePathControl" text="%base.filePath"
+                                   resizable="true"/>
                 </columns>
                 <VBox.margin>
                     <Insets left="30" top="10"/>

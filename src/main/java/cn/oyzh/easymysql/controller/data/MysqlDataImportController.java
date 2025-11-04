@@ -26,7 +26,6 @@ import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.button.FXButton;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
-import cn.oyzh.fx.plus.controls.table.FXTableColumn;
 import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
@@ -37,7 +36,6 @@ import cn.oyzh.fx.plus.window.StageAttribute;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
 
@@ -99,11 +97,11 @@ public class MysqlDataImportController extends StageController {
     @FXML
     private DataImportFileTableView importFileTableView;
 
-    /**
-     * 导入表路径列
-     */
-    @FXML
-    private FXTableColumn<DataImportFile, String> importFilePath;
+    // /**
+    //  * 导入表路径列
+    //  */
+    // @FXML
+    // private FXTableColumn<DataImportFile, String> importFilePath;
 
     /**
      *
@@ -321,7 +319,7 @@ public class MysqlDataImportController extends StageController {
     @Override
     protected void bindListeners() {
         super.bindListeners();
-        this.importFilePath.setCellValueFactory(new PropertyValueFactory<>("filePathControl"));
+        // this.importFilePath.setCellValueFactory(new PropertyValueFactory<>("filePathControl"));
         this.dateFormat.textProperty().addListener((observable, oldValue, newValue) -> this.flushDatePreview());
         this.targetTableCombobox.selectedItemChanged((observable, oldValue, newValue) -> {
             if (newValue != null) {
