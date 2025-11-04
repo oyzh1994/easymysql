@@ -92,7 +92,7 @@ public class MysqlQueryExplainTabController extends RichTabController {
         columnList.add(statusColumn);
         for (MysqlColumn column : columns) {
             DBRecordColumn tableColumn = new DBRecordColumn(column);
-            tableColumn.setRealWidth(DBRecordUtil.suitableColumnWidth(column.getName()));
+            tableColumn.setRealWidth(DBRecordUtil.suitableColumnWidth(column));
             columnList.add(tableColumn);
         }
         this.recordTable.getColumns().setAll(columnList);

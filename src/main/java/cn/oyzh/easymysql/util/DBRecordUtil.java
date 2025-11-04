@@ -193,8 +193,22 @@ public class DBRecordUtil {
     //     return 100;
     // }
 
-    public static double suitableColumnWidth(String columnName) {
-        return FontUtil.stringWidth(columnName) + 30;
+    /**
+     * 计算合适的字段宽
+     *
+     * @param column 字段
+     * @return 结果
+     */
+    public static double suitableColumnWidth(MysqlColumn column) {
+        double w1 = FontUtil.stringWidth(column.getName());
+        double w2;
+        if (column.supportSize() && column.getSize() != null) {
+            w2 = FontUtil.stringWidth(column.getType() + "(" + column.getSize() + ")");
+        } else {
+            w2 = FontUtil.stringWidth(column.getType());
+        }
+        double w3 = Math.max(w1, w2);
+        return w3 + 30;
     }
 
     public static ContextMenu getColumnContextMenu(MysqlRecordProperty property) {

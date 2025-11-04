@@ -200,11 +200,11 @@ public class MysqlTableRecordTabController extends RichTabController {
         columnList.add(statusColumn);
         for (MysqlColumn column : columns) {
             DBRecordColumn tableColumn = new DBRecordColumn(column);
-            tableColumn.setPrefWidth(DBRecordUtil.suitableColumnWidth(column.getName()));
+            tableColumn.setPrefWidth(DBRecordUtil.suitableColumnWidth(column));
             columnList.add(tableColumn);
         }
         // FXUtil.runWait(() -> this.recordTable.getColumns().setAll(columnList));
-        this.recordTable.setColumns(columnList);
+        this.recordTable.setColumnsAll(columnList);
     }
 
     /**

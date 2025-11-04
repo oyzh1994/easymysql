@@ -45,7 +45,12 @@ public class DBRecordColumn extends FXTableColumn<MysqlRecord, Object> {
         colName.setFont(FontUtil.newFontByWeight(colName.getFont(), FontWeight.BOLD));
 
         // 字段类型
-        FXLabel colType = new FXLabel(column.getType());
+        FXLabel colType;
+        if (column.supportSize() && column.getSize() != null) {
+            colType = new FXLabel(column.getType() + "(" + column.getSize() + ")");
+        } else {
+            colType = new FXLabel(column.getType());
+        }
         colType.setTextOverrun(OverrunStyle.ELLIPSIS);
         colType.setTextFill(Color.GREEN);
 

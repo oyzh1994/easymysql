@@ -190,7 +190,7 @@ public class MysqlQuerySelectTabController extends RichTabController {
         columnList.add(statusColumn);
         for (MysqlColumn column : columns) {
             DBRecordColumn tableColumn = new DBRecordColumn(column);
-            tableColumn.setPrefWidth(DBRecordUtil.suitableColumnWidth(column.getName()));
+            tableColumn.setPrefWidth(DBRecordUtil.suitableColumnWidth(column));
             columnList.add(tableColumn);
         }
         this.recordTable.getColumns().setAll(columnList);
