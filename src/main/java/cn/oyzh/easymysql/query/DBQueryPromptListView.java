@@ -1,7 +1,11 @@
 package cn.oyzh.easymysql.query;
 
+import cn.oyzh.fx.gui.svg.glyph.KeywordsSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.database.ColumnSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.database.DatabaseSVGGlyph;
 import cn.oyzh.fx.gui.svg.glyph.database.FunctionSVGGlyph;
 import cn.oyzh.fx.gui.svg.glyph.database.ProcedureSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.database.TableSVGGlyph;
 import cn.oyzh.fx.gui.svg.glyph.database.ViewSVGGlyph;
 import cn.oyzh.fx.plus.controls.box.FXHBox;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
@@ -24,9 +28,9 @@ import java.util.List;
 public class DBQueryPromptListView extends FXListView<FXHBox> {
 
     {
-        this.setRealWidth(480);
-        this.setRealHeight(360);
-        this.setPadding(new Insets(0));
+        this.setRealWidth(360);
+        this.setRealHeight(240);
+        this.setPadding(Insets.EMPTY);
     }
 
     /**
@@ -44,8 +48,8 @@ public class DBQueryPromptListView extends FXListView<FXHBox> {
         if (index < 0) {
             index = 0;
         }
-        if (index >= this.getItems().size()) {
-            index = this.getItems().size() - 1;
+        if (index >= this.getItemSize()) {
+            index = this.getItemSize() - 1;
         }
         super.select(index);
         // 应用背景色
@@ -146,9 +150,7 @@ public class DBQueryPromptListView extends FXListView<FXHBox> {
             }
             box.setProp("item", item);
             boxList.add(box);
-            System.out.println(item + "=" + item.getContent());
         }
-        System.out.println("----------->");
         this.setItem(boxList);
     }
 
@@ -161,20 +163,20 @@ public class DBQueryPromptListView extends FXListView<FXHBox> {
     private SVGLabel initPromptLabel(DBQueryPromptItem item) {
         SVGLabel label = null;
         if (item.isDatabaseType()) {
-            SVGGlyph svgGlyph = new SVGGlyph("/font/database2.svg", "12");
+            DatabaseSVGGlyph svgGlyph = new DatabaseSVGGlyph("12");
             svgGlyph.setColor(Color.BLACK);
             label = new SVGLabel(item.getContent(), svgGlyph);
         } else if (item.isKeywordType()) {
-            SVGGlyph svgGlyph = new SVGGlyph("/font/keywords.svg", "12");
+            KeywordsSVGGlyph svgGlyph = new KeywordsSVGGlyph("12");
             svgGlyph.setColor(Color.BLACK);
             label = new SVGLabel(item.getContent(), svgGlyph);
         } else if (item.isTableType()) {
-            SVGGlyph svgGlyph = new SVGGlyph("/font/table2.svg", "12");
+            SVGGlyph svgGlyph = new TableSVGGlyph("12");
             svgGlyph.setColor(Color.BLACK);
             label = new SVGLabel(item.getContent(), svgGlyph);
             label.setRealWidth(240);
         } else if (item.isColumnType()) {
-            SVGGlyph svgGlyph = new SVGGlyph("/font/column-3.svg", "12");
+            SVGGlyph svgGlyph = new ColumnSVGGlyph("12");
             svgGlyph.setColor(Color.BLACK);
             label = new SVGLabel(item.getContent(), svgGlyph);
             label.setRealWidth(240);

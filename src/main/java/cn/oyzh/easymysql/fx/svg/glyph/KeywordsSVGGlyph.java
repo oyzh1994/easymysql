@@ -6,13 +6,13 @@
 //  * @author oyzh
 //  * @since 2025-02-14
 //  */
-// public class MysqlSVGGlyph extends SVGGlyph {
+// public class KeywordsSVGGlyph extends SVGGlyph {
 //
-//     public MysqlSVGGlyph() {
-//         this.setUrl("/font/mysql.svg");
+//     public KeywordsSVGGlyph() {
+//         this.setUrl("/font/keywords.svg");
 //     }
 //
-//     public MysqlSVGGlyph(String size) {
+//     public KeywordsSVGGlyph(String size) {
 //         this();
 //         this.setSizeStr(size);
 //     }

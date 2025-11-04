@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.trees.event;
 
-import cn.oyzh.easymysql.fx.svg.glyph.EventSVGGlyph;
+import cn.oyzh.fx.gui.svg.glyph.database.EventSVGGlyph;
 import cn.oyzh.fx.gui.tree.view.RichTreeItemValue;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
 import cn.oyzh.i18n.I18nHelper;
