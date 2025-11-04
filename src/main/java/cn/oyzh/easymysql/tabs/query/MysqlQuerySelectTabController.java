@@ -159,10 +159,21 @@ public class MysqlQuerySelectTabController extends RichTabController {
             // 初始化sql信息
             this.sql.setText(this.result.getSql());
             this.used.setText(I18nHelper.time() + ": " + this.result.getUsedMs() + "ms");
-            this.count.setText(I18nHelper.totalData() + ": " + this.result.getCount());
+            // this.count.setText(I18nHelper.totalData() + ": " + this.result.getCount());
+            // 初始化计数
+            this.initCount(this.result.getCount());
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
+    }
+
+    /**
+     * 初始化计数
+     *
+     * @param count 计数
+     */
+    private void initCount(int count) {
+        this.count.text(I18nHelper.totalData() + ": " + count);
     }
 
     /**
@@ -210,6 +221,8 @@ public class MysqlQuerySelectTabController extends RichTabController {
         }
         this.recordTable.addItem(record);
         this.recordTable.selectLast();
+        // 初始化计数
+        this.initCount(this.recordTable.getItemSize());
     }
 
     /**
@@ -336,6 +349,8 @@ public class MysqlQuerySelectTabController extends RichTabController {
             }
             this.recordTable.removeItem(discardRecord);
             this.apply.disable();
+            // 初始化计数
+            this.initCount(this.recordTable.getItemSize());
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
@@ -435,6 +450,8 @@ public class MysqlQuerySelectTabController extends RichTabController {
             } else {// 操作失败
                 MessageBox.warnToast(I18nHelper.operationFail());
             }
+            // 初始化计数
+            this.initCount(this.recordTable.getItemSize());
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }
