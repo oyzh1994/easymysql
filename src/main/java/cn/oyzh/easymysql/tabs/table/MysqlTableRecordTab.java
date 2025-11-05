@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs.table;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;

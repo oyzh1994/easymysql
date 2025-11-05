@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.data;
 
-import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 
 /**
  * @author oyzh

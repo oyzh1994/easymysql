@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.controller.view;
 
-import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.mysql.view.MysqlView;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.fx.gui.text.area.ReadOnlyTextArea;
 import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;

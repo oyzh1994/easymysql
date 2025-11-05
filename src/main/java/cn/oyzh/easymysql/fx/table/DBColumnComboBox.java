@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.table;
 
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 import cn.oyzh.fx.plus.converter.SimpleStringConverter;
 

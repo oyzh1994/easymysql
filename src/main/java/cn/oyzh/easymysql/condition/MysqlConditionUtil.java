@@ -2,8 +2,8 @@ package cn.oyzh.easymysql.condition;
 
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.util.DBNodeUtil;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;

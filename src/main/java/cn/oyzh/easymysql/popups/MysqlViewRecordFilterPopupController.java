@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.popups;
 
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;

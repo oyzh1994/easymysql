@@ -279,7 +279,7 @@
 //             while (resultSet.next()) {
 //                 String tableName = resultSet.getString("TABLE_NAME");
 //                 String tableComment = resultSet.getString("TABLE_COMMENT");
-//                 Map<String, String> info = DBHelper.getViewInfo(connection, dbName, tableName);
+//                 Map<String, String> info = MysqlHelper.getViewInfo(connection, dbName, tableName);
 //                 view.setDbName(dbName);
 //                 view.setName(tableName);
 //                 view.setComment(tableComment);
@@ -318,7 +318,7 @@
 //                 MysqlView view = new MysqlView();
 //                 String tableName = resultSet.getString("TABLE_NAME");
 //                 String tableComment = resultSet.getString("TABLE_COMMENT");
-//                 Map<String, String> info = DBHelper.getViewInfo(connection, dbName, tableName);
+//                 Map<String, String> info = MysqlHelper.getViewInfo(connection, dbName, tableName);
 //                 view.setDbName(dbName);
 //                 view.setName(tableName);
 //                 view.setComment(tableComment);
@@ -707,7 +707,7 @@
 //     //         if (dbColumns != null && !dbColumns.isEmpty()) {
 //     //             columns = dbColumns;
 //     //         } else {
-//     //             columns = DBHelper.parseColumns(resultSet);
+//     //             columns = MysqlHelper.parseColumns(resultSet);
 //     //         }
 //     //         while (resultSet.next()) {
 //     //             MysqlRecord record = new MysqlRecord(readonly);
@@ -715,7 +715,7 @@
 //     //                 Object data = resultSet.getObject(column.getName());
 //     //                 // 获取几何值
 //     //                 if (column.supportGeometry()) {
-//     //                     data = DBHelper.getGeometryString(connection, data);
+//     //                     data = MysqlHelper.getGeometryString(connection, data);
 //     //                 }
 //     //                 record.putValue(column, data);
 //     //             }
@@ -792,7 +792,7 @@
 //             sql = "SELECT * FROM " + DBUtil.wrap(dbName, viewName) + " LIMIT 1";
 //             PreparedStatement statement1 = this.connection().prepareStatement(sql);
 //             ResultSet resultSet1 = statement1.executeQuery();
-//             MysqlColumns dbColumns = DBHelper.parseColumns(resultSet1);
+//             MysqlColumns dbColumns = MysqlHelper.parseColumns(resultSet1);
 //             DBUtil.close(resultSet1);
 //             DBUtil.close(statement1);
 //
@@ -832,15 +832,15 @@
 //             ResultSet resultSet = statement.executeQuery(sql);
 //             DBUtil.printMetaData(resultSet);
 //             List<MysqlRecord> records = new ArrayList<>();
-//             boolean updatable = DBHelper.isViewUpdatable(connection, dbName, viewName);
-//             MysqlColumns columns = DBHelper.parseColumns(resultSet);
+//             boolean updatable = MysqlHelper.isViewUpdatable(connection, dbName, viewName);
+//             MysqlColumns columns = MysqlHelper.parseColumns(resultSet);
 //             while (resultSet.next()) {
 //                 MysqlRecord record = new MysqlRecord(!updatable);
 //                 for (MysqlColumn column : columns) {
 //                     Object data = resultSet.getObject(column.getName());
 //                     // 获取几何值
 //                     if (column.supportGeometry()) {
-//                         data = DBHelper.getGeometryString(connection, data);
+//                         data = MysqlHelper.getGeometryString(connection, data);
 //                     }
 //                     record.putValue(column, data);
 //                 }
@@ -887,7 +887,7 @@
 //             int count = statement.executeUpdate();
 //             // 处理自动递增值
 //             if (primaryKey != null && primaryKey.shouldReturnData()) {
-//                 primaryKey.setReturnData(DBHelper.lastInsertId(connection));
+//                 primaryKey.setReturnData(MysqlHelper.lastInsertId(connection));
 //             }
 //             DBUtil.close(statement);
 //             return count;
@@ -930,7 +930,7 @@
 //     //         int count = statement.executeUpdate();
 //     //         // 处理自动递增值
 //     //         if (primaryKey != null && primaryKey.shouldReturnData()) {
-//     //             primaryKey.setReturnData(DBHelper.lastInsertId(connection));
+//     //             primaryKey.setReturnData(MysqlHelper.lastInsertId(connection));
 //     //         }
 //     //         DBUtil.close(statement);
 //     //         return count;
@@ -1225,7 +1225,7 @@
 //             connection = this.connection(dbName);
 //             // param.setDbName(dbName);
 //             Statement statement = connection.createStatement();
-//             // boolean hasPrimaryKey = DBHelper.hasPrimaryKey(this.connection(), dbName, table.getName());
+//             // boolean hasPrimaryKey = MysqlHelper.hasPrimaryKey(this.connection(), dbName, table.getName());
 //             // table.setHasPrimaryKey(hasPrimaryKey);
 //             String sql = TableAlertSqlGenerator.generate(this.dialect(), param);
 //             DBUtil.printSql(sql);
@@ -1672,11 +1672,11 @@
 //             while (resultSet.next()) {
 //                 MysqlFunction function = new MysqlFunction();
 //                 String name = resultSet.getString("ROUTINE_NAME");
-//                 List<MysqlRoutineParam> params = DBHelper.listFunctionParam(this.connection(), dbName, name);
+//                 List<MysqlRoutineParam> params = MysqlHelper.listFunctionParam(this.connection(), dbName, name);
 //                 String securityType = resultSet.getString("SECURITY_TYPE");
 //                 String definition = resultSet.getString("ROUTINE_DEFINITION");
 //                 String sqlDataAccess = resultSet.getString("SQL_DATA_ACCESS");
-//                 String createDefinition = DBHelper.getFunctionDefinition(this.connection(dbName), name);
+//                 String createDefinition = MysqlHelper.getFunctionDefinition(this.connection(dbName), name);
 //                 function.setName(name);
 //                 function.setDbName(dbName);
 //                 function.setParams(params);
@@ -1749,7 +1749,7 @@
 //                 MysqlProcedure procedure = new MysqlProcedure();
 //                 String name = resultSet.getString("ROUTINE_NAME");
 //                 String createDefinition = this.showCreateProcedure(dbName, name);
-//                 List<MysqlRoutineParam> params = DBHelper.listProcedureParam(this.connection(), dbName, name);
+//                 List<MysqlRoutineParam> params = MysqlHelper.listProcedureParam(this.connection(), dbName, name);
 //                 String securityType = resultSet.getString("SECURITY_TYPE");
 //                 String definition = resultSet.getString("ROUTINE_DEFINITION");
 //                 String sqlDataAccess = resultSet.getString("SQL_DATA_ACCESS");
@@ -1802,7 +1802,7 @@
 //             // 遍历结果集
 //             while (resultSet.next()) {
 //                 String createDefinition = this.showCreateProcedure(dbName, produceName);
-//                 List<MysqlRoutineParam> params = DBHelper.listProcedureParam(this.connection(), dbName, produceName);
+//                 List<MysqlRoutineParam> params = MysqlHelper.listProcedureParam(this.connection(), dbName, produceName);
 //                 String securityType = resultSet.getString("SECURITY_TYPE");
 //                 String definition = resultSet.getString("ROUTINE_DEFINITION");
 //                 String sqlDataAccess = resultSet.getString("SQL_DATA_ACCESS");
@@ -1943,7 +1943,7 @@
 //                 String securityType = resultSet.getString("SECURITY_TYPE");
 //                 String definition = resultSet.getString("ROUTINE_DEFINITION");
 //                 String sqlDataAccess = resultSet.getString("SQL_DATA_ACCESS");
-//                 List<MysqlRoutineParam> params = DBHelper.listFunctionParam(this.connection(), dbName, functionName);
+//                 List<MysqlRoutineParam> params = MysqlHelper.listFunctionParam(this.connection(), dbName, functionName);
 //                 String createDefinition = this.showCreateFunction(dbName, functionName);
 //                 function.setDbName(dbName);
 //                 function.setParams(params);
@@ -2081,13 +2081,13 @@
 //             ResultSet resultSet = statement.executeQuery();
 //             DBUtil.printMetaData(resultSet);
 //             MysqlRecord record = new MysqlRecord();
-//             MysqlColumns columns = DBHelper.parseColumns(resultSet);
+//             MysqlColumns columns = MysqlHelper.parseColumns(resultSet);
 //             while (resultSet.next()) {
 //                 for (MysqlColumn column : columns) {
 //                     Object data = resultSet.getObject(column.getName());
 //                     // 获取几何值
 //                     if (column.supportGeometry()) {
-//                         data = DBHelper.getGeometryString(connection, data);
+//                         data = MysqlHelper.getGeometryString(connection, data);
 //                     }
 //                     record.putValue(column, data);
 //                 }
@@ -2352,7 +2352,7 @@
 //             if (param.columns() != null) {
 //                 columns = param.columns();
 //             } else {
-//                 columns = DBHelper.parseColumns(resultSet);
+//                 columns = MysqlHelper.parseColumns(resultSet);
 //             }
 //             while (resultSet.next()) {
 //                 MysqlRecord record = new MysqlRecord(param.readonly());
@@ -2360,7 +2360,7 @@
 //                     Object data = resultSet.getObject(column.getName());
 //                     // 获取几何值
 //                     if (column.supportGeometry()) {
-//                         data = DBHelper.getGeometryString(connection, data);
+//                         data = MysqlHelper.getGeometryString(connection, data);
 //                     }
 //                     record.putValue(column, data);
 //                 }
@@ -2436,7 +2436,7 @@
 //             MysqlRecordPrimaryKey primaryKey = param.primaryKey();
 //             // 处理自动递增值
 //             if (primaryKey != null && primaryKey.shouldReturnData()) {
-//                 primaryKey.setReturnData(DBHelper.lastInsertId(connection));
+//                 primaryKey.setReturnData(MysqlHelper.lastInsertId(connection));
 //             }
 //             DBUtil.close(statement);
 //             return count;

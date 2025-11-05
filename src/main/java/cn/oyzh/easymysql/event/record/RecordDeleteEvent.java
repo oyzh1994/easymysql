@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.event.record;
 
-import cn.oyzh.easymysql.db.record.MysqlRecord;
+import cn.oyzh.easymysql.mysql.record.MysqlRecord;
 import cn.oyzh.event.Event;
 
 /**

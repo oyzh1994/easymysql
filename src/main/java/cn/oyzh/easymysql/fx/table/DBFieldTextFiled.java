@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.table;
 
 import cn.oyzh.common.util.CollectionUtil;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.popups.MysqlColumnFieldPopupController;
 import cn.oyzh.fx.gui.text.field.ChooseTextField;
 import cn.oyzh.fx.plus.window.PopupAdapter;

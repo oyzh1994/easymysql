@@ -1,9 +1,9 @@
 package cn.oyzh.easymysql.tabs.query;
 
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
-import cn.oyzh.easymysql.db.query.MysqlExplainResult;
-import cn.oyzh.easymysql.db.query.MysqlQueryResults;
+import cn.oyzh.easymysql.mysql.query.MysqlExecuteResult;
+import cn.oyzh.easymysql.mysql.query.MysqlExplainResult;
+import cn.oyzh.easymysql.mysql.query.MysqlQueryResults;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.query.DBQueryEditor;
 import cn.oyzh.easymysql.query.DBQueryUtil;

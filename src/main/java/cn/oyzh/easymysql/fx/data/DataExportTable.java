@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.data;
 
 import cn.oyzh.common.util.CollectionUtil;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.fx.gui.text.field.SaveFileTextField;
 import cn.oyzh.fx.plus.chooser.FXChooser;
 import cn.oyzh.fx.plus.chooser.FileExtensionFilter;

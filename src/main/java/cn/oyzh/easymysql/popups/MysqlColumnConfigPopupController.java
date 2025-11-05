@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.popups;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
 import cn.oyzh.easymysql.fx.table.DBEnumTextFiled;

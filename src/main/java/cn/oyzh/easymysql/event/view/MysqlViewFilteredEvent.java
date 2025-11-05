@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.event.view;
 
-import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.event.Event;

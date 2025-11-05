@@ -1,15 +1,15 @@
 package cn.oyzh.easymysql.tabs.query;
 
 import cn.oyzh.easymysql.db.DBObjectList;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
-import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
-import cn.oyzh.easymysql.db.record.MysqlInsertRecordParam;
-import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.record.MysqlRecordData;
-import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
-import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
-import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.query.MysqlExecuteResult;
+import cn.oyzh.easymysql.mysql.record.MysqlDeleteRecordParam;
+import cn.oyzh.easymysql.mysql.record.MysqlInsertRecordParam;
+import cn.oyzh.easymysql.mysql.record.MysqlRecord;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordData;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordPrimaryKey;
+import cn.oyzh.easymysql.mysql.record.MysqlSelectRecordParam;
+import cn.oyzh.easymysql.mysql.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.event.record.RecordDeleteEvent;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.DBRecordColumn;

@@ -6,10 +6,10 @@ import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.HexUtil;
 import cn.oyzh.common.util.TextUtil;
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.column.MysqlColumns;
-import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.column.MysqlColumns;
+import cn.oyzh.easymysql.mysql.record.MysqlRecord;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordPrimaryKey;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

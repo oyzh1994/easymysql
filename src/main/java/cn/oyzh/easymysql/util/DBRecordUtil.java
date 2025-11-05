@@ -1,8 +1,8 @@
 package cn.oyzh.easymysql.util;
 
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.record.MysqlRecordProperty;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordProperty;
 import cn.oyzh.easymysql.fx.record.DBBinaryTextFiled;
 import cn.oyzh.easymysql.fx.record.DBJsonTextFiled;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;

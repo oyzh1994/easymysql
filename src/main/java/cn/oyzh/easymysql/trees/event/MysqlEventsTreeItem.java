@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.trees.event;
 import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.mysql.event.MysqlEvent;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;

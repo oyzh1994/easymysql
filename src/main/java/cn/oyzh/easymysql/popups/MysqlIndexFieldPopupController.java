@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.popups;
 
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.index.MysqlIndex;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.index.MysqlIndex;
 import cn.oyzh.easymysql.fx.table.DBIndexColumnListView;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;

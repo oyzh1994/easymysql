@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.generator.event;
 
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.db.event.MysqlEvent;
+import cn.oyzh.easymysql.mysql.event.MysqlEvent;
 
 /**
  * @author oyzh

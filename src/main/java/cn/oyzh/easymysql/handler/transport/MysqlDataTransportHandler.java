@@ -2,11 +2,11 @@ package cn.oyzh.easymysql.handler.transport;
 
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.column.MysqlColumns;
-import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
-import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.column.MysqlColumns;
+import cn.oyzh.easymysql.mysql.column.MysqlSelectColumnParam;
+import cn.oyzh.easymysql.mysql.record.MysqlRecord;
+import cn.oyzh.easymysql.mysql.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.fx.data.DataTransportEvent;
 import cn.oyzh.easymysql.fx.data.DataTransportFunction;
 import cn.oyzh.easymysql.fx.data.DataTransportProcedure;

@@ -4,37 +4,38 @@ import cn.oyzh.common.log.JulLog;
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.condition.MysqlConditionUtil;
-import cn.oyzh.easymysql.db.check.MysqlCheck;
-import cn.oyzh.easymysql.db.check.MysqlChecks;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.column.MysqlColumns;
-import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
-import cn.oyzh.easymysql.db.event.MysqlEvent;
-import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
-import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKeys;
-import cn.oyzh.easymysql.db.function.MysqlFunction;
-import cn.oyzh.easymysql.db.index.MysqlIndex;
-import cn.oyzh.easymysql.db.index.MysqlIndexes;
-import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
-import cn.oyzh.easymysql.db.query.MysqlExecuteResult;
-import cn.oyzh.easymysql.db.query.MysqlExplainResult;
-import cn.oyzh.easymysql.db.query.MysqlQueryResults;
-import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
-import cn.oyzh.easymysql.db.record.MysqlInsertRecordParam;
-import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.record.MysqlRecordData;
-import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
-import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
-import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
-import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
-import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
-import cn.oyzh.easymysql.db.table.MysqlAlertTableParam;
-import cn.oyzh.easymysql.db.table.MysqlCreateTableParam;
-import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.db.table.MysqlSelectTableParam;
-import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
-import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
-import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.mysql.MysqlHelper;
+import cn.oyzh.easymysql.mysql.check.MysqlCheck;
+import cn.oyzh.easymysql.mysql.check.MysqlChecks;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.column.MysqlColumns;
+import cn.oyzh.easymysql.mysql.column.MysqlSelectColumnParam;
+import cn.oyzh.easymysql.mysql.event.MysqlEvent;
+import cn.oyzh.easymysql.mysql.foreignKey.MysqlForeignKey;
+import cn.oyzh.easymysql.mysql.foreignKey.MysqlForeignKeys;
+import cn.oyzh.easymysql.mysql.function.MysqlFunction;
+import cn.oyzh.easymysql.mysql.index.MysqlIndex;
+import cn.oyzh.easymysql.mysql.index.MysqlIndexes;
+import cn.oyzh.easymysql.mysql.procedure.MysqlProcedure;
+import cn.oyzh.easymysql.mysql.query.MysqlExecuteResult;
+import cn.oyzh.easymysql.mysql.query.MysqlExplainResult;
+import cn.oyzh.easymysql.mysql.query.MysqlQueryResults;
+import cn.oyzh.easymysql.mysql.record.MysqlDeleteRecordParam;
+import cn.oyzh.easymysql.mysql.record.MysqlInsertRecordParam;
+import cn.oyzh.easymysql.mysql.record.MysqlRecord;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordData;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordPrimaryKey;
+import cn.oyzh.easymysql.mysql.record.MysqlSelectRecordParam;
+import cn.oyzh.easymysql.mysql.record.MysqlUpdateRecordParam;
+import cn.oyzh.easymysql.mysql.routine.MysqlRoutineParam;
+import cn.oyzh.easymysql.mysql.table.MysqlAlertTableParam;
+import cn.oyzh.easymysql.mysql.table.MysqlCreateTableParam;
+import cn.oyzh.easymysql.mysql.table.MysqlTable;
+import cn.oyzh.easymysql.mysql.table.MysqlSelectTableParam;
+import cn.oyzh.easymysql.mysql.trigger.MysqlTrigger;
+import cn.oyzh.easymysql.mysql.trigger.MysqlTriggers;
+import cn.oyzh.easymysql.mysql.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.exception.DBException;
@@ -1062,7 +1063,7 @@ public class DBClient {
             if (param.getColumns() != null) {
                 columns = param.getColumns();
             } else {
-                columns = DBHelper.parseColumns(resultSet);
+                columns = MysqlHelper.parseColumns(resultSet);
             }
             while (resultSet.next()) {
                 MysqlRecord record = new MysqlRecord(columns, param.isReadonly());
@@ -1070,7 +1071,7 @@ public class DBClient {
                     Object data = resultSet.getObject(column.getName());
                     // 获取几何值
                     if (column.supportGeometry()) {
-                        data = DBHelper.getGeometryString(connection, data);
+                        data = MysqlHelper.getGeometryString(connection, data);
                     }
                     record.putValue(column, data);
                 }
@@ -1145,7 +1146,7 @@ public class DBClient {
             MysqlRecordPrimaryKey primaryKey = param.getPrimaryKey();
             // 处理自动递增值
             if (primaryKey != null && primaryKey.shouldReturnData()) {
-                primaryKey.setReturnData(DBHelper.lastInsertId(connection));
+                primaryKey.setReturnData(MysqlHelper.lastInsertId(connection));
             }
             DBUtil.close(statement);
             return count;
@@ -1570,7 +1571,7 @@ public class DBClient {
             while (resultSet.next()) {
                 String tableName = resultSet.getString("TABLE_NAME");
                 String tableComment = resultSet.getString("TABLE_COMMENT");
-                Map<String, String> info = DBHelper.getViewInfo(connection, dbName, tableName);
+                Map<String, String> info = MysqlHelper.getViewInfo(connection, dbName, tableName);
                 view.setDbName(dbName);
                 view.setName(tableName);
                 view.setComment(tableComment);
@@ -1608,7 +1609,7 @@ public class DBClient {
                 MysqlView view = new MysqlView();
                 String tableName = resultSet.getString("TABLE_NAME");
                 String tableComment = resultSet.getString("TABLE_COMMENT");
-                Map<String, String> info = DBHelper.getViewInfo(connection, dbName, tableName);
+                Map<String, String> info = MysqlHelper.getViewInfo(connection, dbName, tableName);
                 view.setDbName(dbName);
                 view.setName(tableName);
                 view.setComment(tableComment);
@@ -1937,7 +1938,7 @@ public class DBClient {
             PreparedStatement statement1 = this.connection().prepareStatement(sql);
             ResultSet resultSet1 = statement1.executeQuery();
             DBUtil.printMetaData(resultSet1);
-            MysqlColumns dbColumns = DBHelper.parseColumns(resultSet1);
+            MysqlColumns dbColumns = MysqlHelper.parseColumns(resultSet1);
             DBUtil.close(resultSet1);
             DBUtil.close(statement1);
 
@@ -1976,15 +1977,15 @@ public class DBClient {
             ResultSet resultSet = statement.executeQuery(sql);
             DBUtil.printMetaData(resultSet);
             List<MysqlRecord> records = new ArrayList<>();
-            boolean updatable = DBHelper.isViewUpdatable(connection, dbName, viewName);
-            MysqlColumns columns = DBHelper.parseColumns(resultSet);
+            boolean updatable = MysqlHelper.isViewUpdatable(connection, dbName, viewName);
+            MysqlColumns columns = MysqlHelper.parseColumns(resultSet);
             while (resultSet.next()) {
                 MysqlRecord record = new MysqlRecord(columns, !updatable);
                 for (MysqlColumn column : columns) {
                     Object data = resultSet.getObject(column.getName());
                     // 获取几何值
                     if (column.supportGeometry()) {
-                        data = DBHelper.getGeometryString(connection, data);
+                        data = MysqlHelper.getGeometryString(connection, data);
                     }
                     record.putValue(column, data);
                 }
@@ -2453,11 +2454,11 @@ public class DBClient {
             while (resultSet.next()) {
                 MysqlFunction function = new MysqlFunction();
                 String name = resultSet.getString("ROUTINE_NAME");
-                List<MysqlRoutineParam> params = DBHelper.listFunctionParam(this.connection(), dbName, name);
+                List<MysqlRoutineParam> params = MysqlHelper.listFunctionParam(this.connection(), dbName, name);
                 String securityType = resultSet.getString("SECURITY_TYPE");
                 String definition = resultSet.getString("ROUTINE_DEFINITION");
                 String sqlDataAccess = resultSet.getString("SQL_DATA_ACCESS");
-                String createDefinition = DBHelper.getFunctionDefinition(this.connection(dbName), name);
+                String createDefinition = MysqlHelper.getFunctionDefinition(this.connection(dbName), name);
                 function.setName(name);
                 function.setDbName(dbName);
                 function.setParams(params);
@@ -2504,7 +2505,7 @@ public class DBClient {
                 MysqlProcedure procedure = new MysqlProcedure();
                 String name = resultSet.getString("ROUTINE_NAME");
                 String createDefinition = this.showCreateProcedure(dbName, name);
-                List<MysqlRoutineParam> params = DBHelper.listProcedureParam(this.connection(), dbName, name);
+                List<MysqlRoutineParam> params = MysqlHelper.listProcedureParam(this.connection(), dbName, name);
                 String securityType = resultSet.getString("SECURITY_TYPE");
                 String definition = resultSet.getString("ROUTINE_DEFINITION");
                 String sqlDataAccess = resultSet.getString("SQL_DATA_ACCESS");
@@ -2556,7 +2557,7 @@ public class DBClient {
             // 遍历结果集
             while (resultSet.next()) {
                 String createDefinition = this.showCreateProcedure(dbName, produceName);
-                List<MysqlRoutineParam> params = DBHelper.listProcedureParam(this.connection(), dbName, produceName);
+                List<MysqlRoutineParam> params = MysqlHelper.listProcedureParam(this.connection(), dbName, produceName);
                 String securityType = resultSet.getString("SECURITY_TYPE");
                 String definition = resultSet.getString("ROUTINE_DEFINITION");
                 String sqlDataAccess = resultSet.getString("SQL_DATA_ACCESS");
@@ -2667,7 +2668,7 @@ public class DBClient {
                 String securityType = resultSet.getString("SECURITY_TYPE");
                 String definition = resultSet.getString("ROUTINE_DEFINITION");
                 String sqlDataAccess = resultSet.getString("SQL_DATA_ACCESS");
-                List<MysqlRoutineParam> params = DBHelper.listFunctionParam(this.connection(), dbName, functionName);
+                List<MysqlRoutineParam> params = MysqlHelper.listFunctionParam(this.connection(), dbName, functionName);
                 String createDefinition = this.showCreateFunction(dbName, functionName);
                 function.setDbName(dbName);
                 function.setParams(params);
@@ -2717,14 +2718,14 @@ public class DBClient {
             statement.setObject(1, primaryKey.data());
             ResultSet resultSet = statement.executeQuery();
             DBUtil.printMetaData(resultSet);
-            MysqlColumns columns = DBHelper.parseColumns(resultSet);
+            MysqlColumns columns = MysqlHelper.parseColumns(resultSet);
             MysqlRecord record = new MysqlRecord(columns);
             while (resultSet.next()) {
                 for (MysqlColumn column : columns) {
                     Object data = resultSet.getObject(column.getName());
                     // 获取几何值
                     if (column.supportGeometry()) {
-                        data = DBHelper.getGeometryString(connection, data);
+                        data = MysqlHelper.getGeometryString(connection, data);
                     }
                     record.putValue(column, data);
                 }

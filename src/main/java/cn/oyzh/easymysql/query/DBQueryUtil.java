@@ -5,11 +5,11 @@ import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.function.MysqlFunction;
-import cn.oyzh.easymysql.db.procedure.MysqlProcedure;
-import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.function.MysqlFunction;
+import cn.oyzh.easymysql.mysql.procedure.MysqlProcedure;
+import cn.oyzh.easymysql.mysql.table.MysqlTable;
+import cn.oyzh.easymysql.mysql.view.MysqlView;
 import cn.oyzh.easymysql.util.DBUtil;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.event.function;
 
-import cn.oyzh.easymysql.db.function.MysqlFunction;
+import cn.oyzh.easymysql.mysql.function.MysqlFunction;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.event.Event;
 

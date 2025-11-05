@@ -3,8 +3,8 @@ package cn.oyzh.easymysql.generator.routine;
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBDialect;
-import cn.oyzh.easymysql.db.function.MysqlFunction;
-import cn.oyzh.easymysql.db.routine.MysqlRoutineParam;
+import cn.oyzh.easymysql.mysql.function.MysqlFunction;
+import cn.oyzh.easymysql.mysql.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.util.DBUtil;
 
 import java.util.List;

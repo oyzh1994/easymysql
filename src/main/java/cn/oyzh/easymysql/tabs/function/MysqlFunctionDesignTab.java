@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs.function;
 
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.function.MysqlFunction;
+import cn.oyzh.easymysql.mysql.function.MysqlFunction;
 import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.svg.glyph.database.FunctionSVGGlyph;

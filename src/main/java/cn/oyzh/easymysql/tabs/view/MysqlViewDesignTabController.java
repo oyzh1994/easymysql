@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.tabs.view;
 
-import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.mysql.view.MysqlView;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBEditor;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;

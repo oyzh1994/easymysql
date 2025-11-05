@@ -6,23 +6,23 @@ import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
 import cn.oyzh.easymysql.controller.data.MysqlDataExportController;
 import cn.oyzh.easymysql.controller.table.MysqlTableInfoController;
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.check.MysqlChecks;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
-import cn.oyzh.easymysql.db.column.MysqlColumns;
-import cn.oyzh.easymysql.db.column.MysqlSelectColumnParam;
-import cn.oyzh.easymysql.db.foreignKey.MysqlForeignKey;
-import cn.oyzh.easymysql.db.index.MysqlIndex;
-import cn.oyzh.easymysql.db.record.MysqlDeleteRecordParam;
-import cn.oyzh.easymysql.db.record.MysqlInsertRecordParam;
-import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.record.MysqlRecordData;
-import cn.oyzh.easymysql.db.record.MysqlRecordFilter;
-import cn.oyzh.easymysql.db.record.MysqlRecordPrimaryKey;
-import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
-import cn.oyzh.easymysql.db.record.MysqlUpdateRecordParam;
-import cn.oyzh.easymysql.db.table.MysqlSelectTableParam;
-import cn.oyzh.easymysql.db.table.MysqlTable;
-import cn.oyzh.easymysql.db.trigger.MysqlTrigger;
+import cn.oyzh.easymysql.mysql.check.MysqlChecks;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.column.MysqlColumns;
+import cn.oyzh.easymysql.mysql.column.MysqlSelectColumnParam;
+import cn.oyzh.easymysql.mysql.foreignKey.MysqlForeignKey;
+import cn.oyzh.easymysql.mysql.index.MysqlIndex;
+import cn.oyzh.easymysql.mysql.record.MysqlDeleteRecordParam;
+import cn.oyzh.easymysql.mysql.record.MysqlInsertRecordParam;
+import cn.oyzh.easymysql.mysql.record.MysqlRecord;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordData;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordFilter;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordPrimaryKey;
+import cn.oyzh.easymysql.mysql.record.MysqlSelectRecordParam;
+import cn.oyzh.easymysql.mysql.record.MysqlUpdateRecordParam;
+import cn.oyzh.easymysql.mysql.table.MysqlSelectTableParam;
+import cn.oyzh.easymysql.mysql.table.MysqlTable;
+import cn.oyzh.easymysql.mysql.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
@@ -97,7 +97,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         items.add(updateTable);
         FXMenuItem renameTable = MenuItemHelper.renameTable("12", this::rename);
         items.add(renameTable);
-        FXMenuItem clearTable = MenuItemHelper.clearTable("12", this::clearTable);
+        FXMenuItem clearTable = MenuItemHelper.clearTableData("12", this::clearTableData);
         items.add(clearTable);
         FXMenuItem truncateTable = MenuItemHelper.truncateTable("12", this::truncateTable);
         items.add(truncateTable);
@@ -177,7 +177,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     }
 
     private void truncateTable() {
-        if (MessageBox.confirm(I18nHelper.truncateTable() + " " + this.tableName() + "?")) {
+        if (MessageBox.confirm(I18nHelper.truncateTable() + "[" + this.tableName() + "]")) {
             try {
                 this.dbItem().truncateTable(this.tableName());
                 MysqlEventUtil.tableTruncated(this, this.dbItem());
@@ -188,9 +188,12 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         }
     }
 
-    private void clearTable() {
+    /**
+     * 清空表
+     */
+    private void clearTableData() {
         try {
-            if (MessageBox.confirm("确定清空表数据？")) {
+            if (MessageBox.confirm(I18nHelper.clearTableData() + "[" + this.tableName() + "]")) {
                 this.dbItem().clearTable(this.tableName());
                 MysqlEventUtil.tableCleared(this, this.dbItem());
             }

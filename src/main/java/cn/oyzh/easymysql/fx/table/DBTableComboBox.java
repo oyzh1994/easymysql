@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.table;
 
 import cn.oyzh.easymysql.db.DBClient;
-import cn.oyzh.easymysql.db.table.MysqlTable;
+import cn.oyzh.easymysql.mysql.table.MysqlTable;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 import java.util.List;

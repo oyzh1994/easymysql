@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.util;
 
-import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.fx.editor.incubator.Editor;
 import cn.oyzh.fx.editor.incubator.EditorFormatType;
 import cn.oyzh.fx.gui.text.field.BitTextField;

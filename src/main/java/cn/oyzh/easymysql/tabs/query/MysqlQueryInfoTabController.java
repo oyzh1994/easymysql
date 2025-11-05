@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.tabs.query;
 
-import cn.oyzh.easymysql.db.query.MysqlQueryResult;
-import cn.oyzh.easymysql.db.query.MysqlQueryResults;
+import cn.oyzh.easymysql.mysql.query.MysqlQueryResult;
+import cn.oyzh.easymysql.mysql.query.MysqlQueryResults;
 import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.text.area.FXTextArea;
 import cn.oyzh.i18n.I18nHelper;

@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.popups;
 
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.MysqlStyle;
-import cn.oyzh.easymysql.db.column.MysqlColumn;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.util.DBNodeUtil;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.FXConst;

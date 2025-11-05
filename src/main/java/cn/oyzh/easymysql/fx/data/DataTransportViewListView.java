@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.data;
 
 import cn.oyzh.common.util.CollectionUtil;
-import cn.oyzh.easymysql.db.view.MysqlView;
+import cn.oyzh.easymysql.mysql.view.MysqlView;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
 import cn.oyzh.fx.plus.controls.list.FXListView;
 import cn.oyzh.fx.plus.util.ListViewUtil;

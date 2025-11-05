@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx.record;
 
-import cn.oyzh.easymysql.db.record.MysqlRecord;
-import cn.oyzh.easymysql.db.record.MysqlRecordProperty;
+import cn.oyzh.easymysql.mysql.record.MysqlRecord;
+import cn.oyzh.easymysql.mysql.record.MysqlRecordProperty;
 import cn.oyzh.fx.plus.controls.table.FXTableView;
 
 /**
