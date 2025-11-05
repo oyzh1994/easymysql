@@ -172,7 +172,7 @@ public class MysqlForeignKey extends DBObjectStatus implements ObjectCopier<Mysq
     // public DBTableComboBox getPrimaryKeyTableControl() {
     //     try {
     //         DBTableComboBox comboBox = new DBTableComboBox();
-    //         DBClient dbClient = CacheHelper.get("dbClient");
+    //         MysqlClient dbClient = CacheHelper.get("dbClient");
     //         comboBox.init(this.getPrimaryKeyDatabase(), dbClient);
     //         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setPrimaryKeyTable(newValue));
     //         comboBox.selectFirstIfNull(this.getPrimaryKeyTable());
@@ -217,7 +217,7 @@ public class MysqlForeignKey extends DBObjectStatus implements ObjectCopier<Mysq
     //             textField.clear();
     //             String dbName = this.getPrimaryKeyDatabase();
     //             String tableName = this.getPrimaryKeyTable();
-    //             DBClient client = CacheHelper.get("dbClient");
+    //             MysqlClient client = CacheHelper.get("dbClient");
     //             textField.setColumns(client.selectColumns(new MysqlSelectColumnParam(dbName, tableName)));
     //             textField.setSelectedColumns(this.primaryKeyColumns);
     //         };

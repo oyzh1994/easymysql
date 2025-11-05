@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.trees.event;
 
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.mysql.event.MysqlEvent;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
@@ -56,7 +56,7 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
      *
      * @return db客户端
      */
-    public DBClient client() {
+    public MysqlClient client() {
         return this.parent().client();
     }
 

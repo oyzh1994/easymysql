@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.mysql.routine;
 
 import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
@@ -129,7 +129,7 @@ public class MysqlRoutineParam extends DBObjectStatus {
         if (this.charsetControl != null) {
             return this.charsetControl;
         }
-        DBClient dbClient = CacheHelper.get("dbClient");
+        MysqlClient dbClient = CacheHelper.get("dbClient");
         DBCharsetComboBox comboBox = new DBCharsetComboBox();
         this.charsetControl = comboBox;
         comboBox.init(dbClient);
@@ -258,7 +258,7 @@ public class MysqlRoutineParam extends DBObjectStatus {
         if (this.collationControl != null) {
             return collationControl;
         }
-        DBClient dbClient = CacheHelper.get("dbClient");
+        MysqlClient dbClient = CacheHelper.get("dbClient");
         DBCollationComboBox comboBox = new DBCollationComboBox();
         this.collationControl = comboBox;
         comboBox.init(this.getCharset(), dbClient);
@@ -420,7 +420,7 @@ public class MysqlRoutineParam extends DBObjectStatus {
     }
 
     {
-        DBClient dbClient = CacheHelper.get("dbClient");
+        MysqlClient dbClient = CacheHelper.get("dbClient");
         if (dbClient != null) {
             // 类型变更
             this.typeProperty.addListener((observable, oldValue, newValue) -> {

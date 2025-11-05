@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.trees.view;
 
 import cn.oyzh.common.dto.Paging;
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.mysql.column.MysqlColumns;
 import cn.oyzh.easymysql.mysql.record.MysqlDeleteRecordParam;
@@ -59,7 +59,7 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     }
 
 
-    public DBClient client() {
+    public MysqlClient client() {
         return this.parent().client();
     }
 

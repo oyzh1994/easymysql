@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.query;
 
 import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
@@ -170,11 +170,11 @@ public class DBQueryUtil {
         return DB_COLUMNS;
     }
 
-    public static void updateIndex(DBClient client) {
+    public static void updateIndex(MysqlClient client) {
         updateIndex(client, true);
     }
 
-    public static void updateIndex(DBClient client, boolean async) {
+    public static void updateIndex(MysqlClient client, boolean async) {
         Runnable task = () -> {
             if (indexStatus == 0) {
                 try {

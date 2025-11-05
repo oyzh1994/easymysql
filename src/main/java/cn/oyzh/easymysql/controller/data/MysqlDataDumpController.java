@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.controller.data;
 import cn.oyzh.common.file.FileUtil;
 import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.fx.data.DBDumpDataTypeComboBox;
 import cn.oyzh.easymysql.handler.dump.DataDumpHandler;
@@ -54,7 +54,7 @@ public class MysqlDataDumpController extends StageController {
     /**
      * db客户端
      */
-    private DBClient dbClient;
+    private MysqlClient dbClient;
 
     /**
      * 1 库

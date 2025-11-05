@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.handler.transport;
 
 import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.common.util.CollectionUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.fx.data.DataTransportEvent;
 import cn.oyzh.easymysql.fx.data.DataTransportFunction;
@@ -24,12 +24,12 @@ public abstract class DataTransportHandler extends DataHandler {
     /**
      * 来源客户端
      */
-    protected DBClient sourceClient;
+    protected MysqlClient sourceClient;
 
     /**
      * 目标客户端
      */
-    protected DBClient targetClient;
+    protected MysqlClient targetClient;
 
     /**
      * 来源库
@@ -168,19 +168,19 @@ public abstract class DataTransportHandler extends DataHandler {
         return handler;
     }
 
-    public DBClient getSourceClient() {
+    public MysqlClient getSourceClient() {
         return sourceClient;
     }
 
-    public void setSourceClient(DBClient sourceClient) {
+    public void setSourceClient(MysqlClient sourceClient) {
         this.sourceClient = sourceClient;
     }
 
-    public DBClient getTargetClient() {
+    public MysqlClient getTargetClient() {
         return targetClient;
     }
 
-    public void setTargetClient(DBClient targetClient) {
+    public void setTargetClient(MysqlClient targetClient) {
         this.targetClient = targetClient;
     }
 

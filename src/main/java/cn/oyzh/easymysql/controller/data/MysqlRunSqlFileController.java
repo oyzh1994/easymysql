@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.controller.data;
 
 import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.handler.runfile.DataRunSqlFileHandler;
 import cn.oyzh.fx.gui.text.area.MsgTextArea;
@@ -50,7 +50,7 @@ public class MysqlRunSqlFileController extends StageController {
     /**
      * db客户端
      */
-    private DBClient dbClient;
+    private MysqlClient dbClient;
 
     /**
      * 结束运行sql按钮

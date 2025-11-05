@@ -1,10 +1,15 @@
-package cn.oyzh.easymysql.db;
+package cn.oyzh.easymysql.mysql;
 
 import cn.oyzh.common.log.JulLog;
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.condition.MysqlConditionUtil;
-import cn.oyzh.easymysql.mysql.MysqlHelper;
+import cn.oyzh.easymysql.db.DBConnConfig;
+import cn.oyzh.easymysql.db.DBConnState;
+import cn.oyzh.easymysql.db.DBConnectionManager;
+import cn.oyzh.easymysql.db.DBDatabase;
+import cn.oyzh.easymysql.db.DBDialect;
+import cn.oyzh.easymysql.db.DBFeature;
 import cn.oyzh.easymysql.mysql.check.MysqlCheck;
 import cn.oyzh.easymysql.mysql.check.MysqlChecks;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
@@ -76,7 +81,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author oyzh
  * @since 2023/11/06
  */
-public class DBClient {
+public class MysqlClient {
 
     /**
      * db信息
@@ -243,7 +248,7 @@ public class DBClient {
         return this.state.getReadOnlyProperty();
     }
 
-    public DBClient(MysqlConnect dbInfo) {
+    public MysqlClient(MysqlConnect dbInfo) {
         this.dbConnect = dbInfo;
         // if (dbInfo.isSSHForward()) {
         //     this.sshForwarder = new SSHForwarder(dbInfo.getSshConfig());

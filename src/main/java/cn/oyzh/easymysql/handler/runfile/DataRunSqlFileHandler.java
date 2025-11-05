@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.handler.runfile;
 import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.handler.DataHandler;
@@ -31,7 +31,7 @@ public abstract class DataRunSqlFileHandler extends DataHandler {
     /**
      * db客户端
      */
-    protected DBClient dbClient;
+    protected MysqlClient dbClient;
 
     /**
      * 连接信息
@@ -58,7 +58,7 @@ public abstract class DataRunSqlFileHandler extends DataHandler {
      */
     private DBDialect dialect;
 
-    public DataRunSqlFileHandler(DBClient dbClient, String dbName) {
+    public DataRunSqlFileHandler(MysqlClient dbClient, String dbName) {
         this.dbClient = dbClient;
         this.dbName = dbName;
     }
@@ -146,7 +146,7 @@ public abstract class DataRunSqlFileHandler extends DataHandler {
      * @param dbName   数据库
      * @return DataDumpHandler
      */
-    public static DataRunSqlFileHandler newHandler(DBClient dbClient, String dbName) {
+    public static DataRunSqlFileHandler newHandler(MysqlClient dbClient, String dbName) {
         DataRunSqlFileHandler handler = switch (dbClient.dialect()) {
             case MYSQL -> new MysqlDataRunSqlFileHandler(dbClient, dbName);
             default -> null;
@@ -173,11 +173,11 @@ public abstract class DataRunSqlFileHandler extends DataHandler {
         this.sqlFile = sqlFile;
     }
 
-    public DBClient getDbClient() {
+    public MysqlClient getDbClient() {
         return dbClient;
     }
 
-    public void setDbClient(DBClient dbClient) {
+    public void setDbClient(MysqlClient dbClient) {
         this.dbClient = dbClient;
     }
 

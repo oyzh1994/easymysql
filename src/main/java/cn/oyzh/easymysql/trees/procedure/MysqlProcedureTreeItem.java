@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.trees.procedure;
 
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.mysql.procedure.MysqlProcedure;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
@@ -50,7 +50,7 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItemVal
      *
      * @return db客户端
      */
-    public DBClient client() {
+    public MysqlClient client() {
         return this.parent().client();
     }
 

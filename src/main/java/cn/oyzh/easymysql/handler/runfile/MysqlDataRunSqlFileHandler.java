@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.handler.runfile;
 
 import cn.oyzh.common.file.FileUtil;
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 
 import java.io.BufferedReader;
 import java.nio.charset.StandardCharsets;
@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class MysqlDataRunSqlFileHandler extends DataRunSqlFileHandler {
 
-    public MysqlDataRunSqlFileHandler(DBClient dbClient, String dbName) {
+    public MysqlDataRunSqlFileHandler(MysqlClient dbClient, String dbName) {
         super(dbClient, dbName);
     }
 

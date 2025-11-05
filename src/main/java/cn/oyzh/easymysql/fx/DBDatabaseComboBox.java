@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx;
 
 import cn.oyzh.common.util.CollectionUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
@@ -15,11 +15,11 @@ import java.util.List;
  */
 public class DBDatabaseComboBox extends FXComboBox<String> {
 
-    public void init(DBClient client) {
+    public void init(MysqlClient client) {
         this.init(client, null);
     }
 
-    public void init(DBClient client, String dbName) {
+    public void init(MysqlClient client, String dbName) {
         this.clearItems();
         List<DBDatabase> databases = client.databases();
         if (CollectionUtil.isNotEmpty(databases)) {

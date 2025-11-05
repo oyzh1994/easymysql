@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.event;
 
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.mysql.event.MysqlEvent;
 import cn.oyzh.easymysql.mysql.function.MysqlFunction;
@@ -314,7 +314,7 @@ public class MysqlEventUtil {
      *
      * @param client redis客户端
      */
-    public static void connectionClosed(DBClient client) {
+    public static void connectionClosed(MysqlClient client) {
         DBConnectionClosedEvent event = new DBConnectionClosedEvent();
         event.data(client);
         EventUtil.post(event);
@@ -325,7 +325,7 @@ public class MysqlEventUtil {
      *
      * @param client redis客户端
      */
-    public static void connectionConnected(DBClient client) {
+    public static void connectionConnected(MysqlClient client) {
         DBConnectionConnectedEvent event = new DBConnectionConnectedEvent();
         event.data(client);
         EventUtil.post(event);

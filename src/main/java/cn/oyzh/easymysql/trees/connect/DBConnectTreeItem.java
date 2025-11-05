@@ -6,7 +6,7 @@ import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.controller.connect.MysqlConnectUpdateController;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseAddController;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.db.DBConnectManager;
 import cn.oyzh.easymysql.db.DBDatabase;
@@ -47,7 +47,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
     /**
      * db客户端
      */
-    private DBClient client;
+    private MysqlClient client;
 
     /**
      * 已取消操作标志位
@@ -355,7 +355,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
     }
 
 
-    public DBClient getClient() {
+    public MysqlClient getClient() {
         return client;
     }
 }

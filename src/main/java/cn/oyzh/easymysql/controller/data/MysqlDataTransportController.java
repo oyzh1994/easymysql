@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.controller.data;
 import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.fx.DBDatabaseComboBox;
@@ -154,12 +154,12 @@ public class MysqlDataTransportController extends StageController {
     /**
      * 来源客户端
      */
-    private DBClient sourceClient;
+    private MysqlClient sourceClient;
 
     /**
      * 目标客户端
      */
-    private DBClient targetClient;
+    private MysqlClient targetClient;
 
     /**
      * 结束传输按钮

@@ -67,7 +67,7 @@
 //  * @author oyzh
 //  * @since 2023/11/06
 //  */
-// public class MysqlDBClient extends DBClient {
+// public class MysqlDBClient extends MysqlClient {
 //
 //     public MysqlDBClient( MysqlInfo dbInfo) {
 //         super(dbInfo);

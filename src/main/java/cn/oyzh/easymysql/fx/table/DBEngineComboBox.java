@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.fx.table;
 
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
@@ -11,7 +11,7 @@ import cn.oyzh.fx.plus.controls.combo.FXComboBox;
  */
 public class DBEngineComboBox extends FXComboBox<String> {
 
-    public void init(DBClient client) {
+    public void init(MysqlClient client) {
         this.clearItems();
         for (String engine : client.engines()) {
             this.addItem(engine.toUpperCase());

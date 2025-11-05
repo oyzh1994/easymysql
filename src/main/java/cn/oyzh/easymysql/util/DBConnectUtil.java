@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.util;
 
 import cn.oyzh.common.thread.ThreadUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -27,7 +27,7 @@ public class DBConnectUtil {
                 view.disable();
                 view.waitCursor();
                 view.appendTitle("==连接测试中...");
-                DBClient client = DBClientUtil.newClient(dbInfo);
+                MysqlClient client = DBClientUtil.newClient(dbInfo);
                 if (client != null) {
                     client.start();
                     if (client.isConnected()) {
@@ -54,7 +54,7 @@ public class DBConnectUtil {
      * @param client db客户端
      * @param async  是否异步
      */
-    public static void close(DBClient client, boolean async) {
+    public static void close(MysqlClient client, boolean async) {
         try {
             if (client != null && client.isConnected()) {
                 Runnable func = client::close;

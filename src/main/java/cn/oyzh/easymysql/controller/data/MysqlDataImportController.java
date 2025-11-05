@@ -4,7 +4,7 @@ import cn.oyzh.common.date.DateUtil;
 import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.fx.data.DataDateTextFiled;
 import cn.oyzh.easymysql.fx.data.DataFieldSeparatorComboBox;
 import cn.oyzh.easymysql.fx.data.DataImportFile;
@@ -124,7 +124,7 @@ public class MysqlDataImportController extends StageController {
     /**
      * db客户端
      */
-    private DBClient dbClient;
+    private MysqlClient dbClient;
 
     /**
      * 结束导入按钮

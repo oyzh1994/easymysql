@@ -108,7 +108,7 @@ public class DBObjectStatus {
         return this.originalData().get(key);
     }
 
-    protected void clearOriginalData() {
+    public void clearOriginalData() {
         if (this.originalData != null) {
             this.originalData().clear();
         }

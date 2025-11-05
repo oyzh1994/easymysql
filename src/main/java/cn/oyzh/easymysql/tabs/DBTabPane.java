@@ -91,7 +91,7 @@ public class DBTabPane extends RichTabPane implements FXEventListener {
     //         func.accept(tabs);
     //     } else if (setting.isSingleTabLimitStrategy()) {// 限制单个连接
     //         // 分组处理
-    //         Map<DBClient, List<MysqlTableDataTab>> map = new HashMap<>();
+    //         Map<MysqlClient, List<MysqlTableDataTab>> map = new HashMap<>();
     //         // 按分组添加到map
     //         for (MysqlTableDataTab tab : tabs) {
     //             List<MysqlTableDataTab> list = map.computeIfAbsent(tab.client(), k -> new ArrayList<>());

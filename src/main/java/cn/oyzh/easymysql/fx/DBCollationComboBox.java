@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.fx;
 
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
@@ -10,7 +10,7 @@ import cn.oyzh.fx.plus.controls.combo.FXComboBox;
  */
 public class DBCollationComboBox extends FXComboBox<String> {
 
-    public void init(String charset, DBClient client) {
+    public void init(String charset, MysqlClient client) {
         if (charset == null) {
             return;
         }

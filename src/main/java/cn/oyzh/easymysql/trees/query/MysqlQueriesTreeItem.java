@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.trees.query;
 
 import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
@@ -98,7 +98,7 @@ public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> 
         return this.parent().dbName();
     }
 
-    public DBClient client() {
+    public MysqlClient client() {
         return this.parent().client();
     }
 

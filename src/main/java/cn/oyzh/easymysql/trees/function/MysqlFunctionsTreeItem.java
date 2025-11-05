@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.trees.function;
 
 import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.mysql.function.MysqlFunction;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
@@ -130,7 +130,7 @@ public class MysqlFunctionsTreeItem extends DBTreeItem<MysqlFunctionsTreeItemVal
         return this.parent().dbName();
     }
 
-    public DBClient client() {
+    public MysqlClient client() {
         return this.parent().client();
     }
 

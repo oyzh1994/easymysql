@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.tabs.table;
 
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
@@ -141,7 +141,7 @@ public class MysqlTableColumnExtraController extends SubTabController {
     /**
      * db客户端
      */
-    private DBClient dbClient;
+    private MysqlClient dbClient;
 
     /**
      * 应用
@@ -226,7 +226,7 @@ public class MysqlTableColumnExtraController extends SubTabController {
      * @param column   字段
      * @param dbClient 客户端
      */
-    public void init(MysqlColumn column, DBClient dbClient) {
+    public void init(MysqlColumn column, MysqlClient dbClient) {
         // 移除旧的监听器
         if (this.column != null) {
             this.column.typeProperty().removeListener(this::listenColumnTypeChanged);

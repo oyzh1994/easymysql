@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.event.connect;
 
-import cn.oyzh.easymysql.db.DBClient;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.event.Event;
@@ -10,7 +10,7 @@ import cn.oyzh.event.EventFormatter;
  * @author oyzh
  * @since 2023/11/28
  */
-public class DBConnectionClosedEvent extends Event<DBClient> implements EventFormatter {
+public class DBConnectionClosedEvent extends Event<MysqlClient> implements EventFormatter {
 
     @Override
     public String eventFormat() {
