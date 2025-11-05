@@ -5,9 +5,9 @@ import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.mysql.event.MysqlEvent;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBEditor;
-import cn.oyzh.easymysql.fx.event.DBEventIntervalTypeCombobox;
-import cn.oyzh.easymysql.fx.event.DBEventOnCompletionCombobox;
-import cn.oyzh.easymysql.fx.event.DBEventStatusCombobox;
+import cn.oyzh.easymysql.fx.event.MysqlEventIntervalTypeCombobox;
+import cn.oyzh.easymysql.fx.event.MysqlEventOnCompletionCombobox;
+import cn.oyzh.easymysql.fx.event.MysqlEventStatusCombobox;
 import cn.oyzh.easymysql.generator.event.EventAlertSqlGenerator;
 import cn.oyzh.easymysql.generator.event.EventCreateSqlGenerator;
 import cn.oyzh.easymysql.listener.DBStatusListener;
@@ -104,7 +104,7 @@ public class MysqlEventDesignTabController extends RichTabController {
      * 单次循环类型
      */
     @FXML
-    private DBEventIntervalTypeCombobox onetimeIntervalType;
+    private MysqlEventIntervalTypeCombobox onetimeIntervalType;
 
     /**
      * 周期类型
@@ -122,7 +122,7 @@ public class MysqlEventDesignTabController extends RichTabController {
      * 周期循环类型
      */
     @FXML
-    private DBEventIntervalTypeCombobox loopIntervalType;
+    private MysqlEventIntervalTypeCombobox loopIntervalType;
 
     /**
      * 周期循环开始
@@ -152,7 +152,7 @@ public class MysqlEventDesignTabController extends RichTabController {
      * 周期循环开始类型
      */
     @FXML
-    private DBEventIntervalTypeCombobox loopStartIntervalType;
+    private MysqlEventIntervalTypeCombobox loopStartIntervalType;
 
     /**
      * 周期循环结束
@@ -182,7 +182,7 @@ public class MysqlEventDesignTabController extends RichTabController {
      * 周期循环结束类型
      */
     @FXML
-    private DBEventIntervalTypeCombobox loopEndIntervalType;
+    private MysqlEventIntervalTypeCombobox loopEndIntervalType;
 
     /**
      * 切换面板
@@ -206,13 +206,13 @@ public class MysqlEventDesignTabController extends RichTabController {
      * 状态
      */
     @FXML
-    private DBEventStatusCombobox status;
+    private MysqlEventStatusCombobox status;
 
     /**
      * 完成时
      */
     @FXML
-    private DBEventOnCompletionCombobox onCompletion;
+    private MysqlEventOnCompletionCombobox onCompletion;
 
     /**
      * 数据监听器

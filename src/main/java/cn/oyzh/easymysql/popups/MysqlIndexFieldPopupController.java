@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.popups;
 
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.mysql.index.MysqlIndex;
-import cn.oyzh.easymysql.fx.table.DBIndexColumnListView;
+import cn.oyzh.easymysql.fx.table.MysqlIndexColumnListView;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -33,7 +33,7 @@ public class MysqlIndexFieldPopupController extends PopupController {
      * 值组件
      */
     @FXML
-    private DBIndexColumnListView listView;
+    private MysqlIndexColumnListView listView;
 
     /**
      * 提交

@@ -7,7 +7,7 @@ import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.event.connect.MysqlConnectUpdatedEvent;
 import cn.oyzh.easymysql.event.tree.MysqlTreeItemChangedEvent;
 import cn.oyzh.easymysql.store.MysqlSettingStore;
-import cn.oyzh.easymysql.tabs.DBTabPane;
+import cn.oyzh.easymysql.tabs.MysqlTabPane;
 import cn.oyzh.easymysql.trees.DBTreeView;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -21,9 +21,7 @@ import cn.oyzh.fx.plus.controller.ParentStageController;
 import cn.oyzh.fx.plus.controller.SubStageController;
 import cn.oyzh.fx.plus.controls.tab.FXTabPane;
 import cn.oyzh.fx.plus.keyboard.KeyListener;
-import cn.oyzh.fx.plus.node.NodeResizer;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.control.TreeItem;
 import javafx.scene.input.KeyCode;
 import javafx.stage.WindowEvent;
@@ -65,7 +63,7 @@ public class MysqlMainController extends ParentStageController {
      * db切换面板
      */
     @FXML
-    public DBTabPane tabPane;
+    public MysqlTabPane tabPane;
 
     /**
      * redis连接

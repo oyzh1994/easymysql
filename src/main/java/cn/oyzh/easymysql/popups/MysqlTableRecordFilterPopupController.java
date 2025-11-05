@@ -39,13 +39,13 @@ public class MysqlTableRecordFilterPopupController extends PopupController {
     //  * 字段列
     //  */
     // @FXML
-    // private FXTableColumn<MysqlRecordFilter, DBConditionComboBox> column;
+    // private FXTableColumn<MysqlRecordFilter, MysqlConditionComboBox> column;
     //
     // /**
     //  * 条件列
     //  */
     // @FXML
-    // private FXTableColumn<MysqlRecordFilter, DBConditionComboBox> condition;
+    // private FXTableColumn<MysqlRecordFilter, MysqlConditionComboBox> condition;
     //
     // /**
     //  * 值列

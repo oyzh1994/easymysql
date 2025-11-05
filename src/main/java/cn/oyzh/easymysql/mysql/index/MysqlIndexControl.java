@@ -3,9 +3,9 @@ package cn.oyzh.easymysql.mysql.index;
 import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
-import cn.oyzh.easymysql.fx.table.DBIndexFieldTextFiled;
-import cn.oyzh.easymysql.fx.table.DBIndexMethodComboBox;
-import cn.oyzh.easymysql.fx.table.DBIndexTypeComboBox;
+import cn.oyzh.easymysql.fx.table.MysqlIndexFieldTextFiled;
+import cn.oyzh.easymysql.fx.table.MysqlIndexMethodComboBox;
+import cn.oyzh.easymysql.fx.table.MysqlIndexTypeComboBox;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
@@ -33,9 +33,9 @@ public class MysqlIndexControl extends MysqlIndex {
         return textField;
     }
 
-    public DBIndexFieldTextFiled getColumnControl() {
+    public MysqlIndexFieldTextFiled getColumnControl() {
         List<MysqlColumn> columnList = CacheHelper.get("columnList");
-        DBIndexFieldTextFiled textField = new DBIndexFieldTextFiled(this, columnList, this.getColumns());
+        MysqlIndexFieldTextFiled textField = new MysqlIndexFieldTextFiled(this, columnList, this.getColumns());
         textField.setFlexWidth("100% - 12");
         textField.addTextChangeListener((observable, oldValue, newValue) -> this.setColumns(textField.getColumns()));
         TableViewUtil.rowOnCtrlS(textField);
@@ -43,8 +43,8 @@ public class MysqlIndexControl extends MysqlIndex {
         return textField;
     }
 
-    public DBIndexTypeComboBox getTypeControl() {
-        DBIndexTypeComboBox comboBox = new DBIndexTypeComboBox();
+    public MysqlIndexTypeComboBox getTypeControl() {
+        MysqlIndexTypeComboBox comboBox = new MysqlIndexTypeComboBox();
         comboBox.selectFirstIfNull(this.getType());
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setType(newValue));
         TableViewUtil.rowOnCtrlS(comboBox);
@@ -54,8 +54,8 @@ public class MysqlIndexControl extends MysqlIndex {
         return comboBox;
     }
 
-    public DBIndexMethodComboBox getMethodControl() {
-        DBIndexMethodComboBox comboBox = new DBIndexMethodComboBox();
+    public MysqlIndexMethodComboBox getMethodControl() {
+        MysqlIndexMethodComboBox comboBox = new MysqlIndexMethodComboBox();
         comboBox.selectFirstIfNull(this.getMethod());
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setMethod(newValue));
         TableViewUtil.rowOnCtrlS(comboBox);

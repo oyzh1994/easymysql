@@ -14,7 +14,7 @@ import cn.oyzh.easymysql.fx.data.DataTransportProcedureListView;
 import cn.oyzh.easymysql.fx.data.DataTransportTableListView;
 import cn.oyzh.easymysql.fx.data.DataTransportTriggerListView;
 import cn.oyzh.easymysql.fx.data.DataTransportViewListView;
-import cn.oyzh.easymysql.handler.transport.DataTransportHandler;
+import cn.oyzh.easymysql.handler.DataTransportHandler;
 import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;

@@ -65,13 +65,13 @@ public class DBHomeTabController extends RichTabController {
         MysqlEventUtil.addGroup();
     }
 
-    /**
-     * 打开终端
-     */
-    @FXML
-    private void openTerminal() {
-        MysqlEventUtil.terminalOpen();
-    }
+    // /**
+    //  * 打开终端
+    //  */
+    // @FXML
+    // private void openTerminal() {
+    //     MysqlEventUtil.terminalOpen();
+    // }
 
     /**
      * 更新日志

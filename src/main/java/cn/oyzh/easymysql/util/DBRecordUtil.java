@@ -3,7 +3,7 @@ package cn.oyzh.easymysql.util;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.mysql.record.MysqlRecordProperty;
-import cn.oyzh.easymysql.fx.record.DBBinaryTextFiled;
+import cn.oyzh.easymysql.fx.record.MysqlBinaryTextFiled;
 import cn.oyzh.easymysql.fx.record.DBJsonTextFiled;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.gui.text.field.BitTextField;
@@ -40,7 +40,7 @@ public class DBRecordUtil {
             textField.setValue(object);
             node = textField;
         } else if (column.supportBinary()) {
-            DBBinaryTextFiled textField = new DBBinaryTextFiled(columnType);
+            MysqlBinaryTextFiled textField = new MysqlBinaryTextFiled(columnType);
             textField.setValue(object);
             node = textField;
         } else if (column.supportEnum()) {
@@ -118,7 +118,7 @@ public class DBRecordUtil {
             val = DBJsonTextFiled.format(object);
         } else if (column.supportBinary()) {
             if (object instanceof byte[] bytes) {
-                val = DBBinaryTextFiled.format(columnType, bytes);
+                val = MysqlBinaryTextFiled.format(columnType, bytes);
             }
         } else if (column.supportEnum()) {
             val = SelectTextFiled.format(object);

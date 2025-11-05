@@ -26,8 +26,8 @@
 // import cn.oyzh.easymysql.fx.DBCollationComboBox;
 // import cn.oyzh.easymysql.fx.DBStatusColumn;
 // import cn.oyzh.easymysql.fx.DBStatusTableView;
-// import cn.oyzh.easymysql.fx.table.DBEngineComboBox;
-// import cn.oyzh.easymysql.fx.table.DBRowFormatComboBox;
+// import cn.oyzh.easymysql.fx.table.MysqlEngineComboBox;
+// import cn.oyzh.easymysql.fx.table.MysqlRowFormatComboBox;
 // import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
 // import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 // import cn.oyzh.easymysql.listener.DBStatusListener;
@@ -101,7 +101,7 @@
 //      * 引擎
 //      */
 //     @FXML
-//     private DBEngineComboBox tableEngine;
+//     private MysqlEngineComboBox tableEngine;
 //
 //     /**
 //      * 字符集
@@ -125,7 +125,7 @@
 //      * 行格式
 //      */
 //     @FXML
-//     private DBRowFormatComboBox tableRowFormat;
+//     private MysqlRowFormatComboBox tableRowFormat;
 //
 //     /**
 //      * 自动递增组件

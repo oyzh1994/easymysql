@@ -7,9 +7,9 @@ import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
-import cn.oyzh.easymysql.fx.routine.DBParamModeComboBox;
+import cn.oyzh.easymysql.fx.routine.MysqlParamModeComboBox;
 import cn.oyzh.easymysql.fx.table.DBEnumTextFiled;
-import cn.oyzh.easymysql.fx.table.DBFiledTypeComboBox;
+import cn.oyzh.easymysql.fx.table.MysqlFiledTypeComboBox;
 import cn.oyzh.easymysql.util.DBColumnUtil;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
@@ -110,8 +110,8 @@ public class MysqlRoutineParam extends DBObjectStatus {
      *
      * @return 类型组件
      */
-    public DBFiledTypeComboBox getTypeControl() {
-        DBFiledTypeComboBox comboBox = new DBFiledTypeComboBox();
+    public MysqlFiledTypeComboBox getTypeControl() {
+        MysqlFiledTypeComboBox comboBox = new MysqlFiledTypeComboBox();
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setType(newValue));
         comboBox.selectFirstIfNull(this.getType());
         TableViewUtil.selectRowOnMouseClicked(comboBox);
@@ -277,8 +277,8 @@ public class MysqlRoutineParam extends DBObjectStatus {
      *
      * @return 模式组件
      */
-    public DBParamModeComboBox getModeControl() {
-        DBParamModeComboBox comboBox = new DBParamModeComboBox();
+    public MysqlParamModeComboBox getModeControl() {
+        MysqlParamModeComboBox comboBox = new MysqlParamModeComboBox();
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.mode = newValue);
         comboBox.selectFirstIfNull(this.mode);
         TableViewUtil.selectRowOnMouseClicked(comboBox);

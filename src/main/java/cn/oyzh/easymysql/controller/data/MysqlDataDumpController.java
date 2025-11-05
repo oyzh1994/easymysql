@@ -6,7 +6,7 @@ import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.fx.data.DBDumpDataTypeComboBox;
-import cn.oyzh.easymysql.handler.dump.DataDumpHandler;
+import cn.oyzh.easymysql.handler.DataDumpHandler;
 import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.gui.text.field.ReadOnlyTextField;
 import cn.oyzh.fx.plus.FXConst;

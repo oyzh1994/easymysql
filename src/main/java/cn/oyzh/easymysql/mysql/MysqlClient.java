@@ -10,6 +10,7 @@ import cn.oyzh.easymysql.db.DBConnectionManager;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.DBFeature;
+import cn.oyzh.easymysql.generator.routine.MysqlFunctionSqlGenerator;
 import cn.oyzh.easymysql.mysql.check.MysqlCheck;
 import cn.oyzh.easymysql.mysql.check.MysqlChecks;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
@@ -47,8 +48,7 @@ import cn.oyzh.easymysql.exception.DBException;
 import cn.oyzh.easymysql.exception.ReadonlyOperationException;
 import cn.oyzh.easymysql.generator.event.EventAlertSqlGenerator;
 import cn.oyzh.easymysql.generator.event.EventCreateSqlGenerator;
-import cn.oyzh.easymysql.generator.routine.DBFunctionSqlGenerator;
-import cn.oyzh.easymysql.generator.routine.DBProcedureSqlGenerator;
+import cn.oyzh.easymysql.generator.routine.MysqlProcedureSqlGenerator;
 import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
 import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 import cn.oyzh.easymysql.sql.DBSqlParser;
@@ -643,7 +643,7 @@ public class MysqlClient {
             Connection connection = this.connection(dbName);
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
-            sql = DBFunctionSqlGenerator.INSTANCE.generate(function);
+            sql = MysqlFunctionSqlGenerator.INSTANCE.generate(function);
             DBUtil.printSql(sql);
             statement.executeUpdate(sql);
             DBUtil.close(statement);
@@ -2599,7 +2599,7 @@ public class MysqlClient {
 
     public void createProcedure(String dbName, MysqlProcedure procedure) {
         try {
-            String sql = DBProcedureSqlGenerator.INSTANCE.generate(procedure);
+            String sql = MysqlProcedureSqlGenerator.INSTANCE.generate(procedure);
             DBUtil.printSql(sql);
             Statement statement = this.connection(dbName).createStatement();
             statement.executeUpdate(sql);
@@ -2616,7 +2616,7 @@ public class MysqlClient {
             DBUtil.printSql(sql);
             Statement statement = this.connection(dbName).createStatement();
             statement.executeUpdate(sql);
-            sql = DBProcedureSqlGenerator.INSTANCE.generate(procedure);
+            sql = MysqlProcedureSqlGenerator.INSTANCE.generate(procedure);
             DBUtil.printSql(sql);
             Statement statement1 = this.connection(dbName).createStatement();
             statement1.executeUpdate(sql);
@@ -2694,7 +2694,7 @@ public class MysqlClient {
 
     public void createFunction(String dbName, MysqlFunction function) {
         try {
-            String sql = DBFunctionSqlGenerator.INSTANCE.generate(function);
+            String sql = MysqlFunctionSqlGenerator.INSTANCE.generate(function);
             DBUtil.printSql(sql);
             Statement statement = this.connection(dbName).createStatement();
             statement.executeUpdate(sql);

@@ -15,7 +15,7 @@ import cn.oyzh.easymysql.fx.data.DataExportTableTableView;
 import cn.oyzh.easymysql.fx.data.DataFieldSeparatorComboBox;
 import cn.oyzh.easymysql.fx.data.DataRecordSeparatorComboBox;
 import cn.oyzh.easymysql.fx.data.DataTxtIdentifierComboBox;
-import cn.oyzh.easymysql.handler.export.DataExportHandler;
+import cn.oyzh.easymysql.handler.DataExportHandler;
 import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.chooser.FXChooser;

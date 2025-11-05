@@ -9,8 +9,8 @@ import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBEditor;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
 import cn.oyzh.easymysql.fx.DBStatusTableView;
-import cn.oyzh.easymysql.fx.routine.DBCharacteristicCombobox;
-import cn.oyzh.easymysql.generator.routine.DBProcedureSqlGenerator;
+import cn.oyzh.easymysql.fx.routine.MysqlCharacteristicCombobox;
+import cn.oyzh.easymysql.generator.routine.MysqlProcedureSqlGenerator;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -96,7 +96,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
      * 特征
      */
     @FXML
-    private DBCharacteristicCombobox characteristic;
+    private MysqlCharacteristicCombobox characteristic;
 
     /**
      * 参数表单
@@ -411,7 +411,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
                 // if (StringUtil.isBlank(temp.getName())) {
                 //     temp.setName("Unnamed_Procedure");
                 // }
-                // String sql = DBProcedureSqlGenerator.INSTANCE.generate(temp);
+                // String sql = MysqlProcedureSqlGenerator.INSTANCE.generate(temp);
                 // this.preview.setText(sql);
                 this.initPreview();
             }
@@ -426,7 +426,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
         if (StringUtil.isBlank(temp.getName())) {
             temp.setName("Unnamed_Procedure");
         }
-        String sql = DBProcedureSqlGenerator.INSTANCE.generate(temp);
+        String sql = MysqlProcedureSqlGenerator.INSTANCE.generate(temp);
         this.preview.setText(sql);
     }
 

@@ -3,25 +3,23 @@ package cn.oyzh.easymysql.tabs.view;
 import cn.oyzh.common.dto.Paging;
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.easymysql.db.DBObjectList;
+import cn.oyzh.easymysql.domain.MysqlSetting;
+import cn.oyzh.easymysql.fx.DBStatusColumn;
+import cn.oyzh.easymysql.fx.record.MysqlRecordColumn;
+import cn.oyzh.easymysql.fx.record.MysqlRecordTableView;
+import cn.oyzh.easymysql.listener.DBStatusListener;
+import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.mysql.column.MysqlColumns;
 import cn.oyzh.easymysql.mysql.record.MysqlRecord;
 import cn.oyzh.easymysql.mysql.record.MysqlRecordData;
 import cn.oyzh.easymysql.mysql.record.MysqlRecordFilter;
 import cn.oyzh.easymysql.mysql.record.MysqlRecordPrimaryKey;
-import cn.oyzh.easymysql.domain.MysqlSetting;
-import cn.oyzh.easymysql.event.record.RecordDeleteEvent;
-import cn.oyzh.easymysql.fx.DBStatusColumn;
-import cn.oyzh.easymysql.fx.record.DBRecordColumn;
-import cn.oyzh.easymysql.fx.record.DBRecordTableView;
-import cn.oyzh.easymysql.listener.DBStatusListener;
-import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.popups.MysqlPageSettingPopupController;
 import cn.oyzh.easymysql.popups.MysqlViewRecordFilterPopupController;
 import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.util.DBRecordUtil;
-import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.fx.gui.page.PageBox;
 import cn.oyzh.fx.gui.page.PageEvent;
 import cn.oyzh.fx.gui.tabs.RichTabController;
@@ -93,7 +91,7 @@ public class MysqlViewRecordTabController extends RichTabController {
      * 数据表单组件
      */
     @FXML
-    private DBRecordTableView recordTable;
+    private MysqlRecordTableView recordTable;
 
     /**
      * 过滤列表
@@ -220,7 +218,7 @@ public class MysqlViewRecordTabController extends RichTabController {
         DBStatusColumn<MysqlRecord> statusColumn = new DBStatusColumn<>();
         columnList.add(statusColumn);
         for (MysqlColumn column : columns) {
-            DBRecordColumn tableColumn = new DBRecordColumn(column);
+            MysqlRecordColumn tableColumn = new MysqlRecordColumn(column);
             tableColumn.setPrefWidth(DBRecordUtil.suitableColumnWidth(column));
             columnList.add(tableColumn);
         }
@@ -469,15 +467,15 @@ public class MysqlViewRecordTabController extends RichTabController {
         });
     }
 
-    /**
-     * 删除记录
-     */
-    @EventSubscribe
-    private void deleteRecord(RecordDeleteEvent event) {
-        if (this.recordTable.hasRecord(event.data())) {
-            this.doDeleteRecord(event.data());
-        }
-    }
+    // /**
+    //  * 删除记录
+    //  */
+    // @EventSubscribe
+    // private void deleteRecord(RecordDeleteEvent event) {
+    //     if (this.recordTable.hasRecord(event.data())) {
+    //         this.doDeleteRecord(event.data());
+    //     }
+    // }
 
     /**
      * 删除记录

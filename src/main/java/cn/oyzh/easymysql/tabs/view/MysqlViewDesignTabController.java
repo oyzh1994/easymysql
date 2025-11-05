@@ -4,8 +4,8 @@ import cn.oyzh.easymysql.mysql.view.MysqlView;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBEditor;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
-import cn.oyzh.easymysql.fx.view.DBViewAlgorithmComboBox;
-import cn.oyzh.easymysql.fx.view.DBViewCheckOptionComboBox;
+import cn.oyzh.easymysql.fx.view.MysqlViewAlgorithmComboBox;
+import cn.oyzh.easymysql.fx.view.MysqlViewCheckOptionComboBox;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -50,7 +50,7 @@ public class MysqlViewDesignTabController extends RichTabController {
      * 算法
      */
     @FXML
-    private DBViewAlgorithmComboBox algorithm;
+    private MysqlViewAlgorithmComboBox algorithm;
 
     /**
      * 安全性
@@ -62,7 +62,7 @@ public class MysqlViewDesignTabController extends RichTabController {
      * 检查选项
      */
     @FXML
-    private DBViewCheckOptionComboBox checkOption;
+    private MysqlViewCheckOptionComboBox checkOption;
 
     /**
      * 定义

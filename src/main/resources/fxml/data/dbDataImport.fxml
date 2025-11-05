@@ -6,7 +6,7 @@
 <?import cn.oyzh.easymysql.fx.data.DataRecordLabelComboBox?>
 <?import cn.oyzh.easymysql.fx.data.DataRecordSeparatorComboBox?>
 <?import cn.oyzh.easymysql.fx.data.DataTxtIdentifierComboBox?>
-<?import cn.oyzh.easymysql.fx.table.DBTableComboBox?>
+<?import cn.oyzh.easymysql.fx.table.MysqlTableComboBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXButton?>
@@ -274,11 +274,11 @@
                         <Insets left="30" top="10"/>
                     </HBox.margin>
                 </FXLabel>
-                <DBTableComboBox realHeight="30" flexWidth="100% - 140" fx:id="targetTableCombobox">
+                <MysqlTableComboBox realHeight="30" flexWidth="100% - 140" fx:id="targetTableCombobox">
                     <HBox.margin>
                         <Insets left="15" top="10"/>
                     </HBox.margin>
-                </DBTableComboBox>
+                </MysqlTableComboBox>
             </FXHBox>
         </FXVBox>
         <FXHBox flexWidth="100%">

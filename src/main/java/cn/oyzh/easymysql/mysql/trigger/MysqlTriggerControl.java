@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.mysql.trigger;
 
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.fx.table.DBTriggerPolicyComboBox;
+import cn.oyzh.easymysql.fx.table.MysqlTriggerPolicyComboBox;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.gui.text.field.EnlargeTextFiled;
@@ -32,8 +32,8 @@ public class MysqlTriggerControl extends MysqlTrigger {
         return textField;
     }
 
-    public DBTriggerPolicyComboBox getPolicyControl() {
-        DBTriggerPolicyComboBox comboBox = new DBTriggerPolicyComboBox();
+    public MysqlTriggerPolicyComboBox getPolicyControl() {
+        MysqlTriggerPolicyComboBox comboBox = new MysqlTriggerPolicyComboBox();
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> {
             this.setPolicy(newValue);
         });

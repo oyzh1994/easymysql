@@ -48,9 +48,9 @@ import java.util.List;
  */
 public class MysqlTabEventListener implements EventListener {
 
-    private final DBTabPane tabPane;
+    private final MysqlTabPane tabPane;
 
-    public MysqlTabEventListener(DBTabPane tabPane) {
+    public MysqlTabEventListener(MysqlTabPane tabPane) {
         this.tabPane = tabPane;
     }
 

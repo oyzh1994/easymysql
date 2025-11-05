@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.easymysql.query.DBQueryEditor?>
+<?import cn.oyzh.easymysql.query.MysqlQueryEditor?>
 <?import cn.oyzh.easymysql.tabs.query.MysqlQueryInfoTab?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
@@ -36,8 +36,8 @@
             </HBox.margin>
         </ExplainSVGGlyph>
     </FXHBox>
-    <DBQueryEditor fontSize="12" fx:id="queryArea" flexHeight="100% - 35" flexWidth="100%"
-                   onKeyPressed="#queryKeyPressed"/>
+    <MysqlQueryEditor fontSize="12" fx:id="queryArea" flexHeight="100% - 35" flexWidth="100%"
+                      onKeyPressed="#queryKeyPressed"/>
     <FXTabPane fx:id="resultTabPane" flexHeight="70% - 40" flexWidth="100%" visible="false" managed="false">
         <MysqlQueryInfoTab fx:id="infoTab" text="%base.info">
         </MysqlQueryInfoTab>

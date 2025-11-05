@@ -30,13 +30,13 @@ public class ConnectController extends SubStageController {
     @FXML
     private SortSVGPane sortPane;
 
-    /**
-     * 打开终端
-     */
-    @FXML
-    private void openTerminal() {
-        MysqlEventUtil.terminalOpen();
-    }
+    // /**
+    //  * 打开终端
+    //  */
+    // @FXML
+    // private void openTerminal() {
+    //     MysqlEventUtil.terminalOpen();
+    // }
 
     /**
      * 定位节点

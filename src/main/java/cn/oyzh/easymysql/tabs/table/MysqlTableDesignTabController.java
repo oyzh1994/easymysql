@@ -3,6 +3,7 @@ package cn.oyzh.easymysql.tabs.table;
 import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.StringUtil;
+import cn.oyzh.easymysql.fx.table.MysqlRowFormatComboBox;
 import cn.oyzh.easymysql.mysql.check.MysqlCheck;
 import cn.oyzh.easymysql.mysql.check.MysqlCheckControl;
 import cn.oyzh.easymysql.mysql.check.MysqlChecks;
@@ -26,8 +27,7 @@ import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBCollationComboBox;
 import cn.oyzh.easymysql.fx.DBEditor;
 import cn.oyzh.easymysql.fx.DBStatusTableView;
-import cn.oyzh.easymysql.fx.table.DBEngineComboBox;
-import cn.oyzh.easymysql.fx.table.DBRowFormatComboBox;
+import cn.oyzh.easymysql.fx.table.MysqlEngineComboBox;
 import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
 import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 import cn.oyzh.easymysql.listener.DBStatusListener;
@@ -98,7 +98,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 引擎
      */
     @FXML
-    private DBEngineComboBox tableEngine;
+    private MysqlEngineComboBox tableEngine;
 
     /**
      * 字符集
@@ -122,7 +122,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
      * 行格式
      */
     @FXML
-    private DBRowFormatComboBox tableRowFormat;
+    private MysqlRowFormatComboBox tableRowFormat;
 
     /**
      * 自动递增组件

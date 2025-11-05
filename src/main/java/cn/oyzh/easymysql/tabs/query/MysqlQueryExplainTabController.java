@@ -4,8 +4,8 @@ import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.mysql.query.MysqlExplainResult;
 import cn.oyzh.easymysql.mysql.record.MysqlRecord;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
-import cn.oyzh.easymysql.fx.record.DBRecordColumn;
-import cn.oyzh.easymysql.fx.record.DBRecordTableView;
+import cn.oyzh.easymysql.fx.record.MysqlRecordColumn;
+import cn.oyzh.easymysql.fx.record.MysqlRecordTableView;
 import cn.oyzh.easymysql.util.DBRecordUtil;
 import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.table.FXTableColumn;
@@ -45,7 +45,7 @@ public class MysqlQueryExplainTabController extends RichTabController {
      * 数据表单组件
      */
     @FXML
-    private DBRecordTableView recordTable;
+    private MysqlRecordTableView recordTable;
 
     /**
      * 执行结果
@@ -91,7 +91,7 @@ public class MysqlQueryExplainTabController extends RichTabController {
         DBStatusColumn<MysqlRecord> statusColumn = new DBStatusColumn<>();
         columnList.add(statusColumn);
         for (MysqlColumn column : columns) {
-            DBRecordColumn tableColumn = new DBRecordColumn(column);
+            MysqlRecordColumn tableColumn = new MysqlRecordColumn(column);
             tableColumn.setRealWidth(DBRecordUtil.suitableColumnWidth(column));
             columnList.add(tableColumn);
         }

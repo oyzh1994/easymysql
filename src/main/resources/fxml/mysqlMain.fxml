@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.easymysql.tabs.DBTabPane?>
+<?import cn.oyzh.easymysql.tabs.MysqlTabPane?>
 <?import cn.oyzh.fx.plus.controls.pane.FXPane?>
 <?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
 <FXPane xmlns:fx="http://javafx.com/fxml/1"
@@ -8,6 +8,6 @@
         <fx:include fx:id="connect" source="main/connect.fxml"/>
         <fx:include fx:id="message" source="main/message.fxml"/>
     </FXTabPane>
-    <DBTabPane fx:id="tabPane" layoutX="300" flexWidth="100% - 300" tabClosingPolicy="ALL_TABS"
-               flexHeight="100%"/>
+    <MysqlTabPane fx:id="tabPane" layoutX="300" flexWidth="100% - 300" tabClosingPolicy="ALL_TABS"
+                  flexHeight="100%"/>
 </FXPane>

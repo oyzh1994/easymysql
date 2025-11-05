@@ -2,13 +2,13 @@ package cn.oyzh.easymysql.mysql.foreignKey;
 
 import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.StringUtil;
+import cn.oyzh.easymysql.fx.table.MysqlForeignKeyPolicyComboBox;
+import cn.oyzh.easymysql.fx.table.MysqlTableComboBox;
 import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.mysql.column.MysqlSelectColumnParam;
 import cn.oyzh.easymysql.fx.DBDatabaseComboBox;
-import cn.oyzh.easymysql.fx.table.DBFieldTextFiled;
-import cn.oyzh.easymysql.fx.table.DBForeignKeyPolicyComboBox;
-import cn.oyzh.easymysql.fx.table.DBTableComboBox;
+import cn.oyzh.easymysql.fx.table.MysqlFieldTextFiled;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.plus.controls.text.field.FXTextField;
@@ -45,13 +45,13 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
         return null;
     }
 
-    public DBFieldTextFiled getColumnControl() {
+    public MysqlFieldTextFiled getColumnControl() {
         try {
             List<MysqlColumn> columnList = CacheHelper.get("columnList");
             if (columnList == null) {
                 columnList = new ArrayList<>();
             }
-            DBFieldTextFiled textField = new DBFieldTextFiled(columnList, this.getColumns());
+            MysqlFieldTextFiled textField = new MysqlFieldTextFiled(columnList, this.getColumns());
             textField.addTextChangeListener((observable, oldValue, newValue) -> this.setColumns(textField.getSelectedColumns()));
             textField.setFlexWidth("100% - 12");
             TableViewUtil.rowOnCtrlS(textField);
@@ -78,9 +78,9 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
         return null;
     }
 
-    public DBTableComboBox getPrimaryKeyTableControl() {
+    public MysqlTableComboBox getPrimaryKeyTableControl() {
         try {
-            DBTableComboBox comboBox = new DBTableComboBox();
+            MysqlTableComboBox comboBox = new MysqlTableComboBox();
             MysqlClient dbClient = CacheHelper.get("dbClient");
             comboBox.init(this.getPrimaryKeyDatabase(), dbClient);
             comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setPrimaryKeyTable(newValue));
@@ -98,9 +98,9 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
         return null;
     }
 
-    public DBForeignKeyPolicyComboBox getDeletePolicyControl() {
+    public MysqlForeignKeyPolicyComboBox getDeletePolicyControl() {
         try {
-            DBForeignKeyPolicyComboBox comboBox = new DBForeignKeyPolicyComboBox();
+            MysqlForeignKeyPolicyComboBox comboBox = new MysqlForeignKeyPolicyComboBox();
             comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setDeletePolicy(newValue));
             comboBox.selectFirstIfNull(this.getDeletePolicy());
             TableViewUtil.rowOnCtrlS(comboBox);
@@ -112,9 +112,9 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
         return null;
     }
 
-    public DBFieldTextFiled getPrimaryKeyColumnControl() {
+    public MysqlFieldTextFiled getPrimaryKeyColumnControl() {
         try {
-            DBFieldTextFiled textField = new DBFieldTextFiled();
+            MysqlFieldTextFiled textField = new MysqlFieldTextFiled();
             textField.addTextChangeListener((observable, oldValue, newValue) -> this.setPrimaryKeyColumns(textField.getSelectedColumns()));
             textField.setFlexWidth("100% - 12");
             Runnable func = () -> {
@@ -136,9 +136,9 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
         return null;
     }
 
-    public DBForeignKeyPolicyComboBox getUpdatePolicyControl() {
+    public MysqlForeignKeyPolicyComboBox getUpdatePolicyControl() {
         try {
-            DBForeignKeyPolicyComboBox comboBox = new DBForeignKeyPolicyComboBox();
+            MysqlForeignKeyPolicyComboBox comboBox = new MysqlForeignKeyPolicyComboBox();
             comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setUpdatePolicy(newValue));
             comboBox.selectFirstIfNull(this.getUpdatePolicy());
             TableViewUtil.rowOnCtrlS(comboBox);

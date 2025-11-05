@@ -10,10 +10,10 @@ import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBEditor;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
 import cn.oyzh.easymysql.fx.DBStatusTableView;
-import cn.oyzh.easymysql.fx.routine.DBCharacteristicCombobox;
+import cn.oyzh.easymysql.fx.routine.MysqlCharacteristicCombobox;
 import cn.oyzh.easymysql.fx.table.DBEnumTextFiled;
-import cn.oyzh.easymysql.fx.table.DBFiledTypeComboBox;
-import cn.oyzh.easymysql.generator.routine.DBFunctionSqlGenerator;
+import cn.oyzh.easymysql.fx.table.MysqlFiledTypeComboBox;
+import cn.oyzh.easymysql.generator.routine.MysqlFunctionSqlGenerator;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -99,7 +99,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
      * 特征
      */
     @FXML
-    private DBCharacteristicCombobox characteristic;
+    private MysqlCharacteristicCombobox characteristic;
 
     /**
      * 参数表单
@@ -153,7 +153,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
      * 返回值类型
      */
     @FXML
-    private DBFiledTypeComboBox returnType;
+    private MysqlFiledTypeComboBox returnType;
 
     /**
      * 返回值列表
@@ -512,7 +512,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
                 // if (StringUtil.isBlank(temp.getName())) {
                 //     temp.setName("Unnamed_Function");
                 // }
-                // String sql = DBFunctionSqlGenerator.INSTANCE.generate(temp);
+                // String sql = MysqlFunctionSqlGenerator.INSTANCE.generate(temp);
                 // this.preview.setText(sql);
                 this.initPreview();
             }
@@ -527,7 +527,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
         if (StringUtil.isBlank(temp.getName())) {
             temp.setName("Unnamed_Function");
         }
-        String sql = DBFunctionSqlGenerator.INSTANCE.generate(temp);
+        String sql = MysqlFunctionSqlGenerator.INSTANCE.generate(temp);
         this.preview.text(sql);
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.easymysql.fx.table.DBColumnListView?>
+<?import cn.oyzh.easymysql.fx.table.MysqlColumnListView?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import javafx.geometry.Insets?>
@@ -9,8 +9,8 @@
 <FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.popups.MysqlRecordEnumPopupController" realWidth="320"
           realHeight="200">
-    <DBColumnListView flexWidth="100%" flexHeight="100% - 25" fx:id="listView">
-    </DBColumnListView>
+    <MysqlColumnListView flexWidth="100%" flexHeight="100% - 25" fx:id="listView">
+    </MysqlColumnListView>
     <FXHBox flexWidth="100%" realHeight="25">
         <SubmitSVGGlyph onMousePrimaryClicked="#submit" sizeStr="15,11">
             <HBox.margin>

@@ -4,6 +4,7 @@ import cn.oyzh.common.date.DateUtil;
 import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.common.util.StringUtil;
+import cn.oyzh.easymysql.fx.table.MysqlTableComboBox;
 import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.fx.data.DataDateTextFiled;
 import cn.oyzh.easymysql.fx.data.DataFieldSeparatorComboBox;
@@ -13,8 +14,7 @@ import cn.oyzh.easymysql.fx.data.DataImportTableComboBox;
 import cn.oyzh.easymysql.fx.data.DataRecordLabelComboBox;
 import cn.oyzh.easymysql.fx.data.DataRecordSeparatorComboBox;
 import cn.oyzh.easymysql.fx.data.DataTxtIdentifierComboBox;
-import cn.oyzh.easymysql.fx.table.DBTableComboBox;
-import cn.oyzh.easymysql.handler.imports.DataImportHandler;
+import cn.oyzh.easymysql.handler.DataImportHandler;
 import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.FXConst;
@@ -113,7 +113,7 @@ public class MysqlDataImportController extends StageController {
      *
      */
     @FXML
-    private DBTableComboBox targetTableCombobox;
+    private MysqlTableComboBox targetTableCombobox;
 
     /**
      * 文件类型

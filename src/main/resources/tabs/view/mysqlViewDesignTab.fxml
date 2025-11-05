@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.DBEditor?>
 <?import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox?>
-<?import cn.oyzh.easymysql.fx.DesignTabPane?>
-<?import cn.oyzh.easymysql.fx.view.DBViewAlgorithmComboBox?>
-<?import cn.oyzh.easymysql.fx.view.DBViewCheckOptionComboBox?>
+<?import cn.oyzh.easymysql.fx.MysqlDesignTabPane?>
+<?import cn.oyzh.easymysql.fx.view.MysqlViewAlgorithmComboBox?>
+<?import cn.oyzh.easymysql.fx.view.MysqlViewCheckOptionComboBox?>
 <?import cn.oyzh.fx.gui.label.AccentLabel?>
 <?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
@@ -22,7 +22,7 @@
             </HBox.margin>
         </SaveSVGGlyph>
     </FXHBox>
-    <DesignTabPane flexWidth="100%" flexHeight="100% - 25">
+    <MysqlDesignTabPane flexWidth="100%" flexHeight="100% - 25">
         <FXTab text="%base.definition">
             <DBEditor fontSize="12" fx:id="definition" flexHeight="100%" flexWidth="100%"/>
         </FXTab>
@@ -34,11 +34,11 @@
                             <Insets left="20" top="12"/>
                         </HBox.margin>
                     </AccentLabel>
-                    <DBViewAlgorithmComboBox fx:id="algorithm" flexWidth="100% - 140" realHeight="30">
+                    <MysqlViewAlgorithmComboBox fx:id="algorithm" flexWidth="100% - 140" realHeight="30">
                         <HBox.margin>
                             <Insets left="10" top="10"/>
                         </HBox.margin>
-                    </DBViewAlgorithmComboBox>
+                    </MysqlViewAlgorithmComboBox>
                 </FXHBox>
                 <FXHBox realHeight="50" flexWidth="100%">
                     <AccentLabel realWidth="85" text="%base.definer" realHeight="25">
@@ -70,14 +70,14 @@
                             <Insets left="20" top="12"/>
                         </HBox.margin>
                     </AccentLabel>
-                    <DBViewCheckOptionComboBox fx:id="checkOption" flexWidth="100% - 140" realHeight="30">
+                    <MysqlViewCheckOptionComboBox fx:id="checkOption" flexWidth="100% - 140" realHeight="30">
                         <HBox.margin>
                             <Insets left="10" top="10"/>
                         </HBox.margin>
-                    </DBViewCheckOptionComboBox>
+                    </MysqlViewCheckOptionComboBox>
                 </FXHBox>
             </FXVBox>
         </FXTab>
-    </DesignTabPane>
+    </MysqlDesignTabPane>
 </FXVBox>
 

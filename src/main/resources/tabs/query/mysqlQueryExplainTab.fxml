@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import cn.oyzh.easymysql.fx.record.DBRecordTableView?>
+<?import cn.oyzh.easymysql.fx.record.MysqlRecordTableView?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import cn.oyzh.fx.plus.controls.text.FXText?>
@@ -8,8 +8,8 @@
 <FXVBox xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="cn.oyzh.easymysql.tabs.query.MysqlQueryExplainTabController" flexWidth="100%" flexHeight="100%">
-    <DBRecordTableView fx:id="recordTable" flexHeight="100% - 30" flexWidth="100%">
-    </DBRecordTableView>
+    <MysqlRecordTableView fx:id="recordTable" flexHeight="100% - 30" flexWidth="100%">
+    </MysqlRecordTableView>
     <FXHBox realHeight="30" flexWidth="100%">
         <FXText fx:id="sql">
             <HBox.margin>

@@ -5,8 +5,8 @@ import cn.oyzh.easymysql.mysql.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.mysql.query.MysqlExplainResult;
 import cn.oyzh.easymysql.mysql.query.MysqlQueryResults;
 import cn.oyzh.easymysql.domain.MysqlQuery;
-import cn.oyzh.easymysql.query.DBQueryEditor;
-import cn.oyzh.easymysql.query.DBQueryUtil;
+import cn.oyzh.easymysql.query.MysqlQueryEditor;
+import cn.oyzh.easymysql.query.MysqlQueryUtil;
 import cn.oyzh.easymysql.store.MysqlQueryStore;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.tabs.RichTabController;
@@ -62,7 +62,7 @@ public class MysqlQueryMainTabController extends RichTabController {
      * 查询文本域
      */
     @FXML
-    private DBQueryEditor queryArea;
+    private MysqlQueryEditor queryArea;
 
     /**
      * 结果文本域
@@ -106,7 +106,7 @@ public class MysqlQueryMainTabController extends RichTabController {
             this.flushTab();
             // this.tab.setContentChanged(true)
         });
-        DBQueryUtil.updateIndex(dbItem.client());
+        MysqlQueryUtil.updateIndex(dbItem.client());
     }
 
     @Override

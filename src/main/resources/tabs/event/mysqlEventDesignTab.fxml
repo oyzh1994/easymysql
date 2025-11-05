@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import cn.oyzh.easymysql.fx.DBEditor?>
-<?import cn.oyzh.easymysql.fx.DesignTabPane?>
-<?import cn.oyzh.easymysql.fx.event.DBEventIntervalTypeCombobox?>
-<?import cn.oyzh.easymysql.fx.event.DBEventOnCompletionCombobox?>
-<?import cn.oyzh.easymysql.fx.event.DBEventStatusCombobox?>
+<?import cn.oyzh.easymysql.fx.MysqlDesignTabPane?>
+<?import cn.oyzh.easymysql.fx.event.MysqlEventIntervalTypeCombobox?>
+<?import cn.oyzh.easymysql.fx.event.MysqlEventOnCompletionCombobox?>
+<?import cn.oyzh.easymysql.fx.event.MysqlEventStatusCombobox?>
 <?import cn.oyzh.fx.gui.label.AccentLabel?>
 <?import cn.oyzh.fx.gui.svg.glyph.SaveSVGGlyph?>
 <?import cn.oyzh.fx.gui.text.field.ClearableTextField?>
@@ -32,7 +32,7 @@
     <fx:define>
         <FXToggleGroup fx:id="planType"/>
     </fx:define>
-    <DesignTabPane flexHeight="100% - 25" flexWidth="100%" fx:id="tabPane">
+    <MysqlDesignTabPane flexHeight="100% - 25" flexWidth="100%" fx:id="tabPane">
         <FXTab text="%base.definition">
             <DBEditor fontSize="12" fx:id="definition" flexWidth="100%" flexHeight="100%"/>
         </FXTab>
@@ -62,12 +62,12 @@
                             <Insets left="10" top="10"/>
                         </HBox.margin>
                     </NumberTextField>
-                    <DBEventIntervalTypeCombobox fx:id="onetimeIntervalType" realHeight="30" flexWidth="50% - 160"
-                                                 realWidth="30" disable="true" initIndex="0">
+                    <MysqlEventIntervalTypeCombobox fx:id="onetimeIntervalType" realHeight="30" flexWidth="50% - 160"
+                                                    realWidth="30" disable="true" initIndex="0">
                         <HBox.margin>
                             <Insets left="5" top="10"/>
                         </HBox.margin>
-                    </DBEventIntervalTypeCombobox>
+                    </MysqlEventIntervalTypeCombobox>
                 </FXHBox>
                 <FXHBox realHeight="40" flexWidth="100%">
                     <FXRadioButton text="EVERY" toggleGroup="$planType" fx:id="loopType" realWidth="140"
@@ -81,12 +81,12 @@
                             <Insets left="10" top="10"/>
                         </HBox.margin>
                     </NumberTextField>
-                    <DBEventIntervalTypeCombobox fx:id="loopIntervalType" realHeight="30" flexWidth="50% - 160"
-                                                 realWidth="30" disable="true" initIndex="0">
+                    <MysqlEventIntervalTypeCombobox fx:id="loopIntervalType" realHeight="30" flexWidth="50% - 160"
+                                                    realWidth="30" disable="true" initIndex="0">
                         <HBox.margin>
                             <Insets left="5" top="10"/>
                         </HBox.margin>
-                    </DBEventIntervalTypeCombobox>
+                    </MysqlEventIntervalTypeCombobox>
                     <VBox.margin>
                         <Insets top="30"/>
                     </VBox.margin>
@@ -115,12 +115,12 @@
                             <Insets left="10" top="10"/>
                         </HBox.margin>
                     </NumberTextField>
-                    <DBEventIntervalTypeCombobox fx:id="loopStartIntervalType" disable="true" realHeight="30"
-                                                 flexWidth="50% - 160" realWidth="30" initIndex="0">
+                    <MysqlEventIntervalTypeCombobox fx:id="loopStartIntervalType" disable="true" realHeight="30"
+                                                    flexWidth="50% - 160" realWidth="30" initIndex="0">
                         <HBox.margin>
                             <Insets left="5" top="10"/>
                         </HBox.margin>
-                    </DBEventIntervalTypeCombobox>
+                    </MysqlEventIntervalTypeCombobox>
                 </FXHBox>
                 <FXHBox realHeight="40" flexWidth="100%">
                     <FXCheckBox text="ENDS" fx:id="loopEnd" prefWidth="120" disable="true">
@@ -145,12 +145,12 @@
                             <Insets left="10" top="10"/>
                         </HBox.margin>
                     </NumberTextField>
-                    <DBEventIntervalTypeCombobox fx:id="loopEndIntervalType" realHeight="30" flexWidth="50% - 160"
-                                                 realWidth="30" disable="true" initIndex="0">
+                    <MysqlEventIntervalTypeCombobox fx:id="loopEndIntervalType" realHeight="30" flexWidth="50% - 160"
+                                                    realWidth="30" disable="true" initIndex="0">
                         <HBox.margin>
                             <Insets left="5" top="10"/>
                         </HBox.margin>
-                    </DBEventIntervalTypeCombobox>
+                    </MysqlEventIntervalTypeCombobox>
                 </FXHBox>
             </FXVBox>
         </FXTab>
@@ -162,11 +162,11 @@
                             <Insets left="20" top="12"/>
                         </HBox.margin>
                     </AccentLabel>
-                    <DBEventStatusCombobox initIndex="0" fx:id="status" flexWidth="100% - 140" realHeight="30">
+                    <MysqlEventStatusCombobox initIndex="0" fx:id="status" flexWidth="100% - 140" realHeight="30">
                         <HBox.margin>
                             <Insets left="10" top="10"/>
                         </HBox.margin>
-                    </DBEventStatusCombobox>
+                    </MysqlEventStatusCombobox>
                 </FXHBox>
                 <FXHBox realHeight="50" flexWidth="100%">
                     <AccentLabel realWidth="85" text="%base.onCompletion" realHeight="25">
@@ -174,12 +174,12 @@
                             <Insets left="20" top="12"/>
                         </HBox.margin>
                     </AccentLabel>
-                    <DBEventOnCompletionCombobox initIndex="0" fx:id="onCompletion" flexWidth="100% - 140"
-                                                 realHeight="30">
+                    <MysqlEventOnCompletionCombobox initIndex="0" fx:id="onCompletion" flexWidth="100% - 140"
+                                                    realHeight="30">
                         <HBox.margin>
                             <Insets left="10" top="10"/>
                         </HBox.margin>
-                    </DBEventOnCompletionCombobox>
+                    </MysqlEventOnCompletionCombobox>
                 </FXHBox>
                 <FXHBox realHeight="50" flexWidth="100%">
                     <AccentLabel realWidth="85" text="%base.definer" realHeight="25">
@@ -211,5 +211,5 @@
             <DBEditor editable="false" fontSize="12" fx:id="preview" flexWidth="100%"
                       flexHeight="100%"/>
         </FXTab>
-    </DesignTabPane>
+    </MysqlDesignTabPane>
 </FXVBox>

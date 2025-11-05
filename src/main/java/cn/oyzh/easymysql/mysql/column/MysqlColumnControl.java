@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.mysql.column;
 
-import cn.oyzh.easymysql.fx.table.DBFiledTypeComboBox;
+import cn.oyzh.easymysql.fx.table.MysqlFiledTypeComboBox;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
@@ -61,8 +61,8 @@ public class MysqlColumnControl extends MysqlColumn {
         return textField;
     }
 
-    public DBFiledTypeComboBox getTypeControl() {
-        DBFiledTypeComboBox comboBox = new DBFiledTypeComboBox();
+    public MysqlFiledTypeComboBox getTypeControl() {
+        MysqlFiledTypeComboBox comboBox = new MysqlFiledTypeComboBox();
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setType(newValue));
         comboBox.selectFirstIfNull(this.getType());
         TableViewUtil.rowOnCtrlS(comboBox);

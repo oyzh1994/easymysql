@@ -3,8 +3,8 @@ package cn.oyzh.easymysql.mysql.record;
 import cn.oyzh.easymysql.condition.MysqlCondition;
 import cn.oyzh.easymysql.condition.MysqlConditionUtil;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
-import cn.oyzh.easymysql.fx.table.DBColumnComboBox;
-import cn.oyzh.easymysql.fx.table.DBConditionComboBox;
+import cn.oyzh.easymysql.fx.table.MysqlColumnComboBox;
+import cn.oyzh.easymysql.fx.table.MysqlConditionComboBox;
 import cn.oyzh.easymysql.fx.table.DBJoinSymbolComboBox;
 import cn.oyzh.fx.plus.controls.box.FXHBox;
 import cn.oyzh.fx.plus.controls.button.FXCheckBox;
@@ -114,8 +114,8 @@ public class MysqlRecordFilter {
      *
      * @return 字段组件
      */
-    public DBColumnComboBox getColumnControl() {
-        DBColumnComboBox comboBox = new DBColumnComboBox(this.columns);
+    public MysqlColumnComboBox getColumnControl() {
+        MysqlColumnComboBox comboBox = new MysqlColumnComboBox(this.columns);
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> {
             this.column = newValue;
             this.updateValueControl();
@@ -130,8 +130,8 @@ public class MysqlRecordFilter {
      *
      * @return 条件组件
      */
-    public DBConditionComboBox getConditionControl() {
-        DBConditionComboBox comboBox = new DBConditionComboBox();
+    public MysqlConditionComboBox getConditionControl() {
+        MysqlConditionComboBox comboBox = new MysqlConditionComboBox();
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> {
             this.condition = newValue;
             this.updateValueControl();

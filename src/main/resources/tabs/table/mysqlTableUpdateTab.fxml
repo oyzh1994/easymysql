@@ -3,8 +3,8 @@
 <!-- <?import cn.oyzh.easymysql.fx.DBCollationComboBox?> -->
 <!-- <?import cn.oyzh.easymysql.fx.DBStatusColumn?> -->
 <!-- <?import cn.oyzh.easymysql.fx.DBStatusTableView?> -->
-<!-- <?import cn.oyzh.easymysql.fx.table.DBEngineComboBox?> -->
-<!-- <?import cn.oyzh.easymysql.fx.table.DBRowFormatComboBox?> -->
+<!-- <?import cn.oyzh.easymysql.fx.table.MysqlEngineComboBoxBox?> -->
+<!-- <?import cn.oyzh.easymysql.fx.table.MysqlRowFormatComboBoxBox?> -->
 <!-- <?import cn.oyzh.fx.plus.controls.box.FXHBox?> -->
 <!-- <?import cn.oyzh.fx.plus.controls.box.FXVBox?> -->
 <!-- <?import cn.oyzh.fx.plus.controls.tab.FXTabPane?> -->
@@ -132,12 +132,12 @@
 <!--                             <Insets left="20" top="10"/> -->
 <!--                         </HBox.margin> -->
 <!--                     </AccentLabel> -->
-<!--                     <DBEngineComboBox tipText="%base.engine" fx:id="tableEngine" realHeight="30" flexWidth="100% - 140" -->
+<!--                     <MysqlEngineComboBox tipText="%base.engine" fx:id="tableEngine" realHeight="30" flexWidth="100% - 140" -->
 <!--                                       initIndex="0"> -->
 <!--                         <HBox.margin> -->
 <!--                             <Insets left="10" top="10"/> -->
 <!--                         </HBox.margin> -->
-<!--                     </DBEngineComboBox> -->
+<!--                     </MysqlEngineComboBox> -->
 <!--                 </FXHBox> -->
 <!--                 <FXHBox flexWidth="100%" realHeight="50"> -->
 <!--                     <AccentLabel realHeight="30" realWidth="65" text="%base.charset"> -->
@@ -171,12 +171,12 @@
 <!--                             <Insets left="20" top="10"/> -->
 <!--                         </HBox.margin> -->
 <!--                     </AccentLabel> -->
-<!--                     <DBRowFormatComboBox tipText="%base.rowFormat" fx:id="tableRowFormat" realHeight="30" -->
+<!--                     <MysqlRowFormatComboBox tipText="%base.rowFormat" fx:id="tableRowFormat" realHeight="30" -->
 <!--                                          flexWidth="100% - 140"> -->
 <!--                         <HBox.margin> -->
 <!--                             <Insets left="10" top="10"/> -->
 <!--                         </HBox.margin> -->
-<!--                     </DBRowFormatComboBox> -->
+<!--                     </MysqlRowFormatComboBox> -->
 <!--                 </FXHBox> -->
 <!--                 <FXHBox flexWidth="100%" realHeight="50" managed="false" visible="false" -->
 <!--                           fx:id="tableAutoIncrementBox"> -->

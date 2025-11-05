@@ -1,6 +1,11 @@
 package cn.oyzh.easymysql.tabs.query;
 
 import cn.oyzh.easymysql.db.DBObjectList;
+import cn.oyzh.easymysql.fx.DBStatusColumn;
+import cn.oyzh.easymysql.fx.record.MysqlRecordColumn;
+import cn.oyzh.easymysql.fx.record.MysqlRecordTableView;
+import cn.oyzh.easymysql.listener.DBStatusListener;
+import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.mysql.query.MysqlExecuteResult;
 import cn.oyzh.easymysql.mysql.record.MysqlDeleteRecordParam;
@@ -10,15 +15,8 @@ import cn.oyzh.easymysql.mysql.record.MysqlRecordData;
 import cn.oyzh.easymysql.mysql.record.MysqlRecordPrimaryKey;
 import cn.oyzh.easymysql.mysql.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.mysql.record.MysqlUpdateRecordParam;
-import cn.oyzh.easymysql.event.record.RecordDeleteEvent;
-import cn.oyzh.easymysql.fx.DBStatusColumn;
-import cn.oyzh.easymysql.fx.record.DBRecordColumn;
-import cn.oyzh.easymysql.fx.record.DBRecordTableView;
-import cn.oyzh.easymysql.listener.DBStatusListener;
-import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.easymysql.util.DBRecordUtil;
-import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
@@ -72,7 +70,7 @@ public class MysqlQuerySelectTabController extends RichTabController {
      * 数据表单组件
      */
     @FXML
-    private DBRecordTableView recordTable;
+    private MysqlRecordTableView recordTable;
 
     /**
      * 数据库树节点
@@ -189,7 +187,7 @@ public class MysqlQuerySelectTabController extends RichTabController {
         DBStatusColumn<MysqlRecord> statusColumn = new DBStatusColumn<>();
         columnList.add(statusColumn);
         for (MysqlColumn column : columns) {
-            DBRecordColumn tableColumn = new DBRecordColumn(column);
+            MysqlRecordColumn tableColumn = new MysqlRecordColumn(column);
             tableColumn.setPrefWidth(DBRecordUtil.suitableColumnWidth(column));
             columnList.add(tableColumn);
         }
@@ -495,13 +493,13 @@ public class MysqlQuerySelectTabController extends RichTabController {
         }
     }
 
-    /**
-     * 删除记录
-     */
-    @EventSubscribe
-    private void deleteRecord(RecordDeleteEvent event) {
-        if (this.recordTable.hasRecord(event.data())) {
-            this.doDeleteRecord(event.data());
-        }
-    }
+    // /**
+    //  * 删除记录
+    //  */
+    // @EventSubscribe
+    // private void deleteRecord(RecordDeleteEvent event) {
+    //     if (this.recordTable.hasRecord(event.data())) {
+    //         this.doDeleteRecord(event.data());
+    //     }
+    // }
 }

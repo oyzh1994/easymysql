@@ -1,7 +1,7 @@
 package cn.oyzh.easymysql.popups;
 
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
-import cn.oyzh.easymysql.fx.table.DBColumnListView;
+import cn.oyzh.easymysql.fx.table.MysqlColumnListView;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.PopupController;
 import cn.oyzh.fx.plus.information.MessageBox;
@@ -32,7 +32,7 @@ public class MysqlColumnFieldPopupController extends PopupController {
      * 值组件
      */
     @FXML
-    private DBColumnListView listView;
+    private MysqlColumnListView listView;
 
     /**
      * 提交

@@ -32,8 +32,8 @@
 // import cn.oyzh.easymysql.exception.DBException;
 // import cn.oyzh.easymysql.generator.event.EventAlertSqlGenerator;
 // import cn.oyzh.easymysql.generator.event.EventCreateSqlGenerator;
-// import cn.oyzh.easymysql.generator.routine.DBFunctionSqlGenerator;
-// import cn.oyzh.easymysql.generator.routine.DBProcedureSqlGenerator;
+// import cn.oyzh.easymysql.generator.routine.MysqlFunctionSqlGenerator;
+// import cn.oyzh.easymysql.generator.routine.MysqlProcedureSqlGenerator;
 // import cn.oyzh.easymysql.generator.table.TableAlertSqlGenerator;
 // import cn.oyzh.easymysql.generator.table.TableCreateSqlGenerator;
 // import cn.oyzh.easymysql.sql.DBSqlParser;
@@ -1866,7 +1866,7 @@
 //     @Override
 //     public void createProcedure(String dbName, MysqlProcedure procedure) {
 //         try {
-//             String sql = DBProcedureSqlGenerator.INSTANCE.generate(procedure);
+//             String sql = MysqlProcedureSqlGenerator.INSTANCE.generate(procedure);
 //             DBUtil.printSql(sql);
 //             Statement statement = this.connection(dbName).createStatement();
 //             statement.executeUpdate(sql);
@@ -1884,7 +1884,7 @@
 //             DBUtil.printSql(sql);
 //             Statement statement = this.connection(dbName).createStatement();
 //             statement.executeUpdate(sql);
-//             sql = DBProcedureSqlGenerator.INSTANCE.generate(procedure);
+//             sql = MysqlProcedureSqlGenerator.INSTANCE.generate(procedure);
 //             DBUtil.printSql(sql);
 //             Statement statement1 = this.connection(dbName).createStatement();
 //             statement1.executeUpdate(sql);
@@ -1965,7 +1965,7 @@
 //     @Override
 //     public void createFunction(String dbName, MysqlFunction function) {
 //         try {
-//             String sql = DBFunctionSqlGenerator.INSTANCE.generate(function);
+//             String sql = MysqlFunctionSqlGenerator.INSTANCE.generate(function);
 //             DBUtil.printSql(sql);
 //             Statement statement = this.connection(dbName).createStatement();
 //             statement.executeUpdate(sql);
@@ -1983,7 +1983,7 @@
 //             DBUtil.printSql(sql);
 //             Statement statement = this.connection(dbName).createStatement();
 //             statement.executeUpdate(sql);
-//             sql = DBFunctionSqlGenerator.INSTANCE.generate(function);
+//             sql = MysqlFunctionSqlGenerator.INSTANCE.generate(function);
 //             DBUtil.printSql(sql);
 //             Statement statement1 = this.connection(dbName).createStatement();
 //             statement1.executeUpdate(sql);
