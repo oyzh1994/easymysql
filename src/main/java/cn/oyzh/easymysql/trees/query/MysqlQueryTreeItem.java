@@ -44,7 +44,7 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
     }
 
     @Override
-    public MysqlQueriesTreeItem parent(){
+    public MysqlQueriesTreeItem parent() {
         return (MysqlQueriesTreeItem) super.parent();
     }
 
@@ -70,10 +70,10 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
         FXMenuItem openQuery = MenuItemHelper.openQuery("12", this::onPrimaryDoubleClick);
-        FXMenuItem renameQuery = MenuItemHelper.renameQuery("12", this::rename);
-        FXMenuItem deleteQuery = MenuItemHelper.deleteTable("12", this::delete);
         items.add(openQuery);
+        FXMenuItem renameQuery = MenuItemHelper.renameQuery("12", this::rename);
         items.add(renameQuery);
+        FXMenuItem deleteQuery = MenuItemHelper.deleteTable("12", this::delete);
         items.add(deleteQuery);
         return items;
     }
@@ -106,6 +106,7 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
         this.value.setName(name);
         // 修改名称
         if (MysqlQueryStore.INSTANCE.update(this.value)) {
+            MysqlEventUtil.queryRenamed(this.value, this.dbItem());
             this.refresh();
         } else {
             this.value.setName(oldName);

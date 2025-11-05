@@ -11,6 +11,7 @@ import cn.oyzh.easymysql.event.procedure.MysqlProcedureDesignEvent;
 import cn.oyzh.easymysql.event.query.MysqlQueryAddEvent;
 import cn.oyzh.easymysql.event.query.MysqlQueryDeletedEvent;
 import cn.oyzh.easymysql.event.query.MysqlQueryOpenEvent;
+import cn.oyzh.easymysql.event.query.MysqlQueryRenamedEvent;
 import cn.oyzh.easymysql.event.table.MysqlTableAlertedEvent;
 import cn.oyzh.easymysql.event.table.MysqlTableClearedEvent;
 import cn.oyzh.easymysql.event.table.MysqlTableDesignEvent;
@@ -341,6 +342,23 @@ public class MysqlTabEventListener implements EventListener {
                 this.addTab(tab);
             }
             this.select(tab);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * 查询重命名事件
+     *
+     * @param event 事件
+     */
+    @EventSubscribe
+    private void onMysqlQueryRenamed(MysqlQueryRenamedEvent event) {
+        try {
+            MysqlQueryMainTab tab = this.getMysqlQueryMainTab(event.queryId());
+            if (tab != null) {
+                tab.flushTitle();
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }

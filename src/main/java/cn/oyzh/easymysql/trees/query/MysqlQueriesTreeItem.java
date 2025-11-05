@@ -2,10 +2,10 @@ package cn.oyzh.easymysql.trees.query;
 
 import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
-import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.store.MysqlQueryStore;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
@@ -128,5 +128,10 @@ public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> 
 
     public MysqlConnect dbConnect() {
         return this.parent().dbConnect();
+    }
+
+    public void addQuery(MysqlQuery query) {
+        this.addChild(new MysqlQueryTreeItem(query, this.getTreeView()));
+        this.sortChild(this.isSortAsc());
     }
 }

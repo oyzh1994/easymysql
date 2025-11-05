@@ -258,15 +258,15 @@ public class MysqlViewDesignTabController extends RichTabController {
         return dbItem;
     }
 
-    public void setDbItem(MysqlDatabaseTreeItem dbItem) {
-        this.dbItem = dbItem;
-    }
+    // public void setDbItem(MysqlDatabaseTreeItem dbItem) {
+    //     this.dbItem = dbItem;
+    // }
 
     public boolean isUnsaved() {
         return unsaved;
     }
 
-    public void setUnsaved(boolean unsaved) {
-        this.unsaved = unsaved;
-    }
+    // public void setUnsaved(boolean unsaved) {
+    //     this.unsaved = unsaved;
+    // }
 }

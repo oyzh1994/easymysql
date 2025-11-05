@@ -398,6 +398,9 @@ public class MysqlTableDesignTabController extends ParentTabController {
      */
     private boolean initiating;
 
+    /**
+     * 额外信息
+     */
     @FXML
     private MysqlTableColumnExtraController tableColumnExtraController;
 
@@ -771,27 +774,27 @@ public class MysqlTableDesignTabController extends ParentTabController {
         }
     }
 
-    /**
-     * 上移字段
-     */
-    private void moveColumnUp() {
-        try {
-            TableViewUtil.moveUp(this.columnTable);
-        } catch (Exception ex) {
-            MessageBox.exception(ex);
-        }
-    }
+    // /**
+    //  * 上移字段
+    //  */
+    // private void moveColumnUp() {
+    //     try {
+    //         TableViewUtil.moveUp(this.columnTable);
+    //     } catch (Exception ex) {
+    //         MessageBox.exception(ex);
+    //     }
+    // }
 
-    /**
-     * 下移字段
-     */
-    private void moveColumnDown() {
-        try {
-            TableViewUtil.moveDown(this.columnTable);
-        } catch (Exception ex) {
-            MessageBox.exception(ex);
-        }
-    }
+    // /**
+    //  * 下移字段
+    //  */
+    // private void moveColumnDown() {
+    //     try {
+    //         TableViewUtil.moveDown(this.columnTable);
+    //     } catch (Exception ex) {
+    //         MessageBox.exception(ex);
+    //     }
+    // }
 
     /**
      * 新增索引
@@ -841,27 +844,27 @@ public class MysqlTableDesignTabController extends ParentTabController {
         }
     }
 
-    /**
-     * 上移索引
-     */
-    private void moveIndexUp() {
-        try {
-            TableViewUtil.moveUp(this.indexTable);
-        } catch (Exception ex) {
-            MessageBox.exception(ex);
-        }
-    }
+    // /**
+    //  * 上移索引
+    //  */
+    // private void moveIndexUp() {
+    //     try {
+    //         TableViewUtil.moveUp(this.indexTable);
+    //     } catch (Exception ex) {
+    //         MessageBox.exception(ex);
+    //     }
+    // }
 
-    /**
-     * 下移索引
-     */
-    private void moveIndexDown() {
-        try {
-            TableViewUtil.moveDown(this.indexTable);
-        } catch (Exception ex) {
-            MessageBox.exception(ex);
-        }
-    }
+    // /**
+    //  * 下移索引
+    //  */
+    // private void moveIndexDown() {
+    //     try {
+    //         TableViewUtil.moveDown(this.indexTable);
+    //     } catch (Exception ex) {
+    //         MessageBox.exception(ex);
+    //     }
+    // }
 
     /**
      * 新增外键
@@ -912,27 +915,27 @@ public class MysqlTableDesignTabController extends ParentTabController {
         }
     }
 
-    /**
-     * 上移外键
-     */
-    private void moveForeignKeyUp() {
-        try {
-            TableViewUtil.moveUp(this.foreignKeyTable);
-        } catch (Exception ex) {
-            MessageBox.exception(ex);
-        }
-    }
+    // /**
+    //  * 上移外键
+    //  */
+    // private void moveForeignKeyUp() {
+    //     try {
+    //         TableViewUtil.moveUp(this.foreignKeyTable);
+    //     } catch (Exception ex) {
+    //         MessageBox.exception(ex);
+    //     }
+    // }
 
-    /**
-     * 下移外键
-     */
-    private void moveForeignKeyDown() {
-        try {
-            TableViewUtil.moveDown(this.foreignKeyTable);
-        } catch (Exception ex) {
-            MessageBox.exception(ex);
-        }
-    }
+    // /**
+    //  * 下移外键
+    //  */
+    // private void moveForeignKeyDown() {
+    //     try {
+    //         TableViewUtil.moveDown(this.foreignKeyTable);
+    //     } catch (Exception ex) {
+    //         MessageBox.exception(ex);
+    //     }
+    // }
 
     /**
      * 新增触发器
@@ -985,27 +988,27 @@ public class MysqlTableDesignTabController extends ParentTabController {
         }
     }
 
-    /**
-     * 上移触发器
-     */
-    private void moveTriggerUp() {
-        try {
-            TableViewUtil.moveUp(this.triggerTable);
-        } catch (Exception ex) {
-            MessageBox.exception(ex);
-        }
-    }
+    // /**
+    //  * 上移触发器
+    //  */
+    // private void moveTriggerUp() {
+    //     try {
+    //         TableViewUtil.moveUp(this.triggerTable);
+    //     } catch (Exception ex) {
+    //         MessageBox.exception(ex);
+    //     }
+    // }
 
-    /**
-     * 下移触发器
-     */
-    private void moveTriggerDown() {
-        try {
-            TableViewUtil.moveDown(this.triggerTable);
-        } catch (Exception ex) {
-            MessageBox.exception(ex);
-        }
-    }
+    // /**
+    //  * 下移触发器
+    //  */
+    // private void moveTriggerDown() {
+    //     try {
+    //         TableViewUtil.moveDown(this.triggerTable);
+    //     } catch (Exception ex) {
+    //         MessageBox.exception(ex);
+    //     }
+    // }
 
     /**
      * 新增检查
@@ -1056,27 +1059,27 @@ public class MysqlTableDesignTabController extends ParentTabController {
         }
     }
 
-    /**
-     * 上移检查
-     */
-    private void moveCheckUp() {
-        try {
-            TableViewUtil.moveUp(this.checkTable);
-        } catch (Exception ex) {
-            MessageBox.exception(ex);
-        }
-    }
+    // /**
+    //  * 上移检查
+    //  */
+    // private void moveCheckUp() {
+    //     try {
+    //         TableViewUtil.moveUp(this.checkTable);
+    //     } catch (Exception ex) {
+    //         MessageBox.exception(ex);
+    //     }
+    // }
 
-    /**
-     * 下移检查
-     */
-    private void moveCheckDown() {
-        try {
-            TableViewUtil.moveDown(this.checkTable);
-        } catch (Exception ex) {
-            MessageBox.exception(ex);
-        }
-    }
+    // /**
+    //  * 下移检查
+    //  */
+    // private void moveCheckDown() {
+    //     try {
+    //         TableViewUtil.moveDown(this.checkTable);
+    //     } catch (Exception ex) {
+    //         MessageBox.exception(ex);
+    //     }
+    // }
 
     /**
      * 初始化列表控件
@@ -1152,7 +1155,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
         // 字符集选中事件
         this.tableCharset.selectedItemChanged((observable, oldValue, newValue) -> {
             this.tableCollation.init(newValue, this.dbItem.client());
-            this.tableCollation.select(0);
+            this.tableCollation.selectFirst();
         });
         // 引擎选中事件
         this.tableEngine.selectedItemChanged((observable, oldValue, newValue) -> {
@@ -1236,8 +1239,8 @@ public class MysqlTableDesignTabController extends ParentTabController {
         // this.delete.managedProperty().bind(this.add.managedProperty());
         // this.moveDown.visibleProperty().bind(this.moveUp.visibleProperty());
         // this.moveDown.managedProperty().bind(this.moveUp.managedProperty());
-        this.tableRowFormat.managedBindVisible();
-        this.tableAutoIncrementBox.managedBindVisible();
+        // this.tableRowFormat.managedBindVisible();
+        // this.tableAutoIncrementBox.managedBindVisible();
     }
 
     /**
@@ -1317,16 +1320,25 @@ public class MysqlTableDesignTabController extends ParentTabController {
      */
     @FXML
     private void doMoveUp() {
-        if (this.tabPane.isSelectedTab("columnTab")) {
-            this.moveColumnUp();
-        } else if (this.tabPane.isSelectedTab("indexTab")) {
-            this.moveIndexUp();
-        } else if (this.tabPane.isSelectedTab("foreignKeyTab")) {
-            this.moveForeignKeyUp();
-        } else if (this.tabPane.isSelectedTab("triggerTab")) {
-            this.moveTriggerUp();
-        } else if (this.tabPane.isSelectedTab("checkTab")) {
-            this.moveCheckUp();
+        try {
+            if (this.tabPane.isSelectedTab("columnTab")) {
+                // this.moveColumnUp();
+                TableViewUtil.moveUp(this.columnTable);
+            } else if (this.tabPane.isSelectedTab("indexTab")) {
+                // this.moveIndexUp();
+                TableViewUtil.moveUp(this.indexTable);
+            } else if (this.tabPane.isSelectedTab("foreignKeyTab")) {
+                // this.moveForeignKeyUp();
+                TableViewUtil.moveUp(this.foreignKeyTable);
+            } else if (this.tabPane.isSelectedTab("triggerTab")) {
+                // this.moveTriggerUp();
+                TableViewUtil.moveUp(this.triggerTable);
+            } else if (this.tabPane.isSelectedTab("checkTab")) {
+                // this.moveCheckUp();
+                TableViewUtil.moveUp(this.checkTable);
+            }
+        } catch (Exception ex) {
+            MessageBox.exception(ex);
         }
     }
 
@@ -1335,16 +1347,25 @@ public class MysqlTableDesignTabController extends ParentTabController {
      */
     @FXML
     private void doMoveDown() {
-        if (this.tabPane.isSelectedTab("columnTab")) {
-            this.moveColumnDown();
-        } else if (this.tabPane.isSelectedTab("indexTab")) {
-            this.moveIndexDown();
-        } else if (this.tabPane.isSelectedTab("foreignKeyTab")) {
-            this.moveForeignKeyDown();
-        } else if (this.tabPane.isSelectedTab("triggerTab")) {
-            this.moveTriggerDown();
-        } else if (this.tabPane.isSelectedTab("checkTab")) {
-            this.moveCheckDown();
+        try {
+            if (this.tabPane.isSelectedTab("columnTab")) {
+                // this.moveColumnDown();
+                TableViewUtil.moveDown(this.columnTable);
+            } else if (this.tabPane.isSelectedTab("indexTab")) {
+                // this.moveIndexDown();
+                TableViewUtil.moveDown(this.indexTable);
+            } else if (this.tabPane.isSelectedTab("foreignKeyTab")) {
+                // this.moveForeignKeyDown();
+                TableViewUtil.moveDown(this.foreignKeyTable);
+            } else if (this.tabPane.isSelectedTab("triggerTab")) {
+                // this.moveTriggerDown();
+                TableViewUtil.moveDown(this.triggerTable);
+            } else if (this.tabPane.isSelectedTab("checkTab")) {
+                // this.moveCheckDown();
+                TableViewUtil.moveDown(this.checkTable);
+            }
+        } catch (Exception ex) {
+            MessageBox.exception(ex);
         }
     }
 
@@ -1365,15 +1386,15 @@ public class MysqlTableDesignTabController extends ParentTabController {
         return dbItem;
     }
 
-    public void setDbItem(MysqlDatabaseTreeItem dbItem) {
-        this.dbItem = dbItem;
-    }
+    // public void setDbItem(MysqlDatabaseTreeItem dbItem) {
+    //     this.dbItem = dbItem;
+    // }
 
     public boolean isUnsaved() {
         return unsaved;
     }
 
-    public void setUnsaved(boolean unsaved) {
-        this.unsaved = unsaved;
-    }
+    // public void setUnsaved(boolean unsaved) {
+    //     this.unsaved = unsaved;
+    // }
 }

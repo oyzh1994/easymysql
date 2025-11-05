@@ -5,6 +5,7 @@ import cn.oyzh.easymysql.tabs.MysqlTab;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.svg.glyph.QuerySVGGlyph;
 import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.Cursor;
 
 /**
@@ -19,15 +20,15 @@ public class MysqlQueryMainTab extends MysqlTab {
         this.setClosable(true);
     }
 
-    /**
-     * 内容已变化
-     */
-    private boolean contentChanged;
-
-    public void setContentChanged(boolean contentChanged) {
-        this.contentChanged = contentChanged;
-        this.flush();
-    }
+    // /**
+    //  * 内容已变化
+    //  */
+    // private boolean contentChanged;
+    //
+    // public void setContentChanged(boolean contentChanged) {
+    //     this.contentChanged = contentChanged;
+    //     this.flush();
+    // }
 
     @Override
     protected String url() {
@@ -48,10 +49,10 @@ public class MysqlQueryMainTab extends MysqlTab {
     public void flushTitle() {
         String queryName = this.query().getName();
         if (queryName == null) {
-            queryName = "新建查询";
+            queryName = I18nHelper.newQuery();
         }
         // 设置提示文本
-        if (this.contentChanged) {
+        if (this.controller().isUnsaved()) {
             this.setText("* " + queryName + "@" + this.dbName() + "(" + this.connectName() + ")");
         } else {
             this.setText(queryName + "@" + this.dbName() + "(" + this.connectName() + ")");

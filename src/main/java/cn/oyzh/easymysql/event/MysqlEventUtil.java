@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.event;
 
+import cn.oyzh.easymysql.event.query.MysqlQueryRenamedEvent;
 import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.mysql.event.MysqlEvent;
@@ -243,6 +244,13 @@ public class MysqlEventUtil {
 
     public static void queryOpen(MysqlQuery query, MysqlDatabaseTreeItem item) {
         MysqlQueryOpenEvent event = new MysqlQueryOpenEvent();
+        event.data(query);
+        event.setDbItem(item);
+        EventUtil.post(event);
+    }
+
+    public static void queryRenamed(MysqlQuery query, MysqlDatabaseTreeItem item) {
+        MysqlQueryRenamedEvent event = new MysqlQueryRenamedEvent();
         event.data(query);
         event.setDbItem(item);
         EventUtil.post(event);

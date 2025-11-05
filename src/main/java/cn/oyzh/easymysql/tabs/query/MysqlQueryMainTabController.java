@@ -40,6 +40,11 @@ public class MysqlQueryMainTabController extends RichTabController {
      */
     private MysqlQuery query;
 
+    /**
+     * 未保存标志位
+     */
+    private boolean unsaved;
+
     public MysqlQuery getQuery() {
         return query;
     }
@@ -96,7 +101,11 @@ public class MysqlQueryMainTabController extends RichTabController {
         this.queryArea.setText(query.getContent());
         this.queryArea.forgetHistory();
         this.queryArea.setDialect(this.dbItem.dialect());
-        this.queryArea.addTextChangeListener((observable, oldValue, newValue) -> this.tab.setContentChanged(true));
+        this.queryArea.addTextChangeListener((observable, oldValue, newValue) -> {
+            this.unsaved = true;
+            this.flushTab();
+            // this.tab.setContentChanged(true)
+        });
         DBQueryUtil.updateIndex(dbItem.client());
     }
 
@@ -176,6 +185,7 @@ public class MysqlQueryMainTabController extends RichTabController {
 
     /**
      * 执行运行
+     *
      * @param sql sql
      */
     private void doRun(String sql) {
@@ -308,7 +318,7 @@ public class MysqlQueryMainTabController extends RichTabController {
                 result = MysqlQueryStore.INSTANCE.insert(this.query);
                 if (result) {
                     // MysqlEventUtil.queryAdded(this.query, this.dbItem);
-                    this.dbItem.getQueryTypeChild().addChild(this.query);
+                    this.dbItem.getQueryTypeChild().addQuery(this.query);
                 }
             } else {// 修改查询
                 result = MysqlQueryStore.INSTANCE.update(this.query);
@@ -316,11 +326,14 @@ public class MysqlQueryMainTabController extends RichTabController {
             if (!result) {
                 MessageBox.warn(I18nHelper.operationFail());
             } else {
-                this.tab.setContentChanged(false);
+                // this.tab.setContentChanged(false);
+                this.unsaved = false;
             }
         } catch (Exception ex) {
             ex.printStackTrace();
             MessageBox.exception(ex);
+        } finally {
+            this.flushTab();
         }
     }
 
@@ -354,5 +367,9 @@ public class MysqlQueryMainTabController extends RichTabController {
             this.resultTabPane.display();
         }
         this.root.autosize();
+    }
+
+    public boolean isUnsaved() {
+        return unsaved;
     }
 }
