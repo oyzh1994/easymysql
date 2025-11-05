@@ -3,7 +3,6 @@ package cn.oyzh.easymysql.controller.data;
 import cn.oyzh.common.system.SystemUtil;
 import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBClientUtil;
 import cn.oyzh.easymysql.domain.MysqlConnect;
 import cn.oyzh.easymysql.fx.DBDatabaseComboBox;
@@ -15,15 +14,15 @@ import cn.oyzh.easymysql.fx.data.DataTransportTableListView;
 import cn.oyzh.easymysql.fx.data.DataTransportTriggerListView;
 import cn.oyzh.easymysql.fx.data.DataTransportViewListView;
 import cn.oyzh.easymysql.handler.DataTransportHandler;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.fx.gui.text.area.MsgTextArea;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
 import cn.oyzh.fx.plus.controls.box.FXVBox;
 import cn.oyzh.fx.plus.controls.button.FXButton;
 import cn.oyzh.fx.plus.controls.label.FXLabel;
-import cn.oyzh.fx.plus.controls.pane.FXTitledPane;
+import cn.oyzh.fx.plus.controls.tab.FXTab;
 import cn.oyzh.fx.plus.information.MessageBox;
-import cn.oyzh.fx.plus.node.NodeGroup;
 import cn.oyzh.fx.plus.node.NodeGroupUtil;
 import cn.oyzh.fx.plus.util.Counter;
 import cn.oyzh.fx.plus.util.FXUtil;
@@ -33,8 +32,6 @@ import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
-
-import java.util.List;
 
 
 /**
@@ -183,37 +180,37 @@ public class MysqlDataTransportController extends StageController {
      * 表组件
      */
     @FXML
-    private FXTitledPane tablePane;
+    private FXTab tablePane;
 
     /**
      * 视图组件
      */
     @FXML
-    private FXTitledPane viewPane;
+    private FXTab viewPane;
 
     /**
      * 函数组件
      */
     @FXML
-    private FXTitledPane functionPane;
+    private FXTab functionPane;
 
     /**
      * 过程组件
      */
     @FXML
-    private FXTitledPane procedurePane;
+    private FXTab procedurePane;
 
     /**
      * 触发器组件
      */
     @FXML
-    private FXTitledPane triggerPane;
+    private FXTab triggerPane;
 
     /**
      * 事件组件
      */
     @FXML
-    private FXTitledPane eventPane;
+    private FXTab eventPane;
 
     /**
      * 表列表
@@ -434,12 +431,12 @@ public class MysqlDataTransportController extends StageController {
         this.functionList.setSelectedChanged(() -> this.flushPaneText("function"));
         this.procedureList.setSelectedChanged(() -> this.flushPaneText("procedure"));
 
-        this.viewPane.expandedProperty().addListener((observable, oldValue, newValue) -> this.flushPaneLayout(this.viewPane, newValue));
-        this.eventPane.expandedProperty().addListener((observable, oldValue, newValue) -> this.flushPaneLayout(this.eventPane, newValue));
-        this.tablePane.expandedProperty().addListener((observable, oldValue, newValue) -> this.flushPaneLayout(this.tablePane, newValue));
-        this.triggerPane.expandedProperty().addListener((observable, oldValue, newValue) -> this.flushPaneLayout(this.triggerPane, newValue));
-        this.functionPane.expandedProperty().addListener((observable, oldValue, newValue) -> this.flushPaneLayout(this.functionPane, newValue));
-        this.procedurePane.expandedProperty().addListener((observable, oldValue, newValue) -> this.flushPaneLayout(this.procedurePane, newValue));
+        // this.viewPane.expandedProperty().addListener((observable, oldValue, newValue) -> this.flushPaneLayout(this.viewPane, newValue));
+        // this.eventPane.expandedProperty().addListener((observable, oldValue, newValue) -> this.flushPaneLayout(this.eventPane, newValue));
+        // this.tablePane.expandedProperty().addListener((observable, oldValue, newValue) -> this.flushPaneLayout(this.tablePane, newValue));
+        // this.triggerPane.expandedProperty().addListener((observable, oldValue, newValue) -> this.flushPaneLayout(this.triggerPane, newValue));
+        // this.functionPane.expandedProperty().addListener((observable, oldValue, newValue) -> this.flushPaneLayout(this.functionPane, newValue));
+        // this.procedurePane.expandedProperty().addListener((observable, oldValue, newValue) -> this.flushPaneLayout(this.procedurePane, newValue));
     }
 
     @Override
@@ -565,43 +562,43 @@ public class MysqlDataTransportController extends StageController {
     private void flushPaneText(String name) {
         if (StringUtil.equalsIgnoreCase(name, "view")) {
             String viewTipText = "(" + this.viewList.getSelectedSize() + "/" + this.viewList.getItemSize() + ")";
-            this.viewPane.appendText(viewTipText);
+            this.viewPane.setAppendText(viewTipText);
         } else if (StringUtil.equalsIgnoreCase(name, "event")) {
             String eventTipText = "(" + this.eventList.getSelectedSize() + "/" + this.eventList.getItemSize() + ")";
-            this.eventPane.appendText(eventTipText);
+            this.eventPane.setAppendText(eventTipText);
         } else if (StringUtil.equalsIgnoreCase(name, "table")) {
             String tableTipText = "(" + this.tableList.getSelectedSize() + "/" + this.tableList.getItemSize() + ")";
-            this.tablePane.appendText(tableTipText);
+            this.tablePane.setAppendText(tableTipText);
         } else if (StringUtil.equalsIgnoreCase(name, "trigger")) {
             String triggerTipText = "(" + this.triggerList.getSelectedSize() + "/" + this.triggerList.getItemSize() + ")";
-            this.triggerPane.appendText(triggerTipText);
+            this.triggerPane.setAppendText(triggerTipText);
         } else if (StringUtil.equalsIgnoreCase(name, "function")) {
             String functionTipText = "(" + this.functionList.getSelectedSize() + "/" + this.functionList.getItemSize() + ")";
-            this.functionPane.appendText(functionTipText);
+            this.functionPane.setAppendText(functionTipText);
         } else if (StringUtil.equalsIgnoreCase(name, "procedure")) {
             String procedureTipText = "(" + this.procedureList.getSelectedSize() + "/" + this.procedureList.getItemSize() + ")";
-            this.procedurePane.appendText(procedureTipText);
+            this.procedurePane.setAppendText(procedureTipText);
         }
     }
 
-    /**
-     * 刷新数据面板布局
-     *
-     * @param curr   当前面板
-     * @param extend 是否展开
-     */
-    private void flushPaneLayout(FXTitledPane curr, boolean extend) {
-        if (extend) {
-            curr.setFlexHeight("100% - 150");
-            List<NodeGroup> groups = NodeGroupUtil.list(this.getStage(), "config");
-            for (NodeGroup group : groups) {
-                FXTitledPane pane = (FXTitledPane) group;
-                if (pane != curr) {
-                    pane.setExpanded(false);
-                    pane.setFlexHeight("50");
-                }
-            }
-        }
-        curr.parentAutosize();
-    }
+    // /**
+    //  * 刷新数据面板布局
+    //  *
+    //  * @param curr   当前面板
+    //  * @param extend 是否展开
+    //  */
+    // private void flushPaneLayout(FXTitledPane curr, boolean extend) {
+    //     if (extend) {
+    //         curr.setFlexHeight("100% - 150");
+    //         List<NodeGroup> groups = NodeGroupUtil.list(this.getStage(), "config");
+    //         for (NodeGroup group : groups) {
+    //             FXTitledPane pane = (FXTitledPane) group;
+    //             if (pane != curr) {
+    //                 pane.setExpanded(false);
+    //                 pane.setFlexHeight("50");
+    //             }
+    //         }
+    //     }
+    //     curr.parentAutosize();
+    // }
 }

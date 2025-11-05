@@ -15,9 +15,9 @@ import java.util.List;
  * @author oyzh
  * @since 2024/08/09
  */
-public class DBFunctionSqlGenerator {
+public class MysqlFunctionSqlGenerator {
 
-    public static final DBFunctionSqlGenerator INSTANCE = new DBFunctionSqlGenerator();
+    public static final MysqlFunctionSqlGenerator INSTANCE = new MysqlFunctionSqlGenerator();
 
     public String generate(MysqlFunction function) {
         String sql = "CREATE ";
