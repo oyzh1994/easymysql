@@ -137,8 +137,9 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
      */
     private void doCloneTable(boolean includeRecord) {
         try {
-            this.dbItem().cloneTable(this.tableName(), includeRecord);
-            this.dbItem().getTableTypeChild().reloadChild();
+            String cloneTable = this.dbItem().cloneTable(this.tableName(), includeRecord);
+            MysqlTable mysqlTable = this.dbItem().selectTable(cloneTable);
+            this.dbItem().getTableTypeChild().addTable(mysqlTable);
         } catch (Exception ex) {
             MessageBox.exception(ex);
         }

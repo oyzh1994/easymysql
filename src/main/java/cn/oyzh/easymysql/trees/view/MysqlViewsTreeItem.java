@@ -159,5 +159,6 @@ public class MysqlViewsTreeItem extends DBTreeItem<MysqlViewsTreeItemValue> {
 
     public void addView(MysqlView view) {
         this.addChild(new MysqlViewTreeItem(view, this.getTreeView()));
+        this.sortChild(this.isSortAsc());
     }
 }

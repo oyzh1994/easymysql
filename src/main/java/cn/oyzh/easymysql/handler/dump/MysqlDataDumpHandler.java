@@ -158,9 +158,10 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
                 String line3 = "-- ----------------------------";
                 String dropFunction = "DROP FUNCTION IF EXISTS " + DBUtil.wrap(function.getName(), DBDialect.MYSQL) + ";";
                 String line4 = "delimiter ;;";
-                String line5 = "delimiter ;";
+                String line5 = ";;";
+                String line6 = "delimiter ;";
                 String createDefinition = this.dbClient.showCreateFunction(this.dbName, function.getName());
-                this.fileWriter.appendLines(List.of(line0, line1, line2, line3, dropFunction, line4, createDefinition, line5));
+                this.fileWriter.appendLines(List.of(line0, line1, line2, line3, dropFunction, line4, createDefinition, line5, line6));
             }
             this.processed(functions.size());
         }
@@ -178,9 +179,10 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
                 String line3 = "-- ----------------------------";
                 String dropProcedure = "DROP PROCEDURE IF EXISTS " + DBUtil.wrap(procedure.getName(), DBDialect.MYSQL) + ";";
                 String line4 = "delimiter ;;";
-                String line5 = "delimiter ;";
+                String line5 = ";;";
+                String line6 = "delimiter ;";
                 String createDefinition = this.dbClient.showCreateProcedure(this.dbName, procedure.getName());
-                this.fileWriter.appendLines(List.of(line0, line1, line2, line3, dropProcedure, line4, createDefinition, line5));
+                this.fileWriter.appendLines(List.of(line0, line1, line2, line3, dropProcedure, line4, createDefinition, line5, line6));
             }
             this.processed(procedures.size());
         }
@@ -197,9 +199,10 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
                 String line3 = "-- ----------------------------";
                 String dropTrigger = "DROP TRIGGER IF EXISTS " + DBUtil.wrap(trigger.getName(), DBDialect.MYSQL) + ";";
                 String line4 = "delimiter ;;";
-                String line5 = "delimiter ;";
+                String line5 = ";;";
+                String line6 = "delimiter ;";
                 String createDefinition = this.dbClient.showCreateTrigger(this.dbName, trigger.getName());
-                this.fileWriter.appendLines(List.of(line0, line1, line2, line3, dropTrigger, line4, createDefinition, line5));
+                this.fileWriter.appendLines(List.of(line0, line1, line2, line3, dropTrigger, line4, createDefinition, line5, line6));
             }
             this.processed(triggers.size());
         }
@@ -216,9 +219,10 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
                 String line3 = "-- ----------------------------";
                 String dropTrigger = "DROP EVENT IF EXISTS " + DBUtil.wrap(event.getName(), DBDialect.MYSQL) + ";";
                 String line4 = "delimiter ;;";
-                String line5 = "delimiter ;";
+                String line5 = ";;";
+                String line6 = "delimiter ;";
                 String createDefinition = event.getCreateDefinition();
-                this.fileWriter.appendLines(List.of(line0, line1, line2, line3, dropTrigger, line4, createDefinition, line5));
+                this.fileWriter.appendLines(List.of(line0, line1, line2, line3, dropTrigger, line4, createDefinition, line5, line6));
             }
             this.processed(events.size());
         }

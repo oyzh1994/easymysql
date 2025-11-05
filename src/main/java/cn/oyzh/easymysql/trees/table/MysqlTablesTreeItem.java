@@ -190,5 +190,6 @@ public class MysqlTablesTreeItem extends DBTreeItem<MysqlTablesTreeItemValue> {
 
     public void addTable(MysqlTable table) {
         this.addChild(new MysqlTableTreeItem(table, this.getTreeView()));
+        this.sortChild(this.isSortAsc());
     }
 }

@@ -156,5 +156,6 @@ public class MysqlEventsTreeItem extends DBTreeItem<MysqlEventsTreeItemValue> {
 
     public void addEvent(MysqlEvent event) {
         this.addChild(new MysqlEventTreeItem(event, this.getTreeView()));
+        this.sortChild(this.isSortAsc());
     }
 }

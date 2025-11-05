@@ -161,5 +161,6 @@ public class MysqlProceduresTreeItem extends DBTreeItem<MysqlProceduresTreeItemV
 
     public void addProcedure(MysqlProcedure procedure) {
         this.addChild(new MysqlProcedureTreeItem(procedure, this.getTreeView()));
+        this.sortChild(this.isSortAsc());
     }
 }

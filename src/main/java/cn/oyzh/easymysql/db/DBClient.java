@@ -2785,8 +2785,9 @@ public class DBClient {
      * @param dbName        数据库
      * @param tableName     表名称
      * @param includeRecord 是否包含数据
+     * @return 克隆表名称
      */
-    public void cloneTable(String dbName, String tableName, boolean includeRecord) {
+    public String cloneTable(String dbName, String tableName, boolean includeRecord) {
         // // 查询表
         // MysqlSelectTableParam selectTableParam = new MysqlSelectTableParam();
         // selectTableParam.setFull(true);
@@ -2874,8 +2875,8 @@ public class DBClient {
         //     }
         // }
 
+        String newTableName = tableName + DBUtil.genCloneName();
         try {
-            String newTableName = tableName + DBUtil.genCloneName();
             Connection connection = this.connection(dbName);
 
             // 克隆基本的表结构
@@ -2910,5 +2911,6 @@ public class DBClient {
             ex.printStackTrace();
             throw new DBException(ex);
         }
+        return newTableName;
     }
 }

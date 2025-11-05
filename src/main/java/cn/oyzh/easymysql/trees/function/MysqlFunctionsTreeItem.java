@@ -163,5 +163,6 @@ public class MysqlFunctionsTreeItem extends DBTreeItem<MysqlFunctionsTreeItemVal
 
     public void addFunction(MysqlFunction function) {
         this.addChild(new MysqlFunctionTreeItem(function, this.getTreeView()));
+        this.sortChild(this.isSortAsc());
     }
 }

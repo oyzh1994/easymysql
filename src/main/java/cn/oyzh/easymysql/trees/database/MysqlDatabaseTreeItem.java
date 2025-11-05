@@ -4,7 +4,6 @@ import cn.oyzh.common.thread.Task;
 import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
 import cn.oyzh.easymysql.controller.data.MysqlRunSqlFileController;
-import cn.oyzh.easymysql.controller.database.MysqlDatabaseInfoController;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseUpdateController;
 import cn.oyzh.easymysql.db.DBClient;
 import cn.oyzh.easymysql.db.DBDatabase;
@@ -25,8 +24,8 @@ import cn.oyzh.easymysql.db.record.MysqlRecord;
 import cn.oyzh.easymysql.db.record.MysqlSelectRecordParam;
 import cn.oyzh.easymysql.db.table.MysqlAlertTableParam;
 import cn.oyzh.easymysql.db.table.MysqlCreateTableParam;
-import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.table.MysqlSelectTableParam;
+import cn.oyzh.easymysql.db.table.MysqlTable;
 import cn.oyzh.easymysql.db.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.db.view.MysqlView;
 import cn.oyzh.easymysql.domain.MysqlConnect;
@@ -52,6 +51,7 @@ import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageManager;
+import cn.oyzh.i18n.I18nHelper;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
 
@@ -104,15 +104,15 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
             items.add(closeDB);
         }
         FXMenuItem editDB = MenuItemHelper.editDatabase("11", this::editDB);
-        FXMenuItem dropDB = MenuItemHelper.deleteDatabase("12", this::dropDB);
-        FXMenuItem dumpData = MenuItemHelper.dumpData("12", this::dump);
-        FXMenuItem runSqlFile = MenuItemHelper.runSqlFile("12", this::runSqlFile);
-        FXMenuItem dbInfo = MenuItemHelper.databaseInfo("12", this::dbInfo);
         items.add(editDB);
+        FXMenuItem dropDB = MenuItemHelper.deleteDatabase("12", this::delete);
         items.add(dropDB);
+        FXMenuItem dumpData = MenuItemHelper.dumpData("12", this::dump);
         items.add(dumpData);
+        FXMenuItem runSqlFile = MenuItemHelper.runSqlFile("12", this::runSqlFile);
         items.add(runSqlFile);
-        items.add(dbInfo);
+        // FXMenuItem dbInfo = MenuItemHelper.databaseInfo("12", this::dbInfo);
+        // items.add(dbInfo);
         return items;
     }
 
@@ -139,21 +139,28 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         fxView.display();
     }
 
-    private void dbInfo() {
-        StageAdapter fxView = StageManager.parseStage(MysqlDatabaseInfoController.class, this.window());
-        fxView.setProp("dbItem", this);
-        fxView.display();
-    }
+    // private void dbInfo() {
+    //     StageAdapter fxView = StageManager.parseStage(MysqlDatabaseInfoController.class, this.window());
+    //     fxView.setProp("dbItem", this);
+    //     fxView.display();
+    // }
 
-    private void dropDB() {
-        if (MessageBox.confirm("确定删除库" + this.dbName() + "？")) {
-            if (this.parent().dropDatabase(this.dbName())) {
-                this.remove();
-                MysqlEventUtil.databaseDropped(this);
-            } else {
-                MessageBox.warn("删除库失败！");
-            }
-        }
+    @Override
+    public void delete() {
+        Task task = TaskBuilder.newBuilder()
+                .onStart(() -> {
+                    if (MessageBox.confirm(I18nHelper.deleteDatabase() + "[" + this.dbName() + "]")) {
+                        if (this.parent().dropDatabase(this.dbName())) {
+                            super.remove();
+                            MysqlEventUtil.databaseDropped(this);
+                        } else {
+                            MessageBox.warn(I18nHelper.operationFail());
+                        }
+                    }
+                })
+                .onSuccess(super::refresh)
+                .build();
+        super.startWaiting(task);
     }
 
     /**
@@ -635,7 +642,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return this.client().getDbConnect();
     }
 
-    public void cloneTable(String tableName, boolean includeRecord) {
-        this.client().cloneTable(this.dbName(), tableName, includeRecord);
+    public String cloneTable(String tableName, boolean includeRecord) {
+        return this.client().cloneTable(this.dbName(), tableName, includeRecord);
     }
 }

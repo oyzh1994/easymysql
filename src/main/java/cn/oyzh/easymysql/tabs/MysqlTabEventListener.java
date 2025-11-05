@@ -4,6 +4,7 @@ import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.domain.MysqlQuery;
 import cn.oyzh.easymysql.event.connect.DBConnectionClosedEvent;
 import cn.oyzh.easymysql.event.database.MysqlDatabaseClosedEvent;
+import cn.oyzh.easymysql.event.database.MysqlDatabaseDroppedEvent;
 import cn.oyzh.easymysql.event.event.MysqlEventDesignEvent;
 import cn.oyzh.easymysql.event.function.MysqlFunctionDesignEvent;
 import cn.oyzh.easymysql.event.procedure.MysqlProcedureDesignEvent;
@@ -348,6 +349,16 @@ public class MysqlTabEventListener implements EventListener {
      */
     @EventSubscribe
     private void onMysqlDatabaseClosed(MysqlDatabaseClosedEvent event) {
+        this.removeTab(this.getMysqlTabs(event.data()));
+    }
+
+    /**
+     * 数据库删除事件
+     *
+     * @param event 事件
+     */
+    @EventSubscribe
+    private void onMysqlDatabaseDropped(MysqlDatabaseDroppedEvent event) {
         this.removeTab(this.getMysqlTabs(event.data()));
     }
 

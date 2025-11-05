@@ -86,7 +86,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
             FXMenuItem editConnect = MenuItemHelper.editConnect("11", this::editConnect);
             FXMenuItem repeatConnect = MenuItemHelper.repeatConnect("12", this::repeatConnect);
             FXMenuItem addDatabase = MenuItemHelper.addDatabase("12", this::addDatabase);
-            FXMenuItem reload = MenuItemHelper.reload("12", this::reloadChild);
+            FXMenuItem reload = MenuItemHelper.reloadDatabase("12", this::reloadChild);
 
             items.add(closeConnect);
             items.add(editConnect);
