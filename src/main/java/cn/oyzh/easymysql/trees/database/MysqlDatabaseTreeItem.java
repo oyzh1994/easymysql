@@ -151,8 +151,8 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
                 .onStart(() -> {
                     if (MessageBox.confirm(I18nHelper.deleteDatabase() + "[" + this.dbName() + "]")) {
                         if (this.parent().dropDatabase(this.dbName())) {
-                            super.remove();
                             MysqlEventUtil.databaseDropped(this);
+                            super.remove();
                         } else {
                             MessageBox.warn(I18nHelper.operationFail());
                         }

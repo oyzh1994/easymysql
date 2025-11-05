@@ -186,9 +186,13 @@ public class MysqlTabEventListener implements EventListener {
     @EventSubscribe
     private void onMysqlTableDropped(MysqlTableDroppedEvent event) {
         try {
-            MysqlTableRecordTab tab = this.getMysqlTableRecordTab(event.getDbItem(), event.tableName());
-            if (tab != null) {
-                tab.closeTab();
+            MysqlTableRecordTab tab1 = this.getMysqlTableRecordTab(event.getDbItem(), event.tableName());
+            if (tab1 != null) {
+                tab1.closeTab();
+            }
+            MysqlTableDesignTab tab2 = this.getMysqlTableDesignTab(event.getDbItem(), event.tableName());
+            if (tab2 != null) {
+                tab2.closeTab();
             }
         } catch (Exception ex) {
             ex.printStackTrace();

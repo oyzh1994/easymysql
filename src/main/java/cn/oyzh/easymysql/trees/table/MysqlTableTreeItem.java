@@ -101,7 +101,7 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         items.add(clearTable);
         FXMenuItem truncateTable = MenuItemHelper.truncateTable("12", this::truncateTable);
         items.add(truncateTable);
-        FXMenuItem dropTable = MenuItemHelper.deleteTable("12", this::dropTable);
+        FXMenuItem dropTable = MenuItemHelper.deleteTable("12", this::delete);
         items.add(dropTable);
         items.add(MenuItemHelper.separator());
         FXMenuItem dumpTable = MenuItemHelper.dumpData("12", this::dump);
@@ -199,12 +199,15 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         }
     }
 
-    private void dropTable() {
+    @Override
+    public void delete() {
         try {
-            if (MessageBox.confirm("确定删除表" + this.tableName() + "？")) {
+            if (MessageBox.confirm(I18nHelper.deleteTable() + "[" + this.tableName() + "]")) {
                 this.dbItem().dropTable(this.tableName());
-                this.remove();
                 MysqlEventUtil.tableDropped(this, this.dbItem());
+                this.remove();
+            } else {
+                MessageBox.warn(I18nHelper.operationFail());
             }
         } catch (Exception ex) {
             MessageBox.exception(ex);
