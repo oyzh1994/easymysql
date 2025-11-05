@@ -100,4 +100,10 @@ public class MysqlTableRecordTab extends MysqlTab {
     public String dbName() {
         return this.item().dbName();
     }
+
+    // @Override
+    // protected void onTabClosed(Event event) {
+    //     super.onTabClosed(event);
+    //     System.out.println("------1");
+    // }
 }

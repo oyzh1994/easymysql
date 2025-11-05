@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.mysql.record;
 
+import cn.oyzh.common.object.Destroyable;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.mysql.column.MysqlColumns;
@@ -9,6 +10,7 @@ import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBNodeUtil;
 import cn.oyzh.easymysql.util.DBRecordUtil;
+import cn.oyzh.fx.plus.node.NodeDisposeUtil;
 import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.fx.plus.util.ClipboardUtil;
@@ -23,7 +25,7 @@ import javafx.scene.control.TextField;
  * @author oyzh
  * @since 2024/01/31
  */
-public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
+public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements Destroyable {
 
     /**
      * 是否变更
@@ -43,7 +45,7 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
     /**
      * 表记录
      */
-    private final MysqlRecord record;
+    private MysqlRecord record;
 
     /**
      * 原始数据
@@ -147,10 +149,10 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
     public void setChanged(boolean changed) {
         this.changedProperty().set(changed);
         DBStatusListener listener;
-        if (column.getSchema() != null) {
-            listener = DBStatusListenerManager.getListener(column.getDbName() + ":" + column.getSchema() + ":" + column.getTableName());
+        if (this.column.getSchema() != null) {
+            listener = DBStatusListenerManager.getListener(this.column.getDbName() + ":" + this.column.getSchema() + ":" + this.column.getTableName());
         } else {
-            listener = DBStatusListenerManager.getListener(column.getDbName() + ":" + column.getTableName());
+            listener = DBStatusListenerManager.getListener(this.column.getDbName() + ":" + this.column.getTableName());
         }
         if (listener != null) {
             listener.changed(null, null, null);
@@ -272,7 +274,16 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> {
         return node;
     }
 
-    public void setNode(Node node) {
-        this.node = node;
+    @Override
+    public void destroy() {
+        if (this.node != null) {
+            NodeDisposeUtil.dispose(this.node);
+            this.node = null;
+            this.column = null;
+            this.record = null;
+            this.original = null;
+            this.changedProperty = null;
+        }
+
     }
 }

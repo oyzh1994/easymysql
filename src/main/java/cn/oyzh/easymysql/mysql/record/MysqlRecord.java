@@ -1,6 +1,7 @@
 package cn.oyzh.easymysql.mysql.record;
 
 
+import cn.oyzh.common.object.Destroyable;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.mysql.column.MysqlColumns;
@@ -16,14 +17,14 @@ import java.util.Set;
  * @author oyzh
  * @since 2023/12/20
  */
-public class MysqlRecord extends DBObjectStatus {
+public class MysqlRecord extends DBObjectStatus implements Destroyable {
 
     /**
      * 是否只读
      */
     private final boolean readonly;
 
-    private final MysqlColumns columns;
+    private MysqlColumns columns;
 
     public MysqlRecord(MysqlColumns columns) {
         this(columns, false);
@@ -49,7 +50,7 @@ public class MysqlRecord extends DBObjectStatus {
     /**
      * 数据
      */
-    private final HashMap<String, MysqlRecordProperty> properties = new HashMap<>();
+    private HashMap<String, MysqlRecordProperty> properties = new HashMap<>();
 
     /**
      * 添加数据
@@ -233,7 +234,7 @@ public class MysqlRecord extends DBObjectStatus {
             if (property != null) {
                 Object val = property.getOriginal();
                 // if (val != null) {
-                    recordData.put(property.getColumn(), val);
+                recordData.put(property.getColumn(), val);
                 // }
             }
         }
@@ -250,5 +251,16 @@ public class MysqlRecord extends DBObjectStatus {
             map.put(value.getKey(), value.getValue().get());
         }
         return map;
+    }
+
+    @Override
+    public void destroy() {
+        if (this.properties != null) {
+            this.columns = null;
+            for (MysqlRecordProperty property : this.properties.values()) {
+                property.destroy();
+            }
+            this.properties = null;
+        }
     }
 }

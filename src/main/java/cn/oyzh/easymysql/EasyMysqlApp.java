@@ -99,7 +99,7 @@ public class EasyMysqlApp extends FXApplication {
         try {
             super.start(primaryStage);
             // 开启定期gc
-            SystemUtil.gcInterval(60_000);
+            SystemUtil.gcInterval(15_000);
         } catch (Exception ex) {
             ex.printStackTrace();
             JulLog.warn("start error", ex);
