@@ -262,7 +262,7 @@ public class MysqlRecord extends DBObjectStatus implements Destroyable {
     }
 
     @Override
-    public void destroy() {
+    public synchronized void destroy() {
         if (this.properties != null) {
             this.columns = null;
             for (MysqlRecordProperty property : this.properties.values()) {
