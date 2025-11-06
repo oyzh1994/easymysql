@@ -42,8 +42,8 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
         super.setFilterable(true);
         this.value = event;
         this.setValue(new MysqlEventTreeItemValue(this));
-        // 监听展开
-        super.addEventHandler(branchExpandedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) e -> this.flushLocal());
+        // // 监听展开
+        // super.addEventHandler(branchExpandedEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) e -> this.flushLocal());
     }
 
     @Override
