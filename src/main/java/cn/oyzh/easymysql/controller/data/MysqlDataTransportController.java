@@ -276,8 +276,6 @@ public class MysqlDataTransportController extends StageController {
         // 生成传输处理器
         if (this.transportHandler == null || this.transportHandler.getDialect() != this.sourceClient.dialect()) {
             this.transportHandler = DataTransportHandler.newHandler(this.sourceClient.dialect());
-
-
             this.transportHandler.setMessageHandler(str -> this.transportMsg.appendLine(str))
                     .setProcessedHandler(count -> {
                         if (count > 0) {
