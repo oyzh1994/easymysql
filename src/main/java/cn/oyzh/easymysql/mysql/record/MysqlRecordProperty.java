@@ -10,7 +10,7 @@ import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.util.DBDataUtil;
 import cn.oyzh.easymysql.util.DBNodeUtil;
 import cn.oyzh.easymysql.util.DBRecordUtil;
-import cn.oyzh.fx.plus.node.NodeDisposeUtil;
+import cn.oyzh.fx.plus.node.NodeDestroyUtil;
 import cn.oyzh.fx.plus.node.NodeUtil;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
 import cn.oyzh.fx.plus.util.ClipboardUtil;
@@ -286,7 +286,7 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements
     @Override
     public void destroy() {
         if (this.node != null) {
-            NodeDisposeUtil.dispose(this.node);
+            NodeDestroyUtil.destroy(this.node);
             this.node = null;
             this.column = null;
             this.record = null;
