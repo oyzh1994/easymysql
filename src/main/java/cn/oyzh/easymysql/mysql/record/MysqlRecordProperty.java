@@ -19,6 +19,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
+import java.util.concurrent.atomic.LongAdder;
+
 /**
  * db表记录属性
  *
@@ -110,17 +112,24 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements
         }
     }
 
+    /**
+     * 节点
+     */
     private Node node;
+
+    private static LongAdder adder = new LongAdder();
 
     @Override
     public Object getValue() {
-        if (this.readonly) {
+        if (this.readonly || !this.record.isEditable()) {
             return DBRecordUtil.formatValue(super.getValue(), this.column);
         }
         if (this.node == null) {
             this.node = DBRecordUtil.getNode(this, super.get(), this.column);
             TableViewUtil.rowOnCtrlS(this.node);
             TableViewUtil.selectRowOnMouseClicked(this.node);
+            adder.increment();
+            System.out.println("adder:" + adder.longValue());
         }
         return this.node;
     }
@@ -283,6 +292,8 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements
             this.record = null;
             this.original = null;
             this.changedProperty = null;
+            adder.decrement();
+            System.out.println("adder:" + adder.longValue());
         }
 
     }

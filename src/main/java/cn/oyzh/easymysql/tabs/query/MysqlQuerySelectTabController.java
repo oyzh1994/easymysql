@@ -461,37 +461,70 @@ public class MysqlQuerySelectTabController extends RichTabController {
         DBStatusListenerManager.removeListener(this.changeListener);
     }
 
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            super.initialize(url, resourceBundle);
-            // this.add.managedBindVisible();
-            // this.delete.managedBindVisible();
-            this.discard.disableProperty().bind(this.apply.disableProperty());
-            this.apply.disabledProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue) {
-                    NodeGroupUtil.enable(this.root, "action2");
-                } else {
-                    NodeGroupUtil.disable(this.root, "action2");
-                }
-            });
-            this.recordTable.getItems().addListener((ListChangeListener<MysqlRecord>) c -> {
-                if (c.next() && c.wasAdded()) {
-                    List<? extends MysqlRecord> rows = c.getAddedSubList();
-                    for (MysqlRecord row : rows) {
-                        if (DBObjectList.isCreated(row)) {
-                            this.apply.enable();
-                            break;
-                        }
+    protected void bindListeners() {
+        super.bindListeners();
+        this.recordTable.selectedItemChanged((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                newValue.setEditable(true);
+            }
+            this.recordTable.refresh();
+        });
+        this.discard.disableProperty().bind(this.apply.disableProperty());
+        this.apply.disabledProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                NodeGroupUtil.enable(this.root, "action2");
+            } else {
+                NodeGroupUtil.disable(this.root, "action2");
+            }
+        });
+        this.recordTable.getItems().addListener((ListChangeListener<MysqlRecord>) c -> {
+            if (c.next() && c.wasAdded()) {
+                List<? extends MysqlRecord> rows = c.getAddedSubList();
+                for (MysqlRecord row : rows) {
+                    if (DBObjectList.isCreated(row)) {
+                        this.apply.enable();
+                        break;
                     }
                 }
-            });
-            this.recordTable.setCtrlSAction(this::apply);
-            NodeUtil.nodeOnCtrlS(this.root, this::apply);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+            }
+        });
+        this.recordTable.setCtrlSAction(this::apply);
+        NodeUtil.nodeOnCtrlS(this.root, this::apply);
     }
+
+    // @Override
+    // public void initialize(URL url, ResourceBundle resourceBundle) {
+    //     try {
+    //         super.initialize(url, resourceBundle);
+    //         // this.add.managedBindVisible();
+    //         // this.delete.managedBindVisible();
+    //         this.discard.disableProperty().bind(this.apply.disableProperty());
+    //         this.apply.disabledProperty().addListener((observable, oldValue, newValue) -> {
+    //             if (newValue) {
+    //                 NodeGroupUtil.enable(this.root, "action2");
+    //             } else {
+    //                 NodeGroupUtil.disable(this.root, "action2");
+    //             }
+    //         });
+    //         this.recordTable.getItems().addListener((ListChangeListener<MysqlRecord>) c -> {
+    //             if (c.next() && c.wasAdded()) {
+    //                 List<? extends MysqlRecord> rows = c.getAddedSubList();
+    //                 for (MysqlRecord row : rows) {
+    //                     if (DBObjectList.isCreated(row)) {
+    //                         this.apply.enable();
+    //                         break;
+    //                     }
+    //                 }
+    //             }
+    //         });
+    //         this.recordTable.setCtrlSAction(this::apply);
+    //         NodeUtil.nodeOnCtrlS(this.root, this::apply);
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //     }
+    // }
 
     // /**
     //  * 删除记录

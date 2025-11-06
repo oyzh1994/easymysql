@@ -35,6 +35,7 @@ import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.Event;
@@ -568,37 +569,76 @@ public class MysqlViewRecordTabController extends RichTabController {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            super.initialize(url, resourceBundle);
-            // this.add.managedBindVisible();
-            // this.delete.managedBindVisible();
-            this.missPrimaryKey.disableTheme();
-            this.discard.disableProperty().bind(this.apply.disableProperty());
-            this.apply.disabledProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue) {
-                    NodeGroupUtil.enable(this.root, "action2");
-                } else {
-                    NodeGroupUtil.disable(this.root, "action2");
-                }
-            });
-            this.recordTable.getItems().addListener((ListChangeListener<MysqlRecord>) c -> {
-                if (c.next() && c.wasAdded()) {
-                    List<? extends MysqlRecord> rows = c.getAddedSubList();
-                    for (MysqlRecord row : rows) {
-                        if (DBObjectList.isCreated(row)) {
-                            this.apply.enable();
-                            break;
-                        }
+    protected void bindListeners() {
+        super.bindListeners();
+        this.missPrimaryKey.disableTheme();
+        this.discard.disableProperty().bind(this.apply.disableProperty());
+        this.apply.disabledProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                NodeGroupUtil.enable(this.root, "action2");
+            } else {
+                NodeGroupUtil.disable(this.root, "action2");
+            }
+        });
+        this.recordTable.getItems().addListener((ListChangeListener<MysqlRecord>) c -> {
+            if (c.next() && c.wasAdded()) {
+                List<? extends MysqlRecord> rows = c.getAddedSubList();
+                for (MysqlRecord row : rows) {
+                    if (DBObjectList.isCreated(row)) {
+                        this.apply.enable();
+                        break;
                     }
                 }
-            });
-            this.recordTable.setCtrlSAction(this::apply);
-            NodeUtil.nodeOnCtrlS(this.root, this::apply);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+            }
+        });
+        this.recordTable.selectedItemChanged((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                newValue.setEditable(true);
+            }
+            this.recordTable.refresh();
+        });
+        this.recordTable.setCtrlSAction(this::apply);
+        NodeUtil.nodeOnCtrlS(this.root, this::apply);
     }
+
+    // @Override
+    // public void initialize(URL url, ResourceBundle resourceBundle) {
+    //     try {
+    //         super.initialize(url, resourceBundle);
+    //         // this.add.managedBindVisible();
+    //         // this.delete.managedBindVisible();
+    //         this.missPrimaryKey.disableTheme();
+    //         this.discard.disableProperty().bind(this.apply.disableProperty());
+    //         this.apply.disabledProperty().addListener((observable, oldValue, newValue) -> {
+    //             if (newValue) {
+    //                 NodeGroupUtil.enable(this.root, "action2");
+    //             } else {
+    //                 NodeGroupUtil.disable(this.root, "action2");
+    //             }
+    //         });
+    //         this.recordTable.getItems().addListener((ListChangeListener<MysqlRecord>) c -> {
+    //             if (c.next() && c.wasAdded()) {
+    //                 List<? extends MysqlRecord> rows = c.getAddedSubList();
+    //                 for (MysqlRecord row : rows) {
+    //                     if (DBObjectList.isCreated(row)) {
+    //                         this.apply.enable();
+    //                         break;
+    //                     }
+    //                 }
+    //             }
+    //         });
+    //         this.recordTable.selectedItemChanged((observable, oldValue, newValue) -> {
+    //             if (newValue != null) {
+    //                 newValue.setEditable(true);
+    //             }
+    //             this.recordTable.refresh();
+    //         });
+    //         this.recordTable.setCtrlSAction(this::apply);
+    //         NodeUtil.nodeOnCtrlS(this.root, this::apply);
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //     }
+    // }
 
     public List<MysqlRecordFilter> getFilters() {
         return filters;

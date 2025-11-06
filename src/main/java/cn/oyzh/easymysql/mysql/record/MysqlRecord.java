@@ -24,6 +24,14 @@ public class MysqlRecord extends DBObjectStatus implements Destroyable {
      */
     private final boolean readonly;
 
+    /**
+     * 是否可编辑
+     */
+    private boolean editable;
+
+    /**
+     * 字段列表
+     */
     private MysqlColumns columns;
 
     public MysqlRecord(MysqlColumns columns) {
@@ -260,7 +268,16 @@ public class MysqlRecord extends DBObjectStatus implements Destroyable {
             for (MysqlRecordProperty property : this.properties.values()) {
                 property.destroy();
             }
+            this.properties.clear();
             this.properties = null;
         }
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 }
