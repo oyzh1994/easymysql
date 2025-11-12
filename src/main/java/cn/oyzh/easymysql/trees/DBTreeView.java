@@ -10,6 +10,7 @@ import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.group.DBGroupTreeItem;
 import cn.oyzh.easymysql.trees.root.DBRootTreeItem;
 import cn.oyzh.event.EventSubscribe;
+import cn.oyzh.fx.gui.tree.view.RichTreeCell;
 import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.event.FXEventListener;
 import cn.oyzh.fx.plus.window.StageManager;
@@ -44,7 +45,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
     public DBTreeView() {
         this.dragContent = "db_tree_drag";
         this.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        this.setCellFactory((Callback<TreeView<?>, TreeCell<?>>) param -> new DBTreeCell());
+        this.setCellFactory((Callback<TreeView<?>, TreeCell<?>>) param -> new RichTreeCell<>());
         super.setRoot(new DBRootTreeItem(this));
         this.root().expend();
     }
