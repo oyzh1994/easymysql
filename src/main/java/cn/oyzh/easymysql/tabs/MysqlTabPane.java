@@ -22,9 +22,9 @@ public class MysqlTabPane extends RichTabPane implements FXEventListener {
     }
 
     @Override
-    public boolean unregister() {
+    public void unregister() {
         this.listener.unregister();
-        return FXEventListener.super.unregister();
+        FXEventListener.super.unregister();
     }
 
 //     @Override
