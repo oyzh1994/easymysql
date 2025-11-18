@@ -114,7 +114,7 @@ public abstract class DataRunSqlFileHandler extends DataHandler {
                     for (List<String> list : lists) {
                         tasks.add(() -> this.doBatchInsert(list, true));
                     }
-                    ThreadUtil.submitVirtual(tasks);
+                    ThreadUtil.submit(tasks);
                 }
             } finally {
                 this.insertList.clear();

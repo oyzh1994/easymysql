@@ -132,7 +132,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
      */
     public void cancelConnect() {
         this.canceled = true;
-        ThreadUtil.startVirtual(() -> {
+        ThreadUtil.start(() -> {
             this.client.close();
             this.stopWaiting();
         });

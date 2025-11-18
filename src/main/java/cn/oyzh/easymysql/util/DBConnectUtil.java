@@ -22,7 +22,7 @@ public class DBConnectUtil {
      * @param dbInfo db信息
      */
     public static void testConnect(StageAdapter view, MysqlConnect dbInfo) {
-        ThreadUtil.startVirtual(() -> {
+        ThreadUtil.start(() -> {
             try {
                 view.disable();
                 view.waitCursor();
@@ -59,7 +59,7 @@ public class DBConnectUtil {
             if (client != null && client.isConnected()) {
                 Runnable func = client::close;
                 if (async) {
-                    ThreadUtil.startVirtual(func);
+                    ThreadUtil.start(func);
                 } else {
                     func.run();
                 }

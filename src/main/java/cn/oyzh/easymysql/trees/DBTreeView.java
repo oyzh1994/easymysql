@@ -60,7 +60,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      */
     public void closeConnects() {
         for (DBConnectTreeItem treeItem : this.root().getConnectedItems()) {
-            ThreadUtil.startVirtual(treeItem::closeConnect);
+            ThreadUtil.start(treeItem::closeConnect);
         }
     }
 
