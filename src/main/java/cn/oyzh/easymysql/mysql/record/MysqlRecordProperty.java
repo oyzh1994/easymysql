@@ -286,7 +286,7 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements
     @Override
     public synchronized void destroy() {
         if (this.node != null) {
-            NodeDestroyUtil.destroy(this.node);
+            NodeDestroyUtil.destroyObject(this.node);
             this.node = null;
             this.column = null;
             this.record = null;
