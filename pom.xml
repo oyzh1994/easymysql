@@ -50,12 +50,6 @@
             <artifactId>base-ssh</artifactId>
         </dependency>
 
-        <!-- fx-gui模块 -->
-        <dependency>
-            <groupId>io.github.oyzh1994</groupId>
-            <artifactId>fx-gui</artifactId>
-        </dependency>
-
         <!-- fx-终端模块 -->
         <dependency>
             <groupId>io.github.oyzh1994</groupId>
