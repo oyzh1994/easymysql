@@ -4,7 +4,6 @@ import cn.oyzh.common.dto.Project;
 import cn.oyzh.common.json.JSONUtil;
 import cn.oyzh.common.log.JulLog;
 import cn.oyzh.easymysql.domain.MysqlConnect;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
@@ -60,8 +59,7 @@ public class MysqlInfoExport {
         MysqlInfoExport export = new MysqlInfoExport();
         export.connects = new ArrayList<>();
         export.version = object.getString("version");
-        JSONArray arr2 = object.getJSONArray("connects");
-        export.connects = arr2.toJavaList(MysqlConnect.class);
+        export.connects = JSONUtil.toList(object, "connects", MysqlConnect.class);
         return export;
     }
 
