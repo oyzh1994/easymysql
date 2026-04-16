@@ -4,7 +4,8 @@ import cn.oyzh.common.dto.Project;
 import cn.oyzh.common.json.JSONUtil;
 import cn.oyzh.common.log.JulLog;
 import cn.oyzh.easymysql.domain.MysqlConnect;
-import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class MysqlInfoExport {
      * @param dbInfos 连接列表
      * @return DBInfoExport
      */
-    public static MysqlInfoExport fromConnects( List<MysqlConnect> dbInfos) {
+    public static MysqlInfoExport fromConnects(List<MysqlConnect> dbInfos) {
         MysqlInfoExport export = new MysqlInfoExport();
         Project project = Project.load();
         export.version = project.getVersion();
@@ -53,13 +54,14 @@ public class MysqlInfoExport {
      * @param json json字符串
      * @return RedisInfoExport
      */
-    public static MysqlInfoExport fromJSON( String json) {
+    public static MysqlInfoExport fromJSON(String json) {
         JulLog.info("json: {}", json);
         JSONObject object = JSONUtil.parseObject(json);
         MysqlInfoExport export = new MysqlInfoExport();
         export.connects = new ArrayList<>();
         export.version = object.getString("version");
-        export.connects = object.getList("connects", MysqlConnect.class);
+        JSONArray arr2 = object.getJSONArray("connects");
+        export.connects = arr2.toJavaList(MysqlConnect.class);
         return export;
     }
 
