@@ -18,7 +18,7 @@ public class MysqlDatabaseTreeItemValue extends RichTreeItemValue {
     }
 
     @Override
-    protected MysqlDatabaseTreeItem item() {
+    public MysqlDatabaseTreeItem item() {
         return (MysqlDatabaseTreeItem) super.item();
     }
 
@@ -29,16 +29,16 @@ public class MysqlDatabaseTreeItemValue extends RichTreeItemValue {
 
     @Override
     public SVGGlyph graphic() {
-        if (this.graphic == null) {
-            this.graphic = new DatabaseSVGGlyph("12");
-            this.graphic.disableTheme();
+        if (super.graphic() == null) {
+            super.graphic(new DatabaseSVGGlyph("12"));
+            super.graphic().disableTheme();
         }
         return super.graphic();
     }
 
     @Override
     public Color graphicColor() {
-        if (!this.item.isChildEmpty()) {
+        if (!this.item().isChildEmpty()) {
             return Color.GREEN;
         }
         return super.graphicColor();

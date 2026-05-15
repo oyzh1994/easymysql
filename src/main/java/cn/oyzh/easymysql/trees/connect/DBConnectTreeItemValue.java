@@ -19,7 +19,7 @@ public class DBConnectTreeItemValue extends RichTreeItemValue {
     }
 
     @Override
-    protected DBConnectTreeItem item() {
+    public DBConnectTreeItem item() {
         return (DBConnectTreeItem) super.item();
     }
 
@@ -30,9 +30,9 @@ public class DBConnectTreeItemValue extends RichTreeItemValue {
 
     @Override
     public SVGGlyph graphic() {
-        if (this.graphic == null) {
-            this.graphic = new MysqlSVGGlyph("12");
-            this.graphic.disableTheme();
+        if (super.graphic() == null) {
+            super.graphic(new MysqlSVGGlyph("12"));
+            super.graphic().disableTheme();
         }
         return super.graphic();
     }

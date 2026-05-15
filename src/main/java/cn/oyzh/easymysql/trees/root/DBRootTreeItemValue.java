@@ -25,9 +25,9 @@ public class DBRootTreeItemValue extends RichTreeItemValue {
 
     @Override
     public SVGGlyph graphic() {
-        if (this.graphic == null) {
-            this.graphic = new SVGGlyph("/font/database.svg", 11);
-//            this.graphic(glyph);
+        if (super.graphic() == null) {
+            super.graphic(new SVGGlyph("/font/database.svg", 11));
+//            super.graphic().glyph);
         }
         return super.graphic();
     }
