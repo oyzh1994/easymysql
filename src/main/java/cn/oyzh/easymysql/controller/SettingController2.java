@@ -5,10 +5,10 @@ import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.easymysql.util.MysqlProcessUtil;
-import cn.oyzh.fx.gui.setting.SettingLeftItem;
+import cn.oyzh.fx.gui.setting.SettingLeftTreeItemValue;
+import cn.oyzh.fx.gui.setting.SettingLeftTreeItem;
 import cn.oyzh.fx.gui.setting.SettingLeftTreeView;
 import cn.oyzh.fx.gui.setting.SettingMainPane;
-import cn.oyzh.fx.gui.setting.SettingTreeItem;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
 import cn.oyzh.fx.plus.FXConst;
 import cn.oyzh.fx.plus.controller.StageController;
@@ -404,15 +404,15 @@ public class SettingController2 extends StageController {
     @Override
     public void onWindowShown(WindowEvent event) {
         SettingLeftTreeView treeView = this.root.getLeftTreeView();
-        treeView.addItem(SettingLeftItem.of("Mysql", "mysql_box"));
-        treeView.addItem(SettingLeftItem.of(I18nHelper.window(), "window_box"));
-        SettingTreeItem fontItem = treeView.addItem(SettingLeftItem.of(I18nHelper.font(), "font"));
-        fontItem.addItem(SettingLeftItem.of(I18nHelper.general(), "font_general_box"));
-        fontItem.addItem(SettingLeftItem.of(I18nHelper.editor(), "font_editor_box"));
-        fontItem.addItem(SettingLeftItem.of(I18nHelper.terminal(), "font_terminal_box"));
-        fontItem.addItem(SettingLeftItem.of(I18nHelper.query(), "font_query_box"));
-        treeView.addItem(SettingLeftItem.of(I18nHelper.theme(), "theme_box"));
-        treeView.addItem(SettingLeftItem.of(I18nHelper.locale(), "locale_box"));
+        treeView.addItem(SettingLeftTreeItemValue.of("Mysql", "mysql_box"));
+        treeView.addItem(SettingLeftTreeItemValue.of(I18nHelper.window(), "window_box"));
+        SettingLeftTreeItem fontItem = treeView.addItem(SettingLeftTreeItemValue.of(I18nHelper.font(), "font"));
+        fontItem.addItem(SettingLeftTreeItemValue.of(I18nHelper.general(), "font_general_box"));
+        fontItem.addItem(SettingLeftTreeItemValue.of(I18nHelper.editor(), "font_editor_box"));
+        fontItem.addItem(SettingLeftTreeItemValue.of(I18nHelper.terminal(), "font_terminal_box"));
+        fontItem.addItem(SettingLeftTreeItemValue.of(I18nHelper.query(), "font_query_box"));
+        treeView.addItem(SettingLeftTreeItemValue.of(I18nHelper.theme(), "theme_box"));
+        treeView.addItem(SettingLeftTreeItemValue.of(I18nHelper.locale(), "locale_box"));
         treeView.selectItem("mysql_box");
         super.onWindowShown(event);
         this.stage.hideOnEscape();
