@@ -24,7 +24,7 @@ public class MysqlQueryTreeItemValue extends RichTreeItemValue {
     @Override
     public SVGGlyph graphic() {
         if (super.graphic() == null) {
-            super.graphic(new QuerySVGGlyph("12"));
+            super.graphic(new QuerySVGGlyph());
         }
         return super.graphic();
     }

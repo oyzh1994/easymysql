@@ -31,7 +31,7 @@ public class DBConnectTreeItemValue extends RichTreeItemValue {
     @Override
     public SVGGlyph graphic() {
         if (super.graphic() == null) {
-            super.graphic(new MysqlSVGGlyph("12"));
+            super.graphic(new MysqlSVGGlyph());
             super.graphic().disableTheme();
         }
         return super.graphic();

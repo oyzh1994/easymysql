@@ -30,7 +30,7 @@ public class MysqlDatabaseTreeItemValue extends RichTreeItemValue {
     @Override
     public SVGGlyph graphic() {
         if (super.graphic() == null) {
-            super.graphic(new DatabaseSVGGlyph("12"));
+            super.graphic(new DatabaseSVGGlyph());
             super.graphic().disableTheme();
         }
         return super.graphic();
