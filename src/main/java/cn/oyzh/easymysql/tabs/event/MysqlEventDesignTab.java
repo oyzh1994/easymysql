@@ -29,7 +29,7 @@ public class MysqlEventDesignTab extends MysqlTab {
     public void flushGraphic() {
         SVGGlyph graphic = (SVGGlyph) this.getGraphic();
         if (graphic == null) {
-            graphic = new SVGGlyph("/font/event.svg", "12");
+            graphic = new SVGGlyph("/font/event.svg");
             graphic.setCursor(Cursor.DEFAULT);
             this.setGraphic(graphic);
         }
