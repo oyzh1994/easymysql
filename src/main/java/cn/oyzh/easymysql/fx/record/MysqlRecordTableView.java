@@ -10,9 +10,9 @@ import cn.oyzh.fx.plus.controls.table.FXTableView;
  */
 public class MysqlRecordTableView extends FXTableView<MysqlRecord> {
 
-    {
-        this.setRowFactory(param -> new MysqlRecordTableRow());
-    }
+//    {
+//        this.setRowFactory(param -> new MysqlRecordTableRow());
+//    }
 
     /**
      * 是否存在记录属性
@@ -46,7 +46,9 @@ public class MysqlRecordTableView extends FXTableView<MysqlRecord> {
 
     @Override
     public void initNode() {
+        this.setRowFactory(param -> new MysqlRecordTableRow());
+        super.fakerMultipleSelection();
+        //        super.setHeaderHeight(45);
         super.initNode();
-        super.setHeaderHeight(45);
     }
 }
