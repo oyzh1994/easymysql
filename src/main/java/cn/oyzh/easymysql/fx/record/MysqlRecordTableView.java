@@ -47,7 +47,7 @@ public class MysqlRecordTableView extends FXTableView<MysqlRecord> {
     @Override
     public void initNode() {
         this.setRowFactory(param -> new MysqlRecordTableRow());
-        super.fakerMultipleSelection();
+//        super.fakerMultipleSelection();
         //        super.setHeaderHeight(45);
         super.initNode();
     }
