@@ -52,7 +52,7 @@ public class DBNodeUtil {
         } else if (node instanceof BitTextField textField) {
             val = textField.getValue();
         } else if (node instanceof ChooseFileTextField textField) {
-            val = textField.getData();
+            val = textField.getValue();
 //        } else if (node instanceof DBGeometryTextField textField) {
 //            val = textField.getGeometryText();
         } else if (node instanceof TextField textField) {
@@ -85,7 +85,7 @@ public class DBNodeUtil {
         } else if (node instanceof BitTextField textField) {
             textField.setValue(val);
         } else if (node instanceof ChooseFileTextField textField) {
-            textField.setData(val);
+            textField.setValue(val);
         } else if (node instanceof TextField textField) {
             textField.setText(val.toString());
         // } else if (node instanceof RichJsonTextAreaPane textAreaPane) {
@@ -263,7 +263,7 @@ public class DBNodeUtil {
         if (node instanceof DigitalTextField field) {
             field.setValue(defaultValue);
         } else if (node instanceof ChooseFileTextField textField) {
-            textField.setData(defaultValue);
+            textField.setValue(defaultValue);
         } else if (node instanceof TextInputControl control) {
             control.setText(defaultValue.toString());
         }
