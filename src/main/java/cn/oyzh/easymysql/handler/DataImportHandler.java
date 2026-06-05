@@ -410,13 +410,5 @@ public class DataImportHandler extends DataHandler {
     public MysqlDataImportConfig getConfig() {
         return config;
     }
-
-    public List<String> getInsertList() {
-        return insertList;
-    }
-
-    public void setInsertList(List<String> insertList) {
-        this.insertList = insertList;
-    }
 }
 

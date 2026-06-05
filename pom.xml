@@ -18,13 +18,6 @@
     </properties>
 
     <dependencies>
-        <!-- json类库 -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-            <scope>compile</scope>
-        </dependency>
 
         <!-- 存储模块 -->
         <dependency>
