@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.query;
 
 import cn.oyzh.common.thread.ThreadUtil;
 import cn.oyzh.common.util.StringUtil;
+import cn.oyzh.common.util.TextUtil;
 import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
@@ -237,22 +238,22 @@ public class MysqlQueryUtil {
         }
     }
 
-    public static double clacCorr(String str, String text) {
-        str = str.toUpperCase();
-        text = text.toUpperCase();
-        if (!str.contains(text) && !text.contains(str)) {
-            return 0.d;
-        }
-        double corr = StringUtil.similarity(str, text);
-        if (str.startsWith(text)) {
-            corr += 0.3;
-        } else if (str.contains(text)) {
-            corr += 0.2;
-        } else if (str.endsWith(text)) {
-            corr += 0.1;
-        }
-        return corr;
-    }
+//    public static double clacCorr(String str, String text) {
+//        str = str.toUpperCase();
+//        text = text.toUpperCase();
+//        if (!str.contains(text) && !text.contains(str)) {
+//            return 0.d;
+//        }
+//        double corr = StringUtil.similarity(str, text);
+//        if (str.startsWith(text)) {
+//            corr += 0.3;
+//        } else if (str.contains(text)) {
+//            corr += 0.2;
+//        } else if (str.endsWith(text)) {
+//            corr += 0.1;
+//        }
+//        return corr;
+//    }
 
     /**
      * 初始化提示词
@@ -275,7 +276,7 @@ public class MysqlQueryUtil {
         if (token.isPossibilityKeyword()) {
             tasks.add(() -> MysqlQueryUtil.getKeywords().parallelStream().forEach(keyword -> {
                 // 计算相关度
-                double corr = MysqlQueryUtil.clacCorr(keyword, text);
+                double corr = TextUtil.clacCorr(keyword, text);
                 if (corr > minCorr) {
                     MysqlQueryPromptItem item = new MysqlQueryPromptItem();
                     item.setType((byte) 4);
@@ -289,7 +290,7 @@ public class MysqlQueryUtil {
         if (token.isPossibilityDatabase()) {
             tasks.add(() -> MysqlQueryUtil.getDatabases().parallelStream().forEach(database -> {
                 // 计算相关度
-                double corr = MysqlQueryUtil.clacCorr(database.getName(), text);
+                double corr = TextUtil.clacCorr(database.getName(), text);
                 if (corr > minCorr) {
                     MysqlQueryPromptItem item = new MysqlQueryPromptItem();
                     item.setType((byte) 1);
@@ -303,7 +304,7 @@ public class MysqlQueryUtil {
         if (token.isPossibilityTable()) {
             tasks.add(() -> MysqlQueryUtil.getTables().parallelStream().forEach(dbTable -> {
                 // 计算相关度
-                double corr = MysqlQueryUtil.clacCorr(dbTable.getName(), text);
+                double corr = TextUtil.clacCorr(dbTable.getName(), text);
                 if (corr > minCorr) {
                     MysqlQueryPromptItem item = new MysqlQueryPromptItem();
                     item.setType((byte) 2);
@@ -318,7 +319,7 @@ public class MysqlQueryUtil {
         if (token.isPossibilityView()) {
             tasks.add(() -> MysqlQueryUtil.getViews().parallelStream().forEach(dbTable -> {
                 // 计算相关度
-                double corr = MysqlQueryUtil.clacCorr(dbTable.getName(), text);
+                double corr = TextUtil.clacCorr(dbTable.getName(), text);
                 if (corr > minCorr) {
                     MysqlQueryPromptItem item = new MysqlQueryPromptItem();
                     item.setType((byte) 5);
@@ -333,7 +334,7 @@ public class MysqlQueryUtil {
         if (token.isPossibilityFunction()) {
             tasks.add(() -> MysqlQueryUtil.getFunctions().parallelStream().forEach(function -> {
                 // 计算相关度
-                double corr = MysqlQueryUtil.clacCorr(function.getName(), text);
+                double corr = TextUtil.clacCorr(function.getName(), text);
                 if (corr > minCorr) {
                     MysqlQueryPromptItem item = new MysqlQueryPromptItem();
                     item.setType((byte) 6);
@@ -348,7 +349,7 @@ public class MysqlQueryUtil {
         if (token.isPossibilityProcedure()) {
             tasks.add(() -> MysqlQueryUtil.getProcedures().parallelStream().forEach(procedure -> {
                 // 计算相关度
-                double corr = MysqlQueryUtil.clacCorr(procedure.getName(), text);
+                double corr = TextUtil.clacCorr(procedure.getName(), text);
                 if (corr > minCorr) {
                     MysqlQueryPromptItem item = new MysqlQueryPromptItem();
                     item.setType((byte) 7);
@@ -363,7 +364,7 @@ public class MysqlQueryUtil {
         if (token.isPossibilityColumn()) {
             tasks.add(() -> MysqlQueryUtil.getColumns().parallelStream().forEach(column -> {
                 // 计算相关度
-                double corr = MysqlQueryUtil.clacCorr(column.getName(), text);
+                double corr = TextUtil.clacCorr(column.getName(), text);
                 if (corr > minCorr) {
                     MysqlQueryPromptItem item = new MysqlQueryPromptItem();
                     item.setType((byte) 3);
