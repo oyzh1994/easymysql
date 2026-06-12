@@ -41,10 +41,10 @@ public class DBNodeUtil {
             val = node1.getValue();
         } else if (node instanceof DateTextField node1) {
             val = node1.getValue();
-        // } else if (node instanceof YearPicker picker) {
-        //     val = picker.yearValue();
-        // } else if (node instanceof CalendarPicker<?> picker) {
-        //     val = picker.getValue();
+            // } else if (node instanceof YearPicker picker) {
+            //     val = picker.yearValue();
+            // } else if (node instanceof CalendarPicker<?> picker) {
+            //     val = picker.getValue();
         } else if (node instanceof NumberTextField textField) {
             val = textField.getValue();
         } else if (node instanceof DecimalTextField textField) {
@@ -53,18 +53,18 @@ public class DBNodeUtil {
             val = textField.getValue();
         } else if (node instanceof ChooseFileTextField textField) {
             val = textField.getValue();
-//        } else if (node instanceof DBGeometryTextField textField) {
-//            val = textField.getGeometryText();
+            //        } else if (node instanceof DBGeometryTextField textField) {
+            //            val = textField.getGeometryText();
         } else if (node instanceof TextField textField) {
             val = textField.getText();
         } else if (node instanceof TextArea textArea) {
             val = textArea.getText();
-        // } else if (node instanceof RichJsonTextAreaPane textAreaPane) {
-        //     val = textAreaPane.getJsonStr();
-        // } else if (node instanceof RichTextAreaPane<?> textAreaPane) {
-        //     val = textAreaPane.getText();
-//        } else if (node instanceof DBFieldValueComboBox comboBox) {
-//            val = comboBox.getFieldValue();
+            // } else if (node instanceof RichJsonTextAreaPane textAreaPane) {
+            //     val = textAreaPane.getJsonStr();
+            // } else if (node instanceof RichTextAreaPane<?> textAreaPane) {
+            //     val = textAreaPane.getText();
+            //        } else if (node instanceof DBFieldValueComboBox comboBox) {
+            //            val = comboBox.getFieldValue();
         } else if (node instanceof ComboBox<?> comboBox) {
             val = comboBox.getSelectionModel().getSelectedItem();
         }
@@ -88,10 +88,10 @@ public class DBNodeUtil {
             textField.setValue(val);
         } else if (node instanceof TextField textField) {
             textField.setText(val.toString());
-        // } else if (node instanceof RichJsonTextAreaPane textAreaPane) {
-        //     textAreaPane.setJsonStr(val.toString());
-        // } else if (node instanceof RichTextAreaPane<?> textAreaPane) {
-        //     textAreaPane.setText(val.toString());
+            // } else if (node instanceof RichJsonTextAreaPane textAreaPane) {
+            //     textAreaPane.setJsonStr(val.toString());
+            // } else if (node instanceof RichTextAreaPane<?> textAreaPane) {
+            //     textAreaPane.setText(val.toString());
         } else if (node instanceof TextArea textArea) {
             textArea.setText(val.toString());
         } else if (node instanceof ComboBox comboBox) {
@@ -112,10 +112,10 @@ public class DBNodeUtil {
             editor.setFormatType(EditorFormatType.JSON);
             node = editor;
 
-//        } else if (column.supportGeometry()) {
-//            DBGeometryTextField filed = new DBGeometryTextField();
-//            filed.setExample(column.exampleValue());
-//            node = filed;
+            //        } else if (column.supportGeometry()) {
+            //            DBGeometryTextField filed = new DBGeometryTextField();
+            //            filed.setExample(column.exampleValue());
+            //            node = filed;
         } else if (column.supportString()) {
             if (column.supportSize() && column.getSize() != null) {
                 node = new ClearableTextField((long) column.getSize());
@@ -130,10 +130,10 @@ public class DBNodeUtil {
             }
         } else if (column.supportInteger()) {
             Integer size = column.getSize();
-            node = new NumberTextField(column.isUnsigned(), size == null ? null : size.longValue(), column.minValue(), column.maxValue());
+            node = new NumberTextField(size == null ? null : size.longValue(), column.minValue(), column.maxValue());
         } else if (column.supportDigits()) {
             Integer size = column.getSize();
-            node = new DecimalTextField(column.isUnsigned(), size == null ? null : size.longValue(), column.minValue(), column.maxValue(), column.getDigits());
+            node = new DecimalTextField(size == null ? null : size.longValue(), column.minValue(), column.maxValue(), column.getDigits());
         } else if (column.isYearType()) {
             node = new YearTextField();
         } else if (column.isTimeType()) {
@@ -144,8 +144,8 @@ public class DBNodeUtil {
             node = new DateTimeTextField();
         } else if (column.supportBinary()) {
             node = new ChooseFileTextField();
-//        } else if (column.supportEnum()) {
-//            node = new DBFieldValueComboBox(column.getValueList());
+            //        } else if (column.supportEnum()) {
+            //            node = new DBFieldValueComboBox(column.getValueList());
         } else {
             node = new ClearableTextField();
         }
@@ -220,8 +220,8 @@ public class DBNodeUtil {
         }
         if (node instanceof TextInputControl control) {
             control.setPromptText(comment);
-        // } else if (node instanceof CalendarPicker<?> control) {
-        //     control.setPromptText(comment);
+            // } else if (node instanceof CalendarPicker<?> control) {
+            //     control.setPromptText(comment);
         }
     }
 
@@ -241,12 +241,12 @@ public class DBNodeUtil {
             comboBox.getSelectionModel().select(defaultValue);
         } else if (node instanceof TextInputControl control) {
             control.setText(defaultValue.toString());
-        // } else if (node instanceof CalendarPicker<?> picker) {
-        //     if (defaultValue instanceof CharSequence sequence) {
-        //         if (StrUtil.equalsAnyIgnoreCase(sequence, "CURRENT_TIMESTAMP")) {
-        //             picker.setNow();
-        //         }
-        //     }
+            // } else if (node instanceof CalendarPicker<?> picker) {
+            //     if (defaultValue instanceof CharSequence sequence) {
+            //         if (StrUtil.equalsAnyIgnoreCase(sequence, "CURRENT_TIMESTAMP")) {
+            //             picker.setNow();
+            //         }
+            //     }
         }
     }
 
