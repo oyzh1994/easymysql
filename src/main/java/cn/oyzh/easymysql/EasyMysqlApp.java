@@ -10,7 +10,10 @@ import cn.oyzh.easymysql.domain.MysqlSetting;
 import cn.oyzh.easymysql.exception.DBExceptionParser;
 import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.easymysql.store.MysqlStoreUtil;
+import cn.oyzh.easymysql.terminal.MysqlTerminalManager;
+import cn.oyzh.easymysql.terminal.MysqlTerminalPane;
 import cn.oyzh.event.EventFactory;
+import cn.oyzh.fx.terminal.util.TerminalManager;
 import cn.oyzh.fx.gui.tray.DesktopTrayItem;
 import cn.oyzh.fx.gui.tray.QuitTrayItem;
 import cn.oyzh.fx.gui.tray.SettingTrayItem;
@@ -98,6 +101,8 @@ public class EasyMysqlApp extends FXApplication {
     public void start(Stage primaryStage) {
         try {
             super.start(primaryStage);
+            // 注册终端处理器
+            TerminalManager.setLoadHandler(MysqlTerminalPane.TERMINAL_NAME, MysqlTerminalManager::registerHandlers);
             // 开启定期gc
             SystemUtil.gcInterval(5_000);
         } catch (Exception ex) {

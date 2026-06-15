@@ -41,6 +41,7 @@ import cn.oyzh.easymysql.trees.procedure.MysqlProceduresTreeItem;
 import cn.oyzh.easymysql.trees.query.MysqlQueriesTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTablesTreeItem;
+import cn.oyzh.easymysql.trees.terminal.MysqlTerminalTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewsTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
@@ -197,6 +198,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
                         typeItems.add(new MysqlProceduresTreeItem(this.getTreeView()));
                         typeItems.add(new MysqlEventsTreeItem(this.getTreeView()));
                         typeItems.add(new MysqlQueriesTreeItem(this.getTreeView()));
+                        typeItems.add(new MysqlTerminalTreeItem(this.getTreeView()));
                         super.setChild(typeItems);
                     })
                     .onSuccess(this::expend)
