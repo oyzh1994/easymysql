@@ -7,6 +7,7 @@ import cn.oyzh.fx.gui.text.field.ChooseFileTextField;
  * @author oyzh
  * @since 2024/7/10
  */
+@Deprecated
 public class MysqlBinaryTextFiled extends ChooseFileTextField {
 
     private String columnType;
@@ -16,8 +17,8 @@ public class MysqlBinaryTextFiled extends ChooseFileTextField {
     }
 
     @Override
-    public void setValue(Object val) {
-        super.setValue(format(this.columnType, val));
+    public void formatValue() {
+        this.setText(format(this.columnType, super.getValue()));
     }
 
     public static String format(String columnType, Object o) {
