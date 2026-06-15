@@ -15,7 +15,7 @@
 <FXPane styleClass="root" flexHeight="100%" flexWidth="100%" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="cn.oyzh.easymysql.tabs.home.DBHomeTabController">
-    <ImageView fitWidth="240" fitHeight="240" layoutX="35" layoutY="95">
+    <ImageView fitWidth="200" fitHeight="200" layoutX="35" layoutY="110">
         <Image url="/image/db_clip.png"/>
     </ImageView>
     <FXVBox flexWidth="100% - 300" realHeight="210" layoutX="300" layoutY="100">
@@ -42,11 +42,11 @@
                 <Insets left="20"/>
             </HBox.margin>
         </AddGroupButton>
-        <OpenTerminalButton onMousePrimaryClicked="#openTerminal">
-            <HBox.margin>
-                <Insets left="20"/>
-            </HBox.margin>
-        </OpenTerminalButton>
+        <!-- <OpenTerminalButton onMousePrimaryClicked="#openTerminal"> -->
+        <!--     <HBox.margin> -->
+        <!--         <Insets left="20"/> -->
+        <!--     </HBox.margin> -->
+        <!-- </OpenTerminalButton> -->
         <ChangelogButton onMousePrimaryClicked="#changelog">
             <HBox.margin>
                 <Insets left="20"/>

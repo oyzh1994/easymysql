@@ -2,12 +2,15 @@
 <?import cn.oyzh.easymysql.tabs.MysqlTabPane?>
 <?import cn.oyzh.fx.plus.controls.pane.FXPane?>
 <?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
+<?import cn.oyzh.easymysql.tabs.home.DBHomeTab?>
 <FXPane xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="cn.oyzh.easymysql.controller.MysqlMainController" flexWidth="100% - 30" flexHeight="100%">
+        fx:controller="cn.oyzh.easymysql.controller.MysqlMainController" flexWidth="100% - 30" flexHeight="100%">
     <FXTabPane flexHeight="100%" realWidth="300" fx:id="tabPaneLeft" tabMaxHeight="25">
         <fx:include fx:id="connect" source="main/connect.fxml"/>
         <fx:include fx:id="message" source="main/message.fxml"/>
     </FXTabPane>
     <MysqlTabPane fx:id="tabPane" layoutX="300" flexWidth="100% - 300" tabClosingPolicy="ALL_TABS"
-                  flexHeight="100%"/>
+                  flexHeight="100%">
+        <DBHomeTab/>
+    </MysqlTabPane>
 </FXPane>
