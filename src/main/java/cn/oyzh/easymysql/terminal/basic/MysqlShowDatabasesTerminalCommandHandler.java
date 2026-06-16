@@ -36,7 +36,7 @@ public class MysqlShowDatabasesTerminalCommandHandler extends MysqlTerminalComma
 
     @Override
     public String commandSubName() {
-        return "databases";
+        return "databases;";
     }
 
     @Override

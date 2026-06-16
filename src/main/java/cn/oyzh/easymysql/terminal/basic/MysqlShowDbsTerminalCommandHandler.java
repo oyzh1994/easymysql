@@ -8,6 +8,6 @@ public class MysqlShowDbsTerminalCommandHandler extends MysqlShowDatabasesTermin
 
     @Override
     public String commandSubName() {
-        return "dbs";
+        return "dbs;";
     }
 }

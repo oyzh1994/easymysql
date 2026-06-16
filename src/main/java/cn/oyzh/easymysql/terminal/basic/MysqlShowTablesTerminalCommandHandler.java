@@ -31,11 +31,11 @@ public class MysqlShowTablesTerminalCommandHandler extends MysqlTerminalCommandH
 
     @Override
     public String commandSubName() {
-        return "tables";
+        return "tables;";
     }
 
     @Override
     public TerminalExecuteResult execute(TerminalCommand command, MysqlTerminalPane terminal) {
-        return terminal.eval("SHOW TABLES");
+        return terminal.eval("SHOW TABLES;");
     }
 }
