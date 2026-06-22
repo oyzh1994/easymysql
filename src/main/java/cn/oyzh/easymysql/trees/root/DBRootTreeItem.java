@@ -87,10 +87,10 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        FXMenuItem addConnect = MenuItemHelper.addConnect("12", this::addConnect);
-        FXMenuItem exportConnect = MenuItemHelper.exportConnect("12", this::exportConnect);
-        FXMenuItem importConnect = MenuItemHelper.importConnect("12", this::importConnect);
-        FXMenuItem addGroup = MenuItemHelper.addGroup("12", this::addGroup);
+        FXMenuItem addConnect = MenuItemHelper.addConnect( this::addConnect);
+        FXMenuItem exportConnect = MenuItemHelper.exportConnect( this::exportConnect);
+        FXMenuItem importConnect = MenuItemHelper.importConnect( this::importConnect);
+        FXMenuItem addGroup = MenuItemHelper.addGroup( this::addGroup);
 
         exportConnect.setDisable(this.isChildEmpty());
 

@@ -82,11 +82,11 @@ public class MainController extends ParentStageController {
 //                // 设置标题
 //                TrayManager.setTitle(this.project.getName() + " v" + this.project.getVersion());
 //                // 打开主页
-//                TrayManager.addMenuItem(new DesktopTrayItem("12", this::showMain));
+//                TrayManager.addMenuItem(new DesktopTrayItem( this::showMain));
 //                // 打开设置
-//                TrayManager.addMenuItem(new SettingTrayItem("12", this::showSetting));
+//                TrayManager.addMenuItem(new SettingTrayItem( this::showSetting));
 //                // 退出程序
-//                TrayManager.addMenuItem(new QuitTrayItem("12", () -> {
+//                TrayManager.addMenuItem(new QuitTrayItem( () -> {
 //                    JulLog.warn("exit app by tray.");
 //                    StageManager.exit();
 //                }));
