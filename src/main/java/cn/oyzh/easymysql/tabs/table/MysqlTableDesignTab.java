@@ -19,10 +19,6 @@ import javafx.scene.Cursor;
  */
 public class MysqlTableDesignTab extends MysqlTab {
 
-    {
-        this.setClosable(true);
-    }
-
     @Override
     protected String url() {
         return super.getBasePath() + "table/mysqlTableDesignTab.fxml";
@@ -98,5 +94,12 @@ public class MysqlTableDesignTab extends MysqlTab {
     @Override
     public MysqlDatabaseTreeItem dbItem() {
         return this.controller().getDbItem();
+    }
+
+
+    @Override
+    public void initNode() {
+        this.setClosable(false);
+        super.initNode();
     }
 }

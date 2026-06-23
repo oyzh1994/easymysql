@@ -5,7 +5,7 @@
 <!--<?import cn.oyzh.fx.plus.controls.box.FXVBox?>-->
 <!--<?import cn.oyzh.fx.plus.controls.picker.FXColorPicker?>-->
 <!--<?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>-->
-<!--<?import cn.oyzh.fx.plus.controls.tab.FXTab?>-->
+<!--<?import cn.oyzh.fx.plus.controls.tab.FixedTab?>-->
 <!--<?import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup?>-->
 <!--<?import cn.oyzh.fx.plus.font.FontFamilyComboBox?>-->
 <!--<?import cn.oyzh.fx.plus.font.FontSizeComboBox?>-->
@@ -23,7 +23,7 @@
 <!--<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"-->
 <!--          fx:controller="cn.oyzh.easymysql.controller.SettingController" realWidth="500" realHeight="350">-->
 <!--    <FXTabPane flexWidth="100%" flexHeight="100% - 60">-->
-<!--        <FXTab text="%base.window">-->
+<!--        <FixedTab text="%base.window">-->
 <!--            <FXVBox flexWidth="100%" flexHeight="100%">-->
 <!--                <FXHBox flexWidth="100%" realHeight="50">-->
 <!--                    <AccentLabel text="%base.close" realHeight="30" realWidth="100">-->
@@ -102,8 +102,8 @@
 <!--                    </VBox.margin>-->
 <!--                </FXHBox>-->
 <!--            </FXVBox>-->
-<!--        </FXTab>-->
-<!--&lt;!&ndash;        <FXTab text="%base.label">&ndash;&gt;-->
+<!--        </FixedTab>-->
+<!--&lt;!&ndash;        <FixedTab text="%base.label">&ndash;&gt;-->
 <!--&lt;!&ndash;            <FXVBox flexWidth="100%" flexHeight="100%">&ndash;&gt;-->
 <!--&lt;!&ndash;                <FXHBox flexWidth="100%" realHeight="50">&ndash;&gt;-->
 <!--&lt;!&ndash;                    <AccentLabel text="%base.strategy" realHeight="30" realWidth="100">&ndash;&gt;-->
@@ -138,8 +138,8 @@
 <!--&lt;!&ndash;                    </VBox.margin>&ndash;&gt;-->
 <!--&lt;!&ndash;                </FXHBox>&ndash;&gt;-->
 <!--&lt;!&ndash;            </FXVBox>&ndash;&gt;-->
-<!--&lt;!&ndash;        </FXTab>&ndash;&gt;-->
-<!--        <FXTab text="%base.font">-->
+<!--&lt;!&ndash;        </FixedTab>&ndash;&gt;-->
+<!--        <FixedTab text="%base.font">-->
 <!--            <FXVBox flexWidth="100%" flexHeight="100%">-->
 <!--                <FXHBox flexWidth="100%" realHeight="50">-->
 <!--                    <AccentLabel text="%base.fontName" realHeight="30" realWidth="100">-->
@@ -202,8 +202,8 @@
 <!--                    </VBox.margin>-->
 <!--                </FXHBox>-->
 <!--            </FXVBox>-->
-<!--        </FXTab>-->
-<!--        <FXTab text="%base.theme">-->
+<!--        </FixedTab>-->
+<!--        <FixedTab text="%base.theme">-->
 <!--            <FXVBox flexWidth="100%" flexHeight="100%">-->
 <!--                <FXHBox flexWidth="100%" realHeight="50">-->
 <!--                    <AccentLabel text="%base.themeName" realHeight="30" realWidth="100">-->
@@ -288,8 +288,8 @@
 <!--                    </VBox.margin>-->
 <!--                </FXHBox>-->
 <!--            </FXVBox>-->
-<!--        </FXTab>-->
-<!--        <FXTab text="%base.locale">-->
+<!--        </FixedTab>-->
+<!--        <FixedTab text="%base.locale">-->
 <!--            <FXVBox flexWidth="100%" flexHeight="100%">-->
 <!--                <FXHBox flexWidth="100%" realHeight="50">-->
 <!--                    <AccentLabel text="%base.language" realHeight="30" realWidth="100">-->
@@ -313,7 +313,7 @@
 <!--                    </VBox.margin>-->
 <!--                </FXHBox>-->
 <!--            </FXVBox>-->
-<!--        </FXTab>-->
+<!--        </FixedTab>-->
 <!--    </FXTabPane>-->
 <!--    <FXHBox flexWidth="100%" realHeight="50">-->
 <!--        <SaveButton onAction="#saveSetting">-->

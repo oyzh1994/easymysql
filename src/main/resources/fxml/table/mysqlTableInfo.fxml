@@ -7,7 +7,7 @@
 <?import cn.oyzh.fx.gui.text.field.ReadOnlyTextField?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
-<?import cn.oyzh.fx.plus.controls.tab.FXTab?>
+<?import cn.oyzh.fx.plus.controls.tab.FixedTab?>
 <?import cn.oyzh.fx.plus.controls.tab.FXTabPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
@@ -15,7 +15,7 @@
 <FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="cn.oyzh.easymysql.controller.table.MysqlTableInfoController" realWidth="900" realHeight="600">
     <FXTabPane flexWidth="100%" flexHeight="100% - 50">
-        <FXTab text="%base.base">
+        <FixedTab text="%base.base">
             <FXVBox flexWidth="100%" flexHeight="100%">
                 <InfoLabel text="%base.tableName">
                     <VBox.margin>
@@ -99,8 +99,8 @@
                     </VBox.margin>
                 </ReadOnlyTextArea>
             </FXVBox>
-        </FXTab>
-        <FXTab text="%base.ddl">
+        </FixedTab>
+        <FixedTab text="%base.ddl">
             <FXVBox flexHeight="100%" flexWidth="100%">
                 <Editor editable="false" fx:id="tableDefinition" flexHeight="100%" flexWidth="100% - 35">
                     <VBox.margin>
@@ -108,7 +108,7 @@
                     </VBox.margin>
                 </Editor>
             </FXVBox>
-        </FXTab>
+        </FixedTab>
     </FXTabPane>
     <FXHBox flexWidth="100%">
         <CloseButton>

@@ -16,7 +16,7 @@
 <?import cn.oyzh.fx.gui.text.field.NumberTextField?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
-<?import cn.oyzh.fx.plus.controls.tab.FXTab?>
+<?import cn.oyzh.fx.plus.controls.tab.FixedTab?>
 <?import cn.oyzh.fx.plus.controls.table.FXTableColumn?>
 <?import cn.oyzh.fx.plus.controls.text.area.FXTextArea?>
 <?import javafx.geometry.Insets?>
@@ -54,7 +54,7 @@
         </MoveDownSVGGlyph>
     </FXHBox>
     <MysqlDesignTabPane fx:id="tabPane" flexWidth="100%" flexHeight="100% - 25">
-        <FXTab text="%base.fields" fx:id="columnTab">
+        <FixedTab text="%base.fields" fx:id="columnTab">
             <FXVBox flexHeight="100% " flexWidth="100%">
                 <DBStatusTableView fx:id="columnTable" flexHeight="100% - 200" flexWidth="100%">
                     <columns>
@@ -72,8 +72,8 @@
                 </DBStatusTableView>
                 <fx:include fx:id="tableColumnExtra" source="mysqlTableColumnExtra.fxml"/>
             </FXVBox>
-        </FXTab>
-        <FXTab text="%base.indexes" fx:id="indexTab">
+        </FixedTab>
+        <FixedTab text="%base.indexes" fx:id="indexTab">
             <DBStatusTableView fx:id="indexTable" flexHeight="100%" flexWidth="100%">
                 <columns>
                     <DBStatusColumn/>
@@ -85,8 +85,8 @@
                                    resizable="true"/>
                 </columns>
             </DBStatusTableView>
-        </FXTab>
-        <FXTab text="%base.foreignKeys" fx:id="foreignKeyTab">
+        </FixedTab>
+        <FixedTab text="%base.foreignKeys" fx:id="foreignKeyTab">
             <DBStatusTableView fx:id="foreignKeyTable" flexHeight="100%" flexWidth="100%">
                 <columns>
                     <DBStatusColumn/>
@@ -102,8 +102,8 @@
                     <FXTableColumn realWidth="120" valueName="updatePolicyControl" text="%base.onUpdate"/>
                 </columns>
             </DBStatusTableView>
-        </FXTab>
-        <FXTab text="%base.triggers" fx:id="triggerTab">
+        </FixedTab>
+        <FixedTab text="%base.triggers" fx:id="triggerTab">
             <DBStatusTableView fx:id="triggerTable" flexHeight="100%" flexWidth="100%">
                 <columns>
                     <DBStatusColumn/>
@@ -113,8 +113,8 @@
                                    resizable="true"/>
                 </columns>
             </DBStatusTableView>
-        </FXTab>
-        <FXTab text="%base.checks" fx:id="checkTab">
+        </FixedTab>
+        <FixedTab text="%base.checks" fx:id="checkTab">
             <DBStatusTableView fx:id="checkTable" flexHeight="100%" flexWidth="100%">
                 <columns>
                     <DBStatusColumn/>
@@ -123,8 +123,8 @@
                                    resizable="true"/>
                 </columns>
             </DBStatusTableView>
-        </FXTab>
-        <FXTab text="%base.options">
+        </FixedTab>
+        <FixedTab text="%base.options">
             <FXVBox flexWidth="100%" flexHeight="100%">
                 <FXHBox flexWidth="100%" realHeight="50">
                     <AccentLabel realHeight="30" realWidth="85" text="%base.engine">
@@ -194,14 +194,14 @@
                 </FXHBox>
 
             </FXVBox>
-        </FXTab>
-        <FXTab text="%base.comment">
+        </FixedTab>
+        <FixedTab text="%base.comment">
             <FXTextArea fx:id="tableComment" tipText="%base.comment" flexWidth="100%" flexHeight="100%"
                         maxLen="1024">
             </FXTextArea>
-        </FXTab>
-        <FXTab text="%base.preview" fx:id="previewTab">
+        </FixedTab>
+        <FixedTab text="%base.preview" fx:id="previewTab">
             <DBEditor editable="false" fx:id="sqlPreview" flexWidth="100%" flexHeight="100%"/>
-        </FXTab>
+        </FixedTab>
     </MysqlDesignTabPane>
 </FXVBox>

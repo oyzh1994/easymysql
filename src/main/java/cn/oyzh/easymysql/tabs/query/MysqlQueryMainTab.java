@@ -16,10 +16,6 @@ import javafx.scene.Cursor;
  */
 public class MysqlQueryMainTab extends MysqlTab {
 
-    {
-        this.setClosable(true);
-    }
-
     // /**
     //  * 内容已变化
     //  */

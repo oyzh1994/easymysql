@@ -19,10 +19,6 @@ import java.util.List;
  */
 public class MysqlTableRecordTab extends MysqlTab {
 
-    {
-        this.setClosable(true);
-    }
-
     // /**
     //  * 标签打开时间
     //  */

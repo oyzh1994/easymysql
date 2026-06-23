@@ -12,10 +12,6 @@ import cn.oyzh.fx.gui.tabs.RichTab;
  */
 public class MysqlQueryInfoTab extends RichTab {
 
-    {
-        this.setClosable(false);
-    }
-
     @Override
     protected String url() {
         return MysqlTab.BASE_PATH + "query/mysqlQueryInfoTab.fxml";
@@ -28,5 +24,12 @@ public class MysqlQueryInfoTab extends RichTab {
     @Override
     public MysqlQueryInfoTabController controller() {
         return (MysqlQueryInfoTabController) super.controller();
+    }
+
+
+    @Override
+    public void initNode() {
+        this.setClosable(false);
+        super.initNode();
     }
 }
