@@ -95,7 +95,7 @@
                             <Insets left="20" top="10"/>
                         </HBox.margin>
                     </AccentLabel>
-                    <NumberTextField disable="true" minVal="0" unsigned="true" fx:id="returnSize" realHeight="30"
+                    <NumberTextField disable="true" minVal="0" fx:id="returnSize" realHeight="30"
                                      flexWidth="100% - 140" tipText="%base.contentTip1">
                         <HBox.margin>
                             <Insets left="10" top="10"/>
@@ -108,7 +108,7 @@
                             <Insets left="20" top="10"/>
                         </HBox.margin>
                     </AccentLabel>
-                    <NumberTextField disable="true" minVal="0" unsigned="true" fx:id="returnDigits" realHeight="30"
+                    <NumberTextField disable="true" minVal="0" fx:id="returnDigits" realHeight="30"
                                      flexWidth="100% - 140" tipText="%base.contentTip1">
                         <HBox.margin>
                             <Insets left="10" top="10"/>
