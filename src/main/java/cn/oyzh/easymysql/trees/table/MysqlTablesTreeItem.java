@@ -182,11 +182,11 @@ public class MysqlTablesTreeItem extends DBTreeItem<MysqlTablesTreeItemValue> {
         }
     }
 
-    @Override
-    public synchronized void doFilter(RichTreeItemFilter itemFilter) {
-        super.doFilter(itemFilter);
-        this.refresh();
-    }
+    //@Override
+    //public synchronized void doFilter(RichTreeItemFilter itemFilter) {
+    //    super.doFilter(itemFilter);
+    //    this.refresh();
+    //}
 
     public void addTable(MysqlTable table) {
         this.addChild(new MysqlTableTreeItem(table, this.getTreeView()));

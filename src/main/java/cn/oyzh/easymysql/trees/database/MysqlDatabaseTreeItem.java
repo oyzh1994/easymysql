@@ -5,9 +5,11 @@ import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
 import cn.oyzh.easymysql.controller.data.MysqlRunSqlFileController;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseUpdateController;
-import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
+import cn.oyzh.easymysql.domain.MysqlConnect;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.mysql.check.MysqlChecks;
 import cn.oyzh.easymysql.mysql.column.MysqlColumns;
 import cn.oyzh.easymysql.mysql.column.MysqlSelectColumnParam;
@@ -28,8 +30,6 @@ import cn.oyzh.easymysql.mysql.table.MysqlSelectTableParam;
 import cn.oyzh.easymysql.mysql.table.MysqlTable;
 import cn.oyzh.easymysql.mysql.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.mysql.view.MysqlView;
-import cn.oyzh.easymysql.domain.MysqlConnect;
-import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.event.MysqlEventTreeItem;
@@ -46,7 +46,6 @@ import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewsTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.gui.tree.view.RichTreeItem;
-import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
 import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
@@ -579,11 +578,11 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return this.isVisible();
     }
 
-    @Override
-    public synchronized void doFilter(RichTreeItemFilter itemFilter) {
-        super.doFilter(itemFilter);
-        this.refresh();
-    }
+    //@Override
+    //public synchronized void doFilter(RichTreeItemFilter itemFilter) {
+    //    super.doFilter(itemFilter);
+    //    this.refresh();
+    //}
 
     public MysqlEvent selectEvent(String eventName) {
         return this.client().selectEvent(this.dbName(), eventName);

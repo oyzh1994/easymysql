@@ -144,11 +144,11 @@ public class MysqlEventsTreeItem extends DBTreeItem<MysqlEventsTreeItemValue> {
         }
     }
 
-    @Override
-    public synchronized void doFilter(RichTreeItemFilter itemFilter) {
-        super.doFilter(itemFilter);
-        this.refresh();
-    }
+    //@Override
+    //public synchronized void doFilter(RichTreeItemFilter itemFilter) {
+    //    super.doFilter(itemFilter);
+    //    this.refresh();
+    //}
 
     public Integer eventSize() {
         return this.client().eventSize(this.dbName());

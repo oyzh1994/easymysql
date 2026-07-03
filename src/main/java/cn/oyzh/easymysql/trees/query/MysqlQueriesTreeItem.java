@@ -115,11 +115,11 @@ public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> 
         }
     }
 
-    @Override
-    public synchronized void doFilter(RichTreeItemFilter itemFilter) {
-        super.doFilter(itemFilter);
-        this.refresh();
-    }
+    //@Override
+    //public synchronized void doFilter(RichTreeItemFilter itemFilter) {
+    //    super.doFilter(itemFilter);
+    //    this.refresh();
+    //}
 
     public Integer querySize() {
         List<MysqlQuery> dbQueries = MysqlQueryStore.INSTANCE.list(this.info().getId(), this.dbName());

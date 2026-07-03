@@ -149,11 +149,11 @@ public class MysqlProceduresTreeItem extends DBTreeItem<MysqlProceduresTreeItemV
         }
     }
 
-    @Override
-    public synchronized void doFilter(RichTreeItemFilter itemFilter) {
-        super.doFilter(itemFilter);
-        this.refresh();
-    }
+    //@Override
+    //public synchronized void doFilter(RichTreeItemFilter itemFilter) {
+    //    super.doFilter(itemFilter);
+    //    this.refresh();
+    //}
 
     public Integer procedureSize() {
         return this.client().procedureSize(this.dbName(), null);

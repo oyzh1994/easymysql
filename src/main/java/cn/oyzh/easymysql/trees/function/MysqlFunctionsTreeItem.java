@@ -151,11 +151,11 @@ public class MysqlFunctionsTreeItem extends DBTreeItem<MysqlFunctionsTreeItemVal
         }
     }
 
-    @Override
-    public synchronized void doFilter(RichTreeItemFilter itemFilter) {
-        super.doFilter(itemFilter);
-        this.refresh();
-    }
+    //@Override
+    //public synchronized void doFilter(RichTreeItemFilter itemFilter) {
+    //    super.doFilter(itemFilter);
+    //    this.refresh();
+    //}
 
     public Integer functionSize() {
         return this.client().functionSize(this.dbName(), null);

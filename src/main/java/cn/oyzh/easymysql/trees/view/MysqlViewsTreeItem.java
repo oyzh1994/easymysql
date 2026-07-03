@@ -151,11 +151,11 @@ public class MysqlViewsTreeItem extends DBTreeItem<MysqlViewsTreeItemValue> {
         }
     }
 
-    @Override
-    public synchronized void doFilter(RichTreeItemFilter itemFilter) {
-        super.doFilter(itemFilter);
-        this.refresh();
-    }
+    //@Override
+    //public synchronized void doFilter(RichTreeItemFilter itemFilter) {
+    //    super.doFilter(itemFilter);
+    //    this.refresh();
+    //}
 
     public void addView(MysqlView view) {
         this.addChild(new MysqlViewTreeItem(view, this.getTreeView()));
