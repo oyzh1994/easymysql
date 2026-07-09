@@ -251,7 +251,7 @@ public class MysqlEventDesignTabController extends RichTabController {
         this.initInfo();
 
         // 监听组件
-        CacheHelper.set("dbClient", this.dbItem.client());
+        CacheHelper.set("mysql:dbClient", this.dbItem.client());
 
         // 基础
         DBStatusListenerManager.bindListener(this.status, this.listener);

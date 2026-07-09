@@ -47,7 +47,7 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
 
     public MysqlFieldTextFiled getColumnControl() {
         try {
-            List<MysqlColumn> columnList = CacheHelper.get("columnList");
+            List<MysqlColumn> columnList = CacheHelper.get("mysql:columnList");
             if (columnList == null) {
                 columnList = new ArrayList<>();
             }
@@ -66,7 +66,7 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
     public DBDatabaseComboBox getPrimaryKeyDatabaseControl() {
         try {
             DBDatabaseComboBox comboBox = new DBDatabaseComboBox();
-            comboBox.init(CacheHelper.get("dbClient"));
+            comboBox.init(CacheHelper.get("mysql:dbClient"));
             comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setPrimaryKeyDatabase(newValue));
             comboBox.selectFirstIfNull(this.getPrimaryKeyDatabase());
             TableViewUtil.rowOnCtrlS(comboBox);
@@ -81,7 +81,7 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
     public MysqlTableComboBox getPrimaryKeyTableControl() {
         try {
             MysqlTableComboBox comboBox = new MysqlTableComboBox();
-            MysqlClient dbClient = CacheHelper.get("dbClient");
+            MysqlClient dbClient = CacheHelper.get("mysql:dbClient");
             comboBox.init(this.getPrimaryKeyDatabase(), dbClient);
             comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setPrimaryKeyTable(newValue));
             comboBox.selectFirstIfNull(this.getPrimaryKeyTable());
@@ -121,7 +121,7 @@ public class MysqlForeignKeyControl extends MysqlForeignKey {
                 textField.clear();
                 String dbName = this.getPrimaryKeyDatabase();
                 String tableName = this.getPrimaryKeyTable();
-                MysqlClient client = CacheHelper.get("dbClient");
+                MysqlClient client = CacheHelper.get("mysql:dbClient");
                 textField.setColumns(client.selectColumns(new MysqlSelectColumnParam(dbName, tableName)));
                 textField.setSelectedColumns(this.getPrimaryKeyColumns());
             };

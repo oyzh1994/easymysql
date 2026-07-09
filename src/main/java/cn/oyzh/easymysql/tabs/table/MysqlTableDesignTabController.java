@@ -1133,7 +1133,9 @@ public class MysqlTableDesignTabController extends ParentTabController {
         NodeUtil.nodeOnCtrlS(this.tableAutoIncrement, this::save);
 
         // 更新字段列表
-        this.columnTable.itemsProperty().get().addListener((ListChangeListener<MysqlColumn>) c -> CacheHelper.set("columnList", this.columnTable.getItems()));
+        this.columnTable.itemsProperty().get().addListener((ListChangeListener<MysqlColumn>) c -> {
+            CacheHelper.set("mysql:columnList", this.columnTable.getItems());
+        });
 
         // // 监听列表变化
         // this.checkTable.itemList().addListener(this.listChangeListener);
@@ -1143,11 +1145,11 @@ public class MysqlTableDesignTabController extends ParentTabController {
         // this.foreignKeyTable.itemList().addListener(this.listChangeListener);
     }
 
-    @Override
-    public void onTabClosed(Event event) {
-        super.onTabClosed(event);
-        CacheHelper.clear();
-    }
+//    @Override
+//    public void onTabClosed(Event event) {
+//        super.onTabClosed(event);
+//        CacheHelper.clear();
+//    }
 
     @Override
     protected void bindListeners() {
@@ -1256,8 +1258,8 @@ public class MysqlTableDesignTabController extends ParentTabController {
         this.tableEngine.init(this.dbItem.client());
 
         // 设置缓存
-        CacheHelper.set("dbName", this.dbItem.dbName());
-        CacheHelper.set("dbClient", this.dbItem.client());
+        CacheHelper.set("mysql:dbName", this.dbItem.dbName());
+        CacheHelper.set("mysql:dbClient", this.dbItem.client());
 
         // 初始化信息
         this.initInfo(table);

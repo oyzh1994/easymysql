@@ -226,7 +226,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
         FXUtil.runWait(this::initInfo);
 
         // 监听组件
-        CacheHelper.set("dbClient", this.dbItem.client());
+        CacheHelper.set("mysql:dbClient", this.dbItem.client());
         DBStatusListenerManager.bindListener(this.definer, this.listener);
         DBStatusListenerManager.bindListener(this.comment, this.listener);
         DBStatusListenerManager.bindListener(this.definition, this.listener);
