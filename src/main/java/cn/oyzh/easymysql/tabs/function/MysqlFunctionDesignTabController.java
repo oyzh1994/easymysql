@@ -1,10 +1,7 @@
 package cn.oyzh.easymysql.tabs.function;
 
-import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.mysql.function.MysqlFunction;
-import cn.oyzh.easymysql.mysql.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
 import cn.oyzh.easymysql.fx.DBEditor;
@@ -16,6 +13,8 @@ import cn.oyzh.easymysql.fx.table.MysqlFiledTypeComboBox;
 import cn.oyzh.easymysql.generator.routine.MysqlFunctionSqlGenerator;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
+import cn.oyzh.easymysql.mysql.function.MysqlFunction;
+import cn.oyzh.easymysql.mysql.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.gui.text.field.NumberTextField;
@@ -256,7 +255,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
         // this.initInfo();
 
         // 监听组件
-        CacheHelper.set("mysql:dbClient", this.dbItem.client());
+        //CacheHelper.set("mysql:dbClient", this.dbItem.client());
         DBStatusListenerManager.bindListener(this.definer, this.listener);
         DBStatusListenerManager.bindListener(this.comment, this.listener);
         DBStatusListenerManager.bindListener(this.definition, this.listener);
@@ -611,5 +610,23 @@ public class MysqlFunctionDesignTabController extends RichTabController {
 
     public void setDbItem(MysqlDatabaseTreeItem dbItem) {
         this.dbItem = dbItem;
+    }
+
+    @Override
+    protected void bindListeners() {
+        super.bindListeners();
+        // 初始化参数列表
+        this.paramTable.itemList().addListener((ListChangeListener<MysqlRoutineParam>) c -> {
+            while (c.next() && (c.wasAdded() || c.wasReplaced())) {
+                this.initParamTable();
+            }
+        });
+        this.initParamTable();
+    }
+
+    private void initParamTable() {
+        for (MysqlRoutineParam index : this.paramTable.itemList()) {
+            index.setDbClient(this.dbItem.client());
+        }
     }
 }
