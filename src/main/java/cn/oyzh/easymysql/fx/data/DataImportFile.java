@@ -1,8 +1,11 @@
 package cn.oyzh.easymysql.fx.data;
 
 import cn.oyzh.common.util.StringUtil;
+import cn.oyzh.easymysql.fx.table.MysqlTableComboBox;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.fx.gui.text.field.ChooseFileTextField;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
+import cn.oyzh.fx.plus.window.StageManager;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
@@ -13,6 +16,18 @@ import java.io.File;
  * @since 2024/08/30
  */
 public class DataImportFile {
+
+    private String dbName;
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    private MysqlClient dbClient;
+
+    public void setDbClient(MysqlClient dbClient) {
+        this.dbClient = dbClient;
+    }
 
     /**
      * 文件路径属性
@@ -58,6 +73,18 @@ public class DataImportFile {
         return textField;
     }
 
+    public MysqlTableComboBox getTargetTableControl() {
+        MysqlTableComboBox comboBox = new MysqlTableComboBox();
+        //String dbName = CacheHelper.get("mysql:dbName");
+        //ShellMysqlClient dbClient = CacheHelper.get("mysql:dbClient");
+        StageManager.showMask(() -> comboBox.init(this.dbName, this.getTableName(), this.dbClient));
+        comboBox.selectedItemChanged((observable, oldValue, newValue) -> {
+            this.setTargetTableName(newValue);
+        });
+        TableViewUtil.selectRowOnMouseClicked(comboBox);
+        return comboBox;
+    }
+
     public String getTableName() {
         String fileName = this.getFileName();
         if (StringUtil.isBlank(fileName)) {
@@ -67,7 +94,7 @@ public class DataImportFile {
     }
 
     public String getTargetTableName() {
-        if(this.targetTableName == null) {
+        if (this.targetTableName == null) {
             return this.getTableName();
         }
         return this.targetTableName;
