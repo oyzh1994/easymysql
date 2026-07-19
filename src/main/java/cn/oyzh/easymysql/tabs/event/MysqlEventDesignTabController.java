@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql.tabs.event;
 
-import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.mysql.event.MysqlEvent;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
