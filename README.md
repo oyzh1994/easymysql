@@ -1,6 +1,6 @@
 # 项目
 ###### 项目说明
-这是一个使用javafx编写的mysql客户端，支持基本的连接管理，分组管理、数据操作、操作命令查看、表&视图&事件&函数&过程管理、导入导出、数据传输、查询等功能，还支持暗色主题、系统主题跟随等能力。  
+这是一个使用javafx编写的mysql客户端，支持基本的连接管理，分组管理、数据操作、操作命令查看、表、视图、事件、函数、过程管理、导入导出、数据传输、查询等功能，还支持暗色主题、系统主题跟随等能力。  
 后续更新移步已至  
 https://gitee.com/oyzh1994/easyshell
 
@@ -10,9 +10,9 @@ cn.oyzh.easymysql.EasyMysqlBootstrap
 ide建议idea社区版或者专业版
 
 ###### 依赖说明
-1. base工程，可选手动安装，也可使用中心仓库稳定版本  
+1. base工程
  https://gitee.com/oyzh1994/base  
-2. fx-base工程，可选手动安装，也可使用中心仓库稳定版本  
+2. fx-base工程
  https://gitee.com/oyzh1994/fx-base  
 3. jdk版本要求25  
 注意，如果是linux的arm平台，建议使用aws的jdk，其他jdk可能缺失hsdis类库，其他情况下优先使用openjdk  
