@@ -15,14 +15,14 @@ public class MysqlEventTreeItemValue extends RichTreeItemValue {
     }
 
     @Override
-    protected MysqlEventTreeItem item() {
+    public MysqlEventTreeItem item() {
         return (MysqlEventTreeItem) super.item();
     }
 
     @Override
     public SVGGlyph graphic() {
-        if (this.graphic == null) {
-            this.graphic = new EventSVGGlyph("12");
+        if (super.graphic() == null) {
+            super.graphic(new EventSVGGlyph());
         }
         return super.graphic();
     }

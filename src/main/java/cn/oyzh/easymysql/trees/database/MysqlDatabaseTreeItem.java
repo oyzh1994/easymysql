@@ -5,9 +5,11 @@ import cn.oyzh.common.thread.TaskBuilder;
 import cn.oyzh.easymysql.controller.data.MysqlDataDumpController;
 import cn.oyzh.easymysql.controller.data.MysqlRunSqlFileController;
 import cn.oyzh.easymysql.controller.database.MysqlDatabaseUpdateController;
-import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
+import cn.oyzh.easymysql.domain.MysqlConnect;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.mysql.check.MysqlChecks;
 import cn.oyzh.easymysql.mysql.column.MysqlColumns;
 import cn.oyzh.easymysql.mysql.column.MysqlSelectColumnParam;
@@ -28,8 +30,6 @@ import cn.oyzh.easymysql.mysql.table.MysqlSelectTableParam;
 import cn.oyzh.easymysql.mysql.table.MysqlTable;
 import cn.oyzh.easymysql.mysql.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.mysql.view.MysqlView;
-import cn.oyzh.easymysql.domain.MysqlConnect;
-import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeItem;
 import cn.oyzh.easymysql.trees.connect.DBConnectTreeItem;
 import cn.oyzh.easymysql.trees.event.MysqlEventTreeItem;
@@ -41,11 +41,11 @@ import cn.oyzh.easymysql.trees.procedure.MysqlProceduresTreeItem;
 import cn.oyzh.easymysql.trees.query.MysqlQueriesTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTableTreeItem;
 import cn.oyzh.easymysql.trees.table.MysqlTablesTreeItem;
+import cn.oyzh.easymysql.trees.terminal.MysqlTerminalTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewTreeItem;
 import cn.oyzh.easymysql.trees.view.MysqlViewsTreeItem;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
 import cn.oyzh.fx.gui.tree.view.RichTreeItem;
-import cn.oyzh.fx.gui.tree.view.RichTreeItemFilter;
 import cn.oyzh.fx.gui.tree.view.RichTreeView;
 import cn.oyzh.fx.plus.information.MessageBox;
 import cn.oyzh.fx.plus.menu.FXMenuItem;
@@ -100,18 +100,18 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
         if (!this.isChildEmpty()) {
-            FXMenuItem closeDB = MenuItemHelper.closeDatabase("10", this::closeDB);
+            FXMenuItem closeDB = MenuItemHelper.closeDatabase( this::closeDB);
             items.add(closeDB);
         }
-        FXMenuItem editDB = MenuItemHelper.editDatabase("11", this::editDB);
+        FXMenuItem editDB = MenuItemHelper.editDatabase( this::editDB);
         items.add(editDB);
-        FXMenuItem dropDB = MenuItemHelper.deleteDatabase("12", this::delete);
+        FXMenuItem dropDB = MenuItemHelper.deleteDatabase( this::delete);
         items.add(dropDB);
-        FXMenuItem dumpData = MenuItemHelper.dumpData("12", this::dump);
+        FXMenuItem dumpData = MenuItemHelper.dumpData( this::dump);
         items.add(dumpData);
-        FXMenuItem runSqlFile = MenuItemHelper.runSqlFile("12", this::runSqlFile);
+        FXMenuItem runSqlFile = MenuItemHelper.runSqlFile( this::runSqlFile);
         items.add(runSqlFile);
-        // FXMenuItem dbInfo = MenuItemHelper.databaseInfo("12", this::dbInfo);
+        // FXMenuItem dbInfo = MenuItemHelper.databaseInfo( this::dbInfo);
         // items.add(dbInfo);
         return items;
     }
@@ -197,6 +197,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
                         typeItems.add(new MysqlProceduresTreeItem(this.getTreeView()));
                         typeItems.add(new MysqlEventsTreeItem(this.getTreeView()));
                         typeItems.add(new MysqlQueriesTreeItem(this.getTreeView()));
+                        typeItems.add(new MysqlTerminalTreeItem(this.getTreeView()));
                         super.setChild(typeItems);
                     })
                     .onSuccess(this::expend)
@@ -577,11 +578,11 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return this.isVisible();
     }
 
-    @Override
-    public synchronized void doFilter(RichTreeItemFilter itemFilter) {
-        super.doFilter(itemFilter);
-        this.refresh();
-    }
+    //@Override
+    //public synchronized void doFilter(RichTreeItemFilter itemFilter) {
+    //    super.doFilter(itemFilter);
+    //    this.refresh();
+    //}
 
     public MysqlEvent selectEvent(String eventName) {
         return this.client().selectEvent(this.dbName(), eventName);

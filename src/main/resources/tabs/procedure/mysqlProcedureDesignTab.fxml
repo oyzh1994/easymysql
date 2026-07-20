@@ -14,7 +14,7 @@
 <?import cn.oyzh.fx.gui.text.field.ClearableTextField?>
 <?import cn.oyzh.fx.plus.controls.box.FXHBox?>
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
-<?import cn.oyzh.fx.plus.controls.tab.FXTab?>
+<?import cn.oyzh.fx.plus.controls.tab.FixedTab?>
 <?import cn.oyzh.fx.plus.controls.table.FXTableColumn?>
 <?import cn.oyzh.fx.plus.controls.text.area.FXTextArea?>
 <?import javafx.geometry.Insets?>
@@ -52,10 +52,10 @@
         </MoveDownSVGGlyph>
     </FXHBox>
     <MysqlDesignTabPane flexHeight="100% - 25" flexWidth="100%" fx:id="tabPane">
-        <FXTab text="%base.definition">
+        <FixedTab text="%base.definition">
             <DBEditor fontSize="12" fx:id="definition" flexWidth="100%" flexHeight="100%"/>
-        </FXTab>
-        <FXTab text="%base.params">
+        </FixedTab>
+        <FixedTab text="%base.params">
             <DBStatusTableView fx:id="paramTable" flexHeight="100%" flexWidth="100%">
                 <columns>
                     <DBStatusColumn/>
@@ -71,8 +71,8 @@
                     <FXTableColumn realWidth="120" valueName="valueControl" text="%base.value" resizable="true"/>
                 </columns>
             </DBStatusTableView>
-        </FXTab>
-        <FXTab text="%base.advanced">
+        </FixedTab>
+        <FixedTab text="%base.advanced">
             <FXVBox flexHeight="100%" flexWidth="100%">
                 <FXHBox realHeight="50" flexWidth="100%">
                     <AccentLabel realWidth="85" text="%base.characteristic" realHeight="25">
@@ -123,9 +123,9 @@
                     </FXTextArea>
                 </FXHBox>
             </FXVBox>
-        </FXTab>
-        <FXTab text="%base.preview" fx:id="previewTab">
+        </FixedTab>
+        <FixedTab text="%base.preview" fx:id="previewTab">
             <DBEditor editable="false" fontSize="12" fx:id="preview" flexWidth="100%" flexHeight="100%"/>
-        </FXTab>
+        </FixedTab>
     </MysqlDesignTabPane>
 </FXVBox>

@@ -12,10 +12,6 @@ import cn.oyzh.fx.gui.tabs.RichTab;
  */
 public class MysqlQueryExplainTab extends RichTab {
 
-    {
-        this.setClosable(false);
-    }
-
     @Override
     protected String url() {
         return MysqlTab.BASE_PATH + "query/mysqlQueryExplainTab.fxml";
@@ -31,4 +27,9 @@ public class MysqlQueryExplainTab extends RichTab {
         return (MysqlQueryExplainTabController) super.controller();
     }
 
+    @Override
+    public void initNode() {
+        this.setClosable(false);
+        super.initNode();
+    }
 }

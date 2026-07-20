@@ -17,14 +17,14 @@ public class MysqlProcedureTreeItemValue extends RichTreeItemValue {
     }
 
     @Override
-    protected MysqlProcedureTreeItem item() {
+    public MysqlProcedureTreeItem item() {
         return (MysqlProcedureTreeItem) super.item();
     }
 
     @Override
     public SVGGlyph graphic() {
-        if (this.graphic == null) {
-            this.graphic = new ProcedureSVGGlyph("12");
+        if (super.graphic() == null) {
+            super.graphic(new ProcedureSVGGlyph());
         }
         return super.graphic();
     }

@@ -38,7 +38,7 @@ public class MysqlInfoExport {
      * @param dbInfos 连接列表
      * @return DBInfoExport
      */
-    public static MysqlInfoExport fromConnects( List<MysqlConnect> dbInfos) {
+    public static MysqlInfoExport fromConnects(List<MysqlConnect> dbInfos) {
         MysqlInfoExport export = new MysqlInfoExport();
         Project project = Project.load();
         export.version = project.getVersion();
@@ -53,13 +53,13 @@ public class MysqlInfoExport {
      * @param json json字符串
      * @return RedisInfoExport
      */
-    public static MysqlInfoExport fromJSON( String json) {
+    public static MysqlInfoExport fromJSON(String json) {
         JulLog.info("json: {}", json);
         JSONObject object = JSONUtil.parseObject(json);
         MysqlInfoExport export = new MysqlInfoExport();
         export.connects = new ArrayList<>();
         export.version = object.getString("version");
-        export.connects = object.getList("connects", MysqlConnect.class);
+        export.connects = JSONUtil.toList(object, "connects", MysqlConnect.class);
         return export;
     }
 

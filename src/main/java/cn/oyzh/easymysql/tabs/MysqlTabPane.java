@@ -1,9 +1,17 @@
 package cn.oyzh.easymysql.tabs;
 
+import cn.oyzh.easymysql.event.terminal.DBTerminalCloseEvent;
+import cn.oyzh.easymysql.event.terminal.DBTerminalOpenEvent;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.tabs.home.DBHomeTab;
+import cn.oyzh.easymysql.tabs.terminal.MysqlTerminalTab;
+import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.fx.gui.tabs.RichTabPane;
 import cn.oyzh.fx.plus.event.FXEventListener;
 import javafx.scene.control.Tab;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * db切换面板
@@ -134,6 +142,57 @@ public class MysqlTabPane extends RichTabPane implements FXEventListener {
         DBHomeTab homeTab = this.getHomeTab();
         if (homeTab != null) {
             super.removeTab(homeTab);
+        }
+    }
+
+    /**
+     * 获取终端tab
+     *
+     * @param client mysql客户端
+     * @return 终端tab
+     */
+    private MysqlTerminalTab getTerminalTab(MysqlClient client, String dbName) {
+        for (Tab tab : this.getTabs()) {
+            if (tab instanceof MysqlTerminalTab terminalTab && terminalTab.client() == client && terminalTab.dbName().equals(dbName)) {
+                return terminalTab;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 终端打开事件
+     *
+     * @param event 事件
+     */
+    @EventSubscribe
+    private void terminalOpen(DBTerminalOpenEvent event) {
+        MysqlClient client = event.data();
+        String dbName = event.getDbName();
+        MysqlTerminalTab tab = this.getTerminalTab(client, dbName);
+        if (tab == null) {
+            tab = new MysqlTerminalTab(client, dbName);
+            super.addTab(tab);
+        }
+        this.select(tab);
+    }
+
+    /**
+     * 终端关闭事件
+     *
+     * @param event 事件
+     */
+    @EventSubscribe
+    private void terminalClose(DBTerminalCloseEvent event) {
+        MysqlClient client = event.data();
+        List<Tab> toRemove = new ArrayList<>();
+        for (Tab tab : this.getTabs()) {
+            if (tab instanceof MysqlTerminalTab terminalTab && terminalTab.client() == client) {
+                toRemove.add(terminalTab);
+            }
+        }
+        for (Tab tab : toRemove) {
+            super.removeTab(tab);
         }
     }
 

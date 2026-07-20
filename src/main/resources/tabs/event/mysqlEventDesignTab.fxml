@@ -13,7 +13,7 @@
 <?import cn.oyzh.fx.plus.controls.box.FXVBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXCheckBox?>
 <?import cn.oyzh.fx.plus.controls.button.FXRadioButton?>
-<?import cn.oyzh.fx.plus.controls.tab.FXTab?>
+<?import cn.oyzh.fx.plus.controls.tab.FixedTab?>
 <?import cn.oyzh.fx.plus.controls.text.area.FXTextArea?>
 <?import cn.oyzh.fx.plus.controls.toggle.FXToggleGroup?>
 <?import javafx.geometry.Insets?>
@@ -33,10 +33,10 @@
         <FXToggleGroup fx:id="planType"/>
     </fx:define>
     <MysqlDesignTabPane flexHeight="100% - 25" flexWidth="100%" fx:id="tabPane">
-        <FXTab text="%base.definition">
+        <FixedTab text="%base.definition">
             <DBEditor fontSize="12" fx:id="definition" flexWidth="100%" flexHeight="100%"/>
-        </FXTab>
-        <FXTab text="%base.plan">
+        </FixedTab>
+        <FixedTab text="%base.plan">
             <FXVBox flexHeight="100%" flexWidth="100%">
                 <FXHBox realHeight="40" flexWidth="100%">
                     <FXRadioButton text="AT" toggleGroup="$planType" fx:id="onetimeType" realWidth="140"
@@ -153,8 +153,8 @@
                     </MysqlEventIntervalTypeCombobox>
                 </FXHBox>
             </FXVBox>
-        </FXTab>
-        <FXTab text="%base.advanced">
+        </FixedTab>
+        <FixedTab text="%base.advanced">
             <FXVBox flexHeight="100%" flexWidth="100%">
                 <FXHBox realHeight="50" flexWidth="100%">
                     <AccentLabel realWidth="85" text="%base.status" realHeight="25">
@@ -206,10 +206,10 @@
                     </FXTextArea>
                 </FXHBox>
             </FXVBox>
-        </FXTab>
-        <FXTab text="%base.preview">
+        </FixedTab>
+        <FixedTab text="%base.preview">
             <DBEditor editable="false" fontSize="12" fx:id="preview" flexWidth="100%"
                       flexHeight="100%"/>
-        </FXTab>
+        </FixedTab>
     </MysqlDesignTabPane>
 </FXVBox>

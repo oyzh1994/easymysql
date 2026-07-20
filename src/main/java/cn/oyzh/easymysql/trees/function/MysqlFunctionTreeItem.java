@@ -62,13 +62,13 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        // FXMenuItem open = MenuItemHelper.openFunction("12", this::onPrimaryDoubleClick);
+        // FXMenuItem open = MenuItemHelper.openFunction( this::onPrimaryDoubleClick);
         // items.add(open);
-        FXMenuItem design = MenuItemHelper.designFunction("12", this::onPrimaryDoubleClick);
+        FXMenuItem design = MenuItemHelper.designFunction( this::onPrimaryDoubleClick);
         items.add(design);
-        FXMenuItem delete = MenuItemHelper.deleteFunction("12", this::delete);
+        FXMenuItem delete = MenuItemHelper.deleteFunction( this::delete);
         items.add(delete);
-        // FXMenuItem info = MenuItemHelper.functionInfo("12", this::functionInfo);
+        // FXMenuItem info = MenuItemHelper.functionInfo( this::functionInfo);
         // items.add(info);
         return items;
     }

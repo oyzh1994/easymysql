@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.store;
 
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.domain.MysqlGroup;
-import cn.oyzh.store.jdbc.sqlite.DeleteParam;
+import cn.oyzh.store.jdbc.param.DeleteParam;
 import cn.oyzh.store.jdbc.JdbcStandardStore;
 import cn.oyzh.store.jdbc.param.QueryParam;
 

@@ -34,6 +34,7 @@ import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.plus.window.StageAdapter;
 import cn.oyzh.fx.plus.window.StageAttribute;
 import cn.oyzh.i18n.I18nHelper;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Modality;
@@ -327,6 +328,20 @@ public class MysqlDataImportController extends StageController {
                 file.setTargetTableName(newValue);
             }
         });
+        // 初始化文件列表
+        this.importFileTableView.itemList().addListener((ListChangeListener<DataImportFile>) c -> {
+            while (c.next() && (c.wasAdded() || c.wasReplaced())) {
+                this.initFileTable();
+            }
+        });
+        this.initFileTable();
+    }
+
+    private void initFileTable() {
+        for (DataImportFile index : this.importFileTableView.itemList()) {
+            index.setDbName(this.dbName);
+            index.setDbClient(this.dbClient);
+        }
     }
 
     private void flushDatePreview() {

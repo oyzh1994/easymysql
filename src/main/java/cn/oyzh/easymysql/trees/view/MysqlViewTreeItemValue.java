@@ -17,14 +17,14 @@ public class MysqlViewTreeItemValue extends RichTreeItemValue {
     }
 
     @Override
-    protected MysqlViewTreeItem item() {
+    public MysqlViewTreeItem item() {
         return (MysqlViewTreeItem) super.item();
     }
 
     @Override
     public SVGGlyph graphic() {
-        if (this.graphic == null) {
-            this.graphic  = new ViewSVGGlyph("12");
+        if (super.graphic() == null) {
+            super.graphic(new ViewSVGGlyph());
         }
         return super.graphic();
     }

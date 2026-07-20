@@ -2,24 +2,27 @@ package cn.oyzh.easymysql.fx.record;
 
 
 import cn.oyzh.fx.gui.text.field.LimitTextField;
+import javafx.scene.control.Skin;
 
 /**
  * @author oyzh
  * @since 2024/7/21
  */
+@Deprecated
 public class DBJsonTextFiled extends LimitTextField {
 
     public DBJsonTextFiled() {
         this.setSkin(new DBJsonTextFiledSkin(this));
     }
 
-    /**
-     * 当前皮肤
-     *
-     * @return 皮肤
-     */
+    @Override
     public DBJsonTextFiledSkin skin() {
-        return (DBJsonTextFiledSkin) this.getSkin();
+        return (DBJsonTextFiledSkin) super.skin();
+    }
+
+    @Override
+    protected DBJsonTextFiledSkin createDefaultSkin() {
+        return new DBJsonTextFiledSkin(this);
     }
 
     public void setEnlargeWidth(double width) {

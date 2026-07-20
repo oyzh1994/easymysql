@@ -40,9 +40,9 @@ public class MysqlEventsTreeItem extends DBTreeItem<MysqlEventsTreeItemValue> {
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        FXMenuItem add = MenuItemHelper.addEvent("12", this::add);
+        FXMenuItem add = MenuItemHelper.addEvent( this::add);
         items.add(add);
-        FXMenuItem reload = MenuItemHelper.refreshData("12", this::reloadChild);
+        FXMenuItem reload = MenuItemHelper.refreshData( this::reloadChild);
         items.add(reload);
         return items;
     }
@@ -144,11 +144,11 @@ public class MysqlEventsTreeItem extends DBTreeItem<MysqlEventsTreeItemValue> {
         }
     }
 
-    @Override
-    public synchronized void doFilter(RichTreeItemFilter itemFilter) {
-        super.doFilter(itemFilter);
-        this.refresh();
-    }
+    //@Override
+    //public synchronized void doFilter(RichTreeItemFilter itemFilter) {
+    //    super.doFilter(itemFilter);
+    //    this.refresh();
+    //}
 
     public Integer eventSize() {
         return this.client().eventSize(this.dbName());

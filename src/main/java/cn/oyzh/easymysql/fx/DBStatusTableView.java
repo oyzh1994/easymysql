@@ -38,14 +38,14 @@ public class DBStatusTableView<S extends DBObjectStatus> extends FXTableView<S> 
                 return;
             }
             if (c.wasReplaced()) {
-                List<S> list = (List<S>) c.getList();
+                List<? extends S> list = c.getList();
                 if (list != null) {
                     for (S status : list) {
                         status.statusProperty().addListener(this.statusListener);
                     }
                 }
             } else if (c.wasAdded()) {
-                List<S> list = (List<S>) c.getAddedSubList();
+                List<? extends S> list = c.getAddedSubList();
                 if (list != null) {
                     for (DBObjectStatus status : list) {
                         status.statusProperty().addListener(this.statusListener);
@@ -53,7 +53,7 @@ public class DBStatusTableView<S extends DBObjectStatus> extends FXTableView<S> 
                 }
                 this.statusListener.changed(null, null, null);
             } else if (c.wasRemoved()) {
-                List<S> list = (List<S>) c.getRemoved();
+                List<? extends S> list = c.getRemoved();
                 if (list != null) {
                     for (S status : list) {
                         if (!status.isCreated()) {

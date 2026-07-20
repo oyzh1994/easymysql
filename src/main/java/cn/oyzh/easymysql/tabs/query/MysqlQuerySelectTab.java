@@ -13,10 +13,6 @@ import cn.oyzh.fx.gui.tabs.RichTab;
  */
 public class MysqlQuerySelectTab extends RichTab {
 
-    {
-        this.setClosable(false);
-    }
-
     @Override
     protected String url() {
         return MysqlTab.BASE_PATH + "query/mysqlQuerySelectTab.fxml";
@@ -30,5 +26,12 @@ public class MysqlQuerySelectTab extends RichTab {
     @Override
     public MysqlQuerySelectTabController controller() {
         return (MysqlQuerySelectTabController) super.controller();
+    }
+
+
+    @Override
+    public void initNode() {
+        this.setClosable(false);
+        super.initNode();
     }
 }

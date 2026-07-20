@@ -1,10 +1,7 @@
 package cn.oyzh.easymysql.tabs.procedure;
 
-import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.db.DBObjectStatus;
-import cn.oyzh.easymysql.mysql.procedure.MysqlProcedure;
-import cn.oyzh.easymysql.mysql.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.fx.DBEditor;
 import cn.oyzh.easymysql.fx.DBSecurityTypeComboBox;
@@ -13,6 +10,8 @@ import cn.oyzh.easymysql.fx.routine.MysqlCharacteristicCombobox;
 import cn.oyzh.easymysql.generator.routine.MysqlProcedureSqlGenerator;
 import cn.oyzh.easymysql.listener.DBStatusListener;
 import cn.oyzh.easymysql.listener.DBStatusListenerManager;
+import cn.oyzh.easymysql.mysql.procedure.MysqlProcedure;
+import cn.oyzh.easymysql.mysql.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.tabs.RichTabController;
 import cn.oyzh.fx.plus.controls.tab.FXTabPane;
@@ -226,7 +225,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
         FXUtil.runWait(this::initInfo);
 
         // 监听组件
-        CacheHelper.set("dbClient", this.dbItem.client());
+        //CacheHelper.set("mysql:dbClient", this.dbItem.client());
         DBStatusListenerManager.bindListener(this.definer, this.listener);
         DBStatusListenerManager.bindListener(this.comment, this.listener);
         DBStatusListenerManager.bindListener(this.definition, this.listener);
@@ -510,5 +509,23 @@ public class MysqlProcedureDesignTabController extends RichTabController {
 
     public void setUnsaved(boolean unsaved) {
         this.unsaved = unsaved;
+    }
+
+    @Override
+    protected void bindListeners() {
+        super.bindListeners();
+        // 初始化参数列表
+        this.paramTable.itemList().addListener((ListChangeListener<MysqlRoutineParam>) c -> {
+            while (c.next() && (c.wasAdded() || c.wasReplaced())) {
+                this.initParamTable();
+            }
+        });
+        this.initParamTable();
+    }
+
+    private void initParamTable() {
+        for (MysqlRoutineParam index : this.paramTable.itemList()) {
+            index.setDbClient(this.dbItem.client());
+        }
     }
 }

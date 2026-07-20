@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql.tabs.event;
 
-import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.mysql.event.MysqlEvent;
 import cn.oyzh.easymysql.event.MysqlEventUtil;
@@ -249,9 +248,9 @@ public class MysqlEventDesignTabController extends RichTabController {
 
         // 初始化信息
         this.initInfo();
-
-        // 监听组件
-        CacheHelper.set("dbClient", this.dbItem.client());
+        //
+        //// 监听组件
+        //CacheHelper.set("mysql:dbClient", this.dbItem.client());
 
         // 基础
         DBStatusListenerManager.bindListener(this.status, this.listener);
@@ -471,7 +470,7 @@ public class MysqlEventDesignTabController extends RichTabController {
         temp.setType(this.planType.selectedUserData());
         // 时间
         if (temp.isOnTimeType()) {
-            temp.setExecuteAt(this.onetime.getObjectValue());
+            temp.setExecuteAt(this.onetime.getValue());
             if (this.onetimeInterval.isSelected()) {
                 temp.setIntervalValue(this.onetimeIntervalValue.getIntValue());
                 temp.setIntervalField(this.onetimeIntervalType.getSelectedItem());
@@ -480,14 +479,14 @@ public class MysqlEventDesignTabController extends RichTabController {
             temp.setIntervalValue(this.loopIntervalValue.getIntValue());
             temp.setIntervalField(this.loopIntervalType.getSelectedItem());
             if (this.loopStart.isSelected()) {
-                temp.setStarts(this.loopStartTime.getObjectValue());
+                temp.setStarts(this.loopStartTime.getValue());
                 if (this.loopStartInterval.isSelected()) {
                     temp.setStartIntervalValue(this.loopStartIntervalValue.getIntValue());
                     temp.setStartIntervalField(this.loopStartIntervalType.getSelectedItem());
                 }
             }
             if (this.loopEnd.isSelected()) {
-                temp.setEnds(this.loopEndTime.getObjectValue());
+                temp.setEnds(this.loopEndTime.getValue());
                 if (this.loopEndInterval.isSelected()) {
                     temp.setEndIntervalValue(this.loopEndIntervalValue.getIntValue());
                     temp.setEndIntervalField(this.loopEndIntervalType.getSelectedItem());

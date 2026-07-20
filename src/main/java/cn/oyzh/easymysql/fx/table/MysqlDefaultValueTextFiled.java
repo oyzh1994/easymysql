@@ -28,7 +28,7 @@ public class MysqlDefaultValueTextFiled extends SelectTextFiled<String> {
 
     public void init(MysqlColumn column, String defaultValue) {
         this.clear();
-        this.clearItem();
+        this.clearItemList();
         if (column.supportEnum()) {
             this.editableFlag = false;
             this.setEditable(false);

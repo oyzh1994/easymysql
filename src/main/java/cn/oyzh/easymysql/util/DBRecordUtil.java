@@ -3,9 +3,9 @@ package cn.oyzh.easymysql.util;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.mysql.record.MysqlRecordProperty;
-import cn.oyzh.easymysql.fx.record.MysqlBinaryTextFiled;
-import cn.oyzh.easymysql.fx.record.DBJsonTextFiled;
+import cn.oyzh.fx.editor.incubator.control.JsonTextFiled;
 import cn.oyzh.fx.gui.menu.MenuItemHelper;
+import cn.oyzh.fx.gui.text.field.BinaryTextFiled;
 import cn.oyzh.fx.gui.text.field.BitTextField;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.gui.text.field.DateTextField;
@@ -36,11 +36,11 @@ public class DBRecordUtil {
         Node node;
         String columnType = column.getType();
         if (column.supportJson()) {
-            DBJsonTextFiled textField = new DBJsonTextFiled();
+            JsonTextFiled textField = new JsonTextFiled();
             textField.setValue(object);
             node = textField;
         } else if (column.supportBinary()) {
-            MysqlBinaryTextFiled textField = new MysqlBinaryTextFiled(columnType);
+            BinaryTextFiled textField = new BinaryTextFiled();
             textField.setValue(object);
             node = textField;
         } else if (column.supportEnum()) {
@@ -115,11 +115,9 @@ public class DBRecordUtil {
                 val = object.toString();
             }
         } else if (column.supportJson()) {
-            val = DBJsonTextFiled.format(object);
+            val = JsonTextFiled.format(object);
         } else if (column.supportBinary()) {
-            if (object instanceof byte[] bytes) {
-                val = MysqlBinaryTextFiled.format(columnType, bytes);
-            }
+            val = BinaryTextFiled.format(object);
         } else if (column.supportEnum()) {
             val = SelectTextFiled.format(object);
         } else if (column.supportInteger()) {
@@ -200,12 +198,12 @@ public class DBRecordUtil {
      * @return 结果
      */
     public static double suitableColumnWidth(MysqlColumn column) {
-        double w1 = FontUtil.stringWidth(column.getName());
+        double w1 = FontUtil.textWidth(column.getName());
         double w2;
         if (column.supportSize() && column.getSize() != null) {
-            w2 = FontUtil.stringWidth(column.getType() + "(" + column.getSize() + ")");
+            w2 = FontUtil.textWidth(column.getType() + "(" + column.getSize() + ")");
         } else {
-            w2 = FontUtil.stringWidth(column.getType());
+            w2 = FontUtil.textWidth(column.getType());
         }
         double w3 = Math.max(w1, w2);
         return w3 + 30;
@@ -219,20 +217,18 @@ public class DBRecordUtil {
 
     public static List<FXMenuItem> getColumnMenuItem(MysqlRecordProperty property) {
         List<FXMenuItem> menuItems = new ArrayList<>();
-        FXMenuItem copy = MenuItemHelper.copy(property::vCopy);
+        FXMenuItem copy = MenuItemHelper.copy_no_graphic(property::vCopy);
         menuItems.add(copy);
-        FXMenuItem paste = MenuItemHelper.paste(property::vPaste);
+        FXMenuItem paste = MenuItemHelper.paste_no_graphic(property::vPaste);
         menuItems.add(paste);
-        // FXMenuItem delete = MenuItemHelper.deleteRecord(property::vDelete);
-        FXMenuItem setToNull = MenuItemHelper.setToNull(property::vSetToNull);
+        FXMenuItem setToNull = MenuItemHelper.setToNull_no_graphic(property::vSetToNull);
         menuItems.add(setToNull);
-        FXMenuItem setToEmptyString = MenuItemHelper.setToEmptyString(property::vSetToEmptyString);
+        FXMenuItem setToEmptyString = MenuItemHelper.setToEmptyString_no_graphic(property::vSetToEmptyString);
         menuItems.add(setToEmptyString);
-        FXMenuItem copyAsInsertStatement = MenuItemHelper.copyAsInsertStatement(property::vCopyAsInsertSql);
+        FXMenuItem copyAsInsertStatement = MenuItemHelper.copyAsInsertStatement_no_graphic(property::vCopyAsInsertSql);
         menuItems.add(copyAsInsertStatement);
-        FXMenuItem copyAsUpdateStatement = MenuItemHelper.copyAsUpdateStatement(property::vCopyAsUpdateSql);
+        FXMenuItem copyAsUpdateStatement = MenuItemHelper.copyAsUpdateStatement_no_graphic(property::vCopyAsUpdateSql);
         menuItems.add(copyAsUpdateStatement);
-        // menuItems.add(delete);
         return menuItems;
     }
 }

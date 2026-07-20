@@ -1,9 +1,18 @@
 package cn.oyzh.easymysql.tabs.table;
 
-import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.CollectionUtil;
 import cn.oyzh.common.util.StringUtil;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.fx.DBCharsetComboBox;
+import cn.oyzh.easymysql.fx.DBCollationComboBox;
+import cn.oyzh.easymysql.fx.DBEditor;
+import cn.oyzh.easymysql.fx.DBStatusTableView;
+import cn.oyzh.easymysql.fx.table.MysqlEngineComboBox;
 import cn.oyzh.easymysql.fx.table.MysqlRowFormatComboBox;
+import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
+import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
+import cn.oyzh.easymysql.listener.DBStatusListener;
+import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.mysql.check.MysqlCheck;
 import cn.oyzh.easymysql.mysql.check.MysqlCheckControl;
 import cn.oyzh.easymysql.mysql.check.MysqlChecks;
@@ -22,16 +31,6 @@ import cn.oyzh.easymysql.mysql.table.MysqlTable;
 import cn.oyzh.easymysql.mysql.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.mysql.trigger.MysqlTriggerControl;
 import cn.oyzh.easymysql.mysql.trigger.MysqlTriggers;
-import cn.oyzh.easymysql.event.MysqlEventUtil;
-import cn.oyzh.easymysql.fx.DBCharsetComboBox;
-import cn.oyzh.easymysql.fx.DBCollationComboBox;
-import cn.oyzh.easymysql.fx.DBEditor;
-import cn.oyzh.easymysql.fx.DBStatusTableView;
-import cn.oyzh.easymysql.fx.table.MysqlEngineComboBox;
-import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
-import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
-import cn.oyzh.easymysql.listener.DBStatusListener;
-import cn.oyzh.easymysql.listener.DBStatusListenerManager;
 import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.fx.gui.tabs.ParentTabController;
 import cn.oyzh.fx.gui.tabs.SubTabController;
@@ -48,7 +47,6 @@ import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 
 import java.net.URL;
@@ -1133,7 +1131,11 @@ public class MysqlTableDesignTabController extends ParentTabController {
         NodeUtil.nodeOnCtrlS(this.tableAutoIncrement, this::save);
 
         // 更新字段列表
-        this.columnTable.itemsProperty().get().addListener((ListChangeListener<MysqlColumn>) c -> CacheHelper.set("columnList", this.columnTable.getItems()));
+        this.columnTable.itemsProperty().get().addListener((ListChangeListener<MysqlColumn>) c -> {
+            //CacheHelper.set("mysql:columnList", this.columnTable.getItems());
+            this.initIndexTable();
+            this.initForeignKeyTable();
+        });
 
         // // 监听列表变化
         // this.checkTable.itemList().addListener(this.listChangeListener);
@@ -1143,11 +1145,11 @@ public class MysqlTableDesignTabController extends ParentTabController {
         // this.foreignKeyTable.itemList().addListener(this.listChangeListener);
     }
 
-    @Override
-    public void onTabClosed(Event event) {
-        super.onTabClosed(event);
-        CacheHelper.clear();
-    }
+//    @Override
+//    public void onTabClosed(Event event) {
+//        super.onTabClosed(event);
+//        CacheHelper.clear();
+//    }
 
     @Override
     protected void bindListeners() {
@@ -1209,6 +1211,36 @@ public class MysqlTableDesignTabController extends ParentTabController {
         this.foreignKeyTable.setStatusListener(this.listener);
 
         this.columnTable.selectedIndexChanged((observable, oldValue, newValue) -> this.tableColumnExtraController.init(this.columnTable.getSelectedItem(), this.dbItem.client()));
+        // 初始化索引列表
+        this.indexTable.itemList().addListener((ListChangeListener<MysqlIndex>) c -> {
+            while (c.next() && (c.wasAdded() || c.wasReplaced())) {
+                this.initIndexTable();
+            }
+        });
+        this.initIndexTable();
+        // 初始化外键列表
+        this.foreignKeyTable.itemList().addListener((ListChangeListener<MysqlForeignKey>) c -> {
+            while (c.next() && (c.wasAdded() || c.wasReplaced())) {
+                this.initForeignKeyTable();
+            }
+        });
+        this.initForeignKeyTable();
+    }
+
+    private void initIndexTable() {
+        List list= this.columnTable.getItems();
+        for (MysqlIndexControl index : this.indexTable.itemList()) {
+            index.setColumnList(list);
+        }
+    }
+
+    private void initForeignKeyTable() {
+        List list= this.columnTable.getItems();
+        for (MysqlForeignKeyControl foreignKey : this.foreignKeyTable.itemList()) {
+            foreignKey.setColumnList(list);
+            foreignKey.setDbName(this.dbItem.dbName());
+            foreignKey.setDbClient(this.dbItem.client());
+        }
     }
 
     /**
@@ -1256,8 +1288,8 @@ public class MysqlTableDesignTabController extends ParentTabController {
         this.tableEngine.init(this.dbItem.client());
 
         // 设置缓存
-        CacheHelper.set("dbName", this.dbItem.dbName());
-        CacheHelper.set("dbClient", this.dbItem.client());
+        //CacheHelper.set("mysql:dbName", this.dbItem.dbName());
+        //CacheHelper.set("mysql:dbClient", this.dbItem.client());
 
         // 初始化信息
         this.initInfo(table);

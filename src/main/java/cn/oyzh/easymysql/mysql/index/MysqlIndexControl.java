@@ -1,11 +1,10 @@
 package cn.oyzh.easymysql.mysql.index;
 
-import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.fx.table.MysqlIndexFieldTextFiled;
 import cn.oyzh.easymysql.fx.table.MysqlIndexMethodComboBox;
 import cn.oyzh.easymysql.fx.table.MysqlIndexTypeComboBox;
+import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
 import cn.oyzh.fx.plus.tableview.TableViewUtil;
@@ -19,6 +18,12 @@ import java.util.List;
  * @since 2024/09/14
  */
 public class MysqlIndexControl extends MysqlIndex {
+
+    private List<MysqlColumn> columnList;
+
+    public void setColumnList(List<MysqlColumn> columnList) {
+        this.columnList = columnList;
+    }
 
     public ClearableTextField getNameControl() {
         ClearableTextField textField = new ClearableTextField();
@@ -34,8 +39,11 @@ public class MysqlIndexControl extends MysqlIndex {
     }
 
     public MysqlIndexFieldTextFiled getColumnControl() {
-        List<MysqlColumn> columnList = CacheHelper.get("columnList");
-        MysqlIndexFieldTextFiled textField = new MysqlIndexFieldTextFiled(this, columnList, this.getColumns());
+        //List<MysqlColumn> columnList = CacheHelper.get("mysql:columnList");
+        if (this.columnList == null) {
+            this.columnList = null;
+        }
+        MysqlIndexFieldTextFiled textField = new MysqlIndexFieldTextFiled(this, this.columnList, this.getColumns());
         textField.setFlexWidth("100% - 12");
         textField.addTextChangeListener((observable, oldValue, newValue) -> this.setColumns(textField.getColumns()));
         TableViewUtil.rowOnCtrlS(textField);

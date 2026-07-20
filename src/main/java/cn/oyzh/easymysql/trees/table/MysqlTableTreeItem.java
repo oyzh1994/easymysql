@@ -91,24 +91,24 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        FXMenuItem openTable = MenuItemHelper.openTable("12", this::onPrimaryDoubleClick);
+        FXMenuItem openTable = MenuItemHelper.openTable( this::onPrimaryDoubleClick);
         items.add(openTable);
-        FXMenuItem updateTable = MenuItemHelper.designTable("12", this::designTable);
+        FXMenuItem updateTable = MenuItemHelper.designTable( this::designTable);
         items.add(updateTable);
-        FXMenuItem renameTable = MenuItemHelper.renameTable("12", this::rename);
+        FXMenuItem renameTable = MenuItemHelper.renameTable( this::rename);
         items.add(renameTable);
-        FXMenuItem clearTable = MenuItemHelper.clearTableData("12", this::clearTableData);
+        FXMenuItem clearTable = MenuItemHelper.clearTableData( this::clearTableData);
         items.add(clearTable);
-        FXMenuItem truncateTable = MenuItemHelper.truncateTable("12", this::truncateTable);
+        FXMenuItem truncateTable = MenuItemHelper.truncateTable( this::truncateTable);
         items.add(truncateTable);
-        FXMenuItem dropTable = MenuItemHelper.deleteTable("12", this::delete);
+        FXMenuItem dropTable = MenuItemHelper.deleteTable( this::delete);
         items.add(dropTable);
         items.add(MenuItemHelper.separator());
-        FXMenuItem dumpTable = MenuItemHelper.dumpData("12", this::dump);
+        FXMenuItem dumpTable = MenuItemHelper.dumpData( this::dump);
         items.add(dumpTable);
-        FXMenuItem exportTable = MenuItemHelper.exportData("12", this::export);
+        FXMenuItem exportTable = MenuItemHelper.exportData( this::export);
         items.add(exportTable);
-        FXMenuItem tableInfo = MenuItemHelper.tableInfo("12", this::tableInfo);
+        FXMenuItem tableInfo = MenuItemHelper.tableInfo( this::tableInfo);
         items.add(tableInfo);
 
         // 克隆表

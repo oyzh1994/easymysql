@@ -53,7 +53,6 @@ import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
 import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.easymysql.util.DBUtil;
-import cn.oyzh.ssh.SSHForwarder;
 import com.alibaba.druid.DbType;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -88,10 +87,10 @@ public class MysqlClient {
      */
     protected final MysqlConnect dbConnect;
 
-    /**
-     * ssh端口转发器
-     */
-    private SSHForwarder sshForwarder;
+//    /**
+//     * ssh端口转发器
+//     */
+//    private SSHForwarder sshForwarder;
 
     /**
      * 数据库连接管理器
@@ -346,10 +345,10 @@ public class MysqlClient {
     public void close() {
         try {
             this.connectionManager.destroy();
-            // 销毁端口转发
-            if (this.dbConnect.isSSHForward()) {
-                this.sshForwarder.destroy();
-            }
+//            // 销毁端口转发
+//            if (this.dbConnect.isSSHForward()) {
+//                this.sshForwarder.destroy();
+//            }
             JulLog.info("dbClient closed.");
             this.state.set(DBConnState.CLOSED);
         } catch (Exception ex) {

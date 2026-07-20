@@ -1,8 +1,6 @@
 package cn.oyzh.easymysql.mysql.routine;
 
-import cn.oyzh.common.cache.CacheHelper;
 import cn.oyzh.common.util.StringUtil;
-import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.DBObjectStatus;
 import cn.oyzh.easymysql.fx.DBCharsetComboBox;
@@ -10,6 +8,7 @@ import cn.oyzh.easymysql.fx.DBCollationComboBox;
 import cn.oyzh.easymysql.fx.routine.MysqlParamModeComboBox;
 import cn.oyzh.easymysql.fx.table.DBEnumTextFiled;
 import cn.oyzh.easymysql.fx.table.MysqlFiledTypeComboBox;
+import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.easymysql.util.DBColumnUtil;
 import cn.oyzh.easymysql.util.DBUtil;
 import cn.oyzh.fx.gui.text.field.ClearableTextField;
@@ -27,6 +26,8 @@ import java.util.List;
  * @since 2024/7/1
  */
 public class MysqlRoutineParam extends DBObjectStatus {
+
+    private MysqlClient dbClient;
 
     /**
      * 名称
@@ -129,10 +130,10 @@ public class MysqlRoutineParam extends DBObjectStatus {
         if (this.charsetControl != null) {
             return this.charsetControl;
         }
-        MysqlClient dbClient = CacheHelper.get("dbClient");
+        //MysqlClient dbClient = CacheHelper.get("mysql:dbClient");
         DBCharsetComboBox comboBox = new DBCharsetComboBox();
         this.charsetControl = comboBox;
-        comboBox.init(dbClient);
+        comboBox.init(this.dbClient);
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setCharset(newValue));
         comboBox.select(this.getCharset());
         // Runnable func = () -> {
@@ -258,10 +259,10 @@ public class MysqlRoutineParam extends DBObjectStatus {
         if (this.collationControl != null) {
             return collationControl;
         }
-        MysqlClient dbClient = CacheHelper.get("dbClient");
+        //MysqlClient dbClient = CacheHelper.get("mysql:dbClient");
         DBCollationComboBox comboBox = new DBCollationComboBox();
         this.collationControl = comboBox;
-        comboBox.init(this.getCharset(), dbClient);
+        comboBox.init(this.getCharset(), this.dbClient);
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setCollation(newValue));
         comboBox.select(this.getCollation());
         // this.charsetProperty.addListener((observable, oldValue, newValue) -> {
@@ -419,8 +420,12 @@ public class MysqlRoutineParam extends DBObjectStatus {
         this.putOriginalData("collation", collation);
     }
 
-    {
-        MysqlClient dbClient = CacheHelper.get("dbClient");
+    public void setDbClient(MysqlClient dbClient){
+        if (this.dbClient != null) {
+            return;
+        }
+        this.dbClient = dbClient;
+        //MysqlClient dbClient = CacheHelper.get("mysql:dbClient");
         if (dbClient != null) {
             // 类型变更
             this.typeProperty.addListener((observable, oldValue, newValue) -> {

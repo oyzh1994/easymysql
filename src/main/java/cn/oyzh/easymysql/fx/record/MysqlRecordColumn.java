@@ -65,7 +65,7 @@ public class MysqlRecordColumn extends FXTableColumn<MysqlRecord, Object> {
         vBox.addChild(colComment);
         this.setGraphic(vBox);
 
-        FXContextMenu menu = new FXContextMenu();
+        FXContextMenu menu = new FXContextMenu(this);
         FXMenuItem fieldInfo = MenuItemHelper.columnInfo(() -> this.showColumnInfo(column));
         menu.addItem(fieldInfo);
         FXMenuItem copyFieldName = MenuItemHelper.copyColumnName(() -> this.copyColumnName(column));

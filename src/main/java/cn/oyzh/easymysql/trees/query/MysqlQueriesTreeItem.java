@@ -42,9 +42,9 @@ public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> 
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        FXMenuItem addQuery = MenuItemHelper.addQuery("12", this::addQuery);
+        FXMenuItem addQuery = MenuItemHelper.addQuery( this::addQuery);
         items.add(addQuery);
-        FXMenuItem reload = MenuItemHelper.refreshData("12", this::reloadChild);
+        FXMenuItem reload = MenuItemHelper.refreshData( this::reloadChild);
         items.add(reload);
         return items;
     }
@@ -115,11 +115,11 @@ public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> 
         }
     }
 
-    @Override
-    public synchronized void doFilter(RichTreeItemFilter itemFilter) {
-        super.doFilter(itemFilter);
-        this.refresh();
-    }
+    //@Override
+    //public synchronized void doFilter(RichTreeItemFilter itemFilter) {
+    //    super.doFilter(itemFilter);
+    //    this.refresh();
+    //}
 
     public Integer querySize() {
         List<MysqlQuery> dbQueries = MysqlQueryStore.INSTANCE.list(this.info().getId(), this.dbName());

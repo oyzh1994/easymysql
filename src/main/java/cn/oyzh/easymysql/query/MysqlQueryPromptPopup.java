@@ -222,7 +222,7 @@ public class MysqlQueryPromptPopup extends FXPopup {
             // 生成标志位
             int promptFlagVal = this.promptFlag.incrementAndGet();
             // 延迟显示提示词
-            TaskManager.startDelay("query:prompt" + this.hashCode(), () -> {
+            TaskManager.startDelay(() -> {
                 // 初始化提示词
                 if (this.promptFlag.get() == promptFlagVal) {
                     if (this.initPrompts(this.token)) {
@@ -270,7 +270,7 @@ public class MysqlQueryPromptPopup extends FXPopup {
             if (this.token != null) {
                 // IndexRange range = new IndexRange(this.token.getStartIndex(), this.token.getEndIndex());
                 editor.replaceText(this.token.getStartIndex(), this.token.getEndIndex(), item.wrapContent());
-                editor.positionCaret(this.token.getEndIndex() + item.getContent().length() - 1);
+//                editor.positionCaret(this.token.getEndIndex() + item.getContent().length() - 1);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

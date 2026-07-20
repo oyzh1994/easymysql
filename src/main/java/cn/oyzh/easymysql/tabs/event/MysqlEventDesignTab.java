@@ -16,10 +16,6 @@ import javafx.scene.Cursor;
  */
 public class MysqlEventDesignTab extends MysqlTab {
 
-    {
-        this.setClosable(true);
-    }
-
     @Override
     protected String url() {
         return super.getBasePath() + "event/mysqlEventDesignTab.fxml";
@@ -29,7 +25,7 @@ public class MysqlEventDesignTab extends MysqlTab {
     public void flushGraphic() {
         SVGGlyph graphic = (SVGGlyph) this.getGraphic();
         if (graphic == null) {
-            graphic = new SVGGlyph("/font/event.svg", "12");
+            graphic = new SVGGlyph("/font/event.svg");
             graphic.setCursor(Cursor.DEFAULT);
             this.setGraphic(graphic);
         }

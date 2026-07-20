@@ -35,6 +35,8 @@ import cn.oyzh.easymysql.event.table.MysqlTableClearedEvent;
 import cn.oyzh.easymysql.event.table.MysqlTableDesignEvent;
 import cn.oyzh.easymysql.event.table.MysqlTableDroppedEvent;
 import cn.oyzh.easymysql.event.table.MysqlTableFilteredEvent;
+import cn.oyzh.easymysql.event.terminal.DBTerminalCloseEvent;
+import cn.oyzh.easymysql.event.terminal.DBTerminalOpenEvent;
 import cn.oyzh.easymysql.event.table.MysqlTableOpenEvent;
 import cn.oyzh.easymysql.event.table.MysqlTableRenamedEvent;
 import cn.oyzh.easymysql.event.table.MysqlTableTruncatedEvent;
@@ -335,34 +337,26 @@ public class MysqlEventUtil {
         EventUtil.post(event);
     }
 
-    // /**
-    //  * 终端打开事件
-    //  */
-    // public static void terminalOpen() {
-    //     terminalOpen(null);
-    // }
-    //
-    // /**
-    //  * 终端打开事件
-    //  *
-    //  * @param info redis信息
-    //  */
-    // public static void terminalOpen(MysqlConnect info) {
-    //     DBTerminalOpenEvent event = new DBTerminalOpenEvent();
-    //     event.data(info);
-    //     EventUtil.post(event);
-    // }
-    //
-    // /**
-    //  * 终端关闭事件
-    //  *
-    //  * @param info redis信息
-    //  */
-    // public static void terminalClose(MysqlConnect info) {
-    //     DBTerminalCloseEvent event = new DBTerminalCloseEvent();
-    //     event.data(info);
-    //     EventUtil.post(event);
-    // }
+    /**
+     * 终端打开事件
+     */
+    public static void terminalOpen(MysqlClient client, String dbName) {
+        DBTerminalOpenEvent event = new DBTerminalOpenEvent();
+        event.data(client);
+        event.setDbName(dbName);
+        EventUtil.post(event);
+    }
+
+    /**
+     * 终端关闭事件
+     *
+     * @param client mysql客户端
+     */
+    public static void terminalClose(MysqlClient client) {
+        DBTerminalCloseEvent event = new DBTerminalCloseEvent();
+        event.data(client);
+        EventUtil.post(event);
+    }
 
 //    /**
 //     * 树节点变化事件

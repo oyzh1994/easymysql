@@ -17,14 +17,14 @@ public class MysqlFunctionTreeItemValue extends RichTreeItemValue {
     }
 
     @Override
-    protected MysqlFunctionTreeItem item() {
+    public MysqlFunctionTreeItem item() {
         return (MysqlFunctionTreeItem) super.item();
     }
 
     @Override
     public SVGGlyph graphic() {
-        if (this.graphic == null) {
-            this.graphic = new FunctionSVGGlyph("12");
+        if (super.graphic() == null) {
+            super.graphic(new FunctionSVGGlyph());
         }
         return super.graphic();
     }

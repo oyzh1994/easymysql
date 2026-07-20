@@ -18,10 +18,6 @@ import javafx.scene.Cursor;
  */
 public class MysqlViewDesignTab extends MysqlTab {
 
-    {
-        this.setClosable(true);
-    }
-
     @Override
     protected String url() {
         return super.getBasePath() + "view/mysqlViewDesignTab.fxml";

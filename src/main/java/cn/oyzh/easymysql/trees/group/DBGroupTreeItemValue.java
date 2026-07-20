@@ -19,7 +19,7 @@ public class DBGroupTreeItemValue extends RichTreeItemValue {
     }
 
     @Override
-    protected DBGroupTreeItem item() {
+    public DBGroupTreeItem item() {
         return (DBGroupTreeItem) super.item();
     }
 
@@ -30,16 +30,16 @@ public class DBGroupTreeItemValue extends RichTreeItemValue {
 
     @Override
     public SVGGlyph graphic() {
-        if (this.graphic == null) {
-            this.graphic = new GroupSVGGlyph("10");
-            this.graphic.disableTheme();
+        if (super.graphic() == null) {
+            super.graphic(new GroupSVGGlyph());
+            super.graphic().disableTheme();
         }
         return super.graphic();
     }
 
     @Override
     public Color graphicColor() {
-        if (!this.item.isChildEmpty()) {
+        if (!this.item().isChildEmpty()) {
            return Color.DEEPSKYBLUE;
         }
         return super.graphicColor();
