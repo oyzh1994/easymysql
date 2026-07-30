@@ -2,6 +2,7 @@ package cn.oyzh.easymysql.mysql;
 
 import cn.oyzh.common.log.JulLog;
 import cn.oyzh.common.util.CollectionUtil;
+import cn.oyzh.common.util.IOUtil;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.condition.MysqlConditionUtil;
 import cn.oyzh.easymysql.db.DBConnConfig;
@@ -10,7 +11,16 @@ import cn.oyzh.easymysql.db.DBConnectionManager;
 import cn.oyzh.easymysql.db.DBDatabase;
 import cn.oyzh.easymysql.db.DBDialect;
 import cn.oyzh.easymysql.db.DBFeature;
+import cn.oyzh.easymysql.domain.MysqlConnect;
+import cn.oyzh.easymysql.event.MysqlEventUtil;
+import cn.oyzh.easymysql.exception.DBException;
+import cn.oyzh.easymysql.exception.ReadonlyOperationException;
+import cn.oyzh.easymysql.generator.event.EventAlertSqlGenerator;
+import cn.oyzh.easymysql.generator.event.EventCreateSqlGenerator;
 import cn.oyzh.easymysql.generator.routine.MysqlFunctionSqlGenerator;
+import cn.oyzh.easymysql.generator.routine.MysqlProcedureSqlGenerator;
+import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
+import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 import cn.oyzh.easymysql.mysql.check.MysqlCheck;
 import cn.oyzh.easymysql.mysql.check.MysqlChecks;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
@@ -37,20 +47,11 @@ import cn.oyzh.easymysql.mysql.record.MysqlUpdateRecordParam;
 import cn.oyzh.easymysql.mysql.routine.MysqlRoutineParam;
 import cn.oyzh.easymysql.mysql.table.MysqlAlertTableParam;
 import cn.oyzh.easymysql.mysql.table.MysqlCreateTableParam;
-import cn.oyzh.easymysql.mysql.table.MysqlTable;
 import cn.oyzh.easymysql.mysql.table.MysqlSelectTableParam;
+import cn.oyzh.easymysql.mysql.table.MysqlTable;
 import cn.oyzh.easymysql.mysql.trigger.MysqlTrigger;
 import cn.oyzh.easymysql.mysql.trigger.MysqlTriggers;
 import cn.oyzh.easymysql.mysql.view.MysqlView;
-import cn.oyzh.easymysql.domain.MysqlConnect;
-import cn.oyzh.easymysql.event.MysqlEventUtil;
-import cn.oyzh.easymysql.exception.DBException;
-import cn.oyzh.easymysql.exception.ReadonlyOperationException;
-import cn.oyzh.easymysql.generator.event.EventAlertSqlGenerator;
-import cn.oyzh.easymysql.generator.event.EventCreateSqlGenerator;
-import cn.oyzh.easymysql.generator.routine.MysqlProcedureSqlGenerator;
-import cn.oyzh.easymysql.generator.table.MysqlTableAlertSqlGenerator;
-import cn.oyzh.easymysql.generator.table.MysqlTableCreateSqlGenerator;
 import cn.oyzh.easymysql.sql.DBSqlParser;
 import cn.oyzh.easymysql.util.DBUtil;
 import com.alibaba.druid.DbType;
@@ -87,10 +88,10 @@ public class MysqlClient {
      */
     protected final MysqlConnect dbConnect;
 
-//    /**
-//     * ssh端口转发器
-//     */
-//    private SSHForwarder sshForwarder;
+    //    /**
+    //     * ssh端口转发器
+    //     */
+    //    private SSHForwarder sshForwarder;
 
     /**
      * 数据库连接管理器
@@ -345,10 +346,10 @@ public class MysqlClient {
     public void close() {
         try {
             this.connectionManager.destroy();
-//            // 销毁端口转发
-//            if (this.dbConnect.isSSHForward()) {
-//                this.sshForwarder.destroy();
-//            }
+            //            // 销毁端口转发
+            //            if (this.dbConnect.isSSHForward()) {
+            //                this.sshForwarder.destroy();
+            //            }
             JulLog.info("dbClient closed.");
             this.state.set(DBConnState.CLOSED);
         } catch (Exception ex) {
@@ -1141,7 +1142,7 @@ public class MysqlClient {
             sql = sql.replaceAll(",\\)", ")");
             DBUtil.printSql(sql);
             Connection connection = this.connection(param.getDbName(), param.getSchema());
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             int index = 1;
             for (String colName : param.getRecord().columns()) {
                 DBUtil.setVal(statement, param.getRecord().value(colName), index++);
@@ -1150,7 +1151,15 @@ public class MysqlClient {
             MysqlRecordPrimaryKey primaryKey = param.getPrimaryKey();
             // 处理自动递增值
             if (primaryKey != null && primaryKey.shouldReturnData()) {
-                primaryKey.setReturnData(MysqlHelper.lastInsertId(connection));
+                ResultSet rs = statement.getGeneratedKeys();
+                Long newId;
+                if (rs.next()) {
+                    newId = rs.getLong(1);
+                } else {
+                    newId = MysqlHelper.lastInsertId(connection);
+                }
+                IOUtil.close(rs);
+                primaryKey.setReturnData(newId);
             }
             DBUtil.close(statement);
             return count;
