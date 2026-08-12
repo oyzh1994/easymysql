@@ -1,8 +1,12 @@
 package cn.oyzh.easymysql.fx;
 
 import cn.oyzh.easymysql.db.DBDialect;
+import cn.oyzh.easymysql.domain.MysqlSetting;
+import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.fx.editor.incubator.Editor;
 import cn.oyzh.fx.editor.incubator.EditorFormatType;
+import cn.oyzh.fx.plus.font.FontManager;
+import javafx.scene.text.Font;
 
 /**
  * db编辑器
@@ -29,5 +33,15 @@ public class DBEditor extends Editor {
 
     public void setDialect(DBDialect dialect) {
         this.dialect = dialect;
+    }
+
+    @Override
+    protected Font getEditorFont() {
+        if (super.getEditorFont() == null) {
+            MysqlSetting setting = MysqlSettingStore.SETTING;
+            Font font = FontManager.toFont(setting.editorFontConfig());
+            super.setEditorFont(font);
+        }
+        return super.getEditorFont();
     }
 }
