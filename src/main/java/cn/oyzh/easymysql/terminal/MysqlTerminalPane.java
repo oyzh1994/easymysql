@@ -33,12 +33,8 @@ public class MysqlTerminalPane extends TerminalPane {
 
     @Override
     protected Font getEditorFont() {
-        if (super.getEditorFont() == null) {
-            MysqlSetting setting = MysqlSettingStore.SETTING;
-            Font font = FontManager.toFont(setting.terminalFontConfig());
-            super.setEditorFont(font);
-        }
-        return super.getEditorFont();
+        MysqlSetting setting = MysqlSettingStore.SETTING;
+        return FontManager.toFont(setting.terminalFontConfig());
     }
 
     /**
