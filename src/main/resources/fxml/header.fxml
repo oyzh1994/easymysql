@@ -9,7 +9,7 @@
 <!--<?import cn.oyzh.fx.gui.svg.label.CollapseSVGLabel?>-->
 <!--<?import cn.oyzh.fx.gui.svg.label.ExpandSVGLabel?>-->
 <!--<?import cn.oyzh.fx.gui.svg.label.QuitSVGLabel?>-->
-<!--<FXFlowPane styleClass="root" xmlns:fx="http://javafx.com/fxml/1"-->
+<!--<FXFlowPane  xmlns:fx="http://javafx.com/fxml/1"-->
 <!--              fx:controller="cn.oyzh.easymysql.controller.HeaderController" flexWidth="100%" realHeight="30">-->
 <!--&lt;!&ndash;    <SearchSVGLabel onMousePrimaryClicked="#search" tipText="%base.searchTip5" size="14">&ndash;&gt;-->
 <!--&lt;!&ndash;        <FlowPane.margin>&ndash;&gt;-->

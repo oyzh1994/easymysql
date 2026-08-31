@@ -12,7 +12,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<FXVBox  xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="cn.oyzh.easymysql.controller.table.MysqlTableInfoController" realWidth="900" realHeight="600">
     <FXTabPane flexWidth="100%" flexHeight="100% - 50">
         <FixedTab text="%base.base">

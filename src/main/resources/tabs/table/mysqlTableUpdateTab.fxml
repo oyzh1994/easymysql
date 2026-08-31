@@ -20,7 +20,7 @@
 <!-- <?import cn.oyzh.fx.gui.label.AccentLabel?> -->
 <!-- <?import cn.oyzh.fx.gui.text.field.NumberTextField?> -->
 <!-- <?import cn.oyzh.fx.plus.controls.text.area.FXTextArea?> -->
-<!-- <FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1" -->
+<!-- <FXVBox  xmlns:fx="http://javafx.com/fxml/1" -->
 <!--           fx:controller="cn.oyzh.easymysql.tabs.table.MysqlTableUpdateTabController" flexWidth="100%" flexHeight="100%"> -->
 <!--     <FXHBox realHeight="25" flexWidth="100%"> -->
 <!--         <SaveSVGGlyph fx:id="save" onMousePrimaryClicked="#save" size="14"> -->
