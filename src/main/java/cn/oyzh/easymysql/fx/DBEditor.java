@@ -36,7 +36,7 @@ public class DBEditor extends Editor {
     }
 
     @Override
-    protected Font getEditorFont() {
+    public Font getEditorFont() {
         MysqlSetting setting = MysqlSettingStore.SETTING;
         return FontManager.toFont(setting.editorFontConfig());
     }

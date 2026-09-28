@@ -33,7 +33,7 @@ import java.util.List;
 public class MysqlTerminalPane extends TerminalPane {
 
     @Override
-    protected Font getEditorFont() {
+    public Font getEditorFont() {
         MysqlSetting setting = MysqlSettingStore.SETTING;
         return FontManager.toFont(setting.terminalFontConfig());
     }
