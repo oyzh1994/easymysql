@@ -22,6 +22,8 @@ public class MysqlEngineComboBox extends FXComboBox<String> {
     public void select(String engine) {
         if (engine != null) {
             super.select(engine.toUpperCase());
+        } else {
+            super.clearSelection();
         }
     }
 

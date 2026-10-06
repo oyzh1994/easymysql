@@ -18,7 +18,7 @@
 <?import cn.oyzh.fx.gui.button.CancelButton?>
 <?import cn.oyzh.fx.gui.button.SubmitButton?>
 <?import cn.oyzh.fx.gui.label.InfoLabel?>
-<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<FXVBox  xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.connect.MysqlConnectUpdateController" realWidth="750"
           realHeight="420">
     <FXTabPane flexWidth="100%" flexHeight="100% - 60" fx:id="tabPane">

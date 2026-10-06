@@ -12,6 +12,7 @@ import cn.oyzh.easymysql.mysql.query.MysqlQueryResults;
 import cn.oyzh.easymysql.mysql.record.MysqlRecord;
 import cn.oyzh.easymysql.store.MysqlSettingStore;
 import cn.oyzh.fx.plus.font.FontManager;
+import cn.oyzh.fx.plus.util.FXUtil;
 import cn.oyzh.fx.terminal.TerminalPane;
 import cn.oyzh.fx.terminal.command.TerminalCommand;
 import cn.oyzh.fx.terminal.command.TerminalCommandHandler;
@@ -32,13 +33,9 @@ import java.util.List;
 public class MysqlTerminalPane extends TerminalPane {
 
     @Override
-    protected Font getEditorFont() {
-        if (super.getEditorFont() == null) {
-            MysqlSetting setting = MysqlSettingStore.SETTING;
-            Font font = FontManager.toFont(setting.terminalFontConfig());
-            super.setEditorFont(font);
-        }
-        return super.getEditorFont();
+    public Font getEditorFont() {
+        MysqlSetting setting = MysqlSettingStore.SETTING;
+        return FontManager.toFont(setting.terminalFontConfig());
     }
 
     /**
@@ -103,15 +100,17 @@ public class MysqlTerminalPane extends TerminalPane {
         this.client = client;
         this.dbConnect = client != null ? client.getDbConnect() : null;
         this.dbName = dbName;
-        this.disableInput();
-        this.outputLine("Welcome to EasyMySQL Terminal.");
-        this.outputLine("Powered By oyzh(2024-2026).");
-        this.flushPrompt();
-        if (this.isTemporary()) {
-            this.initByTemporary();
-        } else {
-            this.initByPermanent();
-        }
+        FXUtil.runLater(() -> {
+            this.disableInput();
+            this.outputLine("Welcome to EasyMySQL Terminal.");
+            this.outputLine("Powered By oyzh(2024-2026).");
+            this.flushPrompt();
+            if (this.isTemporary()) {
+                this.initByTemporary();
+            } else {
+                this.initByPermanent();
+            }
+        });
     }
 
     public String getDbName() {
@@ -185,15 +184,15 @@ public class MysqlTerminalPane extends TerminalPane {
         this.flushAndMoveCaretEnd();
     }
 
-    /**
-     * 刷新光标并移动到尾部
-     */
-    private void flushAndMoveCaretEnd() {
-        ExecutorUtil.start(() -> {
-            this.flushCaret();
-            this.moveCaretEnd();
-        }, 50);
-    }
+    // /**
+    //  * 刷新光标并移动到尾部
+    //  */
+    // private void flushAndMoveCaretEnd() {
+    //     ExecutorUtil.start(() -> {
+    //         this.flushCaret();
+    //         this.moveCaretEnd();
+    //     }, 50);
+    // }
 
     /**
      * 初始化连接状态监听器
@@ -353,13 +352,13 @@ public class MysqlTerminalPane extends TerminalPane {
             sb.append(this.lineEndingText());
         }
 
-        sb.append(records.size()).append(" row(s) in set");
+        sb.append("#").append(records.size()).append(" row(s) in set");
 
         long ms = result.getUsedMs();
         if (ms > 0) {
             sb.append(" (").append(ms).append(" ms)");
         }
-        return sb.toString();
+        return sb.append("#").toString();
     }
 
     @Override

@@ -10,7 +10,7 @@
 <?import cn.oyzh.fx.plus.controls.pane.FXPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.VBox?>
-<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"
+<FXVBox  xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="cn.oyzh.easymysql.controller.HeaderController2" flexWidth="100%" flexHeight="100%">
     <TransportSVGGlyph onMousePrimaryClicked="#transport" size="12">
         <VBox.margin>

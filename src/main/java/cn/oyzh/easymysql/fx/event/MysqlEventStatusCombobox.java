@@ -27,6 +27,8 @@ public class MysqlEventStatusCombobox extends FXComboBox<String> {
             } else {
                 super.select(val.toUpperCase());
             }
+        } else {
+            super.clearSelection();
         }
     }
 

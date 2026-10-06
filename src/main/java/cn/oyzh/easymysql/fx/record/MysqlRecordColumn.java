@@ -1,6 +1,5 @@
 package cn.oyzh.easymysql.fx.record;
 
-import atlantafx.base.controls.Popover;
 import cn.oyzh.easymysql.mysql.column.MysqlColumn;
 import cn.oyzh.easymysql.mysql.record.MysqlRecord;
 import cn.oyzh.easymysql.popups.MysqlFieldInfoPopupController;
@@ -18,7 +17,6 @@ import cn.oyzh.fx.plus.window.PopupManager;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
-import javafx.stage.PopupWindow;
 
 
 /**
@@ -79,7 +77,7 @@ public class MysqlRecordColumn extends FXTableColumn<MysqlRecord, Object> {
      * @param column 字段
      */
     private void showColumnInfo(MysqlColumn column) {
-        PopupAdapter popup = PopupManager.parsePopup(MysqlFieldInfoPopupController.class, Popover.ArrowLocation.TOP_LEFT, PopupWindow.AnchorLocation.CONTENT_TOP_LEFT);
+        PopupAdapter popup = PopupManager.parsePopup(MysqlFieldInfoPopupController.class);
         popup.setProp("column", column);
         popup.showPopup(this.getGraphic(), MouseUtil.getMouseX(), MouseUtil.getMouseY());
     }

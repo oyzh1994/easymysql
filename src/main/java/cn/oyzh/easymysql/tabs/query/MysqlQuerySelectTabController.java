@@ -1,5 +1,6 @@
 package cn.oyzh.easymysql.tabs.query;
 
+import cn.oyzh.common.util.TextUtil;
 import cn.oyzh.easymysql.db.DBObjectList;
 import cn.oyzh.easymysql.fx.DBStatusColumn;
 import cn.oyzh.easymysql.fx.record.MysqlRecordColumn;
@@ -155,8 +156,8 @@ public class MysqlQuerySelectTabController extends RichTabController {
             // 初始化数据
             this.initRecords(this.result.getRecords());
             // 初始化sql信息
-            this.sql.setText(this.result.getSql());
-            this.used.setText(I18nHelper.time() + ": " + this.result.getUsedMs() + "ms");
+            this.sql.text(TextUtil.toSingleLine(this.result.getSql()));
+            this.used.text(I18nHelper.time() + ": " + this.result.getUsedMs() + "ms");
             // this.count.setText(I18nHelper.totalData() + ": " + this.result.getCount());
             // 初始化计数
             this.initCount(this.result.getCount());

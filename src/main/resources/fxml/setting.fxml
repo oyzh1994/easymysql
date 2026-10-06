@@ -20,7 +20,7 @@
 <!--<?import cn.oyzh.fx.gui.button.ResetButton?>-->
 <!--<?import cn.oyzh.fx.gui.button.SaveButton?>-->
 <!--<?import cn.oyzh.fx.gui.button.CancelButton?>-->
-<!--<FXVBox styleClass="root" xmlns:fx="http://javafx.com/fxml/1"-->
+<!--<FXVBox  xmlns:fx="http://javafx.com/fxml/1"-->
 <!--          fx:controller="cn.oyzh.easymysql.controller.SettingController" realWidth="500" realHeight="350">-->
 <!--    <FXTabPane flexWidth="100%" flexHeight="100% - 60">-->
 <!--        <FixedTab text="%base.window">-->
