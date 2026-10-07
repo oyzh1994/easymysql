@@ -59,10 +59,7 @@ public abstract class MysqlQueryResult {
      * @return 是否存在结果
      */
     public boolean hasResult() {
-        if (CollectionUtil.isNotEmpty(this.records)) {
-            return true;
-        }
-        return this.columns == null || this.columns.isEmpty();
+        return CollectionUtil.isNotEmpty(this.records);
     }
 
     /**
