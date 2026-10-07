@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
+ * MySQL解释结果
+ *
  * @author oyzh
  * @since 2024/08/16
  */

@@ -48,10 +48,20 @@ public class MysqlTableDesignTab extends MysqlTab {
         }
     }
 
+    /**
+     * 获取表名称
+     *
+     * @return 表名称
+     */
     public String tableName() {
         return this.controller().tableName();
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String dbName() {
         return this.controller().dbName();
     }
@@ -78,6 +88,11 @@ public class MysqlTableDesignTab extends MysqlTab {
         return (MysqlTableDesignTabController) super.controller();
     }
 
+    /**
+     * 是否未保存
+     *
+     * @return 结果
+     */
     public boolean isUnsaved() {
         return this.controller().isUnsaved();
     }

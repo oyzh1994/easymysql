@@ -15,14 +15,21 @@ public class DBTypeComboBox extends FXComboBox<DBDialect> {
         this.setItem(DBDialect.valueList());
     }
 
+    /** 获取类型名称 */
     public String getType() {
         return this.getSelectedItem().name();
     }
 
+    /** 是否mysql类型 */
     public boolean isMysql() {
         return this.getSelectedItem() == DBDialect.MYSQL;
     }
 
+    /**
+     * 选择类型
+     *
+     * @param type 类型名称
+     */
     public void selectType(String type) {
         if (type != null) {
             for (DBDialect item : this.getItems()) {

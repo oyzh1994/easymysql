@@ -21,15 +21,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 表修改sql生成器
+ *
  * @author oyzh
  * @since 2024/09/11
  */
 public class MysqlTableAlertSqlGenerator {
 
+    /**
+     * sql列表
+     */
     private List<String> sqlList;
 
+    /**
+     * sql构建器
+     */
     private StringBuilder sqlBuilder;
 
+    /**
+     * 生成sql
+     *
+     * @param param 修改表参数
+     * @return sql语句
+     */
     public String generate(MysqlAlertTableParam param) {
         this.sqlList = new ArrayList<>();
         this.sqlBuilder = new StringBuilder();
@@ -94,6 +108,11 @@ public class MysqlTableAlertSqlGenerator {
         return this.buildSql();
     }
 
+    /**
+     * 构建sql
+     *
+     * @return 构建后的sql语句
+     */
     private String buildSql() {
         StringBuilder builder = new StringBuilder();
         builder.append(this.sqlBuilder);
@@ -103,6 +122,11 @@ public class MysqlTableAlertSqlGenerator {
         return builder.toString().trim();
     }
 
+    /**
+     * 处理触发器
+     *
+     * @param param 修改表参数
+     */
     protected void triggerHandle(MysqlAlertTableParam param) {
         MysqlTriggers triggers = param.getTriggers();
         for (MysqlTrigger trigger : triggers) {
@@ -129,6 +153,12 @@ public class MysqlTableAlertSqlGenerator {
         }
     }
 
+    /**
+     * 处理字段
+     *
+     * @param builder 构建器
+     * @param param   修改表参数
+     */
     protected void columnHandle(StringBuilder builder, MysqlAlertTableParam param) {
         for (MysqlColumn column : param.getColumns()) {
             // 修改或者新增字段
@@ -217,6 +247,12 @@ public class MysqlTableAlertSqlGenerator {
         StringUtil.deleteLast(builder, ",");
     }
 
+    /**
+     * 处理主键
+     *
+     * @param builder 构建器
+     * @param table   修改表参数
+     */
     protected void primaryKeyHandle(StringBuilder builder, MysqlAlertTableParam table) {
         if(!builder.toString().endsWith(",")){
             builder.append(",");
@@ -248,6 +284,12 @@ public class MysqlTableAlertSqlGenerator {
         StringUtil.deleteLast(builder, ",");
     }
 
+    /**
+     * 处理索引
+     *
+     * @param builder 构建器
+     * @param param   修改表参数
+     */
     protected void indexHandle(StringBuilder builder, MysqlAlertTableParam param) {
         // if(!builder.toString().endsWith(",")){
         //     builder.append(",");
@@ -298,6 +340,12 @@ public class MysqlTableAlertSqlGenerator {
         // }
     }
 
+    /**
+     * 处理外键新增与变更
+     *
+     * @param builder 构建器
+     * @param table   修改表参数
+     */
     protected void foreignKeyHandle1(StringBuilder builder, MysqlAlertTableParam table) {
         MysqlForeignKeys foreignKeys = table.getForeignKeys();
         if (!foreignKeys.hasCreated() && !foreignKeys.hasChanged()) {
@@ -332,6 +380,12 @@ public class MysqlTableAlertSqlGenerator {
         StringUtil.deleteLast(builder, ",");
     }
 
+    /**
+     * 处理外键删除与变更
+     *
+     * @param builder 构建器
+     * @param param   修改表参数
+     */
     protected void foreignKeyHandle2(StringBuilder builder, MysqlAlertTableParam param) {
         MysqlForeignKeys foreignKeys = param.getForeignKeys();
         if (!foreignKeys.hasChanged() && !foreignKeys.hasDeleted()) {
@@ -353,6 +407,12 @@ public class MysqlTableAlertSqlGenerator {
         builder.append(";");
     }
 
+    /**
+     * 处理检查
+     *
+     * @param builder 构建器
+     * @param param   修改表参数
+     */
     protected void checkHandle(StringBuilder builder, MysqlAlertTableParam param) {
         if (!builder.toString().endsWith(",")) {
             builder.append(",");
@@ -379,6 +439,12 @@ public class MysqlTableAlertSqlGenerator {
         }
     }
 
+    /**
+     * 生成sql
+     *
+     * @param param 修改表参数
+     * @return sql语句
+     */
     public static String generateSql(MysqlAlertTableParam param) {
         return new MysqlTableAlertSqlGenerator().generate(param);
     }

@@ -52,6 +52,11 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      */
     private final MysqlGroupStore groupStore = MysqlGroupStore.INSTANCE;
 
+    /**
+     * 构造根树节点
+     *
+     * @param treeView 树视图
+     */
     public DBRootTreeItem( DBTreeView treeView) {
         super(treeView);
         this.setValue(new DBRootTreeItemValue());

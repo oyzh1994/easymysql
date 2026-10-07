@@ -126,7 +126,7 @@ public class MysqlViewDesignTabController extends RichTabController {
      * 执行初始化
      *
      * @param view   视图
-     * @param dbItem db库树节点
+     * @param dbItem 数据库树节点
      */
     public void init(MysqlView view, MysqlDatabaseTreeItem dbItem) {
         this.dbView = view;
@@ -246,14 +246,29 @@ public class MysqlViewDesignTabController extends RichTabController {
         NodeUtil.nodeOnCtrlS(this.definition, this::save);
     }
 
+    /**
+     * 获取库名称
+     *
+     * @return 库名称
+     */
     public String dbName() {
         return this.dbItem.dbName();
     }
 
+    /**
+     * 获取视图名称
+     *
+     * @return 视图名称
+     */
     public String viewName() {
         return this.dbView.getName();
     }
 
+    /**
+     * 获取数据库树节点
+     *
+     * @return 数据库树节点
+     */
     public MysqlDatabaseTreeItem getDbItem() {
         return dbItem;
     }
@@ -262,6 +277,11 @@ public class MysqlViewDesignTabController extends RichTabController {
     //     this.dbItem = dbItem;
     // }
 
+    /**
+     * 是否未保存
+     *
+     * @return 结果
+     */
     public boolean isUnsaved() {
         return unsaved;
     }

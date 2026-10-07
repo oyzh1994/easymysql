@@ -27,11 +27,21 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * db记录工具类
+ *
  * @author oyzh
  * @since 2024/7/17
  */
 public class DBRecordUtil {
 
+    /**
+     * 获取字段节点
+     *
+     * @param property 记录属性
+     * @param object   值
+     * @param column   字段
+     * @return 节点
+     */
     public static Node getNode(MysqlRecordProperty property, Object object, MysqlColumn column) {
         Node node;
         String columnType = column.getType();
@@ -101,6 +111,13 @@ public class DBRecordUtil {
         return node;
     }
 
+    /**
+     * 格式化字段值
+     *
+     * @param object 值
+     * @param column 字段
+     * @return 格式化后的值
+     */
     public static String formatValue(Object object, MysqlColumn column) {
         String val = null;
         String columnType = column.getType();
@@ -144,6 +161,11 @@ public class DBRecordUtil {
         return val;
     }
 
+    /**
+     * 获取空值提示文本
+     *
+     * @return 空值提示文本
+     */
     public static String nullPromptText() {
         return "(Null)";
     }
@@ -209,12 +231,24 @@ public class DBRecordUtil {
         return w3 + 30;
     }
 
+    /**
+     * 获取字段右键菜单
+     *
+     * @param property 记录属性
+     * @return 右键菜单
+     */
     public static ContextMenu getColumnContextMenu(MysqlRecordProperty property) {
         ContextMenu contextMenu = new ContextMenu();
         contextMenu.getItems().setAll(getColumnMenuItem(property));
         return contextMenu;
     }
 
+    /**
+     * 获取字段菜单项
+     *
+     * @param property 记录属性
+     * @return 菜单项列表
+     */
     public static List<FXMenuItem> getColumnMenuItem(MysqlRecordProperty property) {
         List<FXMenuItem> menuItems = new ArrayList<>();
         FXMenuItem copy = MenuItemHelper.copy_no_graphic(property::vCopy);

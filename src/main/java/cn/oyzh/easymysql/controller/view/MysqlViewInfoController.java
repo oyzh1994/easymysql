@@ -13,7 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
 
 /**
- * db表信息业务
+ * db视图信息业务
  *
  * @author oyzh
  * @since 2024/01/30

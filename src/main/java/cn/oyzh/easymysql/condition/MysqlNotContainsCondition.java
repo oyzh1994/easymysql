@@ -8,8 +8,14 @@ package cn.oyzh.easymysql.condition;
  */
 public class MysqlNotContainsCondition extends MysqlCondition {
 
+    /**
+     * 不包含条件实例
+     */
     public final static MysqlNotContainsCondition INSTANCE = new MysqlNotContainsCondition();
 
+    /**
+     * 构造方法
+     */
     public MysqlNotContainsCondition() {
         super("不包含", "NOT LIKE");
     }

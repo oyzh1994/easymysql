@@ -32,10 +32,21 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
      */
     private final MysqlQuery value;
 
+    /**
+     * 获取当前值
+     *
+     * @return 当前值
+     */
     public MysqlQuery value() {
         return value;
     }
 
+    /**
+     * 构造查询树节点
+     *
+     * @param query    查询
+     * @param treeView 树视图
+     */
     public MysqlQueryTreeItem(MysqlQuery query, RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
@@ -114,14 +125,29 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
         }
     }
 
+    /**
+     * 获取数据库树节点
+     *
+     * @return 数据库树节点
+     */
     public MysqlDatabaseTreeItem dbItem() {
         return this.parent().parent();
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String dbName() {
         return this.parent().dbName();
     }
 
+    /**
+     * 获取查询名称
+     *
+     * @return 查询名称
+     */
     public String queryName() {
         return this.value.getName();
     }
@@ -131,6 +157,11 @@ public class MysqlQueryTreeItem extends DBTreeItem<MysqlQueryTreeItemValue> {
         MysqlEventUtil.queryOpen(this.value, this.dbItem());
     }
 
+    /**
+     * 获取数据库连接
+     *
+     * @return 数据库连接
+     */
     public MysqlConnect dbConnect() {
         return this.client().getDbConnect();
     }

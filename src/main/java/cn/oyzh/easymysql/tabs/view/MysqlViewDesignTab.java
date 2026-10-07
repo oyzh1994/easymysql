@@ -47,10 +47,20 @@ public class MysqlViewDesignTab extends MysqlTab {
         }
     }
 
+    /**
+     * 获取库名称
+     *
+     * @return 库名称
+     */
     public String dbName() {
         return this.controller().dbName();
     }
 
+    /**
+     * 获取视图名称
+     *
+     * @return 视图名称
+     */
     public String viewName() {
         return this.controller().viewName();
     }
@@ -63,7 +73,8 @@ public class MysqlViewDesignTab extends MysqlTab {
     /**
      * 初始化
      *
-     * @param item 树键
+     * @param view 视图对象
+     * @param item 数据库树节点
      */
     public void init(MysqlView view, MysqlDatabaseTreeItem item) {
         this.controller().init(view, item);
@@ -76,6 +87,11 @@ public class MysqlViewDesignTab extends MysqlTab {
         return (MysqlViewDesignTabController) super.controller();
     }
 
+    /**
+     * 是否未保存
+     *
+     * @return 结果
+     */
     public boolean isUnsaved() {
         return this.controller().isUnsaved();
     }

@@ -159,6 +159,8 @@ public class MysqlDataDumpController extends StageController {
 
     /**
      * 执行转储
+     *
+     * @throws IOException 文件操作异常
      */
     @FXML
     private void doDump() throws IOException {

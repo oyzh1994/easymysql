@@ -49,6 +49,11 @@ public class MysqlFunctionDesignTabController extends RichTabController {
      */
     private MysqlFunction function;
 
+    /**
+     * 获取函数
+     *
+     * @return 函数
+     */
     public MysqlFunction getFunction() {
         return function;
     }
@@ -225,8 +230,8 @@ public class MysqlFunctionDesignTabController extends RichTabController {
     /**
      * 执行初始化
      *
-     * @param function 查询对象
-     * @param dbItem   db库树节点
+     * @param function 函数对象
+     * @param dbItem   数据库树节点
      */
     public void init(MysqlFunction function, MysqlDatabaseTreeItem dbItem) {
         this.dbItem = dbItem;
@@ -596,18 +601,38 @@ public class MysqlFunctionDesignTabController extends RichTabController {
         }
     }
 
+    /**
+     * 是否未保存
+     *
+     * @return 结果
+     */
     public boolean isUnsaved() {
         return unsaved;
     }
 
+    /**
+     * 设置是否未保存
+     *
+     * @param unsaved 是否未保存
+     */
     public void setUnsaved(boolean unsaved) {
         this.unsaved = unsaved;
     }
 
+    /**
+     * 获取数据库树节点
+     *
+     * @return 数据库树节点
+     */
     public MysqlDatabaseTreeItem getDbItem() {
         return dbItem;
     }
 
+    /**
+     * 设置数据库树节点
+     *
+     * @param dbItem 数据库树节点
+     */
     public void setDbItem(MysqlDatabaseTreeItem dbItem) {
         this.dbItem = dbItem;
     }
@@ -624,6 +649,9 @@ public class MysqlFunctionDesignTabController extends RichTabController {
         this.initParamTable();
     }
 
+    /**
+     * 初始化参数表格
+     */
     private void initParamTable() {
         for (MysqlRoutineParam index : this.paramTable.itemList()) {
             index.setDbClient(this.dbItem.client());

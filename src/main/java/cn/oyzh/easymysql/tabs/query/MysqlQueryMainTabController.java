@@ -45,6 +45,11 @@ public class MysqlQueryMainTabController extends RichTabController {
      */
     private boolean unsaved;
 
+    /**
+     * 获取查询对象
+     *
+     * @return 查询对象
+     */
     public MysqlQuery getQuery() {
         return query;
     }
@@ -54,6 +59,11 @@ public class MysqlQueryMainTabController extends RichTabController {
      */
     private MysqlDatabaseTreeItem dbItem;
 
+    /**
+     * 获取数据库树节点
+     *
+     * @return 数据库树节点
+     */
     public MysqlDatabaseTreeItem getDbItem() {
         return dbItem;
     }
@@ -90,8 +100,9 @@ public class MysqlQueryMainTabController extends RichTabController {
     /**
      * 执行初始化
      *
+     * @param tab    标签页
      * @param query  查询对象
-     * @param dbItem db库树节点
+     * @param dbItem 数据库树节点
      */
     public void init(MysqlQueryMainTab tab, MysqlQuery query, MysqlDatabaseTreeItem dbItem) {
         this.tab = tab;
@@ -389,6 +400,11 @@ public class MysqlQueryMainTabController extends RichTabController {
         }
     }
 
+    /**
+     * 是否未保存
+     *
+     * @return 结果
+     */
     public boolean isUnsaved() {
         return unsaved;
     }

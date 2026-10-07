@@ -17,6 +17,12 @@ public class MysqlQueryExplainTab extends RichTab {
         return MysqlTab.BASE_PATH + "query/mysqlQueryExplainTab.fxml";
     }
 
+    /**
+     * 初始化
+     *
+     * @param title  标题
+     * @param result 解释结果
+     */
     public void init(String title, MysqlExplainResult result) {
         this.setTitle(title);
         this.controller().init(result);

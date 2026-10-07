@@ -78,46 +78,101 @@ public class MysqlQuery implements Serializable, Comparable<MysqlQuery>, ObjectC
         return StringUtil.equals(this.uid, t1.uid);
     }
 
+    /**
+     * 是否新数据
+     *
+     * @return 结果
+     */
     public boolean isNew() {
         return this.getUid() == null;
     }
 
+    /**
+     * 获取数据id
+     *
+     * @return 数据id
+     */
     public String getUid() {
         return uid;
     }
 
+    /**
+     * 设置数据id
+     *
+     * @param uid 数据id
+     */
     public void setUid(String uid) {
         this.uid = uid;
     }
 
+    /**
+     * 获取连接id
+     *
+     * @return 连接id
+     */
     public String getIid() {
         return iid;
     }
 
+    /**
+     * 设置连接id
+     *
+     * @param iid 连接id
+     */
     public void setIid(String iid) {
         this.iid = iid;
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String getDbName() {
         return dbName;
     }
 
+    /**
+     * 设置数据库名称
+     *
+     * @param dbName 数据库名称
+     */
     public void setDbName(String dbName) {
         this.dbName = dbName;
     }
 
+    /**
+     * 获取名称
+     *
+     * @return 名称
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * 设置名称
+     *
+     * @param name 名称
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * 获取内容
+     *
+     * @return 内容
+     */
     public String getContent() {
         return content;
     }
 
+    /**
+     * 设置内容
+     *
+     * @param content 内容
+     */
     public void setContent(String content) {
         this.content = content;
     }

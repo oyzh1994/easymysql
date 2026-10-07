@@ -10,6 +10,8 @@ import java.nio.charset.Charset;
 import java.util.Map;
 
 /**
+ * MySQL JSON类型文件读取器
+ *
  * @author oyzh
  * @since 2024-09-03
  */
@@ -25,6 +27,13 @@ public class MysqlJsonTypeFileReader extends MysqlTypeFileReader {
      */
     private MysqlDataImportConfig config;
 
+    /**
+     * 构造JSON类型文件读取器
+     *
+     * @param file   文件
+     * @param config 导入配置
+     * @throws FileNotFoundException 异常
+     */
     public MysqlJsonTypeFileReader( File file, MysqlDataImportConfig config) throws FileNotFoundException {
         this.config = config;
         this.reader = JSONReader.of(FileUtil.getReader(file, Charset.forName(config.getCharset())));

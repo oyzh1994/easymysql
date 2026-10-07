@@ -59,6 +59,12 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
      */
     private final MysqlConnectStore connectStore = MysqlConnectStore.INSTANCE;
 
+    /**
+     * 构造连接树节点
+     *
+     * @param value    连接信息
+     * @param treeView 树视图
+     */
     public DBConnectTreeItem(MysqlConnect value, DBTreeView treeView) {
         super(treeView);
         this.value(value);
@@ -122,6 +128,11 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
         }
     }
 
+    /**
+     * 添加数据库
+     *
+     * @param databaseName 数据库名称
+     */
     public void addDatabase(String databaseName) {
         DBDatabase database = this.client.database(databaseName);
         super.addChild(new MysqlDatabaseTreeItem(database, this.getTreeView()));
@@ -270,6 +281,11 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
         this.setValue(new DBConnectTreeItemValue(this));
     }
 
+    /**
+     * 获取连接信息
+     *
+     * @return 连接信息
+     */
     public MysqlConnect value() {
         return value;
     }
@@ -330,31 +346,70 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
         }
     }
 
+    /**
+     * 是否存在数据库
+     *
+     * @param dbName 数据库名称
+     * @return 结果
+     */
     public boolean existDatabase(String dbName) {
         return this.client.existDatabase(dbName);
     }
 
+    /**
+     * 创建数据库
+     *
+     * @param database 数据库
+     */
     public void createDatabase(DBDatabase database) {
         this.client.createDatabase(database);
     }
 
+    /**
+     * 修改数据库
+     *
+     * @param database 数据库
+     * @return 结果
+     */
     public boolean alterDatabase(DBDatabase database) {
         return this.client.alterDatabase(database);
     }
 
+    /**
+     * 获取数据库排序规则
+     *
+     * @param dbName 数据库名称
+     * @return 数据库排序规则
+     */
     public String databaseCollation(String dbName) {
         return this.client.databaseCollation(dbName);
     }
 
+    /**
+     * 删除数据库
+     *
+     * @param dbName 数据库名称
+     * @return 结果
+     */
     public boolean dropDatabase(String dbName) {
         return this.client.dropDatabase(dbName);
     }
 
+    /**
+     * 获取类型
+     *
+     * @return 类型
+     */
     public String type() {
         return this.value.getType();
     }
 
 
+    /**
+     * 获取客户端
+     *
+     * @return 客户端
+     */
     public MysqlClient getClient() {
         return client;
     }

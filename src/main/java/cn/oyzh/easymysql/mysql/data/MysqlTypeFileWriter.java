@@ -13,11 +13,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * MySQL类型文件写入器基类
+ *
  * @author oyzh
  * @since 2024-09-04
  */
 public abstract class MysqlTypeFileWriter implements Closeable {
 
+    /**
+     * 初始化
+     *
+     * @throws Exception 异常
+     */
     protected void init() throws Exception {
 
     }
@@ -112,10 +119,28 @@ public abstract class MysqlTypeFileWriter implements Closeable {
         }
     }
 
+    /**
+     * 格式化一行数据
+     *
+     * @param objects         对象数组
+     * @param fieldSeparator  字段分割符号
+     * @param txtIdentifier   文本识别符号
+     * @param recordSeparator 记录分割符号
+     * @return 格式化后的行数据
+     */
     protected String formatLine(Object[] objects, String fieldSeparator, String txtIdentifier, String recordSeparator) {
         return this.formatLine(List.of(objects), fieldSeparator, txtIdentifier, recordSeparator);
     }
 
+    /**
+     * 格式化一行数据
+     *
+     * @param list            数据列表
+     * @param fieldSeparator  字段分割符号
+     * @param txtIdentifier   文本识别符号
+     * @param recordSeparator 记录分割符号
+     * @return 格式化后的行数据
+     */
     protected String formatLine(List<?> list, String fieldSeparator, String txtIdentifier, String recordSeparator) {
         StringBuilder sb = new StringBuilder();
         for (Object val : list) {

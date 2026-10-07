@@ -5,15 +5,25 @@ import cn.oyzh.common.util.ArrayUtil;
 import cn.oyzh.common.util.StringUtil;
 
 /**
- * db查询文本域
+ * 查询提示词分析器
  *
  * @author oyzh
  * @since 2024/02/18
  */
 public class MysqlQueryTokenAnalyzer {
 
+    /**
+     * 当前实例
+     */
     public static final MysqlQueryTokenAnalyzer INSTANCE = new MysqlQueryTokenAnalyzer();
 
+    /**
+     * 获取当前提示词
+     *
+     * @param content      文本内容
+     * @param currentIndex 当前位置
+     * @return 提示词
+     */
     public MysqlQueryToken currentToken(String content, int currentIndex) {
         try {
             if (StringUtil.isEmpty(content)) {

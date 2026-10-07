@@ -15,10 +15,21 @@ import java.util.List;
  */
 public class DBDatabaseComboBox extends FXComboBox<String> {
 
+    /**
+     * 初始化数据库列表
+     *
+     * @param client mysql客户端
+     */
     public void init(MysqlClient client) {
         this.init(client, null);
     }
 
+    /**
+     * 初始化数据库列表并选中指定数据库
+     *
+     * @param client mysql客户端
+     * @param dbName 数据库名称
+     */
     public void init(MysqlClient client, String dbName) {
         this.clearItems();
         List<DBDatabase> databases = client.databases();

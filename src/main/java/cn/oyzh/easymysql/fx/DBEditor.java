@@ -27,10 +27,12 @@ public class DBEditor extends Editor {
      */
     private DBDialect dialect;
 
+    /** 获取方言 */
     public DBDialect getDialect() {
         return dialect;
     }
 
+    /** 设置方言 */
     public void setDialect(DBDialect dialect) {
         this.dialect = dialect;
     }

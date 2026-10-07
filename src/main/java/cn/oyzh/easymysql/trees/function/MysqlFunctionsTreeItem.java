@@ -28,6 +28,11 @@ import java.util.List;
  */
 public class MysqlFunctionsTreeItem extends DBTreeItem<MysqlFunctionsTreeItemValue> {
 
+    /**
+     * 构造函数类型树节点
+     *
+     * @param treeView 树视图
+     */
     public MysqlFunctionsTreeItem(RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
@@ -49,6 +54,9 @@ public class MysqlFunctionsTreeItem extends DBTreeItem<MysqlFunctionsTreeItemVal
         return items;
     }
 
+    /**
+     * 新增函数
+     */
     private void add() {
         MysqlFunction function = new MysqlFunction();
         function.setDbName(this.dbName());
@@ -126,18 +134,38 @@ public class MysqlFunctionsTreeItem extends DBTreeItem<MysqlFunctionsTreeItemVal
         this.loadChild();
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String dbName() {
         return this.parent().dbName();
     }
 
+    /**
+     * 获取数据库客户端
+     *
+     * @return 数据库客户端
+     */
     public MysqlClient client() {
         return this.parent().client();
     }
 
+    /**
+     * 获取连接信息
+     *
+     * @return 连接信息
+     */
     public MysqlConnect info() {
         return this.parent().info();
     }
 
+    /**
+     * 获取连接名称
+     *
+     * @return 连接名称
+     */
     public String infoName() {
         return this.parent().infoName();
     }
@@ -157,10 +185,20 @@ public class MysqlFunctionsTreeItem extends DBTreeItem<MysqlFunctionsTreeItemVal
     //    this.refresh();
     //}
 
+    /**
+     * 获取函数数量
+     *
+     * @return 函数数量
+     */
     public Integer functionSize() {
         return this.client().functionSize(this.dbName(), null);
     }
 
+    /**
+     * 添加函数
+     *
+     * @param function 函数
+     */
     public void addFunction(MysqlFunction function) {
         this.addChild(new MysqlFunctionTreeItem(function, this.getTreeView()));
         this.sortChild(this.isSortAsc());

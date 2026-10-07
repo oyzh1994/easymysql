@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 查询提示列表组件
+ *
  * @author oyzh
  * @since 2024/02/21
  */
@@ -242,10 +244,20 @@ public class MysqlQueryPromptListView extends FXListView<FXHBox> {
         });
     }
 
+    /**
+     * 获取节点选中事件
+     *
+     * @return 节点选中事件
+     */
     public Runnable getOnItemPicked() {
         return onItemPicked;
     }
 
+    /**
+     * 设置节点选中事件
+     *
+     * @param onItemPicked 节点选中事件
+     */
     public void setOnItemPicked(Runnable onItemPicked) {
         this.onItemPicked = onItemPicked;
     }

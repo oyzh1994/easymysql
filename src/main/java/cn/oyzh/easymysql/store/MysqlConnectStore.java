@@ -7,6 +7,8 @@ import cn.oyzh.store.jdbc.JdbcStandardStore;
 import java.util.List;
 
 /**
+ * db连接存储
+ *
  * @author oyzh
  * @since 2024/09/26
  */
@@ -25,7 +27,7 @@ public class MysqlConnectStore extends JdbcStandardStore<MysqlConnect> {
     /**
      * 加载列表
      *
-     * @return redis连接列表
+     * @return 连接列表
      */
     public List<MysqlConnect> load() {
         return super.selectList();

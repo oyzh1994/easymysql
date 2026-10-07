@@ -6,15 +6,21 @@ import cn.oyzh.easymysql.util.DBUtil;
 import java.util.Collection;
 
 /**
- * 不介于列表条件
+ * 不介于条件
  *
  * @author oyzh
  * @since 2024/6/28
  */
 public class MysqlNotBetweenCondition extends MysqlCondition {
 
+    /**
+     * 不介于条件实例
+     */
     public final static MysqlNotBetweenCondition INSTANCE = new MysqlNotBetweenCondition();
 
+    /**
+     * 构造方法
+     */
     public MysqlNotBetweenCondition() {
         super("不介于", "NOT BETWEEN");
     }

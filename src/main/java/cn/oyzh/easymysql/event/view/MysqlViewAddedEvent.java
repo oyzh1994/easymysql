@@ -4,6 +4,8 @@ import cn.oyzh.easymysql.trees.database.MysqlDatabaseTreeItem;
 import cn.oyzh.event.Event;
 
 /**
+ * 视图已新增事件
+ *
  * @author oyzh
  * @since 2023/12/22
  */

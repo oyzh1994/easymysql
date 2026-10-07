@@ -50,6 +50,11 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
      */
     private SimpleStringProperty definitionProperty;
 
+    /**
+     * 获取视图定义属性
+     *
+     * @return 视图定义属性
+     */
     public SimpleStringProperty definitionProperty() {
         if (this.definitionProperty == null) {
             this.definitionProperty = new SimpleStringProperty();
@@ -57,10 +62,20 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
         return this.definitionProperty;
     }
 
+    /**
+     * 设置视图定义
+     *
+     * @param definition 视图定义
+     */
     public void setDefinition(String definition) {
         this.definitionProperty().setValue(definition);
     }
 
+    /**
+     * 获取视图定义
+     *
+     * @return 视图定义
+     */
     public String getDefinition() {
         return this.definitionProperty == null ? null : this.definitionProperty.get();
     }
@@ -78,6 +93,11 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
         }
     }
 
+    /**
+     * 是否存在检查选项
+     *
+     * @return 是否存在
+     */
     public boolean hasCheckOption() {
         return StringUtil.isNotBlank(this.checkOption) && !StringUtil.equalsIgnoreCase(this.checkOption, "NONE");
     }
@@ -107,6 +127,11 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
      */
     private SimpleStringProperty commentProperty;
 
+    /**
+     * 获取名称属性
+     *
+     * @return 名称属性
+     */
     public SimpleStringProperty nameProperty() {
         if (this.nameProperty == null) {
             this.nameProperty = new SimpleStringProperty();
@@ -114,14 +139,29 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
         return this.nameProperty;
     }
 
+    /**
+     * 设置名称
+     *
+     * @param name 名称
+     */
     public void setName(String name) {
         this.nameProperty().setValue(name);
     }
 
+    /**
+     * 获取名称
+     *
+     * @return 名称
+     */
     public String getName() {
         return this.nameProperty == null ? null : this.nameProperty.get();
     }
 
+    /**
+     * 获取注释属性
+     *
+     * @return 注释属性
+     */
     public SimpleStringProperty commentProperty() {
         if (this.commentProperty == null) {
             this.commentProperty = new SimpleStringProperty();
@@ -129,14 +169,29 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
         return this.commentProperty;
     }
 
+    /**
+     * 设置注释
+     *
+     * @param comment 注释
+     */
     public void setComment(String comment) {
         this.commentProperty().setValue(comment);
     }
 
+    /**
+     * 获取注释
+     *
+     * @return 注释
+     */
     public String getComment() {
         return this.commentProperty == null ? null : this.commentProperty.get();
     }
 
+    /**
+     * 主键是否变更
+     *
+     * @return 是否变更
+     */
     public boolean primaryKeyChanged() {
         if (this.hasColumns()) {
             boolean b1 = this.columns.primaryKeyChanged();
@@ -152,6 +207,11 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
         return false;
     }
 
+    /**
+     * 获取主键字段列表
+     *
+     * @return 主键字段列表
+     */
     public List<MysqlColumn> primaryKeys() {
         if (this.hasColumns()) {
             return this.columns.primaryKeys();
@@ -159,18 +219,38 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
         return Collections.emptyList();
     }
 
+    /**
+     * 是否存在主键
+     *
+     * @return 是否存在
+     */
     public boolean hasPrimaryKey() {
         return CollectionUtil.isNotEmpty(this.primaryKeys());
     }
 
+    /**
+     * 是否存在字段
+     *
+     * @return 是否存在
+     */
     public boolean hasColumns() {
         return this.columns != null && !this.columns.isEmpty();
     }
 
+    /**
+     * 是否存在注释
+     *
+     * @return 是否存在
+     */
     public boolean hasComment() {
         return this.getComment() != null;
     }
 
+    /**
+     * 获取字段集合
+     *
+     * @return 字段集合
+     */
     public MysqlColumns columns() {
         if (this.columns == null) {
             this.columns = new MysqlColumns();
@@ -192,6 +272,11 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
         return StringUtil.equals(this.getDbName(), view.getDbName());
     }
 
+    /**
+     * 移除字段
+     *
+     * @param column 字段
+     */
     public void removeColumn(MysqlColumn column) {
         if (column != null && this.columns != null) {
             this.columns().remove(column);
@@ -201,85 +286,180 @@ public class MysqlView extends DBObjectStatus implements ObjectCopier<MysqlView>
     /**
      * 是否新数据
      *
-     * @return 结果
+     * @return 是否新数据
      */
 
     public boolean isNew() {
         return StringUtil.isBlank(this.getName());
     }
 
+    /**
+     * 获取定义者
+     *
+     * @return 定义者
+     */
     public String getDefiner() {
         return definer;
     }
 
+    /**
+     * 设置定义者
+     *
+     * @param definer 定义者
+     */
     public void setDefiner(String definer) {
         this.definer = definer;
     }
 
+    /**
+     * 获取算法
+     *
+     * @return 算法
+     */
     public String getAlgorithm() {
         return algorithm;
     }
 
+    /**
+     * 设置算法
+     *
+     * @param algorithm 算法
+     */
     public void setAlgorithm(String algorithm) {
         this.algorithm = algorithm;
     }
 
+    /**
+     * 是否可变更
+     *
+     * @return 是否可变更
+     */
     public boolean isUpdatable() {
         return updatable;
     }
 
+    /**
+     * 设置是否可变更
+     *
+     * @param updatable 是否可变更
+     */
     public void setUpdatable(boolean updatable) {
         this.updatable = updatable;
     }
 
+    /**
+     * 获取检查选项
+     *
+     * @return 检查选项
+     */
     public String getCheckOption() {
         return checkOption;
     }
 
+    /**
+     * 设置检查选项
+     *
+     * @param checkOption 检查选项
+     */
     public void setCheckOption(String checkOption) {
         this.checkOption = checkOption;
     }
 
+    /**
+     * 获取安全性
+     *
+     * @return 安全性
+     */
     public String getSecurityType() {
         return securityType;
     }
 
+    /**
+     * 设置安全性
+     *
+     * @param securityType 安全性
+     */
     public void setSecurityType(String securityType) {
         this.securityType = securityType;
     }
 
+    /**
+     * 获取视图定义
+     *
+     * @return 视图定义
+     */
     public String getDefinitionProperty() {
         return definitionProperty.get();
     }
 
+    /**
+     * 获取视图定义属性
+     *
+     * @return 视图定义属性
+     */
     public SimpleStringProperty definitionPropertyProperty() {
         return definitionProperty;
     }
 
+    /**
+     * 设置视图定义属性
+     *
+     * @param definitionProperty 视图定义属性
+     */
     public void setDefinitionProperty(String definitionProperty) {
         this.definitionProperty.set(definitionProperty);
     }
 
+    /**
+     * 获取库名称
+     *
+     * @return 库名称
+     */
     public String getDbName() {
         return dbName;
     }
 
+    /**
+     * 设置库名称
+     *
+     * @param dbName 库名称
+     */
     public void setDbName(String dbName) {
         this.dbName = dbName;
     }
 
+    /**
+     * 获取模式名称
+     *
+     * @return 模式名称
+     */
     public String getSchema() {
         return schema;
     }
 
+    /**
+     * 设置模式名称
+     *
+     * @param schema 模式名称
+     */
     public void setSchema(String schema) {
         this.schema = schema;
     }
 
+    /**
+     * 获取字段集合
+     *
+     * @return 字段集合
+     */
     public MysqlColumns getColumns() {
         return columns;
     }
 
+    /**
+     * 设置字段集合
+     *
+     * @param columns 字段集合
+     */
     public void setColumns(MysqlColumns columns) {
         this.columns = columns;
     }

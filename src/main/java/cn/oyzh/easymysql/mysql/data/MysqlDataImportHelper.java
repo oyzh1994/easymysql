@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * MySQL数据导入助手
+ *
  * @author oyzh
  * @since 2024/09/02
  */
@@ -25,7 +27,9 @@ public class MysqlDataImportHelper {
      *
      * @param column 字段
      * @param value  值
+     * @param config 导入配置
      * @return 参数化后的值
+     * @throws ParseException 异常
      */
     public static Object parameterized(MysqlColumn column, Object value, MysqlDataImportConfig config) throws ParseException {
         if (value == null) {
@@ -62,6 +66,7 @@ public class MysqlDataImportHelper {
      * @param records 记录
      * @param config  配置
      * @return 插入sql
+     * @throws Exception 异常
      */
     public static List<String> toInsertSql(MysqlColumns columns, List<MysqlRecord> records, MysqlDataImportConfig config) throws Exception {
         List<String> insertSql = new ArrayList<>();

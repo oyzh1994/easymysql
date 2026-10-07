@@ -32,6 +32,11 @@ import java.util.List;
  */
 public class MysqlTablesTreeItem extends DBTreeItem<MysqlTablesTreeItemValue> {
 
+    /**
+     * 构造表类型树节点
+     *
+     * @param treeView 树视图
+     */
     public MysqlTablesTreeItem(RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
@@ -80,6 +85,9 @@ public class MysqlTablesTreeItem extends DBTreeItem<MysqlTablesTreeItemValue> {
         fxView.display();
     }
 
+    /**
+     * 新增表
+     */
     private void addTable() {
         MysqlTable table = new MysqlTable();
         table.setDbName(this.dbName());
@@ -153,22 +161,47 @@ public class MysqlTablesTreeItem extends DBTreeItem<MysqlTablesTreeItemValue> {
         this.loadChild();
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String dbName() {
         return this.parent().dbName();
     }
 
+    /**
+     * 获取客户端
+     *
+     * @return 客户端
+     */
     public MysqlClient client() {
         return this.parent().client();
     }
 
+    /**
+     * 获取表的数量
+     *
+     * @return 表的数量
+     */
     public Integer tableSize() {
         return this.parent().tableSize();
     }
 
+    /**
+     * 获取连接信息
+     *
+     * @return 连接信息
+     */
     public MysqlConnect info() {
         return this.parent().info();
     }
 
+    /**
+     * 获取连接名称
+     *
+     * @return 连接名称
+     */
     public String infoName() {
         return this.parent().infoName();
     }
@@ -188,6 +221,11 @@ public class MysqlTablesTreeItem extends DBTreeItem<MysqlTablesTreeItemValue> {
     //    this.refresh();
     //}
 
+    /**
+     * 新增表节点
+     *
+     * @param table 表
+     */
     public void addTable(MysqlTable table) {
         this.addChild(new MysqlTableTreeItem(table, this.getTreeView()));
         this.sortChild(this.isSortAsc());

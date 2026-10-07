@@ -15,6 +15,12 @@ import javafx.scene.Cursor;
  */
 public class MysqlTerminalTab extends RichTab {
 
+    /**
+     * 构造mysql终端标签页
+     *
+     * @param client mysql客户端
+     * @param dbName 库名称
+     */
     public MysqlTerminalTab(MysqlClient client, String dbName) {
         this.init(client, dbName);
     }
@@ -52,6 +58,7 @@ public class MysqlTerminalTab extends RichTab {
      * 初始化
      *
      * @param client mysql客户端
+     * @param dbName 库名称
      */
     private void init(MysqlClient client, String dbName) {
         try {
@@ -79,10 +86,20 @@ public class MysqlTerminalTab extends RichTab {
         return this.controller().getDbConnect();
     }
 
+    /**
+     * 获取mysql客户端
+     *
+     * @return mysql客户端
+     */
     public MysqlClient client() {
         return this.controller().client();
     }
 
+    /**
+     * 获取库名称
+     *
+     * @return 库名称
+     */
     public String dbName() {
         return this.controller().getDbName();
     }

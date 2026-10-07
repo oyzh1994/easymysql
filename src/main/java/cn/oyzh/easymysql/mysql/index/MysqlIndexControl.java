@@ -14,17 +14,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * MySQL索引控件
+ *
  * @author oyzh
  * @since 2024/09/14
  */
 public class MysqlIndexControl extends MysqlIndex {
 
+    /**
+     * 字段列表
+     */
     private List<MysqlColumn> columnList;
 
+    /**
+     * 设置字段列表
+     *
+     * @param columnList 字段列表
+     */
     public void setColumnList(List<MysqlColumn> columnList) {
         this.columnList = columnList;
     }
 
+    /**
+     * 获取名称控件
+     *
+     * @return 名称控件
+     */
     public ClearableTextField getNameControl() {
         ClearableTextField textField = new ClearableTextField();
         if (StringUtil.isEmpty(this.getName())) {
@@ -38,6 +53,11 @@ public class MysqlIndexControl extends MysqlIndex {
         return textField;
     }
 
+    /**
+     * 获取字段控件
+     *
+     * @return 字段控件
+     */
     public MysqlIndexFieldTextFiled getColumnControl() {
         //List<MysqlColumn> columnList = CacheHelper.get("mysql:columnList");
         if (this.columnList == null) {
@@ -51,6 +71,11 @@ public class MysqlIndexControl extends MysqlIndex {
         return textField;
     }
 
+    /**
+     * 获取类型控件
+     *
+     * @return 类型控件
+     */
     public MysqlIndexTypeComboBox getTypeControl() {
         MysqlIndexTypeComboBox comboBox = new MysqlIndexTypeComboBox();
         comboBox.selectFirstIfNull(this.getType());
@@ -62,6 +87,11 @@ public class MysqlIndexControl extends MysqlIndex {
         return comboBox;
     }
 
+    /**
+     * 获取方式控件
+     *
+     * @return 方式控件
+     */
     public MysqlIndexMethodComboBox getMethodControl() {
         MysqlIndexMethodComboBox comboBox = new MysqlIndexMethodComboBox();
         comboBox.selectFirstIfNull(this.getMethod());
@@ -71,6 +101,11 @@ public class MysqlIndexControl extends MysqlIndex {
         return comboBox;
     }
 
+    /**
+     * 获取注释控件
+     *
+     * @return 注释控件
+     */
     public ClearableTextField getCommentControl() {
         ClearableTextField textField = new ClearableTextField();
         textField.setFlexWidth("100% - 12");
@@ -82,12 +117,24 @@ public class MysqlIndexControl extends MysqlIndex {
         return textField;
     }
 
+    /**
+     * 根据索引构建索引控件
+     *
+     * @param index 索引
+     * @return 索引控件
+     */
     public static MysqlIndexControl of(MysqlIndex index) {
         MysqlIndexControl control = new MysqlIndexControl();
         control.copy(index);
         return control;
     }
 
+    /**
+     * 根据索引列表构建索引控件列表
+     *
+     * @param indices 索引列表
+     * @return 索引控件列表
+     */
     public static List<MysqlIndexControl> of(List<MysqlIndex> indices) {
         List<MysqlIndexControl> controls = new ArrayList<>();
         for (MysqlIndex index : indices) {

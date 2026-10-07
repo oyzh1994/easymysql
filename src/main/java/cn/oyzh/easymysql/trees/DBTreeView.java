@@ -42,6 +42,9 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
         return (DBTreeItemFilter) this.itemFilter;
     }
 
+    /**
+     * 构造db树
+     */
     public DBTreeView() {
         this.dragContent = "db_tree_drag";
         this.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);

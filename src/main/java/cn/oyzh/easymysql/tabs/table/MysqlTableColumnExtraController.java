@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * 字段配置弹窗
+ * 表字段扩展配置控制器
  *
  * @author oyzh
  * @since 2024/07/12
@@ -189,6 +189,9 @@ public class MysqlTableColumnExtraController extends SubTabController {
         }
     }
 
+    /**
+     * 是否忽略变更
+     */
     private boolean ignoreChanged = false;
 
     @Override
@@ -240,10 +243,20 @@ public class MysqlTableColumnExtraController extends SubTabController {
         column.typeProperty().addListener(this::listenColumnTypeChanged);
     }
 
+    /**
+     * 监听字段类型变化
+     *
+     * @param observableValue 可观察值
+     * @param s               旧值
+     * @param s1              新值
+     */
     private void listenColumnTypeChanged(ObservableValue<? extends String> observableValue, String s, String s1) {
         this.doInit();
     }
 
+    /**
+     * 初始化组件显示与值
+     */
     public void doInit() {
         this.ignoreChanged = true;
         // 值

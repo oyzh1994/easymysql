@@ -5,6 +5,8 @@ import cn.oyzh.easymysql.mysql.record.MysqlRecordProperty;
 import cn.oyzh.fx.plus.controls.table.FXTableView;
 
 /**
+ * mysql记录表格视图
+ *
  * @author oyzh
  * @since 2024/7/25
  */

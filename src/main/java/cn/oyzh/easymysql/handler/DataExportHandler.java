@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 数据导出处理器
+ *
  * @author oyzh
  * @since 2024/08/27
  */
@@ -76,6 +78,12 @@ public class DataExportHandler extends DataHandler {
      */
     private final MysqlDataExportConfig config;
 
+    /**
+     * 构造数据导出处理器
+     *
+     * @param dbClient 数据库客户端
+     * @param dbName   库名称
+     */
     public DataExportHandler(MysqlClient dbClient, String dbName) {
         this.dbClient = dbClient;
         this.dbName = dbName;
@@ -180,6 +188,14 @@ public class DataExportHandler extends DataHandler {
         this.message("Export Finished");
     }
 
+    /**
+     * 初始化文件写入器
+     *
+     * @param filePath 文件路径
+     * @param columns  字段列表
+     * @return 文件写入器
+     * @throws IOException 异常
+     */
     private MysqlTypeFileWriter initWriter(String filePath, MysqlColumns columns) throws IOException {
         if (this.isSqlType()) {
             return new MysqlSqlTypeFileWriter(filePath, this.config, columns);
@@ -559,70 +575,155 @@ public class DataExportHandler extends DataHandler {
         }
     }
 
+    /**
+     * 设置记录分隔符
+     *
+     * @param recordSeparator 记录分隔符
+     */
     public void recordSeparator(String recordSeparator) {
         this.config.setRecordSeparator(recordSeparator);
     }
 
+    /**
+     * 设置文本标识符
+     *
+     * @param txtIdentifier 文本标识符
+     */
     public void txtIdentifier(String txtIdentifier) {
         this.config.setTxtIdentifier(txtIdentifier);
     }
 
+    /**
+     * 设置字段分隔符
+     *
+     * @param fieldSeparator 字段分隔符
+     */
     public void fieldSeparator(String fieldSeparator) {
         this.config.setFieldSeparator(fieldSeparator);
     }
 
+    /**
+     * 设置是否包含字段
+     *
+     * @param includeFields 是否包含字段
+     */
     public void includeFields(boolean includeFields) {
         this.config.setIncludeFields(includeFields);
     }
 
+    /**
+     * 设置字段转属性
+     *
+     * @param fieldToAttr 字段转属性
+     */
     public void fieldToAttr(boolean fieldToAttr) {
         this.config.setFieldToAttr(fieldToAttr);
     }
 
+    /**
+     * 设置是否早期版本
+     *
+     * @param earlyVersion 是否早期版本
+     */
     public void earlyVersion(boolean earlyVersion) {
         this.config.setEarlyVersion(earlyVersion);
     }
 
+    /**
+     * 获取库名称
+     *
+     * @return 库名称
+     */
     public String getDbName() {
         return dbName;
     }
 
+    /**
+     * 设置库名称
+     *
+     * @param dbName 库名称
+     */
     public void setDbName(String dbName) {
         this.dbName = dbName;
     }
 
+    /**
+     * 获取文件类型
+     *
+     * @return 文件类型
+     */
     public String getFileType() {
         return fileType;
     }
 
+    /**
+     * 设置文件类型
+     *
+     * @param fileType 文件类型
+     */
     public void setFileType(String fileType) {
         this.fileType = fileType;
     }
 
+    /**
+     * 获取数据库客户端
+     *
+     * @return 数据库客户端
+     */
     public MysqlClient getDbClient() {
         return dbClient;
     }
 
+    /**
+     * 设置数据库客户端
+     *
+     * @param dbClient 数据库客户端
+     */
     public void setDbClient(MysqlClient dbClient) {
         this.dbClient = dbClient;
     }
 
+    /**
+     * 获取查询限制
+     *
+     * @return 查询限制
+     */
     public int getQueryLimit() {
         return queryLimit;
     }
 
+    /**
+     * 设置查询限制
+     *
+     * @param queryLimit 查询限制
+     */
     public void setQueryLimit(int queryLimit) {
         this.queryLimit = queryLimit;
     }
 
+    /**
+     * 获取导出表列表
+     *
+     * @return 导出表列表
+     */
     public List<DataExportTable> getTables() {
         return tables;
     }
 
+    /**
+     * 设置导出表列表
+     *
+     * @param tables 导出表列表
+     */
     public void setTables(List<DataExportTable> tables) {
         this.tables = tables;
     }
 
+    /**
+     * 获取导出配置
+     *
+     * @return 导出配置
+     */
     public MysqlDataExportConfig getConfig() {
         return config;
     }

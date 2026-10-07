@@ -10,21 +10,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 数据传输函数列表视图
+ *
  * @author oyzh
  * @since 2024/09/05
  */
 public class DataTransportFunctionListView extends FXListView<FXCheckBox> {
 
+    /** 选中变化回调 */
     private Runnable selectedChanged;
 
+    /** 获取选中变化回调 */
     public Runnable getSelectedChanged() {
         return selectedChanged;
     }
 
+    /** 设置选中变化回调 */
     public void setSelectedChanged(Runnable selectedChanged) {
         this.selectedChanged = selectedChanged;
     }
 
+    /**
+     * 根据函数列表构建
+     *
+     * @param functions 函数列表
+     */
     public void of(List<MysqlFunction> functions) {
         List<DataTransportFunction> list = CollectionUtil.newArrayList();
         for (MysqlFunction function : functions) {
@@ -35,6 +45,11 @@ public class DataTransportFunctionListView extends FXListView<FXCheckBox> {
         this.init(list);
     }
 
+    /**
+     * 初始化函数列表
+     *
+     * @param functions 函数列表
+     */
     public void init(List<DataTransportFunction> functions) {
         this.clearItems();
         if (CollectionUtil.isNotEmpty(functions)) {
@@ -58,6 +73,7 @@ public class DataTransportFunctionListView extends FXListView<FXCheckBox> {
         }
     }
 
+    /** 获取选中的函数列表 */
     public List<DataTransportFunction> getSelectedFunctions() {
         List<DataTransportFunction> list = new ArrayList<>();
         for (FXCheckBox item : this.getItems()) {
@@ -69,6 +85,7 @@ public class DataTransportFunctionListView extends FXListView<FXCheckBox> {
     }
 
 
+    /** 获取选中数量 */
     public int getSelectedSize() {
         int size = 0;
         for (FXCheckBox item : this.getItems()) {

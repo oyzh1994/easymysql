@@ -63,6 +63,7 @@ public class MysqlRecordFilter {
      * 获取值
      *
      * @return 值
+     * @throws Exception 异常
      */
     public Object value() throws Exception {
         if (this.valueBox == null || this.valueBox.isChildEmpty()) {
@@ -181,6 +182,7 @@ public class MysqlRecordFilter {
      * 获取条件
      *
      * @return 条件
+     * @throws Exception 异常
      */
     public String condition() throws Exception {
         return this.condition.wrapCondition(this.value());
@@ -189,56 +191,116 @@ public class MysqlRecordFilter {
     /**
      * 是否需要条件
      *
-     * @return 结果
+     * @return 是否需要条件
      */
     public boolean isRequireCondition() {
         return this.condition.isRequireCondition();
     }
 
+    /**
+     * 获取值
+     *
+     * @return 值
+     */
     public Object getValue() {
         return value;
     }
 
+    /**
+     * 设置值
+     *
+     * @param value 值
+     */
     public void setValue(Object value) {
         this.value = value;
     }
 
+    /**
+     * 是否已启用
+     *
+     * @return 是否已启用
+     */
     public boolean isEnabled() {
         return enabled;
     }
 
+    /**
+     * 设置是否已启用
+     *
+     * @param enabled 是否已启用
+     */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
+    /**
+     * 获取连接符号
+     *
+     * @return 连接符号
+     */
     public String getJoinSymbol() {
         return joinSymbol;
     }
 
+    /**
+     * 设置连接符号
+     *
+     * @param joinSymbol 连接符号
+     */
     public void setJoinSymbol(String joinSymbol) {
         this.joinSymbol = joinSymbol;
     }
 
+    /**
+     * 获取条件
+     *
+     * @return 条件
+     */
     public MysqlCondition getCondition() {
         return condition;
     }
 
+    /**
+     * 设置条件
+     *
+     * @param condition 条件
+     */
     public void setCondition(MysqlCondition condition) {
         this.condition = condition;
     }
 
+    /**
+     * 获取字段
+     *
+     * @return 字段
+     */
     public MysqlColumn getColumn() {
         return column;
     }
 
+    /**
+     * 设置字段
+     *
+     * @param column 字段
+     */
     public void setColumn(MysqlColumn column) {
         this.column = column;
     }
 
+    /**
+     * 获取字段列表
+     *
+     * @return 字段列表
+     */
     public List<MysqlColumn> getColumns() {
         return columns;
     }
 
+    /**
+     * 设置字段列表
+     *
+     * @param columns 字段列表
+     */
     public void setColumns(List<MysqlColumn> columns) {
         this.columns = columns;
     }

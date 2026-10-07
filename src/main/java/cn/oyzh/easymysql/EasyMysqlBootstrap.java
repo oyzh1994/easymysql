@@ -8,6 +8,11 @@ package cn.oyzh.easymysql;
  */
 public class EasyMysqlBootstrap {
 
+    /**
+     * 程序入口
+     *
+     * @param args 启动参数
+     */
     public static void main(String[] args) {
         EasyMysqlApp.main(args);
     }

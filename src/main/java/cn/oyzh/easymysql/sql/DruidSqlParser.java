@@ -17,13 +17,24 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * druid sql解析器
+ *
  * @author oyzh
  * @since 2024/2/26
  */
 public class DruidSqlParser extends DBSqlParser {
 
+    /**
+     * 数据库类型
+     */
     private final DbType dbType;
 
+    /**
+     * 构造方法
+     *
+     * @param sqlContent sql内容
+     * @param dialect    数据库方言
+     */
     public DruidSqlParser(String sqlContent, DBDialect dialect) {
         super(sqlContent, dialect);
         this.dbType = switch (dialect) {
@@ -65,10 +76,19 @@ public class DruidSqlParser extends DBSqlParser {
         return DBUtil.removeComment(this.sqlContent);
     }
 
+    /**
+     * 是否单条sql
+     */
     private Boolean single;
 
+    /**
+     * 是否查询语句
+     */
     private Boolean select;
 
+    /**
+     * sql语句列表
+     */
     private List<SQLStatement> sqlStatements;
 
     @Override

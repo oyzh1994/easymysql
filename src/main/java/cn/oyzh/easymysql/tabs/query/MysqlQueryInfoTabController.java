@@ -8,6 +8,8 @@ import cn.oyzh.i18n.I18nHelper;
 import javafx.fxml.FXML;
 
 /**
+ * db查询信息标签页控制器
+ *
  * @author oyzh
  * @since 2024/08/12
  */
@@ -19,6 +21,11 @@ public class MysqlQueryInfoTabController extends RichTabController {
     @FXML
     private FXTextArea infoArea;
 
+    /**
+     * 初始化
+     *
+     * @param results 查询结果
+     */
     public void init(MysqlQueryResults<?> results) {
         this.infoArea.clear();
         if (results.isSuccess()) {

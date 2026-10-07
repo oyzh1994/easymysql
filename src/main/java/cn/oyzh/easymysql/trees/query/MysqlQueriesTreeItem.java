@@ -28,6 +28,11 @@ import java.util.List;
  */
 public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> {
 
+    /**
+     * 构造查询类型树节点
+     *
+     * @param treeView 树视图
+     */
     public MysqlQueriesTreeItem(RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
@@ -49,6 +54,9 @@ public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> 
         return items;
     }
 
+    /**
+     * 新增查询
+     */
     private void addQuery() {
         MysqlEventUtil.queryAdd(this.parent());
     }
@@ -90,18 +98,38 @@ public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> 
         this.loadChild();
     }
 
+    /**
+     * 添加查询子节点
+     *
+     * @param query 查询
+     */
     public void addChild(MysqlQuery query) {
         this.addChild(new MysqlQueryTreeItem(query, this.getTreeView()));
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String dbName() {
         return this.parent().dbName();
     }
 
+    /**
+     * 获取数据库客户端
+     *
+     * @return 数据库客户端
+     */
     public MysqlClient client() {
         return this.parent().client();
     }
 
+    /**
+     * 获取连接信息
+     *
+     * @return 连接信息
+     */
     public MysqlConnect info() {
         return this.parent().info();
     }
@@ -121,15 +149,30 @@ public class MysqlQueriesTreeItem extends DBTreeItem<MysqlQueriesTreeItemValue> 
     //    this.refresh();
     //}
 
+    /**
+     * 获取查询数量
+     *
+     * @return 查询数量
+     */
     public Integer querySize() {
         List<MysqlQuery> dbQueries = MysqlQueryStore.INSTANCE.list(this.info().getId(), this.dbName());
         return dbQueries == null ? 0 : dbQueries.size();
     }
 
+    /**
+     * 获取数据库连接
+     *
+     * @return 数据库连接
+     */
     public MysqlConnect dbConnect() {
         return this.parent().dbConnect();
     }
 
+    /**
+     * 添加查询
+     *
+     * @param query 查询
+     */
     public void addQuery(MysqlQuery query) {
         this.addChild(new MysqlQueryTreeItem(query, this.getTreeView()));
         this.sortChild(this.isSortAsc());

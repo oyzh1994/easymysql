@@ -10,13 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 数据传输触发器列表视图
+ *
  * @author oyzh
  * @since 2024/09/05
  */
 public class DataTransportTriggerListView extends FXListView<FXCheckBox> {
 
+    /** 选中变化回调 */
     private Runnable selectedChanged;
 
+    /**
+     * 根据触发器列表构建
+     *
+     * @param triggers 触发器列表
+     */
     public void of(List<MysqlTrigger> triggers) {
         List<DataTransportTrigger> list = CollectionUtil.newArrayList();
         for (MysqlTrigger trigger : triggers) {
@@ -27,6 +35,11 @@ public class DataTransportTriggerListView extends FXListView<FXCheckBox> {
         this.init(list);
     }
 
+    /**
+     * 初始化触发器列表
+     *
+     * @param triggers 触发器列表
+     */
     public void init(List<DataTransportTrigger> triggers) {
         this.clearItems();
         if (CollectionUtil.isNotEmpty(triggers)) {
@@ -50,6 +63,7 @@ public class DataTransportTriggerListView extends FXListView<FXCheckBox> {
         }
     }
 
+    /** 获取选中的触发器列表 */
     public List<DataTransportTrigger> getSelectedTriggers() {
         List<DataTransportTrigger> list = new ArrayList<>();
         for (FXCheckBox item : this.getItems()) {
@@ -60,6 +74,7 @@ public class DataTransportTriggerListView extends FXListView<FXCheckBox> {
         return list;
     }
 
+    /** 获取选中数量 */
     public int getSelectedSize() {
         int size = 0;
         for (FXCheckBox item : this.getItems()) {
@@ -70,10 +85,12 @@ public class DataTransportTriggerListView extends FXListView<FXCheckBox> {
         return size;
     }
 
+    /** 获取选中变化回调 */
     public Runnable getSelectedChanged() {
         return selectedChanged;
     }
 
+    /** 设置选中变化回调 */
     public void setSelectedChanged(Runnable selectedChanged) {
         this.selectedChanged = selectedChanged;
     }

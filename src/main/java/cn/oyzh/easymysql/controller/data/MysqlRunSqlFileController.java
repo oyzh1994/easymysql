@@ -125,6 +125,8 @@ public class MysqlRunSqlFileController extends StageController {
 
     /**
      * 执行sql
+     *
+     * @throws IOException 文件操作异常
      */
     @FXML
     private void runSqlFile() throws IOException {

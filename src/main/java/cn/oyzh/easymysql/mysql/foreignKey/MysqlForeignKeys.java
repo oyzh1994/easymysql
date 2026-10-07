@@ -12,10 +12,18 @@ import java.util.Collection;
  */
 public class MysqlForeignKeys extends DBObjectList<MysqlForeignKey> {
 
+    /**
+     * 构建外键列表
+     */
     public MysqlForeignKeys() {
 
     }
 
+    /**
+     * 根据外键集合构建外键列表
+     *
+     * @param list 外键集合
+     */
     public MysqlForeignKeys(Collection<MysqlForeignKey> list) {
         super.addAll(list);
     }

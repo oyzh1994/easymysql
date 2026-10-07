@@ -4,6 +4,8 @@ import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
+ * mysql事件状态下拉框
+ *
  * @author oyzh
  * @since 2024-09-09
  */
@@ -32,6 +34,12 @@ public class MysqlEventStatusCombobox extends FXComboBox<String> {
         }
     }
 
+    /**
+     * 是否为相同状态
+     *
+     * @param val 状态值
+     * @return 结果
+     */
     public boolean isSameStatus(String val) {
         if (val == null) {
             return false;

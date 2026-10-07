@@ -8,8 +8,14 @@ package cn.oyzh.easymysql.condition;
  */
 public class MysqlLtEqCondition extends MysqlCondition {
 
+    /**
+     * 小于等于条件实例
+     */
     public final static MysqlLtEqCondition INSTANCE = new MysqlLtEqCondition();
 
+    /**
+     * 构造方法
+     */
     public MysqlLtEqCondition() {
         super("小于等于", "<=");
     }

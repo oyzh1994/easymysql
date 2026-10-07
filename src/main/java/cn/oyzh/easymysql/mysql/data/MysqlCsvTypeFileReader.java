@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * MySQL CSV类型文件读取器
+ *
  * @author oyzh
  * @since 2024-09-03
  */
@@ -31,6 +33,13 @@ public class MysqlCsvTypeFileReader extends MysqlTypeFileReader {
      */
     private SkipAbleFileReader reader;
 
+    /**
+     * 构造CSV类型文件读取器
+     *
+     * @param file   文件
+     * @param config 导入配置
+     * @throws IOException 异常
+     */
     public MysqlCsvTypeFileReader( File file, MysqlDataImportConfig config) throws IOException {
         this.config = config;
         this.reader = new SkipAbleFileReader(file, Charset.forName(config.getCharset()));

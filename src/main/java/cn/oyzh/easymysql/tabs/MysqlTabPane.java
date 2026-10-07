@@ -21,6 +21,9 @@ import java.util.List;
  */
 public class MysqlTabPane extends RichTabPane implements FXEventListener {
 
+    /**
+     * 标签页事件监听器
+     */
     private final MysqlTabEventListener listener = new MysqlTabEventListener(this);
 
     @Override

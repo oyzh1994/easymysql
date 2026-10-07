@@ -16,11 +16,19 @@ import cn.oyzh.easymysql.util.DBUtil;
 import java.util.List;
 
 /**
+ * 表创建sql生成器
+ *
  * @author oyzh
  * @since 2024/09/11
  */
 public class MysqlTableCreateSqlGenerator {
 
+    /**
+     * 生成sql
+     *
+     * @param param 创建表参数
+     * @return sql语句
+     */
     public String generate(MysqlCreateTableParam param) {
         String dbName = param.dbName();
         MysqlTable table = param.getTable();
@@ -84,6 +92,12 @@ public class MysqlTableCreateSqlGenerator {
         return sql;
     }
 
+    /**
+     * 处理触发器
+     *
+     * @param builder 构建器
+     * @param param   创建表参数
+     */
     protected void triggerHandle(StringBuilder builder, MysqlCreateTableParam param) {
         for (MysqlTrigger trigger : param.getTriggers()) {
             builder.append("CREATE TRIGGER ")
@@ -98,6 +112,12 @@ public class MysqlTableCreateSqlGenerator {
         }
     }
 
+    /**
+     * 处理字段
+     *
+     * @param builder 构建器
+     * @param param   创建表参数
+     */
     protected void columnHandle(StringBuilder builder, MysqlCreateTableParam param) {
         for (MysqlColumn column : param.getColumns()) {
             builder.append(DBUtil.wrap(column.getName(), DBDialect.MYSQL));
@@ -157,6 +177,12 @@ public class MysqlTableCreateSqlGenerator {
         }
     }
 
+    /**
+     * 处理主键
+     *
+     * @param builder 构建器
+     * @param param   创建表参数
+     */
     protected void primaryKeyHandle(StringBuilder builder, MysqlCreateTableParam param) {
         List<MysqlColumn> keyList = param.primaryKeys();
         if (!keyList.isEmpty()) {
@@ -169,6 +195,12 @@ public class MysqlTableCreateSqlGenerator {
         }
     }
 
+    /**
+     * 处理索引
+     *
+     * @param builder 构建器
+     * @param param   创建表参数
+     */
     protected void indexHandle(StringBuilder builder, MysqlCreateTableParam param) {
         MysqlIndexes indexes = param.getIndexes();
         for (MysqlIndex index : indexes) {
@@ -199,6 +231,12 @@ public class MysqlTableCreateSqlGenerator {
         }
     }
 
+    /**
+     * 处理外键
+     *
+     * @param builder 构建器
+     * @param param   创建表参数
+     */
     protected void foreignKeyHandle(StringBuilder builder, MysqlCreateTableParam param) {
         MysqlForeignKeys foreignKeys = param.getForeignKeys();
         for (MysqlForeignKey foreignKey : foreignKeys) {
@@ -226,6 +264,12 @@ public class MysqlTableCreateSqlGenerator {
         }
     }
 
+    /**
+     * 处理检查
+     *
+     * @param builder 构建器
+     * @param table   创建表参数
+     */
     protected void checkHandle(StringBuilder builder, MysqlCreateTableParam table) {
         MysqlChecks checks = table.getChecks();
         for (MysqlCheck check : checks) {
@@ -239,6 +283,12 @@ public class MysqlTableCreateSqlGenerator {
         }
     }
 
+    /**
+     * 生成sql
+     *
+     * @param param 创建表参数
+     * @return sql语句
+     */
     public static String generateSql(MysqlCreateTableParam param) {
         return new MysqlTableCreateSqlGenerator().generate(param);
     }

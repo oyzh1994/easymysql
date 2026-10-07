@@ -17,8 +17,17 @@ import java.util.List;
  */
 public class MysqlFunctionSqlGenerator {
 
+    /**
+     * 函数sql生成器实例
+     */
     public static final MysqlFunctionSqlGenerator INSTANCE = new MysqlFunctionSqlGenerator();
 
+    /**
+     * 生成sql
+     *
+     * @param function 函数
+     * @return sql语句
+     */
     public String generate(MysqlFunction function) {
         String sql = "CREATE ";
         // 定义者

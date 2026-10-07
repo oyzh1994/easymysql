@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * MySQL HTML类型文件写入器
+ *
  * @author oyzh
  * @since 2024-09-04
  */
@@ -30,6 +32,14 @@ public class MysqlHtmlTypeFileWriter extends MysqlTypeFileWriter {
      */
     private LineFileWriter writer;
 
+    /**
+     * 构造HTML类型文件写入器
+     *
+     * @param filePath 文件路径
+     * @param config   导出配置
+     * @param columns  字段列表
+     * @throws FileNotFoundException 异常
+     */
     public MysqlHtmlTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) throws FileNotFoundException {
         this.columns = columns;
         this.config = config;

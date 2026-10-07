@@ -42,10 +42,21 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
      */
     private final MysqlView value;
 
+    /**
+     * 获取当前值
+     *
+     * @return 视图
+     */
     public MysqlView value() {
         return value;
     }
 
+    /**
+     * 构造视图树节点
+     *
+     * @param view     视图
+     * @param treeView 树视图
+     */
     public MysqlViewTreeItem(MysqlView view, RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
@@ -59,23 +70,38 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     }
 
 
+    /**
+     * 获取客户端
+     *
+     * @return 客户端
+     */
     public MysqlClient client() {
         return this.parent().client();
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String dbName() {
         return this.parent().dbName();
     }
 
     /**
-     * 获取redis信息
+     * 获取连接信息
      *
-     * @return redis信息
+     * @return 连接信息
      */
     public MysqlConnect info() {
         return this.parent().info();
     }
 
+    /**
+     * 获取视图列信息
+     *
+     * @return 视图列信息
+     */
     public MysqlColumns viewColumns() {
         this.value.setColumns(new MysqlColumns(this.columns()));
         return this.value.getColumns();
@@ -103,6 +129,9 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     //     fxView.display();
     // }
 
+    /**
+     * 设计视图
+     */
     private void designView() {
         MysqlEventUtil.designView(this.value, this.dbItem());
     }
@@ -120,10 +149,24 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         }
     }
 
+    /**
+     * 获取数据库树节点
+     *
+     * @return 数据库树节点
+     */
     public MysqlDatabaseTreeItem dbItem() {
         return this.parent().parent();
     }
 
+    /**
+     * 分页查询记录
+     *
+     * @param pageNo  页码
+     * @param limit   每页数量
+     * @param filters 过滤条件
+     * @param columns 列
+     * @return 分页记录
+     */
     public Paging<MysqlRecord> recordPage(long pageNo, long limit, List<MysqlRecordFilter> filters, List<MysqlColumn> columns) {
         MysqlSelectRecordParam param = new MysqlSelectRecordParam();
         param.setLimit(limit);
@@ -139,10 +182,20 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         return paging;
     }
 
+    /**
+     * 获取连接名称
+     *
+     * @return 连接名称
+     */
     public String infoName() {
         return this.parent().infoName();
     }
 
+    /**
+     * 获取视图列列表
+     *
+     * @return 视图列列表
+     */
     public MysqlColumns columns() {
         return new MysqlColumns(this.client().viewColumns(this.dbName(), this.viewName()));
     }
@@ -173,18 +226,41 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         return dbColumn;
     }
 
+    /**
+     * 是否可更新
+     *
+     * @return 是否可更新
+     */
     public boolean isUpdatable() {
         return this.value.isUpdatable();
     }
 
+    /**
+     * 获取视图名称
+     *
+     * @return 视图名称
+     */
     public String viewName() {
         return this.value.getName();
     }
 
+    /**
+     * 新增记录
+     *
+     * @param recordData 记录数据
+     * @return 影响行数
+     */
     public int insertRecord(MysqlRecordData recordData) {
         return this.insertRecord(recordData, null);
     }
 
+    /**
+     * 新增记录
+     *
+     * @param recordData 记录数据
+     * @param primaryKey 主键
+     * @return 影响行数
+     */
     public int insertRecord(MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
         MysqlInsertRecordParam param = new MysqlInsertRecordParam();
         param.setRecord(recordData);
@@ -194,6 +270,12 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         return this.client().insertRecord(param);
     }
 
+    /**
+     * 删除记录
+     *
+     * @param recordData 记录数据
+     * @return 影响行数
+     */
     public int deleteRecord(MysqlRecordData recordData) {
         MysqlDeleteRecordParam param = new MysqlDeleteRecordParam();
         param.setRecord(recordData);
@@ -202,6 +284,12 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         return this.client().deleteRecord(param);
     }
 
+    /**
+     * 删除记录
+     *
+     * @param primaryKey 主键
+     * @return 影响行数
+     */
     public int deleteRecord(MysqlRecordPrimaryKey primaryKey) {
         MysqlDeleteRecordParam param = new MysqlDeleteRecordParam();
         param.setDbName(this.dbName());
@@ -210,6 +298,12 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         return this.client().deleteRecord(param);
     }
 
+    /**
+     * 查询记录
+     *
+     * @param primaryKey 主键
+     * @return 记录
+     */
     public MysqlRecord selectRecord(MysqlRecordPrimaryKey primaryKey) {
         MysqlSelectRecordParam param = new MysqlSelectRecordParam();
         param.setDbName(this.dbName());
@@ -218,6 +312,13 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         return this.client().selectRecord(param);
     }
 
+    /**
+     * 更新记录
+     *
+     * @param recordData 记录数据
+     * @param primaryKey 主键
+     * @return 影响行数
+     */
     public int updateRecord(MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
         MysqlUpdateRecordParam param = new MysqlUpdateRecordParam();
         param.setDbName(this.dbName());
@@ -227,6 +328,13 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
         return this.client().updateRecord(param);
     }
 
+    /**
+     * 更新记录
+     *
+     * @param recordData         记录数据
+     * @param originalRecordData 原始记录数据
+     * @return 影响行数
+     */
     public int updateRecord(MysqlRecordData recordData, MysqlRecordData originalRecordData) {
         MysqlUpdateRecordParam param = new MysqlUpdateRecordParam();
         param.setDbName(this.dbName());

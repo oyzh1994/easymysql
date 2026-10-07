@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
+ * MySQL TXT类型文件读取器
+ *
  * @author oyzh
  * @since 2024-09-04
  */
@@ -32,6 +34,13 @@ public class MysqlTxtTypeFileReader extends MysqlTypeFileReader {
      */
     private SkipAbleFileReader reader;
 
+    /**
+     * 构造TXT类型文件读取器
+     *
+     * @param file   文件
+     * @param config 导入配置
+     * @throws IOException 异常
+     */
     public MysqlTxtTypeFileReader( File file, MysqlDataImportConfig config) throws IOException {
         // super(file, null);
         this.config = config;

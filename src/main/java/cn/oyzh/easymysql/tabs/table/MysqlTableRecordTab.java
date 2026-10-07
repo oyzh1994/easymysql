@@ -52,6 +52,7 @@ public class MysqlTableRecordTab extends MysqlTab {
      * 初始化
      *
      * @param item 树键
+     * @return 结果
      */
     public boolean init(MysqlTableTreeItem item) {
         // this.item = item;
@@ -72,18 +73,38 @@ public class MysqlTableRecordTab extends MysqlTab {
         this.controller().reload();
     }
 
+    /**
+     * 获取客户端
+     *
+     * @return 客户端
+     */
     public MysqlClient client() {
         return this.item().client();
     }
 
+    /**
+     * 设置过滤条件
+     *
+     * @param filters 过滤条件
+     */
     public void setFilters(List<MysqlRecordFilter> filters) {
         this.controller().setFilters(filters);
     }
 
+    /**
+     * 获取树节点
+     *
+     * @return 树节点
+     */
     public MysqlTableTreeItem item(){
         return this.controller().getItem();
     }
-    
+
+    /**
+     * 获取表名称
+     *
+     * @return 表名称
+     */
     public String tableName() {
         return this.item().tableName();
     }
@@ -93,6 +114,11 @@ public class MysqlTableRecordTab extends MysqlTab {
         return this.item().dbItem();
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String dbName() {
         return this.item().dbName();
     }

@@ -43,33 +43,68 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * mysql标签页事件监听器
+ *
  * @author oyzh
  * @since 2024-09-12
  */
 public class MysqlTabEventListener implements EventListener {
 
+    /**
+     * 标签面板
+     */
     private final MysqlTabPane tabPane;
 
+    /**
+     * 构造标签页事件监听器
+     *
+     * @param tabPane 标签面板
+     */
     public MysqlTabEventListener(MysqlTabPane tabPane) {
         this.tabPane = tabPane;
     }
 
+    /**
+     * 获取标签列表
+     *
+     * @return 标签列表
+     */
     private List<Tab> getTabs() {
         return this.tabPane.getTabs();
     }
 
+    /**
+     * 添加标签
+     *
+     * @param tab 标签
+     */
     private void addTab(Tab tab) {
         this.tabPane.addTab(tab);
     }
 
+    /**
+     * 选中标签
+     *
+     * @param tab 标签
+     */
     private void select(Tab tab) {
         this.tabPane.select(tab);
     }
 
+    /**
+     * 移除标签
+     *
+     * @param tab 标签
+     */
     private void removeTab(Tab tab) {
         this.tabPane.removeTab(tab);
     }
 
+    /**
+     * 移除标签
+     *
+     * @param tab 标签列表
+     */
     private void removeTab(List<? extends Tab> tab) {
         this.tabPane.removeTab(tab);
     }
@@ -89,6 +124,12 @@ public class MysqlTabEventListener implements EventListener {
         return list;
     }
 
+    /**
+     * 获取库标签列表
+     *
+     * @param dbItem 数据库树节点
+     * @return 标签列表
+     */
     private List<MysqlTab> getMysqlTabs(MysqlDatabaseTreeItem dbItem) {
         List<MysqlTab> list = new ArrayList<>();
         for (Tab tab : this.getTabs()) {
@@ -99,6 +140,13 @@ public class MysqlTabEventListener implements EventListener {
         return list;
     }
 
+    /**
+     * 获取表记录标签
+     *
+     * @param dbItem    数据库树节点
+     * @param tableName 表名称
+     * @return 表记录标签
+     */
     private MysqlTableRecordTab getMysqlTableRecordTab(MysqlDatabaseTreeItem dbItem, String tableName) {
         for (Tab tab : this.getTabs()) {
             if (tab instanceof MysqlTableRecordTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(tableName, tab1.tableName())) {
@@ -283,6 +331,12 @@ public class MysqlTabEventListener implements EventListener {
         }
     }
 
+    /**
+     * 获取查询标签
+     *
+     * @param queryId 查询id
+     * @return 查询标签
+     */
     private MysqlQueryMainTab getMysqlQueryMainTab(String queryId) {
         for (Tab tab : this.getTabs()) {
             if (tab instanceof MysqlQueryMainTab tab1 && StringUtil.equals(tab1.queryId(), queryId)) {
@@ -384,6 +438,13 @@ public class MysqlTabEventListener implements EventListener {
         this.removeTab(this.getMysqlTabs(event.data()));
     }
 
+    /**
+     * 获取函数设计标签
+     *
+     * @param dbItem       数据库树节点
+     * @param functionName 函数名称
+     * @return 函数设计标签
+     */
     private MysqlFunctionDesignTab getMysqlFunctionTab(MysqlDatabaseTreeItem dbItem, String functionName) {
         for (Tab tab : this.getTabs()) {
             if (tab instanceof MysqlFunctionDesignTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(functionName, tab1.functionName())) {
@@ -413,6 +474,13 @@ public class MysqlTabEventListener implements EventListener {
         }
     }
 
+    /**
+     * 获取过程设计标签
+     *
+     * @param dbItem        数据库树节点
+     * @param procedureName 过程名称
+     * @return 过程设计标签
+     */
     private MysqlProcedureDesignTab getMysqlProcedureTab(MysqlDatabaseTreeItem dbItem, String procedureName) {
         for (Tab tab : this.getTabs()) {
             if (tab instanceof MysqlProcedureDesignTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(procedureName, tab1.procedureName())) {
@@ -442,6 +510,13 @@ public class MysqlTabEventListener implements EventListener {
         }
     }
 
+    /**
+     * 获取事件设计标签
+     *
+     * @param dbItem    数据库树节点
+     * @param eventName 事件名称
+     * @return 事件设计标签
+     */
     private MysqlEventDesignTab getMysqlEventTab(MysqlDatabaseTreeItem dbItem, String eventName) {
         for (Tab tab : this.getTabs()) {
             if (tab instanceof MysqlEventDesignTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(eventName, tab1.eventName())) {
@@ -471,6 +546,13 @@ public class MysqlTabEventListener implements EventListener {
         }
     }
 
+    /**
+     * 获取视图设计标签
+     *
+     * @param dbItem   数据库树节点
+     * @param viewName 视图名称
+     * @return 视图设计标签
+     */
     private MysqlViewDesignTab getMysqlViewDesignTab(MysqlDatabaseTreeItem dbItem, String viewName) {
         for (Tab tab : this.getTabs()) {
             if (tab instanceof MysqlViewDesignTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(viewName, tab1.viewName())) {
@@ -500,6 +582,13 @@ public class MysqlTabEventListener implements EventListener {
         }
     }
 
+    /**
+     * 获取表设计标签
+     *
+     * @param dbItem    数据库树节点
+     * @param tableName 表名称
+     * @return 表设计标签
+     */
     private MysqlTableDesignTab getMysqlTableDesignTab(MysqlDatabaseTreeItem dbItem, String tableName) {
         for (Tab tab : this.getTabs()) {
             if (tab instanceof MysqlTableDesignTab tab1 && tab1.dbItem() == dbItem && StringUtil.equalsIgnoreCase(tableName, tab1.tableName())) {
@@ -539,6 +628,13 @@ public class MysqlTabEventListener implements EventListener {
         this.removeTab(this.getMysqlTabs());
     }
 
+    /**
+     * 获取视图记录标签
+     *
+     * @param dbItem   数据库树节点
+     * @param viewName 视图名称
+     * @return 视图记录标签
+     */
     private MysqlViewRecordTab getViewRecordTab(MysqlDatabaseTreeItem dbItem, String viewName) {
         for (Tab tab : this.getTabs()) {
             if (tab instanceof MysqlViewRecordTab tab1 && tab1.dbItem() == dbItem && StringUtil.equals(viewName, tab1.viewName())) {

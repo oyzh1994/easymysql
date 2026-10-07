@@ -55,10 +55,20 @@ public class MysqlQueryMainTab extends MysqlTab {
         }
     }
 
+    /**
+     * 获取查询对象
+     *
+     * @return 查询对象
+     */
     public MysqlQuery query() {
         return this.controller().getQuery();
     }
 
+    /**
+     * 获取查询id
+     *
+     * @return 查询id
+     */
     public String queryId() {
         return this.query().getUid();
     }
@@ -68,10 +78,20 @@ public class MysqlQueryMainTab extends MysqlTab {
         return this.controller().getDbItem();
     }
 
+    /**
+     * 获取库名称
+     *
+     * @return 库名称
+     */
     public String dbName() {
         return this.dbItem().dbName();
     }
 
+    /**
+     * 获取连接名称
+     *
+     * @return 连接名称
+     */
     public String connectName() {
         return this.dbItem().connectName();
     }
@@ -81,7 +101,8 @@ public class MysqlQueryMainTab extends MysqlTab {
      * 初始化
      *
      * @param query 查询对象
-     * @param item  db库树节点
+     * @param item  数据库树节点
+     * @return 结果
      */
     public boolean init(MysqlQuery query, MysqlDatabaseTreeItem item) {
         this.controller().init(this, query, item);

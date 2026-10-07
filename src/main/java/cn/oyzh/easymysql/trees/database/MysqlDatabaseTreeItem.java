@@ -71,10 +71,21 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      */
     private final DBDatabase value;
 
+    /**
+     * 获取数据库
+     *
+     * @return 数据库
+     */
     public DBDatabase value() {
         return value;
     }
 
+    /**
+     * 构造数据库树节点
+     *
+     * @param database 数据库
+     * @param treeView 树视图
+     */
     public MysqlDatabaseTreeItem(DBDatabase database, RichTreeView treeView) {
         super(treeView);
         super.setSortable(false);
@@ -88,10 +99,20 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return (DBConnectTreeItem) super.parent();
     }
 
+    /**
+     * 获取库名称
+     *
+     * @return 库名称
+     */
     public String dbName() {
         return this.value.getName();
     }
 
+    /**
+     * 获取用户名
+     *
+     * @return 用户名
+     */
     public String userName() {
         return this.info().getUser();
     }
@@ -272,7 +293,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     /**
      * 获取函数节点列表
      *
-     * @return 过程节点列表
+     * @return 函数节点列表
      */
     public List<MysqlFunctionTreeItem> getFunctionChild() {
         List<MysqlFunctionTreeItem> list = new ArrayList<>();
@@ -313,6 +334,11 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return list;
     }
 
+    /**
+     * 获取事件类型子节点
+     *
+     * @return 事件类型子节点
+     */
     public MysqlEventsTreeItem getEventTypeChild() {
         for (RichTreeItem<?> child : this.richChildren()) {
             if (child instanceof MysqlEventsTreeItem treeItem) {
@@ -322,6 +348,11 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return null;
     }
 
+    /**
+     * 获取事件节点列表
+     *
+     * @return 事件节点列表
+     */
     public List<MysqlEventTreeItem> getEventChild() {
         List<MysqlEventTreeItem> list = new ArrayList<>();
         for (RichTreeItem<?> child : this.getEventTypeChild().richChildren()) {
@@ -333,9 +364,9 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     }
 
     /**
-     * 获取查询类型子节点
+     * 获取视图类型子节点
      *
-     * @return 查询类型子节点
+     * @return 视图类型子节点
      */
     public MysqlViewsTreeItem getViewTypeChild() {
         for (RichTreeItem<?> child : this.richChildren()) {
@@ -379,6 +410,11 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return this.parent().value();
     }
 
+    /**
+     * 获取表数量
+     *
+     * @return 表数量
+     */
     public Integer tableSize() {
         try {
             return this.client().tableSize(this.dbName());
@@ -388,14 +424,29 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return 0;
     }
 
+    /**
+     * 获取视图数量
+     *
+     * @return 视图数量
+     */
     public Integer viewSize() {
         return this.client().viewSize(this.dbName());
     }
 
+    /**
+     * 获取连接信息名称
+     *
+     * @return 连接信息名称
+     */
     public String infoName() {
         return this.info().getName();
     }
 
+    /**
+     * 获取连接名称
+     *
+     * @return 连接名称
+     */
     public String connectName() {
         return this.info().getName();
     }
@@ -409,6 +460,16 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         }
     }
 
+    /**
+     * 创建表
+     *
+     * @param table       表
+     * @param columns     字段
+     * @param indexes     索引
+     * @param foreignKeys 外键
+     * @param triggers    触发器
+     * @param checks      检查约束
+     */
     public void createTable(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
         MysqlCreateTableParam param = new MysqlCreateTableParam();
         param.setTable(table);
@@ -420,10 +481,26 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         this.client().createTable(param);
     }
 
+    /**
+     * 创建表
+     *
+     * @param param 创建表参数
+     */
     public void createTable(MysqlCreateTableParam param) {
         this.client().createTable(param);
     }
 
+    /**
+     * 构造创建表参数
+     *
+     * @param table       表
+     * @param columns     字段
+     * @param indexes     索引
+     * @param foreignKeys 外键
+     * @param triggers    触发器
+     * @param checks      检查约束
+     * @return 创建表参数
+     */
     public MysqlCreateTableParam createTableParam(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
         MysqlCreateTableParam param = new MysqlCreateTableParam();
         param.setTable(table);
@@ -435,6 +512,16 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return param;
     }
 
+    /**
+     * 修改表
+     *
+     * @param table       表
+     * @param columns     字段
+     * @param indexes     索引
+     * @param foreignKeys 外键
+     * @param triggers    触发器
+     * @param checks      检查约束
+     */
     public void alterTable(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
         MysqlAlertTableParam param = new MysqlAlertTableParam();
         param.setTable(table);
@@ -447,10 +534,26 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         this.client().alertTable(param);
     }
 
+    /**
+     * 修改表
+     *
+     * @param param 修改表参数
+     */
     public void alterTable(MysqlAlertTableParam param) {
         this.client().alertTable(param);
     }
 
+    /**
+     * 构造修改表参数
+     *
+     * @param table       表
+     * @param columns     字段
+     * @param indexes     索引
+     * @param foreignKeys 外键
+     * @param triggers    触发器
+     * @param checks      检查约束
+     * @return 修改表参数
+     */
     public MysqlAlertTableParam alterTableParam(MysqlTable table, MysqlColumns columns, MysqlIndexes indexes, MysqlForeignKeys foreignKeys, MysqlTriggers triggers, MysqlChecks checks) {
         MysqlAlertTableParam param = new MysqlAlertTableParam();
         param.setTable(table);
@@ -463,10 +566,22 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return param;
     }
 
+    /**
+     * 是否存在主键
+     *
+     * @param tableName 表名称
+     * @return 结果
+     */
     public boolean existPrimaryKey(String tableName) {
         return this.client().existPrimaryKey(this.dbName(), tableName);
     }
 
+    /**
+     * 查询完整表信息
+     *
+     * @param tableName 表名称
+     * @return 表
+     */
     public MysqlTable selectFullTable(String tableName) {
         MysqlSelectTableParam param = new MysqlSelectTableParam();
         param.setDbName(this.dbName());
@@ -474,11 +589,23 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return this.client().selectFullTable(param);
     }
 
+    /**
+     * 是否存在表
+     *
+     * @param tableName 表名称
+     * @return 结果
+     */
     @Deprecated
     public boolean existTable(String tableName) {
         return this.client().existTable(this.dbName(), tableName);
     }
 
+    /**
+     * 重命名表
+     *
+     * @param oldTableName 原表名称
+     * @param newTableName 新表名称
+     */
     public void renameTable(String oldTableName, String newTableName) {
         this.client().renameTable(this.dbName(), oldTableName, newTableName);
     }
@@ -493,82 +620,190 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         this.client().renameEvent(this.dbName(), oldEventName, newEventName);
     }
 
+    /**
+     * 清空表
+     *
+     * @param tableName 表名称
+     */
     public void clearTable(String tableName) {
         this.client().clearTable(this.dbName(), tableName);
     }
 
+    /**
+     * 截断表
+     *
+     * @param tableName 表名称
+     */
     public void truncateTable(String tableName) {
         this.client().truncateTable(this.dbName(), tableName);
     }
 
+    /**
+     * 删除表
+     *
+     * @param tableName 表名称
+     */
     public void dropTable(String tableName) {
         this.client().dropTable(this.dbName(), tableName);
     }
 
+    /**
+     * 执行sql
+     *
+     * @param sql sql语句
+     * @return 执行结果
+     */
     public MysqlQueryResults<MysqlExecuteResult> executeSql(String sql) {
         return this.client().executeSql(this.dbName(), sql);
     }
 
+    /**
+     * 执行单条sql
+     *
+     * @param sql sql语句
+     * @return 执行结果
+     */
     public MysqlExecuteResult executeSingleSql(String sql) {
         return this.client().executeSingleSql(this.dbName(), sql);
     }
 
+    /**
+     * 解释sql
+     *
+     * @param sql sql语句
+     * @return 解释结果
+     */
     public MysqlQueryResults<MysqlExplainResult> explainSql(String sql) {
         return this.client().explainSql(this.dbName(), sql);
     }
 
+    /**
+     * 创建函数
+     *
+     * @param function 函数
+     */
     public void createFunction(MysqlFunction function) {
         this.client().createFunction(this.dbName(), function);
     }
 
+    /**
+     * 删除函数
+     *
+     * @param function 函数
+     */
     public void dropFunction(MysqlFunction function) {
         this.client().dropFunction(this.dbName(), function);
     }
 
+    /**
+     * 查询过程
+     *
+     * @param procedureName 过程名称
+     * @return 过程
+     */
     public MysqlProcedure selectProcedure(String procedureName) {
         return this.client().selectProcedure(this.dbName(), procedureName);
     }
 
+    /**
+     * 修改过程
+     *
+     * @param procedure 过程
+     */
     public void alertProcedure(MysqlProcedure procedure) {
         this.client().alertProcedure(this.dbName(), procedure);
     }
 
+    /**
+     * 创建过程
+     *
+     * @param procedure 过程
+     */
     public void createProcedure(MysqlProcedure procedure) {
         this.client().createProcedure(this.dbName(), procedure);
     }
 
+    /**
+     * 删除过程
+     *
+     * @param procedure 过程
+     */
     public void dropProcedure(MysqlProcedure procedure) {
         this.client().dropProcedure(this.dbName(), procedure);
     }
 
+    /**
+     * 查询函数
+     *
+     * @param functionName 函数名称
+     * @return 函数
+     */
     public MysqlFunction selectFunction(String functionName) {
         return this.client().selectFunction(this.dbName(), functionName);
     }
 
+    /**
+     * 修改函数
+     *
+     * @param function 函数
+     */
     public void alertFunction(MysqlFunction function) {
         this.client().alertFunction(this.dbName(), function);
     }
 
+    /**
+     * 查询视图
+     *
+     * @param viewName 视图名称
+     * @return 视图
+     */
     public MysqlView selectView(String viewName) {
         return this.client().view(this.dbName(), viewName);
     }
 
+    /**
+     * 查询表
+     *
+     * @param tableName 表名称
+     * @return 表
+     */
     public MysqlTable selectTable(String tableName) {
         return this.client().selectTable(this.dbName(), tableName);
     }
 
+    /**
+     * 创建视图
+     *
+     * @param view 视图
+     */
     public void createView(MysqlView view) {
         this.client().createView(this.dbName(), view);
     }
 
+    /**
+     * 修改视图
+     *
+     * @param view 视图
+     */
     public void alertView(MysqlView view) {
         this.client().alertView(this.dbName(), view);
     }
 
+    /**
+     * 删除视图
+     *
+     * @param view 视图
+     */
     public void dropView(MysqlView view) {
         this.client().dropView(this.dbName(), view);
     }
 
+    /**
+     * 是否存在视图
+     *
+     * @param viewName 视图名称
+     * @return 结果
+     */
     public boolean existView(String viewName) {
         return this.client().existView(this.dbName(), viewName);
     }
@@ -584,42 +819,97 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     //    this.refresh();
     //}
 
+    /**
+     * 查询事件
+     *
+     * @param eventName 事件名称
+     * @return 事件
+     */
     public MysqlEvent selectEvent(String eventName) {
         return this.client().selectEvent(this.dbName(), eventName);
     }
 
+    /**
+     * 修改事件
+     *
+     * @param event 事件
+     */
     public void alertEvent(MysqlEvent event) {
         this.client().alertEvent(this.dbName(), event);
     }
 
+    /**
+     * 创建事件
+     *
+     * @param event 事件
+     */
     public void createEvent(MysqlEvent event) {
         this.client().createEvent(this.dbName(), event);
     }
 
+    /**
+     * 删除事件
+     *
+     * @param event 事件
+     */
     public void dropEvent(MysqlEvent event) {
         this.client().dropEvent(this.dbName(), event);
     }
 
+    /**
+     * 是否支持检查约束功能
+     *
+     * @return 结果
+     */
     public boolean isSupportCheckFeature() {
         return this.client().isSupportCheckFeature();
     }
 
+    /**
+     * 获取数据库方言
+     *
+     * @return 数据库方言
+     */
     public DBDialect dialect() {
         return this.client().dialect();
     }
 
+    /**
+     * 删除记录
+     *
+     * @param param 删除记录参数
+     * @return 结果
+     */
     public int deleteRecord(MysqlDeleteRecordParam param) {
         return this.client().deleteRecord(param);
     }
 
+    /**
+     * 获取检查约束
+     *
+     * @param tableName 表名称
+     * @return 检查约束
+     */
     public MysqlChecks checks(String tableName) {
         return this.client().checks(this.dbName(), tableName);
     }
 
+    /**
+     * 获取触发器
+     *
+     * @param tableName 表名称
+     * @return 触发器
+     */
     public MysqlTriggers triggers(String tableName) {
         return this.client().triggers(this.dbName(), tableName);
     }
 
+    /**
+     * 获取字段
+     *
+     * @param tableName 表名称
+     * @return 字段
+     */
     public MysqlColumns columns(String tableName) {
         MysqlSelectColumnParam param = new MysqlSelectColumnParam();
         param.setDbName(this.dbName());
@@ -627,22 +917,52 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         return this.client().selectColumns(param);
     }
 
+    /**
+     * 获取索引
+     *
+     * @param tableName 表名称
+     * @return 索引
+     */
     public MysqlIndexes indexes(String tableName) {
         return this.client().indexes(this.dbName(), tableName);
     }
 
+    /**
+     * 获取外键
+     *
+     * @param tableName 表名称
+     * @return 外键
+     */
     public MysqlForeignKeys foreignKeys(String tableName) {
         return this.client().foreignKeys(this.dbName(), tableName);
     }
 
+    /**
+     * 查询记录
+     *
+     * @param param 查询记录参数
+     * @return 记录
+     */
     public MysqlRecord selectRecord(MysqlSelectRecordParam param) {
         return this.client().selectRecord(param);
     }
 
+    /**
+     * 获取数据库连接信息
+     *
+     * @return 数据库连接信息
+     */
     public MysqlConnect dbConnect() {
         return this.client().getDbConnect();
     }
 
+    /**
+     * 克隆表
+     *
+     * @param tableName     表名称
+     * @param includeRecord 是否包含记录
+     * @return 结果
+     */
     public String cloneTable(String tableName, boolean includeRecord) {
         return this.client().cloneTable(this.dbName(), tableName, includeRecord);
     }

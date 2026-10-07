@@ -8,8 +8,14 @@ package cn.oyzh.easymysql.condition;
  */
 public class MysqlContainsCondition extends MysqlCondition {
 
+    /**
+     * 包含条件实例
+     */
     public final static MysqlContainsCondition INSTANCE = new MysqlContainsCondition();
 
+    /**
+     * 构造方法
+     */
     public MysqlContainsCondition() {
         super("包含", "LIKE");
     }

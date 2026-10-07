@@ -79,7 +79,7 @@ public class MysqlFiledTypeComboBox extends FXComboBox<String> {
     }
 
     /**
-     * 是否支持集合
+     * 是否支持几何类型
      *
      * @return 结果
      */
@@ -97,7 +97,7 @@ public class MysqlFiledTypeComboBox extends FXComboBox<String> {
     }
 
     /**
-     * 是否支持主键
+     * 是否支持枚举
      *
      * @return 结果
      */

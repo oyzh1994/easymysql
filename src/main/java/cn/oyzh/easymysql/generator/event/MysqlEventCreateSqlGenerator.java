@@ -5,15 +5,25 @@ import cn.oyzh.easymysql.mysql.event.MysqlEvent;
 import cn.oyzh.easymysql.util.DBUtil;
 
 /**
+ * mysql事件创建sql生成器
+ *
  * @author oyzh
  * @since 2024-09-10
  */
 public class MysqlEventCreateSqlGenerator extends EventCreateSqlGenerator {
 
+    /**
+     * 构造方法
+     */
     public MysqlEventCreateSqlGenerator() {
         super(DBDialect.MYSQL);
     }
 
+    /**
+     * 构造方法
+     *
+     * @param dialect 数据库方言
+     */
     protected MysqlEventCreateSqlGenerator(DBDialect dialect) {
         super(dialect);
     }

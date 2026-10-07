@@ -56,6 +56,12 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
      */
     private final MysqlTable value;
 
+    /**
+     * 构造表树节点
+     *
+     * @param table 表
+     * @param treeView 树视图
+     */
     public MysqlTableTreeItem(MysqlTable table, RichTreeView treeView) {
         super(treeView);
         this.value = table;
@@ -67,22 +73,37 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return (MysqlTablesTreeItem) super.parent();
     }
 
+    /**
+     * 获取客户端
+     *
+     * @return 客户端
+     */
     public MysqlClient client() {
         return this.parent().client();
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String dbName() {
         return this.parent().dbName();
     }
 
+    /**
+     * 获取表名称
+     *
+     * @return 表名称
+     */
     public String tableName() {
         return this.value.getName();
     }
 
     /**
-     * 获取redis信息
+     * 获取连接信息
      *
-     * @return redis信息
+     * @return 连接信息
      */
     public MysqlConnect info() {
         return this.parent().info();
@@ -171,11 +192,17 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         fxView.display();
     }
 
+    /**
+     * 设计表
+     */
     private void designTable() {
         this.reloadChild();
         MysqlEventUtil.designTable(this.value, this.dbItem());
     }
 
+    /**
+     * 截断表
+     */
     private void truncateTable() {
         if (MessageBox.confirm(I18nHelper.truncateTable() + "[" + this.tableName() + "]")) {
             try {
@@ -217,6 +244,9 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         }
     }
 
+    /**
+     * 查看表信息
+     */
     private void tableInfo() {
         StageAdapter fxView = StageManager.parseStage(MysqlTableInfoController.class, this.window());
         fxView.setProp("tableItem", this);
@@ -255,6 +285,11 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         }
     }
 
+    /**
+     * 获取数据库树节点
+     *
+     * @return 数据库树节点
+     */
     public MysqlDatabaseTreeItem dbItem() {
         if (this.parent() == null) {
             return null;
@@ -262,6 +297,15 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return this.parent().parent();
     }
 
+    /**
+     * 分页查询记录
+     *
+     * @param pageNo  页码
+     * @param limit   每页数量
+     * @param filters 过滤条件
+     * @param columns 列
+     * @return 分页记录
+     */
     public Paging<MysqlRecord> recordPage(long pageNo, long limit, List<MysqlRecordFilter> filters, List<MysqlColumn> columns) {
         MysqlSelectRecordParam param = new MysqlSelectRecordParam();
         param.setLimit(limit);
@@ -277,26 +321,56 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return paging;
     }
 
+    /**
+     * 获取连接名称
+     *
+     * @return 连接名称
+     */
     public String infoName() {
         return parent().infoName();
     }
 
+    /**
+     * 获取列信息
+     *
+     * @return 列信息
+     */
     public MysqlColumns columns() {
         return this.client().selectColumns(new MysqlSelectColumnParam(this.dbName(), this.tableName()));
     }
 
+    /**
+     * 获取索引列表
+     *
+     * @return 索引列表
+     */
     public List<MysqlIndex> indexes() {
         return this.client().indexes(this.dbName(), this.tableName());
     }
 
+    /**
+     * 获取检查信息
+     *
+     * @return 检查信息
+     */
     public MysqlChecks checks() {
         return this.client().checks(this.dbName(), this.tableName());
     }
 
+    /**
+     * 获取外键列表
+     *
+     * @return 外键列表
+     */
     public List<MysqlForeignKey> foreignKeys() {
         return this.client().foreignKeys(this.dbName(), this.tableName());
     }
 
+    /**
+     * 获取触发器列表
+     *
+     * @return 触发器列表
+     */
     public List<MysqlTrigger> triggers() {
         return this.client().triggers(this.dbName(), this.tableName());
     }
@@ -306,6 +380,9 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         MysqlEventUtil.tableOpen(this, this.dbItem());
     }
 
+    /**
+     * 列缓存
+     */
     private MysqlColumns columns;
 
     /**
@@ -355,6 +432,11 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         this.loadChild();
     }
 
+    /**
+     * 是否存在主键
+     *
+     * @return 是否存在主键
+     */
     public boolean hasPrimaryKey() {
         if (columns == null) {
             columns = this.columns();
@@ -362,10 +444,23 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return this.columns.primaryKeys().isEmpty();
     }
 
+    /**
+     * 新增记录
+     *
+     * @param recordData 记录数据
+     * @return 影响行数
+     */
     public int insertRecord(MysqlRecordData recordData) {
         return this.insertRecord(recordData, null);
     }
 
+    /**
+     * 新增记录
+     *
+     * @param recordData 记录数据
+     * @param primaryKey 主键
+     * @return 影响行数
+     */
     public int insertRecord(MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
         MysqlInsertRecordParam param = new MysqlInsertRecordParam();
         param.setRecord(recordData);
@@ -375,6 +470,12 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return this.client().insertRecord(param);
     }
 
+    /**
+     * 删除记录
+     *
+     * @param recordData 记录数据
+     * @return 影响行数
+     */
     public int deleteRecord(MysqlRecordData recordData) {
         MysqlDeleteRecordParam param = new MysqlDeleteRecordParam();
         param.setDbName(this.dbName());
@@ -383,6 +484,12 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return this.client().deleteRecord(param);
     }
 
+    /**
+     * 删除记录
+     *
+     * @param primaryKey 主键
+     * @return 影响行数
+     */
     public int deleteRecord(MysqlRecordPrimaryKey primaryKey) {
         MysqlDeleteRecordParam param = new MysqlDeleteRecordParam();
         param.setDbName(this.dbName());
@@ -391,6 +498,12 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return this.client().deleteRecord(param);
     }
 
+    /**
+     * 查询记录
+     *
+     * @param primaryKey 主键
+     * @return 记录
+     */
     public MysqlRecord selectRecord(MysqlRecordPrimaryKey primaryKey) {
         MysqlSelectRecordParam param = new MysqlSelectRecordParam();
         param.setDbName(this.dbName());
@@ -399,6 +512,13 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return this.client().selectRecord(param);
     }
 
+    /**
+     * 更新记录
+     *
+     * @param recordData 记录数据
+     * @param primaryKey 主键
+     * @return 影响行数
+     */
     public int updateRecord(MysqlRecordData recordData, MysqlRecordPrimaryKey primaryKey) {
         MysqlUpdateRecordParam param = new MysqlUpdateRecordParam();
         param.setDbName(this.dbName());
@@ -408,6 +528,13 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return this.client().updateRecord(param);
     }
 
+    /**
+     * 更新记录
+     *
+     * @param recordData         记录数据
+     * @param originalRecordData 原始记录数据
+     * @return 影响行数
+     */
     public int updateRecord(MysqlRecordData recordData, MysqlRecordData originalRecordData) {
         MysqlUpdateRecordParam param = new MysqlUpdateRecordParam();
         param.setDbName(this.dbName());
@@ -417,6 +544,11 @@ public class MysqlTableTreeItem extends DBTreeItem<MysqlTableTreeItemValue> {
         return this.client().updateRecord(param);
     }
 
+    /**
+     * 获取当前值
+     *
+     * @return 表
+     */
     public MysqlTable value() {
         return value;
     }

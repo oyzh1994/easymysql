@@ -13,8 +13,14 @@ import java.util.Collection;
  */
 public class MysqlBetweenCondition extends MysqlCondition {
 
+    /**
+     * 介于条件实例
+     */
     public final static MysqlBetweenCondition INSTANCE = new MysqlBetweenCondition();
 
+    /**
+     * 构造方法
+     */
     public MysqlBetweenCondition() {
         super("介于", "BETWEEN");
     }

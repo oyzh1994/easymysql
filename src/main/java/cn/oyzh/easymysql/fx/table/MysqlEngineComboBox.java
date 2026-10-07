@@ -11,6 +11,11 @@ import cn.oyzh.fx.plus.controls.combo.FXComboBox;
  */
 public class MysqlEngineComboBox extends FXComboBox<String> {
 
+    /**
+     * 初始化引擎列表
+     *
+     * @param client mysql客户端
+     */
     public void init(MysqlClient client) {
         this.clearItems();
         for (String engine : client.engines()) {
@@ -27,6 +32,11 @@ public class MysqlEngineComboBox extends FXComboBox<String> {
         }
     }
 
+    /**
+     * 是否为InnoDB引擎
+     *
+     * @return 结果
+     */
     public boolean isInnoDB() {
         return "innoDB".equalsIgnoreCase(this.getSelectedItem());
     }

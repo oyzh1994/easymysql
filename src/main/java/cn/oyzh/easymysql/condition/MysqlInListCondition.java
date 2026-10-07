@@ -10,8 +10,14 @@ import cn.oyzh.easymysql.util.DBUtil;
  */
 public class MysqlInListCondition extends MysqlCondition {
 
+    /**
+     * 在列表条件实例
+     */
     public final static MysqlInListCondition INSTANCE = new MysqlInListCondition();
 
+    /**
+     * 构造方法
+     */
     public MysqlInListCondition() {
         super("在列表", "IN");
     }

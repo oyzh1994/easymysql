@@ -22,11 +22,19 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * mysql数据转储处理器
+ *
  * @author oyzh
  * @since 2024/09/10
  */
 public class MysqlDataDumpHandler extends DataDumpHandler {
 
+    /**
+     * 构造方法
+     *
+     * @param dbClient db客户端
+     * @param dbName   库名称
+     */
     public MysqlDataDumpHandler(MysqlClient dbClient, String dbName) {
         super(dbClient, dbName);
     }
@@ -59,6 +67,12 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
         this.message("Dump File To -> " + this.dumpFile.getPath());
     }
 
+    /**
+     * 转储表结构
+     *
+     * @throws InterruptedException 中断异常
+     * @throws IOException          异常
+     */
     protected void dumpTable() throws InterruptedException, IOException {
         MysqlSelectTableParam selectTableParam = new MysqlSelectTableParam();
         selectTableParam.setFull(true);
@@ -73,6 +87,13 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
         }
     }
 
+    /**
+     * 转储表结构
+     *
+     * @param table 表
+     * @throws InterruptedException 中断异常
+     * @throws IOException          异常
+     */
     protected void dumpTable(MysqlTable table) throws InterruptedException, IOException {
         String line0 = "";
         String line1 = "-- ----------------------------";
@@ -91,6 +112,13 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
         }
     }
 
+    /**
+     * 转储记录
+     *
+     * @param tableName 表名称
+     * @throws InterruptedException 中断异常
+     * @throws IOException          异常
+     */
     protected void dumpRecord(String tableName) throws InterruptedException, IOException {
         long start = 0;
         String line0 = "";
@@ -125,6 +153,11 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
         }
     }
 
+    /**
+     * 转储视图
+     *
+     * @throws Exception 异常
+     */
     protected void dumpView() throws Exception {
         List<MysqlView> views = this.dbClient.views(this.dbName);
         if (CollectionUtil.isNotEmpty(views)) {
@@ -146,6 +179,11 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
         }
     }
 
+    /**
+     * 转储函数
+     *
+     * @throws Exception 异常
+     */
     protected void dumpFunction() throws Exception {
         List<MysqlFunction> functions = this.dbClient.functions(this.dbName);
         if (CollectionUtil.isNotEmpty(functions)) {
@@ -167,6 +205,11 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
         }
     }
 
+    /**
+     * 转储存储过程
+     *
+     * @throws Exception 异常
+     */
     protected void dumpProcedure() throws Exception {
         List<MysqlProcedure> procedures = this.dbClient.procedures(this.dbName);
         if (CollectionUtil.isNotEmpty(procedures)) {
@@ -188,6 +231,11 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
         }
     }
 
+    /**
+     * 转储触发器
+     *
+     * @throws Exception 异常
+     */
     protected void dumpTrigger() throws Exception {
         List<MysqlTrigger> triggers = this.dbClient.triggers(this.dbName);
         if (CollectionUtil.isNotEmpty(triggers)) {
@@ -208,6 +256,11 @@ public class MysqlDataDumpHandler extends DataDumpHandler {
         }
     }
 
+    /**
+     * 转储事件
+     *
+     * @throws Exception 异常
+     */
     protected void dumpEvent() throws Exception {
         List<MysqlEvent> events = this.dbClient.events(this.dbName);
         if (CollectionUtil.isNotEmpty(events)) {

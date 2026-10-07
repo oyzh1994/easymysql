@@ -327,6 +327,9 @@ public class MysqlDataExportController extends StageController {
         this.dateFormat.textProperty().addListener((observable, oldValue, newValue) -> this.flushDatePreview());
     }
 
+    /**
+     * 刷新日期预览
+     */
     private void flushDatePreview() {
         try {
             String format = this.dateFormat.getTextTrim();
@@ -377,12 +380,18 @@ public class MysqlDataExportController extends StageController {
         this.step5.managedBindVisible();
     }
 
+    /**
+     * 显示第一步
+     */
     @FXML
     private void showStep1() {
         this.step1.display();
         this.step2.disappear();
     }
 
+    /**
+     * 显示第二步
+     */
     @FXML
     private void showStep2() {
         RadioButton button = this.fileType.selectedToggle();
@@ -407,6 +416,9 @@ public class MysqlDataExportController extends StageController {
         this.step2.display();
     }
 
+    /**
+     * 显示第三步
+     */
     @FXML
     private void showStep3() {
         if (!this.exportTableView.hasSelectedTable()) {
@@ -426,6 +438,9 @@ public class MysqlDataExportController extends StageController {
         this.step3.display();
     }
 
+    /**
+     * 显示第四步
+     */
     @FXML
     private void showStep4() {
         this.step3.disappear();
@@ -494,12 +509,18 @@ public class MysqlDataExportController extends StageController {
         this.step4.display();
     }
 
+    /**
+     * 显示第五步
+     */
     @FXML
     private void showStep5() {
         this.step4.disappear();
         this.step5.display();
     }
 
+    /**
+     * 全选表
+     */
     @FXML
     private void selectAllTable() {
         for (DataExportTable item : this.exportTableView.getItems()) {
@@ -507,6 +528,9 @@ public class MysqlDataExportController extends StageController {
         }
     }
 
+    /**
+     * 取消全选表
+     */
     @FXML
     private void unselectAllTable() {
         for (DataExportTable item : this.exportTableView.getItems()) {
@@ -514,6 +538,9 @@ public class MysqlDataExportController extends StageController {
         }
     }
 
+    /**
+     * 全选字段
+     */
     @FXML
     private void selectAllFiled() {
         for (FXCheckBox item : this.tableColumns.getItems()) {
@@ -521,6 +548,9 @@ public class MysqlDataExportController extends StageController {
         }
     }
 
+    /**
+     * 取消全选字段
+     */
     @FXML
     private void unselectAllField() {
         for (FXCheckBox item : this.tableColumns.getItems()) {

@@ -6,7 +6,7 @@ import cn.oyzh.ssh.SSHException;
 import java.util.function.Function;
 
 /**
- * redis异常信息解析
+ * db异常信息解析
  *
  * @author oyzh
  * @since 2023/7/2

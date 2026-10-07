@@ -18,6 +18,13 @@ public class MysqlQuerySelectTab extends RichTab {
         return MysqlTab.BASE_PATH + "query/mysqlQuerySelectTab.fxml";
     }
 
+    /**
+     * 初始化
+     *
+     * @param title  标题
+     * @param result 执行结果
+     * @param dbItem 数据库树节点
+     */
     public void init(String title, MysqlExecuteResult result, MysqlDatabaseTreeItem dbItem) {
         this.setTitle(title);
         this.controller().init(result, dbItem);

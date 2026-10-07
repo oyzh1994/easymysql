@@ -10,8 +10,14 @@ import cn.oyzh.easymysql.util.DBUtil;
  */
 public class MysqlNotInListCondition extends MysqlCondition {
 
+    /**
+     * 不在列表条件实例
+     */
     public final static MysqlNotInListCondition INSTANCE = new MysqlNotInListCondition();
 
+    /**
+     * 构造方法
+     */
     public MysqlNotInListCondition() {
         super("不在列表", "NOT IN");
     }

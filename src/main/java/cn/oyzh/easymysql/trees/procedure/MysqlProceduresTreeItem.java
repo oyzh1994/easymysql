@@ -28,6 +28,11 @@ import java.util.List;
  */
 public class MysqlProceduresTreeItem extends DBTreeItem<MysqlProceduresTreeItemValue> {
 
+    /**
+     * 构造过程类型树节点
+     *
+     * @param treeView 树视图
+     */
     public MysqlProceduresTreeItem(RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
@@ -49,6 +54,9 @@ public class MysqlProceduresTreeItem extends DBTreeItem<MysqlProceduresTreeItemV
         return items;
     }
 
+    /**
+     * 新增过程
+     */
     private void add() {
         MysqlProcedure procedure = new MysqlProcedure();
         procedure.setDbName(this.dbName());
@@ -124,18 +132,38 @@ public class MysqlProceduresTreeItem extends DBTreeItem<MysqlProceduresTreeItemV
         this.loadChild();
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String dbName() {
         return this.parent().dbName();
     }
 
+    /**
+     * 获取数据库客户端
+     *
+     * @return 数据库客户端
+     */
     public MysqlClient client() {
         return this.parent().client();
     }
 
+    /**
+     * 获取连接信息
+     *
+     * @return 连接信息
+     */
     public MysqlConnect info() {
         return this.parent().info();
     }
 
+    /**
+     * 获取连接名称
+     *
+     * @return 连接名称
+     */
     public String infoName() {
         return this.parent().infoName();
     }
@@ -155,10 +183,20 @@ public class MysqlProceduresTreeItem extends DBTreeItem<MysqlProceduresTreeItemV
     //    this.refresh();
     //}
 
+    /**
+     * 获取过程数量
+     *
+     * @return 过程数量
+     */
     public Integer procedureSize() {
         return this.client().procedureSize(this.dbName(), null);
     }
 
+    /**
+     * 添加过程
+     *
+     * @param procedure 过程
+     */
     public void addProcedure(MysqlProcedure procedure) {
         this.addChild(new MysqlProcedureTreeItem(procedure, this.getTreeView()));
         this.sortChild(this.isSortAsc());

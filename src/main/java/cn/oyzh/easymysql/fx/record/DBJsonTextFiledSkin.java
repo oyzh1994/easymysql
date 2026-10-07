@@ -73,6 +73,9 @@ public class DBJsonTextFiledSkin extends ActionTextFieldSkin {
         this.popup.showPopup(textField);
     }
 
+    /**
+     * 处理隐藏
+     */
     protected void handleHide() {
         this.popup.hide();
         this.getSkinnable().setDisable(false);
@@ -91,6 +94,11 @@ public class DBJsonTextFiledSkin extends ActionTextFieldSkin {
         this.handleHide();
     }
 
+    /**
+     * 构造json文本输入框皮肤
+     *
+     * @param textField 文本输入框
+     */
     public DBJsonTextFiledSkin(TextField textField) {
         super(textField);
         // super(textField, new EnlargeSVGGlyph("13"));
@@ -116,26 +124,32 @@ public class DBJsonTextFiledSkin extends ActionTextFieldSkin {
         this.button.setVisible(shouldBeVisible);
     }
 
+    /** 获取展开宽度 */
     public double getEnlargeWidth() {
         return enlargeWidth;
     }
 
+    /** 设置展开宽度 */
     public void setEnlargeWidth(double enlargeWidth) {
         this.enlargeWidth = enlargeWidth;
     }
 
+    /** 获取展开高度 */
     public double getEnlargeHeight() {
         return enlargeHeight;
     }
 
+    /** 设置展开高度 */
     public void setEnlargeHeight(double enlargeHeight) {
         this.enlargeHeight = enlargeHeight;
     }
 
+    /** 获取弹窗组件 */
     public PopupExt getPopup() {
         return popup;
     }
 
+    /** 设置弹窗组件 */
     public void setPopup(PopupExt popup) {
         this.popup = popup;
     }

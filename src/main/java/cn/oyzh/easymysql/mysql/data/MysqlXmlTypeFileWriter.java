@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
+ * MySQL XML类型文件写入器
+ *
  * @author oyzh
  * @since 2024-09-04
  */
@@ -30,6 +32,14 @@ public class MysqlXmlTypeFileWriter extends MysqlTypeFileWriter {
      */
     private LineFileWriter writer;
 
+    /**
+     * 构造XML类型文件写入器
+     *
+     * @param filePath 文件路径
+     * @param config   导出配置
+     * @param columns  字段列表
+     * @throws FileNotFoundException 异常
+     */
     public MysqlXmlTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) throws FileNotFoundException {
         this.columns = columns;
         this.config = config;

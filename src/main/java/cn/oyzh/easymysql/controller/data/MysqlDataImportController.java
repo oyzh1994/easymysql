@@ -105,13 +105,13 @@ public class MysqlDataImportController extends StageController {
     // private FXTableColumn<DataImportFile, String> importFilePath;
 
     /**
-     *
+     * 源表下拉框
      */
     @FXML
     private DataImportTableComboBox sourceTableCombobox;
 
     /**
-     *
+     * 目标表下拉框
      */
     @FXML
     private MysqlTableComboBox targetTableCombobox;
@@ -337,6 +337,9 @@ public class MysqlDataImportController extends StageController {
         this.initFileTable();
     }
 
+    /**
+     * 初始化文件表
+     */
     private void initFileTable() {
         for (DataImportFile index : this.importFileTableView.itemList()) {
             index.setDbName(this.dbName);
@@ -344,6 +347,9 @@ public class MysqlDataImportController extends StageController {
         }
     }
 
+    /**
+     * 刷新日期预览
+     */
     private void flushDatePreview() {
         try {
             String format = this.dateFormat.getTextTrim();
@@ -394,6 +400,9 @@ public class MysqlDataImportController extends StageController {
         this.step6.managedBindVisible();
     }
 
+    /**
+     * 显示第一步
+     */
     @FXML
     private void showStep1() {
         this.importFileTableView.clearItems();
@@ -401,6 +410,9 @@ public class MysqlDataImportController extends StageController {
         this.step1.display();
     }
 
+    /**
+     * 显示第二步
+     */
     @FXML
     private void showStep2() {
         RadioButton button = this.fileType.selectedToggle();
@@ -413,6 +425,9 @@ public class MysqlDataImportController extends StageController {
         this.step2.display();
     }
 
+    /**
+     * 显示第三步
+     */
     @FXML
     private void showStep3() {
         if (this.importFileTableView.isItemEmpty()) {
@@ -469,6 +484,9 @@ public class MysqlDataImportController extends StageController {
         this.step3.display();
     }
 
+    /**
+     * 显示第四步
+     */
     @FXML
     private void showStep4() {
         this.sourceTableCombobox.setItem(this.importFileTableView.getItems());
@@ -481,6 +499,9 @@ public class MysqlDataImportController extends StageController {
         this.step4.display();
     }
 
+    /**
+     * 显示第五步
+     */
     @FXML
     private void showStep5() {
         this.step4.disappear();
@@ -488,12 +509,18 @@ public class MysqlDataImportController extends StageController {
         this.step5.display();
     }
 
+    /**
+     * 显示第六步
+     */
     @FXML
     private void showStep6() {
         this.step5.disappear();
         this.step6.display();
     }
 
+    /**
+     * 添加文件
+     */
     @FXML
     private void addFile() {
         String fileType = this.fileType.selectedUserData();
@@ -506,6 +533,9 @@ public class MysqlDataImportController extends StageController {
         }
     }
 
+    /**
+     * 删除文件
+     */
     @FXML
     private void deleteFile() {
         this.importFileTableView.removeSelectedItem();

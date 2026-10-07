@@ -12,6 +12,8 @@ import cn.oyzh.i18n.I18nHelper;
 import java.util.List;
 
 /**
+ * db索引字段文本框
+ *
  * @author oyzh
  * @since 2024/7/16
  */
@@ -22,23 +24,48 @@ public class MysqlIndexFieldTextFiled extends ChooseTextField {
         this.setPromptText(I18nHelper.pleaseSelectField());
     }
 
+    /**
+     * 构造db索引字段文本框
+     */
     public MysqlIndexFieldTextFiled() {
     }
 
+    /**
+     * 索引
+     */
     private MysqlIndex dbIndex;
 
+    /**
+     * 字段列表
+     */
     private List<MysqlColumn> columnList;
 
+    /**
+     * 索引字段列表
+     */
     private List<MysqlIndex.IndexColumn> columns;
 
+    /**
+     * 构造db索引字段文本框
+     *
+     * @param dbIndex    索引
+     * @param columnList 字段列表
+     * @param columns    索引字段列表
+     */
     public MysqlIndexFieldTextFiled(MysqlIndex dbIndex, List<MysqlColumn> columnList, List<MysqlIndex.IndexColumn> columns) {
         this.dbIndex = dbIndex;
         this.columnList = columnList;
         this.setColumns(columns);
     }
 
+    /**
+     * 弹窗组件
+     */
     private PopupAdapter popup;
 
+    /**
+     * 初始化弹窗
+     */
     protected void initPopup() {
         this.disable();
         this.popup = PopupManager.parsePopup(MysqlIndexFieldPopupController.class);
@@ -61,11 +88,19 @@ public class MysqlIndexFieldTextFiled extends ChooseTextField {
         this.popup.showPopup(this);
     }
 
+    /**
+     * 设置索引字段列表
+     *
+     * @param columns 索引字段列表
+     */
     public void setColumns(List<MysqlIndex.IndexColumn> columns) {
         this.columns = columns;
         this.initText();
     }
 
+    /**
+     * 初始化文本
+     */
     protected void initText() {
         String text;
         StringBuilder builder = new StringBuilder();
@@ -85,6 +120,11 @@ public class MysqlIndexFieldTextFiled extends ChooseTextField {
         this.setTipText(text);
     }
 
+    /**
+     * 获取列表视图
+     *
+     * @return 列表视图
+     */
     protected MysqlIndexColumnListView listView() {
         if (this.popup != null && this.popup.content() != null) {
             return (MysqlIndexColumnListView) this.popup.content().lookup("#listView");
@@ -92,6 +132,11 @@ public class MysqlIndexFieldTextFiled extends ChooseTextField {
         return null;
     }
 
+    /**
+     * 获取索引字段列表
+     *
+     * @return 索引字段列表
+     */
     public List<MysqlIndex.IndexColumn> getColumns() {
         return columns;
     }

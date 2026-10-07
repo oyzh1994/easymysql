@@ -43,6 +43,11 @@ public class MysqlTerminalPane extends TerminalPane {
      */
     private MysqlClient client;
 
+    /**
+     * 获取客户端
+     *
+     * @return 客户端
+     */
     public MysqlClient getClient() {
         return client;
     }
@@ -52,6 +57,11 @@ public class MysqlTerminalPane extends TerminalPane {
      */
     private MysqlConnect dbConnect;
 
+    /**
+     * 获取db信息
+     *
+     * @return db信息
+     */
     public MysqlConnect getDbConnect() {
         return dbConnect;
     }
@@ -82,6 +92,9 @@ public class MysqlTerminalPane extends TerminalPane {
         this.prompt(str);
     }
 
+    /**
+     * 终端名称
+     */
     public static final String TERMINAL_NAME = "mysql";
 
     @Override
@@ -89,6 +102,9 @@ public class MysqlTerminalPane extends TerminalPane {
         return TERMINAL_NAME;
     }
 
+    /**
+     * 库名称
+     */
     private String dbName;
 
     /**
@@ -113,10 +129,20 @@ public class MysqlTerminalPane extends TerminalPane {
         });
     }
 
+    /**
+     * 获取库名称
+     *
+     * @return 库名称
+     */
     public String getDbName() {
         return dbName;
     }
 
+    /**
+     * 设置库名称
+     *
+     * @param dbName 库名称
+     */
     public void setDbName(String dbName) {
         this.dbName = dbName;
     }
@@ -262,6 +288,12 @@ public class MysqlTerminalPane extends TerminalPane {
         super.destroy();
     }
 
+    /**
+     * 执行sql
+     *
+     * @param input sql内容
+     * @return 执行结果
+     */
     public TerminalExecuteResult eval(String input) {
         TerminalExecuteResult terminalResult = new TerminalExecuteResult();
         try {

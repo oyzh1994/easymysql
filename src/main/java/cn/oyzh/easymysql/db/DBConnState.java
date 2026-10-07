@@ -12,6 +12,11 @@ public enum DBConnState {
      * 未初始化
      */
     NOT_INITIALIZED {
+        /**
+         * 是否已连接
+         *
+         * @return 结果
+         */
         public boolean isConnected() {
             return false;
         }
@@ -20,6 +25,11 @@ public enum DBConnState {
      * 已连接
      */
     CONNECTED {
+        /**
+         * 是否已连接
+         *
+         * @return 结果
+         */
         public boolean isConnected() {
             return true;
         }
@@ -28,6 +38,11 @@ public enum DBConnState {
      * 连接中
      */
     CONNECTING {
+        /**
+         * 是否已连接
+         *
+         * @return 结果
+         */
         public boolean isConnected() {
             return false;
         }
@@ -36,6 +51,11 @@ public enum DBConnState {
      * 已关闭
      */
     CLOSED {
+        /**
+         * 是否已连接
+         *
+         * @return 结果
+         */
         public boolean isConnected() {
             return false;
         }
@@ -44,6 +64,11 @@ public enum DBConnState {
      * 失败
      */
     FAILED {
+        /**
+         * 是否已连接
+         *
+         * @return 结果
+         */
         public boolean isConnected() {
             return false;
         }
@@ -52,10 +77,20 @@ public enum DBConnState {
      * 错误
      */
     BROKEN {
+        /**
+         * 是否已连接
+         *
+         * @return 结果
+         */
         public boolean isConnected() {
             return false;
         }
     };
 
+    /**
+     * 是否已连接
+     *
+     * @return 结果
+     */
     public abstract boolean isConnected();
 }

@@ -9,11 +9,19 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
+ * mysql运行sql文件处理器
+ *
  * @author oyzh
  * @since 2024/09/10
  */
 public class MysqlDataRunSqlFileHandler extends DataRunSqlFileHandler {
 
+    /**
+     * 构造方法
+     *
+     * @param dbClient db客户端
+     * @param dbName   库名称
+     */
     public MysqlDataRunSqlFileHandler(MysqlClient dbClient, String dbName) {
         super(dbClient, dbName);
     }

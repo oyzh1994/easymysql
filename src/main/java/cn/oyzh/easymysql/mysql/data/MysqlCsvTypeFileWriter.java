@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
+ * MySQL CSV类型文件写入器
+ *
  * @author oyzh
  * @since 2024-09-04
  */
@@ -25,10 +27,18 @@ public class MysqlCsvTypeFileWriter extends MysqlTypeFileWriter {
     private MysqlDataExportConfig config;
 
     /**
-     * 文件读取器
+     * 文件写入器
      */
     private final LineFileWriter writer;
 
+    /**
+     * 构造CSV类型文件写入器
+     *
+     * @param filePath 文件路径
+     * @param config   导出配置
+     * @param columns  字段列表
+     * @throws FileNotFoundException 异常
+     */
     public MysqlCsvTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) throws FileNotFoundException {
         this.columns = columns;
         this.config = config;

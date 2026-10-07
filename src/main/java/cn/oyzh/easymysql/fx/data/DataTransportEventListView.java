@@ -10,13 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 数据传输事件列表视图
+ *
  * @author oyzh
  * @since 2024/09/05
  */
 public class DataTransportEventListView extends FXListView<FXCheckBox> {
 
+    /** 选中变化回调 */
     private Runnable selectedChanged;
 
+    /**
+     * 根据事件列表构建
+     *
+     * @param events 事件列表
+     */
     public void of(List<MysqlEvent> events) {
         List<DataTransportEvent> list = CollectionUtil.newArrayList();
         for (MysqlEvent event : events) {
@@ -27,6 +35,11 @@ public class DataTransportEventListView extends FXListView<FXCheckBox> {
         this.init(list);
     }
 
+    /**
+     * 初始化事件列表
+     *
+     * @param events 事件列表
+     */
     public void init(List<DataTransportEvent> events) {
         this.clearItems();
         if (CollectionUtil.isNotEmpty(events)) {
@@ -50,6 +63,7 @@ public class DataTransportEventListView extends FXListView<FXCheckBox> {
         }
     }
 
+    /** 获取选中的事件列表 */
     public List<DataTransportEvent> getSelectedEvents() {
         List<DataTransportEvent> list = new ArrayList<>();
         for (FXCheckBox item : this.getItems()) {
@@ -60,6 +74,7 @@ public class DataTransportEventListView extends FXListView<FXCheckBox> {
         return list;
     }
 
+    /** 获取选中数量 */
     public int getSelectedSize() {
         int size = 0;
         for (FXCheckBox item : this.getItems()) {
@@ -70,10 +85,12 @@ public class DataTransportEventListView extends FXListView<FXCheckBox> {
         return size;
     }
 
+    /** 获取选中变化回调 */
     public Runnable getSelectedChanged() {
         return selectedChanged;
     }
 
+    /** 设置选中变化回调 */
     public void setSelectedChanged(Runnable selectedChanged) {
         this.selectedChanged = selectedChanged;
     }

@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * MySQL Excel类型文件写入器
+ *
  * @author oyzh
  * @since 2024-09-04
  */
@@ -43,8 +45,19 @@ public class MysqlExcelTypeFileWriter extends MysqlTypeFileWriter {
      */
     private int xlsRowIndex = 1;
 
+    /**
+     * 文件路径
+     */
     private String filePath;
 
+    /**
+     * 构造Excel类型文件写入器
+     *
+     * @param filePath 文件路径
+     * @param config   导出配置
+     * @param columns  字段列表
+     * @throws IOException 异常
+     */
     public MysqlExcelTypeFileWriter(String filePath, MysqlDataExportConfig config, MysqlColumns columns) throws IOException {
         this.columns = columns;
         this.config = config;
@@ -71,6 +84,13 @@ public class MysqlExcelTypeFileWriter extends MysqlTypeFileWriter {
         WorkbookHelper.write(this.workbook, this.filePath);
     }
 
+    /**
+     * 写入对象
+     *
+     * @param object 对象
+     * @param flush  是否立即刷写文件
+     * @throws Exception 异常
+     */
     private void writeObject(Map<String, Object> object, boolean flush) throws Exception {
         // 处理数据
         Object[] values = new Object[this.columns.size()];

@@ -8,8 +8,14 @@ package cn.oyzh.easymysql.condition;
  */
 public class MysqlGtCondition extends MysqlCondition {
 
+    /**
+     * 大于条件实例
+     */
     public final static MysqlGtCondition INSTANCE = new MysqlGtCondition();
 
+    /**
+     * 构造方法
+     */
     public MysqlGtCondition() {
         super("大于", ">");
     }

@@ -6,6 +6,8 @@ import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 import cn.oyzh.fx.plus.converter.SimpleStringConverter;
 
 /**
+ * mysql条件下拉框
+ *
  * @author oyzh
  * @since 2024/06/26
  */

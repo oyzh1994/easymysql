@@ -21,13 +21,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * db树表类型节点
+ * db树视图类型节点
  *
  * @author oyzh
  * @since 2023/12/08
  */
 public class MysqlViewsTreeItem extends DBTreeItem<MysqlViewsTreeItemValue> {
 
+    /**
+     * 构造视图类型树节点
+     *
+     * @param treeView 树视图
+     */
     public MysqlViewsTreeItem(RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
@@ -49,6 +54,9 @@ public class MysqlViewsTreeItem extends DBTreeItem<MysqlViewsTreeItemValue> {
         return items;
     }
 
+    /**
+     * 新增视图
+     */
     private void add() {
         MysqlView dbView = new MysqlView();
         dbView.setDbName(this.dbName());
@@ -122,22 +130,47 @@ public class MysqlViewsTreeItem extends DBTreeItem<MysqlViewsTreeItemValue> {
         this.loadChild();
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String dbName() {
         return this.parent().dbName();
     }
 
+    /**
+     * 获取客户端
+     *
+     * @return 客户端
+     */
     public MysqlClient client() {
         return this.parent().client();
     }
 
+    /**
+     * 获取视图的数量
+     *
+     * @return 视图的数量
+     */
     public Integer viewSize() {
         return this.parent().viewSize();
     }
 
+    /**
+     * 获取连接信息
+     *
+     * @return 连接信息
+     */
     public MysqlConnect info() {
         return this.parent().info();
     }
 
+    /**
+     * 获取连接名称
+     *
+     * @return 连接名称
+     */
     public String infoName() {
         return this.parent().infoName();
     }
@@ -157,6 +190,11 @@ public class MysqlViewsTreeItem extends DBTreeItem<MysqlViewsTreeItemValue> {
     //    this.refresh();
     //}
 
+    /**
+     * 新增视图节点
+     *
+     * @param view 视图
+     */
     public void addView(MysqlView view) {
         this.addChild(new MysqlViewTreeItem(view, this.getTreeView()));
         this.sortChild(this.isSortAsc());

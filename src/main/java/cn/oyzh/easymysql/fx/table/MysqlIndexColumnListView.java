@@ -29,10 +29,19 @@ public class MysqlIndexColumnListView extends FXListView<FXHBox> {
      */
     private List<String> columnNames;
 
+    /**
+     * 构造db索引字段选择框
+     */
     public MysqlIndexColumnListView() {
 
     }
 
+    /**
+     * 初始化索引字段列表
+     *
+     * @param dbIndex    索引
+     * @param columnList 字段列表
+     */
     public void init(MysqlIndex dbIndex, List<MysqlColumn> columnList) {
         this.clearItems();
         this.columnNames = columnList.parallelStream().map(MysqlColumn::getName).collect(Collectors.toList());
@@ -43,6 +52,11 @@ public class MysqlIndexColumnListView extends FXListView<FXHBox> {
         }
     }
 
+    /**
+     * 添加索引字段
+     *
+     * @param column 索引字段
+     */
     public void addColumn(MysqlIndex.IndexColumn column) {
         FXComboBox<String> comboBox = new FXComboBox<>();
         comboBox.setRealWidth(150);
@@ -70,6 +84,11 @@ public class MysqlIndexColumnListView extends FXListView<FXHBox> {
         this.addItem(hBox);
     }
 
+    /**
+     * 获取索引字段列表
+     *
+     * @return 索引字段列表
+     */
     public List<MysqlIndex.IndexColumn> getColumns() {
         List<MysqlIndex.IndexColumn> list = new ArrayList<>();
         for (FXHBox item : this.getItems()) {

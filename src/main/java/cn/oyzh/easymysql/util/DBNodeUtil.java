@@ -33,6 +33,13 @@ import java.util.List;
  */
 public class DBNodeUtil {
 
+    /**
+     * 获取节点值
+     *
+     * @param node 节点
+     * @return 节点值
+     * @throws Exception 异常
+     */
     public static Object getNodeVal(Node node) throws Exception {
         Object val = null;
         if (node instanceof TimeTextField node1) {
@@ -71,6 +78,12 @@ public class DBNodeUtil {
         return val;
     }
 
+    /**
+     * 设置节点值
+     *
+     * @param node 节点
+     * @param val  值
+     */
     public static void setNodeVal(Node node, Object val) {
         if (node == null || val == null) {
             return;
@@ -99,10 +112,23 @@ public class DBNodeUtil {
         }
     }
 
+    /**
+     * 生成字段节点
+     *
+     * @param column 字段
+     * @return 节点
+     */
     public static Node generateNode(MysqlColumn column) {
         return generateNode(column, true);
     }
 
+    /**
+     * 生成字段节点
+     *
+     * @param column              字段
+     * @param handlerDefaultValue 是否处理默认值
+     * @return 节点
+     */
     public static Node generateNode(MysqlColumn column, boolean handlerDefaultValue) {
         Node node;
         if (column == null) {
@@ -160,6 +186,12 @@ public class DBNodeUtil {
         return node;
     }
 
+    /**
+     * 生成字段标签
+     *
+     * @param column 字段
+     * @return 标签列表
+     */
     public static List<FXLabel> generateTags(MysqlColumn column) {
         List<FXLabel> labels = new ArrayList<>();
         if (column.isNullable()) {

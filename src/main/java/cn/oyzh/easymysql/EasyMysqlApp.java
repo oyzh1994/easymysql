@@ -48,6 +48,11 @@ public class EasyMysqlApp extends FXApplication {
      */
     private static final Project PROJECT = Project.load();
 
+    /**
+     * 程序入口
+     *
+     * @param args 启动参数
+     */
     public static void main(String[] args) {
         try {
             SysConst.projectName(PROJECT.getName());

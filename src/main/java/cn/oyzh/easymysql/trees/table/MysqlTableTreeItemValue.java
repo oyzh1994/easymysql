@@ -12,6 +12,11 @@ import cn.oyzh.fx.plus.controls.svg.SVGGlyph;
  */
 public class MysqlTableTreeItemValue extends RichTreeItemValue {
 
+    /**
+     * 构造表树节点值
+     *
+     * @param item 表树节点
+     */
     public MysqlTableTreeItemValue(MysqlTableTreeItem item) {
         super(item);
     }

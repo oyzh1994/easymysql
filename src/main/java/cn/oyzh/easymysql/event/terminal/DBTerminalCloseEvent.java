@@ -4,6 +4,8 @@ import cn.oyzh.easymysql.mysql.MysqlClient;
 import cn.oyzh.event.Event;
 
 /**
+ * 终端关闭事件
+ *
  * @author oyzh
  * @since 2023/11/20
  */

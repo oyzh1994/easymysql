@@ -14,7 +14,7 @@ import javafx.stage.WindowEvent;
 import java.util.List;
 
 /**
- * 字段列表弹窗业务
+ * 索引字段弹窗业务
  *
  * @author oyzh
  * @since 2024/07/12

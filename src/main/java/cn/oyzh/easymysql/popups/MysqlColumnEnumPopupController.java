@@ -20,7 +20,7 @@ import javafx.util.Callback;
 import java.util.List;
 
 /**
- * 字段列表弹窗业务
+ * 字段枚举弹窗业务
  *
  * @author oyzh
  * @since 2024/07/12
@@ -81,6 +81,12 @@ public class MysqlColumnEnumPopupController extends PopupController {
         this.listView.removeSelectedItem();
     }
 
+    /**
+     * 创建节点
+     *
+     * @param text 文本
+     * @return 可清除文本输入框
+     */
     private ClearableTextField createNode(String text) {
         ClearableTextField textField = new ClearableTextField(text);
         textField.setRealHeight(22);

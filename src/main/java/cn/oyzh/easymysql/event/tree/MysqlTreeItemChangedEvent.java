@@ -4,6 +4,8 @@ import cn.oyzh.event.Event;
 import javafx.scene.control.TreeItem;
 
 /**
+ * 树节点选中变化事件
+ *
  * @author oyzh
  * @since 2024-11-18
  */

@@ -54,6 +54,11 @@ public class MysqlRoutineSchema implements ObjectComparator<MysqlRoutineSchema> 
      */
     private SimpleStringProperty definitionProperty;
 
+    /**
+     * 获取程序名称属性
+     *
+     * @return 程序名称属性
+     */
     public SimpleStringProperty nameProperty() {
         if (this.nameProperty == null) {
             this.nameProperty = new SimpleStringProperty();
@@ -61,14 +66,29 @@ public class MysqlRoutineSchema implements ObjectComparator<MysqlRoutineSchema> 
         return this.nameProperty;
     }
 
+    /**
+     * 设置程序名称
+     *
+     * @param name 程序名称
+     */
     public void setName(String name) {
         this.nameProperty().setValue(name);
     }
 
+    /**
+     * 获取程序名称
+     *
+     * @return 程序名称
+     */
     public String getName() {
         return this.nameProperty == null ? null : this.nameProperty.get();
     }
 
+    /**
+     * 获取程序定义属性
+     *
+     * @return 程序定义属性
+     */
     public SimpleStringProperty definitionProperty() {
         if (this.definitionProperty == null) {
             this.definitionProperty = new SimpleStringProperty();
@@ -76,10 +96,20 @@ public class MysqlRoutineSchema implements ObjectComparator<MysqlRoutineSchema> 
         return this.definitionProperty;
     }
 
+    /**
+     * 设置程序定义
+     *
+     * @param definition 程序定义
+     */
     public void setDefinition(String definition) {
         this.definitionProperty().setValue(definition);
     }
 
+    /**
+     * 获取程序定义
+     *
+     * @return 程序定义
+     */
     public String getDefinition() {
         return this.definitionProperty == null ? null : this.definitionProperty.get();
     }
@@ -89,6 +119,11 @@ public class MysqlRoutineSchema implements ObjectComparator<MysqlRoutineSchema> 
      */
     private SimpleStringProperty createDefinitionProperty;
 
+    /**
+     * 获取程序创建定义属性
+     *
+     * @return 程序创建定义属性
+     */
     public SimpleStringProperty createDefinitionProperty() {
         if (this.createDefinitionProperty == null) {
             this.createDefinitionProperty = new SimpleStringProperty();
@@ -96,6 +131,11 @@ public class MysqlRoutineSchema implements ObjectComparator<MysqlRoutineSchema> 
         return this.createDefinitionProperty;
     }
 
+    /**
+     * 设置程序创建定义并解析定义者与注释
+     *
+     * @param createDefinition 程序创建定义
+     */
     public void setCreateDefinition(String createDefinition) {
         this.createDefinitionProperty().setValue(createDefinition);
         if (StringUtil.isNotBlank(createDefinition)) {
@@ -117,6 +157,11 @@ public class MysqlRoutineSchema implements ObjectComparator<MysqlRoutineSchema> 
         }
     }
 
+    /**
+     * 获取程序创建定义
+     *
+     * @return 程序创建定义
+     */
     public String getCreateDefinition() {
         return this.createDefinitionProperty == null ? null : this.createDefinitionProperty.get();
     }
@@ -135,54 +180,119 @@ public class MysqlRoutineSchema implements ObjectComparator<MysqlRoutineSchema> 
         return StringUtil.equals(this.getName(), routine.getName());
     }
 
+    /**
+     * 是否新数据
+     *
+     * @return 是否新数据
+     */
     public boolean isNew() {
         return StringUtil.isBlank(this.getDefinition());
     }
 
+    /**
+     * 获取参数列表
+     *
+     * @return 参数列表
+     */
     public List<MysqlRoutineParam> getParams() {
         return params;
     }
 
+    /**
+     * 设置参数列表
+     *
+     * @param params 参数列表
+     */
     public void setParams(List<MysqlRoutineParam> params) {
         this.params = params;
     }
 
+    /**
+     * 获取库名称
+     *
+     * @return 库名称
+     */
     public String getDbName() {
         return dbName;
     }
 
+    /**
+     * 设置库名称
+     *
+     * @param dbName 库名称
+     */
     public void setDbName(String dbName) {
         this.dbName = dbName;
     }
 
+    /**
+     * 获取注释
+     *
+     * @return 注释
+     */
     public String getComment() {
         return comment;
     }
 
+    /**
+     * 设置注释
+     *
+     * @param comment 注释
+     */
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    /**
+     * 获取定义者
+     *
+     * @return 定义者
+     */
     public String getDefiner() {
         return definer;
     }
 
+    /**
+     * 设置定义者
+     *
+     * @param definer 定义者
+     */
     public void setDefiner(String definer) {
         this.definer = definer;
     }
 
+    /**
+     * 获取安全性
+     *
+     * @return 安全性
+     */
     public String getSecurityType() {
         return securityType;
     }
 
+    /**
+     * 设置安全性
+     *
+     * @param securityType 安全性
+     */
     public void setSecurityType(String securityType) {
         this.securityType = securityType;
     }
 
+    /**
+     * 获取特征
+     *
+     * @return 特征
+     */
     public String getCharacteristic() {
         return characteristic;
     }
 
+    /**
+     * 设置特征
+     *
+     * @param characteristic 特征
+     */
     public void setCharacteristic(String characteristic) {
         this.characteristic = characteristic;
     }

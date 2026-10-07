@@ -66,11 +66,17 @@ public class ConnectController extends SubStageController {
         KeyListener.listenReleased(this.tree, KeyCode.F5, keyEvent -> this.tree.reload());
     }
 
+    /**
+     * 添加连接
+     */
     @FXML
     private void addConnect() {
         MysqlEventUtil.addConnect();
     }
 
+    /**
+     * 排序树节点
+     */
     @FXML
     private void sortTree() {
         if (this.sortPane.isAsc()) {
@@ -82,11 +88,17 @@ public class ConnectController extends SubStageController {
         }
     }
 
+    /**
+     * 导入连接
+     */
     @FXML
     private void importConnect() {
         this.tree.root().importConnect();
     }
 
+    /**
+     * 导出连接
+     */
     @FXML
     private void exportConnect() {
         this.tree.root().exportConnect();

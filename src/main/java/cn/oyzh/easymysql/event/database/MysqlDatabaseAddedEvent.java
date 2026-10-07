@@ -6,11 +6,16 @@ import cn.oyzh.event.Event;
 import cn.oyzh.event.EventFormatter;
 
 /**
+ * 数据库已新增事件
+ *
  * @author oyzh
  * @since 2024/01/30
  */
 public class MysqlDatabaseAddedEvent extends Event<DBDatabase> implements EventFormatter {
 
+    /**
+     * 连接树节点
+     */
     private DBConnectTreeItem connectItem;
 
     @Override
@@ -18,10 +23,20 @@ public class MysqlDatabaseAddedEvent extends Event<DBDatabase> implements EventF
         return String.format("[%s] 数据库已新增", this.data().getName());
     }
 
+    /**
+     * 获取连接树节点
+     *
+     * @return 连接树节点
+     */
     public DBConnectTreeItem getConnectItem() {
         return connectItem;
     }
 
+    /**
+     * 设置连接树节点
+     *
+     * @param connectItem 连接树节点
+     */
     public void setConnectItem(DBConnectTreeItem connectItem) {
         this.connectItem = connectItem;
     }

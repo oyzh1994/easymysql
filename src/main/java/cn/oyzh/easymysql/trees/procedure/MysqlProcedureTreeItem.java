@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * db树视图节点
+ * 过程树节点
  *
  * @author oyzh
  * @since 2024/12/27
@@ -29,10 +29,21 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItemVal
      */
     private final MysqlProcedure value;
 
+    /**
+     * 获取当前值
+     *
+     * @return 当前值
+     */
     public MysqlProcedure value() {
         return value;
     }
 
+    /**
+     * 构造过程树节点
+     *
+     * @param procedure 过程
+     * @param treeView  树视图
+     */
     public MysqlProcedureTreeItem(MysqlProcedure procedure, RichTreeView treeView) {
         super(treeView);
         super.setFilterable(true);
@@ -93,14 +104,29 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItemVal
         }
     }
 
+    /**
+     * 获取数据库树节点
+     *
+     * @return 数据库树节点
+     */
     public MysqlDatabaseTreeItem dbItem() {
         return this.parent().parent();
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String dbName() {
         return this.parent().dbName();
     }
 
+    /**
+     * 获取连接名称
+     *
+     * @return 连接名称
+     */
     public String infoName() {
         return this.parent().infoName();
     }
@@ -110,6 +136,11 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItemVal
         MysqlEventUtil.designProcedure(this.value, this.dbItem());
     }
 
+    /**
+     * 获取过程名称
+     *
+     * @return 过程名称
+     */
     public String procedureName() {
         return this.value.getName();
     }

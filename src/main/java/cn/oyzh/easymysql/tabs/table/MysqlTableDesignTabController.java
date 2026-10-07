@@ -402,14 +402,30 @@ public class MysqlTableDesignTabController extends ParentTabController {
     @FXML
     private MysqlTableColumnExtraController tableColumnExtraController;
 
+    /**
+     * 初始化创建表参数
+     *
+     * @return 创建表参数
+     */
     private MysqlCreateTableParam initCreateParam() {
         return (MysqlCreateTableParam) this.initParam(true);
     }
 
+    /**
+     * 初始化修改表参数
+     *
+     * @return 修改表参数
+     */
     private MysqlAlertTableParam initAlertParam() {
         return (MysqlAlertTableParam) this.initParam(false);
     }
 
+    /**
+     * 初始化表参数
+     *
+     * @param isCreate 是否创建表
+     * @return 表参数
+     */
     private Object initParam(boolean isCreate) {
         MysqlTable tempTable = new MysqlTable();
         // 数据库
@@ -1227,6 +1243,9 @@ public class MysqlTableDesignTabController extends ParentTabController {
         this.initForeignKeyTable();
     }
 
+    /**
+     * 初始化索引列表
+     */
     private void initIndexTable() {
         List list= this.columnTable.getItems();
         for (MysqlIndexControl index : this.indexTable.itemList()) {
@@ -1234,6 +1253,9 @@ public class MysqlTableDesignTabController extends ParentTabController {
         }
     }
 
+    /**
+     * 初始化外键列表
+     */
     private void initForeignKeyTable() {
         List list= this.columnTable.getItems();
         for (MysqlForeignKeyControl foreignKey : this.foreignKeyTable.itemList()) {
@@ -1280,6 +1302,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
      *
      * @param table  表信息
      * @param dbItem db库树节点
+     * @throws Exception 异常
      */
     public void init(MysqlTable table, MysqlDatabaseTreeItem dbItem) throws Exception {
         // 获取对象
@@ -1401,10 +1424,20 @@ public class MysqlTableDesignTabController extends ParentTabController {
         }
     }
 
+    /**
+     * 获取表名称
+     *
+     * @return 表名称
+     */
     public String tableName() {
         return this.mysqlTable.getName();
     }
 
+    /**
+     * 获取数据库名称
+     *
+     * @return 数据库名称
+     */
     public String dbName() {
         return this.mysqlTable.getDbName();
     }
@@ -1414,6 +1447,11 @@ public class MysqlTableDesignTabController extends ParentTabController {
         return List.of(this.tableColumnExtraController);
     }
 
+    /**
+     * 获取db库树节点
+     *
+     * @return db库树节点
+     */
     public MysqlDatabaseTreeItem getDbItem() {
         return dbItem;
     }
@@ -1422,6 +1460,11 @@ public class MysqlTableDesignTabController extends ParentTabController {
     //     this.dbItem = dbItem;
     // }
 
+    /**
+     * 是否未保存
+     *
+     * @return 结果
+     */
     public boolean isUnsaved() {
         return unsaved;
     }

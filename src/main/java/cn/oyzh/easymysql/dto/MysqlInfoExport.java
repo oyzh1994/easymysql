@@ -36,7 +36,7 @@ public class MysqlInfoExport {
      * 从db连接数据生成
      *
      * @param dbInfos 连接列表
-     * @return DBInfoExport
+     * @return 导出对象
      */
     public static MysqlInfoExport fromConnects(List<MysqlConnect> dbInfos) {
         MysqlInfoExport export = new MysqlInfoExport();
@@ -51,7 +51,7 @@ public class MysqlInfoExport {
      * 从json对象数据生成
      *
      * @param json json字符串
-     * @return RedisInfoExport
+     * @return 导出对象
      */
     public static MysqlInfoExport fromJSON(String json) {
         JulLog.info("json: {}", json);
@@ -72,26 +72,56 @@ public class MysqlInfoExport {
         return JSONUtil.toJson(this);
     }
 
+    /**
+     * 获取程序版本号
+     *
+     * @return 程序版本号
+     */
     public String getVersion() {
         return version;
     }
 
+    /**
+     * 设置程序版本号
+     *
+     * @param version 程序版本号
+     */
     public void setVersion(String version) {
         this.version = version;
     }
 
+    /**
+     * 获取平台
+     *
+     * @return 平台
+     */
     public String getPlatform() {
         return platform;
     }
 
+    /**
+     * 设置平台
+     *
+     * @param platform 平台
+     */
     public void setPlatform(String platform) {
         this.platform = platform;
     }
 
+    /**
+     * 获取连接列表
+     *
+     * @return 连接列表
+     */
     public List<MysqlConnect> getConnects() {
         return connects;
     }
 
+    /**
+     * 设置连接列表
+     *
+     * @param connects 连接列表
+     */
     public void setConnects(List<MysqlConnect> connects) {
         this.connects = connects;
     }

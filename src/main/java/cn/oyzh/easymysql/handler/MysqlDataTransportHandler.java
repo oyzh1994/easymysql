@@ -19,6 +19,8 @@ import cn.oyzh.easymysql.util.DBUtil;
 import java.util.List;
 
 /**
+ * mysql数据传输处理器
+ *
  * @author oyzh
  * @since 2024/09/06
  */

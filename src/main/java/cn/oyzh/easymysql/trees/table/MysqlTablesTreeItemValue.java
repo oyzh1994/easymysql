@@ -14,6 +14,11 @@ import javafx.scene.paint.Color;
  */
 public class MysqlTablesTreeItemValue extends RichTreeItemValue {
 
+    /**
+     * 构造表类型节点值
+     *
+     * @param item 表类型树节点
+     */
     public MysqlTablesTreeItemValue(MysqlTablesTreeItem item) {
         super(item);
     }

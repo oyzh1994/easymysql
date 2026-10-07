@@ -17,7 +17,7 @@ import static atlantafx.base.controls.Popover.ArrowLocation.BOTTOM_LEFT;
 import static javafx.stage.PopupWindow.AnchorLocation.CONTENT_TOP_LEFT;
 
 /**
- * 数据过滤业务
+ * 视图数据过滤弹窗业务
  *
  * @author oyzh
  * @since 2024/06/26

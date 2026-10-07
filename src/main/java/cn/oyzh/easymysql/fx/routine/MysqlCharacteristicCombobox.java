@@ -3,6 +3,8 @@ package cn.oyzh.easymysql.fx.routine;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
+ * mysql存储过程特性下拉框
+ *
  * @author oyzh
  * @since 2024/08/09
  */

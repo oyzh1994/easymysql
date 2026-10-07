@@ -14,6 +14,11 @@ import javafx.scene.paint.Color;
  */
 public class DBConnectTreeItemValue extends RichTreeItemValue {
 
+    /**
+     * 构造连接树节点值
+     *
+     * @param item 连接树节点
+     */
     public DBConnectTreeItemValue(DBConnectTreeItem item) {
         super(item);
     }

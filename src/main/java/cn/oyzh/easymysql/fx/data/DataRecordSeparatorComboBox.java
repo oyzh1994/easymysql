@@ -4,6 +4,8 @@ import cn.oyzh.common.system.OSUtil;
 import cn.oyzh.fx.plus.controls.combo.FXComboBox;
 
 /**
+ * 数据记录分隔符下拉框
+ *
  * @author oyzh
  * @since 2024/09/04
  */
@@ -22,6 +24,7 @@ public class DataRecordSeparatorComboBox extends FXComboBox<String> {
         }
     }
 
+    /** 获取分隔符值 */
     public String value() {
         int itemIndex = this.getSelectedIndex();
         if (itemIndex == 0) {

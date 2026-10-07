@@ -45,6 +45,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class DBUtil {
 
+    /**
+     * 是否打印元数据
+     */
     public static boolean ENABLE_PRINT_METADATA = true;
 
     /**
@@ -235,6 +238,13 @@ public class DBUtil {
     //     return builder.toString();
     // }
 
+    /**
+     * 包装名称
+     *
+     * @param name    名称
+     * @param dialect 数据库方言
+     * @return 包装后的名称
+     */
     public static String wrap(String name, DBDialect dialect) {
         StringBuilder builder = new StringBuilder();
         if (dialect == DBDialect.MYSQL) {
@@ -254,6 +264,14 @@ public class DBUtil {
     //     return wrap(dbName) + "." + wrap(tableName);
     // }
 
+    /**
+     * 包装库名与表名
+     *
+     * @param dbName    库名称
+     * @param tableName 表名称
+     * @param dialect   数据库方言
+     * @return 包装后的名称
+     */
     public static String wrap(String dbName, String tableName, DBDialect dialect) {
         if (dialect == DBDialect.MYSQL) {
             return wrap(dbName, dialect) + "." + wrap(tableName, dialect);
@@ -261,6 +279,12 @@ public class DBUtil {
         return null;
     }
 
+    /**
+     * 包装数据值
+     *
+     * @param val 数据值
+     * @return 包装后的数据值
+     */
     public static Object wrapData(Object val) {
         if (val == null) {
             return null;
@@ -287,6 +311,12 @@ public class DBUtil {
         return val;
     }
 
+    /**
+     * 解包数据值
+     *
+     * @param val 数据值
+     * @return 解包后的数据值
+     */
     public static Object unwrapData(Object val) {
         if (val == null) {
             return null;
@@ -307,6 +337,14 @@ public class DBUtil {
         return val;
     }
 
+    /**
+     * 设置预处理语句参数
+     *
+     * @param statement 预处理语句
+     * @param val       参数值
+     * @param index     参数下标
+     * @throws SQLException 异常
+     */
     public static void setVal(PreparedStatement statement, Object val, int index) throws SQLException {
         if (val == null) {
             statement.setNull(index, JDBCType.NULL.ordinal());
@@ -339,6 +377,13 @@ public class DBUtil {
         }
     }
 
+    /**
+     * 判断两个值是否相同
+     *
+     * @param val  原值
+     * @param nVal 新值
+     * @return 结果
+     */
     public static boolean isSameVal(Object val, Object nVal) {
         if (val == nVal) {
             return true;
@@ -359,6 +404,11 @@ public class DBUtil {
         return false;
     }
 
+    /**
+     * 回滚事务
+     *
+     * @param connection 连接
+     */
     public static void rollback(Connection connection) {
         try {
             if (connection != null && !connection.getAutoCommit()) {
@@ -369,12 +419,25 @@ public class DBUtil {
         }
     }
 
+    /**
+     * 执行更新
+     *
+     * @param statement 预处理语句
+     * @return 更新行数
+     * @throws SQLException 异常
+     */
     public static int executeUpdate(PreparedStatement statement) throws SQLException {
         int result = statement.executeUpdate();
         statement.close();
         return result;
     }
 
+    /**
+     * 关闭资源
+     *
+     * @param o 可关闭资源
+     * @throws Exception 异常
+     */
     public static void close(AutoCloseable o) throws Exception {
         if (o instanceof ResultSet resultSet) {
             resultSet.close();

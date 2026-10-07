@@ -3,6 +3,8 @@ package cn.oyzh.easymysql.terminal;
 import cn.oyzh.fx.terminal.mouse.TerminalMouseHandler;
 
 /**
+ * mysql终端鼠标处理器
+ *
  * @author oyzh
  * @since 2023/7/21
  */

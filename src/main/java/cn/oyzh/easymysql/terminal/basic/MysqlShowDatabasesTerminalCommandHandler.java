@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * show databases命令处理器
+ *
  * @author oyzh
  * @since 2024-12-30
  */

@@ -1,6 +1,8 @@
 package cn.oyzh.easymysql.terminal.basic;
 
 /**
+ * show dbs命令处理器
+ *
  * @author oyzh
  * @since 2024-12-30
  */

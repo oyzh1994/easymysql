@@ -60,6 +60,9 @@ public class MainController extends ParentStageController {
      */
     private final MysqlSetting setting = MysqlSettingStore.SETTING;
 
+    /**
+     * db相关配置存储
+     */
     private final MysqlSettingStore settingStore = MysqlSettingStore.INSTANCE;
 //
 //    /**

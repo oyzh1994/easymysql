@@ -11,11 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * MySQL字段控件
+ *
  * @author oyzh
  * @since 2024/09/14
  */
 public class MysqlColumnControl extends MysqlColumn {
 
+    /**
+     * 获取名称控件
+     *
+     * @return 名称控件
+     */
     public ClearableTextField getNameControl() {
         ClearableTextField textField = new ClearableTextField();
         textField.setPromptText(I18nHelper.pleaseInputName());
@@ -26,6 +33,11 @@ public class MysqlColumnControl extends MysqlColumn {
         return textField;
     }
 
+    /**
+     * 获取注释控件
+     *
+     * @return 注释控件
+     */
     public ClearableTextField getCommentControl() {
         ClearableTextField textField = new ClearableTextField();
         textField.setPromptText(I18nHelper.pleaseInputComment());
@@ -37,6 +49,11 @@ public class MysqlColumnControl extends MysqlColumn {
         return textField;
     }
 
+    /**
+     * 获取大小控件
+     *
+     * @return 大小控件
+     */
     public NumberTextField getSizeControl() {
         NumberTextField textField = new NumberTextField();
         textField.setFlexWidth("100% - 12");
@@ -51,6 +68,11 @@ public class MysqlColumnControl extends MysqlColumn {
         return textField;
     }
 
+    /**
+     * 获取小数位控件
+     *
+     * @return 小数位控件
+     */
     public NumberTextField getDigitsControl() {
         NumberTextField textField = new NumberTextField();
         textField.setFlexWidth("100% - 12");
@@ -61,6 +83,11 @@ public class MysqlColumnControl extends MysqlColumn {
         return textField;
     }
 
+    /**
+     * 获取类型控件
+     *
+     * @return 类型控件
+     */
     public MysqlFiledTypeComboBox getTypeControl() {
         MysqlFiledTypeComboBox comboBox = new MysqlFiledTypeComboBox();
         comboBox.selectedItemChanged((observable, oldValue, newValue) -> this.setType(newValue));
@@ -70,6 +97,11 @@ public class MysqlColumnControl extends MysqlColumn {
         return comboBox;
     }
 
+    /**
+     * 获取可为null控件
+     *
+     * @return 可为null控件
+     */
     public FXCheckBox getNullableControl() {
         FXCheckBox checkBox = new FXCheckBox();
         checkBox.setSelected(this.isNullable());
@@ -85,6 +117,11 @@ public class MysqlColumnControl extends MysqlColumn {
         return checkBox;
     }
 
+    /**
+     * 获取主键控件
+     *
+     * @return 主键控件
+     */
     public FXCheckBox getPrimaryKeyControl() {
         FXCheckBox checkBox = new FXCheckBox();
         checkBox.setSelected(this.isPrimaryKey());
@@ -108,12 +145,24 @@ public class MysqlColumnControl extends MysqlColumn {
     //     return glyph;
     // }
 
+    /**
+     * 根据字段构建字段控件
+     *
+     * @param column 字段
+     * @return 字段控件
+     */
     public static MysqlColumnControl of(MysqlColumn column) {
         MysqlColumnControl control = new MysqlColumnControl();
         control.copy(column);
         return control;
     }
 
+    /**
+     * 根据字段列表构建字段控件列表
+     *
+     * @param columns 字段列表
+     * @return 字段控件列表
+     */
     public static List<MysqlColumnControl> of(List<MysqlColumn> columns) {
         List<MysqlColumnControl> controls = new ArrayList<>();
         for (MysqlColumn column : columns) {

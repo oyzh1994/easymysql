@@ -175,6 +175,11 @@ public class MysqlViewRecordTabController extends RichTabController {
         }
     }
 
+    /**
+     * 获取树键
+     *
+     * @return 树键
+     */
     public MysqlViewTreeItem getItem() {
         return this.itemProperty.get();
     }
@@ -639,10 +644,20 @@ public class MysqlViewRecordTabController extends RichTabController {
     //     }
     // }
 
+    /**
+     * 获取过滤条件列表
+     *
+     * @return 过滤条件列表
+     */
     public List<MysqlRecordFilter> getFilters() {
         return filters;
     }
 
+    /**
+     * 设置过滤条件列表
+     *
+     * @param filters 过滤条件列表
+     */
     public void setFilters(List<MysqlRecordFilter> filters) {
         this.filters = filters;
     }

@@ -20,11 +20,18 @@ import javafx.scene.text.FontWeight;
 
 
 /**
+ * mysql记录字段列
+ *
  * @author oyzh
  * @since 2024/7/17
  */
 public class MysqlRecordColumn extends FXTableColumn<MysqlRecord, Object> {
 
+    /**
+     * 构造mysql记录字段列
+     *
+     * @param column 字段
+     */
     public MysqlRecordColumn(MysqlColumn column) {
         this.setReorderable(true);
         // this.setText(column.getName() + "\n" + column.getType() + "\n" + column.getComment());

@@ -17,6 +17,11 @@ public class MysqlQueryInfoTab extends RichTab {
         return MysqlTab.BASE_PATH + "query/mysqlQueryInfoTab.fxml";
     }
 
+    /**
+     * 初始化
+     *
+     * @param results 查询结果
+     */
     public void init(MysqlQueryResults<?> results) {
         this.controller().init(results);
     }

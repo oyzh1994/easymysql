@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * redis分组存储
+ * db分组存储
  *
  * @author oyzh
  * @since 2023/5/12
@@ -23,10 +23,21 @@ public class MysqlGroupStore extends JdbcStandardStore<MysqlGroup> {
      */
     public static final MysqlGroupStore INSTANCE = new MysqlGroupStore();
 
+    /**
+     * 加载列表
+     *
+     * @return 分组列表
+     */
     public List<MysqlGroup> load() {
         return super.selectList();
     }
 
+    /**
+     * 替换
+     *
+     * @param group 分组
+     * @return 结果
+     */
     public boolean replace(MysqlGroup group) {
         if (group != null) {
             if (this.exist(group.getName()) || super.exist(group.getGid())) {
@@ -37,6 +48,12 @@ public class MysqlGroupStore extends JdbcStandardStore<MysqlGroup> {
         return false;
     }
 
+    /**
+     * 根据名称删除
+     *
+     * @param name 分组名称
+     * @return 结果
+     */
     public boolean delete(String name) {
         if (StringUtil.isNotBlank(name)) {
             DeleteParam param = new DeleteParam();

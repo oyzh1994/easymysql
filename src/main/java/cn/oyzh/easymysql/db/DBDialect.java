@@ -14,8 +14,16 @@ import java.util.List;
  * @since 2024/2/20
  */
 public enum DBDialect {
+    /**
+     * mysql
+     */
     MYSQL;
 
+    /**
+     * 获取数据库类型
+     *
+     * @return 数据库类型
+     */
     public DbType dbType() {
         switch (this) {
             case MYSQL:
@@ -25,6 +33,11 @@ public enum DBDialect {
         }
     }
 
+    /**
+     * 获取全部数据库类型
+     *
+     * @return 数据库类型列表
+     */
     public static List<DBDialect> valueList() {
         List<DBDialect> list = new ArrayList<>();
         Collections.addAll(list, values());

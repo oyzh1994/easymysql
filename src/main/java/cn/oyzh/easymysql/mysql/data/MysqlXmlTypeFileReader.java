@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
+ * MySQL XML类型文件读取器
+ *
  * @author oyzh
  * @since 2024-09-03
  */
@@ -28,6 +30,13 @@ public class MysqlXmlTypeFileReader extends MysqlTypeFileReader {
      */
     private MysqlDataImportConfig config;
 
+    /**
+     * 构造XML类型文件读取器
+     *
+     * @param file   文件
+     * @param config 导入配置
+     * @throws Exception 异常
+     */
     public MysqlXmlTypeFileReader( File file, MysqlDataImportConfig config) throws Exception {
         this.config = config;
         this.reader = XMLInputFactory.newInstance().createXMLEventReader(new FileInputStream(file), config.getCharset());

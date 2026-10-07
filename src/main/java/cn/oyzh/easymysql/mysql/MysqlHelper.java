@@ -20,11 +20,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * MySQL操作辅助工具类
+ *
  * @author oyzh
  * @since 2024/7/1
  */
 public class MysqlHelper {
 
+    /**
+     * 获取函数创建语句
+     *
+     * @param connection   数据库连接
+     * @param functionName 函数名称
+     * @return 函数创建语句
+     * @throws Exception 异常
+     */
     public static String getFunctionDefinition(Connection connection, String functionName) throws Exception {
         String sql = "SHOW CREATE FUNCTION " + DBUtil.wrap(functionName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
@@ -39,6 +49,14 @@ public class MysqlHelper {
         return createDefinition;
     }
 
+    /**
+     * 获取存储过程创建语句
+     *
+     * @param connection    数据库连接
+     * @param procedureName 存储过程名称
+     * @return 存储过程创建语句
+     * @throws Exception 异常
+     */
     public static String showCreateProcedure(Connection connection, String procedureName) throws Exception {
         String sql = "SHOW CREATE PROCEDURE " + DBUtil.wrap(procedureName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
@@ -53,6 +71,14 @@ public class MysqlHelper {
         return createDefinition;
     }
 
+    /**
+     * 获取触发器创建语句
+     *
+     * @param connection  数据库连接
+     * @param triggerName 触发器名称
+     * @return 触发器创建语句
+     * @throws Exception 异常
+     */
     public static String showCreateTrigger(Connection connection, String triggerName) throws Exception {
         String sql = "SHOW CREATE TRIGGER " + DBUtil.wrap(triggerName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
@@ -67,6 +93,14 @@ public class MysqlHelper {
         return createDefinition;
     }
 
+    /**
+     * 获取函数创建语句
+     *
+     * @param connection   数据库连接
+     * @param functionName 函数名称
+     * @return 函数创建语句
+     * @throws Exception 异常
+     */
     public static String showCreateFunction(Connection connection, String functionName) throws Exception {
         String sql = "SHOW CREATE FUNCTION " + DBUtil.wrap(functionName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
@@ -81,6 +115,14 @@ public class MysqlHelper {
         return createDefinition;
     }
 
+    /**
+     * 获取事件创建语句
+     *
+     * @param connection 数据库连接
+     * @param eventName  事件名称
+     * @return 事件创建语句
+     * @throws Exception 异常
+     */
     public static String showCreateEvent(Connection connection, String eventName) throws Exception {
         String sql = "SHOW CREATE EVENT " + DBUtil.wrap(eventName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
@@ -95,6 +137,16 @@ public class MysqlHelper {
         return createDefinition;
     }
 
+    /**
+     * 获取存储程序参数列表
+     *
+     * @param connection  数据库连接
+     * @param dbName      库名称
+     * @param routineName 存储程序名称
+     * @param routineType 存储程序类型
+     * @return 参数列表
+     * @throws Exception 异常
+     */
     public static List<MysqlRoutineParam> listRoutineParam(Connection connection, String dbName, String routineName, String routineType) throws Exception {
         String sql = """
                 SELECT
@@ -135,14 +187,40 @@ public class MysqlHelper {
         return params;
     }
 
+    /**
+     * 获取函数参数列表
+     *
+     * @param connection   数据库连接
+     * @param dbName       库名称
+     * @param functionName 函数名称
+     * @return 参数列表
+     * @throws Exception 异常
+     */
     public static List<MysqlRoutineParam> listFunctionParam(Connection connection, String dbName, String functionName) throws Exception {
         return listRoutineParam(connection, dbName, functionName, "FUNCTION");
     }
 
+    /**
+     * 获取存储过程参数列表
+     *
+     * @param connection    数据库连接
+     * @param dbName        库名称
+     * @param procedureName 存储过程名称
+     * @return 参数列表
+     * @throws Exception 异常
+     */
     public static List<MysqlRoutineParam> listProcedureParam(Connection connection, String dbName, String procedureName) throws Exception {
         return listRoutineParam(connection, dbName, procedureName, "PROCEDURE");
     }
 
+    /**
+     * 获取存储过程定义者
+     *
+     * @param connection    数据库连接
+     * @param procedureName 存储过程名称
+     * @return 定义者
+     * @throws Exception 异常
+     */
     public static String getProcedureDefiner(Connection connection, String procedureName) throws Exception {
         String sql = "SHOW CREATE PROCEDURE " + DBUtil.wrap(procedureName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();
@@ -164,6 +242,15 @@ public class MysqlHelper {
         return definer;
     }
 
+    /**
+     * 判断视图是否可更新
+     *
+     * @param connection 数据库连接
+     * @param dbName     库名称
+     * @param viewName   视图名称
+     * @return 是否可更新
+     * @throws Exception 异常
+     */
     public static boolean isViewUpdatable(Connection connection, String dbName, String viewName) throws Exception {
         String sql = "SELECT `IS_UPDATABLE` FROM information_schema.`VIEWS` WHERE `TABLE_SCHEMA` = ? AND `TABLE_NAME` = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -180,6 +267,15 @@ public class MysqlHelper {
         return StringUtil.equalsIgnoreCase(isUpdatable, "YES");
     }
 
+    /**
+     * 获取视图信息
+     *
+     * @param connection 数据库连接
+     * @param dbName     库名称
+     * @param viewName   视图名称
+     * @return 视图信息
+     * @throws Exception 异常
+     */
     public static Map<String, String> getViewInfo(Connection connection, String dbName, String viewName) throws Exception {
         String sql = """
                 SELECT 
@@ -221,6 +317,14 @@ public class MysqlHelper {
         return info;
     }
 
+    /**
+     * 获取几何数据类型字符串
+     *
+     * @param connection 数据库连接
+     * @param val        几何数据
+     * @return 几何字符串
+     * @throws Exception 异常
+     */
     public static String getGeometryString(Connection connection, Object val) throws Exception {
         String value = null;
         if (val != null) {
@@ -238,6 +342,16 @@ public class MysqlHelper {
         return value;
     }
 
+    /**
+     * 获取字段的字符集和排序规则
+     *
+     * @param connection 数据库连接
+     * @param dbName     库名称
+     * @param tableName  表名称
+     * @param columnName 字段名称
+     * @return 字符集和排序规则数组
+     * @throws Exception 异常
+     */
     public static String[] getCharsetAndCollation(Connection connection, String dbName, String tableName, String columnName) throws Exception {
         String sql = "SELECT  CHARACTER_SET_NAME, COLLATION_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ? AND COLUMN_NAME = ?";
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -256,6 +370,14 @@ public class MysqlHelper {
         return arr;
     }
 
+    /**
+     * 获取表创建语句
+     *
+     * @param connection 数据库连接
+     * @param tableName  表名称
+     * @return 表创建语句
+     * @throws Exception 异常
+     */
     public static String showCreateTable(Connection connection, String tableName) throws Exception {
         String sql = "SHOW CREATE TABLE " + DBUtil.wrap(tableName, DBDialect.MYSQL);
         Statement stmt = connection.createStatement();
@@ -269,6 +391,15 @@ public class MysqlHelper {
         return definition;
     }
 
+    /**
+     * 判断表是否有主键
+     *
+     * @param connection 数据库连接
+     * @param dbName     库名称
+     * @param tableName  表名称
+     * @return 是否有主键
+     * @throws Exception 异常
+     */
     public static boolean hasPrimaryKey(Connection connection, String dbName, String tableName) throws Exception {
         String sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA = " + DBUtil.wrapData(dbName) + " AND TABLE_NAME = " + DBUtil.wrapData(tableName) + " AND CONSTRAINT_TYPE = 'PRIMARY KEY' LIMIT 1";
         Statement stmt = connection.createStatement();
@@ -282,6 +413,14 @@ public class MysqlHelper {
         return count != null && count > 0;
     }
 
+    /**
+     * 判断字段是否使用零填充
+     *
+     * @param showTableDefinition 表创建语句
+     * @param columnName          字段名称
+     * @return 是否使用零填充
+     * @throws SQLException 异常
+     */
     public static boolean isZeroFill(String showTableDefinition, String columnName) throws SQLException {
         if (StringUtil.isNotBlank(showTableDefinition)) {
             String[] arr = showTableDefinition.split(",");
@@ -295,6 +434,14 @@ public class MysqlHelper {
         return false;
     }
 
+    /**
+     * 获取主键字段的长度
+     *
+     * @param showTableDefinition 表创建语句
+     * @param columnName          字段名称
+     * @return 主键长度
+     * @throws SQLException 异常
+     */
     public static Integer getKeySize(String showTableDefinition, String columnName) throws SQLException {
         if (StringUtil.isNotBlank(showTableDefinition)) {
             String[] arr = showTableDefinition.split("PRIMARY KEY ");
@@ -315,6 +462,13 @@ public class MysqlHelper {
         return null;
     }
 
+    /**
+     * 获取最后插入的ID
+     *
+     * @param connection 数据库连接
+     * @return 最后插入的ID
+     * @throws Exception 异常
+     */
     public static Long lastInsertId(Connection connection) throws Exception {
         String sql = "SELECT LAST_INSERT_ID();";
         Statement statement = connection.createStatement();
@@ -327,6 +481,16 @@ public class MysqlHelper {
         return insertId;
     }
 
+    /**
+     * 获取字段类型
+     *
+     * @param connection 数据库连接
+     * @param dbName     库名称
+     * @param tableName  表名称
+     * @param columnName 字段名称
+     * @return 字段类型
+     * @throws Exception 异常
+     */
     public static String columnType(Connection connection, String dbName, String tableName, String columnName) throws Exception {
         String sql = "SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.`COLUMNS` WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ? AND COLUMN_NAME = ? ";
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -343,10 +507,25 @@ public class MysqlHelper {
         return colType;
     }
 
+    /**
+     * 解析结果集中的字段
+     *
+     * @param resultSet 结果集
+     * @return 字段列表
+     * @throws SQLException 异常
+     */
     public static MysqlColumns parseColumns(ResultSet resultSet) throws SQLException {
         return parseColumns(resultSet, Collections.emptyList());
     }
 
+    /**
+     * 解析结果集中的字段
+     *
+     * @param resultSet 结果集
+     * @param excludes  排除的字段
+     * @return 字段列表
+     * @throws SQLException 异常
+     */
     public static MysqlColumns parseColumns(ResultSet resultSet, List<String> excludes) throws SQLException {
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         int columnCount = resultSetMetaData.getColumnCount();
@@ -416,6 +595,14 @@ public class MysqlHelper {
         return columns;
     }
 
+    /**
+     * 获取视图创建语句
+     *
+     * @param connection 数据库连接
+     * @param viewName   视图名称
+     * @return 视图创建语句
+     * @throws Exception 异常
+     */
     public static String showCreateView(Connection connection, String viewName) throws Exception {
         String sql = "SHOW CREATE VIEW " + DBUtil.wrap(viewName, DBDialect.MYSQL);
         Statement statement = connection.createStatement();

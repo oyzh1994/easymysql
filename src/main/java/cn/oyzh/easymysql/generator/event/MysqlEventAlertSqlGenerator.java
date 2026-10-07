@@ -5,15 +5,25 @@ import cn.oyzh.easymysql.mysql.event.MysqlEvent;
 import cn.oyzh.easymysql.util.DBUtil;
 
 /**
+ * mysql事件修改sql生成器
+ *
  * @author oyzh
  * @since 2024-09-10
  */
 public class MysqlEventAlertSqlGenerator extends EventAlertSqlGenerator {
 
+    /**
+     * 构造方法
+     */
     public MysqlEventAlertSqlGenerator() {
         super(DBDialect.MYSQL);
     }
 
+    /**
+     * 构造方法
+     *
+     * @param dialect 数据库方言
+     */
     protected MysqlEventAlertSqlGenerator(DBDialect dialect) {
         super(dialect);
     }

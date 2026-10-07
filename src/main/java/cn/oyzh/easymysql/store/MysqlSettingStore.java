@@ -23,6 +23,11 @@ public class MysqlSettingStore extends JdbcKeyValueStore<MysqlSetting> {
      */
     public static final MysqlSetting SETTING = INSTANCE.load();
 
+    /**
+     * 加载设置
+     *
+     * @return 设置
+     */
     public MysqlSetting load() {
         MysqlSetting setting = null;
         try {
@@ -37,6 +42,12 @@ public class MysqlSettingStore extends JdbcKeyValueStore<MysqlSetting> {
         return setting;
     }
 
+    /**
+     * 替换设置
+     *
+     * @param model 设置
+     * @return 结果
+     */
     public boolean replace(MysqlSetting model) {
         if (model != null) {
             return this.update(model);

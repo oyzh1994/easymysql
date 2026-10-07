@@ -16,13 +16,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * MySQL Excel类型文件读取器
+ *
  * @author oyzh
  * @since 2024-09-03
  */
 public class MysqlExcelTypeFileReader extends MysqlTypeFileReader {
 
     /**
-     * xml读取器
+     * 工作薄
      */
     private Workbook workbook;
 
@@ -41,6 +43,13 @@ public class MysqlExcelTypeFileReader extends MysqlTypeFileReader {
      */
     private Integer currentRowIndex;
 
+    /**
+     * 构造Excel类型文件读取器
+     *
+     * @param file   文件
+     * @param config 导入配置
+     * @throws Exception 异常
+     */
     public MysqlExcelTypeFileReader( File file, MysqlDataImportConfig config) throws Exception {
         this.config = config;
         boolean isXlsx = StringUtil.endWithIgnoreCase(file.getName(), ".xlsx");

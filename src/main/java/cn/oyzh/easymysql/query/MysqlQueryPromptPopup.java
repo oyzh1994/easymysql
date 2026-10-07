@@ -108,6 +108,9 @@ public class MysqlQueryPromptPopup extends FXPopup {
      */
     protected Consumer<MysqlQueryPromptItem> onItemSelected;
 
+    /**
+     * 构造方法
+     */
     public MysqlQueryPromptPopup() {
         this.setAutoFix(true);
         this.setAutoHide(true);
@@ -332,10 +335,20 @@ public class MysqlQueryPromptPopup extends FXPopup {
         return false;
     }
 
+    /**
+     * 获取选中事件
+     *
+     * @return 选中事件
+     */
     public Consumer<MysqlQueryPromptItem> getOnItemSelected() {
         return onItemSelected;
     }
 
+    /**
+     * 设置选中事件
+     *
+     * @param onItemSelected 选中事件
+     */
     public void setOnItemSelected(Consumer<MysqlQueryPromptItem> onItemSelected) {
         this.onItemSelected = onItemSelected;
     }

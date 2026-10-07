@@ -21,18 +21,27 @@ public class MysqlTerminalTabController extends RichTabController {
     @FXML
     private MysqlTerminalPane terminal;
 
+    /**
+     * 库名称
+     */
     private String dbName;
 
     /**
      * 初始化
      *
      * @param client mysql客户端
+     * @param dbName 库名称
      */
     public void init(MysqlClient client, String dbName) {
         this.terminal.init(client, dbName);
         this.dbName = dbName;
     }
 
+    /**
+     * 获取库名称
+     *
+     * @return 库名称
+     */
     public String getDbName() {
         return dbName;
     }
@@ -46,6 +55,11 @@ public class MysqlTerminalTabController extends RichTabController {
         return this.terminal.getDbConnect();
     }
 
+    /**
+     * 获取mysql客户端
+     *
+     * @return mysql客户端
+     */
     public MysqlClient client() {
         return this.terminal.getClient();
     }

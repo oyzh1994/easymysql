@@ -27,14 +27,27 @@ public class MysqlColumnComboBox extends FXComboBox<MysqlColumn> {
         });
     }
 
+    /**
+     * 构造db字段下拉框
+     */
     public MysqlColumnComboBox() {
 
     }
 
+    /**
+     * 构造db字段下拉框
+     *
+     * @param columns 字段列表
+     */
     public MysqlColumnComboBox(List<MysqlColumn> columns) {
         this.addItems(columns);
     }
 
+    /**
+     * 根据字段名称选中
+     *
+     * @param colName 字段名称
+     */
     public void select(String colName) {
         for (MysqlColumn object : this.getItems()) {
             if (StringUtil.equalsIgnoreCase(colName, object.getName())) {
@@ -44,6 +57,11 @@ public class MysqlColumnComboBox extends FXComboBox<MysqlColumn> {
         }
     }
 
+    /**
+     * 获取选中字段名称
+     *
+     * @return 字段名称
+     */
     public String getColumnName() {
         return this.getSelectedItem().getName();
     }

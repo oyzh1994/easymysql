@@ -14,6 +14,11 @@ import javafx.scene.paint.Color;
  */
 public class DBGroupTreeItemValue extends RichTreeItemValue {
 
+    /**
+     * 构造分组树节点值
+     *
+     * @param item 分组树节点
+     */
     public DBGroupTreeItemValue(DBGroupTreeItem item) {
         super(item);
     }

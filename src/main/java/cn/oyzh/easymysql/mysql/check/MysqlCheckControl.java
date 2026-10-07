@@ -10,11 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 检查约束编辑控件
+ *
  * @author oyzh
  * @since 2024/09/11
  */
 public class MysqlCheckControl extends MysqlCheck {
 
+    /**
+     * 获取名称控件
+     *
+     * @return 名称控件
+     */
     public ClearableTextField getNameControl() {
         ClearableTextField textField = new ClearableTextField();
         textField.setPromptText(I18nHelper.pleaseInputName());
@@ -28,6 +35,11 @@ public class MysqlCheckControl extends MysqlCheck {
         return textField;
     }
 
+    /**
+     * 获取子语句控件
+     *
+     * @return 子语句控件
+     */
     public ClearableTextField getClauseControl() {
         ClearableTextField textField = new ClearableTextField();
         textField.setPromptText(I18nHelper.pleaseInputName());
@@ -38,12 +50,24 @@ public class MysqlCheckControl extends MysqlCheck {
         return textField;
     }
 
+    /**
+     * 将检查约束转换为控件
+     *
+     * @param check 检查约束
+     * @return 检查约束控件
+     */
     public static MysqlCheckControl of(MysqlCheck check) {
         MysqlCheckControl control = new MysqlCheckControl();
         control.copy(check);
         return control;
     }
 
+    /**
+     * 将检查约束列表转换为控件列表
+     *
+     * @param checks 检查约束列表
+     * @return 检查约束控件列表
+     */
     public static List<MysqlCheckControl> of(List<MysqlCheck> checks) {
         List<MysqlCheckControl> controls = new ArrayList<>();
         for (MysqlCheck check : checks) {

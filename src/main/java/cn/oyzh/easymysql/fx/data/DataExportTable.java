@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
+ * 数据导出表
+ *
  * @author oyzh
  * @since 2024/08/27
  */
@@ -50,6 +52,7 @@ public class DataExportTable {
      */
     private ObjectProperty<FileExtensionFilter> extensionProperty;
 
+    /** 获取是否选中属性 */
     public BooleanProperty selectedProperty() {
         if (this.selectedProperty == null) {
             this.selectedProperty = new SimpleBooleanProperty(false);
@@ -62,14 +65,17 @@ public class DataExportTable {
         return this.selectedProperty;
     }
 
+    /** 是否选中 */
     public boolean isSelected() {
         return this.selectedProperty != null && this.selectedProperty.get();
     }
 
+    /** 设置是否选中 */
     public void setSelected(boolean selected) {
         this.selectedProperty().set(selected);
     }
 
+    /** 获取选中控件 */
     public FXCheckBox getSelectedControl() {
         FXCheckBox checkBox = new FXCheckBox();
         checkBox.setSelected(this.isSelected());
@@ -88,6 +94,7 @@ public class DataExportTable {
         return checkBox;
     }
 
+    /** 获取文件路径属性 */
     public StringProperty filePathProperty() {
         if (filePathProperty == null) {
             this.filePathProperty = new SimpleStringProperty();
@@ -95,14 +102,17 @@ public class DataExportTable {
         return this.filePathProperty;
     }
 
+    /** 获取文件路径 */
     public String getFilePath() {
         return filePathProperty == null ? null : filePathProperty.get();
     }
 
+    /** 设置文件路径 */
     public void setFilePath(String filePath) {
         this.filePathProperty().set(filePath);
     }
 
+    /** 获取文件路径控件 */
     public SaveFileTextField getFilePathControl() {
         SaveFileTextField textField = new SaveFileTextField();
         textField.setText(this.getFilePath());
@@ -123,6 +133,7 @@ public class DataExportTable {
         return textField;
     }
 
+    /** 获取扩展后缀属性 */
     public ObjectProperty<FileExtensionFilter> extensionProperty() {
         if (this.extensionProperty == null) {
             this.extensionProperty = new SimpleObjectProperty<>();
@@ -131,14 +142,17 @@ public class DataExportTable {
         return this.extensionProperty;
     }
 
+    /** 获取扩展后缀 */
     public FileExtensionFilter getExtension() {
         return this.extensionProperty == null ? null : this.extensionProperty.get();
     }
 
+    /** 设置扩展后缀 */
     public void setExtension(FileExtensionFilter extension) {
         this.extensionProperty().set(extension);
     }
 
+    /** 生成导出文件名 */
     private String fileName() {
         if (this.getExtension() != null) {
             return this.name + this.getExtension().getExtension().substring(1);
@@ -146,6 +160,11 @@ public class DataExportTable {
         return "";
     }
 
+    /**
+     * 设置字段列表
+     *
+     * @param columns 字段列表
+     */
     public void columns(List<? extends MysqlColumn> columns) {
         this.columns = new ArrayList<>();
         for (MysqlColumn column : columns) {
@@ -155,10 +174,12 @@ public class DataExportTable {
         }
     }
 
+    /** 获取字段列表 */
     public List<MysqlColumn> columns() {
         return new ArrayList<>(this.columns);
     }
 
+    /** 获取选中的字段列表 */
     public List<MysqlColumn> selectedColumns() {
         List<MysqlColumn> selectedColumns = new ArrayList<>();
         for (DataExportColumn column : this.columns) {
@@ -169,6 +190,7 @@ public class DataExportTable {
         return selectedColumns;
     }
 
+    /** 获取选中的字段名称列表 */
     public List<String> selectedColumnNames() {
         List<String> selectedColumns = new ArrayList<>();
         for (MysqlColumn column : this.selectedColumns()) {
@@ -177,28 +199,34 @@ public class DataExportTable {
         return selectedColumns;
     }
 
+    /** 是否存在字段 */
     public boolean hasColumns() {
         return CollectionUtil.isNotEmpty(this.columns);
     }
 
+    /** 更新文件路径 */
     private void updateFilePath() {
         if (this.isSelected() || this.getFilePath() != null) {
             this.setFilePath(FXChooser.getDesktopDirectory() + File.separator + this.fileName());
         }
     }
 
+    /** 获取表名称 */
     public String getName() {
         return name;
     }
 
+    /** 设置表名称 */
     public void setName(String name) {
         this.name = name;
     }
 
+    /** 获取字段列表 */
     public List<DataExportColumn> getColumns() {
         return columns;
     }
 
+    /** 设置字段列表 */
     public void setColumns(List<DataExportColumn> columns) {
         this.columns = columns;
     }

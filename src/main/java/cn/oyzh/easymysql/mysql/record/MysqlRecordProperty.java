@@ -68,6 +68,14 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements
     //     this(column, value, false);
     // }
 
+    /**
+     * 构建记录属性
+     *
+     * @param record   记录
+     * @param column   字段
+     * @param value    值
+     * @param readonly 是否只读
+     */
     public MysqlRecordProperty(MysqlRecord record, MysqlColumn column, Object value, boolean readonly) {
         super(value);
         this.column = column;
@@ -144,6 +152,11 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements
         this.setChanged(false);
     }
 
+    /**
+     * 获取变更属性
+     *
+     * @return 变更属性
+     */
     public SimpleBooleanProperty changedProperty() {
         if (this.changedProperty == null) {
             this.changedProperty = new SimpleBooleanProperty();
@@ -151,10 +164,20 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements
         return this.changedProperty;
     }
 
+    /**
+     * 判断是否变更
+     *
+     * @return 是否变更
+     */
     public boolean isChanged() {
         return this.changedProperty != null && this.changedProperty.get();
     }
 
+    /**
+     * 设置是否变更
+     *
+     * @param changed 是否变更
+     */
     public void setChanged(boolean changed) {
         this.changedProperty().set(changed);
         DBStatusListener listener;
@@ -169,6 +192,9 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements
         this.setToNullFlag = false;
     }
 
+    /**
+     * 更新原始数据
+     */
     public void updateOriginal() {
         try {
             if (this.node != null) {
@@ -180,14 +206,25 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements
         }
     }
 
+    /**
+     * 获取控件
+     *
+     * @return 控件
+     */
     public Node getControl() {
         return this.node;
     }
 
+    /**
+     * 复制到剪贴板
+     */
     public void vCopy() {
         ClipboardUtil.copy(this.node);
     }
 
+    /**
+     * 从剪贴板粘贴
+     */
     public void vPaste() {
         ClipboardUtil.paste(this.node);
     }
@@ -232,6 +269,9 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements
         ClipboardUtil.copy(sql);
     }
 
+    /**
+     * 设置值为null
+     */
     public void vSetToNull() {
         if (this.node instanceof TextField textField) {
             // 如果内容为空，则直接设置变更
@@ -246,6 +286,9 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements
         this.setToNullFlag = true;
     }
 
+    /**
+     * 设置值为空字符串
+     */
     public void vSetToEmptyString() {
         if (this.node instanceof TextField textField) {
             // 如果内容为空，则直接设置变更
@@ -259,26 +302,56 @@ public class MysqlRecordProperty extends SimpleObjectProperty<Object> implements
         }
     }
 
+    /**
+     * 获取字段
+     *
+     * @return 字段
+     */
     public MysqlColumn getColumn() {
         return column;
     }
 
+    /**
+     * 设置字段
+     *
+     * @param column 字段
+     */
     public void setColumn(MysqlColumn column) {
         this.column = column;
     }
 
+    /**
+     * 获取原始数据
+     *
+     * @return 原始数据
+     */
     public Object getOriginal() {
         return original;
     }
 
+    /**
+     * 设置原始数据
+     *
+     * @param original 原始数据
+     */
     public void setOriginal(Object original) {
         this.original = original;
     }
 
+    /**
+     * 是否只读
+     *
+     * @return 是否只读
+     */
     public boolean isReadonly() {
         return readonly;
     }
 
+    /**
+     * 获取节点
+     *
+     * @return 节点
+     */
     public Node getNode() {
         return node;
     }

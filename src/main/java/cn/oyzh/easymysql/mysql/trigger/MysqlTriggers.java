@@ -12,10 +12,18 @@ import java.util.List;
  */
 public class MysqlTriggers extends DBObjectList<MysqlTrigger> {
 
+    /**
+     * 构建触发器列表
+     */
     public MysqlTriggers() {
 
     }
 
+    /**
+     * 构建触发器列表
+     *
+     * @param list 触发器列表
+     */
     public MysqlTriggers(List<MysqlTrigger> list) {
         super.addAll(list);
     }

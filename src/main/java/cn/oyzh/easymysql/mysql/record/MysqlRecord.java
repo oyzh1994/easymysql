@@ -34,23 +34,50 @@ public class MysqlRecord extends DBObjectStatus implements Destroyable {
      */
     private MysqlColumns columns;
 
+    /**
+     * 构建记录
+     *
+     * @param columns 字段列表
+     */
     public MysqlRecord(MysqlColumns columns) {
         this(columns, false);
     }
 
+    /**
+     * 构建记录
+     *
+     * @param columns 字段列表
+     */
     public MysqlRecord(List<MysqlColumn> columns) {
         this(new MysqlColumns(columns), false);
     }
 
+    /**
+     * 构建记录
+     *
+     * @param columns  字段列表
+     * @param readonly 是否只读
+     */
     public MysqlRecord(List<MysqlColumn> columns, boolean readonly) {
         this(new MysqlColumns(columns), readonly);
     }
 
+    /**
+     * 构建记录
+     *
+     * @param columns  字段列表
+     * @param readonly 是否只读
+     */
     public MysqlRecord(MysqlColumns columns, boolean readonly) {
         this.columns = columns;
         this.readonly = readonly;
     }
 
+    /**
+     * 获取字段列表
+     *
+     * @return 字段列表
+     */
     public MysqlColumns getColumns() {
         return columns;
     }
@@ -141,7 +168,7 @@ public class MysqlRecord extends DBObjectStatus implements Destroyable {
      * 是否存在记录属性
      *
      * @param recordProperty 记录属性
-     * @return 属性
+     * @return 是否存在
      */
     public boolean hasProperty(MysqlRecordProperty recordProperty) {
         return this.properties.containsValue(recordProperty);
@@ -191,6 +218,8 @@ public class MysqlRecord extends DBObjectStatus implements Destroyable {
 
     /**
      * 抛弃变更
+     *
+     * @throws Exception 异常
      */
     public void discard() throws Exception {
         for (MysqlRecordProperty property : this.properties.values()) {
@@ -199,6 +228,11 @@ public class MysqlRecord extends DBObjectStatus implements Destroyable {
         super.clearStatus();
     }
 
+    /**
+     * 复制记录数据
+     *
+     * @param record 源记录
+     */
     public void copy(MysqlRecord record) {
         if (record != null) {
             for (String column : record.columns()) {
@@ -210,6 +244,11 @@ public class MysqlRecord extends DBObjectStatus implements Destroyable {
         }
     }
 
+    /**
+     * 获取记录数据
+     *
+     * @return 记录数据
+     */
     public MysqlRecordData getRecordData() {
         MysqlRecordData recordData = new MysqlRecordData();
         for (String column : this.columns()) {
@@ -224,6 +263,11 @@ public class MysqlRecord extends DBObjectStatus implements Destroyable {
         return recordData;
     }
 
+    /**
+     * 获取变更的记录数据
+     *
+     * @return 变更的记录数据
+     */
     public MysqlRecordData getChangedRecordData() {
         MysqlRecordData recordData = new MysqlRecordData();
         for (String column : this.columns()) {
@@ -235,6 +279,11 @@ public class MysqlRecord extends DBObjectStatus implements Destroyable {
         return recordData;
     }
 
+    /**
+     * 获取原始记录数据
+     *
+     * @return 原始记录数据
+     */
     public MysqlRecordData getOriginalRecordData() {
         MysqlRecordData recordData = new MysqlRecordData();
         for (String column : this.columns()) {
@@ -249,10 +298,21 @@ public class MysqlRecord extends DBObjectStatus implements Destroyable {
         return recordData;
     }
 
+    /**
+     * 判断指定字段是否变更
+     *
+     * @param column 字段名称
+     * @return 是否变更
+     */
     public boolean isColumnChanged(String column) {
         return false;
     }
 
+    /**
+     * 转换为Map
+     *
+     * @return Map数据
+     */
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         for (Map.Entry<String, MysqlRecordProperty> value : this.properties.entrySet()) {
@@ -273,10 +333,20 @@ public class MysqlRecord extends DBObjectStatus implements Destroyable {
         }
     }
 
+    /**
+     * 是否可编辑
+     *
+     * @return 是否可编辑
+     */
     public boolean isEditable() {
         return editable;
     }
 
+    /**
+     * 设置是否可编辑
+     *
+     * @param editable 是否可编辑
+     */
     public void setEditable(boolean editable) {
         this.editable = editable;
     }

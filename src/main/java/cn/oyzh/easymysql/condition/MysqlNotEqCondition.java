@@ -8,8 +8,14 @@ package cn.oyzh.easymysql.condition;
  */
 public class MysqlNotEqCondition extends MysqlCondition {
 
+    /**
+     * 不等于条件实例
+     */
     public final static MysqlNotEqCondition INSTANCE = new MysqlNotEqCondition();
 
+    /**
+     * 构造方法
+     */
     public MysqlNotEqCondition() {
         super("不等于", "!=");
     }

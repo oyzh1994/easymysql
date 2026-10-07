@@ -46,6 +46,11 @@ public class MysqlProcedureDesignTabController extends RichTabController {
      */
     private MysqlProcedure procedure;
 
+    /**
+     * 获取过程
+     *
+     * @return 过程
+     */
     public MysqlProcedure getProcedure() {
         return procedure;
     }
@@ -198,8 +203,8 @@ public class MysqlProcedureDesignTabController extends RichTabController {
     /**
      * 执行初始化
      *
-     * @param procedure 查询对象
-     * @param dbItem    db库树节点
+     * @param procedure 过程对象
+     * @param dbItem    数据库树节点
      */
     public void init(MysqlProcedure procedure, MysqlDatabaseTreeItem dbItem) {
         this.dbItem = dbItem;
@@ -495,18 +500,38 @@ public class MysqlProcedureDesignTabController extends RichTabController {
         }
     }
 
+    /**
+     * 获取数据库树节点
+     *
+     * @return 数据库树节点
+     */
     public MysqlDatabaseTreeItem getDbItem() {
         return dbItem;
     }
 
+    /**
+     * 设置数据库树节点
+     *
+     * @param dbItem 数据库树节点
+     */
     public void setDbItem(MysqlDatabaseTreeItem dbItem) {
         this.dbItem = dbItem;
     }
 
+    /**
+     * 是否未保存
+     *
+     * @return 结果
+     */
     public boolean isUnsaved() {
         return unsaved;
     }
 
+    /**
+     * 设置是否未保存
+     *
+     * @param unsaved 是否未保存
+     */
     public void setUnsaved(boolean unsaved) {
         this.unsaved = unsaved;
     }
@@ -523,6 +548,9 @@ public class MysqlProcedureDesignTabController extends RichTabController {
         this.initParamTable();
     }
 
+    /**
+     * 初始化参数表格
+     */
     private void initParamTable() {
         for (MysqlRoutineParam index : this.paramTable.itemList()) {
             index.setDbClient(this.dbItem.client());

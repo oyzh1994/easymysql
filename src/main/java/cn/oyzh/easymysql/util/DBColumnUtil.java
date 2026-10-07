@@ -8,11 +8,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 数据库字段工具类
+ *
  * @author oyzh
  * @since 2024/1/29
  */
 public class DBColumnUtil {
 
+    /**
+     * 字段定义集合
+     */
     private static final List<DBColumnField> COLUMN_FIELD = new ArrayList<>();
 
     static {
@@ -281,20 +286,42 @@ public class DBColumnUtil {
         putFiled(geometrycollectionField);
     }
 
+    /**
+     * 添加字段定义
+     *
+     * @param columnField 字段定义
+     */
     private static void putFiled(DBColumnField columnField) {
         COLUMN_FIELD.add(columnField);
     }
 
+    /**
+     * 获取字段名称列表
+     *
+     * @return 字段名称列表
+     */
     public static List<String> fields() {
         return COLUMN_FIELD.parallelStream().map(DBColumnField::getName).collect(Collectors.toList());
     }
 
+    /**
+     * 字段定义
+     */
     private static class DBColumnField {
 
+        /**
+         * 名称
+         */
         private String name;
 
+        /**
+         * 最大值
+         */
         private Long maxValue;
 
+        /**
+         * 最小值
+         */
         private Long minValue;
 
         /**
@@ -302,223 +329,508 @@ public class DBColumnUtil {
          */
         private Integer suggestSize;
 
+        /**
+         * 是否支持bit
+         */
         private boolean supportBit;
 
+        /**
+         * 示例值
+         */
         private String exampleValue;
 
+        /**
+         * 是否支持长度
+         */
         private boolean supportSize;
 
+        /**
+         * 是否支持json
+         */
         private boolean supportJson;
 
+        /**
+         * 是否支持枚举
+         */
         private boolean supportEnum;
 
+        /**
+         * 是否支持值列表
+         */
         private boolean supportValue;
 
+        /**
+         * 是否支持二进制
+         */
         private boolean supportBinary;
 
+        /**
+         * 是否支持小数位
+         */
         private boolean supportDigits;
 
+        /**
+         * 是否支持字符串
+         */
         private boolean supportString;
 
+        /**
+         * 是否支持键长
+         */
         private boolean supportKeySize;
 
+        /**
+         * 是否支持整数
+         */
         private boolean supportInteger;
 
+        /**
+         * 是否支持字符集
+         */
         private boolean supportCharset;
 
+        /**
+         * 是否支持无符号
+         */
         private boolean supportUnsigned;
 
+        /**
+         * 是否支持补零
+         */
         private boolean supportZeroFill;
 
+        /**
+         * 是否支持几何类型
+         */
         private boolean supportGeometry;
 
+        /**
+         * 是否支持时间戳
+         */
         private boolean supportTimestamp;
 
+        /**
+         * 是否支持默认值
+         */
         private boolean supportDefaultValue;
 
+        /**
+         * 是否支持自增
+         */
         private boolean supportAutoIncrement;
 
+        /**
+         * 构造字段定义
+         *
+         * @param name 名称
+         */
         public DBColumnField(String name) {
             this.name = name;
         }
 
+        /**
+         * 获取名称
+         *
+         * @return 名称
+         */
         public String getName() {
             return name;
         }
 
+        /**
+         * 设置名称
+         *
+         * @param name 名称
+         */
         public void setName(String name) {
             this.name = name;
         }
 
+        /**
+         * 获取最大值
+         *
+         * @return 最大值
+         */
         public Long getMaxValue() {
             return maxValue;
         }
 
+        /**
+         * 设置最大值
+         *
+         * @param maxValue 最大值
+         */
         public void setMaxValue(Long maxValue) {
             this.maxValue = maxValue;
         }
 
+        /**
+         * 获取最小值
+         *
+         * @return 最小值
+         */
         public Long getMinValue() {
             return minValue;
         }
 
+        /**
+         * 设置最小值
+         *
+         * @param minValue 最小值
+         */
         public void setMinValue(Long minValue) {
             this.minValue = minValue;
         }
 
+        /**
+         * 获取推荐字段长
+         *
+         * @return 推荐字段长
+         */
         public Integer getSuggestSize() {
             return suggestSize;
         }
 
+        /**
+         * 设置推荐字段长
+         *
+         * @param suggestSize 推荐字段长
+         */
         public void setSuggestSize(Integer suggestSize) {
             this.suggestSize = suggestSize;
         }
 
+        /**
+         * 是否支持bit
+         *
+         * @return 结果
+         */
         public boolean isSupportBit() {
             return supportBit;
         }
 
+        /**
+         * 设置是否支持bit
+         *
+         * @param supportBit 是否支持bit
+         */
         public void setSupportBit(boolean supportBit) {
             this.supportBit = supportBit;
         }
 
+        /**
+         * 获取示例值
+         *
+         * @return 示例值
+         */
         public String getExampleValue() {
             return exampleValue;
         }
 
+        /**
+         * 设置示例值
+         *
+         * @param exampleValue 示例值
+         */
         public void setExampleValue(String exampleValue) {
             this.exampleValue = exampleValue;
         }
 
+        /**
+         * 是否支持长度
+         *
+         * @return 结果
+         */
         public boolean isSupportSize() {
             return supportSize;
         }
 
+        /**
+         * 设置是否支持长度
+         *
+         * @param supportSize 是否支持长度
+         */
         public void setSupportSize(boolean supportSize) {
             this.supportSize = supportSize;
         }
 
+        /**
+         * 是否支持json
+         *
+         * @return 结果
+         */
         public boolean isSupportJson() {
             return supportJson;
         }
 
+        /**
+         * 设置是否支持json
+         *
+         * @param supportJson 是否支持json
+         */
         public void setSupportJson(boolean supportJson) {
             this.supportJson = supportJson;
         }
 
+        /**
+         * 是否支持枚举
+         *
+         * @return 结果
+         */
         public boolean isSupportEnum() {
             return supportEnum;
         }
 
+        /**
+         * 设置是否支持枚举
+         *
+         * @param supportEnum 是否支持枚举
+         */
         public void setSupportEnum(boolean supportEnum) {
             this.supportEnum = supportEnum;
         }
 
+        /**
+         * 是否支持值列表
+         *
+         * @return 结果
+         */
         public boolean isSupportValue() {
             return supportValue;
         }
 
+        /**
+         * 设置是否支持值列表
+         *
+         * @param supportValue 是否支持值列表
+         */
         public void setSupportValue(boolean supportValue) {
             this.supportValue = supportValue;
         }
 
+        /**
+         * 是否支持二进制
+         *
+         * @return 结果
+         */
         public boolean isSupportBinary() {
             return supportBinary;
         }
 
+        /**
+         * 设置是否支持二进制
+         *
+         * @param supportBinary 是否支持二进制
+         */
         public void setSupportBinary(boolean supportBinary) {
             this.supportBinary = supportBinary;
         }
 
+        /**
+         * 是否支持小数位
+         *
+         * @return 结果
+         */
         public boolean isSupportDigits() {
             return supportDigits;
         }
 
+        /**
+         * 设置是否支持小数位
+         *
+         * @param supportDigits 是否支持小数位
+         */
         public void setSupportDigits(boolean supportDigits) {
             this.supportDigits = supportDigits;
         }
 
+        /**
+         * 是否支持字符串
+         *
+         * @return 结果
+         */
         public boolean isSupportString() {
             return supportString;
         }
 
+        /**
+         * 设置是否支持字符串
+         *
+         * @param supportString 是否支持字符串
+         */
         public void setSupportString(boolean supportString) {
             this.supportString = supportString;
         }
 
+        /**
+         * 是否支持键长
+         *
+         * @return 结果
+         */
         public boolean isSupportKeySize() {
             return supportKeySize;
         }
 
+        /**
+         * 设置是否支持键长
+         *
+         * @param supportKeySize 是否支持键长
+         */
         public void setSupportKeySize(boolean supportKeySize) {
             this.supportKeySize = supportKeySize;
         }
 
+        /**
+         * 是否支持整数
+         *
+         * @return 结果
+         */
         public boolean isSupportInteger() {
             return supportInteger;
         }
 
+        /**
+         * 设置是否支持整数
+         *
+         * @param supportInteger 是否支持整数
+         */
         public void setSupportInteger(boolean supportInteger) {
             this.supportInteger = supportInteger;
         }
 
+        /**
+         * 是否支持字符集
+         *
+         * @return 结果
+         */
         public boolean isSupportCharset() {
             return supportCharset;
         }
 
+        /**
+         * 设置是否支持字符集
+         *
+         * @param supportCharset 是否支持字符集
+         */
         public void setSupportCharset(boolean supportCharset) {
             this.supportCharset = supportCharset;
         }
 
+        /**
+         * 是否支持无符号
+         *
+         * @return 结果
+         */
         public boolean isSupportUnsigned() {
             return supportUnsigned;
         }
 
+        /**
+         * 设置是否支持无符号
+         *
+         * @param supportUnsigned 是否支持无符号
+         */
         public void setSupportUnsigned(boolean supportUnsigned) {
             this.supportUnsigned = supportUnsigned;
         }
 
+        /**
+         * 是否支持补零
+         *
+         * @return 结果
+         */
         public boolean isSupportZeroFill() {
             return supportZeroFill;
         }
 
+        /**
+         * 设置是否支持补零
+         *
+         * @param supportZeroFill 是否支持补零
+         */
         public void setSupportZeroFill(boolean supportZeroFill) {
             this.supportZeroFill = supportZeroFill;
         }
 
+        /**
+         * 是否支持几何类型
+         *
+         * @return 结果
+         */
         public boolean isSupportGeometry() {
             return supportGeometry;
         }
 
+        /**
+         * 设置是否支持几何类型
+         *
+         * @param supportGeometry 是否支持几何类型
+         */
         public void setSupportGeometry(boolean supportGeometry) {
             this.supportGeometry = supportGeometry;
         }
 
+        /**
+         * 是否支持时间戳
+         *
+         * @return 结果
+         */
         public boolean isSupportTimestamp() {
             return supportTimestamp;
         }
 
+        /**
+         * 设置是否支持时间戳
+         *
+         * @param supportTimestamp 是否支持时间戳
+         */
         public void setSupportTimestamp(boolean supportTimestamp) {
             this.supportTimestamp = supportTimestamp;
         }
 
+        /**
+         * 是否支持默认值
+         *
+         * @return 结果
+         */
         public boolean isSupportDefaultValue() {
             return supportDefaultValue;
         }
 
+        /**
+         * 设置是否支持默认值
+         *
+         * @param supportDefaultValue 是否支持默认值
+         */
         public void setSupportDefaultValue(boolean supportDefaultValue) {
             this.supportDefaultValue = supportDefaultValue;
         }
 
+        /**
+         * 是否支持自增
+         *
+         * @return 结果
+         */
         public boolean isSupportAutoIncrement() {
             return supportAutoIncrement;
         }
 
+        /**
+         * 设置是否支持自增
+         *
+         * @param supportAutoIncrement 是否支持自增
+         */
         public void setSupportAutoIncrement(boolean supportAutoIncrement) {
             this.supportAutoIncrement = supportAutoIncrement;
         }
     }
 
+    /**
+     * 是否支持长度
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportSize(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -528,6 +840,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 获取推荐字段长
+     *
+     * @param type 字段类型
+     * @return 推荐字段长
+     */
     public static Integer suggestSize(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -537,6 +855,12 @@ public class DBColumnUtil {
         return null;
     }
 
+    /**
+     * 是否支持无符号
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportUnsigned(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -546,6 +870,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持json
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportJson(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -555,6 +885,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持键长
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportKeySize(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -564,6 +900,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持字符串
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportString(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -573,6 +915,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持值列表
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportValue(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -582,6 +930,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持补零
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportZeroFill(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -591,6 +945,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持bit
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportBit(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -600,6 +960,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持二进制
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportBinary(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -609,6 +975,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持小数位
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportDigits(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -618,6 +990,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持默认值
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportDefaultValue(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -627,6 +1005,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持几何类型
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportGeometry(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -636,6 +1020,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持枚举
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportEnum(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -645,6 +1035,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持字符集
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportCharset(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -654,6 +1050,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持时间戳
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportTimestamp(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -663,6 +1065,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持整数
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportInteger(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -672,6 +1080,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 是否支持自增
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean supportAutoIncrement(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -681,6 +1095,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 获取示例值
+     *
+     * @param type 字段类型
+     * @return 示例值
+     */
     public static Object exampleValue(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -690,6 +1110,12 @@ public class DBColumnUtil {
         return false;
     }
 
+    /**
+     * 获取最小值
+     *
+     * @param type 字段类型
+     * @return 最小值
+     */
     public static Long minValue(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -699,6 +1125,12 @@ public class DBColumnUtil {
         return null;
     }
 
+    /**
+     * 获取最大值
+     *
+     * @param type 字段类型
+     * @return 最大值
+     */
     public static Long maxValue(String type) {
         for (DBColumnField value : COLUMN_FIELD) {
             if (StringUtil.equalsIgnoreCase(value.name, type)) {
@@ -708,50 +1140,122 @@ public class DBColumnUtil {
         return null;
     }
 
+    /**
+     * 是否年份类型
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean isYearType(String type) {
         return "YEAR".equalsIgnoreCase(type);
     }
 
+    /**
+     * 是否日期类型
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean isDateType(String type) {
         return "DATE".equalsIgnoreCase(type);
     }
 
+    /**
+     * 是否时间类型
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean isTimeType(String type) {
         return "TIME".equalsIgnoreCase(type);
     }
 
+    /**
+     * 是否多边形类型
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean isPolygonType(String type) {
         return "POLYGON".equalsIgnoreCase(type);
     }
 
+    /**
+     * 是否多多边形类型
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean isMultiPolygonType(String type) {
         return "MULTIPOLYGON".equalsIgnoreCase(type);
     }
 
+    /**
+     * 是否点类型
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean isPointType(String type) {
         return "Point".equalsIgnoreCase(type);
     }
 
+    /**
+     * 是否多点类型
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean isMultiPointType(String type) {
         return "MultiPoint".equalsIgnoreCase(type);
     }
 
+    /**
+     * 是否线类型
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean isLineStringType(String type) {
         return "LineString".equalsIgnoreCase(type);
     }
 
+    /**
+     * 是否多线类型
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean isMultiLineStringType(String type) {
         return "MultiLineString".equalsIgnoreCase(type);
     }
 
+    /**
+     * 是否几何集合类型
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean isGeomCollectionType(String type) {
         return "GeomCollection".equalsIgnoreCase(type);
     }
 
+    /**
+     * 是否几何类型
+     *
+     * @param type 字段类型
+     * @return 结果
+     */
     public static boolean isGeometryType(String type) {
         return "Geometry".equalsIgnoreCase(type);
     }
 
+    /**
+     * 获取默认值
+     *
+     * @param type 字段类型
+     * @return 默认值
+     */
     public static Object defaultValue(String type) {
         if (supportDefaultValue(type)) {
             if (supportDigits(type)) {

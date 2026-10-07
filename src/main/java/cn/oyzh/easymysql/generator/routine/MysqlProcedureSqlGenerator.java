@@ -10,15 +10,24 @@ import cn.oyzh.easymysql.util.DBUtil;
 import java.util.List;
 
 /**
- * 国策sql生成器
+ * 存储过程sql生成器
  *
  * @author oyzh
  * @since 2024/08/09
  */
 public class MysqlProcedureSqlGenerator {
 
+    /**
+     * 存储过程sql生成器实例
+     */
     public static final MysqlProcedureSqlGenerator INSTANCE = new MysqlProcedureSqlGenerator();
 
+    /**
+     * 生成sql
+     *
+     * @param procedure 存储过程
+     * @return sql语句
+     */
     public String generate(MysqlProcedure procedure) {
         String sql = "CREATE ";
         // 定义者
