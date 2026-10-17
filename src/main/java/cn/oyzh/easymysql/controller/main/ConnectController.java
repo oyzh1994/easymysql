@@ -2,7 +2,7 @@ package cn.oyzh.easymysql.controller.main;
 
 import cn.oyzh.easymysql.event.MysqlEventUtil;
 import cn.oyzh.easymysql.trees.DBTreeView;
-import cn.oyzh.fx.gui.svg.pane.SortSVGPane;
+import cn.oyzh.fx.gui.svg.label.SortSVGLabel;
 import cn.oyzh.fx.plus.controller.SubStageController;
 import cn.oyzh.fx.plus.keyboard.KeyListener;
 import javafx.fxml.FXML;
@@ -28,7 +28,7 @@ public class ConnectController extends SubStageController {
      * 节点排序组件
      */
     @FXML
-    private SortSVGPane sortPane;
+    private SortSVGLabel sortPane;
 
     // /**
     //  * 打开终端
