@@ -236,7 +236,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
     public void init(MysqlFunction function, MysqlDatabaseTreeItem dbItem) {
         this.dbItem = dbItem;
         this.function = function;
-        StageManager.showMask(this::doInit);
+        StageManager.showMask(this.getWindow(), this::doInit);
     }
 
     /**
@@ -359,7 +359,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
      */
     @FXML
     private void save() {
-        StageManager.showMask(this::doSave);
+        StageManager.showMask(this.getWindow(), this::doSave);
     }
 
     /**

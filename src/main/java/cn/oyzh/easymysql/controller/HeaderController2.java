@@ -27,7 +27,7 @@ public class HeaderController2 extends SubStageController {
         if (wrapper != null) {
             wrapper.toFront();
         } else {
-            StageManager.showStage(MysqlDataTransportController.class);
+            StageManager.showStage(MysqlDataTransportController.class, StageManager.getFrontWindow());
         }
     }
 

@@ -73,7 +73,7 @@ public class MysqlTableDesignTab extends MysqlTab {
      * @param dbItem    db数据库树节点
      */
     public void init(MysqlTable table, MysqlDatabaseTreeItem dbItem) throws Exception {
-        StageManager.showMask(() -> {
+        StageManager.showMask(this.getWindow(), () -> {
             try {
                 this.controller().init(table, dbItem);
                 this.flush();

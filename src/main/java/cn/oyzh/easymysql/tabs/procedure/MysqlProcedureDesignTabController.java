@@ -209,7 +209,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
     public void init(MysqlProcedure procedure, MysqlDatabaseTreeItem dbItem) {
         this.dbItem = dbItem;
         this.procedure = procedure;
-        StageManager.showMask(this::doInit);
+        StageManager.showMask(this.getWindow(), this::doInit);
     }
 
     /**
@@ -304,7 +304,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
      */
     @FXML
     private void save() {
-        StageManager.showMask(this::doSave);
+        StageManager.showMask(this.getWindow(), this::doSave);
     }
 
     /**
