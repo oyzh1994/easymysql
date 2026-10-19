@@ -373,7 +373,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             // 函数名称
             String functionName;
             if (this.newData) {
-                functionName = MessageBox.prompt(I18nHelper.pleaseInputFunctionName());
+                functionName = MessageBox.prompt(I18nHelper.pleaseInputFunctionName(), this.getWindow());
                 if (functionName == null) {
                     return;
                 }
@@ -409,7 +409,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             // 初始化预览
             this.initPreview();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         } finally {
             // this.enableTab();
             this.flushTab();
@@ -547,7 +547,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             this.paramTable.selectLast();
             // this.tabPane.refresh();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -560,7 +560,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             MysqlRoutineParam param = this.paramTable.getSelectedItem();
             if (param != null) {
                 // 非新增的数据进行提示
-                if (!param.isCreated() && !MessageBox.confirm(I18nHelper.delete() + " " + param.getName())) {
+                if (!param.isCreated() && !MessageBox.confirm(I18nHelper.delete() + " " + param.getName(), this.getWindow())) {
                     return;
                 }
                 this.paramTable.getItems().remove(param);
@@ -573,7 +573,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
             }
             // this.tabPane.refresh();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -585,7 +585,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
         try {
             TableViewUtil.moveUp(this.paramTable);
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -597,7 +597,7 @@ public class MysqlFunctionDesignTabController extends RichTabController {
         try {
             TableViewUtil.moveDown(this.paramTable);
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 

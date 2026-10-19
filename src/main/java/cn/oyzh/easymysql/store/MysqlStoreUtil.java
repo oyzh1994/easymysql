@@ -3,6 +3,7 @@ package cn.oyzh.easymysql.store;
 import cn.oyzh.common.util.StringUtil;
 import cn.oyzh.easymysql.MysqlConst;
 import cn.oyzh.fx.plus.information.MessageBox;
+import cn.oyzh.fx.plus.window.StageManager;
 import cn.oyzh.i18n.I18nHelper;
 import cn.oyzh.store.jdbc.JdbcConst;
 import cn.oyzh.store.jdbc.JdbcDialect;
@@ -28,7 +29,7 @@ public class MysqlStoreUtil {
             JdbcManager.takeoff();
         } catch (Exception ex) {
             if (StringUtil.containsAny(ex.getMessage(), "Database may be already in use")) {
-                MessageBox.warn(I18nHelper.programTip1());
+                MessageBox.warn(I18nHelper.programTip1(), StageManager.getFrontWindow());
             }
         }
     }

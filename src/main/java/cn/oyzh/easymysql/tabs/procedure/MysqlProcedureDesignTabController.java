@@ -318,7 +318,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
             // 过程名称
             String procedureName;
             if (this.newData) {
-                procedureName = MessageBox.prompt(I18nHelper.pleaseInputProcedureName());
+                procedureName = MessageBox.prompt(I18nHelper.pleaseInputProcedureName(), this.getWindow());
                 if (procedureName == null) {
                     return;
                 }
@@ -354,7 +354,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
             // 初始化预览
             this.initPreview();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         } finally {
             // this.enableTab();
             this.flushTab();
@@ -446,7 +446,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
             this.paramTable.selectLast();
             // this.tabPane.refresh();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -459,7 +459,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
             MysqlRoutineParam param = this.paramTable.getSelectedItem();
             if (param != null) {
                 // 非新增的数据进行提示
-                if (!param.isCreated() && !MessageBox.confirm(I18nHelper.delete() + " " + param.getName())) {
+                if (!param.isCreated() && !MessageBox.confirm(I18nHelper.delete() + " " + param.getName(), this.getWindow())) {
                     return;
                 }
                 this.paramTable.getItems().remove(param);
@@ -472,7 +472,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
             }
             // this.tabPane.refresh();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -484,7 +484,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
         try {
             TableViewUtil.moveUp(this.paramTable);
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -496,7 +496,7 @@ public class MysqlProcedureDesignTabController extends RichTabController {
         try {
             TableViewUtil.moveDown(this.paramTable);
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 

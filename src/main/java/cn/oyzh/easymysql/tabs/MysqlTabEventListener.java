@@ -38,6 +38,7 @@ import cn.oyzh.event.EventListener;
 import cn.oyzh.event.EventSubscribe;
 import cn.oyzh.fx.plus.information.MessageBox;
 import javafx.scene.control.Tab;
+import javafx.stage.Window;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,10 @@ public class MysqlTabEventListener implements EventListener {
      * 标签面板
      */
     private final MysqlTabPane tabPane;
+
+    private Window getWindow() {
+        return tabPane != null ? tabPane.getWindow() : null;
+    }
 
     /**
      * 构造标签页事件监听器
@@ -309,7 +314,7 @@ public class MysqlTabEventListener implements EventListener {
             this.select(tab);
             tab.init(event.data());
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 

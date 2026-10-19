@@ -556,7 +556,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             for (MysqlColumn column : this.columnTable.getItems()) {
                 if (column.isInvalid()) {
                     this.tabPane.selectTab("columnTab");
-                    MessageBox.warn(I18nHelper.invalidColumn());
+                    MessageBox.warn(I18nHelper.invalidColumn(), this.getWindow());
                     return;
                 }
             }
@@ -565,7 +565,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             for (MysqlIndex index : this.indexTable.getItems()) {
                 if (index.isInvalid()) {
                     this.tabPane.selectTab("indexTab");
-                    MessageBox.warn(I18nHelper.invalidIndex());
+                    MessageBox.warn(I18nHelper.invalidIndex(), this.getWindow());
                     return;
                 }
             }
@@ -574,7 +574,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             for (MysqlForeignKey foreignKey : this.foreignKeyTable.getItems()) {
                 if (foreignKey.isInvalid()) {
                     this.tabPane.selectTab("foreignKeyTab");
-                    MessageBox.warn(I18nHelper.invalidForeignKey());
+                    MessageBox.warn(I18nHelper.invalidForeignKey(), this.getWindow());
                     return;
                 }
             }
@@ -583,7 +583,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             for (MysqlTrigger trigger : this.triggerTable.getItems()) {
                 if (trigger.isInvalid()) {
                     this.tabPane.selectTab("triggerTab");
-                    MessageBox.warn(I18nHelper.invalidTrigger());
+                    MessageBox.warn(I18nHelper.invalidTrigger(), this.getWindow());
                     return;
                 }
             }
@@ -593,7 +593,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 for (MysqlCheck check : this.checkTable.getItems()) {
                     if (check.isInvalid()) {
                         this.tabPane.selectTab("checkTab");
-                        MessageBox.warn(I18nHelper.invalidCheck());
+                        MessageBox.warn(I18nHelper.invalidCheck(), this.getWindow());
                         return;
                     }
                 }
@@ -602,7 +602,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             String tableName;
             // 表名称
             if (this.newData) {
-                tableName = MessageBox.prompt(I18nHelper.pleaseInputTableName());
+                tableName = MessageBox.prompt(I18nHelper.pleaseInputTableName(), this.getWindow());
                 if (tableName == null) {
                     return;
                 }
@@ -636,7 +636,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
             // 初始化预览
             this.initPreview();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         } finally {
             // this.enableTab();
             this.flushTab();
@@ -777,14 +777,14 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 return;
             }
             // 确认操作
-            if (!column.isCreated() && !MessageBox.confirm(I18nHelper.deleteField() + " " + column.getName())) {
+            if (!column.isCreated() && !MessageBox.confirm(I18nHelper.deleteField() + " " + column.getName(), this.getWindow())) {
                 return;
             }
             // 从table移除数据
             this.columnTable.removeItem(column);
             column.setDeleted(true);
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -795,7 +795,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
     //     try {
     //         TableViewUtil.moveUp(this.columnTable);
     //     } catch (Exception ex) {
-    //         MessageBox.exception(ex);
+    //         MessageBox.exception(ex, this.getWindow());
     //     }
     // }
 
@@ -806,7 +806,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
     //     try {
     //         TableViewUtil.moveDown(this.columnTable);
     //     } catch (Exception ex) {
-    //         MessageBox.exception(ex);
+    //         MessageBox.exception(ex, this.getWindow());
     //     }
     // }
 
@@ -839,7 +839,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
         //         index.setDeleted(true);
         //     }
         // } catch (Exception ex) {
-        //     MessageBox.exception(ex);
+        //     MessageBox.exception(ex, this.getWindow());
         // }
         try {
             MysqlIndex index = this.indexTable.getSelectedItem();
@@ -847,14 +847,14 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 return;
             }
             // 确认操作
-            if (!index.isCreated() && !MessageBox.confirm(I18nHelper.deleteIndex() + " " + index.getName())) {
+            if (!index.isCreated() && !MessageBox.confirm(I18nHelper.deleteIndex() + " " + index.getName(), this.getWindow())) {
                 return;
             }
             // 从table移除数据
             this.indexTable.removeItem(index);
             index.setDeleted(true);
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -865,7 +865,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
     //     try {
     //         TableViewUtil.moveUp(this.indexTable);
     //     } catch (Exception ex) {
-    //         MessageBox.exception(ex);
+    //         MessageBox.exception(ex, this.getWindow());
     //     }
     // }
 
@@ -876,7 +876,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
     //     try {
     //         TableViewUtil.moveDown(this.indexTable);
     //     } catch (Exception ex) {
-    //         MessageBox.exception(ex);
+    //         MessageBox.exception(ex, this.getWindow());
     //     }
     // }
 
@@ -910,7 +910,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
         //         this.foreignKeyTable.removeItem(foreignKey);
         //     }
         // } catch (Exception ex) {
-        //     MessageBox.exception(ex);
+        //     MessageBox.exception(ex, this.getWindow());
         // }
         try {
             MysqlForeignKey foreignKey = this.foreignKeyTable.getSelectedItem();
@@ -918,14 +918,14 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 return;
             }
             // 确认操作
-            if (!foreignKey.isCreated() && !MessageBox.confirm(I18nHelper.deleteForeignKey() + " " + foreignKey.getName())) {
+            if (!foreignKey.isCreated() && !MessageBox.confirm(I18nHelper.deleteForeignKey() + " " + foreignKey.getName(), this.getWindow())) {
                 return;
             }
             // 从table移除数据
             this.foreignKeyTable.removeItem(foreignKey);
             foreignKey.setDeleted(true);
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -936,7 +936,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
     //     try {
     //         TableViewUtil.moveUp(this.foreignKeyTable);
     //     } catch (Exception ex) {
-    //         MessageBox.exception(ex);
+    //         MessageBox.exception(ex, this.getWindow());
     //     }
     // }
 
@@ -947,7 +947,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
     //     try {
     //         TableViewUtil.moveDown(this.foreignKeyTable);
     //     } catch (Exception ex) {
-    //         MessageBox.exception(ex);
+    //         MessageBox.exception(ex, this.getWindow());
     //     }
     // }
 
@@ -983,7 +983,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
         //         // this.deletedTriggers.add(trigger);
         //     }
         // } catch (Exception ex) {
-        //     MessageBox.exception(ex);
+        //     MessageBox.exception(ex, this.getWindow());
         // }
         try {
             MysqlTrigger trigger = this.triggerTable.getSelectedItem();
@@ -991,14 +991,14 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 return;
             }
             // 确认操作
-            if (!trigger.isCreated() && !MessageBox.confirm(I18nHelper.deleteTrigger() + " " + trigger.getName())) {
+            if (!trigger.isCreated() && !MessageBox.confirm(I18nHelper.deleteTrigger() + " " + trigger.getName(), this.getWindow())) {
                 return;
             }
             // 从table移除数据
             this.triggerTable.removeItem(trigger);
             trigger.setDeleted(true);
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -1009,7 +1009,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
     //     try {
     //         TableViewUtil.moveUp(this.triggerTable);
     //     } catch (Exception ex) {
-    //         MessageBox.exception(ex);
+    //         MessageBox.exception(ex, this.getWindow());
     //     }
     // }
 
@@ -1020,7 +1020,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
     //     try {
     //         TableViewUtil.moveDown(this.triggerTable);
     //     } catch (Exception ex) {
-    //         MessageBox.exception(ex);
+    //         MessageBox.exception(ex, this.getWindow());
     //     }
     // }
 
@@ -1054,7 +1054,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
         //         this.save();
         //     }
         // } catch (Exception ex) {
-        //     MessageBox.exception(ex);
+        //     MessageBox.exception(ex, this.getWindow());
         // }
         try {
             MysqlCheck check = this.checkTable.getSelectedItem();
@@ -1062,14 +1062,14 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 return;
             }
             // 确认操作
-            if (!check.isCreated() && !MessageBox.confirm(I18nHelper.deleteCheck() + " " + check.getName())) {
+            if (!check.isCreated() && !MessageBox.confirm(I18nHelper.deleteCheck() + " " + check.getName(), this.getWindow())) {
                 return;
             }
             // 从table移除数据
             this.checkTable.removeItem(check);
             check.setDeleted(true);
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -1080,7 +1080,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
     //     try {
     //         TableViewUtil.moveUp(this.checkTable);
     //     } catch (Exception ex) {
-    //         MessageBox.exception(ex);
+    //         MessageBox.exception(ex, this.getWindow());
     //     }
     // }
 
@@ -1091,7 +1091,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
     //     try {
     //         TableViewUtil.moveDown(this.checkTable);
     //     } catch (Exception ex) {
-    //         MessageBox.exception(ex);
+    //         MessageBox.exception(ex, this.getWindow());
     //     }
     // }
 
@@ -1393,7 +1393,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 TableViewUtil.moveUp(this.checkTable);
             }
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -1420,7 +1420,7 @@ public class MysqlTableDesignTabController extends ParentTabController {
                 TableViewUtil.moveDown(this.checkTable);
             }
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 

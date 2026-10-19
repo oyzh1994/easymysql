@@ -131,7 +131,7 @@
 //                    this.historyStore.addSearchHistory(this.searchKW.getTextTrim());
 //                })
 //                .onFinish(() -> this.searching = false)
-//                .onError(MessageBox::exception)
+//                .onError(ex -> MessageBox.exception(ex, this.getWindow()))
 //                .build();
 //        TaskManager.startDelay("db:search:searchNext", task, 100);
 //    }
@@ -156,7 +156,7 @@
 //                    this.historyStore.addSearchHistory(this.searchKW.getTextTrim());
 //                })
 //                .onFinish(() -> this.searching = false)
-//                .onError(MessageBox::exception)
+//                .onError(ex -> MessageBox.exception(ex, this.getWindow()))
 //                .build();
 //        TaskManager.startDelay("db:search:searchPrev", task, 100);
 //    }

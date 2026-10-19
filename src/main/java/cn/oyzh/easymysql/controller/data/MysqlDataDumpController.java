@@ -210,11 +210,11 @@ public class MysqlDataDumpController extends StageController {
             } catch (Exception e) {
                 if (e.getClass().isAssignableFrom(InterruptedException.class)) {
                     this.updateStatus(I18nHelper.operationCancel());
-                    MessageBox.okToast(I18nHelper.operationCancel());
+                    MessageBox.okToast(I18nHelper.operationCancel(), this.getWindow());
                 } else {
                     e.printStackTrace();
                     this.updateStatus(I18nHelper.operationFail());
-                    MessageBox.warn(I18nHelper.operationFail());
+                    MessageBox.warn(I18nHelper.operationFail(), this.getWindow());
                 }
             } finally {
                 // 结束处理

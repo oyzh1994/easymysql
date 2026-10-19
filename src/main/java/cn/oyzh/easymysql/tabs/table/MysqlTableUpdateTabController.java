@@ -586,7 +586,7 @@
 //             // 重置表格
 //             this.resetTable();
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         } finally {
 //             this.enableTab();
 //             this.flushTab();
@@ -713,7 +713,7 @@
 //             this.columnTable.removeItem(column);
 //             column.setDeleted(true);
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -724,7 +724,7 @@
 //         try {
 //             TableViewUtil.moveUp(this.columnTable);
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -735,7 +735,7 @@
 //         try {
 //             TableViewUtil.moveDown(this.columnTable);
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -768,7 +768,7 @@
 //                 index.setDeleted(true);
 //             }
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -779,7 +779,7 @@
 //         try {
 //             TableViewUtil.moveUp(this.indexTable);
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -790,7 +790,7 @@
 //         try {
 //             TableViewUtil.moveDown(this.indexTable);
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -823,7 +823,7 @@
 //                 foreignKey.setDeleted(true);
 //             }
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -834,7 +834,7 @@
 //         try {
 //             TableViewUtil.moveUp(this.foreignKeyTable);
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -845,7 +845,7 @@
 //         try {
 //             TableViewUtil.moveDown(this.foreignKeyTable);
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -878,7 +878,7 @@
 //                 trigger.setDeleted(true);
 //             }
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -889,7 +889,7 @@
 //         try {
 //             TableViewUtil.moveUp(this.triggerTable);
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -900,7 +900,7 @@
 //         try {
 //             TableViewUtil.moveDown(this.triggerTable);
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -933,7 +933,7 @@
 //                 check.setDeleted(true);
 //             }
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -944,7 +944,7 @@
 //         try {
 //             TableViewUtil.moveUp(this.checkTable);
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //
@@ -955,7 +955,7 @@
 //         try {
 //             TableViewUtil.moveDown(this.checkTable);
 //         } catch (Exception ex) {
-//             MessageBox.exception(ex);
+//             MessageBox.exception(ex, this.getWindow());
 //         }
 //     }
 //

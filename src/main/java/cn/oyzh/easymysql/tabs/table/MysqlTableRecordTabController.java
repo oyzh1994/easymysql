@@ -173,7 +173,7 @@ public class MysqlTableRecordTabController extends RichTabController {
             this.pageBox.setPaging(this.pageData);
             this.initRecords(this.pageData.dataList());
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -318,7 +318,7 @@ public class MysqlTableRecordTabController extends RichTabController {
                 }
                 this.apply.disable();
             } catch (Exception ex) {
-                MessageBox.exception(ex);
+                MessageBox.exception(ex, this.getWindow());
             }
         }
     }
@@ -340,7 +340,7 @@ public class MysqlTableRecordTabController extends RichTabController {
             this.recordTable.removeItem(discardRecord);
             this.apply.disable();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -358,7 +358,7 @@ public class MysqlTableRecordTabController extends RichTabController {
     private void doReload() {
         try {
             // 检查是否有未保存的数据
-            if (this.apply.isEnable() && !MessageBox.confirm(I18nHelper.unsavedAndContinue())) {
+            if (this.apply.isEnable() && !MessageBox.confirm(I18nHelper.unsavedAndContinue(), this.getWindow())) {
                 return;
             }
             // 初始化字段
@@ -372,7 +372,7 @@ public class MysqlTableRecordTabController extends RichTabController {
             // 禁用组件
             this.apply.disable();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -470,7 +470,7 @@ public class MysqlTableRecordTabController extends RichTabController {
         //     if (record == null) {
         //         return;
         //     }
-        //     if (!MessageBox.confirm(I18nHelper.deleteRecord() + "?")) {
+        //     if (!MessageBox.confirm(I18nHelper.deleteRecord() + "?", this.getWindow())) {
         //         return;
         //     }
         //     // 如果是新增的数据，直接删除
@@ -494,10 +494,10 @@ public class MysqlTableRecordTabController extends RichTabController {
         //     if (success) {
         //         this.recordTable.removeItem(record);
         //     } else {// 操作失败
-        //         MessageBox.warnToast(I18nHelper.operationFail());
+        //         MessageBox.warnToast(I18nHelper.operationFail(), this.getWindow());
         //     }
         // } catch (Exception ex) {
-        //     MessageBox.exception(ex);
+        //     MessageBox.exception(ex, this.getWindow());
         // }
         MysqlRecord record = this.recordTable.getSelectedItem();
         this.doDeleteRecord(record);
@@ -513,7 +513,7 @@ public class MysqlTableRecordTabController extends RichTabController {
             if (record == null) {
                 return;
             }
-            if (!MessageBox.confirm(I18nHelper.deleteRecord() + "?")) {
+            if (!MessageBox.confirm(I18nHelper.deleteRecord() + "?", this.getWindow())) {
                 return;
             }
             // 如果是新增的数据，直接删除
@@ -537,10 +537,10 @@ public class MysqlTableRecordTabController extends RichTabController {
             if (success) {
                 this.recordTable.removeItem(record);
             } else {// 操作失败
-                MessageBox.warnToast(I18nHelper.operationFail());
+                MessageBox.warnToast(I18nHelper.operationFail(), this.getWindow());
             }
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 

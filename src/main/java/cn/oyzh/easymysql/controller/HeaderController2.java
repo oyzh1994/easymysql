@@ -57,7 +57,7 @@ public class HeaderController2 extends SubStageController {
      */
     @FXML
     private void quit() {
-        if (MessageBox.confirm(I18nHelper.quit() + " " + SysConst.projectName())) {
+        if (MessageBox.confirm(I18nHelper.quit() + " " + SysConst.projectName(), this.getWindow())) {
             StageManager.exit();
         }
     }

@@ -138,14 +138,14 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
 
     @Override
     public void delete() {
-        if (!MessageBox.confirm(I18nHelper.deleteView() + " " + this.value.getName() + "?")) {
+        if (!MessageBox.confirm(I18nHelper.deleteView() + " " + this.value.getName() + "?", this.getWindow())) {
             return;
         }
         try {
             this.dbItem().dropView(this.value);
             super.remove();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -347,14 +347,14 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     @Override
     public void rename() {
         try {
-            String viewName = MessageBox.prompt(I18nHelper.pleaseInputName(), this.viewName());
+            String viewName = MessageBox.prompt(I18nHelper.pleaseInputName(), this.viewName(), this.getWindow());
             // 名称为null或者跟当前名称相同，则忽略
             if (viewName == null || Objects.equals(viewName, this.viewName())) {
                 return;
             }
             // 检查名称
             if (StringUtil.isBlank(viewName)) {
-                MessageBox.warn(I18nHelper.pleaseInputContent());
+                MessageBox.warn(I18nHelper.pleaseInputContent(), this.getWindow());
                 return;
             }
             String oldName = this.viewName();
@@ -365,7 +365,7 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
             MysqlEventUtil.viewRenamed(this, this.dbItem());
         } catch (Exception ex) {
             ex.printStackTrace();
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 }

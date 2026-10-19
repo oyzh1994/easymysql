@@ -90,14 +90,14 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
 
     @Override
     public void delete() {
-        if (!MessageBox.confirm(I18nHelper.deleteEvent() + " " + this.value.getName() + "?")) {
+        if (!MessageBox.confirm(I18nHelper.deleteEvent() + " " + this.value.getName() + "?", this.getWindow())) {
             return;
         }
         try {
             this.dbItem().dropEvent(this.value);
             super.remove();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -125,14 +125,14 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
     @Override
     public void rename() {
         try {
-            String newName = MessageBox.prompt(I18nHelper.pleaseInputName(), this.eventName());
+            String newName = MessageBox.prompt(I18nHelper.pleaseInputName(), this.eventName(), this.getWindow());
             // 名称为null或者跟当前名称相同，则忽略
             if (newName == null || Objects.equals(newName, this.eventName())) {
                 return;
             }
             // 检查名称
             if (StringUtil.isBlank(newName)) {
-                MessageBox.warn(I18nHelper.pleaseInputContent());
+                MessageBox.warn(I18nHelper.pleaseInputContent(), this.getWindow());
                 return;
             }
             String oldName = this.eventName();
@@ -143,7 +143,7 @@ public class MysqlEventTreeItem extends DBTreeItem<MysqlEventTreeItemValue> {
             MysqlEventUtil.eventRenamed(this, this.dbItem());
         } catch (Exception ex) {
             ex.printStackTrace();
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 }

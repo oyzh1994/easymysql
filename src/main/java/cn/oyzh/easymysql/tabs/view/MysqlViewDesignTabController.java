@@ -188,7 +188,7 @@ public class MysqlViewDesignTabController extends RichTabController {
             String viewName;
             // 视图名称
             if (this.dbView.getName() == null) {
-                viewName = MessageBox.prompt(I18nHelper.pleaseInputViewName());
+                viewName = MessageBox.prompt(I18nHelper.pleaseInputViewName(), this.getWindow());
                 if (viewName == null) {
                     return;
                 }
@@ -229,7 +229,7 @@ public class MysqlViewDesignTabController extends RichTabController {
             // 更新信息
             this.initInfo();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         } finally {
             // this.enableTab();
             this.flushTab();

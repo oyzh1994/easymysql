@@ -283,11 +283,11 @@ public class MysqlDataExportController extends StageController {
             } catch (Exception e) {
                 if (e.getClass().isAssignableFrom(InterruptedException.class)) {
                     this.updateStatus(I18nHelper.operationCancel());
-                    MessageBox.okToast(I18nHelper.operationCancel());
+                    MessageBox.okToast(I18nHelper.operationCancel(), this.getWindow());
                 } else {
                     e.printStackTrace();
                     this.updateStatus(I18nHelper.operationFail());
-                    MessageBox.warn(I18nHelper.operationFail());
+                    MessageBox.warn(I18nHelper.operationFail(), this.getWindow());
                 }
             } finally {
                 // 结束处理
@@ -396,7 +396,7 @@ public class MysqlDataExportController extends StageController {
     private void showStep2() {
         RadioButton button = this.fileType.selectedToggle();
         if (button == null) {
-            MessageBox.warn(I18nHelper.pleaseSelectType());
+            MessageBox.warn(I18nHelper.pleaseSelectType(), this.getWindow());
             return;
         }
         if (this.exportTableView.isItemEmpty()) {
@@ -422,7 +422,7 @@ public class MysqlDataExportController extends StageController {
     @FXML
     private void showStep3() {
         if (!this.exportTableView.hasSelectedTable()) {
-            MessageBox.warn(I18nHelper.pleaseSelectTable());
+            MessageBox.warn(I18nHelper.pleaseSelectTable(), this.getWindow());
             return;
         }
         this.tableCombobox.clearItems();

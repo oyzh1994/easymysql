@@ -388,7 +388,7 @@ public class MysqlEventDesignTabController extends RichTabController {
             // 事件名称
             String eventName;
             if (this.newData) {
-                eventName = MessageBox.prompt(I18nHelper.pleaseInputEventName());
+                eventName = MessageBox.prompt(I18nHelper.pleaseInputEventName(), this.getWindow());
                 if (eventName == null) {
                     return;
                 }
@@ -421,7 +421,7 @@ public class MysqlEventDesignTabController extends RichTabController {
             // 初始化预览
             this.initPreview();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         } finally {
             // this.enableTab();
             this.flushTab();

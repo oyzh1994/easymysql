@@ -82,10 +82,10 @@ public class MysqlDatabaseUpdateController extends StageController {
                 this.database.setCollation(collation);
                 this.closeWindow();
             } else {
-                MessageBox.warn(I18nHelper.operationFail());
+                MessageBox.warn(I18nHelper.operationFail(), this.getWindow());
             }
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 

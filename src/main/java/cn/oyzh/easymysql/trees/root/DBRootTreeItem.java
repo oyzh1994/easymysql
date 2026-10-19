@@ -57,16 +57,16 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      *
      * @param treeView 树视图
      */
-    public DBRootTreeItem( DBTreeView treeView) {
+    public DBRootTreeItem(DBTreeView treeView) {
         super(treeView);
         this.setValue(new DBRootTreeItemValue());
         // 初始化子节点
         this.initChildes();
-//        // 监听变化
-//        super.addEventHandler(childrenModificationEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
-//            DBEventUtil.treeChildChanged();
-//            this.flushLocal();
-//        });
+        //        // 监听变化
+        //        super.addEventHandler(childrenModificationEvent(), (EventHandler<TreeModificationEvent<TreeItem<?>>>) event -> {
+        //            DBEventUtil.treeChildChanged();
+        //            this.flushLocal();
+        //        });
     }
 
     /**
@@ -92,10 +92,10 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     @Override
     public List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        FXMenuItem addConnect = MenuItemHelper.addConnect( this::addConnect);
-        FXMenuItem exportConnect = MenuItemHelper.exportConnect( this::exportConnect);
-        FXMenuItem importConnect = MenuItemHelper.importConnect( this::importConnect);
-        FXMenuItem addGroup = MenuItemHelper.addGroup( this::addGroup);
+        FXMenuItem addConnect = MenuItemHelper.addConnect(this::addConnect);
+        FXMenuItem exportConnect = MenuItemHelper.exportConnect(this::exportConnect);
+        FXMenuItem importConnect = MenuItemHelper.importConnect(this::importConnect);
+        FXMenuItem addGroup = MenuItemHelper.addGroup(this::addGroup);
 
         exportConnect.setDisable(this.isChildEmpty());
 
@@ -112,7 +112,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     public void exportConnect() {
         List<MysqlConnect> infos = this.connectStore.load();
         if (infos.isEmpty()) {
-            MessageBox.warn(I18nHelper.connectionIsEmpty());
+            MessageBox.warn(I18nHelper.connectionIsEmpty(), this.getWindow());
             return;
         }
         MysqlInfoExport export = MysqlInfoExport.fromConnects(infos);
@@ -121,9 +121,9 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
         if (file != null) {
             try {
                 FileUtil.writeUtf8String(export.toJSONString(), file);
-                MessageBox.okToast(I18nHelper.operationSuccess());
+               MessageBox.okToast(I18nHelper.operationSuccess(), this.getWindow());
             } catch (Exception ex) {
-                MessageBox.warn(I18nHelper.operationFail());
+                MessageBox.warn(I18nHelper.operationFail(), this.getWindow());
             }
         }
     }
@@ -138,7 +138,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
             return;
         }
         if (files.size() != 1) {
-            MessageBox.warn(I18nHelper.onlySupportSingleFile());
+            MessageBox.warn(I18nHelper.onlySupportSingleFile(), this.getWindow());
             return;
         }
         File file = CollectionUtil.getFirst(files);
@@ -166,19 +166,19 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
             return;
         }
         if (!file.exists()) {
-            MessageBox.warn(I18nHelper.fileNotExists());
+            MessageBox.warn(I18nHelper.fileNotExists(), this.getWindow());
             return;
         }
         if (file.isDirectory()) {
-            MessageBox.warn(I18nHelper.notSupportFolder());
+            MessageBox.warn(I18nHelper.notSupportFolder(), this.getWindow());
             return;
         }
         if (!FileNameUtil.isType(file.getName(), "json")) {
-            MessageBox.warn(I18nHelper.invalidFormat());
+            MessageBox.warn(I18nHelper.invalidFormat(), this.getWindow());
             return;
         }
         if (file.length() == 0) {
-            MessageBox.warn(I18nHelper.contentCanNotEmpty());
+            MessageBox.warn(I18nHelper.contentCanNotEmpty(), this.getWindow());
             return;
         }
         try {
@@ -190,14 +190,14 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
                     if (this.connectStore.insert(info)) {
                         this.addConnect(info);
                     } else {
-                        MessageBox.warn(I18nHelper.connect() + "[" + info.getName() + "]" + I18nHelper.importFail());
+                        MessageBox.warn(I18nHelper.connect() + "[" + info.getName() + "]" + I18nHelper.importFail(), this.window());
                     }
                 }
-                MessageBox.okToast(I18nHelper.operationSuccess());
+                MessageBox.okToast(I18nHelper.operationSuccess(), this.window());
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            MessageBox.exception(ex, I18nHelper.operationException());
+            MessageBox.exception(ex, I18nHelper.operationException(), this.window());
         }
     }
 
@@ -212,7 +212,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      * 添加分组
      */
     public void addGroup() {
-        String groupName = MessageBox.prompt(I18nHelper.contentTip1());
+        String groupName = MessageBox.prompt(I18nHelper.contentTip1(), this.getWindow());
 
         // 名称为null，则忽略
         if (groupName == null) {
@@ -221,20 +221,20 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
 
         // 不能为空
         if (StringUtil.isBlank(groupName)) {
-            MessageBox.warn(I18nHelper.nameCanNotEmpty());
+            MessageBox.warn(I18nHelper.nameCanNotEmpty(), this.getWindow());
             return;
         }
 
         MysqlGroup group = new MysqlGroup();
         group.setName(groupName);
         if (this.groupStore.exist(group)) {
-            MessageBox.warn(I18nHelper.contentAlreadyExists());
+            MessageBox.warn(I18nHelper.contentAlreadyExists(), this.getWindow());
             return;
         }
         if (this.groupStore.insert(group)) {
             this.addChild(new DBGroupTreeItem(group, this.getTreeView()));
         } else {
-            MessageBox.warn(I18nHelper.operationFail());
+            MessageBox.warn(I18nHelper.operationFail(), this.getWindow());
         }
     }
 
@@ -301,7 +301,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     }
 
     @Override
-    public void addConnect( MysqlConnect info) {
+    public void addConnect(MysqlConnect info) {
         DBGroupTreeItem groupItem = this.getGroupItem(info.getGroupId());
         if (groupItem == null) {
             super.addChild(new DBConnectTreeItem(info, this.getTreeView()));
@@ -311,7 +311,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     }
 
     @Override
-    public void addConnectItem( DBConnectTreeItem item) {
+    public void addConnectItem(DBConnectTreeItem item) {
         if (!this.containsChild(item)) {
             if (item.value().getGroupId() != null) {
                 item.value().setGroupId(null);
@@ -323,7 +323,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     }
 
     @Override
-    public void addConnectItems( List<DBConnectTreeItem> items) {
+    public void addConnectItems(List<DBConnectTreeItem> items) {
         if (CollectionUtil.isNotEmpty(items)) {
             this.addChild((List) items);
             this.expend();
@@ -331,7 +331,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
     }
 
     @Override
-    public boolean delConnectItem( DBConnectTreeItem item) {
+    public boolean delConnectItem(DBConnectTreeItem item) {
         // 删除连接
         if (this.connectStore.delete(item.value())) {
             this.removeChild(item);

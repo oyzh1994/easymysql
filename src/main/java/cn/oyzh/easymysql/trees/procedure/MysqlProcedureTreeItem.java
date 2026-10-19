@@ -93,14 +93,14 @@ public class MysqlProcedureTreeItem extends DBTreeItem<MysqlProcedureTreeItemVal
 
     @Override
     public void delete() {
-        if (!MessageBox.confirm(I18nHelper.deleteProcedure() + " " + this.value.getName() + "?")) {
+        if (!MessageBox.confirm(I18nHelper.deleteProcedure() + " " + this.value.getName() + "?", this.getWindow())) {
             return;
         }
         try {
             this.dbItem().dropProcedure(this.value);
             super.remove();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 

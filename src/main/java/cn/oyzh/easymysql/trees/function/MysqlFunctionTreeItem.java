@@ -84,14 +84,14 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
 
     @Override
     public void delete() {
-        if (!MessageBox.confirm(I18nHelper.deleteFunction() + " " + this.value.getName() + "?")) {
+        if (!MessageBox.confirm(I18nHelper.deleteFunction() + " " + this.value.getName() + "?", this.getWindow())) {
             return;
         }
         try {
             this.dbItem().dropFunction(this.value);
             super.remove();
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
     }
 
@@ -155,7 +155,7 @@ public class MysqlFunctionTreeItem extends DBTreeItem<MysqlFunctionTreeItemValue
         } catch (Exception ex) {
             this.setLoaded(false);
             ex.printStackTrace();
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         } finally {
             this.setLoading(false);
         }

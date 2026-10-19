@@ -170,12 +170,12 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     public void delete() {
         Task task = TaskBuilder.newBuilder()
                 .onStart(() -> {
-                    if (MessageBox.confirm(I18nHelper.deleteDatabase() + "[" + this.dbName() + "]")) {
+                    if (MessageBox.confirm(I18nHelper.deleteDatabase() + "[" + this.dbName() + "]", this.getWindow())) {
                         if (this.parent().dropDatabase(this.dbName())) {
                             MysqlEventUtil.databaseDropped(this);
                             super.remove();
                         } else {
-                            MessageBox.warn(I18nHelper.operationFail());
+                            MessageBox.warn(I18nHelper.operationFail(), this.getWindow());
                         }
                     }
                 })
@@ -224,7 +224,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
                     .onSuccess(this::expend)
                     .onError(ex -> {
                         this.setLoaded(false);
-                        MessageBox.error(ex.getMessage());
+                        MessageBox.error(ex.getMessage(), this.getWindow());
                     })
                     .onFinish(() -> this.setLoading(false))
                     .build();
@@ -419,7 +419,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
         try {
             return this.client().tableSize(this.dbName());
         } catch (Exception ex) {
-            MessageBox.exception(ex);
+            MessageBox.exception(ex, this.getWindow());
         }
         return 0;
     }
