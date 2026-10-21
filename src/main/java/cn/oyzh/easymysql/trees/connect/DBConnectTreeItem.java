@@ -119,7 +119,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
      */
     @FXML
     private void addDatabase() {
-        StageAdapter fxView = StageManager.parseStage(MysqlDatabaseAddController.class, this.window());
+        StageAdapter fxView = StageManager.parseStage(MysqlDatabaseAddController.class, this.getWindow());
         fxView.setProp("connectItem", this);
         fxView.showAndWait();
         String databaseName = fxView.getProp("databaseName");
@@ -217,7 +217,7 @@ public class DBConnectTreeItem extends DBTreeItem<DBConnectTreeItemValue> {
             }
             this.closeConnect();
         }
-        StageAdapter fxView = StageManager.parseStage(MysqlConnectUpdateController.class, this.window());
+        StageAdapter fxView = StageManager.parseStage(MysqlConnectUpdateController.class, this.getWindow());
         fxView.setProp("info", this.value());
         fxView.display();
     }

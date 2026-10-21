@@ -124,7 +124,7 @@ public class MysqlViewTreeItem extends DBTreeItem<MysqlViewTreeItemValue> {
     }
 
     // private void viewInfo() {
-    //     StageAdapter fxView = StageManager.parseStage(MysqlViewInfoController.class, this.window());
+    //     StageAdapter fxView = StageManager.parseStage(MysqlViewInfoController.class, this.getWindow());
     //     fxView.setProp("item", this);
     //     fxView.display();
     // }

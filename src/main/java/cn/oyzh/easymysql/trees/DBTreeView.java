@@ -131,7 +131,7 @@ public class DBTreeView extends RichTreeView implements FXEventListener {
      */
     @EventSubscribe
     private void addConnect(DBAddConnectEvent event) {
-        StageManager.showStage(MysqlConnectAddController.class, this.window());
+        StageManager.showStage(MysqlConnectAddController.class, this.getWindow());
     }
 
     /**

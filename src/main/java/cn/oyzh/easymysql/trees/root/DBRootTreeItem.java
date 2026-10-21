@@ -190,14 +190,14 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
                     if (this.connectStore.insert(info)) {
                         this.addConnect(info);
                     } else {
-                        MessageBox.warn(I18nHelper.connect() + "[" + info.getName() + "]" + I18nHelper.importFail(), this.window());
+                        MessageBox.warn(I18nHelper.connect() + "[" + info.getName() + "]" + I18nHelper.importFail(), this.getWindow());
                     }
                 }
-                MessageBox.okToast(I18nHelper.operationSuccess(), this.window());
+                MessageBox.okToast(I18nHelper.operationSuccess(), this.getWindow());
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            MessageBox.exception(ex, I18nHelper.operationException(), this.window());
+            MessageBox.exception(ex, I18nHelper.operationException(), this.getWindow());
         }
     }
 
@@ -205,7 +205,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      * 添加连接
      */
     private void addConnect() {
-        StageManager.showStage(MysqlConnectAddController.class, this.window());
+        StageManager.showStage(MysqlConnectAddController.class, this.getWindow());
     }
 
     /**

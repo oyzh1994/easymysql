@@ -141,7 +141,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      * 运行sql文件
      */
     private void runSqlFile() {
-        StageAdapter fxView = StageManager.parseStage(MysqlRunSqlFileController.class, this.window());
+        StageAdapter fxView = StageManager.parseStage(MysqlRunSqlFileController.class, this.getWindow());
         fxView.setProp("dbInfo", this.info());
         fxView.setProp("dbName", this.dbName());
         fxView.setProp("dbClient", this.client());
@@ -152,7 +152,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      * 转储
      */
     private void dump() {
-        StageAdapter fxView = StageManager.parseStage(MysqlDataDumpController.class, this.window());
+        StageAdapter fxView = StageManager.parseStage(MysqlDataDumpController.class, this.getWindow());
         fxView.setProp("dumpType", 1);
         fxView.setProp("dbInfo", this.info());
         fxView.setProp("dbName", this.dbName());
@@ -161,7 +161,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
     }
 
     // private void dbInfo() {
-    //     StageAdapter fxView = StageManager.parseStage(MysqlDatabaseInfoController.class, this.window());
+    //     StageAdapter fxView = StageManager.parseStage(MysqlDatabaseInfoController.class, this.getWindow());
     //     fxView.setProp("dbItem", this);
     //     fxView.display();
     // }
@@ -188,7 +188,7 @@ public class MysqlDatabaseTreeItem extends DBTreeItem<MysqlDatabaseTreeItemValue
      * 编辑数据库
      */
     public void editDB() {
-        StageAdapter fxView = StageManager.parseStage(MysqlDatabaseUpdateController.class, this.window());
+        StageAdapter fxView = StageManager.parseStage(MysqlDatabaseUpdateController.class, this.getWindow());
         fxView.setProp("database", this.value);
         fxView.setProp("connectItem", this.parent());
         fxView.display();
