@@ -23,9 +23,9 @@ public class HeaderController2 extends SubStageController {
      */
     @FXML
     private void transport() {
-        StageAdapter wrapper = StageManager.getStage(MysqlDataTransportController.class);
-        if (wrapper != null) {
-            wrapper.toFront();
+        StageAdapter adapter = StageManager.getStage(MysqlDataTransportController.class);
+        if (adapter != null) {
+            adapter.front();
         } else {
             StageManager.showStage(MysqlDataTransportController.class, StageManager.getFrontWindow());
         }
@@ -36,9 +36,9 @@ public class HeaderController2 extends SubStageController {
      */
     @FXML
     private void setting() {
-        StageAdapter fxView = StageManager.getStage(SettingController2.class);
-        if (fxView != null) {
-            fxView.toFront();
+        StageAdapter adapter = StageManager.getStage(SettingController2.class);
+        if (adapter != null) {
+            adapter.front();
         } else {
             StageManager.showStage(SettingController2.class, this.stage);
         }

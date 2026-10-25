@@ -172,7 +172,7 @@ public class EasyMysqlApp extends FXApplication {
             StageAdapter wrapper = StageManager.getStage(MainController.class);
             if (wrapper != null) {
                 JulLog.info("front main.");
-                wrapper.toFront();
+                wrapper.front();
             } else {
                 JulLog.info("show main.");
                 StageManager.showStage(MainController.class, StageManager.getFrontWindow());
@@ -185,10 +185,10 @@ public class EasyMysqlApp extends FXApplication {
      */
     private void showSetting() {
         FXUtil.runLater(() -> {
-            StageAdapter wrapper = StageManager.getStage(SettingController2.class);
-            if (wrapper != null) {
+            StageAdapter adapter = StageManager.getStage(SettingController2.class);
+            if (adapter != null) {
                 JulLog.info("front setting.");
-                wrapper.toFront();
+                adapter.front();
             } else {
                 JulLog.info("show setting.");
                 StageManager.showStage(SettingController2.class, StageManager.getFrontWindow());
