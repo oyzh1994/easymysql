@@ -1,6 +1,6 @@
 package cn.oyzh.easymysql.util;
 
-import cn.oyzh.fx.plus.i18n.I18nResourceBundle;
+import cn.oyzh.i18n.I18nResourceBundle;
 
 /**
  * db国际化帮助类
