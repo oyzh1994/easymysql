@@ -525,7 +525,7 @@ public class MysqlDataImportController extends StageController {
     private void addFile() {
         String fileType = this.fileType.selectedUserData();
         FileExtensionFilter filter = FXChooser.extensionFilter(fileType);
-        File file = FileChooserHelper.choose(I18nHelper.pleaseSelectFile(), filter);
+        File file = FileChooserHelper.choose(I18nHelper.pleaseSelectFile(), filter, this.getWindow());
         if (file != null) {
             DataImportFile importFile = new DataImportFile();
             importFile.setFile(file);

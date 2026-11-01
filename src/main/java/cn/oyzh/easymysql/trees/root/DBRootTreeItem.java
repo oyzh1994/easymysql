@@ -117,7 +117,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
         }
         MysqlInfoExport export = MysqlInfoExport.fromConnects(infos);
         FileExtensionFilter extensionFilter = FXChooser.jsonExtensionFilter();
-        File file = FileChooserHelper.save(I18nHelper.saveConnection(), I18nResourceBundle.i18nString("base.database", "base.connect", "base._json"), extensionFilter);
+        File file = FileChooserHelper.save(I18nHelper.saveConnection(), I18nResourceBundle.i18nString("base.database", "base.connect", "base._json"), extensionFilter, this.getWindow());
         if (file != null) {
             try {
                 FileUtil.writeUtf8String(export.toJSONString(), file);
@@ -151,7 +151,7 @@ public class DBRootTreeItem extends DBTreeItem<DBRootTreeItemValue> implements D
      */
     public void importConnect() {
         FileExtensionFilter filter1 = FXChooser.jsonExtensionFilter();
-        File file = FileChooserHelper.choose(I18nHelper.chooseFile(), filter1);
+        File file = FileChooserHelper.choose(I18nHelper.chooseFile(), filter1, this.getWindow());
         // 解析文件
         this.parseConnect(file);
     }
