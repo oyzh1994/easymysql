@@ -17,7 +17,7 @@ public class DataFieldSeparatorComboBox extends FXComboBox<String> {
         this.addItem(I18nHelper.space() + "( )");
     }
 
-    /** 获取分隔符值 */
+    @Override
     public String value() {
         int itemIndex = this.getSelectedIndex();
         if (itemIndex == 0) {

@@ -24,7 +24,7 @@ public class DataRecordSeparatorComboBox extends FXComboBox<String> {
         }
     }
 
-    /** 获取分隔符值 */
+    @Override
     public String value() {
         int itemIndex = this.getSelectedIndex();
         if (itemIndex == 0) {
